@@ -1,0 +1,33 @@
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<xsd:schema targetNamespace="/oracle/fodemo/storefront/store/queries/common/" xmlns="/oracle/fodemo/storefront/store/queries/common/"
+     elementFormDefault="qualified" sdoJava:package="oracle.fodemo.storefront.store.queries.common"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:sdoJava="commonj.sdo/java">
+    <xsd:complexType name="CustomerInfoVOSDO">
+        <xsd:annotation>
+            <xsd:appinfo source="http://xmlns.oracle.com/adf/svc/metadata/">
+                <key xmlns="http://xmlns.oracle.com/adf/svc/metadata/"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="PersonId" type="xsd:decimal" minOccurs="0"/>
+            <xsd:element name="FirstName" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="LastName" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="ConfirmedEmail" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="MobilePhoneNumber" type="xsd:string" minOccurs="0" nillable="true"/>
+            <xsd:element name="MembershipId" type="xsd:decimal" minOccurs="0" nillable="true"/>
+            <xsd:element name="MembershipTypeCode" type="xsd:string" minOccurs="0" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="customerInfoVOSDO" type="CustomerInfoVOSDO"/>
+</xsd:schema>

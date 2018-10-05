@@ -1,0 +1,210 @@
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<FindBugsFilter>
+    <!--
+    Documented in the code.
+    -->
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.model.WrapperBeanGenerator$Field"/>
+        </Or>
+        <Bug pattern="EQ_COMPARETO_USE_OBJECT_EQUALS"/>
+    </Match>
+    <!--
+    GMBAL/Management API design
+    -->
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.client.MonitorRootClient"/>
+        </Or>
+        <Bug pattern="UPM_UNCALLED_PRIVATE_METHOD"/>
+    </Match>
+    <!--
+    Not an error - propertyset design uses this feature.
+    -->
+    <Match>
+        <Or>
+            <Class name="com.oracle.webservices.api.message.BasePropertySet$MapView"/>
+        </Or>
+        <Bug pattern="WMI_WRONG_MAP_ITERATOR"/>
+    </Match>
+    <!--
+    Can't do much about these, but we should not ignore the warning for any new clases
+    so that we don't find ourselves in the same hell with new classes 
+    -->
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.api.message.MessageContextFactory"/>
+            <Class name="com.sun.xml.ws.api.server.Invoker"/>
+            <Class name="com.sun.xml.ws.server.InvokerTube"/>
+            <Class name="com.sun.xml.ws.developer.StreamingDataHandler"/>
+            <Class name="com.sun.xml.ws.transport.http.server.HttpEndpoint"/>
+            <Class name="com.sun.xml.ws.api.databinding.DatabindingFactory"/>
+            <Class name="com.sun.xml.ws.encoding.SOAPBindingCodec"/>
+            <Class name="com.sun.xml.ws.encoding.StreamSOAPCodec"/>
+            <Class name="com.sun.xml.ws.wsdl.writer.WSDLResolver"/>
+        </Or>
+        <Bug pattern="NM_SAME_SIMPLE_NAME_AS_SUPERCLASS"/>
+    </Match>
+    <!--
+    Can't do much about these, but we should not ingore the warning for any new clases
+    so that we don't find ourselves in the same hell with new classes 
+    -->
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.Closeable"/>
+            <Class name="com.sun.xml.ws.api.databinding.Databinding"/>
+            <Class name="com.sun.xml.ws.api.databinding.JavaCallInfo"/>
+            <Class name="com.sun.xml.ws.api.pipe.ContentType"/>
+            <Class name="com.sun.xml.ws.wsdl.writer.WSDLResolver"/>
+            <Class name="com.sun.xml.ws.encoding.SOAPBindingCodec"/>
+            <Class name="com.sun.xml.ws.encoding.StreamSOAPCodec"/>
+        </Or>
+        <Bug pattern="NM_SAME_SIMPLE_NAME_AS_INTERFACE"/>
+    </Match>
+    <!--
+    Can't do much about these, but we should not ingore the warning for any new clases
+    so that we don't find ourselves in the same hell with new classes 
+    -->
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.api.DistributedPropertySet"/>
+            <Class name="com.sun.xml.ws.api.message.Packet"/>
+            <Class name="com.sun.xml.ws.client.RequestContext"/>
+        </Or>
+        <Bug pattern="NM_WRONG_PACKAGE"/>
+    </Match>
+    
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.db.glassfish.BridgeWrapper"/>
+            <Class name="com.sun.xml.ws.db.glassfish.RawAccessorWrapper"/>
+            <Bug pattern="EQ_CHECK_FOR_OPERAND_NOT_COMPATIBLE_WITH_THIS"/>
+        </Or>
+    </Match>
+    <!--
+    Class reviewed thoroughly multiple times, consensus is the warning is invalid.
+    -->
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.api.pipe.Fiber"/>
+        </Or>
+        <Method returns="boolean" params="com.sun.xml.ws.api.pipe.Tube">_doRun</Method>
+        <Bug pattern="UL_UNRELEASED_LOCK"/>
+    </Match>
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.streaming.DOMStreamReader"/>
+            <Class name="com.sun.xml.ws.api.pipe.Fiber"/>
+        </Or>
+        <Bug pattern="SF_SWITCH_FALLTHROUGH"/>
+    </Match>
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.encoding.XMLHTTPBindingCodec"/>
+        </Or>
+        <Bug pattern="NP_LOAD_OF_KNOWN_NULL_VALUE"/>
+    </Match>
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.encoding.ContentTypeImpl$Builder"/>
+        </Or>
+        <Bug pattern="UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"/>
+    </Match>
+    <!--
+    Usually the field is read elsewhere in metro/wls code, or it's a JAXB field read by reflection or asm generated class accessor.
+    -->
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.addressing.WsaTubeHelper"/>
+            <Class name="com.sun.xml.ws.developer.ValidationErrorHandler"/>
+            <Class name="com.sun.xml.ws.client.sei.SEIMethodHandler"/>
+            <Class name="com.sun.xml.ws.developer.MemberSubmissionEndpointReference$ServiceNameType"/>
+            <Class name="com.sun.xml.ws.developer.MemberSubmissionEndpointReference$AttributedQName"/>
+            <Class name="com.sun.xml.ws.developer.MemberSubmissionEndpointReference$AttributedQName"/>
+        </Or>
+        <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"/>
+    </Match>
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.db.DatabindingProviderImpl"/>
+            <Class name="com.sun.xml.ws.fault.TextType"/>
+        </Or>
+        <Bug pattern="URF_UNREAD_FIELD"/>
+    </Match>
+    <!--
+    We don't own asm.
+    -->
+    <Match>
+        <Package name="com.sun.xml.ws.org.objectweb.asm"/>
+    </Match>
+    <!--
+    As designed.
+    -->
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.transport.http.client.HttpCookie"/>
+            <Class name="com.sun.xml.ws.transport.http.client.CookieManager"/>
+        </Or>
+        <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ"/>
+    </Match>
+    <!--
+    As designed.
+    -->
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.util.NamespaceSupport$Context"/>
+        </Or>
+        <Bug pattern="ES_COMPARING_STRINGS_WITH_EQ"/>
+    </Match>
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.ws.db.toplink.JAXBBond$CustomXMLStreamReaderReader"/>
+        </Or>
+        <Bug pattern="BC_UNCONFIRMED_CAST"/>
+    </Match>
+    <Match>
+    <!--
+    Low priority, findbugs does not recognize the instanceof check in ternary expression
+    -->
+        <Or>
+		    <Class name="com.sun.xml.ws.api.message.saaj.SAAJFactory"/>
+		</Or>
+        <Bug pattern=" BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"/>
+    </Match>
+
+    <!--
+    Low priority, low rank - usually unfixable to keep compatibility
+    -->
+    <Match>
+        <Bug pattern="NM_CONFUSING"/>
+    </Match>
+    
+    <!--
+    Low priority, low rank - but potential cause of NPEs when the code changes slightly
+    -->
+    <Match>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+    </Match>
+
+    <!--
+    HttpTransportPipe.dump can't be final - glassfish change it
+    during runtime
+    -->
+    <Match>
+        <Class name="com.sun.xml.ws.transport.http.client.HttpTransportPipe" />
+        <Bug pattern="MS_SHOULD_BE_FINAL" />
+    </Match>
+
+
+</FindBugsFilter>

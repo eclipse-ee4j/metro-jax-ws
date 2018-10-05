@@ -1,0 +1,27 @@
+/*
+ * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Distribution License v. 1.0, which is available at
+ * http://www.eclipse.org/org/documents/edl-v10.php.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+Service service = Service.create(new QName("urn:test", "Endpoint"));
+service.addPort(new QName("urn:test", "EndpointPort"), SOAPBinding.SOAP11HTTP_BINDING, endpointPortAddress.toString());
+Dispatch disp = service.createDispatch(new QName("urn:test", "EndpointPort"), SOAPMessage.class, Service.Mode.MESSAGE);
+SOAPMessage sm = MessageFactory.newInstance().createMessage();
+SOAPBody sb = sm.getSOAPBody();
+sb.addBodyElement(new QName("http://first.body", "first"));
+sb.addBodyElement(new QName("http://second.body", "second"));
+SOAPMessage resp = (SOAPMessage) disp.invoke(sm);
+
+org.w3c.dom.Node body = (org.w3c.dom.Node) resp.getSOAPBody();
+org.w3c.dom.NodeList nl = body.getChildNodes();
+assertTrue(nl.getLength() == 2);
+org.w3c.dom.Node n = nl.item(0);
+assertTrue(n.getLocalName().equals("first") && n.getNamespaceURI().equals("http://first.body"));
+n = nl.item(1);
+assertTrue(n.getLocalName().equals("second") && n.getNamespaceURI().equals("http://second.body"));
+

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<bindings wsdlLocation="service.wsdl"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns="http://java.sun.com/xml/ns/jaxws">
+    
+    <bindings>
+        <handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+            <!-- This handler-chain will be excluded from the handler chain configuration -->
+            <handler-chain>
+                <service-name-pattern xmlns:ns2="urn:test">nsFoo:*Test*</service-name-pattern>
+                <handler>
+                    <handler-class>whitebox.handlers.common.UnknownHandler</handler-class>
+                </handler>
+            </handler-chain>
+            <!-- This handler-chain will be excluded from the handler chain configuration -->
+            <handler-chain>
+                <port-name-pattern>nsBar:*Test*</port-name-pattern>
+                <handler>
+                    <handler-class>whitebox.handlers.common.UnknownHandler</handler-class>
+                </handler>
+            </handler-chain>
+
+            <handler-chain>
+                <handler>
+                    <handler-class>whitebox.handlers.common.ClientSOAPHandler1</handler-class>
+                    <soap-role>http://sun.com/client/role1</soap-role>
+                    <soap-role>http://sun.com/client/role2</soap-role>
+                </handler>
+            </handler-chain>
+      
+            <handler-chain>
+                <protocol-bindings>##SOAP11_HTTP</protocol-bindings>
+                <handler>
+                    <handler-class>whitebox.handlers.common.ClientSOAPHandler2</handler-class>            
+                </handler>
+            </handler-chain>
+      
+            <handler-chain>
+                <port-name-pattern xmlns:ns2="urn:test">ns2:*Test*</port-name-pattern>
+                <handler>
+                    <handler-class>whitebox.handlers.common.ClientSOAPHandler3</handler-class>
+                </handler>
+            </handler-chain>
+        </handler-chains>
+    </bindings>
+
+</bindings>

@@ -1,0 +1,107 @@
+<?xml version='1.0' ?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<definitions xmlns:tns="http://xmlsoap.org/Ping"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+             targetNamespace="http://xmlsoap.org/Ping" name="Ping">
+
+    <message name="PingRequest"> 
+        <part name="ticket" type="xsd:string"/>
+        <part name="text" type="xsd:string"/> 
+    </message> 
+    <message name="PingResponse"> 
+        <part name="textresponse" type="xsd:string"/> 
+    </message>
+    <message name="Ping2Request">
+        <part name="ticket2" type="xsd:string"/>
+        <part name="text" type="xsd:string"/>
+    </message>
+    <message name="Ping2Response">
+        <part name="text2response" type="xsd:string"/>
+    </message>
+
+    <portType name="PingPort"> 
+        <operation name="Ping" parameterOrder="ticket text"> 
+            <input message="tns:PingRequest"/> 
+            <output message="tns:PingResponse"/> 
+        </operation>
+        <operation name="Ping2" parameterOrder="ticket2 text">
+            <input message="tns:Ping2Request"/>
+            <output message="tns:Ping2Response"/>
+        </operation>
+    </portType> 
+
+
+    <binding name="PingBinding" type="tns:PingPort"> 
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/> 
+        <operation name="Ping"> 
+            <soap:operation/> 
+            <input> 
+                <soap:body parts="ticket text" use="literal" namespace="http://xmlsoap.org/Ping"/> 
+            </input> 
+            <output> 
+                <soap:body parts="textresponse" use="literal" namespace="http://xmlsoap.org/Ping"/> 
+            </output> 
+        </operation>
+
+        <operation name="Ping2">
+            <soap:operation/>
+            <input>
+                <soap:body parts="ticket2 text" use="literal" namespace="http://xmlsoap.org/Ping"/>
+            </input>
+            <output>
+                <soap:body parts="text2response" use="literal" namespace="http://xmlsoap.org/Ping"/>
+            </output>
+        </operation>
+
+    </binding> 
+
+
+    <binding name="PingBinding1" type="tns:PingPort">
+        <soap12:binding style="rpc" transport="http://www.w3.org/2003/05/soap/bindings/HTTP/" />
+        <operation name="Ping">
+            <soap12:operation/>
+            <input>
+                <soap12:body parts="ticket text" use="literal" namespace="http://xmlsoap.org/Ping"/>
+            </input>
+            <output>
+                <soap12:body parts="textresponse" use="literal" namespace="http://xmlsoap.org/Ping"/>
+            </output>
+        </operation>       
+         <operation name="Ping2">
+            <soap12:operation/>
+            <input>
+                <soap12:body parts="ticket2 text" use="literal" namespace="http://xmlsoap.org/Ping"/>
+            </input>
+            <output>
+                <soap12:body parts="text2response" use="literal" namespace="http://xmlsoap.org/Ping"/>
+            </output>
+        </operation>
+    </binding> 
+
+
+    <service name="PingService"> 
+        <port name="Ping" binding="tns:PingBinding"> 
+            <soap:address location="http://localhost:8080/jaxws-simple/simple11" />
+        </port>
+        
+        <port name="Ping1" binding="tns:PingBinding1">
+            <soap12:address location="http://localhost:8080/jaxws-simple/simple12" />
+        </port> 
+        
+    </service> 
+  
+</definitions> 

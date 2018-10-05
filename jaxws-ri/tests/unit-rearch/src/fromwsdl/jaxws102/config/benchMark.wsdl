@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<definitions targetNamespace="http://localhost/MultiDepBpel/benchMark"
+             name="benchMark"
+             xmlns:bpws="http://schemas.xmlsoap.org/ws/2004/03/business-process/"
+             xmlns:tns="http://localhost/MultiDepBpel/benchMark"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:slnk="http://schemas.xmlsoap.org/ws/2004/03/partner-link/">
+    <plnk:partnerLinkType name="benchMarkLinkType"
+                          xmlns:plnk="http://schemas.xmlsoap.org/ws/2004/03/partner-link/">
+        <plnk:role name="Server"
+                   portType="tns:benchMarkPortType"></plnk:role>
+    </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="benchMarkSubBPLinkType"
+                          xmlns:plnk="http://schemas.xmlsoap.org/ws/2004/03/partner-link/">
+        <plnk:role name="Server"
+                   portType="tns:benchMarkSubBPPortType"></plnk:role>
+    </plnk:partnerLinkType>
+    <bpws:property name="property" type="xsd:string"/>
+    <bpws:propertyAlias propertyName="tns:property"
+                        messageType="tns:benchMarkMessage"
+                        part="benchMarkPart">
+    	<bpws:query>string</bpws:query>
+    </bpws:propertyAlias>
+
+    <types>
+        <xsd:schema targetNamespace="http://localhost/MultiDepBpel/benchMark"
+                    attributeFormDefault="unqualified"
+                    elementFormDefault="qualified"
+                    xmlns:bpws="http://schemas.xmlsoap.org/ws/2004/03/business-process/"
+                    xmlns:tns="http://localhost/MultiDepBpel/benchMark"
+                    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                    xmlns="http://schemas.xmlsoap.org/wsdl/"
+                    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            
+            
+                    <xsd:element type="tns:benchMarkType"
+                         name="benchMarkElement"></xsd:element>
+            <xsd:complexType name="benchMarkType">
+                <xsd:sequence>
+                    <xsd:element type="xsd:string"
+                                 name="string"></xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <message name="benchMarkMessage">
+        <part name="benchMarkPart"
+              element="tns:benchMarkElement"></part>
+    </message>
+    <portType name="benchMarkPortType">
+        <operation name="benchMarkOperation1">
+            <input message="tns:benchMarkMessage"></input>
+            <output message="tns:benchMarkMessage"></output>
+        </operation>
+        <operation name="benchMarkOperation2">
+            <input message="tns:benchMarkMessage"></input>
+        </operation>
+    </portType>
+    <portType name="benchMarkSubBPPortType">
+        <operation name="benchMarkSubBPOperation1">
+            <input message="tns:benchMarkMessage"></input>
+            <output message="tns:benchMarkMessage"></output>
+            <fault name="subBPFault"
+                   message="tns:benchMarkMessage"></fault>
+        </operation>
+    </portType>
+    <binding name="benchMarkBinding"
+             type="tns:benchMarkPortType">
+        <soap:binding style="document"
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="benchMarkOperation1">
+            <soap:operation soapAction="benchMarkOperation1"/>
+            <input>
+                <soap:body parts="benchMarkPart"
+                           use="literal"/>
+            </input>
+            <output>
+                <soap:body parts="benchMarkPart"
+                           use="literal"/>
+            </output>
+        </operation>
+        <operation name="benchMarkOperation2">
+            <soap:operation soapAction="benchMarkOperation2"/>
+            <input>
+                <soap:body parts="benchMarkPart"
+                           use="literal"/>
+            </input>
+        </operation>
+    </binding>
+    <binding name="benchMarkSubBPBinding"
+             type="tns:benchMarkSubBPPortType">
+        <soap:binding style="document"
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="benchMarkSubBPOperation1">
+            <soap:operation soapAction="benchMarkSubBPOperation1"/>
+            <input>
+                <soap:body parts="benchMarkPart"
+                           use="literal"/>
+            </input>
+            <output>
+                <soap:body parts="benchMarkPart"
+                           use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="benchMarkService">
+        <port name="benchMarkPort"
+              binding="tns:benchMarkBinding">
+            <soap:address location="http://localhost:12200/service/benchMark"/>
+        </port>
+    </service>
+    <service name="benchMarkSubBPService">
+        <port name="benchMarkSubPort"
+              binding="tns:benchMarkSubBPBinding">
+            <soap:address location="http://localhost:12200/service/benchMarkSubBP"/>
+        </port>
+    </service>
+    <message name="MWInt">
+        <part name="value"
+              type="xsd:int"></part>
+    </message>
+</definitions>

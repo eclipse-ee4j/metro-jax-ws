@@ -1,0 +1,24 @@
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<EndpointReference xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+    <Address>http://localhost:8080/jaxrpc-client_jaxws21_epr_get_port/hello</Address>
+    <PortType xmlns:wsns="http://example.com/">wsns:AddNumbersPortType</PortType>
+    <ServiceName xmlns:wsns="http://example.com/" PortName="AddNumbersPort">wsns:AddNumbersService</ServiceName>
+    <wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                      xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing"
+                      xmlns:wsns="http://example.com/">
+        <wsdl:import xmlns:ns6="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns=""
+                     location="http://localhost:8080/jaxrpc-client_jaxws21_epr_get_port/hello?wsdl"
+                     namespace="http://example.com/"/>
+    </wsdl:definitions>
+</EndpointReference>

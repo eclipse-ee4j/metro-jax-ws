@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!-- $Id: wsaTestService.wsdl,v 1.1.2.1 2006/09/29 21:17:44 arung Exp $ -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+             xmlns:s0="http://example.org/notify"
+             xmlns:s1="http://example.org/echo"
+             xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+             xmlns:service="http://example.org/wsaTestService"
+             xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             targetNamespace="http://example.org/wsaTestService">
+
+    <types>
+        <xs:schema targetNamespace="http://example.org/notify"
+                   elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:element name='notify' type='xs:string'/>
+        </xs:schema>
+
+        <xs:schema targetNamespace="http://example.org/echo"
+                   elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:element name='echoIn' type='xs:string'/>
+            <xs:element name='echoOut' type='xs:string'/>
+        </xs:schema>
+    </types>
+
+    <message name="wsaNotifyMessage">
+        <part name="wsaNotifyMessagePart" element="s0:notify"/>
+    </message>
+
+    <message name="wsaEchoInMessage">
+        <part name="wsaEchoInPart" element="s1:echoIn"/>
+    </message>
+
+    <message name="wsaEchoOutMessage">
+        <part name="wsaEchoOutPart" element="s1:echoOut"/>
+    </message>
+
+    <portType name="wsaTestPortType">
+        <operation name="notify">
+            <input message="service:wsaNotifyMessage" wsaw:Action="http://example.org/action/notify"/>
+        </operation>
+
+        <operation name="echo">
+            <input message="service:wsaEchoInMessage" wsaw:Action="http://example.org/action/echoIn"/>
+            <output message="service:wsaEchoOutMessage" wsaw:Action="http://example.org/action/echoOut"/>
+        </operation>
+    </portType>
+
+    <binding name="wsaTestSoap12Binding" type="service:wsaTestPortType">
+        <soap12:binding style="document"
+                        transport="http://www.w3.org/2003/05/soap/bindings/HTTP/"/>
+        <operation name="notify">
+            <soap12:operation style="document" soapAction=""/>
+            <input>
+                <soap12:body use="literal"/>
+            </input>
+        </operation>
+
+        <operation name="echo">
+            <soap12:operation style="document" soapAction=""/>
+            <input>
+                <soap12:body use="literal"/>
+            </input>
+            <output>
+                <soap12:body use="literal"/>
+            </output>
+        </operation>
+
+    </binding>
+
+    <service name="wsaTestService">
+        <port name="wsaTestPort" binding="service:wsaTestSoap12Binding">
+            <soap12:address location="http://localhost:8080/jaxwsa-w3c_s12/cr"/>
+        </port>
+    </service>
+</definitions>
+

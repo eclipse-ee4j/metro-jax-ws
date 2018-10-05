@@ -1,0 +1,63 @@
+/*
+ * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Distribution License v. 1.0, which is available at
+ * http://www.eclipse.org/org/documents/edl-v10.php.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+/*
+ * Default CSS stylesheet
+ */
+
+body {
+    background-color: white;
+}
+
+h1, h2 {
+    text-align: center;
+    font-family: sans-serif;
+    color: #000099;
+}
+
+h3, h4, h5, h6 {
+    text-align: left;
+    font-family: sans-serif;
+    color: #000099;
+}
+
+code {
+    font-family: Courier, monospace;
+}
+
+diff {
+    font-family: Courier, monospace;
+    color: red;
+}
+
+table.property {
+	margin-left: 2em;
+}
+
+table.property tr td {
+	background-color: rgb(240,240,255);
+	padding: 0.2em;
+}
+
+pre.code {
+	background-color: rgb(240,240,255);
+	border: 1px solid navy;
+	color: black;
+	font-weight: bold;
+	padding: 0.5em;
+	margin-left: 2em;
+}
+
+/*
+hr {
+    align: center;
+    width: 70%;
+}
+*/

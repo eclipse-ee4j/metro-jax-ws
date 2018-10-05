@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<definitions name="W2JRLR2011Test"
+     targetNamespace="http://w2jrlr2011testservice.org/W2JRLR2011TestService.wsdl"
+     xmlns:tns="http://w2jrlr2011testservice.org/W2JRLR2011TestService.wsdl"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:ns2="http://w2jrlr2011testservice.org/types2"
+     xmlns:ns3="http://w2jrlr2011testservice.org/types3">
+
+     <import namespace="http://w2jrlr2011testservice.org/W2JRLR2011ImportIndirectly.wsdl" location="W2JRLR2011ImportIndirectly.wsdl">
+          <documentation>
+               Documentation.
+          </documentation>
+     </import>
+
+     <types>
+          <xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified">
+               <xsd:import namespace="http://w2jrlr2011testservice.org/types2" schemaLocation="W2JRLR2011ImportDirectly.xsd"/>
+          </xsd:schema>
+     </types>
+
+    <message name="echoImportDirectlyStringRequest">
+        <part name="params" type="ns2:ImportDirectlyStringRequest"/>
+    </message>
+    <message name="echoImportDirectlyStringResponse">
+        <part name="result" type="ns2:ImportDirectlyStringResponse"/>
+    </message>
+    <message name="echoImportIndirectlyStringRequest">
+        <part name="params" type="ns3:ImportIndirectlyStringRequest"/>
+    </message>
+    <message name="echoImportIndirectlyStringResponse">
+        <part name="result" type="ns3:ImportIndirectlyStringResponse"/>
+    </message>
+
+
+    <portType name="W2JRLR2011Test">
+    	<operation name="echoImportDirectlyStringTest">
+            <input message="tns:echoImportDirectlyStringRequest"/>
+            <output message="tns:echoImportDirectlyStringResponse"/>
+    	</operation>
+    	<operation name="echoImportIndirectlyStringTest">
+            <input message="tns:echoImportIndirectlyStringRequest"/>
+            <output message="tns:echoImportIndirectlyStringResponse"/>
+    	</operation>
+    </portType>
+    
+    <binding name="W2JRLR2011TestBinding" type="tns:W2JRLR2011Test">
+    	<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    	<operation name="echoImportDirectlyStringTest">
+    		<soap:operation/>
+            <input>
+                <soap:body use="literal" namespace="http://w2jrlr2011testservice.org/W2JRLR2011TestService.wsdl"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="http://w2jrlr2011testservice.org/W2JRLR2011TestService.wsdl"/>
+            </output>
+    	</operation>
+    	<operation name="echoImportIndirectlyStringTest">
+    		<soap:operation/>
+            <input>
+                <soap:body use="literal" namespace="http://w2jrlr2011testservice.org/W2JRLR2011TestService.wsdl"/>
+            </input>
+            <output>
+                <soap:body use="literal" namespace="http://w2jrlr2011testservice.org/W2JRLR2011TestService.wsdl"/>
+            </output>
+    	</operation>
+    </binding>
+
+    <service name="W2JRLR2011TestService">
+        <port binding="tns:W2JRLR2011TestBinding"
+            name="W2JRLR2011TestPort">
+            <soap:address
+                location="http://w2jrlr2011testservice.org/W2JRLR2011TestService.wsdl"/>
+        </port>
+    </service>
+    
+</definitions>

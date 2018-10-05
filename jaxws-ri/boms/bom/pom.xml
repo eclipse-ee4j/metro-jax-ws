@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>net.java</groupId>
+        <artifactId>jvnet-parent</artifactId>
+        <version>5</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.sun.xml.ws</groupId>
+    <artifactId>jaxws-ri-bom</artifactId>
+    <version>2.3.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>JAX-WS RI Bill-of-Materials (BOM)</name>
+    <description>JAX-WS Reference Implementation Bill-of-Materials (BOM)</description>
+    <url>https://javaee.github.io/metro-jax-ws</url>
+
+    <scm>
+        <connection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</connection>
+        <developerConnection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</developerConnection>
+        <url>https://github.com/eclipse-ee4j/metro-jax-ws</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>Eclipse Distribution License - v 1.0</name>
+            <url>http://www.eclipse.org/org/documents/edl-v10.php</url>
+            <distribution>repo</distribution>
+        </license>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>lukasj</id>
+            <name>Lukas Jungmann</name>
+            <email>lukas.jungmann@oracle.com</email>
+            <organization>Oracle Corporation</organization>
+        </developer>
+        <developer>
+            <id>bravehorsie</id>
+            <name>Roman Grigoriadi</name>
+            <email>Roman.Grigoriadi@oracle.com</email>
+        </developer>
+        <developer>
+            <id>zhengjl</id>
+            <name>Zheng Jun Li</name>
+            <email>zheng.jun.li@oracle.com</email>
+        </developer>
+    </developers>
+
+    <organization>
+        <name>Oracle</name>
+        <url>http://www.oracle.com/</url>
+    </organization>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/eclipse-ee4j/metro-jax-ws/issues</url>
+    </issueManagement>
+
+    <mailingLists>
+        <mailingList>
+            <name>Eclipse Metro mailing list</name>
+            <post>metro-dev@eclipse.org</post>
+            <subscribe>https://accounts.eclipse.org/mailing-list/metro-dev</subscribe>
+            <unsubscribe>https://accounts.eclipse.org/mailing-list/metro-dev</unsubscribe>
+            <archive>https://dev.eclipse.org/mhonarc/lists/metro-dev</archive>
+        </mailingList>
+    </mailingLists>
+
+    <properties>
+        <!--************************************************************-->
+
+        <istack.version>3.0.7</istack.version>
+        <gmbal-api.version>3.1.0-b001</gmbal-api.version>
+        <ha-api.version>3.1.9</ha-api.version>
+        <jaxb.version>2.3.1</jaxb.version>
+        <jaxws-api.version>2.3.1</jaxws-api.version>
+        <javax.jws-api.version>1.1</javax.jws-api.version>
+        <management-api.version>3.2.1-b001</management-api.version>
+        <mimepull.version>1.9.10</mimepull.version>
+        <policy.version>2.7.5</policy.version>
+        <resolver.version>20050927</resolver.version>
+        <saaj-api.version>1.4.0</saaj-api.version>
+        <saaj-impl.version>1.5.0</saaj-impl.version>
+        <streambuffer.version>1.5.6</streambuffer.version>
+        <woodstox-core.version>5.1.0</woodstox-core.version>
+        <stax2-api.version>4.1</stax2-api.version>
+        <javax.annotation-api.version>1.3.2</javax.annotation-api.version> <!-- 1.8 -->
+        <javax.activation.version>1.2.0</javax.activation.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- Parsers -->
+            <dependency>
+                <groupId>com.fasterxml.woodstox</groupId>
+                <artifactId>woodstox-core</artifactId>
+                <version>${woodstox-core.version}</version>
+                <exclusions>
+                    <!-- part of JDK 6+ -->
+                    <exclusion>
+                        <artifactId>stax-api</artifactId>
+                        <groupId>javax.xml.stream</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.woodstox</groupId>
+                <artifactId>stax2-api</artifactId>
+                <version>${stax2-api.version}</version>
+                <exclusions>
+                    <!-- part of JDK 6+ -->
+                    <exclusion>
+                        <artifactId>stax-api</artifactId>
+                        <groupId>javax.xml.stream</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+
+            <!-- Source artifacts -->
+            <dependency>
+                <groupId>com.sun.xml.stream.buffer</groupId>
+                <artifactId>streambuffer</artifactId>
+                <version>${streambuffer.version}</version>
+                <classifier>sources</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.jvnet.mimepull</groupId>
+                <artifactId>mimepull</artifactId>
+                <version>${mimepull.version}</version>
+                <classifier>sources</classifier>
+            </dependency>
+            <dependency>
+                <groupId>javax.xml.soap</groupId>
+                <artifactId>javax.xml.soap-api</artifactId>
+                <version>${saaj-api.version}</version>
+                <classifier>sources</classifier>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.messaging.saaj</groupId>
+                <artifactId>saaj-impl</artifactId>
+                <version>${saaj-impl.version}</version>
+                <classifier>sources</classifier>
+            </dependency>
+            <dependency>
+                <groupId>javax.xml.ws</groupId>
+                <artifactId>jaxws-api</artifactId>
+                <version>${jaxws-api.version}</version>
+                <classifier>sources</classifier>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>policy</artifactId>
+                <version>${policy.version}</version>
+                <classifier>sources</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.gmbal</groupId>
+                <artifactId>gmbal-api-only-source</artifactId>
+                <version>${gmbal-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.external</groupId>
+                <artifactId>management-api</artifactId>
+                <version>${management-api.version}</version>
+                <classifier>sources</classifier>
+            </dependency>
+
+            <!-- Binary-->
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-bom</artifactId>
+                <version>${jaxb.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.jws</groupId>
+                <artifactId>javax.jws-api</artifactId>
+                <version>${javax.jws-api.version}</version>
+                <classifier>sources</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>com.sun.xml.stream.buffer</groupId>
+                <artifactId>streambuffer</artifactId>
+                <version>${streambuffer.version}</version>
+                <exclusions>
+                    <!-- part of JDK 6+ -->
+                    <exclusion>
+                        <artifactId>stax-api</artifactId>
+                        <groupId>javax.xml.stream</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.jvnet.mimepull</groupId>
+                <artifactId>mimepull</artifactId>
+                <version>${mimepull.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>policy</artifactId>
+                <version>${policy.version}</version>
+                <exclusions>
+                    <!-- using direct (possibly optional) dependency -->
+                    <exclusion>
+                        <artifactId>woodstox-core</artifactId>
+                        <groupId>com.fasterxml.woodstox</groupId>
+                    </exclusion>
+                    <!-- part of JDK 6+ -->
+                    <exclusion>
+                        <artifactId>stax-api</artifactId>
+                        <groupId>javax.xml.stream</groupId>
+                    </exclusion>
+                    <!-- included in jaxb-impl -->
+                    <exclusion>
+                        <groupId>com.sun.istack</groupId>
+                        <artifactId>istack-commons-runtime</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.sun.xml.txw2</groupId>
+                        <artifactId>txw2</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.xml.soap</groupId>
+                <artifactId>javax.xml.soap-api</artifactId>
+                <version>${saaj-api.version}</version>
+                <exclusions>
+                    <!-- part of JDK 6+ -->
+                    <exclusion>
+                        <groupId>javax.activation</groupId>
+                        <artifactId>activation</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.messaging.saaj</groupId>
+                <artifactId>saaj-impl</artifactId>
+                <version>${saaj-impl.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.jws</groupId>
+                <artifactId>javax.jws-api</artifactId>
+                <version>${javax.jws-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.xml.ws</groupId>
+                <artifactId>jaxws-api</artifactId>
+                <version>${jaxws-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.sun.org.apache.xml.internal</groupId>
+                <artifactId>resolver</artifactId>
+                <scope>provided</scope>
+                <version>${resolver.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>${javax.annotation-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>${javax.annotation-api.version}</version>
+                <classifier>sources</classifier>
+            </dependency>
+
+            <!-- To be removed (make optional) in the future -->
+            <dependency>
+                <groupId>org.glassfish.ha</groupId>
+                <artifactId>ha-api</artifactId>
+                <version>${ha-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.gmbal</groupId>
+                <artifactId>gmbal-api-only</artifactId>
+                <version>${gmbal-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.external</groupId>
+                <artifactId>management-api</artifactId>
+                <version>${management-api.version}</version>
+            </dependency>
+
+            <!-- Distribution Artifacts -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>jaxws-rt</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>jaxws-tools</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>jaxws-eclipselink-plugin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>sdo-eclipselink-plugin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>jaxws-ri</artifactId>
+                <version>${project.version}</version>
+                <type>zip</type>
+            </dependency>
+
+            <!-- Does it really belong here? -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.activation</groupId>
+                <artifactId>javax.activation-api</artifactId>
+                <version>${javax.activation.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+</project>

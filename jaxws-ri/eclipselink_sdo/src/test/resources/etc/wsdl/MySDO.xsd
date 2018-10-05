@@ -1,0 +1,40 @@
+<?xml version="1.0" standalone="yes"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<xsd:schema elementFormDefault="qualified"
+	 targetNamespace="http://oracle.j2ee.ws.jaxws.test/" 
+	 xmlns:tns="http://oracle.j2ee.ws.jaxws.test/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 xmlns:sdoJava="commonj.sdo/java"
+         sdoJava:package="com.sun.xml.ws.sdo.test.helloSDO">
+
+	 <!--
+         sdoJava:package="weblogic.wsee.databinding.internal.sdo.test.helloSDO">
+	 -->
+	<xsd:complexType name="MySDO">
+		<xsd:sequence>
+			<xsd:element name="stringPart" type="xsd:string"/>
+			<xsd:element name="intPart" type="xsd:int"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+<!--
+	<element name="coo-wrapper">
+		<complexType>
+			<sequence>
+				<element name="my-name" type="xsd:string"/>
+				<element name="coo" type="tns:coo"/>
+			</sequence>
+		</complexType>
+	</element>
+	-->
+</xsd:schema>

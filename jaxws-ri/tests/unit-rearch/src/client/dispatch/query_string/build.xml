@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE project [
+    <!ENTITY commonTargets SYSTEM "../../../../common-targets.xml">
+    ]>
+
+<!-- Note: the project name and middle of model name (in
+    jaxrpc-ri.xml) should match. See existing tests for
+    example.
+-->
+<project basedir="." default="build" name="client_dispatch_query_string">
+
+    &commonTargets;
+
+    <!-- rest of directory names are set here relative to jaxrpc.home -->
+    <property file="config/build.properties"/>
+    <target name="build" depends="setup">
+    </target>
+
+    <target name="deploy">
+    </target>
+
+
+    <target name="compile-xml-client" depends="setup">
+        <!-- compile class files in "client" directory -->
+        <javac srcdir="${basedir}"
+               destdir="${build.temp.classes}"
+               debug="${compile.debug}"
+               optimize="${compile.optimize}"
+               includes="client/**">
+            <classpath refid="compile.classpath"/>
+        </javac>
+    </target>
+
+    <target name="runclient" depends="compile-xml-client">
+        <antcall target="rerun-client"/>
+    </target>
+
+</project>

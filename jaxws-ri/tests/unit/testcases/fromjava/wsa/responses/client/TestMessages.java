@@ -1,0 +1,182 @@
+/*
+ * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Distribution License v. 1.0, which is available at
+ * http://www.eclipse.org/org/documents/edl-v10.php.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+package fromjava.wsa.responses.client;
+
+import testutil.W3CAddressingConstants;
+import testutil.WsaW3CSOAPMessages;
+
+import java.util.UUID;
+
+import com.sun.xml.ws.api.addressing.AddressingVersion;
+
+/**
+ * @author Rama Pulavarthi
+ */
+public class TestMessages {
+    public static final AddressingVersion ADDRESSING_VERSION = AddressingVersion.W3C;
+    public static final WsaW3CSOAPMessages MESSAGES = new WsaW3CSOAPMessages(ADDRESSING_VERSION);
+    public static final long PROVIDER_MAX_TIMEOUT = 20L;
+    public static final long CLIENT_MAX_TIMEOUT = 40L;
+
+    private static String ANONYMOUS_REPLY_TO_HEADER = "<ReplyTo xmlns=\"" + W3CAddressingConstants.WSA_NAMESPACE_NAME + "\">" +
+            "<Address>" + W3CAddressingConstants.WSA_ANONYMOUS_ADDRESS + "</Address>" +
+            "</ReplyTo>";
+    private static String ANONYMOUS_FAULT_TO_HEADER = "<FaultTo xmlns=\"" + W3CAddressingConstants.WSA_NAMESPACE_NAME + "\">" +
+            "<Address>" + W3CAddressingConstants.WSA_ANONYMOUS_ADDRESS + "</Address>" +
+            "</FaultTo>";
+    private static String NON_ANONYMOUS_FAULT_TO_HEADER = "<wsa:FaultTo>" +
+            "<wsa:Address>%s</wsa:Address>" +
+            "</wsa:FaultTo>";
+    private static String NON_ANONYMOUS_REPLY_TO_HEADER = "<wsa:ReplyTo>" +
+            "<wsa:Address>%s</wsa:Address>" +
+            "</wsa:ReplyTo>";
+
+    static final String ANONYMOUS_FAULT_TO_MESSAGE = "<S:Envelope xmlns:S=\"%s\" " +
+            "xmlns:wsa=\"" + W3CAddressingConstants.WSA_NAMESPACE_NAME + "\">\n" +
+            "<S:Header>\n" +
+            ANONYMOUS_FAULT_TO_HEADER +
+            "</S:Header>\n" +
+            "<S:Body>\n" +
+            "<ns1:addNumbers xmlns:ns1=\"http://server.responses.wsa.fromjava/\">\n" +
+            "  <number1>10</number1>\n" +
+            "  <number2>10</number2>\n" +
+            "  <testname>%s</testname>\n" +
+            "</ns1:addNumbers>\n" +
+            "</S:Body></S:Envelope>";
+
+    static final String ANONYMOUS_FAULT_TO_COMPLETE_MESSAGE = "<S:Envelope xmlns:S=\"%s\" " +
+            "xmlns:wsa=\"" + W3CAddressingConstants.WSA_NAMESPACE_NAME + "\">\n" +
+            "<S:Header>\n" +
+            "<wsa:Action>%s</wsa:Action>" +
+            "<wsa:MessageID>uuid:" + UUID.randomUUID() + "</wsa:MessageID>" +
+            "<wsa:To>%s</wsa:To>" +
+            ANONYMOUS_FAULT_TO_HEADER +
+            "</S:Header>\n" +
+            "<S:Body>\n" +
+            "<ns1:addNumbers xmlns:ns1=\"http://server.responses.wsa.fromjava/\">\n" +
+            "  <number1>10</number1>\n" +
+            "  <number2>10</number2>\n" +
+            "  <testname>%s</testname>\n" +
+            "</ns1:addNumbers>\n" +
+            "</S:Body></S:Envelope>";
+
+    static final String NON_ANONYMOUS_FAULT_TO_MESSAGE = "<S:Envelope xmlns:S=\"%s\" " +
+            "xmlns:wsa=\"" + W3CAddressingConstants.WSA_NAMESPACE_NAME + "\">\n" +
+            "<S:Header>\n" +
+            NON_ANONYMOUS_FAULT_TO_HEADER +
+            "</S:Header>\n" +
+            "<S:Body>\n" +
+            "<ns1:addNumbers xmlns:ns1=\"http://server.responses.wsa.fromjava/\">\n" +
+            "  <number1>10</number1>\n" +
+            "  <number2>10</number2>\n" +
+            "  <testname>%s</testname>\n" +
+            "</ns1:addNumbers>\n" +
+            "</S:Body></S:Envelope>";
+
+    static final String NON_ANONYMOUS_FAULT_TO_COMPLETE_MESSAGE = "<S:Envelope xmlns:S=\"%s\" " +
+            "xmlns:wsa=\"" + W3CAddressingConstants.WSA_NAMESPACE_NAME + "\">\n" +
+            "<S:Header>\n" +
+            NON_ANONYMOUS_FAULT_TO_HEADER +
+            "<wsa:Action>%s</wsa:Action>" +
+            "<wsa:To>%s</wsa:To>" +
+            "<wsa:MessageID>uuid:" + UUID.randomUUID() + "</wsa:MessageID>" +
+            "</S:Header>\n" +
+            "<S:Body>\n" +
+            "<ns1:addNumbers xmlns:ns1=\"http://server.responses.wsa.fromjava/\">\n" +
+            "  <number1>10</number1>\n" +
+            "  <number2>10</number2>\n" +
+            "  <testname>%s</testname>\n" +
+            "</ns1:addNumbers>\n" +
+            "</S:Body></S:Envelope>";
+
+    static final String NON_ANONYMOUS_FAULT_TO_COMPLETE_FAULTY_MESSAGE = "<S:Envelope xmlns:S=\"%s\" " +
+            "xmlns:wsa=\"" + W3CAddressingConstants.WSA_NAMESPACE_NAME + "\">\n" +
+            "<S:Header>\n" +
+            NON_ANONYMOUS_FAULT_TO_HEADER +
+            "<wsa:Action>%s</wsa:Action>" +
+            "<wsa:To>%s</wsa:To>" +
+            "<wsa:MessageID>uuid:" + UUID.randomUUID() + "</wsa:MessageID>" +
+            "</S:Header>\n" +
+            "<S:Body>\n" +
+            "<ns1:addNumbers xmlns:ns1=\"http://server.responses.wsa.fromjava/\">\n" +
+            "  <number1>10</number1>\n" +
+            "  <number2>-1</number2>\n" +
+            "  <testname>%s</testname>\n" +
+            "</ns1:addNumbers>\n" +
+            "</S:Body></S:Envelope>";
+
+    static final String NON_ANONYMOUS_REPLY_TO_NON_ANONYMOUS_FAULT_TO_COMPLETE_FAULTY_MESSAGE = "<S:Envelope xmlns:S=\"%s\" " +
+            "xmlns:wsa=\"" + W3CAddressingConstants.WSA_NAMESPACE_NAME + "\">\n" +
+            "<S:Header>\n" +
+            NON_ANONYMOUS_REPLY_TO_HEADER +
+            NON_ANONYMOUS_FAULT_TO_HEADER +
+            "<wsa:Action>%s</wsa:Action>" +
+            "<wsa:To>%s</wsa:To>" +
+            "<wsa:MessageID>uuid:" + UUID.randomUUID() + "</wsa:MessageID>" +
+            "</S:Header>\n" +
+            "<S:Body>\n" +
+            "<ns1:addNumbers xmlns:ns1=\"http://server.responses.wsa.fromjava/\">\n" +
+            "  <number1>10</number1>\n" +
+            "  <number2>-1</number2>\n" +
+            "  <testcase>%s</testcase>\n" +
+            "</ns1:addNumbers>\n" +
+            "</S:Body></S:Envelope>";
+
+    static final String NON_ANONYMOUS_REPLY_TO_ANONYMOUS_FAULT_TO_COMPLETE_MESSAGE = "<S:Envelope xmlns:S=\"%s\" " +
+            "xmlns:wsa=\"" + W3CAddressingConstants.WSA_NAMESPACE_NAME + "\">\n" +
+            "<S:Header>\n" +
+            NON_ANONYMOUS_REPLY_TO_HEADER +
+            ANONYMOUS_FAULT_TO_HEADER +
+            "<wsa:Action>%s</wsa:Action>" +
+            "<wsa:To>%s</wsa:To>" +
+            "<wsa:MessageID>uuid:" + UUID.randomUUID() + "</wsa:MessageID>" +
+            "</S:Header>\n" +
+            "<S:Body>\n" +
+            "<ns1:addNumbers xmlns:ns1=\"http://server.responses.wsa.fromjava/\">\n" +
+            "  <number1>10</number1>\n" +
+            "  <number2>10</number2>\n" +
+            "  <testcase>%s</testcase>\n" +
+            "</ns1:addNumbers>\n" +
+            "</S:Body></S:Envelope>";
+
+    static final String ANONYMOUS_REPLY_TO_COMPLETE_MESSAGE = "<S:Envelope xmlns:S=\"%s\" " +
+            "xmlns:wsa=\"" + W3CAddressingConstants.WSA_NAMESPACE_NAME + "\">\n" +
+            "<S:Header>\n" +
+            ANONYMOUS_REPLY_TO_HEADER +
+            "<wsa:Action>%s</wsa:Action>" +
+            "<wsa:To>%s</wsa:To>" +
+            "<wsa:MessageID>uuid:" + UUID.randomUUID() + "</wsa:MessageID>" +
+            "</S:Header>\n" +
+            "<S:Body>\n" +
+            "<ns1:addNumbers xmlns:ns1=\"http://server.responses.wsa.fromjava/\">\n" +
+            "  <number1>10</number1>\n" +
+            "  <number2>10</number2>\n" +
+            "  <testname>%s</testname>\n" +
+            "</ns1:addNumbers>\n" +
+            "</S:Body></S:Envelope>";
+
+    static final String NON_ANONYMOUS_REPLY_TO_COMPLETE_MESSAGE = "<S:Envelope xmlns:S=\"%s\" " +
+            "xmlns:wsa=\"" + W3CAddressingConstants.WSA_NAMESPACE_NAME + "\">\n" +
+            "<S:Header>\n" +
+            NON_ANONYMOUS_REPLY_TO_HEADER +
+            "<wsa:Action>%s</wsa:Action>" +
+            "<wsa:To>%s</wsa:To>" +
+            "<wsa:MessageID>uuid:" + UUID.randomUUID() + "</wsa:MessageID>" +
+            "</S:Header>\n" +
+            "<S:Body>\n" +
+            "<ns1:addNumbers xmlns:ns1=\"http://server.responses.wsa.fromjava/\">\n" +
+            "  <number1>10</number1>\n" +
+            "  <number2>10</number2>\n" +
+            "  <testname>%s</testname>\n" +
+            "</ns1:addNumbers>\n" +
+            "</S:Body></S:Envelope>";
+
+}

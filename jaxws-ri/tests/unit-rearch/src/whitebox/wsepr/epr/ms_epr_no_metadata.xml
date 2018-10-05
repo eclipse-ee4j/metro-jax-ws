@@ -1,0 +1,24 @@
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<EndpointReference xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+    <Address
+            xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+        https://scarry-nt.east.sun.com:2372/WsatService/Registration/Coordinator/</Address>
+    <ReferenceParameters
+            xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+        <mstx:RegisterInfo xmlns:mstx="http://schemas.microsoft.com/wsat/extensibility">
+
+            <mstx:LocalTransactionId>11d5b393-e1ba-4911-b8b4-4ae59e1c0308</mstx:LocalTransactionId>
+        </mstx:RegisterInfo>
+    </ReferenceParameters>
+</EndpointReference>

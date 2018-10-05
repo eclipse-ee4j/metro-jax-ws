@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE chapter [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<chapter version="5.0" xml:id="users-guide" xml:lang="en"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+<title>Users Guide</title>
+
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-overview.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-provider.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-asyncprovider.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-dispatch.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-asynchronous-client.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-handler.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-mtom-and-swaref.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-soap-1-2.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-wsdl-customization.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-annotations.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-ws-addressing.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-stateful-webservice.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-catalog.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-war-file-packaging.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-interoperability.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-endpoint-api.xml" />
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-modular-databinding.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-external-metadata.xml" />
+</chapter>

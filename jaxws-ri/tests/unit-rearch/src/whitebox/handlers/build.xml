@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE project [
+<!ENTITY commonTargets SYSTEM "../../../common-targets.xml">
+]>
+
+<!--
+  This is the build.xml file for the simple hello tests. 
+  -->
+<project basedir="." default="build" name="whitebox">
+
+  &commonTargets;
+
+  <!-- rest of directory names are set here relative to jaxrpc.home -->
+  <property file="config/build.properties"/>
+
+  <target name="build" depends="setup">
+  </target>
+
+  <target name="deploy">
+  </target>
+
+
+  <target name="runclient" depends="setup,generate-artifacts">
+      
+    <javac srcdir="${basedir}"
+             fork="true"
+             destdir="${build.temp.classes}"
+             debug="${compile.debug}"
+             optimize="${compile.optimize}"
+             includes="**">
+		<classpath>
+			<path refid="compile.classpath"/>
+		</classpath>
+	</javac>
+        <!--
+            This file is copied to SEI directory.
+            On client-side, @HandlerChain on SEI are not processed, 
+            so should n't be used and should.n't effect the tests.
+        -->
+        <copy todir="${build.temp.classes}/whitebox/handlers/client">
+             <fileset dir="${basedir}/config">
+                 <include name="ReportService_handler.xml"/>
+             </fileset>
+        </copy>
+    
+    <antcall target="rerun-client"/>
+  </target>
+  
+  <target name="generate-artifacts">
+	<wsimport
+        fork="false"
+        debug="true"
+        extension="true"
+        keep="${keep}"
+        destdir="${build.temp.classes}/"
+        verbose="${verbose}"
+        package="${package}"
+        wsdl="${wsdl}">
+        <binding dir="${basedir}/config/" includes="${client.binding}"/>
+	</wsimport>
+  </target>
+</project>

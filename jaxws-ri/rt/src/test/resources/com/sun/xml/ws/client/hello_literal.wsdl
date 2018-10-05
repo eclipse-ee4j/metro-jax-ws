@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+--><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:types="urn:test:types" xmlns:tns="urn:test" name="HelloTest" targetNamespace="urn:test">
+
+    <types>
+        <xsd:schema targetNamespace="urn:test:types">
+
+            <xsd:element name="Hello" type="xsd:string"/>
+
+            <xsd:element name="HelloResponse" type="xsd:string"/>
+            
+            <xsd:element name="Extra" type="xsd:string"/>
+            
+        </xsd:schema>
+    </types>
+
+    <message name="HelloRequest">
+        <part name="parameters" element="types:Hello"/>
+        <part name="header" element="types:Extra"/>
+    </message>
+
+    <message name="HelloResponse">
+        <part name="parameters" element="types:HelloResponse"/>
+        <part name="header" element="types:Extra"/>
+    </message>
+
+    <portType name="Hello">
+        <operation name="hello">
+            <input message="tns:HelloRequest"/>
+            <output message="tns:HelloResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="HelloBinding" type="tns:Hello">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="hello">
+            <soap:operation soapAction="urn:test:hello"/>
+            <input>
+                <soap:body parts="parameters" use="literal"/>
+                <soap:header message="tns:HelloRequest" part="header" use="literal"/>
+            </input>
+            <output>
+                <soap:body parts="parameters" use="literal"/>
+                <soap:header message="tns:HelloRequest" part="header" use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="Hello">
+        <port name="HelloPort" binding="tns:HelloBinding">
+            <soap:address location="in-vm://client.soap_mu_header.server/?HelloPort"/>
+        </port>
+    </service>
+
+</definitions>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                  xmlns:wsp="http://www.w3.org/ns/ws-policy"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:tns="http://example.org"
+                  name="DictService"
+                  targetNamespace="http://example.org">
+    <wsp:Policy wsu:Id="policy1">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wspe:Utf816FFFECharacterEncoding xmlns:wspe="http://schemas.xmlsoap.org/ws/2004/09/policy/encoding"/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.org">
+            <element name="Word" type="xsd:string"/>
+            <element name="FaultResponse">
+                <complexType>
+                    <sequence>
+                        <element name="ResponsePart" nillable="true" type="xsd:string"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="DictRequest">
+        <wsdl:part name="TranslateIt" element="tns:Word"/>
+    </wsdl:message>
+    <wsdl:message name="DictResponse">
+        <wsdl:part name="Translated" element="tns:Word"/>
+    </wsdl:message>
+    <wsdl:message name="DictFault">
+        <wsdl:part name="Message" element="tns:FaultResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="DictPortType">
+        <wsdl:operation name="TranslateOperation">
+            <wsdl:input name="Input" message="tns:DictRequest"/>
+            <wsdl:output name="Output" message="tns:DictResponse"/>
+            <wsdl:fault name="Fault" message="tns:DictFault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="MyBinding" type="tns:DictPortType">
+        <wsp:PolicyReference URI="#policy1"/>
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="TranslateOperation">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="Input"/>
+            <wsdl:output name="Output"/>
+            <wsdl:fault name="Fault"/>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="DictionaryService">
+        <wsdl:port name="CzechToEnglish" binding="tns:MyBinding">
+            <soap:address location="http://example.org/dict"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

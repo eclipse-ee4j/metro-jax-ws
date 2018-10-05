@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="org.example"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             targetNamespace="org.example" name="BlackboxServiceService">
+    <types>
+        <xs:schema xmlns:tns="org.example" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0"
+                   targetNamespace="org.example">
+            <xs:element name="doSomething" type="tns:doSomething"/>
+            <xs:element name="doSomethingResponse" type="tns:doSomethingResponse"/>
+            <xs:complexType name="doSomething">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="doSomethingResponse">
+                <xs:sequence/>
+            </xs:complexType>
+        </xs:schema>
+    </types>
+    <message name="doSomething">
+        <part name="parameters" element="tns:doSomething"/>
+    </message>
+    <message name="doSomethingResponse">
+        <part name="parameters" element="tns:doSomethingResponse"/>
+    </message>
+    <portType name="Blackbox">
+        <operation name="doSomething">
+            <input wsam:Action="myInputAction" message="tns:doSomething"/>
+            <output wsam:Action="myOutputAction" message="tns:doSomethingResponse"/>
+        </operation>
+    </portType>
+    <binding name="BlackboxPortBinding" type="tns:Blackbox">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="doSomething">
+            <soap:operation soapAction="myInputAction"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="BlackboxServiceService">
+        <port name="BlackboxPort" binding="tns:BlackboxPortBinding">
+            <soap:address location="http://localhost:8080/jaxws-databinding-fromwsdl/WS"/>
+        </port>
+    </service>
+</definitions>

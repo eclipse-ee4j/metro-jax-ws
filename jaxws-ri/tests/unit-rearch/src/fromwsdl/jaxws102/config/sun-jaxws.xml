@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime' version='2.0'>
+    <endpoint
+        name="JAXWS ISsue 102 Test - benchMarkService"
+        implementation="fromwsdl.jaxws102.server.BenchMarkEndpoint"
+        wsdl="WEB-INF/wsdl/benchMark.wsdl"
+         service='{http://localhost/MultiDepBpel/benchMark}benchMarkService'
+         port='{http://localhost/MultiDepBpel/benchMark}benchMarkPort'
+         url-pattern="/jaxws102/benchMarkService"/>
+
+    <endpoint
+        name="JAXWS Issue 102 Test - benchMarkSubBPService"
+        implementation="fromwsdl.jaxws102.server.BenchMarkSubBPEndpoint"
+        wsdl="WEB-INF/wsdl/benchMark.wsdl"
+         service='{http://localhost/MultiDepBpel/benchMark}benchMarkSubBPService'
+         port='{http://localhost/MultiDepBpel/benchMark}benchMarkSubPort'
+         url-pattern="/jaxws102/benchMarkSubBPService"/>
+</endpoints>

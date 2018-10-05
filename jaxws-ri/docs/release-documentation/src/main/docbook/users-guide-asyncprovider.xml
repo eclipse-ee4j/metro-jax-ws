@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="users-guide-asyncprovider" xml:lang="en"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/2000/svg"
+         xmlns:ns3="http://www.w3.org/1999/xhtml"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>AsyncProvider</title>
+
+    <para>Web Service endpoints may choose to work at the XML message level by
+    implementing the <literal>Provider</literal> interface. The related
+    information about <literal>Provider</literal> endpoints is documented in
+    <xref linkend="users-guide-provider" xrefstyle="select:title" /> page.
+    However <literal>Provider</literal> endpoints are synchronous i.e. they
+    receive XML requests and they return XML responses synchronously in
+    <literal>invoke()</literal> method. If the endpoint wants to spawn a
+    thread to process the request, it would block the jax-ws runtime thread
+    and has to manage all the low details synchronizing the threads when the
+    response is available. Also blocking a thread doesn't really scale well
+    especially when the underlying transport is capable of handling
+    asynchronous request and responses. RI provides an implemention specific
+    solution to this problem by introducing <literal>AsyncProvider.</literal>
+    This is similar to <literal>Provider</literal> endpoints but the
+    difference is that the endpoint implementations have to implement
+    <literal>AsyncProvider</literal> interface.</para>
+
+    <section xml:id="section-091974998856598">
+        <title><literal>AsyncProvider</literal> Example</title>
+
+        <para>The following example shows an <literal>AsyncProvider</literal>
+        example that accesses the payload of the request.</para>
+
+        <informalexample>
+            <programlisting language="java"><![CDATA[@WebServiceProvider
+public class AsyncProviderImpl implements AsyncProvider<Source> {
+    
+    public void invoke(Source source, AsyncProviderCallback cbak, 
+                       WebServiceContext ctxt) {
+
+        // ...
+        
+    }
+    
+}]]></programlisting>
+        </informalexample>
+    </section>
+
+    <section xml:id="section-930633228695613">
+        <title><literal>AsyncProvider</literal> sample</title>
+
+        <para>See a <literal>samples/asyncprovider/Readme.txt</literal> that
+        illustrates <literal>AsyncProvider</literal> endpoints.</para>
+    </section>
+
+    <section xml:id="section-5233554712491355">
+        <title><literal>AsyncService</literal> sample</title>
+
+        <para>See another <literal>samples/asyncservice/Readme.txt"</literal> sample that
+        illustrates <literal>AsyncProvider</literal> endpoint that uses
+        asynchronous servlet as the transport to bring true asynchronity on
+        the server-side. See <link
+        xlink:href="https://community.oracle.com/blogs/ramapulavarthi/2010/08/18/new-asynchronous-servlet-transport-jax-ws-ri">New
+        Asynchronous Servlet Transport in JAX-WS RI</link> for more details on
+        this feature.</para>
+
+    </section>
+</section>

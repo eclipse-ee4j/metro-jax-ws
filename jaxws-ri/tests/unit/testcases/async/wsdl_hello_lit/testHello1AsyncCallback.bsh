@@ -1,0 +1,24 @@
+/*
+ * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Distribution License v. 1.0, which is available at
+ * http://www.eclipse.org/org/documents/edl-v10.php.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+String arg = "foo";
+String extra = "bar";
+HelloType req = new HelloType();
+req.setArgument(arg);
+req.setExtra(extra);
+
+HelloType reqH = new HelloType();
+reqH.setArgument("header arg");
+reqH.setExtra("header extra");
+
+Future response = helloPort.hello1WorldAsync(req, reqH, new async.wsdl_hello_lit.client.Hello1CallbackHandler());
+System.out.print("\nWaiting for CallbackHandler to complete...");
+while(!response.isDone())
+    System.out.print(".");

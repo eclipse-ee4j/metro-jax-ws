@@ -1,0 +1,138 @@
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<definitions
+  name="HelloTest"
+  targetNamespace="urn:test"
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:types="urn:test:types"
+  xmlns:tns="urn:test"
+  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
+
+  <types>
+    <xsd:schema
+        targetNamespace="urn:test:types"
+        attributeFormDefault="unqualified"
+        elementFormDefault="unqualified">
+
+      <xsd:element name="Hello">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="argument" type="xsd:string"/>
+                <xsd:element name="extra" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+    <xsd:complexType name="HelloType">
+            <xsd:sequence>
+                <xsd:element name="argument" type="xsd:string"/>
+                <xsd:element name="extra" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+
+      <xsd:element name="HelloResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:sequence>
+                    <xsd:element name="name" type="xsd:string"/>
+                </xsd:sequence>
+                <xsd:element name="argument" type="xsd:string"/>
+                <xsd:element name="extra" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+
+      <xsd:element name="echoArray" type="types:nameType"/>
+      <xsd:element name="echoArrayResponse" type="types:nameType"/>
+
+      <xsd:complexType name="nameType">
+        <xsd:sequence>
+          <xsd:element name="name" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+      </xsd:complexType>
+
+    </xsd:schema>
+  </types>
+
+  <message name="HelloRequest">
+    <part name="parameters" element="types:Hello"/>
+  </message>
+
+  <message name="HelloResponse">
+    <part name="parameters" element="types:HelloResponse"/>
+  </message>
+
+  <message name="echoArrayRequest">
+    <part name="body" element="types:echoArray"/>
+  </message>
+
+  <message name="echoArrayResponse">
+    <part name="body" element="types:echoArray"/>
+  </message>
+
+
+  <portType name="Hello">
+    <operation name="hello">
+      <input message="tns:HelloRequest"/>
+      <output message="tns:HelloResponse"/>
+    </operation>
+
+    <operation name="echoArray">
+      <input message="tns:echoArrayRequest"/>
+      <output message="tns:echoArrayResponse"/>
+    </operation>
+
+  </portType>
+
+  <binding name="HelloBinding" type="tns:Hello">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="hello">
+      <soap:operation soapAction="urn:test:hello"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+
+    <operation name="echoArray">
+      <soap:operation/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="" use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="Hello">
+      <port name="HelloPort" binding="tns:HelloBinding">
+          <soap:address location="http://test.org/hello"/>
+          <wsaw:UsingAddressing/>
+          <wsa:EndpointReference xmlns:wsa="http://www.w3.org/2005/08/addressing"
+                                 xmlns:fabrikam="http://example.com/fabrikam">
+              <wsa:Address>I_DONT_KNOW_YET</wsa:Address>
+              <wsa:ReferenceParameters>
+                  <fabrikam:CustomerKey>123456789</fabrikam:CustomerKey>
+                  <fabrikam:ShoppingCart>ABCDEFG</fabrikam:ShoppingCart>
+              </wsa:ReferenceParameters>
+          </wsa:EndpointReference>
+      </port>
+  </service>
+
+</definitions>

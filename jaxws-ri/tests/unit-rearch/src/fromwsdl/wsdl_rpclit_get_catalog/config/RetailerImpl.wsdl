@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<definitions
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://www.ws-i.org/SampleApplications/SupplyChainManagement/2002-08/Retailer.wsdl"
+    targetNamespace="http://www.ws-i.org/SampleApplications/SupplyChainManagement/2002-08/Retailer.wsdl"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns="http://schemas.xmlsoap.org/wsdl/">
+    <import
+        namespace="http://www.ws-i.org/SampleApplications/SupplyChainManagement/2002-08/Retailer.wsdl"
+        location="Retailer.wsdl"/>
+    <types/>
+    <service name="RetailerService">
+        <port name="RetailerPort" binding="tns:RetailerSoapBinding">
+            <soap:address location="http://localhost:8088/wsi/scm/retailer"/>
+        </port>
+    </service>
+</definitions>
+

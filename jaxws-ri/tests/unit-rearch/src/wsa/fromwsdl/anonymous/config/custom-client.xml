@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<bindings wsdlLocation="http://localhost:8080/jaxrpc-wsa_fromwsdl_anonymous/hello1?wsdl" xmlns="http://java.sun.com/xml/ns/jaxws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb">
+    <bindings node="wsdl:definitions">
+        <package name="wsa.fromwsdl.anonymous.client"/>
+    </bindings>
+    <bindings node="wsdl:definitions/wsdl:types/xsd:schema[@targetNamespace='http://example.com/']"  >
+        <jaxb:schemaBindings >
+            <jaxb:package name="wsa.fromwsdl.anonymous.client"/>
+        </jaxb:schemaBindings>
+    </bindings>
+
+    <bindings>
+        <handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+            <handler-chain>
+                <port-name-pattern xmlns:ns2="http://example.com/">ns2:AddNumbersPort</port-name-pattern>
+                <handler>
+                    <handler-class>wsa.fromwsdl.anonymous.common.ClientSOAPHandler</handler-class>
+                </handler>
+            </handler-chain>
+        </handler-chains>
+    </bindings>
+
+</bindings>

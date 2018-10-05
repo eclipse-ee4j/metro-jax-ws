@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         version="2.5">
+    <display-name>w3c.s12</display-name>
+    <description>w3c.s12</description>
+    <listener>
+        <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>w3c.s12</servlet-name>
+        <display-name>w3c.s12</display-name>
+        <description>JAX-WS endpoint - w3c CR s12</description>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>w3c.s12.provider</servlet-name>
+        <display-name>w3c.s12.provider</display-name>
+        <description>JAX-WS endpoint - w3c CR s12.provider</description>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>w3c.s12</servlet-name>
+        <url-pattern>/cr</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>w3c.s12.provider</servlet-name>
+        <url-pattern>/nonanonymous</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
+</web-app>

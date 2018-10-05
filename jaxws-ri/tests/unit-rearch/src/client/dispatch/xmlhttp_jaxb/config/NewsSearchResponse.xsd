@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="urn:yahoo:yn"
+  xmlns="urn:yahoo:yn"
+  elementFormDefault="qualified">
+
+	<xs:element name="ResultSet">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Result" type="ResultType" minOccurs="0" maxOccurs="50" />
+			</xs:sequence>
+			<xs:attribute name="totalResultsAvailable" type="xs:integer" />
+			<xs:attribute name="totalResultsReturned" type="xs:integer" />
+			<xs:attribute name="firstResultPosition" type="xs:integer" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="ResultType">
+		<xs:sequence>
+			<xs:element name="Title" type="xs:string" />
+			<xs:element name="Summary" type="xs:string" />
+			<xs:element name="Url" type="xs:string" />
+			<xs:element name="ClickUrl" type="xs:string" />
+			<xs:element name="NewsSource" type="xs:string" />
+			<xs:element name="NewsSourceUrl" type="xs:string" />
+			<xs:element name="Language" type="xs:string" />
+			<xs:element name="PublishDate" type="xs:string" />
+			<xs:element name="ModificationDate" type="xs:string" minOccurs="0" />
+			<xs:element name="Thumbnail" type="ImageType" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ImageType">
+		<xs:sequence>
+			<xs:element name="Url" type="xs:string" />
+			<xs:element name="Height" type="xs:integer" minOccurs="0" />
+			<xs:element name="Width" type="xs:integer" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>
+<!-- ws02.search.re2.yahoo.com compressed/chunked Tue Oct 18 13:12:21 PDT 2005 -->

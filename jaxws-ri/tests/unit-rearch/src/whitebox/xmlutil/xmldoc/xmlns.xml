@@ -1,0 +1,23 @@
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<HelloRequest xmlns="http://helloservice.org/types">
+  <argument xmlns="http://helloservice.org/types">
+   <argument xmlns="http://helloservice.org/types">foo</argument>
+  </argument>
+  <tns:argument xmlns="http://helloservice.org/types" xmlns:tns="http://helloservice.org/types">
+   <tns:argument>foo</tns:argument>
+   <tns:argument xmlns:tns="http://different/types">foo</tns:argument>
+  </tns:argument>
+  <argument xmlns="new_default_ns">foo</argument>
+  <argument xmlns="">foo</argument>
+</HelloRequest>

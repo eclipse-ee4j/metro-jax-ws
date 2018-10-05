@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<definitions targetNamespace="http://service_api.endpoint.server/" name="HelloService" xmlns:tns="http://service_api.endpoint.server/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://service_api.endpoint.server/" schemaLocation="HelloService_schema1.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="echoFoo">
+    <part name="parameters" element="tns:echoFoo"/>
+  </message>
+  <message name="echoFooResponse">
+    <part name="parameters" element="tns:echoFooResponse"/>
+  </message>
+  <portType name="HelloImpl">
+    <operation name="echoFoo">
+      <input message="tns:echoFoo"/>
+      <output message="tns:echoFooResponse"/>
+    </operation>
+  </portType>
+  <binding name="HelloImplPortBinding" type="tns:HelloImpl">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="echoFoo">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="HelloService">
+    <port name="HelloImplPort" binding="tns:HelloImplPortBinding">
+      <soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+    </port>
+  </service>
+</definitions>
+

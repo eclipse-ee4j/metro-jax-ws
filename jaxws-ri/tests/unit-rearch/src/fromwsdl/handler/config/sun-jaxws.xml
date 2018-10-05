@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime' version='2.0'>
+ 
+  <endpoint
+      name="TestService"
+      implementation="fromwsdl.handler.server.TestService_PortType_Impl" 
+      wsdl="WEB-INF/wsdl/service.wsdl"
+      service='{urn:test}TestService'
+      port='{urn:test}TestServicePort'
+      url-pattern="/test"/>
+      
+  <endpoint
+      name="ReportService"
+      implementation="fromwsdl.handler.server.ReportService_Impl" 
+      wsdl="WEB-INF/wsdl/service.wsdl"
+      service='{urn:test}TestService'
+      port='{urn:test}ReportServicePort'
+      url-pattern="/report"/>
+
+</endpoints>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime' version='2.0'>
+
+  <endpoint name="Hello"
+      implementation="fromwsdl.handler_singlepipe.server.HelloService_Impl"
+      wsdl="WEB-INF/wsdl/hello_literal.wsdl"         
+      service='{urn:test}Hello'
+      port='{urn:test}HelloPort'
+      url-pattern="/hello"/>
+      
+  <endpoint name="Hello12"
+      implementation="fromwsdl.handler_singlepipe.server.HelloService12_Impl"
+      wsdl="WEB-INF/wsdl/hello_literal.wsdl"         
+      service='{urn:test}Hello'
+      port='{urn:test}HelloPort12'
+      binding="http://www.w3.org/2003/05/soap/bindings/HTTP/"
+      url-pattern="/hello12"/>
+
+  <endpoint name="Report"
+      implementation="fromwsdl.handler_singlepipe.server.ReportService_Impl"
+      wsdl="WEB-INF/wsdl/hello_literal.wsdl"
+      service='{urn:test}Hello'
+      port='{urn:test}ReportServicePort'
+      url-pattern="/report">
+      <handler-chains xmlns='http://java.sun.com/xml/ns/javaee'>
+      </handler-chains>
+    </endpoint>
+      
+</endpoints>

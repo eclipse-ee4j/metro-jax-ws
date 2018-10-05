@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<wsa:EndpointReference xmlns:wsa="http://www.w3.org/2005/08/addressing">
+    <wsa:Address>http://localhost:2011/hello</wsa:Address>
+    <wsa:Metadata>
+        <definitions xmlns:tns="http://echo.org/" xmlns:abs="http://echo.abstract.org/"
+                     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                     xmlns="http://schemas.xmlsoap.org/wsdl/"
+                     targetNamespace="http://echo.org/" name="RpcLitEndpoint">
+
+        <import namespace="http://echo.abstract.org" location="http://localhost:2011/hello?wsdl=1"></import>
+
+        <binding type="abs:RpcLitIF" name="RpcLitPortBinding">
+            <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+            <operation name="echoInteger">
+                <soap:operation soapAction=""></soap:operation>
+                <input>
+                    <soap:body namespace="http://echo.org/" use="literal"></soap:body>
+                </input>
+                <output>
+                    <soap:body namespace="http://echo.org/" use="literal"></soap:body>
+                </output>
+            </operation>
+        </binding>
+        <service name="RpcLitEndpoint">
+            <port binding="tns:RpcLitPortBinding" name="RpcLitPort">
+                <soap:address location="http://localhost:2011/hello"></soap:address>
+            </port>
+        </service>
+        <!-- NOT_GENERATED -->
+    </definitions>
+</wsa:Metadata></wsa:EndpointReference>

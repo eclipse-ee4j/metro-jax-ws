@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<project name="jaxws-tools-javadocs" default="build-javadocs" basedir=".">
+    <description>Builds javadocs for JAX-WS RI Tools Bundle.</description>
+    
+    <target name="build-javadocs" depends="attach"/>
+    
+    <target name="init">
+        <property name="api.dest.dir" value="${project.build.directory}/apidocs" />
+        <property name="javadoc.jar" value="${project.build.directory}/${project.artifactId}-${project.version}-javadoc.jar" />
+        <property name="links.dir" value="${javadoc.links.dir}" />
+        <property name="links.offline" value="${javadoc.links.offline}" />
+        <mkdir dir="${api.dest.dir}" />
+    </target>
+
+    <target name="javadoc" depends="init">
+        <javadoc packagenames=".,com.sun.xml.ws.*,com.sun.pept.*,javax.xml.ws.*,javax.xml.soap.*,javax.xml.bind.*,com.sun.tools.ws.*"
+                 sourcepath="${project.build.directory}/bundlesources"
+                 destdir="${api.dest.dir}"
+                 failonerror="true"
+                 author="false"
+                 version="false"
+                 use="true"
+                 access="package"
+                 windowtitle="JAX-WS RI Tools Documentation"
+                 doctitle="JAX-WS RI"
+                 bottom="Copyright (c) 1997-2018 Oracle and/or its affiliates. All rights reserved.">
+            <classpath>
+                <path refid="maven.compile.classpath" />
+                <pathelement location="${ant.core.lib}" />
+            </classpath>
+            <arg line="-Xdoclint:none"/>
+            <link href="http://docs.oracle.com/javase/8/docs/api/" offline="${links.offline}" packagelistloc="${links.dir}/javase8/" />
+            <link href="https://javadoc.io/doc/javax.xml.bind/jaxb-api/${jaxb-api.version}/" offline="${links.offline}" packagelistloc="${links.dir}/jaxb-api/" />
+            <link href="https://javadoc.io/doc/javax.xml.ws/jaxws-api/${jaxws-api.version}/" offline="${links.offline}" packagelistloc="${links.dir}/jaxws-api/" />
+        </javadoc>
+    </target>
+
+    <target name="jar" depends="javadoc">
+        <jar jarfile="${javadoc.jar}">
+            <fileset dir="${api.dest.dir}" />
+        </jar>
+    </target>
+
+    <target name="attach" depends="jar">
+        <attachartifact file="${javadoc.jar}" classifier="javadoc" type="jar" />
+    </target>
+</project>

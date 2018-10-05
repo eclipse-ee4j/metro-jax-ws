@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime' version='2.0'>
+    <endpoint
+        name="wsa_fromwsdl_anonymous1"
+        description="no anonymous"
+        implementation="wsa.fromwsdl.anonymous.server.AddNumbersImpl1"
+        wsdl="WEB-INF/wsdl/AddNumbers.wsdl"
+        service='{http://example.com/}AddNumbersService'
+        port='{http://example.com/}AddNumbersPort1'
+        url-pattern="/hello1"/>
+    <endpoint
+        name="wsa_fromwsdl_anonymous2"
+        description="optional anonymous"
+        implementation="wsa.fromwsdl.anonymous.server.AddNumbersImpl2"
+        wsdl="WEB-INF/wsdl/AddNumbers.wsdl"
+        service='{http://example.com/}AddNumbersService'
+        port='{http://example.com/}AddNumbersPort2'
+        url-pattern="/hello2"/>
+    <endpoint
+        name="wsa_fromwsdl_anonymous3"
+        description="required anonymous"
+        implementation="wsa.fromwsdl.anonymous.server.AddNumbersImpl3"
+        wsdl="WEB-INF/wsdl/AddNumbers.wsdl"
+        service='{http://example.com/}AddNumbersService'
+        port='{http://example.com/}AddNumbersPort3'
+        binding="http://schemas.xmlsoap.org/wsdl/soap/http?addressing=1.0"
+        url-pattern="/hello3"/>
+    <endpoint
+        name="wsa_fromwsdl_anonymous4"
+        description="prohibited anonymous"
+        implementation="wsa.fromwsdl.anonymous.server.AddNumbersImpl4"
+        wsdl="WEB-INF/wsdl/AddNumbers.wsdl"
+        service='{http://example.com/}AddNumbersService'
+        port='{http://example.com/}AddNumbersPort4'
+        url-pattern="/hello4"/>
+</endpoints>

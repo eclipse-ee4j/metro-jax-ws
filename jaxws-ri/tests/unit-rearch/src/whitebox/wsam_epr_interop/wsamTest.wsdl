@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.example.org/wsamTest/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="wsamTest"
+	targetNamespace="http://www.example.org/wsamTest/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.example.org/wsamTest/"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:element name="testOperationResponse" type="xsd:string" />
+			<xsd:element name="testOperationRequest" type="xsd:string" />
+			<xsd:element name="test2OperationRequest"
+				type="xsd:string">
+			</xsd:element>
+			<xsd:element name="test2OperationResponse"
+				type="xsd:string">
+			</xsd:element>
+			<xsd:element name="test3OperationRequest"
+				type="xsd:string">
+			</xsd:element>
+			<xsd:element name="test3OperationResponse"
+				type="xsd:string">
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="testOperationResponse">
+		<wsdl:part element="tns:testOperationResponse"
+			name="testOperationResponse" />
+	</wsdl:message>
+	<wsdl:message name="testOperationRequest">
+		<wsdl:part element="tns:testOperationRequest"
+			name="testOperationRequest" />
+	</wsdl:message>
+	<wsdl:message name="test2OperationRequest1">
+		<wsdl:part name="test2OperationRequest"
+			element="tns:test2OperationRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="test2OperationResponse1">
+		<wsdl:part name="test2OperationResponse"
+			element="tns:test2OperationResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="test3OperationRequest2">
+		<wsdl:part name="test3OperationRequest"
+			element="tns:test3OperationRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="test3OperationResponse2">
+		<wsdl:part name="test3OperationResponse"
+			element="tns:test3OperationResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="wsamTest">
+		<wsdl:operation name="testOperation">
+			<wsdl:input message="tns:testOperationRequest" />
+			<wsdl:output message="tns:testOperationResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:portType name="wsamTest2">
+		<wsdl:operation name="test2Operation">
+			<wsdl:input message="tns:test2OperationRequest1"></wsdl:input>
+			<wsdl:output message="tns:test2OperationResponse1"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:portType name="wsamTest3">
+		<wsdl:operation name="test3Operation">
+			<wsdl:input message="tns:test3OperationRequest2"></wsdl:input>
+			<wsdl:output message="tns:test3OperationResponse2"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="wsamTestSOAP" type="tns:wsamTest">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="testOperation">
+			<soap:operation
+				soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="wsamTest2SOAP" type="tns:wsamTest2">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="test2Operation">
+			<soap:operation
+				soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="wsamTest3SOAP" type="tns:wsamTest3">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="test3Operation">
+			<soap:operation
+				soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="wsamTest">
+		<wsdl:port binding="tns:wsamTestSOAP" name="wsamTestSOAP">
+			<soap:address location="http://www.example.org/" />
+		</wsdl:port>
+	</wsdl:service>
+	<wsdl:service name="wsamTest2SOAP">
+		<wsdl:port name="wsamTest2SOAP" binding="tns:wsamTest2SOAP">
+			<soap:address location="http://www.example.org/" />
+		</wsdl:port>
+		<wsdl:port name="wsamTest3SOAP" binding="tns:wsamTest3SOAP">
+			<soap:address location="http://www.example.org/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

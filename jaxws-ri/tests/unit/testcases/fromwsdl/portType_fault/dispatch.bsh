@@ -1,0 +1,37 @@
+/*
+ * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Distribution License v. 1.0, which is available at
+ * http://www.eclipse.org/org/documents/edl-v10.php.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+QName serviceQName = new QName("urn:test", "FaultService");
+QName portQName = new QName("urn:test", "FaultPort");
+String bindingIdString = SOAPBinding.SOAP11HTTP_BINDING;
+System.out.println(faultPortAddress);
+Service service = Service.create(serviceQName);
+service.addPort(portQName, bindingIdString, faultPortAddress.toString());
+JAXBContext jaxbContext = createJAXBContext(ObjectFactory.class);
+Dispatch dispatch = service.createDispatch(portQName, jaxbContext, Service.Mode.PAYLOAD);
+
+try {
+    String in = "Fault4";
+    JAXBElement echoElement = new ObjectFactory().createEchoElement(in);
+    Object ret = dispatch.invoke(echoElement);
+    fail("did not receive an exception");
+} catch (SOAPFaultException e) {
+    System.out.println("Expected exception received: " + e.getMessage());
+    Detail detail = e.getFault().getDetail();
+    assertNotNull(detail);
+    Iterator i = detail.getDetailEntries();
+    assertTrue(i.hasNext());
+    DetailEntry detail1 = (DetailEntry) i.next();
+    assertEquals(detail1.getElementQName(),
+            new QName(
+                    "urn:test:types", "fault4Element"));
+}
+
+

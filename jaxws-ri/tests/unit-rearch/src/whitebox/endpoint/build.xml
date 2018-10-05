@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE project [
+<!ENTITY commonTargets SYSTEM "../../../common-targets.xml">
+]>
+
+<!--
+  This is the build.xml file for the simple hello tests. These
+  tests deploy a "hello world" type of service endpoint and
+  have a client that calls into the service to send and receive
+  a String.
+  -->
+<project basedir="." default="build" name="whitebox">
+
+  &commonTargets;
+
+  <!-- rest of directory names are set here relative to jaxrpc.home -->
+  <property file="config/build.properties"/>
+
+  <target name="build" depends="setup">
+  </target>
+
+  <target name="deploy">
+  </target>
+
+
+  <target name="runclient" depends="setup">
+        <copy todir="${build.temp.classes}/WEB-INF/wsdl">
+             <fileset dir="${basedir}/config">
+                 <include name="*.wsdl"/>
+                 <include name="*.xsd"/>
+             </fileset>
+        </copy>
+
+	<javac srcdir="${basedir}"
+             fork="true"
+             destdir="${build.temp.classes}"
+             debug="${compile.debug}"
+             optimize="${compile.optimize}"
+             includes="**">
+		<classpath>
+			<path refid="compile.classpath"/>
+		</classpath>
+	</javac>
+    
+    <antcall target="rerun-client"/>
+  </target>
+</project>

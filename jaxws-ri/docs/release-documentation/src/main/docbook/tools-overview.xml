@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="tools-overview" xml:lang="en"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns4="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Overview</title>
+
+    <section xml:id="how">
+        <title>How do I pick a tool?</title>
+
+        <para>The following lists the process to create a web service starting
+        from Java sources, classes, and a WSDL file (server side):</para>
+
+        <orderedlist>
+            <listitem>
+                <para>Starting from Java sources: <orderedlist>
+                        <listitem>
+                            <para>Use <command>annotationProcessing</command> Ant task
+                            to generate the artifacts required by the JAX-WS
+                            specification.</para>
+                        </listitem>
+
+                        <listitem>
+                            <para>Package the <literal>web.xml</literal>,
+                            <literal>sun-jaxws.xml</literal>, service endpoint
+                            interface and implementation class, value types, and
+                            generated classes, if any, into a WAR file,</para>
+                        </listitem>
+
+                        <listitem>
+                            <para>Deploy the WAR to a web container.</para>
+                        </listitem>
+                    </orderedlist></para>
+            </listitem>
+
+            <listitem>
+                <para>Starting from Java classes: <orderedlist>
+                        <listitem>
+                            <para>Use <command>wsgen</command> to generate
+                            portable artifacts.</para>
+                        </listitem>
+
+                        <listitem>
+                            <para>Package the <literal>web.xml</literal>,
+                            <literal>sun-jaxws.xml</literal>, service endpoint
+                            interface and implementation class, value types, and
+                            generated classes, if any, into a WAR file,</para>
+                        </listitem>
+
+                        <listitem>
+                            <para>Deploy the WAR to a web container.</para>
+                        </listitem>
+                    </orderedlist></para>
+            </listitem>
+
+            <listitem>
+                <para>Starting from a WSDL file: <orderedlist>
+                        <listitem>
+                            <para>Use <command>wsimport</command> to generate
+                            portable artifacts.</para>
+                        </listitem>
+
+                        <listitem>
+                            <para>Implement the service endpoint.</para>
+                        </listitem>
+
+                        <listitem>
+                            <para>Package the WSDL file, schema documents,
+                            <literal>web.xml</literal>,
+                            <literal>sun-jaxws.xml</literal>, service endpoint
+                            interface and implementation class, value types, and
+                            generated classes, if any, into a WAR file.</para>
+                        </listitem>
+
+                        <listitem>
+                            <para>Deploy the WAR to a web container.</para>
+                        </listitem>
+                    </orderedlist></para>
+            </listitem>
+        </orderedlist>
+
+        <para>The following lists the process to invoke a web service (client
+        side):</para>
+
+        <orderedlist>
+            <listitem>
+                <para>Starting from deployed web service's WSDL <orderedlist>
+                        <listitem>
+                            <para>Use <command>wsimport</command> to generate
+                            the client-side artifacts.</para>
+                        </listitem>
+
+                        <listitem>
+                            <para>Implement the client to invoke the web
+                            service.</para>
+                        </listitem>
+                    </orderedlist></para>
+            </listitem>
+        </orderedlist>
+    </section>
+    
+    <section xml:id="running-on-jdk6">
+        <title>Running tools on JDK6</title>
+
+        <itemizedlist>
+            <listitem>
+                <para>Copy
+                <filename>&jax-ws.home;/lib/javax.annotation-api.jar</filename>
+                <filename>&jax-ws.home;/lib/jsr181-api.jar</filename>
+                <filename>&jax-ws.home;/lib/jaxws-api.jar</filename> 
+                <filename>&jax-ws.home;/lib/jaxb-api.jar</filename> to
+                <filename>$JDK6_HOME/jre/lib/endorsed</filename>
+                directory</para>
+            </listitem>
+        </itemizedlist>
+
+        <para>For details see <link
+        xlink:href="http://docs.oracle.com/javase/6/docs/technotes/guides/standards/">Endorsed
+        Directory Mechanism</link>. Above,
+        <filename>&jax-ws.home;</filename> points to the root directory of
+        the extracted &jax-ws.product.name.short; bundle.
+        <filename>JDK6_HOME</filename> points to JDK 6 installation
+        directory.</para>
+    </section>
+
+    <section xml:id="jaxws-maven">
+        <title>Maven plugins</title>
+        <para>You can use all jaxws tools within your maven build. Information about maven plugin and its usage is located at 
+            <link xlink:href="https://github.com/eclipse-ee4j/metro-jaxws-commons/tree/master/jaxws-maven-plugin">the plugin homepage.</link>
+        </para>
+    </section>    
+</section>

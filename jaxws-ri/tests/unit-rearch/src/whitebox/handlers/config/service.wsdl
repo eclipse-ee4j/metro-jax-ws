@@ -1,0 +1,124 @@
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<definitions
+  name="HandlerTestService"
+  targetNamespace="urn:test"
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:types="urn:test"
+  xmlns:tns="urn:test">
+  
+  <types>
+  <!-- If any other elements are added here, remember to add them
+       to the comments in HandlerUtil.addHeaderToMessage and also
+       HandlerUtil.createJAXBContext. -->
+    <xsd:schema
+        targetNamespace="urn:test"
+        attributeFormDefault="qualified"
+        elementFormDefault="qualified">
+
+      <xsd:element name="TestInt">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="intin" type="xsd:int"/>
+            </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <xsd:element name="TestIntResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="intout" type="xsd:int"/>
+            </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <xsd:element name="GetReport">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="reportType" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+      <xsd:element name="GetReportResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="name" type="xsd:string"
+                    minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      
+    </xsd:schema>
+  </types>
+
+  <message name="TestIntRequest">
+    <part name="parameters" element="types:TestInt"/>
+  </message>
+  
+  <message name="TestIntResponse">
+    <part name="parameters" element="types:TestIntResponse"/>
+  </message>  
+
+  <message name="GetReportRequest">
+    <part name="parameters" element="types:GetReport"/>
+  </message>
+
+  <message name="GetReportResponse">
+    <part name="parameters" element="types:GetReportResponse"/>
+  </message>  
+  
+  <portType name="TestService">
+    <operation name="TestInt">
+      <input message="tns:TestIntRequest"/>
+      <output message="tns:TestIntResponse"/>      
+    </operation>
+  </portType>
+  
+  <portType name="ReportService">
+    <operation name="GetReport">
+      <input message="tns:GetReportRequest"/>
+      <output message="tns:GetReportResponse"/>
+    </operation>
+  </portType>
+  
+  <binding name="TestServiceBinding" type="tns:TestService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="TestInt">
+      <soap:operation/>
+      <input><soap:body use="literal"/></input>
+      <output><soap:body use="literal"/></output>
+    </operation>      
+  </binding>
+    
+  <binding name="ReportServiceBinding" type="tns:ReportService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="GetReport">
+      <soap:operation/>
+      <input><soap:body use="literal"/></input>
+      <output><soap:body use="literal"/></output>
+    </operation>
+  </binding>
+  
+  <service name="TestService">
+    <port name="TestServicePort" binding="tns:TestServiceBinding">
+      <soap:address location="http://test.org/foo"/>
+    </port>
+    <port name="ReportServicePort" binding="tns:ReportServiceBinding">
+      <soap:address location="http://test.org/foo"/>
+    </port>
+  </service>
+  
+</definitions>

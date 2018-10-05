@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime' version='2.0'>
+  <endpoint
+    name='NewSchemaTest'
+    implementation='client.marshalltest.server.NewSchemaTestImpl'
+    wsdl='WEB-INF/wsdl/MarshallTestService.wsdl'
+    service='{http://marshalltestservice.org/MarshallTestService.wsdl}MarshallTestService'
+    port='{http://marshalltestservice.org/MarshallTestService.wsdl}MarshallTestPort2'
+    url-pattern='/jaxws/NewSchemaTest'/>
+  <endpoint
+    name='MarshallTest'
+    implementation='client.marshalltest.server.MarshallTestImpl'
+    wsdl='WEB-INF/wsdl/MarshallTestService.wsdl'
+    service='{http://marshalltestservice.org/MarshallTestService.wsdl}MarshallTestService'
+    port='{http://marshalltestservice.org/MarshallTestService.wsdl}MarshallTestPort1'
+    url-pattern='/jaxws/MarshallTest'/>
+  <endpoint
+    name='OneWayTest'
+    implementation='client.marshalltest.server.OneWayTestImpl'
+    wsdl='WEB-INF/wsdl/MarshallTestService.wsdl'
+    service='{http://marshalltestservice.org/MarshallTestService.wsdl}MarshallTestService'
+    port='{http://marshalltestservice.org/MarshallTestService.wsdl}MarshallTestPort4'
+    url-pattern='/jaxws/OneWayTest'/>
+  <endpoint
+    name='CompoundTest'
+    implementation='client.marshalltest.server.CompoundTestImpl'
+    wsdl='WEB-INF/wsdl/MarshallTestService.wsdl'
+    service='{http://marshalltestservice.org/MarshallTestService.wsdl}MarshallTestService'
+    port='{http://marshalltestservice.org/MarshallTestService.wsdl}MarshallTestPort3'
+    url-pattern='/jaxws/CompoundTest'/>
+</endpoints>

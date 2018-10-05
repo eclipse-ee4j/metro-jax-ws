@@ -1,0 +1,30 @@
+/*
+ * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Distribution License v. 1.0, which is available at
+ * http://www.eclipse.org/org/documents/edl-v10.php.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+package com.sun.xml.ws.wsdl;
+
+import com.sun.istack.Nullable;
+import com.sun.xml.ws.api.server.SDDocument;
+
+/**
+ * Resolves a systemId to {@link SDDocument}
+ *
+ * @author Jitendra Kotamraju
+ */
+public interface SDDocumentResolver {
+    /**
+     * returns {@link SDDocument} for the give systemId.
+     *
+     * @param systemId document's systemId
+     * @return document for the systemId, null if it cannot resolve.
+     */
+    @Nullable SDDocument resolve(String systemId);
+
+}

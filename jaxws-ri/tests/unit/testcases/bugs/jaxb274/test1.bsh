@@ -1,0 +1,35 @@
+/*
+ * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Distribution License v. 1.0, which is available at
+ * http://www.eclipse.org/org/documents/edl-v10.php.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+bugs.jaxb274.client.Person p1 = new bugs.jaxb274.client.Person();
+p1.setFirstname("f");
+p1.setLastname("l");
+
+List o = new ArrayList();
+o.add(p1);
+
+Holder h = new Holder(o);
+
+// declarating and creating port explicitly due to no-harness mode
+bugs.jaxb274.client.DocLitBare docLitBarePort = new bugs.jaxb274.client.DocLitBareService().getDocLitBarePort();
+
+docLitBarePort.echo(h);
+assertEquals(o.size(), ((List) h.value).size());
+
+bugs.jaxb274.client2.Person p2 = new bugs.jaxb274.client2.Person();
+p2.setFirstname("f");
+p2.setLastname("l");
+
+o = new ArrayList();
+o.add(p2);
+
+h = new Holder(o);
+List r=docLitWrappedPort.echo(o);
+assertEquals(o.size(), r.size());

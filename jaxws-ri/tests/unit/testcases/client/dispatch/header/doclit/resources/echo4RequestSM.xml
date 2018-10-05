@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+    Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://example.com/types">
+    <soapenv:Header>
+        <ns1:echo4>
+            <ns1:argument>bar2</ns1:argument>
+            <ns1:extra>foo2</ns1:extra>
+        </ns1:echo4>
+        <ns1:echo4Header>foobar3</ns1:echo4Header>
+    </soapenv:Header>
+    <soapenv:Body>
+        <ns1:echo4>
+            <ns1:argument>bar1</ns1:argument>
+            <ns1:extra>foo1</ns1:extra>
+        </ns1:echo4>
+    </soapenv:Body>
+</soapenv:Envelope>

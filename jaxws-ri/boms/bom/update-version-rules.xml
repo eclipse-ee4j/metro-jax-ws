@@ -1,0 +1,51 @@
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<ruleset comparisonMethod="maven"
+         xmlns="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://mojo.codehaus.org/versions-maven-plugin/rule/2.0.0 http://mojo.codehaus.org/versions-maven-plugin/xsd/rule-2.0.0.xsd">
+    <rules>
+        <rule groupId="com.sun.xml.ws" artifactId="policy" comparisonMethod="maven">
+            <ignoreVersions>
+                <ignoreVersion type="regex">2.3.1-.*</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+        <rule groupId="com.sun.xml.stream.buffer" artifactId="streambuffer" comparisonMethod="maven">
+            <ignoreVersions>
+                <ignoreVersion type="regex">1.5.1-.*</ignoreVersion>
+                <ignoreVersion type="regex">2.2.*</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+        <rule groupId="org.jvnet.staxex" artifactId="stax-ex" comparisonMethod="maven">
+            <ignoreVersions>
+                <ignoreVersion type="regex">1.7.1-.*</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+        <rule groupId="com.sun.xml.bind" comparisonMethod="maven">
+            <ignoreVersions>
+                <ignoreVersion type="regex">2.2.8-b20.*</ignoreVersion>
+                <ignoreVersion type="regex">2.2.11-M.*</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+        <rule groupId="javax.jws" artifactId="jsr181-api" comparisonMethod="maven">
+            <ignoreVersions>
+                <ignoreVersion type="regex">2.1.1</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+        <rule groupId="org.glassfish.jaxb" comparisonMethod="maven">
+            <ignoreVersions>
+                <ignoreVersion type="regex">2.2.8-b20.*</ignoreVersion>
+                <ignoreVersion type="regex">2.2.11-M.*</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+    </rules>
+</ruleset>

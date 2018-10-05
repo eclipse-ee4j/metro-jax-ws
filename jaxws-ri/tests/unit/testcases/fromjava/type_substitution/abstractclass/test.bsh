@@ -1,0 +1,49 @@
+/*
+ * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Distribution License v. 1.0, which is available at
+ * http://www.eclipse.org/org/documents/edl-v10.php.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+List r = carDealerPort.getSedans();
+
+Toyota car = (Toyota) r.get(0);
+assertEquals("Toyota", car.getMake());
+assertEquals("Camry", car.getModel());
+assertEquals("1998", car.getYear());
+assertEquals("white", car.getColor());
+
+car = (Toyota) r.get(1);
+
+assertEquals("Toyota", car.getMake());
+assertEquals("Corolla", car.getModel());
+assertEquals("1999", car.getYear());
+assertEquals("red", car.getColor());
+
+Toyota oldCar = new Toyota();
+oldCar.setMake("Toyota");
+oldCar.setModel("Avalon");
+oldCar.setYear("1999");
+oldCar.setColor("white");
+
+car = (Toyota) carDealerPort.tradeIn(oldCar);
+assertEquals("Toyota", car.getMake());
+assertEquals("Avalon", car.getModel());
+assertEquals("2007", car.getYear());
+assertEquals("black", car.getColor());
+
+oldCar = new Toyota();
+oldCar.setMake("Toyota");
+oldCar.setModel("Celica");
+oldCar.setYear("2007");
+oldCar.setColor("red");
+
+car = (Toyota) carDealerPort.tradeInVehicle(oldCar);
+assertEquals("Toyota", car.getMake());
+assertEquals("Prius", car.getModel());
+assertEquals("2007", car.getYear());
+assertEquals("white", car.getColor());
+

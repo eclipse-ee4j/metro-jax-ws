@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://marshalltestservice.org/OneWayTestDefs.wsdl" xmlns:xsd1="http://marshalltestservice.org/types4" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="OneWayTestDefs" targetNamespace="http://marshalltestservice.org/OneWayTestDefs.wsdl">
+  <types>
+    <xsd:schema elementFormDefault="qualified" attributeFormDefault="unqualified">
+      <xsd:import namespace="http://marshalltestservice.org/types4" schemaLocation="OneWayTestDefs.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="OneWayRequest">
+    <part name="name" element="xsd1:OneWayMessage" />
+  </message>
+  <portType name="OneWayTest">
+    <operation name="oneWayMethod">
+      <input message="tns:OneWayRequest" />
+    </operation>
+  </portType>
+  <binding name="OneWayTestSoapBinding" type="tns:OneWayTest">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+    <operation name="oneWayMethod">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+    </operation>
+  </binding>
+</definitions>
+

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>com.sun.xml.ws</groupId>
+        <artifactId>jaxws-ri-bom</artifactId>
+        <version>2.3.1-SNAPSHOT</version>
+        <relativePath>../bom/pom.xml</relativePath>
+    </parent>
+    
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.sun.xml.ws</groupId>
+    <artifactId>jaxws-ri-bom-ext</artifactId>
+    
+    <version>2.3.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>JAX-WS RI Bill-of-Materials (BOM) Extensions</name>
+    <description>JAX-WS Reference Implementation Bill-of-Materials (BOM) Extensions</description>
+    <url>https://javaee.github.io/metro-jax-ws</url>
+
+    <properties>
+        <ant.version>1.10.2</ant.version>
+        <asm.version>3.1</asm.version>
+        <commonj.sdo.version>2.1.1.v201112051852</commonj.sdo.version>
+        <eclipselink.version>2.7.2</eclipselink.version>
+        <javax.persistance.version>2.2</javax.persistance.version>
+        <junit.version>4.12</junit.version>
+        <mail.version>1.4.7</mail.version>
+        <servlet-api.version>4.0.0-b07</servlet-api.version>
+    </properties>
+            
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- Should be really reexported? -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet-api.version}</version>
+            </dependency>
+
+            <!-- Plugin dependencies -->
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>${mail.version}</version>
+                <exclusions>
+                    <!-- part of JDK 6+ -->
+                    <exclusion>
+                        <groupId>javax.activation</groupId>
+                        <artifactId>activation</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>javax.persistence-api</artifactId>
+                <version>${javax.persistance.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.persistence</groupId>
+                <artifactId>org.eclipse.persistence.moxy</artifactId>
+                <version>${eclipselink.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commonj.sdo</groupId>
+                <artifactId>commonj.sdo</artifactId>
+                <version>${commonj.sdo.version}</version>
+            </dependency>
+
+            <!-- Optional dependencies -->
+            <dependency>
+                <groupId>org.apache.ant</groupId>
+                <artifactId>ant</artifactId>
+                <optional>true</optional>
+                <version>${ant.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>asm</groupId>
+                <artifactId>asm</artifactId>
+                <type>jar</type>
+                <classifier>sources</classifier>
+                <version>${asm.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+        
+</project>

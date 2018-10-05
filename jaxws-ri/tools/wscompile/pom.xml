@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>com.sun.xml.ws</groupId>
+        <artifactId>project</artifactId>
+        <version>2.3.1-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.sun.xml.ws</groupId>
+    <artifactId>wscompile</artifactId>
+    <version>2.3.1-SNAPSHOT</version>
+
+    <name>JAX-WS RI Tools (wscompile)</name>
+    <description>JAX-WS RI Tools</description>
+
+    <properties>
+        <ant.version>1.9.8</ant.version>
+        <findbugs.exclude>${project.basedir}/exclude.xml</findbugs.exclude>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-jxc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-xjc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>rt</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.istack</groupId>
+            <artifactId>istack-commons-runtime</artifactId>
+            <version>${istack.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>policy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-launcher</artifactId>
+            <version>${ant.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/version</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>com.sun.istack</groupId>
+                <artifactId>istack-commons-maven-plugin</artifactId>
+                <configuration>
+                    <atGenerated>false</atGenerated>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-property</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <rules>
+                                <requireProperty>
+                                    <property>jaxb-api.version</property>
+                                    <message>Property not imported!</message>
+                                </requireProperty>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-api</id>
+                        <phase>process-test-sources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib/api</outputDirectory>
+                            <excludeTransitive>true</excludeTransitive>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>javax.xml.bind</groupId>
+                                    <artifactId>jaxb-api</artifactId>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>javax.xml.ws</groupId>
+                                    <artifactId>jaxws-api</artifactId>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>javax.xml.soap</groupId>
+                                    <artifactId>javax.xml.soap-api</artifactId>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>javax.annotation</groupId>
+                                    <artifactId>javax.annotation-api</artifactId>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>javax.jws</groupId>
+                                    <artifactId>javax.jws-api</artifactId>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-lib</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <excludeArtifactIds>resolver,ant-launcher,ant-nodeps,cobertura,cobertura-runtime,javax.activation</excludeArtifactIds>
+                            <excludeScope>system</excludeScope>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-ant</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib/ant</outputDirectory>
+                            <includeArtifactIds>ant,ant-launcher,ant-nodeps,cobertura</includeArtifactIds>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <configuration>
+                            <compilerArgs>
+                                <arg>--upgrade-module-path</arg>
+                                <arg>${project.build.directory}/lib/jaxws-api-${jaxws-api.version}.jar:${project.build.directory}/lib/javax.annotation-api-${javax.annotation-api.version}.jar</arg>
+                                <arg>--module-path</arg>
+                                <arg>${project.build.directory}/lib:${project.build.directory}/classes</arg>
+                                <arg>--add-modules</arg>
+                                <arg>ant</arg>
+                                <arg>--add-reads</arg>
+                                <arg>com.sun.istack.tools=ant</arg>
+                                <arg>--add-reads</arg>
+                                <arg>com.sun.tools.ws=ant</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <java.io.tmpdir>${project.build.directory}/test-antprojects</java.io.tmpdir>
+                        <bin.folder>${project.build.directory}</bin.folder>
+                        <jaxb-api.version>${jaxb-api.version}</jaxb-api.version>
+                        <javax.jws-api.version>${javax.jws-api.version}</javax.jws-api.version>
+                        <javax.annotation-api.version>${javax.annotation-api.version}</javax.annotation-api.version>
+                        <jaxws-api.version>${jaxws-api.version}</jaxws-api.version>
+                        <net.sourceforge.cobertura.datafile>${net.sourceforge.cobertura.datafile}</net.sourceforge.cobertura.datafile>
+                    </systemPropertyVariables>
+                    <forkCount>1</forkCount>
+                    <reuseForks>false</reuseForks>
+                    <excludes>
+                        <exclude>com.sun.tools.ws.ant.WsImportTaskTest</exclude>
+                        <exclude>com.sun.tools.ws.ant.WsGenTaskTest</exclude>
+                    </excludes>
+                    <argLine>
+                        --add-modules java.xml.bind
+                        --upgrade-module-path ${endorsed.dir}
+                        --module-path ${project.build.directory}/lib
+                    </argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                                <manifestEntries>
+                                    <Multi-Release>true</Multi-Release>
+                                </manifestEntries>
+                            </archive>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>package-test-jar</id>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.ant</groupId>
+                        <artifactId>ant</artifactId>
+                        <version>${ant.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>compile-java9</id>
+                        <phase>compile</phase>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${project.build.outputDirectory}/META-INF/versions/${upper.java.level}" />
+                                <javac srcdir="${mrjar.sourceDirectory}"
+                                       destdir="${project.build.outputDirectory}/META-INF/versions/${upper.java.level}"
+                                       classpath="${project.build.outputDirectory}"
+                                       includeantruntime="false"
+                                       source="${upper.java.level}"
+                                       target="${upper.java.level}">
+                                    <compilerarg line="--upgrade-module-path ${project.build.directory}/lib/jaxb-api-${jaxb-api.version}.jar:${project.build.directory}/lib/jaxws-api-${jaxws-api.version}.jar" />
+                                    <classpath>
+                                        <fileset dir="${project.build.directory}/lib">
+                                            <include name="**/*.jar"/>
+                                        </fileset>
+
+                                        <fileset dir="${project.build.directory}/lib/ant">
+                                            <include name="**/*.jar"/>
+                                        </fileset>
+                                        <pathelement location="${project.build.directory}/classes" />
+                                    </classpath>
+                                </javac>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>update-source-jar</id>
+                        <phase>verify</phase>
+                        <configuration>
+                            <tasks>
+                                <jar destfile="${project.build.directory}/jaxb-xjc-${project.version}-sources.jar" update="true">
+                                    <zipfileset prefix="META-INF/versions" dir="${mrjar.sourceDirectory}"/>
+                                </jar>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <!--
+                    TODO endorse for JDK9
+                <executions>
+                    <execution>
+                        <id>EBCDIC-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <echo message="Starting EBCDIC test." />
+                                <path id="compile.classpath">
+                                    <pathelement location="${basedir}/target/classes"/>
+                                    <fileset dir="${basedir}/target/lib/" includes="*.jar"/>
+                                    <fileset dir="${basedir}/target/endorsed/" includes="*.jar"/>
+                                    <fileset dir="${basedir}/target/lib/ant" includes="*.jar" />
+                                </path>
+                                <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+                                    <classpath refid="compile.classpath"/>
+                                </taskdef>
+                                <mkdir dir="${basedir}/target/EBCDIC" />
+                                <wsimport
+                                        fork="true"
+                                        debug="true"
+                                        destdir="${basedir}/target/EBCDIC"
+                                        quiet="true"
+                                        xendorsed="true"
+                                        wsdl="${basedir}/src/test/resources/com/sun/tools/ws/EBCDIC.wsdl">
+                                    <jvmarg line="-Dfile.encoding=Cp037"/>
+                                    <jvmarg line="-Dnet.sourceforge.cobertura.datafile=${net.sourceforge.cobertura.datafile}"/>
+                                </wsimport>
+                            </target>
+                            &lt;!&ndash; TODO JDK9 endorse for &ndash;&gt;
+                            <skip>true</skip>
+                        </configuration>
+                    </execution>
+                </executions>-->
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <additionalJOptions>
+                        <!-- ant on classpath -->
+                        <additionalJOption>--add-reads</additionalJOption>
+                        <additionalJOption>com.sun.tools.ws=ALL-UNNAMED</additionalJOption>
+                        <additionalJOption>--add-reads</additionalJOption>
+                        <additionalJOption>com.sun.istack.tools=ALL-UNNAMED</additionalJOption>
+                        <additionalparam>-Xdoclint:none</additionalparam>
+                    </additionalJOptions>
+                </configuration>
+            </plugin>
+            <!--
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>osgi-bundle</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>bundle</goal>
+                        </goals>
+                        <configuration>
+                            <instructions>
+                                <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+                                <Export-Package>
+                                    com.sun.istack;version=${project.version},
+                                    com.sun.tools.ws.ant;version=${project.version},
+                                    com.sun.tools.ws.api.wsdl;version=${project.version},
+                                    com.sun.tools.ws.processor.generator;version=${project.version},
+                                    com.sun.tools.ws.processor.model.exporter;version=${project.version},
+                                    com.sun.tools.ws.processor.model.java;version=${project.version},
+                                    com.sun.tools.ws.processor.model.jaxb;version=${project.version},
+                                    com.sun.tools.ws.processor.modeler.annotation;version=${project.version},
+                                    com.sun.tools.ws.processor.modeler.wsdl;version=${project.version},
+                                    com.sun.tools.ws.processor.util;version=${project.version},
+                                    com.sun.tools.ws.resources;version=${project.version},
+                                    com.sun.tools.ws.spi;version=${project.version},
+                                    com.sun.tools.ws.util.xml;version=${project.version},
+                                    com.sun.tools.ws.wscompile.plugin.at_generated;version=${project.version},
+                                    com.sun.tools.ws.wsdl.document.http;version=${project.version},
+                                    com.sun.tools.ws.wsdl.document.jaxws;version=${project.version},
+                                    com.sun.tools.ws.wsdl.document.mime;version=${project.version},
+                                    com.sun.tools.ws.wsdl.document.schema;version=${project.version},
+                                    com.sun.tools.ws.wsdl.document.soap;version=${project.version},
+                                    com.sun.tools.ws.wsdl.framework;version=${project.version},
+                                    com.sun.tools.ws.wsdl.parser;version=${project.version}
+                                </Export-Package>
+                                <Import-Package>
+                                    com.sun.codemodel;version=${jaxb-xjc.version},
+                                    com.sun.codemodel.writer;version=${jaxb-xjc.version},
+                                    com.sun.istack;version=${jaxb-impl.version},
+                                    com.sun.istack.localization;version=${jaxb-impl.version},
+                                    com.sun.istack.tools;version=${jaxb-xjc.version},
+                                    com.sun.tools.javac,
+                                    com.sun.tools.javac.processing,
+                                    com.sun.tools.javac.util,
+                                    com.sun.tools.jxc.ap;version=${jaxb-xjc.version},
+                                    com.sun.tools.jxc.model.nav;version=${jaxb-xjc.version},
+                                    com.sun.tools.xjc;version=${jaxb-xjc.version},
+                                    com.sun.tools.xjc.api;version=${jaxb-xjc.version},
+                                    com.sun.tools.xjc.api.util;version=${jaxb-xjc.version},
+                                    com.sun.tools.xjc.reader;version=${jaxb-xjc.version},
+                                    com.sun.tools.xjc.reader.internalizer;version=${jaxb-xjc.version},
+                                    com.sun.tools.xjc.util;version=${jaxb-xjc.version},
+                                    com.sun.xml.bind;version=${jaxb-impl.version},
+                                    com.sun.xml.bind.marshaller;version=${jaxb-impl.version},
+                                    com.sun.xml.bind.unmarshaller;version=${jaxb-impl.version},
+                                    com.sun.xml.bind.util;version=${jaxb-impl.version},
+                                    com.sun.xml.bind.v2.model.annotation;version=${jaxb-impl.version},
+                                    com.sun.xml.bind.v2.model.nav;version=${jaxb-impl.version},
+                                    com.sun.xml.bind.v2.util;version=${jaxb-impl.version},
+                                    com.sun.xml.txw2;version=${jaxb-impl.version},
+                                    com.sun.xml.txw2.annotation;version=${jaxb-impl.version},
+                                    com.sun.xml.txw2.output;version=${jaxb-impl.version},
+                                    com.sun.xml.ws.addressing;version=${project.version},
+                                    com.sun.xml.ws.addressing.v200408;version=${project.version},
+                                    com.sun.xml.ws.api;version=${project.version},
+                                    com.sun.xml.ws.api.addressing;version=${project.version},
+                                    com.sun.xml.ws.api.databinding;version=${project.version},
+                                    com.sun.xml.ws.api.model;version=${project.version},
+                                    com.sun.xml.ws.api.server;version=${project.version},
+                                    com.sun.xml.ws.api.streaming;version=${project.version},
+                                    com.sun.xml.ws.api.wsdl.parser;version=${project.version},
+                                    com.sun.xml.ws.api.wsdl.writer;version=${project.version},
+                                    com.sun.xml.ws.binding;version=${project.version},
+                                    com.sun.xml.ws.db;version=${project.version},
+                                    com.sun.xml.ws.model;version=${project.version},
+                                    com.sun.xml.ws.policy.sourcemodel.wspolicy;version=${project.version},
+                                    com.sun.xml.ws.spi.db;version=${project.version},
+                                    com.sun.xml.ws.streaming;version=${project.version},
+                                    com.sun.xml.ws.util;version=${project.version},
+                                    com.sun.xml.ws.util.exception;version=${project.version},
+                                    com.sun.xml.ws.util.xml;version=${project.version},
+                                    com.sun.xml.ws.wsdl.parser;version=${project.version},
+                                    com.sun.xml.ws.wsdl.writer;version=${project.version},
+                                    com.sun.xml.xsom.parser;version=${jaxb-xjc.version},
+                                    javax.activation,
+                                    javax.annotation.processing,
+                                    javax.jws,
+                                    javax.jws.soap,
+                                    javax.lang.model,
+                                    javax.lang.model.element,
+                                    javax.lang.model.type,
+                                    javax.lang.model.util,
+                                    javax.net.ssl,
+                                    javax.tools,
+                                    javax.xml.bind;version=${jaxb-api.version},
+                                    javax.xml.bind.annotation;version=${jaxb-api.version},
+                                    javax.xml.bind.annotation.adapters;version=${jaxb-api.version},
+                                    javax.xml.namespace,
+                                    javax.xml.parsers,
+                                    javax.xml.stream,
+                                    javax.xml.transform,
+                                    javax.xml.transform.dom,
+                                    javax.xml.transform.sax,
+                                    javax.xml.transform.stream,
+                                    javax.xml.ws;version=${jaxws-api.osgiVersion},
+                                    javax.xml.xpath,
+                                    org.apache.tools.ant;optional=true,
+                                    org.apache.tools.ant.taskdefs;optional=true,
+                                    org.apache.tools.ant.types;optional=true,
+                                    org.w3c.dom,
+                                    org.xml.sax,
+                                    org.xml.sax.ext,
+                                    org.xml.sax.helpers
+                                </Import-Package>
+                            </instructions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            -->
+        </plugins>
+    </build>
+
+</project>

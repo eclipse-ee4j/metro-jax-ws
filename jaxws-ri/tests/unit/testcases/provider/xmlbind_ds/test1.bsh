@@ -1,0 +1,39 @@
+/*
+ * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Distribution License v. 1.0, which is available at
+ * http://www.eclipse.org/org/documents/edl-v10.php.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+service = Service.create(serviceQName);
+service.addPort(portQName, HTTPBinding.HTTP_BINDING, helloPortAddress.toString());
+dispatch = service.createDispatch(portQName, DataSource.class, Service.Mode.MESSAGE);
+message = getSOAPMessage();
+ds = new DataSource() {
+    getInputStream() {
+        try {
+             bos = new ByteArrayOutputStream();
+             message.writeTo(bos);
+             bos.close();
+             return new ByteArrayInputStream(bos.toByteArray());
+        } catch(Exception ioe) {
+             throw new RuntimeException(ioe);
+        }
+    }
+
+    getOutputStream() {
+        return null;
+    }
+
+    getContentType() {
+        return message.getMimeHeaders().getHeader("Content-Type")[0];
+    }
+
+    getName() {
+        return "";
+    }
+};
+result = dispatch.invoke(ds);
