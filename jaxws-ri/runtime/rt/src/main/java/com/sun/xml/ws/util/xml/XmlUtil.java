@@ -393,6 +393,11 @@ public class XmlUtil {
     }
 
     private static boolean xmlSecurityDisabled(boolean runtimeDisabled) {
+        return xmlSecurityDisabled(System.getSecurityManager() != null, runtimeDisabled);
+    }
+
+    private static boolean xmlSecurityDisabled(boolean runWithSM, boolean runtimeDisabled) {
+        if (runWithSM) return false;
         return XML_SECURITY_DISABLED || runtimeDisabled;
     }
 
