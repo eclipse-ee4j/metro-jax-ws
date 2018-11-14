@@ -12,6 +12,7 @@ package com.sun.xml.ws.message.saaj;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -21,6 +22,7 @@ import java.util.Iterator;
 import javax.xml.namespace.QName;
 import javax.xml.soap.AttachmentPart;
 import javax.xml.soap.MessageFactory;
+import javax.xml.soap.MimeHeader;
 import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
@@ -32,6 +34,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
+import com.oracle.webservices.api.message.MessageContextFactory;
 
 import com.sun.xml.ws.api.BindingID;
 import com.sun.xml.ws.api.SOAPVersion;
@@ -222,6 +226,30 @@ public class SAAJFactoryTest extends TestCase {
                         "</RequestParams>" +
                         "</SampleServiceRequest>",
                 nodeToText(request));
+    }
+    
+    public void testDuplicatedContentID() throws Exception {
+        String ctype = "multipart/related; boundary=MIME_Boundary; "+ 
+                    "start=\"<6232425701115978772--54bee05.140acdf4f8a.-7f3f>\"; " + 
+                    "type=\"text/xml\"; start-info=\"text/xml\"";
+        InputStream is = getClass().getClassLoader().getResourceAsStream("etc/bug17367334InputMsg.txt");
+        MessageContextFactory mcf = MessageContextFactory.createFactory();
+        Packet packet = (Packet) mcf.createContext(is, ctype);
+        Message message = packet.getInternalMessage();
+
+        SAAJFactory factory = new SAAJFactory();
+        SOAPMessage saajMessage = factory.readAsSOAPMessage(SOAPVersion.SOAP_11, message);
+
+        AttachmentPart ap = (AttachmentPart) saajMessage.getAttachments().next();
+        Iterator it = ap.getAllMimeHeaders();
+        int countContentID = 0;
+        while (it.hasNext()) {
+            MimeHeader mh = (MimeHeader)it.next();
+            if ("Content-Id".equalsIgnoreCase(mh.getName())) {
+                countContentID++;
+            }
+        }
+        assertEquals("More than one Content-Id", 1, countContentID);
     }
 
     private AttachmentPart addAttachmentPart(SOAPMessage msg, String value) {
