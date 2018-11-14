@@ -287,7 +287,7 @@ public class SAAJFactory {
         return msg;
     }
 	
-	static protected void addAttachmentsToSOAPMessage(SOAPMessage msg, Message message) {
+    static protected void addAttachmentsToSOAPMessage(SOAPMessage msg, Message message) {
         for(Attachment att : message.getAttachments()) {
             AttachmentPart part = msg.createAttachmentPart();
             part.setDataHandler(att.asDataHandler());
@@ -309,8 +309,8 @@ public class SAAJFactory {
                 Iterator<AttachmentEx.MimeHeader> imh = ax.getMimeHeaders();
                 while (imh.hasNext()) {
                     AttachmentEx.MimeHeader ame = imh.next();
-                    if ((!"Content-ID".equals(ame.getName()))
-                            && (!"Content-Type".equals(ame.getName())))
+                    if ((!"Content-ID".equalsIgnoreCase(ame.getName()))
+                            && (!"Content-Type".equalsIgnoreCase(ame.getName())))
                         part.addMimeHeader(ame.getName(), ame.getValue());
                 }
             }
