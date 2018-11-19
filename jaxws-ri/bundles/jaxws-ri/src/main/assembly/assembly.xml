@@ -62,11 +62,11 @@
             <fileMode>0644</fileMode>
             <includes>
                 <include>com.sun.org.apache.xml.internal:resolver</include>
-                <include>javax.annotation:javax.annotation-api</include>
-                <include>javax.xml.soap:javax.xml.soap-api</include>
-                <include>javax.jws:jsr181-api</include>
-                <include>javax.xml.bind:jaxb-api</include>
-                <include>javax.xml.ws:jaxws-api</include>
+                <include>jakarta.annotation:jakarta.annotation-api</include>
+                <include>jakarta.xml.soap:jakarta.xml.soap-api</include>
+                <include>jakarta.jws:jakarta.jws-api</include>
+                <include>jakarta.xml.bind:jakarta.xml.bind-api</include>
+                <include>jakarta.xml.ws:jakarta.xml.ws-api</include>
                 <include>${project.groupId}:jaxws-rt</include>
                 <include>${project.groupId}:jaxws-tools</include>
             </includes>

@@ -117,17 +117,17 @@
             </listitem>
         </orderedlist>
     </section>
-    
+
     <section xml:id="running-on-jdk6">
         <title>Running tools on JDK6</title>
 
         <itemizedlist>
             <listitem>
                 <para>Copy
-                <filename>&jax-ws.home;/lib/javax.annotation-api.jar</filename>
-                <filename>&jax-ws.home;/lib/jsr181-api.jar</filename>
-                <filename>&jax-ws.home;/lib/jaxws-api.jar</filename> 
-                <filename>&jax-ws.home;/lib/jaxb-api.jar</filename> to
+                <filename>&jax-ws.home;/lib/jakarta.annotation-api.jar</filename>
+                <filename>&jax-ws.home;/lib/jakarta.jws-api.jar</filename>
+                <filename>&jax-ws.home;/lib/jakarta.xml.ws-api.jar</filename>
+                <filename>&jax-ws.home;/lib/jakarta.xml.bind-api.jar</filename> to
                 <filename>$JDK6_HOME/jre/lib/endorsed</filename>
                 directory</para>
             </listitem>
@@ -144,8 +144,8 @@
 
     <section xml:id="jaxws-maven">
         <title>Maven plugins</title>
-        <para>You can use all jaxws tools within your maven build. Information about maven plugin and its usage is located at 
+        <para>You can use all jaxws tools within your maven build. Information about maven plugin and its usage is located at
             <link xlink:href="https://github.com/eclipse-ee4j/metro-jaxws-commons/tree/master/jaxws-maven-plugin">the plugin homepage.</link>
         </para>
-    </section>    
+    </section>
 </section>

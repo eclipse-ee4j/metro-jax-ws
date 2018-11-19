@@ -18,13 +18,13 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-ri-bom-ext</artifactId>
-        <version>2.3.1-SNAPSHOT</version>
+        <version>2.3.2-SNAPSHOT</version>
         <relativePath>boms/bom-ext/pom.xml</relativePath>
     </parent>
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>project</artifactId>
-    <version>2.3.1-SNAPSHOT</version>
+    <version>2.3.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JAX-WS (JSR-224) Reference Implementation</name>
     <description>Open source Reference Implementation of JSR-224: Java API for XML Web Services</description>
@@ -68,11 +68,6 @@
         </developer>
     </developers>
 
-    <organization>
-        <name>Oracle</name>
-        <url>http://www.oracle.com/</url>
-    </organization>
-
     <issueManagement>
         <system>github</system>
         <url>https://github.com/eclipse-ee4j/metro-jax-ws/issues</url>
@@ -88,53 +83,20 @@
         </mailingList>
     </mailingLists>
 
-    <!-- TODO: Remove after 1.3.1 release -->
-    <repositories>
-        <repository>
-            <id>releases.java.net</id>
-            <url>http://maven.java.net/content/repositories/releases/</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>jvnet-nexus-staging</id>
-            <url>http://maven.java.net/content/repositories/staging/</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>eclipse</id>
-            <url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>jvnet-nexus-snapshots</id>
-            <url>http://maven.java.net/content/repositories/snapshots/</url>
-            <layout>default</layout>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <properties>
         <ignore.failing.tests>true</ignore.failing.tests>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <main.basedir>${project.basedir}</main.basedir>
-        <javadoc.links.dir>${main.basedir}/src/main/javadoc-link</javadoc.links.dir>
-        <javadoc.links.offline>true</javadoc.links.offline>
         <findbugs.skip>false</findbugs.skip>
         <findbugs.threshold>Normal</findbugs.threshold>
         <findbugs.common>exclude-common.xml</findbugs.common>
         <findbugs.exclude/>
         <findbugs.version>3.0.1</findbugs.version>
         <glassfish.findbugs.version>1.7</glassfish.findbugs.version>
-        <netbeans.hint.jdkPlatform>JDK_1.8</netbeans.hint.jdkPlatform>
         <mrjar.sourceDirectory>${project.basedir}/src/main/java-mr</mrjar.sourceDirectory>
         <base.java.level>8</base.java.level>
         <upper.java.level>9</upper.java.level>
+        <legal.doc.source>${maven.multiModuleProjectDirectory}/..</legal.doc.source>
+        <oss.disallow.snapshots>true</oss.disallow.snapshots>
     </properties>
 
     <modules>
@@ -165,7 +127,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.8</version>
+                    <version>3.0.0</version>
                     <executions>
                         <execution>
                             <id>jaxb.version</id>
@@ -257,12 +219,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <groupId>com.sun.wts.tools.ant</groupId>
                     <artifactId>package-rename-task</artifactId>
-                    <version>1.5</version>
+                    <version>1.5.2</version>
                 </plugin>
                 <plugin>
                     <groupId>com.sun.istack</groupId>
@@ -290,7 +252,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.7.0</version>
+                    <version>3.8.0</version>
                     <executions>
                         <execution>
                             <id>default-compile</id>
@@ -314,15 +276,15 @@
                     </executions>
                     <configuration>
                         <!--test compile-->
-                        <source>1.8</source>
-                        <target>1.8</target>
+                        <source>${upper.java.level}</source>
+                        <target>${upper.java.level}</target>
                     </configuration>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.20</version>
+                    <version>3.0.0-M1</version>
                     <configuration>
                         <forkCount>1</forkCount>
                         <reuseForks>true</reuseForks>
@@ -375,7 +337,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                     <configuration>
                         <archive>
                             <manifestEntries>
@@ -403,23 +365,6 @@
                         <dependencySourceExcludes>
                             <dependencySourceExclude>com.sun.xml.ws:*</dependencySourceExclude>
                         </dependencySourceExcludes>
-                        <offlineLinks>
-                            <offlineLink>
-                                <url>http://docs.oracle.com/javase/8/docs/api/</url>
-                                <location>${javadoc.links.dir}/javase8/</location>
-                            </offlineLink>
-                            <offlineLink>
-                                <url>https://javadoc.io/doc/javax.xml.bind/jaxb-api/${jaxb-api.version}/</url>
-                                <location>${javadoc.links.dir}/jaxb-api/</location>
-                            </offlineLink>
-                            <offlineLink>
-                                <url>https://javadoc.io/doc/javax.xml.ws/jaxws-api/${jaxws-api.version}/</url>
-                                <location>${javadoc.links.dir}/jaxws-api/</location>
-                            </offlineLink>
-                        </offlineLinks>
-                        <additionalJOptions>
-                            <additionalJOption>-Xdoclint:none</additionalJOption>
-                        </additionalJOptions>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -442,7 +387,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>2.4.0</version>
+                    <version>3.5.1</version>
                     <extensions>true</extensions>
                 </plugin>
                 <plugin>
@@ -468,30 +413,9 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
-                    <configuration>
-                        <createChecksum>true</createChecksum>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
-                    <configuration>
-                        <retryFailedDeploymentCount>10</retryFailedDeploymentCount>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>org.glassfish.copyright</groupId>
                     <artifactId>glassfish-copyright-maven-plugin</artifactId>
-                    <version>1.42</version>
+                    <version>1.50</version>
                     <configuration>
                         <templateFile>src/main/resources/copyright.txt</templateFile>
                         <excludeFile>src/main/resources/copyright-exclude</excludeFile>
@@ -506,23 +430,6 @@
                         <ignoreYear>false</ignoreYear>
                     </configuration>
                 </plugin>
-                <plugin>
-                    <groupId>org.glassfish.build</groupId>
-                    <artifactId>gfnexus-maven-plugin</artifactId>
-                    <version>0.20</version>
-                    <configuration>
-                        <nexusRepoUrl>https://maven.java.net/</nexusRepoUrl>
-                        <nexusRepoId>jvnet-nexus-staging</nexusRepoId>
-                        <stagingRepos>
-                            <stagingRepo>
-                                <ref>com.sun.xml.ws:rt:${project.version}:jar</ref>
-                                <profile>javax.jws</profile>
-                            </stagingRepo>
-                        </stagingRepos>
-                        <promotionProfile>metro</promotionProfile>
-                        <message>JAX-WS_${project.version}</message>
-                    </configuration>
-                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -532,28 +439,28 @@
                 <artifactId>import-properties-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>prepare-endorsed</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${maven.endorsed.skip}</skip>
-                            <outputDirectory>${endorsed.dir}</outputDirectory>
-                            <silent>false</silent>
-                            <includeArtifactIds>javax.annotation-api,javax.jws-api,jaxb-api,javax.xml.soap-api,jaxws-api</includeArtifactIds>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <executions>
+                    <execution>
+                        <id>add-legal-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${legal.doc.source}</directory>
+                                    <includes>
+                                        <include>NOTICE.md</include>
+                                        <include>LICENSE.md</include>
+                                    </includes>
+                                    <targetPath>META-INF</targetPath>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>add-source</id>
                         <phase>generate-sources</phase>
@@ -602,33 +509,23 @@
                         <configuration>
                             <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
                             <revisionOnScmFailure>unknown</revisionOnScmFailure>
+                            <shortRevisionLength>7</shortRevisionLength>
+                            <timestampFormat>{0,date,yyyy-MM-dd'T'HH:mm:ssZ}</timestampFormat>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <configuration>
-                    <reportPlugins>
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>findbugs-maven-plugin</artifactId>
-                            <version>${findbugs.version}</version>
-                            <configuration>
-                                <skip>${findbugs.skip}</skip>
-                                <threshold>${findbugs.threshold}</threshold>
-                                <excludeFilterFile>
-                                    ${findbugs.common},${findbugs.exclude}
-                                </excludeFilterFile>
-                            </configuration>
-                        </plugin>
-                    </reportPlugins>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.glassfish.build</groupId>
-                <artifactId>gfnexus-maven-plugin</artifactId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
         <!--extensions>
@@ -640,47 +537,24 @@
         </extensions-->
     </build>
 
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.version}</version>
+                <configuration>
+                    <skip>${findbugs.skip}</skip>
+                    <threshold>${findbugs.threshold}</threshold>
+                    <excludeFilterFile>
+                        ${findbugs.common},${findbugs.exclude}
+                    </excludeFilterFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+  
     <profiles>
-        <profile>
-            <id>sources-profile</id>
-            <activation>
-                <property>
-                    <name>!skipSources</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <configuration>
-                            <additionalparam>-Xdoclint:none</additionalparam>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <id>dev</id>
             <activation>
@@ -702,61 +576,7 @@
             </activation>
         </profile>
         <profile>
-            <id>re-build</id>
-            <activation>
-                <property>
-                    <name>license.url</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>wagon-maven-plugin</artifactId>
-                        <version>1.0-beta-4</version>
-                        <inherited>false</inherited>
-                        <executions>
-                            <execution>
-                                <id>get-license</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>download-single</goal>
-                                </goals>
-                                <configuration>
-                                    <url>${license.url}</url>
-                                    <fromFile>TLDA_SCSL_Licensees_License_Notice.txt</fromFile>
-                                    <toDir>${project.build.directory}/license</toDir>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <inherited>false</inherited>
-                        <executions>
-                            <execution>
-                                <id>make-licensee-src-assembly</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                                <configuration>
-                                    <finalName>jaxws-ri-${project.version}-src-licensee</finalName>
-                                    <attach>false</attach>
-                                    <appendAssemblyId>false</appendAssemblyId>
-                                    <descriptors>
-                                        <descriptor>src/main/assembly/assembly-src-licensee.xml</descriptor>
-                                    </descriptors>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>release-profile</id>
+            <id>oss-release</id>
             <build>
                 <plugins>
                     <plugin>
@@ -778,7 +598,7 @@
                                             <message>release version no SNAPSHOT Allowed!</message>
                                         </requireReleaseVersion>
                                     </rules>
-                                    <fail>true</fail>
+                                    <fail>${oss.disallow.snapshots}</fail>
                                 </configuration>
                             </execution>
                         </executions>
@@ -801,59 +621,6 @@
                         </executions>
                     </plugin>
 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-site-plugin</artifactId>
-                        <configuration>
-                            <skipDeploy>true</skipDeploy>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.1</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-deploy-plugin</artifactId>
-                        <inherited>true</inherited>
-                        <configuration>
-                            <retryFailedDeploymentCount>10</retryFailedDeploymentCount>
-                        </configuration>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -951,19 +718,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <inherited>true</inherited>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -986,29 +740,28 @@
     <dependencies>
         <!-- Make sure new apis are used across the project -->
         <dependency>
-            <groupId>javax.xml.ws</groupId>
-            <artifactId>jaxws-api</artifactId>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>javax.xml.soap</groupId>
-            <artifactId>javax.xml.soap-api</artifactId>
+            <groupId>jakarta.xml.soap</groupId>
+            <artifactId>jakarta.xml.soap-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>javax.jws</groupId>
-            <artifactId>javax.jws-api</artifactId>
+            <groupId>jakarta.jws</groupId>
+            <artifactId>jakarta.jws-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-            <scope>provided</scope>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
         </dependency>
     </dependencies>
 

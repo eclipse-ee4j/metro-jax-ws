@@ -23,22 +23,11 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <dependencySets>
         <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <scope>provided</scope>
             <outputDirectory>/</outputDirectory>
             <includes>
-                <include>com.sun.xml.ws:wscompile:jar:sources</include>
-            </includes>
-            <unpack>true</unpack>
-            <unpackOptions>
-                <excludes>
-                    <exclude>**/module-info.java</exclude>
-                </excludes>
-            </unpackOptions>
-            <useTransitiveDependencies>false</useTransitiveDependencies>
-        </dependencySet>
-        <dependencySet>
-            <outputDirectory>/</outputDirectory>
-            <includes>
-                <include>com.sun.xml.ws:jaxws-tools-bundle:jar:sources</include>
+                <include>com.sun.xml.ws:tools:jar:sources</include>
             </includes>
             <unpack>true</unpack>
             <useTransitiveDependencies>false</useTransitiveDependencies>

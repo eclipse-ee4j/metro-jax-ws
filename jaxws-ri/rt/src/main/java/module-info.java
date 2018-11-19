@@ -39,7 +39,7 @@ module com.sun.xml.ws {
     requires jdk.httpserver;
 
 
-    requires transitive java.activation;
+    requires transitive jakarta.activation;
     requires transitive java.xml;
     requires transitive java.xml.bind;
 
@@ -77,6 +77,8 @@ module com.sun.xml.ws {
     exports com.sun.xml.ws.wsdl.parser;
     exports com.sun.xml.ws.wsdl.writer;
     exports com.sun.xml.ws.encoding;
+    
+    exports com.sun.xml.ws.spi to java.xml.ws;
 
     // XML document content needs to be exported
     opens com.sun.xml.ws.runtime.config to java.xml.bind;

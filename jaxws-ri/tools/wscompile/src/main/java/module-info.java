@@ -17,8 +17,20 @@
  * @since 2.4.0
  */
 module com.sun.tools.ws {
-    requires com.sun.xml.ws;
+
+    requires java.compiler;
+    requires java.logging;
+    requires java.rmi;
+    requires java.xml;
+    requires java.xml.bind;
     requires javax.jws;
+    requires java.xml.ws;
+
+    requires com.sun.xml.ws;
+    requires com.sun.xml.ws.fi;
+    requires com.sun.xml.ws.httpspi.servlet;
+    requires com.sun.xml.ws.servlet;
+
     requires com.sun.istack.runtime;
     requires com.sun.istack.tools;
     requires com.sun.codemodel;
@@ -26,12 +38,6 @@ module com.sun.tools.ws {
     requires com.sun.tools.xjc;
     requires com.sun.xml.xsom;
     requires com.sun.xml.ws.policy;
-    requires java.compiler;
-    requires java.logging;
-    requires java.rmi;
-    requires java.xml;
-    requires java.xml.bind;
-    requires java.xml.ws;
 
     exports com.sun.tools.ws;
     exports com.sun.tools.ws.ant;

@@ -34,4 +34,5 @@ java_pid*
 # gradle
 .gradle/
 /build
-/jaxws-ri/bundles/jaxws-ri-jdk/filelist
+/jaxws-ri/tools/wscompile/com
+/jaxws-ri/tools/wscompile/jaxws

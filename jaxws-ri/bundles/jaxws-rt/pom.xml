@@ -17,36 +17,36 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>bundles</artifactId>
-        <version>2.3.1-SNAPSHOT</version>
+        <version>2.3.2-SNAPSHOT</version>
     </parent>
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-rt</artifactId>
-    <version>2.3.1-SNAPSHOT</version>
-    
+    <version>2.3.2-SNAPSHOT</version>
+
     <packaging>pom</packaging>
     <name>JAX-WS RI Runtime Bundle</name>
 
     <dependencies>
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.xml.ws</groupId>
-            <artifactId>jaxws-api</artifactId>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.xml.soap</groupId>
-            <artifactId>javax.xml.soap-api</artifactId>
+            <groupId>jakarta.xml.soap</groupId>
+            <artifactId>jakarta.xml.soap-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.jws</groupId>
-            <artifactId>javax.jws-api</artifactId>
+            <groupId>jakarta.jws</groupId>
+            <artifactId>jakarta.jws-api</artifactId>
         </dependency>
         <!-- Provided dependencies -->
         <dependency>
@@ -59,7 +59,7 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish.gmbal</groupId>
-            <artifactId>gmbal-api-only</artifactId>
+            <artifactId>gmbal</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jvnet.staxex</groupId>
@@ -98,8 +98,8 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -107,40 +107,8 @@
             <artifactId>resolver</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>javax.activation-api</artifactId>
-        </dependency>
-        
-        <!-- module dependencies -->
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>rt</artifactId>
-            <version>${project.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>rt-fi</artifactId>
-            <version>${project.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>httpspi-servlet</artifactId>
-            <version>${project.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>servlet</artifactId>
-            <version>${project.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-rt-bundle</artifactId>
-            <version>${project.version}</version>
-            <optional>true</optional>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
         </dependency>
 
         <!-- module dependencies -->
@@ -148,44 +116,68 @@
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>rt</artifactId>
             <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>rt-fi</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>httpspi-servlet</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>servlet</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>runtime</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- module sources -->
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>rt</artifactId>
+            <version>${project.version}</version>
             <classifier>sources</classifier>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>rt-fi</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>httpspi-servlet</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>servlet</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-rt-bundle</artifactId>
+            <artifactId>runtime</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
-            <optional>true</optional>
-        </dependency>
-
-
-        <!-- Test dependencies -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -194,7 +186,7 @@
         <module>../../rt-fi</module>
         <module>../../httpspi-servlet</module>
         <module>../../servlet</module>
-        <module>jaxws-rt-bundle</module>
+        <module>runtime</module>
     </modules>
 
     <build>
@@ -217,7 +209,7 @@
                             <archive>
                                 <manifestEntries>
                                     <probe-provider-class-names>com.sun.xml.ws.transport.http.servlet.JAXWSRIDeploymentProbeProvider</probe-provider-class-names>
-                                    <Class-Path>javax.annotation-api.jar javax.jws-api.jar jaxb-api.jar jaxws-api.jar javax.xml.soap-api.jar FastInfoset.jar gmbal-api-only.jar ha-api.jar jaxb-impl.jar management-api.jar mimepull.jar policy.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar woodstox-core.jar</Class-Path>
+                                    <Class-Path>jakarta.annotation-api.jar jakarta.jws-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar FastInfoset.jar gmbal.jar ha-api.jar jaxb-impl.jar management-api.jar mimepull.jar policy.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar woodstox-core.jar</Class-Path>
                                     <Extension-Name>com.sun.xml.ws</Extension-Name>
                                     <Multi-Release>true</Multi-Release>
                                 </manifestEntries>
@@ -238,7 +230,7 @@
                             <archive>
                                 <manifestEntries>
                                     <probe-provider-class-names>com.sun.xml.ws.transport.http.servlet.JAXWSRIDeploymentProbeProvider</probe-provider-class-names>
-                                    <Class-Path>javax.annotation-api.jar javax.jws-api.jar jaxb-api.jar jaxws-api.jar javax.xml.soap-api.jar FastInfoset.jar gmbal-api-only.jar ha-api.jar jaxb-impl.jar management-api.jar mimepull.jar policy.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar woodstox-core.jar</Class-Path>
+                                    <Class-Path>jakarta.annotation-api.jar jakarta.jws-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar FastInfoset.jar gmbal.jar ha-api.jar jaxb-impl.jar management-api.jar mimepull.jar policy.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar woodstox-core.jar</Class-Path>
                                     <Extension-Name>com.sun.xml.ws</Extension-Name>
                                 </manifestEntries>
                             </archive>
@@ -251,58 +243,34 @@
 
     <profiles>
         <profile>
-            <id>generate-javadoc-profile</id>
-            <activation>
-                <property>
-                    <name>!maven.javadoc.skip</name>
-                </property>
-            </activation>
+            <id>oss-release</id>
+            <dependencies>
+                <!-- module javadoc -->
+                <dependency>
+                    <groupId>com.sun.xml.ws</groupId>
+                    <artifactId>runtime</artifactId>
+                    <version>${project.version}</version>
+                    <classifier>javadoc</classifier>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
-                    <!-- TODO: maven-javadoc-plugin:aggregate-jar cannot be used
-                    because of: http://jira.codehaus.org/browse/MJAVADOC-311
-                    therefore getting around it using
-                         dependency -> antrun
-                    plugins to generate javadoc for jaxws-rt.jar -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
+                        <artifactId>maven-assembly-plugin</artifactId>
                         <executions>
                             <execution>
+                                <id>make-javadoc-assembly</id>
+                                <phase>prepare-package</phase>
                                 <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <excludes>**/module-info.java</excludes>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>${project.groupId}</groupId>
-                                            <artifactId>${project.artifactId}</artifactId>
-                                            <version>${project.version}</version>
-                                            <type>jar</type>
-                                            <classifier>sources</classifier>
-                                            <outputDirectory>${project.build.directory}/bundlesources</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>gen-javadocs</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>run</goal>
+                                    <goal>single</goal>
                                 </goals>
                                 <configuration>
-                                    <target>
-                                        <ant antfile="${basedir}/src/main/ant/javadoc.xml" target="build-javadocs" inheritRefs="true"/>
-                                    </target>
+                                    <appendAssemblyId>true</appendAssemblyId>
+                                    <descriptors>
+                                        <descriptor>src/main/assembly/assembly-javadoc.xml</descriptor>
+                                    </descriptors>
                                 </configuration>
                             </execution>
                         </executions>
