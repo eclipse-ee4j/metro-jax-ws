@@ -102,8 +102,8 @@
         <para>JDK includes JAX-WS and JAXB API and RI.
         &jax-ws.product.name; includes RI of JAX-WS/JAXB 2.2. In order to run
         &jax-ws.product.name; you would need to specify ONLY
-        <filename>jaxws-api.jar</filename>, and
-        <filename>jaxb-api.jar</filename> jars using the <link
+        <filename>jakarta.xml.ws-api.jar</filename>, and
+        <filename>jakarta.xml.bind-api.jar</filename> jars using the <link
         xlink:href="http://docs.oracle.com/javase/6/docs/technotes/guides/standards/">Java
         Endorsed Standards Override Mechanism</link></para>
     </section>
@@ -124,12 +124,12 @@
                         <entry><para>Runtime Jars</para></entry>
 
                         <entry><para><filename>FastInfoset.jar</filename>,
-                        <filename>jaxb-api.jar</filename>,
+                        <filename>jakarta.xml.bind-api.jar</filename>,
                         <filename>jaxb-impl.jar</filename>,
-                        <filename>jaxws-api.jar</filename>,
-                        <filename>javax.annotation-api.jar</filename>,
+                        <filename>jakarta.xml.ws-api.jar</filename>,
+                        <filename>jakarta.annotation-api.jar</filename>,
                         <filename>jaxws-rt.jar</filename>,
-                        <filename>jsr181-api.jar</filename>,
+                        <filename>jakarta.jws-api.jar</filename>,
                         <filename>mimepull.jar</filename>,
                         <filename>javax.xml.soap-api.jar</filename>,
                         <filename>saaj-impl.jar *</filename>,
@@ -138,7 +138,7 @@
                         <filename>stax-ex.jar</filename>,
                         <filename>streambuffer.jar</filename>,
                         <filename>policy.jar</filename>,
-                        <filename>gmbal-api-only.jar</filename>,
+                        <filename>gmbal.jar</filename>,
                         <filename>management-api.jar</filename>,
                         <filename>ha-api.jar</filename></para></entry>
                         <filename>resolver.jar</filename>,

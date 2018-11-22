@@ -23,12 +23,15 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <dependencySets>
         <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <scope>provided</scope>
             <outputDirectory>/</outputDirectory>
             <excludes>
                 <exclude>*:sources:*</exclude>
+                <exclude>*:javadoc:*</exclude>
             </excludes>
             <includes>
-                <include>com.sun.xml.ws:jaxws-tools-bundle</include>
+                <include>com.sun.xml.ws:tools</include>
             </includes>
             <unpack>true</unpack>
             <useTransitiveDependencies>false</useTransitiveDependencies>

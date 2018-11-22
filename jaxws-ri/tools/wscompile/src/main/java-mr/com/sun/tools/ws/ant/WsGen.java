@@ -22,7 +22,7 @@ import org.apache.tools.ant.types.Path;
 public class WsGen extends WsGenBase {
 
     @Override
-    protected void setupForkCommand(String className) {
+    public void setupForkCommand(String className) {
         ClassLoader loader = this.getClass().getClassLoader();
         while (loader != null && !(loader instanceof AntClassLoader)) {
             loader = loader.getParent();

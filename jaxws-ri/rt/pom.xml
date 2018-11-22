@@ -16,14 +16,14 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>2.3.1-SNAPSHOT</version>
+        <version>2.3.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>rt</artifactId>
-    <version>2.3.1-SNAPSHOT</version>
+    <version>2.3.2-SNAPSHOT</version>
 
     <name>JAX-WS RI Runtime (rt)</name>
     <description>JAX-WS Reference Implementation Runtime</description>
@@ -34,12 +34,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>javax.activation-api</artifactId>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
@@ -51,7 +47,11 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish.gmbal</groupId>
-            <artifactId>gmbal-api-only</artifactId>
+            <artifactId>gmbal</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.pfl</groupId>
+            <artifactId>pfl-tf</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jvnet.staxex</groupId>
@@ -87,17 +87,14 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>${mail.version}</version>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
             <scope>test</scope>
-            <exclusions>
-                <!-- part of JDK 6+ -->
-                <exclusion>
-                    <groupId>javax.activation</groupId>
-                    <artifactId>activation</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.messaging.saaj</groupId>
@@ -140,20 +137,10 @@
                             <includes>org/objectweb/asm/*.java</includes>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <excludeArtifactIds>provider,resolver,javax.activation</excludeArtifactIds>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <executions>
                     <execution>
@@ -162,28 +149,18 @@
                             <includes>
                                 <include>**/module-info.java</include>
                             </includes>
-                            <compilerArgs>
-                                <arg>--upgrade-module-path</arg>
-                                <arg>${project.build.directory}/lib/jaxws-api-${jaxws-api.version}.jar</arg>
-                                <arg>--module-path</arg>
-                                <arg>${project.build.directory}/lib:${project.build.directory}/classes</arg>
-
-                                <!--TODO automatic module names based on jar filename -->
-                                <arg>--add-modules</arg>
-                                <arg>gmbal.api.only</arg>
-                                <arg>--add-reads</arg>
-                                <arg>com.sun.xml.ws=gmbal.api.only</arg>
-
-                                <!--Need this to compile with 9 api (all classes are recompiled with 8 by base-compile execution)-->
-                                <!--resolver specific code for 9 is put in mr-jar/9 to avoid this on 9-->
-                                <!--<arg>&#45;&#45;add-exports</arg>
-                                <arg>java.xml/com.sun.org.apache.xml.internal.resolver=com.sun.xml.ws</arg>
-                                <arg>&#45;&#45;add-exports</arg>
-                                <arg>java.xml/com.sun.org.apache.xml.internal.resolver.tools=com.sun.xml.ws</arg>-->
-
-                                <!--<arg>&#45;&#45;limit-modules</arg>
-                                <arg>java.activation,java.xml,java.xml.bind,com.sun.xml.ws,java.xml.ws,com.sun.xml.bind,com.sun.xml.messaging.saaj,com.sun.xml.ws.policy,com.sun.istack.runtime,com.sun.xml.txw2,org.jvnet.staxex,org.jvnet.mimepull,com.sun.xml.streambuffer,javax.jws,java.annotation,java.desktop,java.logging,java.management,jdk.httpserver</arg>-->
-                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-compile-mr</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <compileSourceRoots>
+                                <compileSourceRoot>${project.basedir}/src/main/java-mr/9</compileSourceRoot>
+                            </compileSourceRoots>
+                            <outputDirectory>${project.build.outputDirectory}/META-INF/versions/9</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -239,69 +216,19 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <!-- exclude APIs as implementations are needed on the path -->
+                    <classpathDependencyExcludes>jakarta.activation:jakarta.activation-api,jakarta.mail:jakarta.mail-api</classpathDependencyExcludes>
                     <forkCount>1</forkCount>
-                    <reuseForks>false</reuseForks>
+                    <reuseForks>true</reuseForks>
+                    <systemProperties>
+                        <javax.xml.ws.spi.Provider>com.sun.xml.ws.spi.ProviderImpl</javax.xml.ws.spi.Provider>
+                    </systemProperties>
                     <argLine>
-                        --add-exports java.xml/com.sun.org.apache.xml.internal.resolver=ALL-UNNAMED
-                        --add-exports java.xml/com.sun.org.apache.xml.internal.resolver.tools=ALL-UNNAMED
-                        --add-modules java.xml.bind
-                        --upgrade-module-path ${endorsed.dir}
-                        --module-path ${project.build.directory}/lib
+                        --add-opens com.sun.xml.bind/com.sun.xml.bind.v2.model.nav=com.sun.xml.ws
+                        --add-opens java.base/java.lang=com.sun.xml.ws
+                        --add-opens com.sun.xml.ws/com.sun.xml.ws.client.test=com.sun.xml.bind
                     </argLine>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.ant</groupId>
-                        <artifactId>ant</artifactId>
-                        <version>${ant.version}</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>compile-java9</id>
-                        <phase>compile</phase>
-                        <configuration>
-                            <tasks>
-                                <mkdir dir="${project.build.outputDirectory}/META-INF/versions/${upper.java.level}" />
-                                <echo>${project.build.directory}/lib</echo>
-                                <javac srcdir="${mrjar.sourceDirectory}"
-                                       destdir="${project.build.outputDirectory}/META-INF/versions/${upper.java.level}"
-                                       includeantruntime="false"
-                                       release="${upper.java.level}">
-                                    <classpath>
-                                        <fileset dir="${project.build.directory}/lib">
-                                            <include name="**/*.jar"/>
-                                        </fileset>
-                                        <pathelement location="${project.build.directory}/classes" />
-                                    </classpath>
-                                </javac>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>update-source-jar</id>
-                        <phase>verify</phase>
-                        <configuration>
-                            <tasks>
-                                <jar destfile="${project.build.directory}/jaxb-xjc-${project.version}-sources.jar" update="true">
-                                    <zipfileset prefix="META-INF/versions" dir="${mrjar.sourceDirectory}"/>
-                                </jar>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -309,9 +236,6 @@
                 <executions>
                     <execution>
                         <id>default-jar</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
                         <configuration>
                             <archive>
                                 <manifestEntries>
@@ -320,11 +244,26 @@
                             </archive>
                         </configuration>
                     </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
                     <execution>
-                        <id>package-test-jar</id>
+                        <id>add-mr-resource</id>
+                        <phase>prepare-package</phase>
                         <goals>
-                            <goal>test-jar</goal>
+                            <goal>add-resource</goal>
                         </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/src/main/java-mr/9</directory>
+                                    <targetPath>META-INF/versions/9</targetPath>
+                                </resource>
+                            </resources>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -332,182 +271,170 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <debug>true</debug>
-                    <additionalJOptions>
-                        <additionalJOption>--upgrade-module-path</additionalJOption>
-                        <additionalJOption>${project.build.directory}/lib/jaxws-api-${jaxws-api.version}.jar</additionalJOption>
-                        <additionalJOption>--module-path</additionalJOption>
-                        <additionalJOption>${project.build.directory}/lib:${project.build.directory}/classes</additionalJOption>
-                        <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.xml.ws=ALL-UNNAMED</additionalJOption>
-                        <additionalparam>-Xdoclint:none</additionalparam>
-                    </additionalJOptions>
-                    <excludes>
-                        **/module-info.java
-                    </excludes>
-                    <debug>true</debug>
+                    <doclint>none</doclint>
+                    <additionalOptions>--add-reads com.sun.xml.ws=ALL-UNNAMED</additionalOptions>
                 </configuration>
             </plugin>
-<!--
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>osgi-bundle</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>bundle</goal>
-                        </goals>
-                        <configuration>
-                            <instructions>
-                                <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
-                                <Export-Package>
-                                    com.oracle.webservices.api.message;version=${project.version},
-                                    com.sun.xml.ws.addressing.model;version=${project.version},
-                                    com.sun.xml.ws.addressing.policy;version=${project.version},
-                                    com.sun.xml.ws.addressing.v200408;version=${project.version},
-                                    com.sun.xml.ws.api.addressing;version=${project.version},
-                                    com.sun.xml.ws.api.client;version=${project.version},
-                                    com.sun.xml.ws.api.config.management.policy;version=${project.version},
-                                    com.sun.xml.ws.api.databinding;version=${project.version},
-                                    com.sun.xml.ws.api.fastinfoset;version=${project.version},
-                                    com.sun.xml.ws.api.ha;version=${project.version},
-                                    com.sun.xml.ws.api.handler;version=${project.version},
-                                    com.sun.xml.ws.api.message.saaj;version=${project.version},
-                                    com.sun.xml.ws.api.message.stream;version=${project.version},
-                                    com.sun.xml.ws.api.model.soap;version=${project.version},
-                                    com.sun.xml.ws.api.model.wsdl;version=${project.version},
-                                    com.sun.xml.ws.api.pipe.helper;version=${project.version},
-                                    com.sun.xml.ws.api.policy.subject;version=${project.version},
-                                    com.sun.xml.ws.api.server;version=${project.version},
-                                    com.sun.xml.ws.api.streaming;version=${project.version},
-                                    com.sun.xml.ws.api.wsdl.parser;version=${project.version},
-                                    com.sun.xml.ws.api.wsdl.writer;version=${project.version},
-                                    com.sun.xml.ws.assembler.dev;version=${project.version},
-                                    com.sun.xml.ws.assembler.jaxws;version=${project.version},
-                                    com.sun.xml.ws.binding;version=${project.version},
-                                    com.sun.xml.ws.client.dispatch;version=${project.version},
-                                    com.sun.xml.ws.client.sei;version=${project.version},
-                                    com.sun.xml.ws.commons.xmlutil;version=${project.version},
-                                    com.sun.xml.ws.config.management.policy;version=${project.version},
-                                    com.sun.xml.ws.config.metro.dev;version=${project.version},
-                                    com.sun.xml.ws.config.metro.util;version=${project.version},
-                                    com.sun.xml.ws.db.glassfish;version=${project.version},
-                                    com.sun.xml.ws.developer;version=${project.version},
-                                    com.sun.xml.ws.dump;version=${project.version},
-                                    com.sun.xml.ws.encoding.policy;version=${project.version},
-                                    com.sun.xml.ws.encoding.soap.streaming;version=${project.version},
-                                    com.sun.xml.ws.encoding.xml;version=${project.version},
-                                    com.sun.xml.ws.fault;version=${project.version},
-                                    com.sun.xml.ws.handler;version=${project.version},
-                                    com.sun.xml.ws.message.jaxb;version=${project.version},
-                                    com.sun.xml.ws.message.saaj;version=${project.version},
-                                    com.sun.xml.ws.message.source;version=${project.version},
-                                    com.sun.xml.ws.message.stream;version=${project.version},
-                                    com.sun.xml.ws.model.soap;version=${project.version},
-                                    com.sun.xml.ws.model.wsdl;version=${project.version},
-                                    com.sun.xml.ws.policy.jaxws.spi;version=${project.version},
-                                    com.sun.xml.ws.protocol.soap;version=${project.version},
-                                    com.sun.xml.ws.protocol.xml;version=${project.version},
-                                    com.sun.xml.ws.runtime.config;version=${project.version},
-                                    com.sun.xml.ws.server.provider;version=${project.version},
-                                    com.sun.xml.ws.server.sei;version=${project.version},
-                                    com.sun.xml.ws.spi.db;version=${project.version},
-                                    com.sun.xml.ws.streaming;version=${project.version},
-                                    com.sun.xml.ws.transport.http.client;version=${project.version},
-                                    com.sun.xml.ws.transport.http.server;version=${project.version},
-                                    com.sun.xml.ws.util.exception;version=${project.version},
-                                    com.sun.xml.ws.util.pipe;version=${project.version},
-                                    com.sun.xml.ws.util.xml;version=${project.version},
-                                    com.sun.xml.ws.wsdl.parser;version=${project.version},
-                                    com.sun.xml.ws.wsdl.writer.document.http;version=${project.version},
-                                    com.sun.xml.ws.wsdl.writer.document.soap;version=${project.version},
-                                    com.sun.xml.ws.wsdl.writer.document.soap12;version=${project.version},
-                                    com.sun.xml.ws.wsdl.writer.document.xsd;version=${project.version}
-                                </Export-Package>
-                                <Import-Package>
-                                    com.sun.istack;version=${jaxb-impl.version},
-                                    com.sun.istack.localization;version=${jaxb-impl.version},
-                                    com.sun.istack.logging;version=${jaxb-impl.version},
-                                    com.sun.net.httpserver,
-                                    com.sun.org.apache.xml.internal.resolver,
-                                    com.sun.org.apache.xml.internal.resolver.tools,
-                                    com.sun.xml.bind;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.api;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.api.impl;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.marshaller;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.unmarshaller;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.util;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.v2;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.v2.model.annotation;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.v2.model.nav;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.v2.model.runtime;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.v2.runtime;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.v2.runtime.unmarshaller;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.v2.schemagen;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.v2.schemagen.xmlschema;version=${jaxb-impl.version},
-                                    com.sun.xml.stream.buffer;version=${streambuffer.version},
-                                    com.sun.xml.stream.buffer.sax;version=${streambuffer.version},
-                                    com.sun.xml.stream.buffer.stax;version=${streambuffer.version},
-                                    com.sun.xml.txw2;version=${jaxb-impl.version},
-                                    com.sun.xml.txw2.annotation;version=${jaxb-impl.version},
-                                    com.sun.xml.txw2.output;version=${jaxb-impl.version},
-                                    com.sun.xml.ws.policy;version=${policy.version},
-                                    com.sun.xml.ws.policy.privateutil;version=${policy.version},
-                                    com.sun.xml.ws.policy.sourcemodel;version=${policy.version},
-                                    com.sun.xml.ws.policy.sourcemodel.wspolicy;version=${policy.version},
-                                    com.sun.xml.ws.policy.spi;version=${policy.version},
-                                    com.sun.xml.ws.policy.subject;version=${policy.version},
-                                    javax.activation,
-                                    javax.annotation,
-                                    javax.imageio,
-                                    javax.imageio.stream,
-                                    javax.jws,
-                                    javax.jws.soap,
-                                    javax.management,
-                                    javax.net.ssl,
-                                    javax.xml.bind;version=${jaxb-api.version},
-                                    javax.xml.bind.annotation;version=${jaxb-api.version},
-                                    javax.xml.bind.annotation.adapters;version=${jaxb-api.version},
-                                    javax.xml.bind.attachment;version=${jaxb-api.version},
-                                    javax.xml.bind.util;version=${jaxb-api.version},
-                                    javax.xml.namespace,
-                                    javax.xml.parsers,
-                                    javax.xml.soap,
-                                    javax.xml.stream,
-                                    javax.xml.stream.events,
-                                    javax.xml.stream.util,
-                                    javax.xml.transform,
-                                    javax.xml.transform.dom,
-                                    javax.xml.transform.sax,
-                                    javax.xml.transform.stream,
-                                    javax.xml.validation,
-                                    javax.xml.ws;version=${jaxws-api.osgiVersion},
-                                    javax.xml.ws.handler;version=${jaxws-api.osgiVersion},
-                                    javax.xml.ws.handler.soap;version=${jaxws-api.osgiVersion},
-                                    javax.xml.ws.http;version=${jaxws-api.osgiVersion},
-                                    javax.xml.ws.soap;version=${jaxws-api.osgiVersion},
-                                    javax.xml.ws.spi;version=${jaxws-api.osgiVersion},
-                                    javax.xml.ws.spi.http;version=${jaxws-api.osgiVersion},
-                                    javax.xml.ws.wsaddressing;version=${jaxws-api.osgiVersion},
-                                    org.glassfish.external.amx;version=${management-api.version},
-                                    org.glassfish.gmbal;version=${gmbal-api.version},
-                                    org.jvnet.mimepull;version=${mimepull.version},
-                                    org.jvnet.staxex;version=${stax-ex.version},
-                                    org.objectweb.asm;version=${asm-all.version},
-                                    org.w3c.dom,
-                                    org.w3c.dom.ls,
-                                    org.xml.sax,
-                                    org.xml.sax.ext,
-                                    org.xml.sax.helpers
-                                </Import-Package>
-                            </instructions>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
--->
+            <!--
+                        <plugin>
+                            <groupId>org.apache.felix</groupId>
+                            <artifactId>maven-bundle-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>osgi-bundle</id>
+                                    <phase>prepare-package</phase>
+                                    <goals>
+                                        <goal>bundle</goal>
+                                    </goals>
+                                    <configuration>
+                                        <instructions>
+                                            <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+                                            <Export-Package>
+                                                com.oracle.webservices.api.message;version=${project.version},
+                                                com.sun.xml.ws.addressing.model;version=${project.version},
+                                                com.sun.xml.ws.addressing.policy;version=${project.version},
+                                                com.sun.xml.ws.addressing.v200408;version=${project.version},
+                                                com.sun.xml.ws.api.addressing;version=${project.version},
+                                                com.sun.xml.ws.api.client;version=${project.version},
+                                                com.sun.xml.ws.api.config.management.policy;version=${project.version},
+                                                com.sun.xml.ws.api.databinding;version=${project.version},
+                                                com.sun.xml.ws.api.fastinfoset;version=${project.version},
+                                                com.sun.xml.ws.api.ha;version=${project.version},
+                                                com.sun.xml.ws.api.handler;version=${project.version},
+                                                com.sun.xml.ws.api.message.saaj;version=${project.version},
+                                                com.sun.xml.ws.api.message.stream;version=${project.version},
+                                                com.sun.xml.ws.api.model.soap;version=${project.version},
+                                                com.sun.xml.ws.api.model.wsdl;version=${project.version},
+                                                com.sun.xml.ws.api.pipe.helper;version=${project.version},
+                                                com.sun.xml.ws.api.policy.subject;version=${project.version},
+                                                com.sun.xml.ws.api.server;version=${project.version},
+                                                com.sun.xml.ws.api.streaming;version=${project.version},
+                                                com.sun.xml.ws.api.wsdl.parser;version=${project.version},
+                                                com.sun.xml.ws.api.wsdl.writer;version=${project.version},
+                                                com.sun.xml.ws.assembler.dev;version=${project.version},
+                                                com.sun.xml.ws.assembler.jaxws;version=${project.version},
+                                                com.sun.xml.ws.binding;version=${project.version},
+                                                com.sun.xml.ws.client.dispatch;version=${project.version},
+                                                com.sun.xml.ws.client.sei;version=${project.version},
+                                                com.sun.xml.ws.commons.xmlutil;version=${project.version},
+                                                com.sun.xml.ws.config.management.policy;version=${project.version},
+                                                com.sun.xml.ws.config.metro.dev;version=${project.version},
+                                                com.sun.xml.ws.config.metro.util;version=${project.version},
+                                                com.sun.xml.ws.db.glassfish;version=${project.version},
+                                                com.sun.xml.ws.developer;version=${project.version},
+                                                com.sun.xml.ws.dump;version=${project.version},
+                                                com.sun.xml.ws.encoding.policy;version=${project.version},
+                                                com.sun.xml.ws.encoding.soap.streaming;version=${project.version},
+                                                com.sun.xml.ws.encoding.xml;version=${project.version},
+                                                com.sun.xml.ws.fault;version=${project.version},
+                                                com.sun.xml.ws.handler;version=${project.version},
+                                                com.sun.xml.ws.message.jaxb;version=${project.version},
+                                                com.sun.xml.ws.message.saaj;version=${project.version},
+                                                com.sun.xml.ws.message.source;version=${project.version},
+                                                com.sun.xml.ws.message.stream;version=${project.version},
+                                                com.sun.xml.ws.model.soap;version=${project.version},
+                                                com.sun.xml.ws.model.wsdl;version=${project.version},
+                                                com.sun.xml.ws.policy.jaxws.spi;version=${project.version},
+                                                com.sun.xml.ws.protocol.soap;version=${project.version},
+                                                com.sun.xml.ws.protocol.xml;version=${project.version},
+                                                com.sun.xml.ws.runtime.config;version=${project.version},
+                                                com.sun.xml.ws.server.provider;version=${project.version},
+                                                com.sun.xml.ws.server.sei;version=${project.version},
+                                                com.sun.xml.ws.spi.db;version=${project.version},
+                                                com.sun.xml.ws.streaming;version=${project.version},
+                                                com.sun.xml.ws.transport.http.client;version=${project.version},
+                                                com.sun.xml.ws.transport.http.server;version=${project.version},
+                                                com.sun.xml.ws.util.exception;version=${project.version},
+                                                com.sun.xml.ws.util.pipe;version=${project.version},
+                                                com.sun.xml.ws.util.xml;version=${project.version},
+                                                com.sun.xml.ws.wsdl.parser;version=${project.version},
+                                                com.sun.xml.ws.wsdl.writer.document.http;version=${project.version},
+                                                com.sun.xml.ws.wsdl.writer.document.soap;version=${project.version},
+                                                com.sun.xml.ws.wsdl.writer.document.soap12;version=${project.version},
+                                                com.sun.xml.ws.wsdl.writer.document.xsd;version=${project.version}
+                                            </Export-Package>
+                                            <Import-Package>
+                                                com.sun.istack;version=${jaxb-impl.version},
+                                                com.sun.istack.localization;version=${jaxb-impl.version},
+                                                com.sun.istack.logging;version=${jaxb-impl.version},
+                                                com.sun.net.httpserver,
+                                                com.sun.org.apache.xml.internal.resolver,
+                                                com.sun.org.apache.xml.internal.resolver.tools,
+                                                com.sun.xml.bind;version=${jaxb-impl.version},
+                                                com.sun.xml.bind.api;version=${jaxb-impl.version},
+                                                com.sun.xml.bind.api.impl;version=${jaxb-impl.version},
+                                                com.sun.xml.bind.marshaller;version=${jaxb-impl.version},
+                                                com.sun.xml.bind.unmarshaller;version=${jaxb-impl.version},
+                                                com.sun.xml.bind.util;version=${jaxb-impl.version},
+                                                com.sun.xml.bind.v2;version=${jaxb-impl.version},
+                                                com.sun.xml.bind.v2.model.annotation;version=${jaxb-impl.version},
+                                                com.sun.xml.bind.v2.model.nav;version=${jaxb-impl.version},
+                                                com.sun.xml.bind.v2.model.runtime;version=${jaxb-impl.version},
+                                                com.sun.xml.bind.v2.runtime;version=${jaxb-impl.version},
+                                                com.sun.xml.bind.v2.runtime.unmarshaller;version=${jaxb-impl.version},
+                                                com.sun.xml.bind.v2.schemagen;version=${jaxb-impl.version},
+                                                com.sun.xml.bind.v2.schemagen.xmlschema;version=${jaxb-impl.version},
+                                                com.sun.xml.stream.buffer;version=${streambuffer.version},
+                                                com.sun.xml.stream.buffer.sax;version=${streambuffer.version},
+                                                com.sun.xml.stream.buffer.stax;version=${streambuffer.version},
+                                                com.sun.xml.txw2;version=${jaxb-impl.version},
+                                                com.sun.xml.txw2.annotation;version=${jaxb-impl.version},
+                                                com.sun.xml.txw2.output;version=${jaxb-impl.version},
+                                                com.sun.xml.ws.policy;version=${policy.version},
+                                                com.sun.xml.ws.policy.privateutil;version=${policy.version},
+                                                com.sun.xml.ws.policy.sourcemodel;version=${policy.version},
+                                                com.sun.xml.ws.policy.sourcemodel.wspolicy;version=${policy.version},
+                                                com.sun.xml.ws.policy.spi;version=${policy.version},
+                                                com.sun.xml.ws.policy.subject;version=${policy.version},
+                                                javax.activation,
+                                                javax.annotation,
+                                                javax.imageio,
+                                                javax.imageio.stream,
+                                                javax.jws,
+                                                javax.jws.soap,
+                                                javax.management,
+                                                javax.net.ssl,
+                                                javax.xml.bind;version=${jaxb-api.version},
+                                                javax.xml.bind.annotation;version=${jaxb-api.version},
+                                                javax.xml.bind.annotation.adapters;version=${jaxb-api.version},
+                                                javax.xml.bind.attachment;version=${jaxb-api.version},
+                                                javax.xml.bind.util;version=${jaxb-api.version},
+                                                javax.xml.namespace,
+                                                javax.xml.parsers,
+                                                javax.xml.soap,
+                                                javax.xml.stream,
+                                                javax.xml.stream.events,
+                                                javax.xml.stream.util,
+                                                javax.xml.transform,
+                                                javax.xml.transform.dom,
+                                                javax.xml.transform.sax,
+                                                javax.xml.transform.stream,
+                                                javax.xml.validation,
+                                                javax.xml.ws;version=${jaxws-api.osgiVersion},
+                                                javax.xml.ws.handler;version=${jaxws-api.osgiVersion},
+                                                javax.xml.ws.handler.soap;version=${jaxws-api.osgiVersion},
+                                                javax.xml.ws.http;version=${jaxws-api.osgiVersion},
+                                                javax.xml.ws.soap;version=${jaxws-api.osgiVersion},
+                                                javax.xml.ws.spi;version=${jaxws-api.osgiVersion},
+                                                javax.xml.ws.spi.http;version=${jaxws-api.osgiVersion},
+                                                javax.xml.ws.wsaddressing;version=${jaxws-api.osgiVersion},
+                                                org.glassfish.external.amx;version=${management-api.version},
+                                                org.glassfish.gmbal;version=${gmbal-api.version},
+                                                org.jvnet.mimepull;version=${mimepull.version},
+                                                org.jvnet.staxex;version=${stax-ex.version},
+                                                org.objectweb.asm;version=${asm-all.version},
+                                                org.w3c.dom,
+                                                org.w3c.dom.ls,
+                                                org.xml.sax,
+                                                org.xml.sax.ext,
+                                                org.xml.sax.helpers
+                                            </Import-Package>
+                                        </instructions>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+            -->
         </plugins>
     </build>
 </project>

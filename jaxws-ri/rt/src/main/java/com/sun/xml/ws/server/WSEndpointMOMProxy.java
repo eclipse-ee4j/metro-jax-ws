@@ -28,6 +28,7 @@ import com.sun.xml.ws.wsdl.OperationDispatcher;
 import org.glassfish.gmbal.AMXClient;
 import org.glassfish.gmbal.GmbalMBean;
 import org.glassfish.gmbal.ManagedObjectManager;
+import org.glassfish.pfl.tf.timer.spi.ObjectRegistrationManager ;
 
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
@@ -205,6 +206,11 @@ public class WSEndpointMOMProxy extends WSEndpoint implements ManagedObjectManag
     }
 
     @Override
+    public void addInheritedAnnotations( Class<?> cls ) {
+        getManagedObjectManager().addInheritedAnnotations(cls);
+    }
+
+    @Override
     public void setRegistrationDebug(RegistrationDebugLevel level) {
         getManagedObjectManager().setRegistrationDebug(level);
     }
@@ -359,5 +365,10 @@ public class WSEndpointMOMProxy extends WSEndpoint implements ManagedObjectManag
     {
         return wsEndpoint.createServiceResponseForException(tc, responsePacket, soapVersion,
                                                             wsdlPort, seiModel, binding);
+    }
+
+    @Override
+    public ObjectRegistrationManager getObjectRegistrationManager() {
+        return null;
     }
 }

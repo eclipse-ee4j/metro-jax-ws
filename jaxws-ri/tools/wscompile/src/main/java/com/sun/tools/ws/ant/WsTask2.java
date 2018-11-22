@@ -544,7 +544,7 @@ abstract class WsTask2 extends MatchingTask {
      */
     protected abstract boolean runInVm(String[] arguments, OutputStream out);
 
-    void setupForkCommand(String className) {
+    public void setupForkCommand(String className) {
         ClassLoader loader = this.getClass().getClassLoader();
         while (loader != null && !(loader instanceof AntClassLoader)) {
             loader = loader.getParent();
@@ -562,6 +562,9 @@ abstract class WsTask2 extends MatchingTask {
         File toolsJar = new File(jreHome.getParent(), "lib/tools.jar");
         if (toolsJar.exists()) {
             antcp += File.pathSeparatorChar + toolsJar.getAbsolutePath();
+        }
+        if (System.getProperty("jdk.module.path") != null) {
+            antcp += File.pathSeparatorChar + System.getProperty("jdk.module.path");
         }
         getCommandline().createClasspath(getProject()).append(new Path(getProject(), antcp));
 

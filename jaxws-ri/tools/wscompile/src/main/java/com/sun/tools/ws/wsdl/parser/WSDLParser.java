@@ -110,10 +110,6 @@ public class WSDLParser {
 
     }
 
-    //TODO RK remove this after tests are fixed.
-    WSDLParser(WsimportOptions options, ErrorReceiverFilter errReceiver) {
-        this(options,errReceiver,null);
-    }
     private void register(TWSDLExtensionHandler h) {
         extensionHandlers.put(h.getNamespaceURI(), h);
     }
