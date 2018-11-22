@@ -379,7 +379,7 @@ public class Options {
         return args[i];
     }
 
-    List<String> getJavacOptions(List<String> existingOptions, WsimportListener listener) {
+    public List<String> getJavacOptions(List<String> existingOptions, WsimportListener listener) {
         List<String> result = new ArrayList<String>();
         for (String o: javacOptions) {
             if (o.contains("=") && !o.startsWith("A")) {

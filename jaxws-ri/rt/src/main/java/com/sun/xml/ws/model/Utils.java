@@ -60,11 +60,11 @@ final class Utils {
             //noinspection unchecked
             REFLECTION_NAVIGATOR = (Navigator<Type, Class, Field, Method>) getInstance.invoke(null);
         } catch (ClassNotFoundException e) {
-            throw new IllegalStateException("Can't find ReflectionNavigator class");
+            throw new IllegalStateException("Can't find ReflectionNavigator class", e);
         } catch (InvocationTargetException e) {
-            throw new IllegalStateException("ReflectionNavigator.getInstance throws the exception");
+            throw new IllegalStateException("ReflectionNavigator.getInstance throws the exception", e);
         } catch (IllegalAccessException e) {
-            throw new IllegalStateException("ReflectionNavigator.getInstance method is inaccessible");
+            throw new IllegalStateException("ReflectionNavigator.getInstance method is inaccessible",e );
         } catch (SecurityException e) {
             LOGGER.log(Level.FINE, "Unable to access ReflectionNavigator.getInstance", e);
             throw e;

@@ -25,6 +25,7 @@ import org.glassfish.gmbal.InheritedAttributes;
 import org.glassfish.gmbal.ManagedData;
 import org.glassfish.gmbal.ManagedObjectManager;
 import org.glassfish.gmbal.ManagedObjectManagerFactory;
+import org.glassfish.pfl.tf.timer.spi.ObjectRegistrationManager ;
 import java.io.IOException;
 import java.lang.reflect.*;
 import java.util.logging.Level;
@@ -384,6 +385,7 @@ class RewritingMOM implements ManagedObjectManager
     @Override public void setResourceBundle(ResourceBundle rb) { mom.setResourceBundle(rb); }
     @Override public ResourceBundle getResourceBundle()    { return mom.getResourceBundle(); }
     @Override public void addAnnotation(AnnotatedElement element, Annotation annotation) { mom.addAnnotation(element, annotation); }
+    @Override public void addInheritedAnnotations(Class<?> cls) { mom.addInheritedAnnotations(cls); }
     @Override public void setRegistrationDebug(RegistrationDebugLevel level) { mom.setRegistrationDebug(level); }
     @Override public void setRuntimeDebug(boolean flag) { mom.setRuntimeDebug(flag); }
     @Override public void setTypelibDebug(int level)    { mom.setTypelibDebug(level); }
@@ -392,6 +394,7 @@ class RewritingMOM implements ManagedObjectManager
     @Override public void close() throws IOException    { mom.close(); }
     @Override public void setJMXRegistrationDebug(boolean x) { mom.setJMXRegistrationDebug(x); }
     @Override public boolean isManagedObject(Object x)  { return mom.isManagedObject(x); }
+    @Override public ObjectRegistrationManager getObjectRegistrationManager() { return null; }
 }
 
 // End of file.

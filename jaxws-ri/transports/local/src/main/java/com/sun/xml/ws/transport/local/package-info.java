@@ -15,7 +15,7 @@
  * <p>
  * Transports implemented in this package work off the exploded war file
  * image in the file system &mdash; it should have the same file layout
- * that you deploy into, say, Tomcat. They then look for <tt>WEB-INF/sun-jaxws.xml</tt>
+ * that you deploy into, say, Tomcat. They then look for <code>WEB-INF/sun-jaxws.xml</code>
  * to determine what services are in the application, and then deploy
  * them in a servlet-like environment.
  *

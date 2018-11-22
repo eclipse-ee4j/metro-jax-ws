@@ -25,7 +25,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jvnet.jax-ws-commons.test</groupId>
     <artifactId>parent</artifactId>
-    <version>2.3.1-SNAPSHOT</version>
+    <version>2.3.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>parent</name>
 <!--    <modules>
@@ -40,7 +40,7 @@
     <properties>
         <jaxws-ri.version>2.2.9-b14002</jaxws-ri.version>
         <metro.version>2.3.1-b104</metro.version>
-        <jaxws.plugin.version>2.3.1-SNAPSHOT</jaxws.plugin.version>
+        <jaxws.plugin.version>2.3.2-SNAPSHOT</jaxws.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

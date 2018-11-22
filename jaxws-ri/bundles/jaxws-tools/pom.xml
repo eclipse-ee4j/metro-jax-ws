@@ -17,12 +17,12 @@
     <parent>
         <artifactId>bundles</artifactId>
         <groupId>com.sun.xml.ws</groupId>
-        <version>2.3.1-SNAPSHOT</version>
+        <version>2.3.2-SNAPSHOT</version>
     </parent>
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-tools</artifactId>
-    <version>2.3.1-SNAPSHOT</version>
+    <version>2.3.2-SNAPSHOT</version>
     
     <packaging>pom</packaging>
     <name>JAX-WS RI Tools Bundle</name>
@@ -47,33 +47,35 @@
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>wscompile</artifactId>
             <version>${project.version}</version>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>tools</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- module sources -->
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>wscompile</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-tools-bundle</artifactId>
+            <artifactId>tools</artifactId>
             <version>${project.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-tools-bundle</artifactId>
             <classifier>sources</classifier>
-            <optional>true</optional>
-            <version>${project.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
     <modules>
         <module>../../tools/wscompile</module>
-        <module>jaxws-tools-bundle</module>
+        <module>tools</module>
     </modules>
 
     <build>
@@ -134,58 +136,34 @@
 
     <profiles>
         <profile>
-            <id>generate-javadoc-profile</id>
-            <activation>
-                <property>
-                    <name>!maven.javadoc.skip</name>
-                </property>
-            </activation>
+            <id>oss-release</id>
+            <dependencies>
+                <!-- module javadoc -->
+                <dependency>
+                    <groupId>com.sun.xml.ws</groupId>
+                    <artifactId>tools</artifactId>
+                    <version>${project.version}</version>
+                    <classifier>javadoc</classifier>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
-                    <!-- TODO: maven-javadoc-plugin:aggregate-jar cannot be used
-                    because of: http://jira.codehaus.org/browse/MJAVADOC-311
-                    therefore getting around it using
-                         dependency -> antrun
-                    plugins to generate javadoc for jaxws-tools.jar -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
+                        <artifactId>maven-assembly-plugin</artifactId>
                         <executions>
                             <execution>
+                                <id>make-javadoc-assembly</id>
+                                <phase>prepare-package</phase>
                                 <goals>
-                                    <goal>unpack</goal>
+                                    <goal>single</goal>
                                 </goals>
-                                <phase>package</phase>
                                 <configuration>
-                                    <excludes>**/module-info.java</excludes>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>${project.groupId}</groupId>
-                                            <artifactId>${project.artifactId}</artifactId>
-                                            <version>${project.version}</version>
-                                            <type>jar</type>
-                                            <classifier>sources</classifier>
-                                            <outputDirectory>${project.build.directory}/bundlesources</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>generate-javadocs</id>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <target>
-                                        <ant antfile="${basedir}/src/main/ant/javadoc.xml" target="build-javadocs" inheritRefs="true"/>
-                                    </target>
+                                    <appendAssemblyId>true</appendAssemblyId>
+                                    <descriptors>
+                                        <descriptor>src/main/assembly/assembly-javadoc.xml</descriptor>
+                                    </descriptors>
                                 </configuration>
                             </execution>
                         </executions>
