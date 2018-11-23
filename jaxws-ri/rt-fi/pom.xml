@@ -16,14 +16,14 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>2.3.1-SNAPSHOT</version>
+        <version>2.3.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>rt-fi</artifactId>
-    <version>2.3.1-SNAPSHOT</version>
+    <version>2.3.2-SNAPSHOT</version>
 
     <name>JAX-WS RI Fast Infoset Support (rt-fi)</name>
     <description>Fast Infoset Support for JAX-WS RI</description>
@@ -37,11 +37,6 @@
         <dependency>
             <groupId>com.sun.xml.fastinfoset</groupId>
             <artifactId>FastInfoset</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -68,7 +63,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>        
+            </plugin>
 <!--            <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
@@ -92,11 +87,11 @@
                                     com.sun.xml.ws.api.message;version=${jaxws.osgiVersion},
                                     com.sun.xml.ws.api.pipe;version=${jaxws.osgiVersion},
                                     com.sun.xml.ws.api.streaming;version=${jaxws.osgiVersion},
-                                    com.sun.xml.ws.encoding;version=${jaxws.osgiVersion}, 
-                                    com.sun.xml.ws.message.stream;version=${jaxws.osgiVersion}, 
+                                    com.sun.xml.ws.encoding;version=${jaxws.osgiVersion},
+                                    com.sun.xml.ws.message.stream;version=${jaxws.osgiVersion},
                                     com.sun.xml.stream.buffer;version=${streambuffer.version},
-                                    javax.xml.stream, 
-                                    javax.xml.transform, 
+                                    javax.xml.stream,
+                                    javax.xml.transform,
                                     javax.xml.ws;version=${jaxws-api.osgiVersion},
                                     org.jvnet.fastinfoset;version=${fi-api.version}
                                 </Import-Package>

@@ -29,12 +29,12 @@ import java.util.List;
  *
  * <p>
  * The syntax of the endpoint address is:
- * <pre><xmp>
+ * <pre>
  * local:///path/to/exploded/war/image?portLocalName
- * </xmp></pre>
+ * </pre>
  *
  * <p>
- * If the service only contains one port, the <tt>?portLocalName</tt> portion
+ * If the service only contains one port, the <code>?portLocalName</code> portion
  * can be omitted.
  *
  * @author Kohsuke Kawaguchi
