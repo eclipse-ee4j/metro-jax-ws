@@ -86,8 +86,8 @@
 
         <istack.version>3.0.8</istack.version>
         <gmbal-api.version>4.0.0-b002</gmbal-api.version>
-        <pfl-tf.version>4.0.1-b003</pfl-tf.version>
-        <ha-api.version>3.1.11</ha-api.version>
+        <pfl-tf.version>4.0.1</pfl-tf.version>
+        <ha-api.version>3.1.12</ha-api.version>
         <jaxb.version>2.3.2</jaxb.version>
         <jaxws-api.version>2.3.2</jaxws-api.version>
         <javax.jws-api.version>1.1.1</javax.jws-api.version>
