@@ -17,7 +17,7 @@ module com.sun.xml.ws.servlet {
     requires com.sun.xml.ws;
     requires com.sun.istack.runtime;
     requires java.logging;
-    requires javax.jws;
+    requires java.jws;
 
     exports com.sun.xml.ws.developer.servlet;
     exports com.sun.xml.ws.server.servlet;
