@@ -37,7 +37,7 @@ module com.sun.xml.ws.jaxws {
     requires org.jvnet.mimepull;
     requires com.sun.xml.streambuffer;
     requires com.sun.xml.fastinfoset;
-    requires javax.jws;
+    requires java.jws;
     requires java.desktop;
     requires java.logging;
     requires java.management;

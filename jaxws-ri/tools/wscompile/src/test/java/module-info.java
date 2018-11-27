@@ -11,7 +11,7 @@
 module com.sun.tools.ws.test {
     requires java.xml;
     requires transitive com.sun.tools.ws;
-    requires javax.jws;
+    requires java.jws;
     requires java.xml.bind;
     requires java.xml.ws;
     requires java.rmi;

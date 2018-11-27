@@ -23,7 +23,7 @@ module com.sun.tools.ws {
     requires java.rmi;
     requires java.xml;
     requires java.xml.bind;
-    requires javax.jws;
+    requires java.jws;
     requires java.xml.ws;
 
     requires com.sun.xml.ws;
