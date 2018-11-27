@@ -31,7 +31,7 @@ module com.sun.xml.ws {
     requires org.jvnet.staxex;
     requires org.jvnet.mimepull;
     requires com.sun.xml.streambuffer;
-    requires javax.jws;
+    requires java.jws;
     requires java.annotation;
     requires java.desktop;
     requires java.logging;
