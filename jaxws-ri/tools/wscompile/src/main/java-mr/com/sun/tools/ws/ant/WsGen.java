@@ -34,7 +34,9 @@ public class WsGen extends WsGenBase {
                 //system classloader, ie. env CLASSPATH=...
                 : System.getProperty("java.class.path");
 
-        getCommandline().createClasspath(getProject()).append(new Path(getProject(), antcp));
+        if (System.getProperty("jdk.module.path") != null) {
+            getCommandline().createModulepath(getProject()).append(new Path(getProject(), System.getProperty("jdk.module.path")));
+        }
 
         if (getModulepath() != null && getModulepath().size() > 0) {
             getCommandline().createModulepath(getProject()).add(getModulepath());
