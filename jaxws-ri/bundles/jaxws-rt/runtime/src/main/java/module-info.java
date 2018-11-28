@@ -22,26 +22,28 @@
  * @since 2.4.0
  */
 module com.sun.xml.ws.jaxws {
-    requires transitive java.xml.ws;
-    requires transitive jakarta.activation;
-    requires transitive java.xml;
-    requires transitive java.xml.bind;
-    requires transitive java.annotation;
 
-    requires com.sun.xml.bind;
-    requires com.sun.xml.messaging.saaj;
-    requires com.sun.xml.ws.policy;
-    requires com.sun.istack.runtime;
-    requires com.sun.xml.txw2;
-    requires org.jvnet.staxex;
-    requires org.jvnet.mimepull;
-    requires com.sun.xml.streambuffer;
-    requires com.sun.xml.fastinfoset;
-    requires java.jws;
     requires java.desktop;
     requires java.logging;
     requires java.management;
     requires jdk.httpserver;
+
+    requires transitive jakarta.activation;
+    requires java.annotation;
+    requires java.jws;
+    requires transitive java.xml;
+    requires transitive java.xml.bind;
+    requires java.xml.soap;
+    requires transitive java.xml.ws;
+
+    requires org.jvnet.mimepull;
+    requires org.jvnet.staxex;
+    requires com.sun.istack.runtime;
+    requires com.sun.xml.bind;
+    requires com.sun.xml.fastinfoset;
+    requires com.sun.xml.streambuffer;
+    requires com.sun.xml.txw2;
+    requires com.sun.xml.ws.policy;
 
     exports com.oracle.webservices.api;
     exports com.oracle.webservices.api.databinding;
