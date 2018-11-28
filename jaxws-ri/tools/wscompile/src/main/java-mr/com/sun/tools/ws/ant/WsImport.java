@@ -10,6 +10,7 @@
 
 package com.sun.tools.ws.ant;
 
+import java.io.File;
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -34,6 +35,10 @@ public class WsImport extends WsImportBase {
                 ? ((AntClassLoader) loader).getClasspath()
                 //system classloader, ie. env CLASSPATH=...
                 : System.getProperty("java.class.path");
+
+        if (System.getProperty("jdk.module.path") != null) {
+            getCommandline().createModulepath(getProject()).append(new Path(getProject(), System.getProperty("jdk.module.path")));
+        }
 
         getCommandline().createClasspath(getProject()).append(new Path(getProject(), antcp));
 

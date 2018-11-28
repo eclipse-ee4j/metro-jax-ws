@@ -492,7 +492,7 @@ abstract class WsTask2 extends MatchingTask {
 
     /**
      * Set up command line to invoke.
-     * 
+     *
      * @return ready to run command line
      */
     protected CommandlineJava setupCommand() {
@@ -564,6 +564,9 @@ abstract class WsTask2 extends MatchingTask {
             antcp += File.pathSeparatorChar + toolsJar.getAbsolutePath();
         }
         if (System.getProperty("jdk.module.path") != null) {
+            // this should not happen as a class from META-INF/versions/9
+            // is supposed to be used. If it happens, warn and fall back
+            log("Changing original module path to classpath.", Project.MSG_WARN);
             antcp += File.pathSeparatorChar + System.getProperty("jdk.module.path");
         }
         getCommandline().createClasspath(getProject()).append(new Path(getProject(), antcp));

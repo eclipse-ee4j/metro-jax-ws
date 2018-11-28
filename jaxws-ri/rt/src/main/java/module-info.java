@@ -12,7 +12,7 @@
  * Defines the Java API for XML-Based Web Services (JAX-WS), and
  * the Web Services Metadata API.
  *
- * 
+ *
  * @uses javax.xml.soap.MessageFactory
  * @uses javax.xml.soap.SAAJMetaFactory
  * @uses javax.xml.soap.SOAPConnectionFactory
@@ -22,26 +22,27 @@
  * @since 2.4.0
  */
 module com.sun.xml.ws {
-    requires transitive java.xml.ws;
-    requires com.sun.xml.bind;
-    requires com.sun.xml.messaging.saaj;
-    requires com.sun.xml.ws.policy;
-    requires com.sun.istack.runtime;
-    requires com.sun.xml.txw2;
-    requires org.jvnet.staxex;
-    requires org.jvnet.mimepull;
-    requires com.sun.xml.streambuffer;
-    requires java.jws;
-    requires java.annotation;
+
     requires java.desktop;
     requires java.logging;
     requires java.management;
     requires jdk.httpserver;
 
-
     requires transitive jakarta.activation;
+    requires java.annotation;
+    requires java.jws;
     requires transitive java.xml;
     requires transitive java.xml.bind;
+    requires java.xml.soap;
+    requires transitive java.xml.ws;
+
+    requires org.jvnet.mimepull;
+    requires org.jvnet.staxex;
+    requires com.sun.istack.runtime;
+    requires com.sun.xml.bind;
+    requires com.sun.xml.streambuffer;
+    requires com.sun.xml.txw2;
+    requires com.sun.xml.ws.policy;
 
     exports com.oracle.webservices.api;
     exports com.oracle.webservices.api.databinding;
@@ -77,7 +78,7 @@ module com.sun.xml.ws {
     exports com.sun.xml.ws.wsdl.parser;
     exports com.sun.xml.ws.wsdl.writer;
     exports com.sun.xml.ws.encoding;
-    
+
     exports com.sun.xml.ws.spi to java.xml.ws;
 
     // XML document content needs to be exported
