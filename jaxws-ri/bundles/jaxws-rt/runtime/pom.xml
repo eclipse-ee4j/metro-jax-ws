@@ -218,7 +218,6 @@
                             <resources>
                                 <resource>
                                     <directory>${dep.sources.mr}</directory>
-                                    <targetPath>META-INF/versions/9</targetPath>
                                 </resource>
                             </resources>
                         </configuration>
