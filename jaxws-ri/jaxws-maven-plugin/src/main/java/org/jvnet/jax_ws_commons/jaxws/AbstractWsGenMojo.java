@@ -20,11 +20,14 @@ package org.jvnet.jax_ws_commons.jaxws;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jws.WebService;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Resource;
@@ -34,7 +37,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.plexus.util.FileUtils;
 
 /**
- * 
+ *
  *
  * @author gnodet <gnodet@apache.org>
  * @author dantran <dantran@apache.org>
@@ -233,13 +236,12 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
         }
         ClassLoader cl = null;
         try {
-            cl = new URLClassLoader(new URL[]{directory.toURI().toURL()});
+            cl = new URLClassLoader(new URL[]{ directory.toURI().toURL()}, getClass().getClassLoader());
             for (String s : FileUtils.getFileAndDirectoryNames(directory, "**/*.class", null, false, true, true, false)) {
                 try {
                     String clsName = s.replace(File.separator, ".");
                     Class<?> c = cl.loadClass(clsName.substring(0, clsName.length() - 6));
-                    WebService ann = c.getAnnotation(WebService.class);
-                    if (!c.isInterface() && ann != null) {
+                    if (!c.isInterface() && c.isAnnotationPresent(WebService.class)) {
                         //more sophisticated checks are done by wsgen itself
                         seis.add(c.getName());
                     }

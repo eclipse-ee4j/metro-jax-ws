@@ -409,12 +409,12 @@
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-invoker-plugin</artifactId>
-                            <version>1.10</version>
+                            <version>3.1.0</version>
                         </plugin>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-failsafe-plugin</artifactId>
-                            <version>2.22.0</version>
+                            <version>3.0.0-M1</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
@@ -441,7 +441,7 @@
                         <configuration>
                             <debug>${ittest.debug}</debug>
                             <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
-                            <!--                            <streamLogs>true</streamLogs>-->
+                            <!--<streamLogs>true</streamLogs>-->
                             <addTestClassPath>true</addTestClassPath>
                             <settingsFile>${project.build.directory}/it-settings.xml</settingsFile>
                             <mavenOpts>${ittest-proxy} -Djavax.xml.accessExternalSchema=all</mavenOpts>

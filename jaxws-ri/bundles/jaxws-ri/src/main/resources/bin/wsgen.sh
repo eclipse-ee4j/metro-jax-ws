@@ -54,4 +54,4 @@ else
 fi
 
 
-exec $JAVA $WSGEN_OPTS -cp "$JAXWS_HOME/lib/jaxws-tools.jar:$JAXWS_HOME/lib/jaxws-rt.jar:$JAXWS_HOME/lib/jaxb-xjc.jar:$JAXWS_HOME/lib/jaxb-jxc.jar:$JAXWS_HOME/lib/jakarta.xml.bind-api.jar:$JAXWS_HOME/lib/jaxb-impl.jar" com.sun.tools.ws.WsGen "$@"
+exec $JAVA $WSGEN_OPTS -cp "$JAXWS_HOME/lib/jaxws-tools.jar" com.sun.tools.ws.WsGen "$@"

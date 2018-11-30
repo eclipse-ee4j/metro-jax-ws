@@ -23,7 +23,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.jvnet.jax-ws-commons.test</groupId>
+    <groupId>com.sun.xml.ws.test</groupId>
     <artifactId>parent</artifactId>
     <version>2.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -38,9 +38,9 @@
     </modules>-->
 
     <properties>
-        <jaxws-ri.version>2.2.9-b14002</jaxws-ri.version>
-        <metro.version>2.3.1-b104</metro.version>
-        <jaxws.plugin.version>2.4.0-SNAPSHOT</jaxws.plugin.version>
+        <jaxws-ri.version>2.3.2</jaxws-ri.version>
+        <metro.version>2.4.3</metro.version>
+        <jaxws.plugin.version>2.4.0</jaxws.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -51,6 +51,12 @@
                 <artifactId>jaxws-rt</artifactId>
                 <version>${jaxws-ri.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.sun.xml.ws</groupId>
+                <artifactId>jaxws-ri</artifactId>
+                <version>${jaxws-ri.version}</version>
+                <type>zip</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -59,15 +65,19 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.1.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.0</version>
+                    <version>3.8.0</version>
                     <configuration>
-                        <source>1.6</source>
-                        <target>1.6</target>
+                        <release>8</release>
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.jvnet.jax-ws-commons</groupId>
+                    <groupId>com.sun.xml.ws</groupId>
                     <artifactId>jaxws-maven-plugin</artifactId>
                     <version>${jaxws.plugin.version}</version>
                 </plugin>
@@ -89,7 +99,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
-                        <version>2.3</version>
                         <executions>
                             <execution>
                                 <phase>validate</phase>
@@ -101,15 +110,27 @@
                                     <silent>true</silent>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>javax.xml.bind</groupId>
-                                            <artifactId>jaxb-api</artifactId>
-                                            <version>2.2.6</version>
+                                            <groupId>jakarta.xml.bind</groupId>
+                                            <artifactId>jakarta.xml.bind-api</artifactId>
+                                            <version>2.3.2</version>
                                             <type>jar</type>
                                         </artifactItem>
                                         <artifactItem>
-                                            <groupId>javax.xml.ws</groupId>
-                                            <artifactId>jaxws-api</artifactId>
-                                            <version>2.2.8</version>
+                                            <groupId>jakarta.xml.ws</groupId>
+                                            <artifactId>jakarta.xml.ws-api</artifactId>
+                                            <version>2.3.2</version>
+                                            <type>jar</type>
+                                        </artifactItem>
+                                        <artifactItem>
+                                            <groupId>jakarta.xml.soap</groupId>
+                                            <artifactId>jakarta.xml.soap-api</artifactId>
+                                            <version>1.5.1</version>
+                                            <type>jar</type>
+                                        </artifactItem>
+                                        <artifactItem>
+                                            <groupId>jakarta.jws</groupId>
+                                            <artifactId>jakarta.jws-api</artifactId>
+                                            <version>1.1.1</version>
                                             <type>jar</type>
                                         </artifactItem>
                                     </artifactItems>
@@ -121,8 +142,7 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-compiler-plugin</artifactId>
                         <configuration>
-                            <source>1.6</source>
-                            <target>1.6</target>
+                            <release>8</release>
                             <compilerArguments>
                                 <endorseddirs>${endorsed.dir}</endorseddirs>
                             </compilerArguments>
