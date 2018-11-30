@@ -53,6 +53,7 @@ import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.RepositorySystemSession;
 import org.eclipse.aether.graph.DependencyFilter;
 import org.eclipse.aether.graph.DependencyNode;
+import org.eclipse.aether.graph.DependencyVisitor;
 import org.eclipse.aether.repository.RemoteRepository;
 import org.eclipse.aether.resolution.DependencyResolutionException;
 import org.eclipse.aether.resolution.DependencyResult;
@@ -444,8 +445,10 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
         if (!toolsJar.exists()) {
             toolsJar = new File(System.getProperty("java.home"), "lib/tools.jar");
         }
-        sb.append(toolsJar.getAbsolutePath());
-        sb.append(File.pathSeparator);
+        if (toolsJar.exists()) {
+            sb.append(toolsJar.getAbsolutePath());
+            sb.append(File.pathSeparator);
+        }
         getLog().debug("getCP esb: " + esb);
         getLog().debug("getCP sb: " + sb);
         return new String[]{esb.substring(0, ((esb.length() > 0) ? esb.length() - 1 : 0)), sb.substring(0, sb.length() - 1), invokerPath};
@@ -499,18 +502,23 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
 
     private void sortArtifacts(DependencyResult result, Map<String, org.eclipse.aether.artifact.Artifact> cp, Set<org.eclipse.aether.artifact.Artifact> endorsedCp) {
         PreorderNodeListGenerator nlg = new PreorderNodeListGenerator();
-        FilteringDependencyVisitor visitor = new FilteringDependencyVisitor(
+        DependencyVisitor visitor = nlg;
+        if (!isModular()) {
+            visitor = new FilteringDependencyVisitor(
                 nlg, new NotDependencyFilter(new EndorsedFilter()));
+
+            PreorderNodeListGenerator enNlg = new PreorderNodeListGenerator();
+            FilteringDependencyVisitor enVisitor = new FilteringDependencyVisitor(
+                    enNlg, new EndorsedFilter());
+            result.getRoot().accept(enVisitor);
+            endorsedCp.addAll(enNlg.getArtifacts(false));
+        }
+
         result.getRoot().accept(visitor);
         for (org.eclipse.aether.artifact.Artifact a : nlg.getArtifacts(false)) {
             cp.put(a.getGroupId() + ":" + a.getArtifactId(), a);
         }
 
-        nlg = new PreorderNodeListGenerator();
-        visitor = new FilteringDependencyVisitor(
-                nlg, new EndorsedFilter());
-        result.getRoot().accept(visitor);
-        endorsedCp.addAll(nlg.getArtifacts(false));
     }
 
     private boolean containsTools(Set<String> cp) {

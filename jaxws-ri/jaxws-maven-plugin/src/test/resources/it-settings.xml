@@ -38,8 +38,26 @@
                     </snapshots>
                 </repository>
                 <repository>
-                    <id>releases.java.net</id>
-                    <url>https://maven.java.net/content/repositories/releases/</url>
+                    <id>sonatype-nexus-staging</id>
+                    <name>Sonatype Nexus Staging</name>
+                    <url>https://oss.sonatype.org/content/repositories/staging</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>sonatype-nexus-snapshots</id>
+                    <name>Sonatype Nexus Snapshots</name>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
                 </repository>
             </repositories>
             <pluginRepositories>
@@ -54,8 +72,26 @@
                     </snapshots>
                 </pluginRepository>
                 <pluginRepository>
-                    <id>releases.java.net</id>
-                    <url>https://maven.java.net/content/repositories/releases/</url>
+                    <id>sonatype-nexus-staging</id>
+                    <name>Sonatype Nexus Staging</name>
+                    <url>https://oss.sonatype.org/content/repositories/staging</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>sonatype-nexus-snapshots</id>
+                    <name>Sonatype Nexus Snapshots</name>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
                 </pluginRepository>
             </pluginRepositories>
         </profile>
