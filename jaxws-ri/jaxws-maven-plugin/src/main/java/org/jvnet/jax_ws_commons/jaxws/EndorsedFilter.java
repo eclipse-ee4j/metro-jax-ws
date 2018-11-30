@@ -18,6 +18,7 @@
 
 package org.jvnet.jax_ws_commons.jaxws;
 
+import java.util.Arrays;
 import java.util.List;
 import org.eclipse.aether.artifact.Artifact;
 import org.eclipse.aether.graph.DependencyFilter;
@@ -29,19 +30,25 @@ import org.eclipse.aether.graph.DependencyNode;
  */
 public class EndorsedFilter implements DependencyFilter {
 
+    private static final List<String> APIS = Arrays.asList(
+            "jakarta.xml.bind-api", "jakarta.xml.ws-api",
+            "jakarta.xml.soap-api", "jakarta.jws-api",
+            "jakarta.annotation-api", "jakarta.activation-api",
+            "jaxws-api", "jaxb-api",
+            "saaj-api", "jsr181-api",
+            "javax.annotation-api", "javax.activation-api",
+            "webservices-api");
+
     @Override
     public boolean accept(DependencyNode dn, List<DependencyNode> list) {
         Artifact a = dn.getDependency().getArtifact();
-        if ("jaxws-api".equals(a.getArtifactId())
-                || "jaxb-api".equals(a.getArtifactId())
-                || "saaj-api".equals(a.getArtifactId())
-                || "jsr181-api".equals(a.getArtifactId())
-                || "javax.annotation".equals(a.getArtifactId())
-                || "javax.annotation-api".equals(a.getArtifactId())
-                || "webservices-api".equals(a.getArtifactId())) {
+        if (APIS.contains(a.getArtifactId())) {
             return true;
         } else if (a.getArtifactId().startsWith("javax.xml.ws")
                 || a.getArtifactId().startsWith("javax.xml.bind")) {
+            return true;
+        } else if (a.getArtifactId().startsWith("jakarta.xml.ws")
+                || a.getArtifactId().startsWith("jakarta.xml.bind")) {
             return true;
         }
         return false;

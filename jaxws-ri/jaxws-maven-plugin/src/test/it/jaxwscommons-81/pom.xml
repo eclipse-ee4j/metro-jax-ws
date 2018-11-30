@@ -24,25 +24,51 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.jvnet.jax-ws-commons.test</groupId>
+        <groupId>com.sun.xml.ws.test</groupId>
         <artifactId>parent</artifactId>
         <version>2.4.0-SNAPSHOT</version>
+        <relativePath>../parent/pom.xml</relativePath>
     </parent>
-    
+
     <artifactId>jaxwscommons81</artifactId>
     <version>2.2.6</version>
 
     <name>JAX_WS_COMMONS-81</name>
     <description>wsgen, wsimport - support tools from JDK</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-ri</artifactId>
+            <type>zip</type>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>some</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeArtifactIds>jaxws-ri</includeArtifactIds>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.jvnet.jax-ws-commons</groupId>
+                <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
                 <executions>
                     <execution>
@@ -150,8 +176,8 @@
                 </os>
             </activation>
             <properties>
-                <tool.wsgen>${java.home}/../bin/wsgen.exe</tool.wsgen>
-                <tool.wsimport>${java.home}/../bin/wsimport.exe</tool.wsimport>
+                <tool.wsgen>${project.build.directory}/jaxws-ri/bin/wsgen.bat</tool.wsgen>
+                <tool.wsimport>${project.build.directory}/jaxws-ri/bin/wsimport.bat</tool.wsimport>
             </properties>
         </profile>
         <profile>
@@ -162,8 +188,8 @@
                 </os>
             </activation>
             <properties>
-                <tool.wsgen>${java.home}/../bin/wsgen</tool.wsgen>
-                <tool.wsimport>${java.home}/../bin/wsimport</tool.wsimport>
+                <tool.wsgen>${project.build.directory}/jaxws-ri/bin/wsgen.sh</tool.wsgen>
+                <tool.wsimport>${project.build.directory}/jaxws-ri/bin/wsimport.sh</tool.wsimport>
             </properties>
         </profile>
     </profiles>
