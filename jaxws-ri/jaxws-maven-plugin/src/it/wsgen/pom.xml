@@ -35,8 +35,8 @@
        
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jaxws.plugin.version>2.3.1</jaxws.plugin.version>
-        <jaxws-ri.version>2.2.9</jaxws-ri.version>
+        <jaxws.plugin.version>2.3.2</jaxws.plugin.version>
+        <jaxws-ri.version>2.3.2</jaxws-ri.version>
     </properties>
 
     <dependencies>
@@ -53,10 +53,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>3.8.0</version>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <release>8</release>
                 </configuration>
                 <executions>
                     <execution>
@@ -69,7 +68,7 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.jvnet.jax-ws-commons</groupId>
+                <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
                 <version>${jaxws.plugin.version}</version>
                 <executions>

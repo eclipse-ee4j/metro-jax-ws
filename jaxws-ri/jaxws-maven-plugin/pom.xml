@@ -124,7 +124,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jaxws-tools</artifactId>
-            <version>${project.version}</version>
+            <version>${jaxws-tools.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jvnet.jaxb2_commons</groupId>
@@ -164,6 +164,10 @@
             <artifactId>maven-resolver-util</artifactId>
         </dependency>
     </dependencies>
+
+    <properties>
+        <jaxws-tools.version>${project.version}</jaxws-tools.version>
+    </properties>
 
     <build>
         <pluginManagement>
@@ -445,9 +449,12 @@
                             <addTestClassPath>true</addTestClassPath>
                             <settingsFile>${project.build.directory}/it-settings.xml</settingsFile>
                             <mavenOpts>${ittest-proxy} -Djavax.xml.accessExternalSchema=all</mavenOpts>
-                            <properties>
+                            <filterProperties>
                                 <jaxws.plugin.version>${project.version}</jaxws.plugin.version>
                                 <jaxws-ri.version>${jaxws-tools.version}</jaxws-ri.version>
+                                <metro.version>2.4.3</metro.version>
+                            </filterProperties>
+                            <properties>
                                 <javax.xml.accessExternalSchema>all</javax.xml.accessExternalSchema>
                             </properties>
                             <setupIncludes>
