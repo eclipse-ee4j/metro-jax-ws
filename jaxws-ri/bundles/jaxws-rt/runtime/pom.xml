@@ -244,6 +244,11 @@
                             <includes>
                                 <include>module-info.java</include>
                             </includes>
+                            <!--adds reads for gmbal-->
+                            <compilerArgs>
+                                <arg>--add-reads</arg>
+                                <arg>com.sun.xml.ws.jaxws=ALL-UNNAMED</arg>
+                            </compilerArgs>
                         </configuration>
                     </execution>
                     <execution>
