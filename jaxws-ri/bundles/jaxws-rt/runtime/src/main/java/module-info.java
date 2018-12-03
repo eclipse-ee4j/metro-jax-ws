@@ -110,4 +110,6 @@ module com.sun.xml.ws.jaxws {
     uses javax.xml.soap.SAAJMetaFactory;
     uses javax.xml.soap.SOAPConnectionFactory;
     uses javax.xml.soap.SOAPFactory;
+
+    provides javax.xml.ws.spi.Provider with com.sun.xml.ws.spi.ProviderImpl;
 }
