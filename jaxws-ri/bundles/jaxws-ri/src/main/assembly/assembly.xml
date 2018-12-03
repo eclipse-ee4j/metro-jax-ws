@@ -61,7 +61,6 @@
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <includes>
-                <include>com.sun.org.apache.xml.internal:resolver</include>
                 <include>jakarta.annotation:jakarta.annotation-api</include>
                 <include>jakarta.xml.soap:jakarta.xml.soap-api</include>
                 <include>jakarta.jws:jakarta.jws-api</include>
@@ -69,6 +68,19 @@
                 <include>jakarta.xml.ws:jakarta.xml.ws-api</include>
                 <include>${project.groupId}:jaxws-rt</include>
                 <include>${project.groupId}:jaxws-tools</include>
+            </includes>
+        </dependencySet>
+        <dependencySet>
+            <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
+            <useTransitiveFiltering>true</useTransitiveFiltering>
+            <scope>provided</scope>
+            <outputDirectory>jaxws-ri/lib</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <includes>
+                <include>com.sun.org.apache.xml.internal:resolver</include>
             </includes>
         </dependencySet>
         <dependencySet>

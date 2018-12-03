@@ -32,8 +32,33 @@
     <artifactId>mojo.it.metro</artifactId>
     <name>Using Metro</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.glassfish.metro</groupId>
+            <artifactId>metro-standalone</artifactId>
+            <type>zip</type>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>some</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeArtifactIds>metro-standalone</includeArtifactIds>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
@@ -51,10 +76,6 @@
                             <goal>wsimport</goal>
                         </goals>
                         <configuration>
-<!--                            <args>
-                                <arg>-J- -release</arg>
-                                <arg>-J8</arg>
-                            </args>-->
                            <wsdlUrls>
                                 <wsdlUrl>https://raw.githubusercontent.com/eclipse-ee4j/metro-jax-ws/master/jaxws-ri/samples/src/main/samples/fromwsdl/etc/AddNumbers.wsdl</wsdlUrl>
                             </wsdlUrls>
@@ -63,8 +84,101 @@
                             <implPortName>{http://duke.example.org}AddNumbersPort</implPortName>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>id2</id>
+                        <goals>
+                            <goal>wsgen</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${tool.wsgen}</executable>
+                            <sei>org.jvnet.jax_ws_commons.jaxws.test.EchoService</sei>
+                            <destDir>${project.build.directory}/custom/classes</destDir>
+                            <extension>true</extension>
+                            <genWsdl>true</genWsdl>
+                            <xnocompile>false</xnocompile>
+                            <!-- implied by <resourceDestDir>...
+                            <keep>true</keep>
+                            -->
+                            <protocol>Xsoap1.2</protocol>
+                            <!--<inlineSchemas>true</inlineSchemas>-->
+                            <resourceDestDir>${project.build.directory}/wsdl</resourceDestDir>
+                            <sourceDestDir>${project.build.directory}/custom/sources</sourceDestDir>
+                            <verbose>true</verbose>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>id3</id>
+                        <goals>
+                            <goal>wsgen</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${tool.wsgen}</executable>
+                            <sei>org.jvnet.jax_ws_commons.jaxws.test.AddService</sei>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>id4</id>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${tool.wsimport}</executable>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>id5</id>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${tool.wsimport}</executable>
+                            <wsdlUrls>
+                                <wsdlUrl>https://raw.githubusercontent.com/eclipse-ee4j/metro-jax-ws/master/jaxws-ri/tests/unit/testcases/fromwsdl/additional_header/doclit/server/sample.wsdl</wsdlUrl>
+                            </wsdlUrls>
+                            <packageName>org.jvnet.jaxwsri.sample</packageName>
+                            <wsdlLocation>http://example.com:43210/my?wsdl</wsdlLocation>
+                            <xadditionalHeaders>true</xadditionalHeaders>
+                            <destDir>${project.build.directory}/custom/classes</destDir>
+                            <sourceDestDir>${project.build.directory}/custom/sources</sourceDestDir>
+                            <target>2.0</target>
+                            <xnocompile>false</xnocompile>
+                            <xdebug>true</xdebug>
+                            <bindingFiles>
+                                <bindingFile>${basedir}/src/remote-xjc/bindings.xjc</bindingFile>
+                                <bindingFile>bindings-default.xjc</bindingFile>
+                            </bindingFiles>
+                            <wsdlDirectory>${project.build.directory}</wsdlDirectory>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>win</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <tool.wsgen>${project.build.directory}/metro/bin/wsgen.bat</tool.wsgen>
+                <tool.wsimport>${project.build.directory}/metro/bin/wsimport.bat</tool.wsimport>
+            </properties>
+        </profile>
+        <profile>
+            <id>nix</id>
+            <activation>
+                <os>
+                    <family>!windows</family>
+                </os>
+            </activation>
+            <properties>
+                <tool.wsgen>${project.build.directory}/metro/bin/wsgen.sh</tool.wsgen>
+                <tool.wsimport>${project.build.directory}/metro/bin/wsimport.sh</tool.wsimport>
+            </properties>
+        </profile>
+    </profiles>
 </project>

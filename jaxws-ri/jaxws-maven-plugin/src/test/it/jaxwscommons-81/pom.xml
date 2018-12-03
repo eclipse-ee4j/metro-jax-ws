@@ -133,7 +133,7 @@
                         <configuration>
                             <executable>${tool.wsimport}</executable>
                             <wsdlUrls>
-                                <wsdlUrl>http://java.net/projects/jax-ws/sources/sources/content/trunk/jaxws-unit/testcases/fromwsdl/additional_header/doclit/server/sample.wsdl</wsdlUrl>
+                                <wsdlUrl>https://raw.githubusercontent.com/eclipse-ee4j/metro-jax-ws/master/jaxws-ri/tests/unit/testcases/fromwsdl/additional_header/doclit/server/sample.wsdl</wsdlUrl>
                             </wsdlUrls>
                             <packageName>org.jvnet.jaxwsri.sample</packageName>
                             <wsdlLocation>http://example.com:43210/my?wsdl</wsdlLocation>

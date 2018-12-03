@@ -100,7 +100,7 @@
                                     <mainClass>com.sun.tools.ws.WsImport</mainClass>
                                 </manifest>
                                 <manifestEntries>
-                                    <Class-Path>jaxws-rt.jar jaxb-xjc.jar</Class-Path>
+                                    <Class-Path>jaxws-rt.jar jaxb-xjc.jar jaxb-jxc.jar</Class-Path>
                                     <Extension-Name>com.sun.tools.jaxws</Extension-Name>
                                     <Multi-Release>true</Multi-Release>
                                 </manifestEntries>
