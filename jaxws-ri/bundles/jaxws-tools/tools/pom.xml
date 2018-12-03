@@ -117,7 +117,17 @@
                             <resources>
                                 <resource>
                                     <directory>${dep.sources}</directory>
-                                    <exclude>**/*.java</exclude>
+                                    <excludes>
+                                        <exclude>**/*.java</exclude>
+                                        <exclude>com/sun/tools/ws/version.properties</exclude>
+                                    </excludes>
+                                </resource>
+                                <resource>
+                                    <directory>${dep.sources}</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>com/sun/tools/ws/version.properties</include>
+                                    </includes>
                                 </resource>
                             </resources>
                         </configuration>

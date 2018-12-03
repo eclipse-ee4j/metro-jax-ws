@@ -72,7 +72,8 @@ public final class Version {
         return v;
     }
 
+    @Override
     public String toString() {
-        return BUILD_VERSION + " svn-revision#" + SVN_REVISION;
+        return BUILD_VERSION + " git-revision#" + SVN_REVISION;
     }
 }
