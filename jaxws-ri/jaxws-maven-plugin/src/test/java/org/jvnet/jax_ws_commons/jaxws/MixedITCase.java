@@ -25,7 +25,6 @@ import static org.jvnet.jax_ws_commons.jaxws.Assertions.assertFileNotPresent;
 import static org.jvnet.jax_ws_commons.jaxws.Assertions.assertFilePresent;
 import static org.jvnet.jax_ws_commons.jaxws.Assertions.assertJarContains;
 import static org.jvnet.jax_ws_commons.jaxws.Assertions.assertJarNotContains;
-import static org.testng.Assert.fail;
 import org.testng.annotations.Test;
 
 /**
@@ -43,7 +42,7 @@ public class MixedITCase {
     @Test
     public void jaxwscommons81_wsimport() throws IOException {
         project = new File(PROJECTS_DIR, "jaxwscommons-81");
-        String version = getExpectedToolsVersion();
+        String version = System.getProperty("jaxws-ri.version");
 
         //check HelloWs
         assertFilePresent(project, "target/classes/org/jvnet/jax_ws_commons/wsimport/test/HelloWs.class");
@@ -77,7 +76,7 @@ public class MixedITCase {
     @Test
     public void jaxwscommons81_wsgen() throws IOException {
         project = new File(PROJECTS_DIR, "jaxwscommons-81");
-        String version = getExpectedToolsVersion();
+        String version = System.getProperty("jaxws-ri.version");
 
         //check EchoService
         assertFilePresent(project, "target/custom/sources/org/jvnet/jax_ws_commons/jaxws/test/jaxws/EchoResponse.java");
@@ -126,19 +125,5 @@ public class MixedITCase {
         assertJarNotContains(project, "jaxwscommons81-2.2.6.jar", "EchoService_schema.xsd");
         assertJarNotContains(project, "jaxwscommons81-2.2.6.jar", "META-INF/wsdl/ExService.wsdl");
         assertJarNotContains(project, "jaxwscommons81-2.2.6.jar", "ExService.wsdl");
-    }
-
-    private String getExpectedToolsVersion() {
-        String v = System.getProperty("java.version");
-        if (v == null) {
-            fail("Cannot detect JAX-WS RI version in JDK: " + v);
-        }
-        if (v.startsWith("1.7")) {
-            return "2.2";
-        } else if (v.startsWith("1.6")) {
-            return "2.1";
-        }
-        fail("Cannot detect JAX-WS RI version in JDK: " + v);
-        return null;
     }
 }

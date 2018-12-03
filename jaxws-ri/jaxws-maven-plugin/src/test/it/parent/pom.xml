@@ -38,9 +38,9 @@
     </modules>-->
 
     <properties>
-        <jaxws-ri.version>2.3.2</jaxws-ri.version>
-        <metro.version>2.4.3</metro.version>
-        <jaxws.plugin.version>2.3.2</jaxws.plugin.version>
+        <jaxws-ri.version>@jaxws-ri.version@</jaxws-ri.version>
+        <metro.version>@metro.version@</metro.version>
+        <jaxws.plugin.version>@project.version@</jaxws.plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -55,6 +55,12 @@
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-ri</artifactId>
                 <version>${jaxws-ri.version}</version>
+                <type>zip</type>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.metro</groupId>
+                <artifactId>metro-standalone</artifactId>
+                <version>${metro.version}</version>
                 <type>zip</type>
             </dependency>
         </dependencies>

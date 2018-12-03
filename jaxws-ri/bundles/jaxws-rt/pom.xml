@@ -209,7 +209,7 @@
                             <archive>
                                 <manifestEntries>
                                     <probe-provider-class-names>com.sun.xml.ws.transport.http.servlet.JAXWSRIDeploymentProbeProvider</probe-provider-class-names>
-                                    <Class-Path>jakarta.annotation-api.jar jakarta.jws-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar FastInfoset.jar gmbal.jar ha-api.jar istack-commons-runtime.jar jaxb-runtime.jar management-api.jar mimepull.jar pfl-asm.jar pfl-basic-tools.jar pfl-basic.jar pfl-dynamic.jar pfl-tf-tools.jar pfl-tf.jar policy.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar txw2.jar woodstox-core.jar</Class-Path>
+                                    <Class-Path>jakarta.annotation-api.jar jakarta.activation-api.jar jakarta.jws-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar FastInfoset.jar gmbal.jar ha-api.jar istack-commons-runtime.jar jaxb-runtime.jar management-api.jar mimepull.jar pfl-asm.jar pfl-basic-tools.jar pfl-basic.jar pfl-dynamic.jar pfl-tf-tools.jar pfl-tf.jar policy.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar txw2.jar woodstox-core.jar</Class-Path>
                                     <Extension-Name>com.sun.xml.ws</Extension-Name>
                                     <Multi-Release>true</Multi-Release>
                                 </manifestEntries>
