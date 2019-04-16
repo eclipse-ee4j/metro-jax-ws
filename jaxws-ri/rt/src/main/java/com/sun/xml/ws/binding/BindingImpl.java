@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -160,10 +160,10 @@ public abstract class BindingImpl implements WSBinding {
 
                 // registering our DCH since javamail's DCH doesn't handle
                 if (!cmdMapInitialized(mailMap)) {
-                    mailMap.addMailcap("text/xml;;x-java-content-handler=com.sun.xml.internal.ws.encoding.XmlDataContentHandler");
-                    mailMap.addMailcap("application/xml;;x-java-content-handler=com.sun.xml.internal.ws.encoding.XmlDataContentHandler");
-                    mailMap.addMailcap("image/*;;x-java-content-handler=com.sun.xml.internal.ws.encoding.ImageDataContentHandler");
-                    mailMap.addMailcap("text/plain;;x-java-content-handler=com.sun.xml.internal.ws.encoding.StringDataContentHandler");
+                    mailMap.addMailcap("text/xml;;x-java-content-handler=com.sun.xml.ws.encoding.XmlDataContentHandler");
+                    mailMap.addMailcap("application/xml;;x-java-content-handler=com.sun.xml.ws.encoding.XmlDataContentHandler");
+                    mailMap.addMailcap("image/*;;x-java-content-handler=com.sun.xml.ws.encoding.ImageDataContentHandler");
+                    mailMap.addMailcap("text/plain;;x-java-content-handler=com.sun.xml.ws.encoding.StringDataContentHandler");
                 }
             }
         } catch (Throwable t) {
