@@ -40,23 +40,6 @@
         <ws.permGenJvmOpts>-XX:PermSize=128m -XX:MaxPermSize=256m</ws.permGenJvmOpts>
     </properties>
 
-<!--    <pluginRepositories>
-        <pluginRepository>
-             temporary definition for harness plugin to be found
-            <id>temp</id>
-            <url>https://maven.java.net/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-            <layout>default</layout>
-        </pluginRepository>
-    </pluginRepositories>-->
-
     <build>
         <pluginManagement>
             <plugins>
