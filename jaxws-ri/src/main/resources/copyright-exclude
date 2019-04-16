@@ -26,6 +26,7 @@
 .bat
 .sh
 .policy
+.md
 /copyright-exclude
 /LICENSE.txt
 /copyright.txt
@@ -60,3 +61,4 @@ tests/unit-rearch/src/fromwsdl/mime/simple_doclit/config/WS-ISwA.xsd
 tests/unit-rearch/src/fromjava/handler_simple/a
 tests/unit-rearch/src/fromwsdl/handler/config/handler_setup.sxd
 tests/unit-rearch/src/whitebox/mex/resolver/com.sun.xml.ws.api.wsdl.parser.MetadataResolverFactory
+/jaxws-maven-plugin/

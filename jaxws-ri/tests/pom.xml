@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,7 +29,6 @@
     <name>JAX-WS RI Tests</name>
 
     <properties>
-        <netbeans.hint.jdkPlatform>JDK_1.6</netbeans.hint.jdkPlatform>
         <jaxwsri.dep.classifier>jar</jaxwsri.dep.classifier>
         <!-- DEFAULT = JAXB, TOPLINK = MOXy -->
         <ws.databinding>DEFAULT</ws.databinding>
@@ -41,9 +40,9 @@
         <ws.permGenJvmOpts>-XX:PermSize=128m -XX:MaxPermSize=256m</ws.permGenJvmOpts>
     </properties>
 
-    <pluginRepositories>
+<!--    <pluginRepositories>
         <pluginRepository>
-            <!-- temporary definition for harness plugin to be found-->
+             temporary definition for harness plugin to be found
             <id>temp</id>
             <url>https://maven.java.net/content/repositories/snapshots</url>
             <releases>
@@ -56,7 +55,7 @@
             </snapshots>
             <layout>default</layout>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories>-->
 
     <build>
         <pluginManagement>
@@ -79,7 +78,6 @@
                     <databinding>${ws.databinding}</databinding>
                     <transport>${ws.transport}</transport>
                     <extraVmArgs>${ws.jvmOpts}</extraVmArgs>
-                    <!--<debug>true</debug>-->
                     <vmArgs>
                         <!-- ensure that you are specifying PermGen jvm options only for jdk < 8 -->
                         <vmArg>-Xms256m -Xmx512m ${ws.permGenJvmOpts}</vmArg>
@@ -89,18 +87,12 @@
         </plugins>
     </build>
 
+    <modules>
+        <module>jaxwsTestUtil</module>
+        <module>unit</module>
+    </modules>
+
     <profiles>
-        <profile>
-            <id>dev-impl</id>
-            <activation>
-                <property>
-                    <name>dev</name>
-                </property>
-            </activation>
-            <modules>
-                <module>unit</module>
-            </modules>
-        </profile>
         <profile>
             <id>all-tests</id>
             <activation>

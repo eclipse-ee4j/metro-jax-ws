@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<descriptor since="2.2">
+  <description>xmlelement</description>
+
+  <client name="xmlElement_echoInt" sideEffectFree="true">
+  <description>testInt</description>
+  <![CDATA[
+    assertEquals(1, echoPort.echoInt(1));
+    assertEquals("testing", echoPort.echoString("testing"));
+    assertEquals(null, echoPort.echoString(null));
+    assertEquals(1, echoPort.echoInteger(1));
+  ]]></client>
+    
+  <service basedir="./server">
+  </service>
+
+</descriptor>

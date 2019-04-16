@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<descriptor since="2.0">
+  <description>This is a Provider XML/HTTP test</description>
+
+  <client name="provider.xmlbind1" sideEffectFree="true"><![CDATA[
+    Hello_Type req = new Hello_Type();
+    req.setArgument("foo");
+    req.setExtra("bar");
+    for(int i=0; i < 10; i++) {
+      HelloResponse response = helloPort.hello(req, req);
+      assertEquals("foo", response.getArgument());
+      assertEquals("bar", response.getExtra());
+    }
+  ]]></client>
+
+  <client name="provider.xmlbind2" sideEffectFree="true"><![CDATA[
+    try {
+      Hello_Type req = new Hello_Type();
+      req.setArgument("foo1");
+      req.setExtra("bar");
+      HelloResponse response = helloPort.hello(req, req);
+      assertTrue(false);
+    } catch(Exception e) {
+      // Should get an exception
+    }
+  ]]></client>
+
+  <service basedir="./server">
+    <wsdl href="hello_literal.wsdl"/>
+  </service>
+
+</descriptor>
