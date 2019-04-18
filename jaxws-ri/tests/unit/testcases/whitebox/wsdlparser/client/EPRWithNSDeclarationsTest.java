@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,22 +10,18 @@
 
 package whitebox.wsdlparser.client;
 
-import com.sun.xml.ws.test.VersionRequirement;
 import com.sun.xml.ws.wsdl.parser.RuntimeWSDLParser;
 import com.sun.xml.ws.api.model.wsdl.*;
-import com.sun.org.apache.xml.internal.resolver.tools.CatalogResolver;
-import com.sun.org.apache.xml.internal.resolver.CatalogManager;
 import junit.framework.TestCase;
 import org.xml.sax.EntityResolver;
 import com.sun.xml.ws.api.addressing.WSEndpointReference;
+import com.sun.xml.ws.util.xml.XmlCatalogUtil;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.transform.stream.StreamSource;
-import java.io.IOException;
 import java.net.URL;
-import java.util.Enumeration;
 
 
 /**
@@ -87,33 +83,7 @@ public class EPRWithNSDeclarationsTest extends TestCase {
         EntityResolver resolver = null;
         if (resolver == null) {
             // set up a manager
-            CatalogManager manager = new CatalogManager();
-            manager.setIgnoreMissingProperties(true);
-            try {
-                //if(System.getProperty(getClass().getName()+".verbose")!=null)
-                manager.setVerbosity(0);
-            } catch (SecurityException e) {
-                // recover by not setting the debug flag.
-            }
-
-            // parse the catalog
-            ClassLoader cl = Thread.currentThread().getContextClassLoader();
-            Enumeration catalogEnum;
-            try {
-                if (cl == null)
-                    catalogEnum = ClassLoader.getSystemResources("/META-INF/jaxws-catalog.xml");
-                else
-                    catalogEnum = cl.getResources("/META-INF/jaxws-catalog.xml");
-
-                while (catalogEnum.hasMoreElements()) {
-                    URL url = (URL) catalogEnum.nextElement();
-                    manager.getCatalog().parseCatalog(url);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            resolver = new CatalogResolver(manager);
+            resolver = XmlCatalogUtil.createDefaultCatalogResolver();
         }
 
         return resolver;
