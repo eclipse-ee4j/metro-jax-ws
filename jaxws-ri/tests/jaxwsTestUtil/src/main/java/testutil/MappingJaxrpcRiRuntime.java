@@ -55,7 +55,6 @@ public class MappingJaxrpcRiRuntime {
             String jaxrpcri = args[0];
             String serverConfig = args[1];
             String newConfig = args[2] + "jaxrpc-ri-runtime.xml";
-            String tempdir = args[2];
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = dbf.newDocumentBuilder();

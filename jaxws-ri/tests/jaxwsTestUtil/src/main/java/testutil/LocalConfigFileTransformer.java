@@ -14,7 +14,6 @@
  */
 package testutil;
 
-import java.io.*;
 import java.util.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.*;

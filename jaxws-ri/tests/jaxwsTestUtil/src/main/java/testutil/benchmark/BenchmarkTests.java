@@ -138,7 +138,7 @@ public class BenchmarkTests {
     }
 
     private void invoke(String classType) throws Exception {
-	if (classType.equals("\"\"")) {
+	if ("\"\"".equals(classType)) {
 		classType = "";
 	}
         String className = "benchmark." + testPackage + ".client." + classPrefix + classType + classSuffix;
@@ -149,7 +149,7 @@ public class BenchmarkTests {
         double returnValue = run(benchmark,out);
 
         out.println(className + " : " + returnValue + " ns");
-        writer.writeStartElement(classType.equals("") ? "All" : classType);
+        writer.writeStartElement("".equals(classType) ? "All" : classType);
         writer.writeCharacters(String.valueOf(returnValue));
         writer.writeEndElement();
         cleanup();

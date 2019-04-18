@@ -33,6 +33,20 @@ public class JRunner extends Task {
     /** whether to run the tests in local or HTTP mode */
     private boolean local;
 
+    /** Content negotiation for FI */
+    private String contentNegotiation;
+
+    /** list of targets to invoke */
+    private String targets;
+
+    /** verbose option */
+    protected boolean verbose = false;
+
+    /** failonerror option */
+    protected boolean failonerror = false;
+
+    protected List<FileSet> buildFileFileset = new ArrayList<FileSet>();
+
     public boolean getLocal() {
         return this.local;
     }
@@ -40,9 +54,6 @@ public class JRunner extends Task {
     public void setLocal(boolean local) {
         this.local = local;
     }
-
-    /** list of targets to invoke */
-    private String targets;
 
     public String getTargets() {
         return targets;
@@ -52,9 +63,6 @@ public class JRunner extends Task {
         this.targets = targets;
     }
     
-    /** Content negotiation for FI */
-    private String contentNegotiation;
-
     public String getContentNegotiation() {
         return contentNegotiation;
     }
@@ -62,9 +70,6 @@ public class JRunner extends Task {
     public void setContentNegotiation(String contentNegotiation) {
         this.contentNegotiation = contentNegotiation;
     }
-
-    /** verbose option */
-    protected boolean verbose = false;
 
     public boolean isVerbose() {
         return verbose;
@@ -74,9 +79,6 @@ public class JRunner extends Task {
         this.verbose = verbose;
     }
 
-    /** failonerror option */
-    protected boolean failonerror = false;
-
     public boolean isFailonerror() {
         return failonerror;
     }
@@ -84,8 +86,6 @@ public class JRunner extends Task {
     public void setFailonerror(boolean failonerror) {
         this.failonerror = failonerror;
     }
-
-    protected List<FileSet> buildFileFileset = new ArrayList<FileSet>();
 
     public void addConfiguredBuildFile(FileSet fileset) {
         buildFileFileset.add(fileset);

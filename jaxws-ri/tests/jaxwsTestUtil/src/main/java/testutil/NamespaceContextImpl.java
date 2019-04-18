@@ -24,6 +24,10 @@ import com.sun.xml.ws.addressing.v200408.MemberSubmissionAddressingConstants;
  * @author Arun Gupta
  */
 public class NamespaceContextImpl implements NamespaceContext {
+
+    private static final Map<String, String> prefixToNSMap = new HashMap<String, String>();
+    private static final Map<String, String> nsToPrefixMap = new HashMap<String, String>();
+
     public NamespaceContextImpl() {
         bindPrefixToNS("S11", WsaUtils.S11_NS);
         bindPrefixToNS("S12", WsaUtils.S12_NS);
@@ -31,9 +35,6 @@ public class NamespaceContextImpl implements NamespaceContext {
         bindPrefixToNS("wsa04", MemberSubmissionAddressingConstants.WSA_NAMESPACE_NAME);
         bindPrefixToNS("ck", "http://example.org/customer");
     }
-
-    private static final Map<String, String> prefixToNSMap = new HashMap<String, String>();
-    private static final Map<String, String> nsToPrefixMap = new HashMap<String, String>();
 
     public void bindPrefixToNS(String prefix, String namespaceURI) {
         prefixToNSMap.put(prefix, namespaceURI);

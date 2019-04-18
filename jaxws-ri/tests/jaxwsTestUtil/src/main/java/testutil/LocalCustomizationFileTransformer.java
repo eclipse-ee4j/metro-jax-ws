@@ -97,7 +97,7 @@ public class LocalCustomizationFileTransformer {
                 DocumentBuilder builder = dbf.newDocumentBuilder();
 
                 // make change in config file
-                File file = new java.io.File(oldCustom);
+                File file = new File(oldCustom);
                 Document doc = builder.parse(file);
                 Element wsdlElement = doc.getDocumentElement();
                 String localName = wsdlElement.getLocalName();

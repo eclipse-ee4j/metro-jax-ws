@@ -13,9 +13,6 @@
  */
 package testutil;
 
-import com.sun.xml.ws.util.ASCIIUtility;
-
-import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.Transformer;
@@ -29,13 +26,9 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.awt.image.PixelGrabber;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.logging.Level;
 
 import org.w3c.dom.Node;
 
@@ -130,9 +123,7 @@ public class AttachmentHelper {
                 matched = false;
             }
         }
-        if (matched)
-            return true;
-        return false;
+        return matched;
     }
 
     private static Iterator handlePixels(Image img, Rectangle rect) {
@@ -184,9 +175,7 @@ public class AttachmentHelper {
         }
 
         protected boolean equals(Pixel p) {
-            if (p.a == a && p.r == r && p.g == g && p.b == b)
-                return true;
-            return false;
+            return (p.a == a && p.r == r && p.g == g && p.b == b);
         }
     }
 }

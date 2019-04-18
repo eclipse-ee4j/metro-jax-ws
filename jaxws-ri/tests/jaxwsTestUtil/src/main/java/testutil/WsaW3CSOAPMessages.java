@@ -13,7 +13,6 @@ package testutil;
 import com.sun.xml.ws.api.addressing.AddressingVersion;
 
 import javax.xml.namespace.QName;
-import java.io.File;
 
 /**
  * @author Arun Gupta

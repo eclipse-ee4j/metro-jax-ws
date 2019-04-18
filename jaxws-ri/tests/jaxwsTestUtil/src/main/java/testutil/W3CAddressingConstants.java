@@ -12,7 +12,6 @@ package testutil;
 
 import javax.xml.namespace.QName;
 
-import com.sun.xml.ws.api.addressing.AddressingVersion;
 
 /**
  * Constants for W3C WS-Addressing version

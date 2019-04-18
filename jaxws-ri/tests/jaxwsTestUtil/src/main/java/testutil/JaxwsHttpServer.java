@@ -283,7 +283,7 @@ public class JaxwsHttpServer {
                 try {
                     System.out.println("Received HTTP request:"+msg.getRequestURI());
                     String method = msg.getRequestMethod();
-                    if (method.equals("GET")) {
+                    if ("GET".equals(method)) {
                         InputStream is = msg.getRequestBody();
                         readFully(is);
                         is.close();

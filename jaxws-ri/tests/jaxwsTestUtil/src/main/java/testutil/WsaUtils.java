@@ -390,11 +390,7 @@ public class WsaUtils {
             "</S:Body></S:Envelope>";
 
     public static final boolean isMember(String wsaNsuri) {
-        if(wsaNsuri.equals(MemberSubmissionAddressingConstants.WSA_NAMESPACE_NAME))
-            return true;
-         else
-            return false;
-
+        return MemberSubmissionAddressingConstants.WSA_NAMESPACE_NAME.equals(wsaNsuri);
     }
 
     public static final void assertInvalidHeaderFaultCode(QName got, String wsaNsUri) {

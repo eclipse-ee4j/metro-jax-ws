@@ -10,7 +10,6 @@
 
 package testutil;
 
-import com.sun.xml.ws.api.addressing.AddressingVersion;
 
 import javax.xml.namespace.QName;
 import java.io.File;
@@ -24,7 +23,7 @@ public class WsaSOAPMessages {
     private String anonymousUri;
     private String noneUri;
     public WsaSOAPMessages(String wsaNsuri) {
-        if (wsaNsuri.equals("http://schemas.xmlsoap.org/ws/2004/08/addressing")) {
+        if ("http://schemas.xmlsoap.org/ws/2004/08/addressing".equals(wsaNsuri)) {
             nsUri = MemberSubmissionAddressingConstants.WSA_NAMESPACE_NAME;
             anonymousUri = MemberSubmissionAddressingConstants.WSA_ANONYMOUS_ADDRESS;
             noneUri = MemberSubmissionAddressingConstants.WSA_NONE_ADDRESS;
