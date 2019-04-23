@@ -20,7 +20,7 @@ import org.apache.tools.ant.taskdefs.ExecTask;
  * the server to be spawned off in a separate thread and execution to proceed
  * without blocking for the server.
  *
- * @author <a href="mailto"nandkumar.kesavan@sun.com">Nandkumar Kesavan</a>
+ * @author Nandkumar Kesavan
  * @see <a href="http://ant.apache.org/manual/CoreTasks/exec.html">Apache Exec Task</a>
  */
 public class SpawnTask extends ExecTask implements Runnable{
