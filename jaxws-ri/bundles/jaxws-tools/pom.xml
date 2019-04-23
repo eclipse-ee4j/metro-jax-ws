@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +23,7 @@
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-tools</artifactId>
     <version>2.4.0-SNAPSHOT</version>
-    
+
     <packaging>pom</packaging>
     <name>JAX-WS RI Tools Bundle</name>
     <description>Open source Reference Implementation of JSR-224: Java API for XML Web Services</description>
@@ -40,6 +40,24 @@
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-jxc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-launcher</artifactId>
+            <version>${ant.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- module dependencies -->

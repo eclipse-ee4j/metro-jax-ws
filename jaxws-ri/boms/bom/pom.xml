@@ -86,7 +86,7 @@
 
         <istack.version>3.0.8</istack.version>
         <gmbal-api.version>4.0.0</gmbal-api.version>
-        <pfl-tf.version>4.0.1</pfl-tf.version>
+        <pfl.version>4.0.1</pfl.version>
         <ha-api.version>3.1.12</ha-api.version>
         <jaxb.version>2.3.2</jaxb.version>
         <jaxws-api.version>2.3.2</jaxws-api.version>
@@ -217,14 +217,37 @@
             </dependency>
 
             <dependency>
+                <groupId>jakarta.activation</groupId>
+                <artifactId>jakarta.activation-api</artifactId>
+                <version>${javax.activation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.activation</groupId>
+                <artifactId>jakarta.activation</artifactId>
+                <version>${javax.activation.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>jakarta.xml.soap</groupId>
                 <artifactId>jakarta.xml.soap-api</artifactId>
                 <version>${saaj-api.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>jakarta.activation</groupId>
+                        <artifactId>jakarta.activation-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.sun.xml.messaging.saaj</groupId>
                 <artifactId>saaj-impl</artifactId>
                 <version>${saaj-impl.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>jakarta.activation-api</artifactId>
+                        <groupId>jakarta.activation</groupId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -242,7 +265,6 @@
             <dependency>
                 <groupId>com.sun.org.apache.xml.internal</groupId>
                 <artifactId>resolver</artifactId>
-                <scope>provided</scope>
                 <version>${resolver.version}</version>
             </dependency>
 
@@ -250,12 +272,6 @@
                 <groupId>jakarta.annotation</groupId>
                 <artifactId>jakarta.annotation-api</artifactId>
                 <version>${javax.annotation-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>jakarta.annotation</groupId>
-                <artifactId>jakarta.annotation-api</artifactId>
-                <version>${javax.annotation-api.version}</version>
-                <classifier>sources</classifier>
             </dependency>
 
             <!-- To be removed (make optional) in the future -->
@@ -268,6 +284,12 @@
                 <groupId>org.glassfish.gmbal</groupId>
                 <artifactId>gmbal</artifactId>
                 <version>${gmbal-api.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.glassfish.external</groupId>
@@ -277,7 +299,18 @@
             <dependency>
                 <groupId>org.glassfish.pfl</groupId>
                 <artifactId>pfl-tf</artifactId>
-                <version>${pfl-tf.version}</version>
+                <version>${pfl.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>*</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.pfl</groupId>
+                <artifactId>pfl-basic</artifactId>
+                <version>${pfl.version}</version>
             </dependency>
 
             <!-- Distribution Artifacts -->
@@ -315,16 +348,6 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>jakarta.activation</groupId>
-                <artifactId>jakarta.activation-api</artifactId>
-                <version>${javax.activation.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sun.activation</groupId>
-                <artifactId>jakarta.activation</artifactId>
-                <version>${javax.activation.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 

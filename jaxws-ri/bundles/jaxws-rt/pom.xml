@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -58,8 +58,24 @@
             <artifactId>policy</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.glassfish.ha</groupId>
+            <artifactId>ha-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.external</groupId>
+            <artifactId>management-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.glassfish.gmbal</groupId>
             <artifactId>gmbal</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.pfl</groupId>
+            <artifactId>pfl-tf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.pfl</groupId>
+            <artifactId>pfl-basic</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jvnet.staxex</groupId>
@@ -77,15 +93,18 @@
             <groupId>com.sun.xml.fastinfoset</groupId>
             <artifactId>FastInfoset</artifactId>
         </dependency>
+
+        <!-- Runtime dependencies -->
         <dependency>
-            <groupId>org.glassfish.ha</groupId>
-            <artifactId>ha-api</artifactId>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.messaging.saaj</groupId>
             <artifactId>saaj-impl</artifactId>
+            <scope>runtime</scope>
         </dependency>
-
         <dependency>
             <artifactId>woodstox-core</artifactId>
             <groupId>com.fasterxml.woodstox</groupId>
@@ -103,12 +122,16 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.sun.org.apache.xml.internal</groupId>
-            <artifactId>resolver</artifactId>
-        </dependency>
-        <dependency>
             <groupId>jakarta.activation</groupId>
             <artifactId>jakarta.activation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- To be removed after end of support for JDK 8 -->
+        <dependency>
+            <groupId>com.sun.org.apache.xml.internal</groupId>
+            <artifactId>resolver</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <!-- module dependencies -->
@@ -209,7 +232,7 @@
                             <archive>
                                 <manifestEntries>
                                     <probe-provider-class-names>com.sun.xml.ws.transport.http.servlet.JAXWSRIDeploymentProbeProvider</probe-provider-class-names>
-                                    <Class-Path>jakarta.annotation-api.jar jakarta.activation-api.jar jakarta.jws-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar FastInfoset.jar gmbal.jar ha-api.jar istack-commons-runtime.jar jaxb-runtime.jar management-api.jar mimepull.jar pfl-asm.jar pfl-basic-tools.jar pfl-basic.jar pfl-dynamic.jar pfl-tf-tools.jar pfl-tf.jar policy.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar txw2.jar woodstox-core.jar</Class-Path>
+                                    <Class-Path>jakarta.annotation-api.jar jakarta.activation.jar jakarta.jws-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar FastInfoset.jar gmbal.jar ha-api.jar istack-commons-runtime.jar jaxb-runtime.jar management-api.jar mimepull.jar pfl-basic.jar pfl-tf.jar policy.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar txw2.jar woodstox-core.jar</Class-Path>
                                     <Extension-Name>com.sun.xml.ws</Extension-Name>
                                     <Multi-Release>true</Multi-Release>
                                 </manifestEntries>
@@ -230,7 +253,7 @@
                             <archive>
                                 <manifestEntries>
                                     <probe-provider-class-names>com.sun.xml.ws.transport.http.servlet.JAXWSRIDeploymentProbeProvider</probe-provider-class-names>
-                                    <Class-Path>jakarta.annotation-api.jar jakarta.jws-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar FastInfoset.jar gmbal.jar ha-api.jar jaxb-impl.jar management-api.jar mimepull.jar policy.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar woodstox-core.jar</Class-Path>
+                                    <Class-Path>jakarta.annotation-api.jar jakarta.activation.jar jakarta.jws-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar FastInfoset.jar gmbal.jar ha-api.jar istack-commons-runtime.jar jaxb-runtime.jar management-api.jar mimepull.jar pfl-basic.jar pfl-tf.jar policy.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar txw2.jar woodstox-core.jar</Class-Path>
                                     <Extension-Name>com.sun.xml.ws</Extension-Name>
                                 </manifestEntries>
                             </archive>

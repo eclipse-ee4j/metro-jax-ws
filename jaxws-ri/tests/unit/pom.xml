@@ -51,6 +51,12 @@
             <artifactId>jaxwsTestUtil</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
@@ -222,6 +228,82 @@
         </profile>
 
         <profile>
+            <id>dev</id>
+            <activation>
+                <property>
+                    <name>!dev</name>
+                </property>
+            </activation>
+
+            <dependencies>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>jaxws-ri</artifactId>
+                    <version>${project.version}</version>
+                    <!--<classifier>${jaxwsri.dep.classifier}</classifier>-->
+                    <type>zip</type>
+                </dependency>
+                <dependency>
+                    <groupId>com.sun.xml.ws</groupId>
+                    <artifactId>jaxws-local-transport</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>prepare-image</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <stripVersion>true</stripVersion>
+                                    <outputDirectory>${project.build.directory}/image</outputDirectory>
+                                    <includeArtifactIds>metro-standalone</includeArtifactIds>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>unzip-image</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>unpack-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/image</outputDirectory>
+                                    <includeArtifactIds>jaxws-ri</includeArtifactIds>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>prepare-transport-lib</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <stripVersion>true</stripVersion>
+                                    <outputDirectory>${project.build.directory}/test-lib</outputDirectory>
+                                    <includeArtifactIds>jaxws-local-transport</includeArtifactIds>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.glassfish.metro</groupId>
+                        <artifactId>harness-maven-plugin</artifactId>
+                        <configuration>
+                            <localImage>${project.build.directory}/image</localImage>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
             <id>dev-impl</id>
             <activation>
                 <property>
@@ -230,23 +312,11 @@
             </activation>
 
             <dependencies>
-                <!--                <dependency>
-    <groupId>com.sun.xml.bind.jaxb</groupId>
-    <artifactId>isorelax</artifactId>
-    <version>20090621</version>
-            <scope>provided</scope>
-                </dependency>-->
-<!--                <dependency>
-                    <groupId>org.relaxng</groupId>
-                    <artifactId>jing</artifactId>
-                    <version>20181222</version>
+                <dependency>
+                    <groupId>com.sun.activation</groupId>
+                    <artifactId>jakarta.activation</artifactId>
                     <scope>provided</scope>
                 </dependency>
-                <dependency>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                    <scope>provided</scope>
-                </dependency>-->
                 <dependency>
                     <groupId>org.glassfish.jaxb</groupId>
                     <artifactId>jaxb-runtime</artifactId>
@@ -298,13 +368,23 @@
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
+                    <groupId>org.glassfish.external</groupId>
+                    <artifactId>management-api</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
                     <groupId>org.glassfish.gmbal</groupId>
                     <artifactId>gmbal</artifactId>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
-                    <groupId>org.glassfish.external</groupId>
-                    <artifactId>management-api</artifactId>
+                    <groupId>org.glassfish.pfl</groupId>
+                    <artifactId>pfl-tf</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.pfl</groupId>
+                    <artifactId>pfl-basic</artifactId>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
@@ -342,11 +422,13 @@
                 </dependency>
                 -->
 
-                <dependency>
+                <!-- To be removed after end of support for JDK 8 -->
+<!--                <dependency>
                     <groupId>com.sun.org.apache.xml.internal</groupId>
                     <artifactId>resolver</artifactId>
-                </dependency>
+                </dependency>-->
 
+                <!-- Plugin dependencies -->
                 <dependency>
                     <groupId>com.sun.mail</groupId>
                     <artifactId>jakarta.mail</artifactId>
@@ -354,16 +436,14 @@
                 </dependency>
                 <dependency>
                     <groupId>org.eclipse.persistence</groupId>
+                    <artifactId>org.eclipse.persistence.moxy</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.eclipse.persistence</groupId>
                     <artifactId>org.eclipse.persistence.sdo</artifactId>
                     <scope>provided</scope>
                 </dependency>
-
-                <dependency>
-                    <groupId>com.sun.activation</groupId>
-                    <artifactId>jakarta.activation</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-
                 <dependency>
                     <groupId>org.eclipse.persistence</groupId>
                     <artifactId>commonj.sdo</artifactId>
