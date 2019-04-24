@@ -29,7 +29,7 @@
     <description>JAX-WS Reference Implementation Runtime</description>
 
     <properties>
-        <findbugs.exclude>${project.basedir}/exclude.xml</findbugs.exclude>
+        <spotbugs.exclude>${project.basedir}/exclude.xml</spotbugs.exclude>
     </properties>
 
     <dependencies>

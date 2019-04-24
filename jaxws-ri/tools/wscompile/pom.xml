@@ -30,7 +30,7 @@
 
     <properties>
         <ant.version>1.10.5</ant.version>
-        <findbugs.exclude>${project.basedir}/exclude.xml</findbugs.exclude>
+        <spotbugs.exclude>${project.basedir}/exclude.xml</spotbugs.exclude>
     </properties>
 
     <dependencies>

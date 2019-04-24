@@ -89,7 +89,7 @@
         <copyright.scmonly>true</copyright.scmonly>
         <copyright.template>src/main/resources/copyright.txt</copyright.template>
         <copyright.update>false</copyright.update>
-        <spotbugs.common>exclude.xml</spotbugs.common>
+        <spotbugs.common>src/main/resources/exclude-common.xml</spotbugs.common>
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
@@ -406,7 +406,7 @@
                         <threshold>${spotbugs.threshold}</threshold>
                         <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
                         <excludeFilterFile>
-                            ${spotbugs.common}
+                            ${spotbugs.common},${spotbugs.exclude}
                         </excludeFilterFile>
                         <fork>true</fork>
                         <jvmArgs>-Xms64m -Xmx256m</jvmArgs>
@@ -534,7 +534,7 @@
         </extensions-->
     </build>
 
-<!--    <reporting>
+    <reporting>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -550,7 +550,7 @@
             </plugin>
         </plugins>
     </reporting>
-  -->
+  
     <profiles>
         <profile>
             <id>dev</id>
