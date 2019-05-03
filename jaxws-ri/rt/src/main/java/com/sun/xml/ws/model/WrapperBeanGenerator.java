@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,13 +10,27 @@
 
 package com.sun.xml.ws.model;
 
-import com.sun.xml.ws.model.AbstractWrapperBeanGenerator.BeanMemberFactory;
 import com.sun.xml.bind.v2.model.annotation.AnnotationReader;
 import com.sun.xml.bind.v2.model.annotation.RuntimeInlineAnnotationReader;
 import com.sun.xml.bind.v2.model.nav.Navigator;
-import com.sun.xml.ws.org.objectweb.asm.*;
-import static com.sun.xml.ws.org.objectweb.asm.Opcodes.*;
+import com.sun.xml.ws.model.AbstractWrapperBeanGenerator.BeanMemberFactory;
+import com.sun.xml.ws.org.objectweb.asm.AnnotationVisitor;
+import com.sun.xml.ws.org.objectweb.asm.ClassWriter;
+import com.sun.xml.ws.org.objectweb.asm.FieldVisitor;
+import com.sun.xml.ws.org.objectweb.asm.MethodVisitor;
+import com.sun.xml.ws.org.objectweb.asm.Opcodes;
 import com.sun.xml.ws.org.objectweb.asm.Type;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.GenericArrayType;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.TypeVariable;
+import java.lang.reflect.WildcardType;
+import java.util.Collection;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.bind.annotation.XmlAttachmentRef;
 import javax.xml.bind.annotation.XmlElement;
@@ -26,11 +40,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Holder;
 import javax.xml.ws.WebServiceException;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.*;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Runtime Wrapper and exception bean generator implementation.
@@ -94,7 +103,7 @@ public class WrapperBeanGenerator {
         ClassWriter cw = new ClassWriter(0);
         //org.objectweb.asm.util.TraceClassVisitor cw = new org.objectweb.asm.util.TraceClassVisitor(actual, new java.io.PrintWriter(System.out));
 
-        cw.visit(V1_5, ACC_PUBLIC + ACC_SUPER, replaceDotWithSlash(className), null, "java/lang/Object", null);
+        cw.visit(Opcodes.V1_8, Opcodes.ACC_PUBLIC + Opcodes.ACC_SUPER, replaceDotWithSlash(className), null, "java/lang/Object", null);
 
         AnnotationVisitor root = cw.visitAnnotation("Ljavax/xml/bind/annotation/XmlRootElement;", true);
         root.visit("name", rootName);
@@ -114,7 +123,7 @@ public class WrapperBeanGenerator {
         type.visitEnd();
 
         for(Field field : fields) {
-            FieldVisitor fv = cw.visitField(ACC_PUBLIC, field.fieldName, field.asmType.getDescriptor(), field.getSignature(), null);
+            FieldVisitor fv = cw.visitField(Opcodes.ACC_PUBLIC, field.fieldName, field.asmType.getDescriptor(), field.getSignature(), null);
 
             for(Annotation ann : field.jaxbAnnotations) {
                 if (ann instanceof XmlMimeType) {
@@ -153,11 +162,11 @@ public class WrapperBeanGenerator {
             fv.visitEnd();
         }
 
-        MethodVisitor mv = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
+        MethodVisitor mv = cw.visitMethod(Opcodes.ACC_PUBLIC, "<init>", "()V", null, null);
         mv.visitCode();
-        mv.visitVarInsn(ALOAD, 0);
-        mv.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V");
-        mv.visitInsn(RETURN);
+        mv.visitVarInsn(Opcodes.ALOAD, 0);
+        mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
+        mv.visitInsn(Opcodes.RETURN);
         mv.visitMaxs(1, 1);
         mv.visitEnd();
 
