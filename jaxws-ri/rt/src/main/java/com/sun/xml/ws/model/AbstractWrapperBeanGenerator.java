@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.*;
 import java.util.logging.Logger;
+import java.security.AccessController;
 
 /**
  * Finds request/response wrapper and exception bean memebers.
@@ -212,6 +213,19 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
         return responseMembers;
     }
 
+    // When an element is of an array type, the software
+    // currently sets nillable to true regardless of the value of the
+    // related annotation.  A customer has complained that nillable="false"
+    // should be allowed for such a type.
+    //
+    // Since the current behavior was specifically placed in the code,
+    // there may be a good reason for it, and we do not want to break
+    // compatibility.
+    // Therefore, we are adding a new system property
+    // -Djaxb.allowNonNillableArray=true
+    // to implement the behavior requested by the customer.
+    static final boolean JAXB_ALLOWNONNILLABLEARRAY = getBooleanSystemProperty("jaxb.allowNonNillableArray").booleanValue();
+
     private void processXmlElement(List<Annotation> jaxb, String elemName, String elemNS, T type) {
         XmlElement elemAnn = null;
         for (Annotation a : jaxb) {
@@ -227,7 +241,7 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
         String ns = (elemAnn != null && !elemAnn.namespace().equals("##default"))
                 ? elemAnn.namespace() : elemNS;
 
-        boolean nillable = nav.isArray(type)
+        boolean nillable = (nav.isArray(type) && !JAXB_ALLOWNONNILLABLEARRAY)
                 || (elemAnn != null && elemAnn.nillable());
 
         boolean required = elemAnn != null && elemAnn.required();
@@ -450,4 +464,15 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
         reservedWords.put("enum", "_enum");
     }
 
+    // This method is copied from RuntimeModeler.java in the same directory.
+    private static Boolean getBooleanSystemProperty(final String prop) {
+        return AccessController.doPrivileged(
+            new java.security.PrivilegedAction<Boolean>() {
+                public Boolean run() {
+                    String value = System.getProperty(prop);
+                    return value != null ? Boolean.valueOf(value) : Boolean.FALSE;
+                }
+            }
+        );
+    }
 }
