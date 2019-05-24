@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.*;
 import java.util.logging.Logger;
+import java.security.AccessController;
 
 /**
  * Finds request/response wrapper and exception bean memebers.
@@ -212,6 +213,28 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
         return responseMembers;
     }
 
+    // When an element is of an array type, the software
+    // currently sets nillable to true regardless of the value of the
+    // related annotation.  A customer has complained that nillable="false"
+    // should be allowed for such a type.
+    //
+    // Since the current behavior was specifically placed in the code,
+    // there may be a good reason for it, and we do not want to break
+    // compatibility.
+    // Therefore, we are adding a new system property
+    // -Dcom.sun.xml.ws.jaxb.allowNonNillableArray=true
+    // to implement the behavior requested by the customer.
+    boolean JAXB_ALLOWNONNILLABLEARRAY = getBooleanSystemProperty("com.sun.xml.ws.jaxb.allowNonNillableArray").booleanValue();
+
+    /*
+     * Process an individual XML element.
+     *
+     * @param jaxb List of annotations to search
+     * @param elemName The element to be processed
+     * @param elemNS Namespace for the element
+     * @param type Type of the parameter.  If this is an array type, then the default behavior is to always consider the parameter nillable.  However, if -Dcom.sun.xml.ws.jaxb.allowNonNillableArray=true is set, then an annotation setting nillable to false will be honored.
+     */
+
     private void processXmlElement(List<Annotation> jaxb, String elemName, String elemNS, T type) {
         XmlElement elemAnn = null;
         for (Annotation a : jaxb) {
@@ -227,7 +250,8 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
         String ns = (elemAnn != null && !elemAnn.namespace().equals("##default"))
                 ? elemAnn.namespace() : elemNS;
 
-        boolean nillable = nav.isArray(type)
+        boolean nillable = (nav.isArray(type) && !JAXB_ALLOWNONNILLABLEARRAY)
+                || (nav.isArray(type) && elemAnn == null)
                 || (elemAnn != null && elemAnn.nillable());
 
         boolean required = elemAnn != null && elemAnn.required();
@@ -448,6 +472,17 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
         reservedWords.put("volatile", "_volatile");
         reservedWords.put("while", "_while");
         reservedWords.put("enum", "_enum");
+    }
+
+    private static Boolean getBooleanSystemProperty(final String prop) {
+        return AccessController.doPrivileged(
+            new java.security.PrivilegedAction<Boolean>() {
+                public Boolean run() {
+                    String value = System.getProperty(prop);
+                    return value != null ? Boolean.valueOf(value) : Boolean.FALSE;
+                }
+            }
+        );
     }
 
 }
