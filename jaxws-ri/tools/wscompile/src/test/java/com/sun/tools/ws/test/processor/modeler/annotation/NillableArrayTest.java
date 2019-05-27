@@ -1,3 +1,13 @@
+/*
+ * Copyright (c) 2016, 2019 Oracle and/or its affiliates. All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Distribution License v. 1.0, which is available at
+ * http://www.eclipse.org/org/documents/edl-v10.php.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 package com.sun.tools.ws.test.processor.modeler.annotation;
 
 import com.sun.tools.ws.wscompile.WsgenTool;
@@ -32,6 +42,11 @@ public class NillableArrayTest extends TestCase {
 
         WsgenTool wsgen = new WsgenTool(System.out);
         wsgen.run(options.toArray(new String[options.size()]));
+
+        //resetting system property com.sun.xml.ws.jaxb.allowNonNillableArray
+        //to null as it was before running the testcase 
+        props.setProperty("com.sun.xml.ws.jaxb.allowNonNillableArray","");
+
         try {
             File file = new File(destDir, "NillableTestService_schema1.xsd");
             Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
@@ -48,8 +63,9 @@ public class NillableArrayTest extends TestCase {
                     Assert.assertNull(complexTypesNodes.item(i).getChildNodes().item(1).getChildNodes().item(1).getAttributes().getNamedItem("nillable"));
                 }
             }
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch(Exception ex) {
+            fail(ex.getMessage());
+            ex.printStackTrace();
         }
     }
 }
