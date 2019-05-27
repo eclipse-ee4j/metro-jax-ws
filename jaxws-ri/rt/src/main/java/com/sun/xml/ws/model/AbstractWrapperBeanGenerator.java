@@ -224,7 +224,7 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
     // Therefore, we are adding a new system property
     // -Dcom.sun.xml.ws.jaxb.allowNonNillableArray=true
     // to implement the behavior requested by the customer.
-    boolean JAXB_ALLOWNONNILLABLEARRAY = getBooleanSystemProperty("com.sun.xml.ws.jaxb.allowNonNillableArray").booleanValue();
+    private final boolean JAXB_ALLOWNONNILLABLEARRAY = getBooleanSystemProperty("com.sun.xml.ws.jaxb.allowNonNillableArray").booleanValue();
 
     /*
      * Process an individual XML element.
@@ -478,8 +478,7 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
         return AccessController.doPrivileged(
             new java.security.PrivilegedAction<Boolean>() {
                 public Boolean run() {
-                    String value = System.getProperty(prop);
-                    return value != null ? Boolean.valueOf(value) : Boolean.FALSE;
+                    return Boolean.getBoolean(prop);
                 }
             }
         );
