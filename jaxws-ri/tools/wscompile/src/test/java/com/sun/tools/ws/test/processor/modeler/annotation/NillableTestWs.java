@@ -12,11 +12,10 @@ package com.sun.tools.ws.test.processor.modeler.annotation;
 
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
 @WebService()
-public class NillableTest {
+public class NillableTestWs {
 
         private java.lang.String[] entitlements;
 
