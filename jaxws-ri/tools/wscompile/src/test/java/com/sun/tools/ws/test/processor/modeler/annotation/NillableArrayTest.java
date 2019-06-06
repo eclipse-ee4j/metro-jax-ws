@@ -19,7 +19,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class NillableArrayTest extends TestCase {
@@ -34,21 +33,17 @@ public class NillableArrayTest extends TestCase {
         options.add(destDir.getAbsolutePath());
         options.add("-cp");
         options.add(System.getProperty("java.class.path") + File.pathSeparator + System.getProperty("jdk.module.path"));
-        options.add("com.sun.tools.ws.test.processor.modeler.annotation.NillableTest");
+        options.add("com.sun.tools.ws.test.processor.modeler.annotation.NillableTestWs");
         options.add("-wsdl");
 
         Properties props = System.getProperties();
         props.setProperty("com.sun.xml.ws.jaxb.allowNonNillableArray","true");
 
         WsgenTool wsgen = new WsgenTool(System.out);
-        wsgen.run(options.toArray(new String[options.size()]));
-
-        //resetting system property com.sun.xml.ws.jaxb.allowNonNillableArray
-        //to null as it was before running the testcase 
-        props.setProperty("com.sun.xml.ws.jaxb.allowNonNillableArray","");
 
         try {
-            File file = new File(destDir, "NillableTestService_schema1.xsd");
+            wsgen.run(options.toArray(new String[options.size()]));
+            File file = new File(destDir, "NillableTestWsService_schema1.xsd");
             Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
             NodeList complexTypesNodes = doc.getElementsByTagName("xs:complexType");
             for( int i = 0; i < complexTypesNodes.getLength(); i++) {
@@ -66,6 +61,8 @@ public class NillableArrayTest extends TestCase {
         } catch(Exception ex) {
             ex.printStackTrace();
             fail(ex.getMessage());
+        } finally{
+            System.clearProperty("com.sun.xml.ws.jaxb.allowNonNillableArray");
         }
     }
 }
