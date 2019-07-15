@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,6 +14,8 @@ import com.sun.xml.ws.resources.ContextClassloaderLocalMessages;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.Collections;
+import java.util.Map;
 import java.util.WeakHashMap;
 
 /**
@@ -21,7 +23,7 @@ import java.util.WeakHashMap;
  */
 abstract class ContextClassloaderLocal<V> {
 
-    private WeakHashMap<ClassLoader, V> CACHE = new WeakHashMap<>();
+    private Map<ClassLoader, V> CACHE = Collections.synchronizedMap(new WeakHashMap<ClassLoader, V>());
 
     public V get() throws Error {
         ClassLoader tccl = getContextClassLoader();
