@@ -14,6 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -22,9 +23,12 @@ import java.util.UUID;
 import javax.activation.DataHandler;
 import javax.xml.bind.attachment.AttachmentMarshaller;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.soap.AttachmentPart;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPBody;
+import javax.xml.soap.SOAPBodyElement;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
@@ -37,6 +41,11 @@ import junit.framework.TestCase;
 
 import org.jvnet.staxex.NamespaceContextEx;
 import org.jvnet.staxex.XMLStreamWriterEx;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+
+import org.xml.sax.InputSource;
 
 import com.oracle.webservices.api.message.ContentType;
 import com.oracle.webservices.api.message.MessageContext;
@@ -103,6 +112,25 @@ public class SAAJMessageTest extends TestCase {
         saajMsg3.writeTo(writer);
         writer.close();
 
+    }
+
+    public void testWhiteSpaceCharacters() throws Exception {
+        MessageFactory messageFactory = MessageFactory.newInstance();
+        SOAPMessage message = messageFactory.createMessage();
+        SOAPBody body = message.getSOAPBody();
+        QName name = new QName("testString");
+        SOAPBodyElement bodyElement = body.addBodyElement(name);
+        bodyElement.addTextNode("Hello World, ---\003\007\024---");
+
+        SAAJMessage saajMsg = new SAAJMessage(message);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        XMLStreamWriter writer = XMLStreamWriterFactory.create(baos);
+        saajMsg.writeTo(writer);
+        writer.close();
+
+        Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse( new InputSource( new StringReader( baos.toString() ) ) );
+        NodeList nodeList = doc.getElementsByTagName("testString");
+        assertEquals(nodeList.item(0).getFirstChild().getNodeValue(), "Hello World, ---&#3;&#7;&#20;---");
     }
 
     public void testFirstDetailEntryName() throws Exception {
