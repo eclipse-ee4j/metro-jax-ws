@@ -54,8 +54,7 @@ public class XMLStreamWriterFilter implements XMLStreamWriter, RecycleAware {
     }
 
     private boolean isUnusualChar(char c){
-        // all char points between 0 and 31 excluding the allowed white spaces (9=\t, 10=\n, 13=\r)
-        if (c >= 0 && c<=31 && c != 9 && c != 10 && c != 13)
+        if (c<=31 && c != '\t' && c != '\n' && c != '\r')
                 return true;
 
         return false;
