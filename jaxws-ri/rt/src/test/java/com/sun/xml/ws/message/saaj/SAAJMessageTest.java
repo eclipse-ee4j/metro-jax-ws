@@ -118,9 +118,13 @@ public class SAAJMessageTest extends TestCase {
         MessageFactory messageFactory = MessageFactory.newInstance();
         SOAPMessage message = messageFactory.createMessage();
         SOAPBody body = message.getSOAPBody();
-        QName name = new QName("testString");
+        QName name = new QName("testString1");
         SOAPBodyElement bodyElement = body.addBodyElement(name);
         bodyElement.addTextNode("Hello World, ---\003\007\024---");
+
+        name = new QName("testString2");
+        bodyElement = body.addBodyElement(name);
+        bodyElement.addTextNode("Hello \t\n\r World");
 
         SAAJMessage saajMsg = new SAAJMessage(message);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -129,8 +133,10 @@ public class SAAJMessageTest extends TestCase {
         writer.close();
 
         Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse( new InputSource( new StringReader( baos.toString() ) ) );
-        NodeList nodeList = doc.getElementsByTagName("testString");
+        NodeList nodeList = doc.getElementsByTagName("testString1");
         assertEquals(nodeList.item(0).getFirstChild().getNodeValue(), "Hello World, ---&#3;&#7;&#20;---");
+        nodeList = doc.getElementsByTagName("testString2");
+        assertEquals(nodeList.item(0).getFirstChild().getNodeValue(), "Hello \t\n\r World");
     }
 
     public void testFirstDetailEntryName() throws Exception {
