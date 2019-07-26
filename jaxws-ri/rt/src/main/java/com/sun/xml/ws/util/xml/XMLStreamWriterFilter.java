@@ -53,8 +53,8 @@ public class XMLStreamWriterFilter implements XMLStreamWriter, RecycleAware {
         writer.writeStartDocument();
     }
 
-    private boolean isWhiteSpace(char c){
-        // all char points between 0 and 31 excluding the allowed white spaces (9=TAB, 10=LF, 13=CR)
+    private boolean isUnusualChar(char c){
+        // all char points between 0 and 31 excluding the allowed white spaces (9=\t, 10=\n, 13=\r)
         if (c >= 0 && c<=31 && c != 9 && c != 10 && c != 13)
                 return true;
 
@@ -65,7 +65,7 @@ public class XMLStreamWriterFilter implements XMLStreamWriter, RecycleAware {
         char[] cstr = text.toCharArray();
         StringBuffer sb = new StringBuffer();
         for(char c:cstr){
-                if(isWhiteSpace(c))
+                if(isUnusualChar(c))
                         sb.append("&#").append(Integer.toString(c)).append(";");
                 else
                         sb.append(c);
