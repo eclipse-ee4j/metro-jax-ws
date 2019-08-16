@@ -54,7 +54,7 @@ public class XMLStreamWriterFilter implements XMLStreamWriter, RecycleAware {
     }
 
     private boolean isUnusualChar(char c){
-        if (c<=31 && c != '\t' && c != '\n' && c != '\r')
+        if ((c<=31) && (c != '\t') && (c != '\n') && (c != '\r'))
                 return true;
 
         return false;
@@ -72,7 +72,19 @@ public class XMLStreamWriterFilter implements XMLStreamWriter, RecycleAware {
         return sb.toString();
     }
 
+    private char[] transformWhiteSpaces(char[] text, int start, int len){
+        for(int i=0; i<len; i++){
+                if (i+start >= text.length){
+                        break;
+                }
+                if(isUnusualChar(text[i]))
+                        text[i] = ' '; //change it to ' '
+        }
+        return text;
+    }
+
     public void writeCharacters(char[] text, int start, int len) throws XMLStreamException {
+        text = transformWhiteSpaces(text, start, len);
         writer.writeCharacters(text, start, len);
     }
 
