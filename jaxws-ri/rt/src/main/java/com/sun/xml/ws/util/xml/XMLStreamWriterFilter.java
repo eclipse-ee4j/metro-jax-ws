@@ -62,7 +62,7 @@ public class XMLStreamWriterFilter implements XMLStreamWriter, RecycleAware {
 
     private String transformWhiteSpaces(String text){
         char[] cstr = text.toCharArray();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for(char c:cstr){
                 if(isUnusualChar(c))
                         sb.append("&#").append(Integer.toString(c)).append(";");
@@ -72,7 +72,7 @@ public class XMLStreamWriterFilter implements XMLStreamWriter, RecycleAware {
         return sb.toString();
     }
 
-    private char[] transformWhiteSpaces(char[] text, int start, int len){
+    private void transformWhiteSpaces(char[] text, int start, int len){
         for(int i=0; i<len; i++){
                 if (i+start >= text.length){
                         break;
@@ -80,11 +80,10 @@ public class XMLStreamWriterFilter implements XMLStreamWriter, RecycleAware {
                 if(isUnusualChar(text[i]))
                         text[i] = ' '; //change it to ' '
         }
-        return text;
     }
 
     public void writeCharacters(char[] text, int start, int len) throws XMLStreamException {
-        text = transformWhiteSpaces(text, start, len);
+        transformWhiteSpaces(text, start, len);
         writer.writeCharacters(text, start, len);
     }
 
