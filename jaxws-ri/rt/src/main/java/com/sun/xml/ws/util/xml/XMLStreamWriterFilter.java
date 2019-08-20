@@ -54,8 +54,9 @@ public class XMLStreamWriterFilter implements XMLStreamWriter, RecycleAware {
     }
 
     private boolean isUnusualChar(char c){
-        if ((c<=31) && (c != '\t') && (c != '\n') && (c != '\r'))
+        if ((c<=31) && (c != '\t') && (c != '\n') && (c != '\r')) {
                 return true;
+        }
 
         return false;
     }
@@ -64,21 +65,23 @@ public class XMLStreamWriterFilter implements XMLStreamWriter, RecycleAware {
         char[] cstr = text.toCharArray();
         StringBuilder sb = new StringBuilder();
         for(char c:cstr){
-                if(isUnusualChar(c))
+                if(isUnusualChar(c)) {
                         sb.append("&#").append(Integer.toString(c)).append(";");
-                else
+                } else {
                         sb.append(c);
+                }
         }
         return sb.toString();
     }
 
     private void transformWhiteSpaces(char[] text, int start, int len){
         for(int i=0; i<len; i++){
-                if (i+start >= text.length){
+                if (i+start >= text.length) {
                         break;
                 }
-                if(isUnusualChar(text[i]))
+                if(isUnusualChar(text[i])) {
                         text[i] = ' '; //change it to ' '
+                }
         }
     }
 
