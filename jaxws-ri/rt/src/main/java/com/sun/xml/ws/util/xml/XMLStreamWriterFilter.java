@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,7 +53,39 @@ public class XMLStreamWriterFilter implements XMLStreamWriter, RecycleAware {
         writer.writeStartDocument();
     }
 
+    private boolean isUnusualChar(char c) {
+        if ((c<=31) && (c != '\t') && (c != '\n') && (c != '\r')) {
+            return true;
+        }
+        return false;
+    }
+
+    private String transformWhiteSpaces(String text) {
+        char[] cstr = text.toCharArray();
+        StringBuilder sb = new StringBuilder();
+        for (char c:cstr) {
+            if (isUnusualChar(c)) {
+                sb.append("&#").append(Integer.toString(c)).append(";");
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    private void transformWhiteSpaces(char[] text, int start, int len) {
+        for (int i=0; i<len; i++) {
+            if (i+start >= text.length) {
+                break;
+            }
+            if (isUnusualChar(text[i])) {
+                text[i] = ' '; //change it to ' '
+            }
+        }
+    }
+
     public void writeCharacters(char[] text, int start, int len) throws XMLStreamException {
+        transformWhiteSpaces(text, start, len);
         writer.writeCharacters(text, start, len);
     }
 
@@ -66,6 +98,7 @@ public class XMLStreamWriterFilter implements XMLStreamWriter, RecycleAware {
     }
 
     public void writeCharacters(String text) throws XMLStreamException {
+        text = transformWhiteSpaces(text);
         writer.writeCharacters(text);
     }
 
