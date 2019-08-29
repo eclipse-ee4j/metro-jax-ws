@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<descriptor since="2.0" uses="ri">
+  <description>stax parser</description>
+
+   <!-- works only for sjsxp and woodstox -->
+  <client name="stax_writer" sideEffectFree="true">
+  <description>stax_writer</description>
+  <![CDATA[
+    import java.io.*;
+    import com.sun.xml.ws.api.streaming.XMLStreamWriterFactory;
+    import com.sun.xml.ws.streaming.XMLStreamWriterUtil;
+
+    os = new ByteArrayOutputStream();
+    writer = XMLStreamWriterFactory.create(os);
+    os = XMLStreamWriterUtil.getOutputStream(writer);
+    assertNotNull(os);
+
+  ]]></client>
+
+</descriptor>

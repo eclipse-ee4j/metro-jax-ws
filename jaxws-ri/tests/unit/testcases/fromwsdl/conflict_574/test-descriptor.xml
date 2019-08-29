@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<descriptor since="2.1.4">
+    <description>wsimport reports a wrong conflict</description>
+    <service basedir="./server">
+        <wsdl href="hello_literal.wsdl"/>
+    </service>
+    <client name="fromwsdl.conflict_574">
+        <description>
+            Test hello().
+        </description>
+        Hello req = new Hello();
+        HelloResponse response = helloPort.hello(req);
+    </client>
+
+</descriptor>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,52 +68,52 @@ public class EncodingTest extends TestCase {
 
         // verify S:Body
         SOAPBody body = soap.getSOAPBody();
-        Iterator<SOAPElement> it = body.getChildElements();
-        SOAPElement elem = (SOAPElement)it.next();
+        Iterator<Node> it = body.getChildElements();
+        SOAPElement elem = (SOAPElement) it.next();
         assertEquals(new QName("http://example.org/mtom", "MTOMInOutResponse"), elem.getElementQName());
-        Iterator<SOAPElement> docit = elem.getChildElements();
+        Iterator<Node> docit = elem.getChildElements();
 
         // verify <doc1> contains xop:Include
-        elem = docit.next();
+        elem = (SOAPElement) docit.next();
         assertEquals(new QName("http://example.org/mtom", "doc1"), elem.getElementQName());
-        Iterator<SOAPElement> xopit = elem.getChildElements();
-        elem = xopit.next();
+        Iterator<Node> xopit = elem.getChildElements();
+        elem = (SOAPElement) xopit.next();
         assertEquals(new QName("http://www.w3.org/2004/08/xop/include", "Include"), elem.getElementQName());
         String href = elem.getAttributeValue(new QName("", "href"));
         assertEquals("cid:", href.substring(0, 4));
 
         // verify <doc2> contains xop:Include
-        elem = docit.next();
+        elem = (SOAPElement) docit.next();
         assertEquals(new QName("http://example.org/mtom", "doc2"), elem.getElementQName());
         xopit = elem.getChildElements();
-        elem = xopit.next();
+        elem = (SOAPElement) xopit.next();
         assertEquals(new QName("http://www.w3.org/2004/08/xop/include", "Include"), elem.getElementQName());
         href = elem.getAttributeValue(new QName("", "href"));
         assertEquals("cid:", href.substring(0, 4));
 
         // verify <doc3> contains xop:Include
-        elem = docit.next();
+        elem = (SOAPElement) docit.next();
         assertEquals(new QName("http://example.org/mtom", "doc3"), elem.getElementQName());
         xopit = elem.getChildElements();
-        elem = xopit.next();
+        elem = (SOAPElement) xopit.next();
         assertEquals(new QName("http://www.w3.org/2004/08/xop/include", "Include"), elem.getElementQName());
         href = elem.getAttributeValue(new QName("", "href"));
         assertEquals("cid:", href.substring(0, 4));
 
         // verify <doc4> contains xop:Include
-        elem = docit.next();
+        elem = (SOAPElement) docit.next();
         assertEquals(new QName("http://example.org/mtom", "doc4"), elem.getElementQName());
         xopit = elem.getChildElements();
-        elem = xopit.next();
+        elem = (SOAPElement) xopit.next();
         assertEquals(new QName("http://www.w3.org/2004/08/xop/include", "Include"), elem.getElementQName());
         href = elem.getAttributeValue(new QName("", "href"));
         assertEquals("cid:", href.substring(0, 4));
 
         // verify <doc5> contains xop:Include
-        elem = docit.next();
+        elem = (SOAPElement) docit.next();
         assertEquals(new QName("http://example.org/mtom", "doc5"), elem.getElementQName());
         xopit = elem.getChildElements();
-        elem = xopit.next();
+        elem = (SOAPElement) xopit.next();
         assertEquals(new QName("http://www.w3.org/2004/08/xop/include", "Include"), elem.getElementQName());
         href = elem.getAttributeValue(new QName("", "href"));
         assertEquals("cid:", href.substring(0, 4));

@@ -1,6 +1,5 @@
 generated/
 target/
-*.class
 
 # eclipse
 .project
@@ -17,22 +16,13 @@ target/
 *.log
 *.tlog
 
-derbyDB/
-*.swp
-.DS_Store
-
-# junit
-TEST-*.txt
-TEST-*.xml
-
 # hprof
 java_pid*
 
 # vi backup file
 *~
 
-# gradle
-.gradle/
-/build
 /jaxws-ri/tools/wscompile/com
 /jaxws-ri/tools/wscompile/jaxws
+
+work/

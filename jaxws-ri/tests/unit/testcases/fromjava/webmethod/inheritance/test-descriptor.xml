@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<descriptor since="2.1.4">
+  <description>This is WebMethod test</description>
+
+  <client name="inheritance_webMethods" sideEffectFree="true">
+  <description>inheritance_webMethods</description>
+  <![CDATA[
+    assertEquals("str", testImplPort.method1("str"));
+    assertEquals("str", testImplPort.method3("str"));
+    assertEquals("str", testImplPort.method4("str"));
+    assertEquals("str", testImplPort.method5("str"));
+    assertEquals("str", testImplPort.method7("str"));
+  ]]></client>
+
+  <client name="inheritance_webMethods_reflection" sideEffectFree="true">
+  <description>inheritance_webMethods_reflection</description>
+  <![CDATA[
+    testImplPort.getClass().getMethod("method1", new Class[]{String.class});
+    try {
+      testImplPort.getClass().getMethod("method2", new Class[]{String.class});
+      fail("method2 shouldn't be a Web Method");
+    } catch(NoSuchMethodException e) {
+    }
+    try {
+      testImplPort.getClass().getMethod("method6", new Class[]{String.class});
+      fail("method6 shouldn't be a Web Method");
+    } catch(NoSuchMethodException e) {
+    }
+  ]]></client>
+
+  <!-- Limitation of Proxy, cannot call toString(). Use customization
+  <client name="inheritance_webMethods1" sideEffectFree="true">
+  <description>inheritance_webMethods1</description>
+  <![CDATA[
+    assertEquals("TestImplBaseBase", testImplPort.toString());
+  ]]></client>
+  -->
+    <client name="inheritance_webMethods_reflection" sideEffectFree="true">
+        <description>inheritance_webMethods_reflection</description>
+        <![CDATA[
+            Class clazz = fromjava.webmethod.inheritance.client.TestImpl.class;
+            java.lang.reflect.Method [] methods = clazz.getMethods();
+            assertEquals(6, methods.length);
+        ]]>
+    </client>
+
+  <service basedir="./server" class="fromjava.webmethod.inheritance.server.TestImpl">
+  </service>
+
+</descriptor>

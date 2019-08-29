@@ -29,14 +29,10 @@
     <description>JAX-WS Reference Implementation Runtime</description>
 
     <properties>
-        <findbugs.exclude>${project.basedir}/exclude.xml</findbugs.exclude>
+        <spotbugs.exclude>${project.basedir}/exclude.xml</spotbugs.exclude>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>jakarta.activation</groupId>
-            <artifactId>jakarta.activation-api</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>policy</artifactId>
@@ -44,7 +40,26 @@
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jakarta.activation-api</artifactId>
+                    <groupId>jakarta.activation</groupId>
+                </exclusion>
+                <!-- shouldn't be optional in jaxb? -->
+<!--                <exclusion>
+                    <groupId>com.sun.xml.fastinfoset</groupId>
+                    <artifactId>FastInfoset</artifactId>
+                </exclusion>-->
+            </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.ha</groupId>
+            <artifactId>ha-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.external</groupId>
+            <artifactId>management-api</artifactId>
+            </dependency>
         <dependency>
             <groupId>org.glassfish.gmbal</groupId>
             <artifactId>gmbal</artifactId>
@@ -52,6 +67,10 @@
         <dependency>
             <groupId>org.glassfish.pfl</groupId>
             <artifactId>pfl-tf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.pfl</groupId>
+            <artifactId>pfl-basic</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jvnet.staxex</groupId>
@@ -65,40 +84,45 @@
             <groupId>org.jvnet.mimepull</groupId>
             <artifactId>mimepull</artifactId>
         </dependency>
+
+        <!-- Runtime dependencies -->
+        <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.messaging.saaj</groupId>
+            <artifactId>saaj-impl</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <artifactId>woodstox-core</artifactId>
             <groupId>com.fasterxml.woodstox</groupId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.codehaus.woodstox</groupId>
             <artifactId>stax2-api</artifactId>
+            <scope>runtime</scope>
         </dependency>
+
+        <!-- To be removed after end of support for JDK 8 -->
         <dependency>
             <groupId>com.sun.org.apache.xml.internal</groupId>
             <artifactId>resolver</artifactId>
+            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.glassfish.ha</groupId>
-            <artifactId>ha-api</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.messaging.saaj</groupId>
-            <artifactId>saaj-impl</artifactId>
         </dependency>
     </dependencies>
 

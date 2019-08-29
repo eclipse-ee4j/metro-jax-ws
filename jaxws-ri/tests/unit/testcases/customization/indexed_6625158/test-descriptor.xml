@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<descriptor since="2.1.6">
+    <description>This is a jaxws customization test for jaxb customization</description>
+    <service basedir="./server">
+        <wsdl href="test.wsdl"/>
+    </service>
+
+    <client name="customization.indexed" sideEffectFree="true">
+    <description>customization.indexed</description>
+    <![CDATA[
+      customization.indexed_6625158.client.Name[] name = new customization.indexed_6625158.client.Name[1];
+      name[0] = new customization.indexed_6625158.client.Name();
+      name[0].setFirst("first");
+      name[0].setLast("last");
+      
+      assertEquals("works", helloPort.echo(name));
+    ]]></client>
+</descriptor>

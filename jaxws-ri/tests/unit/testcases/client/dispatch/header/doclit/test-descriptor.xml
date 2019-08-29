@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<descriptor since="2.1">
+  <description>
+    Access to headers with Dispatch
+  </description>
+  <service>
+    <wsdl href="header.wsdl" />
+  </service>
+  
+  <pre-client>
+    static final QName portQName = new QName("http://example.com/wsdl", "HelloPort");
+  </pre-client>
+
+  <client name="echoSource"><![CDATA[
+    Dispatch dispatch = helloService.createDispatch(portQName, Source.class, Service.Mode.PAYLOAD);
+    try {
+        dispatch.invoke(streamSource(resource("echoRequest.xml")));
+        fail();
+    } catch (SOAPFaultException sfe) {
+        // expected
+        sfe.printStackTrace();
+    }
+  ]]></client>
+
+  <client name="echo5JAXB"><![CDATA[
+    Dispatch dispatch = helloService.createDispatch(portQName, createJAXBContext(ObjectFactory.class),
+                                        Service.Mode.PAYLOAD);
+
+    EchoType body = new EchoType();
+    body.setReqInfo("Hello World!");
+    ObjectFactory of = new ObjectFactory();
+    JAXBElement echo5Request = of.createEcho5Request(body);
+    Object resp = dispatch.invoke(echo5Request);
+    assertNull(resp);
+  ]]></client>
+
+  <client name="echo4SOAPMessage"><![CDATA[
+    Dispatch dispatch = helloService.createDispatch(portQName, SOAPMessage.class, Service.Mode.MESSAGE);
+
+    SOAPMessage message =  getSOAPMessage(streamSource(resource("echo4RequestSM.xml")));
+    SOAPMessage result = (SOAPMessage) dispatch.invoke(message);
+    //todo:need to check contents
+
+    System.out.println("Printing out received header");
+    assertTrue(result instanceof SOAPMessage);
+    result.writeTo(System.out);
+  ]]></client>
+
+</descriptor>
