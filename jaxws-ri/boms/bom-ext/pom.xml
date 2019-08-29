@@ -35,10 +35,10 @@
         <asm.version>3.1</asm.version>
         <commonj.sdo.version>2.1.1</commonj.sdo.version>
         <eclipselink.version>2.7.4</eclipselink.version>
-        <javax.persistance.version>2.2.2</javax.persistance.version>
+        <javax.persistance.version>2.2.3</javax.persistance.version>
         <junit.version>4.12</junit.version>
-        <mail.version>1.6.3</mail.version>
-        <servlet-api.version>4.0.2</servlet-api.version>
+        <mail.version>1.6.4</mail.version>
+        <servlet-api.version>4.0.3</servlet-api.version>
     </properties>
             
     <dependencyManagement>
