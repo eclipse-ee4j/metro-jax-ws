@@ -106,5 +106,10 @@ module com.sun.xml.ws {
     uses javax.xml.soap.SOAPConnectionFactory;
     uses javax.xml.soap.SOAPFactory;
 
-    provides javax.xml.ws.spi.Provider with com.sun.xml.ws.spi.ProviderImpl;
+    provides javax.xml.ws.spi.Provider
+            with com.sun.xml.ws.spi.ProviderImpl;
+
+    provides com.sun.xml.ws.policy.spi.LoggingProvider
+            with com.sun.xml.ws.policy.jaxws.XmlWsLoggingProvider;
+
 }
