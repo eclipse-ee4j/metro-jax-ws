@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -291,11 +291,11 @@ public class ExternalMetadataReader extends ReflectAnnotationReader {
     /**
      * Helper class to merge two different arrays of annotation objects. It merges annotations based on attribute
      * <code>existing-annotations</code> in external customization file.
-     * <p/>
+     * <br>
      * We suppose that in the result array there wouldn't be two annotations of same type:
      * annotation.annotationType().getName(); if there are found such annotations the one from reflection is
      * considered overriden and is thrown away.
-     * <p/>
+     * <br>
      * The helper can work either with one and two dimensional array, but it can be used for two single Annotation
      * objects;
      */

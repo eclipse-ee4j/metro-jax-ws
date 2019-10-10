@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +17,7 @@ import com.sun.xml.ws.api.SOAPVersion;
 /**
  * A wsdl:opeartion binding object that represents soap:binding. This can be
  * the return of {@link com.sun.xml.ws.api.model.JavaMethod#getBinding()}.
- * <p/>
+ * <br>
  * the default values are always document/literal and SoapVersion is SOAP 1.1.
  *
  * @author Vivek Pandey

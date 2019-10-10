@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,10 +26,10 @@ import java.util.TreeMap;
  * element for each occurrence of the header name in the request or response.
  * <p>
  * For example, if the request has the the following headers:
- * <blockquote><pre>
+ * <pre>
  * HeaderName: value1
  * HeadernaMe: value2
- * </blockquote></pre>
+ * </pre>
  * Then get("hEaDeRnAmE") would give both "value1", and "value2" values in a list
  * <p>
  * All the normal {@link Map} methods are provided, but the following

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2006, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -123,7 +123,7 @@ final class HttpCookie implements Cloneable {
      * @throws IllegalArgumentException if the cookie name contains illegal characters
      *                                  or it is one of the tokens reserved for use
      *                                  by the cookie protocol
-     * @throws NullPointerException     if <tt>name</tt> is <tt>null</tt>
+     * @throws NullPointerException     if <code>name</code> is <code>null</code>
      * @see #setValue
      * @see #setVersion
      *
@@ -151,7 +151,7 @@ final class HttpCookie implements Cloneable {
      * may contain more than one cookie definitions, so this is a static
      * utility method instead of another constructor.
      *
-     * @param header    a <tt>String</tt> specifying the set-cookie header.
+     * @param header    a <code>String</code> specifying the set-cookie header.
      *                  The header should start with "set-cookie", or "set-cookie2"
      *                  token; or it should have no leading token at all.
      * @return          a List of cookie parsed from header line string
@@ -160,7 +160,7 @@ final class HttpCookie implements Cloneable {
      *                                  name contains llegal characters, or
      *                                  the cookie name is one of the tokens
      *                                  reserved for use by the cookie protocol
-     * @throws NullPointerException     if the header string is <tt>null</tt>
+     * @throws NullPointerException     if the header string is <code>null</code>
      */
     public static List<HttpCookie> parse(String header) {
         int version = guessCookieVersion(header);
@@ -206,8 +206,8 @@ final class HttpCookie implements Cloneable {
     /**
      * Reports whether this http cookie has expired or not.
      *
-     * @return  <tt>true</tt> to indicate this http cookie has expired;
-     *          otherwise, <tt>false</tt>
+     * @return  <code>true</code> to indicate this http cookie has expired;
+     *          otherwise, <code>false</code>
      */
     public boolean hasExpired() {
         if (maxAge == 0) return true;
@@ -301,7 +301,7 @@ final class HttpCookie implements Cloneable {
      * Specify whether user agent should discard the cookie unconditionally.
      * This is RFC 2965 only attribute.
      *
-     * @param discard   <tt>true</tt> indicates to discard cookie unconditionally
+     * @param discard   <code>true</code> indicates to discard cookie unconditionally
      *
      * @see #getDiscard
      */
@@ -316,7 +316,7 @@ final class HttpCookie implements Cloneable {
     /**
      * Return the discard attribute of the cookie
      *
-     * @return  a <tt>boolean</tt> to represent this cookie's discard attribute
+     * @return  a <code>boolean</code> to represent this cookie's discard attribute
      *
      * @see #setDiscard
      */
@@ -330,7 +330,7 @@ final class HttpCookie implements Cloneable {
      * Specify the portlist of the cookie, which restricts the port(s)
      * to which a cookie may be sent back in a Cookie header.
      *
-     * @param ports     a <tt>String</tt> specify the port list, which is
+     * @param ports     a <code>String</code> specify the port list, which is
      *                  comma seperated series of digits
      * @see #getPortlist
      */
@@ -345,8 +345,8 @@ final class HttpCookie implements Cloneable {
     /**
      * Return the port list attribute of the cookie
      *
-     * @return  a <tt>String</tt> contains the port list
-     *          or <tt>null</tt> if none
+     * @return  a <code>String</code> contains the port list
+     *          or <code>null</code> if none
      * @see #setPortlist
      */
 
@@ -623,7 +623,7 @@ final class HttpCookie implements Cloneable {
      *                          the original Netscape specification;
      *                          1 if the cookie should comply with RFC 2965/2109
      *
-     * @throws IllegalArgumentException if <tt>v</tt> is neither 0 nor 1
+     * @throws IllegalArgumentException if <code>v</code> is neither 0 nor 1
      *
      * @see #getVersion
      *
@@ -711,7 +711,7 @@ final class HttpCookie implements Cloneable {
      *
      * @param domain    the domain name to check host name with
      * @param host      the host name in question
-     * @return          <tt>true</tt> if they domain-matches; <tt>false</tt> if not
+     * @return          <code>true</code> if they domain-matches; <code>false</code> if not
      */
     public static boolean domainMatches(String domain, String host) {
         if (domain == null || host == null)
@@ -773,13 +773,13 @@ final class HttpCookie implements Cloneable {
     /**
      * Test the equality of two http cookies.
      *
-     * <p> The result is <tt>true</tt> only if two cookies
+     * <p> The result is <code>true</code> only if two cookies
      * come from same domain (case-insensitive),
      * have same name (case-insensitive),
      * and have same path (case-sensitive).
      *
-     * @return          <tt>true</tt> if 2 http cookies equal to each other;
-     *                  otherwise, <tt>false</tt>
+     * @return          <code>true</code> if 2 http cookies equal to each other;
+     *                  otherwise, <code>false</code>
      */
     public boolean equals(Object obj) {
         if (obj == this)
@@ -866,8 +866,8 @@ final class HttpCookie implements Cloneable {
 
     /*
      * @param name      the name to be tested
-     * @return          <tt>true</tt> if the name is reserved by cookie
-     *                  specification, <tt>false</tt> if it is not
+     * @return          <code>true</code> if the name is reserved by cookie
+     *                  specification, <code>false</code> if it is not
      */
     private static boolean isReserved(String name) {
         if (name.equalsIgnoreCase("Comment")

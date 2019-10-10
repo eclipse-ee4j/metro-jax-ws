@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,7 +29,7 @@ import javax.xml.ws.WebServiceFeature;
 
 /**
  * Information about a port.
- * <p/>
+ * <br>
  * This object is owned by {@link WSServiceDelegate} to keep track of a port,
  * since a port maybe added dynamically.
  *
@@ -48,7 +48,7 @@ public class PortInfo implements WSPortInfo {
      * have the corresponding WSDL model. This would occur when the
      * service was created with the WSDL location and the port is defined
      * in the WSDL.
-     * <p/>
+     * <br>
      * If this is a {@link SEIPortInfo}, then this is always non-null.
      */
     public final @Nullable WSDLPort portModel;

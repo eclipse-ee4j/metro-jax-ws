@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -70,14 +70,14 @@ import java.util.UUID;
  * <li>
  *    Random-accessible list of headers.
  *    a header is a representation of an element inside
- *    &lt;soap:Header>.
+ *    &lt;soap:Header&gt;.
  *    It can be read multiple times,
  *    can be added or removed, but it is not modifiable.
  *    See {@link HeaderList} for more about headers.
  *
  * <li>
  *    The payload of the message, which is a representation
- *    of an element inside &lt;soap:Body>.
+ *    of an element inside &lt;soap:Body&gt;.
  *    the payload is streamed, and therefore it can be
  *    only read once (or can be only written to something once.)
  *    once a payload is used, a message is said to be <b>consumed</b>.
@@ -126,7 +126,7 @@ import java.util.UUID;
  * <h2>Message and XOP</h2>
  * <p>
  * XOP is considered as an {@link Codec}, and therefore when you are looking at
- * {@link Message}, you'll never see &lt;xop:Include> or any such elements
+ * {@link Message}, you'll never see &lt;xop:Include&gt; or any such elements
  * (instead you'll see the base64 data inlined.) If a consumer of infoset isn't
  * interested in handling XOP by himself, this allows him to work with XOP
  * correctly even without noticing it.

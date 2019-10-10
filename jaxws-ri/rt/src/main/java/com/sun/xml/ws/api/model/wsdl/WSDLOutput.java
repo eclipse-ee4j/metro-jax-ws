@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@ public interface WSDLOutput extends WSDLObject, WSDLExtensible {
 
     /**
      * Gives the WSDLMessage corresponding to wsdl:output@message
-     * <p/>
+     * <br>
      * This method should not be called before the entire WSDLModel is built. Basically after the WSDLModel is built
      * all the references are resolve in a post processing phase. IOW, the WSDL extensions should
      * not call this method.
@@ -39,7 +39,7 @@ public interface WSDLOutput extends WSDLObject, WSDLExtensible {
     /**
      * Gives the Action Message Addressing Property value for
      * {@link WSDLOutput} message.
-     * <p/>
+     * <br>
      * This method provides the correct value irrespective of
      * whether the Action is explicitly specified in the WSDL or
      * implicitly derived using the rules defined in WS-Addressing. 
@@ -58,7 +58,7 @@ public interface WSDLOutput extends WSDLObject, WSDLExtensible {
      * Gives qualified name of the wsdl:output 'name' attribute value. If there is no name, then it computes the name from:
      *
      * wsdl:operation@name+"Response", which is local name of {@link WSDLOperation#getName()} + "Response"
-     * <p/>
+     * <br>
      *
      * The namespace uri is determined from the enclosing wsdl:operation.
      */

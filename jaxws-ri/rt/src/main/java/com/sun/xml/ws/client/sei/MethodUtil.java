@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 /**
  * Utility class to invoke com.sun.xml.ws.util.MethodUtil.invoke() if available. If not (other then Oracle JDK) fallbacks
  * to java.lang,reflect.Method.invoke()
- * <p/>
+ * <br>
  * Be careful, copy of this class exists in several packages, iny modification must be done to other copies too!
  */
 class MethodUtil {

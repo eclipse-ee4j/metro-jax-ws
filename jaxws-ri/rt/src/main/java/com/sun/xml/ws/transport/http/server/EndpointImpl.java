@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -71,7 +71,7 @@ public class EndpointImpl extends Endpoint {
     /**
      * Once the service is published, this field will
      * be set to the {@link HttpEndpoint} instance.
-     * <p/>
+     * <br>
      * But don't declare the type as {@link HttpEndpoint}
      * to avoid static type dependency that cause the class loading to
      * fail if the LW HTTP server doesn't exist.

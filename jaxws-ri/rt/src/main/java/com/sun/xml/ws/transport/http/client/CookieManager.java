@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2006, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -121,7 +121,7 @@ public class CookieManager extends CookieHandler
      *
      * <p>This constructor will create new cookie manager with default
      * cookie store and accept policy. The effect is same as
-     * <tt>CookieManager(null, null)</tt>.
+     * <code>CookieManager(null, null)</code>.
      */
     public CookieManager() {
         this(null, null);
@@ -131,12 +131,12 @@ public class CookieManager extends CookieHandler
     /**
      * Create a new cookie manager with specified cookie store and cookie policy.
      *
-     * @param store     a <tt>CookieStore</tt> to be used by cookie manager.
-     *                  if <tt>null</tt>, cookie manager will use a default one,
+     * @param store     a <code>CookieStore</code> to be used by cookie manager.
+     *                  if <code>null</code>, cookie manager will use a default one,
      *                  which is an in-memory CookieStore implmentation.
-     * @param cookiePolicy      a <tt>CookiePolicy</tt> instance
+     * @param cookiePolicy      a <code>CookiePolicy</code> instance
      *                          to be used by cookie manager as policy callback.
-     *                          if <tt>null</tt>, ACCEPT_ORIGINAL_SERVER will
+     *                          if <code>null</code>, ACCEPT_ORIGINAL_SERVER will
      *                          be used.
      */
     public CookieManager(CookieStore store,
@@ -160,11 +160,11 @@ public class CookieManager extends CookieHandler
     /**
      * To set the cookie policy of this cookie manager.
      *
-     * <p> A instance of <tt>CookieManager</tt> will have
+     * <p> A instance of <code>CookieManager</code> will have
      * cookie policy ACCEPT_ORIGINAL_SERVER by default. Users always
      * can call this method to set another cookie policy.
      *
-     * @param cookiePolicy      the cookie policy. Can be <tt>null</tt>, which
+     * @param cookiePolicy      the cookie policy. Can be <code>null</code>, which
      *                          has no effects on current cookie policy.
      */
     public void setCookiePolicy(CookiePolicy cookiePolicy) {

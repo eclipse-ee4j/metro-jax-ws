@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,7 @@ import com.sun.xml.ws.wsdl.DispatchException;
  * </p>
  * <blockquote> Following is an example that creates a {@code Databinding} which
  * provides the operations to serialize/deserialize a JavaCallInfo to/from a
- * SOAP message:<br />
+ * SOAP message:<br>
  * 
  * <pre>
  * DatabindingFactory wsfac = DatabindingFactory();

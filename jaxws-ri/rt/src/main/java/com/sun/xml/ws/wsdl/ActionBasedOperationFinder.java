@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,11 +37,11 @@ import java.util.logging.Logger;
  * An {@link WSDLOperationFinder} implementation that uses
  * WS-Addressing Action Message Addressing Property, <code>wsa:Action</code> and SOAP Payload QName,
  * as the key for dispatching.
- * <p/>
+ * <br>
  * This should be used only when AddressingFeature is enabled.
  * A map of all {@link ActionBasedOperationSignature}s in the port and the corresponding and the WSDL Operation QNames
  * is maintained.
- * <p/>
+ * <br>
  *
  * @author Rama Pulavarthi
  */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,10 +17,10 @@ import java.util.Map;
  * instance can be used to create <code>WsTool</code>, <code>WsRuntime</code>,
  * <code>XsTool</code>, and <code>XsRuntime</code> instances.
  * <p>
- * </P>
+ *
  * <blockquote>
  * Following is an example that creates a {@code WsTool} which provides the
- * operations for "WSDL to JAVA" and "JAVA to WSDL":<br />
+ * operations for "WSDL to JAVA" and "JAVA to WSDL":<br>
  * <pre>
  *       WsFactory wsfac = WsFactory.newInstance();
  *       WsTool tool = wsfac.createTool();
@@ -30,7 +30,7 @@ import java.util.Map;
  * 
  * <blockquote>
  * Following is an example that creates a {@code WsRuntime} which provides the
- * operations to serialize/deserialize a JavaCallInfo to/from a SOAP message:<br />
+ * operations to serialize/deserialize a JavaCallInfo to/from a SOAP message:<br>
  * <pre>
  *       WsFactory wsfac = WsFactory.newInstance();
  *       WsRuntime rt = wsfac.createRuntime(wsRuntimeConfig);

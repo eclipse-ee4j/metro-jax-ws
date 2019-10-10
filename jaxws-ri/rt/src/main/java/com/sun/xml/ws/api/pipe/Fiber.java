@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,51 +40,51 @@ import javax.xml.ws.WebServiceException;
 
 /**
  * User-level thread&#x2E; Represents the execution of one request/response processing.
- * <p/>
- * <p/>
+ * <br>
+ * <br>
  * JAX-WS RI is capable of running a large number of request/response concurrently by
  * using a relatively small number of threads. This is made possible by utilizing
  * a {@link Fiber} &mdash; a user-level thread that gets created for each request/response
  * processing.
- * <p/>
- * <p/>
+ * <br>
+ * <br>
  * A fiber remembers where in the pipeline the processing is at, what needs to be
  * executed on the way out (when processing response), and other additional information
  * specific to the execution of a particular request/response.
- * <p/>
+ * <br>
  * <h2>Suspend/Resume</h2>
- * <p/>
+ * <br>
  * Fiber can be {@link NextAction#suspend() suspended} by a {@link Tube}.
  * When a fiber is suspended, it will be kept on the side until it is
  * {@link #resume(Packet) resumed}. This allows threads to go execute
  * other runnable fibers, allowing efficient utilization of smaller number of
  * threads.
- * <p/>
+ * <br>
  * <h2>Context-switch Interception</h2>
- * <p/>
+ * <br>
  * {@link FiberContextSwitchInterceptor} allows {@link Tube}s and {@link Adapter}s
  * to perform additional processing every time a thread starts running a fiber
  * and stops running it.
- * <p/>
+ * <br>
  * <h2>Context ClassLoader</h2>
- * <p/>
+ * <br>
  * Just like thread, a fiber has a context class loader (CCL.) A fiber's CCL
  * becomes the thread's CCL when it's executing the fiber. The original CCL
  * of the thread will be restored when the thread leaves the fiber execution.
- * <p/>
- * <p/>
+ * <br>
+ * <br>
  * <h2>Debugging Aid</h2>
- * <p/>
+ * <br>
  * Because {@link Fiber} doesn't keep much in the call stack, and instead use
  * {@link #conts} to store the continuation, debugging fiber related activities
  * could be harder.
- * <p/>
- * <p/>
+ * <br>
+ * <br>
  * Setting the {@link #LOGGER} for FINE would give you basic start/stop/resume/suspend
  * level logging. Using FINER would cause more detailed logging, which includes
  * what tubes are executed in what order and how they behaved.
- * <p/>
- * <p/>
+ * <br>
+ * <br>
  * When you debug the server side, consider setting {@link Fiber#serializeExecution}
  * to true, so that execution of fibers are serialized. Debugging a server
  * with more than one running threads is very tricky, and this switch will
@@ -178,12 +178,12 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
     /**
      * Is this thread suspended? 0=not suspended, 1=suspended.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * Logically this is just a boolean, but we need to prepare for the case
      * where the thread is {@link #resume(Packet) resumed} before we get to the {@link #suspend()}.
      * This happens when things happen in the following order:
-     * <p/>
+     * <br>
      * <ol>
      * <li>Tube decides that the fiber needs to be suspended to wait for the external event.
      * <li>Tube hooks up fiber with some external mechanism (like NIO channel selector)
@@ -192,12 +192,12 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
      * to wake up fiber
      * <li>{@link Fiber#doRun} invokes {@link Fiber#suspend()}.
      * </ol>
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * Using int, this will work OK because {@link #suspendedCount} becomes -1 when
      * {@link #resume(Packet)} occurs before {@link #suspend()}.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * Increment and decrement is guarded by 'this' object.
      */
     private volatile int suspendedCount = 0;
@@ -271,8 +271,8 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
     public interface CompletionCallback {
         /**
          * Indicates that the fiber has finished its execution.
-         * <p/>
-         * <p/>
+         * <br>
+         * <br>
          * Since the JAX-WS RI runs asynchronously,
          * this method maybe invoked by a different thread
          * than any of the threads that started it or run a part of tubeline.
@@ -299,8 +299,8 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
     /**
      * Starts the execution of this fiber asynchronously.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * This method works like {@link Thread#start()}.
      *
      * @param tubeline           The first tube of the tubeline that will act on the packet.
@@ -397,21 +397,21 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
     /**
      * Wakes up a suspended fiber.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * If a fiber was suspended without specifying the next {@link Tube},
      * then the execution will be resumed in the response processing direction,
      * by calling the {@link Tube#processResponse(Packet)} method on the next/first
      * {@link Tube} in the {@link Fiber}'s processing stack with the specified resume
      * packet as the parameter.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * If a fiber was suspended with specifying the next {@link Tube},
      * then the execution will be resumed in the request processing direction,
      * by calling the next tube's {@link Tube#processRequest(Packet)} method with the
      * specified resume packet as the parameter.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * This method is implemented in a race-free way. Another thread can invoke
      * this method even before this fiber goes into the suspension mode. So the caller
      * need not worry about synchronizing {@link NextAction#suspend()} and this method.
@@ -498,14 +498,14 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
     /**
      * Wakes up a suspended fiber with an exception.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * The execution of the suspended fiber will be resumed in the response
      * processing direction, by calling the {@link Tube#processException(Throwable)} method
      * on the next/first {@link Tube} in the {@link Fiber}'s processing stack with
      * the specified exception as the parameter.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * This method is implemented in a race-free way. Another thread can invoke
      * this method even before this fiber goes into the suspension mode. So the caller
      * need not worry about synchronizing {@link NextAction#suspend()} and this method.
@@ -518,14 +518,14 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
     /**
      * Wakes up a suspended fiber with an exception.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * The execution of the suspended fiber will be resumed in the response
      * processing direction, by calling the {@link Tube#processException(Throwable)} method
      * on the next/first {@link Tube} in the {@link Fiber}'s processing stack with
      * the specified exception as the parameter.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * This method is implemented in a race-free way. Another thread can invoke
      * this method even before this fiber goes into the suspension mode. So the caller
      * need not worry about synchronizing {@link NextAction#suspend()} and this method.
@@ -598,7 +598,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
     
     /**
      * Suspends this fiber's execution until the resume method is invoked.
-     * <p/>
+     * <br>
      * The call returns immediately, and when the fiber is resumed
      * the execution picks up from the last scheduled continuation.
      * @param onExitRunnable runnable to be invoked after fiber is marked for suspension
@@ -685,16 +685,16 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
     
     /**
      * Adds a new {@link FiberContextSwitchInterceptor} to this fiber.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * The newly installed fiber will take effect immediately after the current
      * tube returns from its {@link Tube#processRequest(Packet)} or
      * {@link Tube#processResponse(Packet)}, before the next tube begins processing.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * So when the tubeline consists of X and Y, and when X installs an interceptor,
      * the order of execution will be as follows:
-     * <p/>
+     * <br>
      * <ol>
      * <li>X.processRequest()
      * <li>interceptor gets installed
@@ -715,17 +715,17 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
     /**
      * Removes a {@link FiberContextSwitchInterceptor} from this fiber.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * The removal of the interceptor takes effect immediately after the current
      * tube returns from its {@link Tube#processRequest(Packet)} or
      * {@link Tube#processResponse(Packet)}, before the next tube begins processing.
-     * <p/>
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
+     * <br>
      * So when the tubeline consists of X and Y, and when Y uninstalls an interceptor
      * on the way out, then the order of execution will be as follows:
-     * <p/>
+     * <br>
      * <ol>
      * <li>Y.processResponse() (notice that this happens with interceptor.execute() in the callstack)
      * <li>interceptor gets uninstalled
@@ -800,12 +800,12 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
     /**
      * Runs a given {@link Tube} (and everything thereafter) synchronously.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * This method blocks and returns only when all the successive {@link Tube}s
      * complete their request/response processing. This method can be used
      * if a {@link Tube} needs to fallback to synchronous processing.
-     * <p/>
+     * <br>
      * <h3>Example:</h3>
      * <pre>
      * class FooTube extends {@link AbstractFilterTubeImpl} {
@@ -1266,8 +1266,8 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
     /**
      * Gets the current {@link Packet} associated with this fiber.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * This method returns null if no packet has been associated with the fiber yet.
      */
     public
@@ -1296,19 +1296,19 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
     
     /**
      * (ADVANCED) Returns true if the current fiber is being executed synchronously.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * Fiber may run synchronously for various reasons. Perhaps this is
      * on client side and application has invoked a synchronous method call.
      * Perhaps this is on server side and we have deployed on a synchronous
      * transport (like servlet.)
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * When a fiber is run synchronously (IOW by {@link #runSync(Tube, Packet)}),
      * further invocations to {@link #runSync(Tube, Packet)} can be done
      * without degrading the performance.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * So this value can be used as a further optimization hint for
      * advanced {@link Tube}s to choose the best strategy to invoke
      * the next {@link Tube}. For example, a tube may want to install
@@ -1335,8 +1335,8 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
     /**
      * Gets the current fiber that's running.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * This works like {@link Thread#currentThread()}.
      * This method only works when invoked from {@link Tube}.
      */

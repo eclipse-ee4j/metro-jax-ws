@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,7 +46,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * files placed into any of the usual extension directories.  Providers may
  * also be made available by adding them to the applet or application class
  * path or by some other platform-specific means.
- * <p/>
+ * <br>
  * <p> In this lookup mechanism a service is represented by an interface or an
  * abstract class.  (A concrete class may be used, but this is not
  * recommended.)  A provider of a given service contains one or more concrete
@@ -59,7 +59,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * interface could possibly unify them, so no such class has been defined.  The
  * only requirement enforced here is that provider classes must have a
  * zero-argument constructor so that they may be instantiated during lookup.
- * <p/>
+ * <br>
  * <p> A service provider identifies itself by placing a provider-configuration
  * file in the resource directory {@code META-INF/services}.  The file's name
  * should consist of the fully-qualified name of the abstract service class.
@@ -68,7 +68,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * well as blank lines, are ignored.  The comment character is {@code '#'}
  * ({@code 0x23}); on each line all characters following the first comment
  * character are ignored.  The file must be encoded in UTF-8.
- * <p/>
+ * <br>
  * <p> If a particular concrete provider class is named in more than one
  * configuration file, or is named in the same configuration file more than
  * once, then the duplicates will be ignored.  The configuration file naming a
@@ -76,31 +76,31 @@ import java.util.concurrent.ConcurrentHashMap;
  * unit as the provider itself.  The provider must be accessible from the same
  * class loader that was initially queried to locate the configuration file;
  * note that this is not necessarily the class loader that found the file.
- * <p/>
+ * <br>
  * <p> <b>Example:</b> Suppose we have a service class named
  * {@code java.io.spi.CharCodec}.  It has two abstract methods:
- * <p/>
+ * <br>
  * <pre>
  *   public abstract CharEncoder getEncoder(String encodingName);
  *   public abstract CharDecoder getDecoder(String encodingName);
  * </pre>
- * <p/>
+ * <br>
  * Each method returns an appropriate object or {@code null} if it cannot
  * translate the given encoding.  Typical {@code CharCodec} providers will
  * support more than one encoding.
- * <p/>
+ * <br>
  * <p> If {@code sun.io.StandardCodec} is a provider of the {@code CharCodec}
  * service then its jar file would contain the file
  * {@code META-INF/services/java.io.spi.CharCodec}.  This file would contain
  * the single line:
- * <p/>
+ * <br>
  * <pre>
  *   sun.io.StandardCodec    # Standard codecs for the platform
  * </pre>
- * <p/>
+ * <br>
  * To locate an codec for a given encoding name, the internal I/O code would
  * do something like this:
- * <p/>
+ * <br>
  * <pre>
  *   CharEncoder getEncoder(String encodingName) {
  *       for( CharCodec cc : ServiceFinder.find(CharCodec.class) ) {
@@ -111,7 +111,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *       return null;
  *   }
  * </pre>
- * <p/>
+ * <br>
  * The provider-lookup mechanism always executes in the security context of the
  * caller.  Trusted system code should typically invoke the methods in this
  * class from within a privileged security context.
@@ -151,7 +151,7 @@ public final class ServiceFinder<T> implements Iterable<T> {
     /**
      * Locates and incrementally instantiates the available providers of a
      * given service using the given class loader.
-     * <p/>
+     * <br>
      * <p> This method transforms the name of the given service class into a
      * provider-configuration filename as described above and then uses the
      * {@code getResources} method of the given class loader to find all
@@ -159,7 +159,7 @@ public final class ServiceFinder<T> implements Iterable<T> {
      * produce a list of provider-class names.  The iterator that is returned
      * uses the given class loader to lookup and then instantiate each element
      * of the list.
-     * <p/>
+     * <br>
      * <p> Because it is possible for extensions to be installed into a running
      * Java virtual machine, this method may return different results each time
      * it is invoked. <p>
@@ -181,7 +181,7 @@ public final class ServiceFinder<T> implements Iterable<T> {
      * Locates and incrementally instantiates the available providers of a
      * given service using the context class loader.  This convenience method
      * is equivalent to
-     * <p/>
+     * <br>
      * <pre>
      *   ClassLoader cl = Thread.currentThread().getContextClassLoader();
      *   return Service.providers(service, cl);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -85,7 +85,7 @@ public interface ClientTubelineAssemblyContext extends TubelineAssemblyContext {
      * The created pipeline will be used to serve this port.
      * Null if the service isn't associated with any port definition in WSDL,
      * and otherwise non-null.
-     * <p/>
+     * <br>
      * Replaces {@link com.sun.xml.ws.api.pipe.ClientTubeAssemblerContext#getWsdlModel()}
      */
     WSDLPort getWsdlPort();
@@ -96,8 +96,8 @@ public interface ClientTubelineAssemblyContext extends TubelineAssemblyContext {
      * Interception point to change {@link Codec} during {@link com.sun.xml.ws.api.pipe.Tube}line assembly. The
      * new codec will be used by jax-ws client runtime for encoding/decoding web service
      * request/response messages. The new codec should be used by the transport tubes.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * the codec should correctly implement {@link Codec#copy} since it is used while
      * serving requests concurrently.
      *

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,10 +25,10 @@ import java.util.Iterator;
 
 /**
  * This class represents SOAP1.1 Fault. This class will be used to marshall/unmarshall a soap fault using JAXB.
- * <p/>
+ * <br>
  * <pre>
  * Example:
- * <p/>
+ * <br>
  *     &lt;soap:Fault xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>
  *         &lt;faultcode>soap:Client&lt;/faultcode>
  *         &lt;faultstring>Invalid message format&lt;/faultstring>
@@ -39,11 +39,11 @@ import java.util.Iterator;
  *             &lt;/m:msg>
  *         &lt;/detail>
  *     &lt;/soap:Fault>
- * <p/>
+ * <br>
  * Above, m:msg, if a known fault (described in the WSDL), IOW, if m:msg is known by JAXBContext it should be unmarshalled into a
  * Java object otherwise it should be deserialized as {@link javax.xml.soap.Detail}
  * </pre>
- * <p/>
+ * <br>
  *
  * @author Vivek Pandey
  */

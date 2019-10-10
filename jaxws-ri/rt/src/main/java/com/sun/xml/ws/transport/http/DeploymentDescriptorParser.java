@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,13 +62,13 @@ import java.util.logging.Logger;
 
 /**
  * Parses {@code sun-jaxws.xml} into {@link WSEndpoint}.
- * <p/>
- * <p/>
+ * <br>
+ * <br>
  * Since {@code sun-jaxws.xml} captures more information than what {@link WSEndpoint}
  * represents (in particular URL pattern and name), this class
  * takes a parameterization 'A' so that the user of this parser can choose to
  * create another type that wraps {@link WSEndpoint}.
- * <p/>
+ * <br>
  * {@link HttpAdapter} and its derived type is used for this often,
  * but it can be anything.
  *
@@ -366,7 +366,7 @@ public class DeploymentDescriptorParser<A> {
 
     /**
      * Creates a new "Adapter".
-     * <p/>
+     * <br>
      * Normally 'A' would be {@link HttpAdapter} or some derived class.
      * But the parser doesn't require that to be of any particular type.
      */

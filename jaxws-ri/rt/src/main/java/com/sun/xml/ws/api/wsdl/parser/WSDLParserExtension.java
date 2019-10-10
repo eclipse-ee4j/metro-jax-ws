@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,6 +11,9 @@
 package com.sun.xml.ws.api.wsdl.parser;
 
 import com.sun.xml.ws.api.WSService;
+import com.sun.xml.ws.api.model.wsdl.WSDLExtensible;
+import com.sun.xml.ws.api.model.wsdl.WSDLExtension;
+import com.sun.xml.ws.api.model.wsdl.WSDLModel;
 import com.sun.xml.ws.api.model.wsdl.editable.EditableWSDLBoundFault;
 import com.sun.xml.ws.api.model.wsdl.editable.EditableWSDLBoundOperation;
 import com.sun.xml.ws.api.model.wsdl.editable.EditableWSDLBoundPortType;

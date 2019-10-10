@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,7 +40,7 @@ import java.util.logging.Level;
 /**
  * This class is responsible for locating and loading Metro configuration files
  * (both application jaxws-tubes.xml and default jaxws-tubes-default.xml).
- * <p/>
+ * <br>
  * Once the configuration is loaded the class is able to resolve which tubeline
  * configuration belongs to each endpoint or endpoint client. This information is
  * then used in {@link TubelineAssemblyController} to construct the list of

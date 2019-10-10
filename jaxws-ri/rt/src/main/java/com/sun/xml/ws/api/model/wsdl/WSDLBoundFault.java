@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,7 +43,7 @@ public interface WSDLBoundFault extends WSDLObject, WSDLExtensible {
      * Gives the associated abstract fault from
      * wsdl:portType/wsdl:operation/wsdl:fault. It is only available after
      * the WSDL parsing is complete and the entire model is frozen.
-     * <p/>
+     * <br>
      * Maybe null if a binding fault has no corresponding fault in abstract
      * wsdl:portType/wsdl:operation
      */

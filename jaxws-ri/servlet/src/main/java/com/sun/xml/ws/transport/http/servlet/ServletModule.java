@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,13 +30,13 @@ public abstract class ServletModule extends WebModule {
      * {@link HttpServletRequest}
      *
      * <p>
-     * This method follows the convention of the <tt>HttpServletRequest.getContextPath()</tt>,
+     * This method follows the convention of the <code>HttpServletRequest.getContextPath()</code>,
      * and accepts strings like "http://myhost" (for web applications that are deployed
      * to the root context path), or "http://myhost/foobar" (for web applications
      * that are deployed to context path "/foobar")
      *
      * TODO should we generify WebModule so that we could use
-     * TODO WebModule<HttpServletRequest> ??
+     * TODO WebModule&lt;HttpServletRequest&gt; ??
      */
     public @NotNull String getContextPath(HttpServletRequest req) {
         return ServletConnectionImpl.getBaseAddress(req);
