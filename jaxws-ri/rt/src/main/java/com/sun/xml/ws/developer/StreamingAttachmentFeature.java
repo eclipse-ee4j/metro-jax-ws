@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,7 +26,6 @@ import org.glassfish.gmbal.ManagedData;
  * 
  * <pre>
  * for e.g.: To configure all StreamingAttachment attachments to be kept in memory
- * <p>
  *
  * StreamingAttachmentFeature feature = new StreamingAttachmentFeature();
  * feature.setAllMemory(true);

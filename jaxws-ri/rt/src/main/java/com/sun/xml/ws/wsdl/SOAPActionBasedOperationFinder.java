@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2007, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@ import java.util.Map;
 
 /**
  * An {@link WSDLOperationFinder} that uses SOAPAction as the key for dispatching.
- * <p/>
+ * <br>
  * A map of all SOAPAction on the port and the corresponding WSDL operation QName
  * is initialized in the constructor. The SOAPAction from the
  * request {@link com.sun.xml.ws.api.message.Packet} is used as the key to identify the associated wsdl operation.

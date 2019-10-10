@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -105,13 +105,13 @@ public interface PropertySet {
     
     /**
      * Creates a modifiable {@link Map} view of this {@link PropertySet}.
-     * <p/>
+     * <br>
      * Changes done on this {@link Map} or on {@link PropertySet} object work in both directions - values made to
      * {@link Map} are reflected to {@link PropertySet} and changes done using getters/setters on {@link PropertySet}
      * object are automatically reflected in this {@link Map}.
-     * <p/>
+     * <br>
      * If necessary, it also can hold other values (not present on {@link PropertySet}) -
-     * {@see PropertySet#mapAllowsAdditionalProperties}
+     * see {@link BasePropertySet#mapAllowsAdditionalProperties()}
      *
      * @return always non-null valid instance.
      */

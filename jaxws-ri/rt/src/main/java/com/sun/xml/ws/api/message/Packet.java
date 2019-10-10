@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -259,7 +259,7 @@ public final class Packet
 
     /**
      * Returns the QName of the wsdl operation associated with this packet.
-     * <p/>
+     * <br>
      * Information such as Payload QName, wsa:Action header, SOAPAction HTTP header are used depending on the features
      * enabled on the particular port.
      *
@@ -417,7 +417,7 @@ public final class Packet
     /**
      * The value of {@link ContentNegotiation#PROPERTY}
      * property.
-     * <p/>
+     * <br>
      * This property is used only on the client side.
      */
     public ContentNegotiation contentNegotiation;
@@ -587,7 +587,7 @@ public final class Packet
      * <p>
      * Note that the way the transport sends this value out depends on
      * transport and SOAP version.
-     * <p/>
+     * <br>
      * For HTTP transport and SOAP 1.1, BP requires that SOAPAction
      * header is present (See {@BP R2744} and {@BP R2745}.) For SOAP 1.2,
      * this is moved to the parameter of the "application/soap+xml".

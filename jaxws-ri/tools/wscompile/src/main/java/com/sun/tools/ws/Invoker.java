@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,7 +61,7 @@ public final class Invoker {
 
     /**
      * Escape hatch to work around IBM JDK problem.
-     * See http://www-128.ibm.com/developerworks/forums/dw_thread.jsp?nav=false&forum=367&thread=164718&cat=10
+     * See http://www-128.ibm.com/developerworks/forums/dw_thread.jsp?nav=false&amp;forum=367&amp;thread=164718&amp;cat=10
      */
     public static final boolean noSystemProxies;
 

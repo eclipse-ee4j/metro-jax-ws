@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,10 +18,10 @@ import java.util.Map;
  * <code>Databinding.Builder</code> instances, and <code>Databinding.Builder</code> 
  * instances are used to configure and build <code>Databinding</code> instances.
  * <p>
- * </P>
+ *
  * <blockquote>
  * Following is an example that creates a {@code Databinding} which provides the
- * operations to serialize/deserialize a JavaCallInfo to/from a SOAP message:<br/>
+ * operations to serialize/deserialize a JavaCallInfo to/from a SOAP message:<br>
  * <pre>
  * DatabindingFactory factory = DatabindingFactory.newInstance();
  * Databinding.Builder builder = factory.createBuilder(seiClass, endpointClass);

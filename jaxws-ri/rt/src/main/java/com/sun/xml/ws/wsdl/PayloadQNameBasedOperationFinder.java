@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 
 /**
  * An {@link WSDLOperationFinder} that uses SOAP payload first child's QName as the key for dispatching.
- * <p/>
+ * <br>
  * A map of all payload QNames that the operations in the port allow and the corresponding QName of the wsdl operation
  * is initialized in the constructor. The payload QName is extracted from the
  * request {@link com.sun.xml.ws.api.message.Packet} and used to identify the wsdl operation.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -457,21 +457,21 @@ public class SAAJMessage extends Message {
 
     /**
      * Creates a copy of a {@link com.sun.xml.ws.api.message.Message}.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * This method creates a new {@link com.sun.xml.ws.api.message.Message} whose header/payload/attachments/properties
      * are identical to this {@link com.sun.xml.ws.api.message.Message}. Once created, the created {@link com.sun.xml.ws.api.message.Message}
      * and the original {@link com.sun.xml.ws.api.message.Message} behaves independently --- adding header/
      * attachment to one {@link com.sun.xml.ws.api.message.Message} doesn't affect another {@link com.sun.xml.ws.api.message.Message}
      * at all.
-     * <p/>
+     * <br>
      * <h3>Design Rationale</h3>
-     * <p/>
+     * <br>
      * Since a {@link com.sun.xml.ws.api.message.Message} body is read-once, sometimes
      * (such as when you do fail-over, or WS-RM) you need to
      * create an idential copy of a {@link com.sun.xml.ws.api.message.Message}.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * The actual copy operation depends on the layout
      * of the data in memory, hence it's best to be done by
      * the {@link com.sun.xml.ws.api.message.Message} implementation itself.

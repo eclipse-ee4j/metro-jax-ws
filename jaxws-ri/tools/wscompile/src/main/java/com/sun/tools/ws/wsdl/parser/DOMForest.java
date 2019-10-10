@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -49,8 +49,8 @@ public class DOMForest {
      * which documents (of the forest) were given as the root
      * documents, and which of them are read as included/imported
      * documents.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * Set of system ids as strings.
      */
     protected final Set<String> rootDocuments = new HashSet<String>();
@@ -61,7 +61,7 @@ public class DOMForest {
     protected final Set<String> externalReferences = new HashSet<String>();
 
     /**
-     * actual data storage map&lt;SystemId,Document>.
+     * actual data storage map&lt;SystemId,Document&gt;.
      */
     protected final Map<String, Document> core = new HashMap<String, Document>();
     protected final ErrorReceiver errorReceiver;
@@ -82,7 +82,7 @@ public class DOMForest {
 
     protected final EntityResolver entityResolver;
     /**
-     * Stores all the outer-most &lt;jaxb:bindings> customizations.
+     * Stores all the outer-most &lt;jaxb:bindings&gt; customizations.
      */
     public final Set<Element> outerMostBindings = new HashSet<Element>();
 
@@ -221,7 +221,7 @@ public class DOMForest {
 
     /**
          * Returns a {@link org.xml.sax.XMLReader} to parse a document into this DOM forest.
-         * <p/>
+         * <br>
          * This version requires that the DOM object to be created and registered
          * to the map beforehand.
          */
@@ -317,7 +317,7 @@ public class DOMForest {
 
     /**
      * Gets the system ID from which the given DOM is parsed.
-     * <p/>
+     * <br>
      * Poor-man's base URI.
      */
     public String getSystemId(Document dom) {
@@ -342,7 +342,7 @@ public class DOMForest {
 
     /**
      * Dumps the contents of the forest to the specified stream.
-     * <p/>
+     * <br>
      * This is a debug method. As such, error handling is sloppy.
      */
     public void dump(OutputStream out) throws IOException {

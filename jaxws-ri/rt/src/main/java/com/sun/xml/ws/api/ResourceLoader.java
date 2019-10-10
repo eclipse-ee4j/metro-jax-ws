@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,7 +30,7 @@ public abstract class ResourceLoader {
      * virtual location to actual location.
      * <p>
      * Extensions can get hold of this object using {@link Container}.
-     * <p/>
+     * <br>
      * for e.g.:
      * <pre>
      * ResourceLoader loader = container.getSPI(ResourceLoader.class);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,7 +43,7 @@ public interface WSDLFault extends WSDLObject, WSDLExtensible {
 
     /**
      * Gives qualified name of the wsdl:fault 'name' attribute value.
-     * <p/>
+     * <br>
      *
      * The namespace uri is determined from the enclosing wsdl:operation.
      */
@@ -53,7 +53,7 @@ public interface WSDLFault extends WSDLObject, WSDLExtensible {
     /**
      * Gives the Action Message Addressing Property value for
      * {@link WSDLFault} message.
-     * <p/>
+     * <br>
      * This method provides the correct value irrespective of
      * whether the Action is explicitly specified in the WSDL or
      * implicitly derived using the rules defined in WS-Addressing.

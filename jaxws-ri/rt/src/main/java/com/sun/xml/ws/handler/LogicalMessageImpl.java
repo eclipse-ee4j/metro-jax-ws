@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,7 +44,7 @@ import org.w3c.dom.Document;
  * Implementation of {@link LogicalMessage}. This class implements the methods
  * used by LogicalHandlers to get/set the request or response either
  * as a JAXB object or as javax.xml.transform.Source.
- * <p/>
+ * <br>
  * <p>The {@link Message} that is passed into the constructor
  * is used to retrieve the payload of the request or response.
  *

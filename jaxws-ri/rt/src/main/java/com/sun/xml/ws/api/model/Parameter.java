@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,13 +19,13 @@ import javax.jws.WebParam.Mode;
 
 /**
  * Runtime Parameter that abstracts the annotated java parameter
- * <p/>
- * <p/>
+ * <br>
+ * <br>
  * A parameter may be bound to a header, a body, or an attachment.
  * Note that when it's bound to a body, it's bound to a body,
  * it binds to the whole payload.
- * <p/>
- * <p/>
+ * <br>
+ * <br>
  * Sometimes multiple Java parameters are packed into the payload,
  * in which case the subclass {@link com.sun.xml.ws.model.WrapperParameter} is used.
  *

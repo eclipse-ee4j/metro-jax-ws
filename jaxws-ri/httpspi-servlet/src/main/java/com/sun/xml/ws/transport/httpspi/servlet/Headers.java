@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,10 +27,10 @@ import java.util.Set;
  * <p>
  * For example, if a response header instance contains one key "HeaderName" with two values "value1 and value2"
  * then this object is output as two header lines:
- * <blockquote><pre>
+ * <pre>
  * HeaderName: value1
  * HeaderName: value2
- * </blockquote></pre>
+ * </pre>
  * <p>
  * All the normal {@link java.util.Map} methods are provided, but the following
  * additional convenience methods are most likely to be used:

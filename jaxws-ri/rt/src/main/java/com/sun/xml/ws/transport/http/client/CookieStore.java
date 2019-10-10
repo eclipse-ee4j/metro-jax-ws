@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2006, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,8 +18,8 @@ import java.util.Map;
  * A CookieStore object represents a storage for cookie. Can store and retrieve
  * cookies.
  *
- * <p>{@link CookieManager} will call <tt>CookieStore.add</tt> to save cookies
- * for every incoming HTTP response, and call <tt>CookieStore.get</tt> to
+ * <p>{@link CookieManager} will call <code>CookieStore.add</code> to save cookies
+ * for every incoming HTTP response, and call <code>CookieStore.get</code> to
  * retrieve cookie for every outgoing HTTP request. A CookieStore
  * is responsible for removing HttpCookie instances which have expired.
  *
@@ -42,11 +42,11 @@ interface CookieStore {
      * then it is replaced with the new one.
      *
      * @param uri       the uri this cookie associated with.
-     *                  if <tt>null</tt>, this cookie will not be associated
+     *                  if <code>null</code>, this cookie will not be associated
      *                  with an URI
      * @param cookie    the cookie to store
      *
-     * @throws NullPointerException if <tt>cookie</tt> is <tt>null</tt>
+     * @throws NullPointerException if <code>cookie</code> is <code>null</code>
      *
      * @see #get
      *
@@ -62,7 +62,7 @@ interface CookieStore {
      * @return          an immutable list of HttpCookie,
      *                  return empty list if no cookies match the given URI
      *
-     * @throws NullPointerException if <tt>uri</tt> is <tt>null</tt>
+     * @throws NullPointerException if <code>uri</code> is <code>null</code>
      *
      * @see #add
      *
@@ -93,14 +93,14 @@ interface CookieStore {
      * Remove a cookie from store.
      *
      * @param uri       the uri this cookie associated with.
-     *                  if <tt>null</tt>, the cookie to be removed is not associated
-     *                  with an URI when added; if not <tt>null</tt>, the cookie
+     *                  if <code>null</code>, the cookie to be removed is not associated
+     *                  with an URI when added; if not <code>null</code>, the cookie
      *                  to be removed is associated with the given URI when added.
      * @param cookie    the cookie to remove
      *
-     * @return          <tt>true</tt> if this store contained the specified cookie
+     * @return          <code>true</code> if this store contained the specified cookie
      *
-     * @throws NullPointerException if <tt>cookie</tt> is <tt>null</tt>
+     * @throws NullPointerException if <code>cookie</code> is <code>null</code>
      */
     public boolean remove(URI uri, HttpCookie cookie);
     
@@ -108,7 +108,7 @@ interface CookieStore {
     /**
      * Remove all cookies in this cookie store.
      *
-     * @return          <tt>true</tt> if this store changed as a result of the call
+     * @return          <code>true</code> if this store changed as a result of the call
      */
     public boolean removeAll();
 }

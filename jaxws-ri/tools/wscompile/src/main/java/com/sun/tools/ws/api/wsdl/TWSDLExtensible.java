@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,12 +51,13 @@ public interface TWSDLExtensible {
 
     /**
      * Gives the parent of a wsdl extensibility element.
-     * <pre>
+     * <pre>{@code
      * For example,
      *
      *     <wsdl:portType>
      *         <wsdl:operation>
      *     ...
+     * }</pre>
      * Here, the {@link TWSDLExtensible}representing wsdl:operation's parent would be wsdl:portType
      *
      * @return null if the {@link TWSDLExtensible} has no parent, root of wsdl document - wsdl:definition.

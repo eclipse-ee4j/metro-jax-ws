@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,7 +61,7 @@ import java.lang.reflect.Proxy;
  * <p>
  * Stubs turn a method invocation into a {@link Pipe#process(com.sun.xml.ws.api.message.Packet)} invocation,
  * and this pipe passed in as the {@code next} parameter will receive a {@link Message}
- * from newly created stub. All the methods taking Tube <<next>> parameter are deprecated. JAX-WS Runtime takes care of
+ * from newly created stub. All the methods taking Tube &lt;&lt;next&gt;&gt; parameter are deprecated. JAX-WS Runtime takes care of
  * creating the tubeline when the {@code next} parameter is not passed. This gives flexibility for the JAX-WS Runtime
  * to pass extra information during the tube line creation via {@link ClientTubeAssemblerContext}.
  *

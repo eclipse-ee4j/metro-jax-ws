@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,9 +17,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * Implementation of Callback interface that allows the driver of the XJC API to rename JAXB-generated classes/interfaces/enums.
+ *
  * @author Vivek Pandey
- *         <p/>
- *         Implementation of Callback interface that allows the driver of the XJC API to rename JAXB-generated classes/interfaces/enums.
  */
 public class ClassNameAllocatorImpl implements ClassNameAllocator {
     public ClassNameAllocatorImpl(ClassNameCollector classNameCollector) {

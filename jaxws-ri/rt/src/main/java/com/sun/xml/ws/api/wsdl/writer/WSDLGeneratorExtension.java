@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,7 @@ import com.sun.xml.ws.api.server.WSEndpoint;
  * of this interface can add their own WSDL extensions to the generated WSDL.
  * There are a number of methods that will be invoked allowing the extensions
  * to be generated on various WSDL elements.
- * <p/>
+ * <br>
  * The JAX-WS WSDLGenerator uses TXW to serialize the WSDL out to XML.
  * More information about TXW can be located at
  * <a href="http://txw.java.net">http://txw.java.net</a>.
@@ -32,10 +32,10 @@ import com.sun.xml.ws.api.server.WSEndpoint;
 public abstract class WSDLGeneratorExtension {
     /**
      * Called at the very beginning of the process.
-     * <p/>
+     * <br>
      * This method is invoked so that the root element can be manipulated before
      * any tags have been written. This allows to set e.g. namespace prefixes.
-     * <p/>
+     * <br>
      * Another purpose of this method is to let extensions know what model
      * we are generating a WSDL for.
      *
@@ -62,10 +62,10 @@ public abstract class WSDLGeneratorExtension {
 
     /**
      * Called at the very beginning of the process.
-     * <p/>
+     * <br>
      * This method is invoked so that the root element can be manipulated before
      * any tags have been written. This allows to set e.g. namespace prefixes.
-     * <p/>
+     * <br>
      * Another purpose of this method is to let extensions know what model
      * we are generating a WSDL for.
      *
@@ -104,7 +104,7 @@ public abstract class WSDLGeneratorExtension {
     /**
      * This method is invoked so that extensions to a <code>wsdl:portType</code>
      * element can be generated.
-     * <p/>
+     * <br>
      *
      * @param portType This is the wsdl:portType element that the extension can be added to.
      */
@@ -114,8 +114,8 @@ public abstract class WSDLGeneratorExtension {
     /**
      * This method is invoked so that extensions to a <code>wsdl:binding</code>
      * element can be generated.
-     * <p/>
-     * <p/>
+     * <br>
+     * <br>
      * TODO:  Some other information may need to be passed
      *
      * @param binding This is the wsdl:binding element that the extension can be added to.

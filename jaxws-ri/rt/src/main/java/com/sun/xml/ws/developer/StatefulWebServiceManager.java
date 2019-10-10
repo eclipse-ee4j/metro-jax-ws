@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,15 +46,12 @@ import javax.xml.ws.wsaddressing.W3CEndpointReference;
  *     public synchronized void deposit(int amount) { balance+=amount; }
  *
  *     // either via a public static field
- *     <font color=red>
- *     public static {@link StatefulWebServiceManager}&lt;BankAccount> manager;
- *     </font>
+ *     public static {@link StatefulWebServiceManager}&lt;BankAccount&gt; manager;
+ *
  *     // ... or  via a public static method (the method name could be anything)
- *     <font color=red>
- *     public static void setManager({@link StatefulWebServiceManager}&lt;BankAccount> manager) {
+ *     public static void setManager({@link StatefulWebServiceManager}&lt;BankAccount&gt; manager) {
  *        ...
  *     }
- *     </font>
  * }
  * </pre>
  *
@@ -114,7 +111,7 @@ public interface StatefulWebServiceManager<T> {
      * <p>
      * This method works like {@link #export(Object)} except that
      * you can obtain the EPR in your choice of addressing version,
-     * by passing in the suitable <tt>epr</tt> parameter.
+     * by passing in the suitable <code>epr</code> parameter.
      *
      * @param epr
      *      Either {@link W3CEndpointReference} or {@link MemberSubmissionEndpointReference}.
@@ -131,7 +128,7 @@ public interface StatefulWebServiceManager<T> {
      * <p>
      * This method works like {@link #export(Object)} except that
      * you can obtain the EPR in your choice of addressing version,
-     * by passing in the suitable <tt>epr</tt> parameter.
+     * by passing in the suitable <code>epr</code> parameter.
      *
      * @param epr
      *      Either {@link W3CEndpointReference} or {@link MemberSubmissionEndpointReference}.
@@ -257,7 +254,7 @@ public interface StatefulWebServiceManager<T> {
      *
      * <p>
      * When the incoming request does not have the necessary header to
-     * distinguish instances of <tt>T</tt>, or when the header is present
+     * distinguish instances of <code>T</code>, or when the header is present
      * but its value does not correspond with any of the active exported
      * instances known to the JAX-WS, then the JAX-WS RI will try to
      * route the request to the fallback instance.
