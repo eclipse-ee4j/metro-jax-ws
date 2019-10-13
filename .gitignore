@@ -22,7 +22,4 @@ java_pid*
 # vi backup file
 *~
 
-/jaxws-ri/tools/wscompile/com
-/jaxws-ri/tools/wscompile/jaxws
-
 work/

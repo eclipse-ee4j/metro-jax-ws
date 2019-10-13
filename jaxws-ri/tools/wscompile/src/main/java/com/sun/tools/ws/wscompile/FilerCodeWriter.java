@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,10 +13,10 @@ package com.sun.tools.ws.wscompile;
 import com.sun.codemodel.CodeWriter;
 import com.sun.codemodel.JPackage;
 
-import javax.annotation.processing.Filer;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
+import javax.tools.JavaFileObject;
 
 /**
  * Writes all the source files using the specified Filer.
@@ -26,12 +26,12 @@ import java.io.Writer;
 public class FilerCodeWriter extends CodeWriter {
 
     /** The Filer used to create files. */
-    private final Filer filer;
+    private final Options options;
 
     private Writer w;
 
     public FilerCodeWriter(Options options) throws IOException {
-        this.filer = options.filer;
+        this.options = options;
     }
 
     @Override
@@ -39,20 +39,27 @@ public class FilerCodeWriter extends CodeWriter {
         throw new UnsupportedOperationException("Not supported.");
     }
 
+    @Override
     public Writer openSource(JPackage pkg, String fileName) throws IOException {
         String tmp = fileName.substring(0, fileName.length()-5);
-        if (pkg.name() != null && ! "".equals(pkg.name())) {
-        	w = filer.createSourceFile(pkg.name() + "." + tmp).openWriter();
-        } else {
-        	w = filer.createSourceFile(tmp).openWriter();
-        }
+        String name = isDefaultPackage(pkg)
+                ? tmp
+                : pkg.name() + "." + tmp;
+        JavaFileObject jfo = options.filer.createSourceFile(name);
+        options.addGeneratedFile(jfo);
+        w = jfo.openWriter();
         return w;
     }
 
 
+    @Override
     public void close() throws IOException {
         if (w != null)
             w.close();
         w = null;
+    }
+
+    private static boolean isDefaultPackage(JPackage pkg) {
+        return pkg.name() == null || "".equals(pkg.name());
     }
 }
