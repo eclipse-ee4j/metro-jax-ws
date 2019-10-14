@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,32 +16,24 @@
  *
  * @since 2.4.0
  */
-module com.sun.tools.ws {
+module com.sun.tools.ws.wscompile {
 
     requires java.compiler;
     requires java.logging;
     requires java.rmi;
-    requires java.xml;
-    requires java.xml.bind;
-    requires java.jws;
-    requires java.xml.ws;
 
-    requires com.sun.xml.ws;
+    requires com.sun.xml.ws.rt;
     requires com.sun.xml.ws.fi;
-    requires com.sun.xml.ws.httpspi.servlet;
-    requires com.sun.xml.ws.servlet;
+    requires static com.sun.xml.ws.httpspi.servlet;
+    requires static com.sun.xml.ws.servlet;
 
-    requires com.sun.istack.runtime;
-    requires com.sun.istack.tools;
-    requires com.sun.codemodel;
     requires com.sun.tools.jxc;
     requires com.sun.tools.xjc;
-    requires com.sun.xml.xsom;
-    requires com.sun.xml.ws.policy;
 
     exports com.sun.tools.ws;
     exports com.sun.tools.ws.ant;
     exports com.sun.tools.ws.api;
+    exports com.sun.tools.ws.api.wsdl;
     exports com.sun.tools.ws.spi;
     exports com.sun.tools.ws.wscompile;
 

@@ -38,19 +38,8 @@
             <artifactId>policy</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jakarta.activation-api</artifactId>
-                    <groupId>jakarta.activation</groupId>
-                </exclusion>
-                <!-- shouldn't be optional in jaxb? -->
-<!--                <exclusion>
-                    <groupId>com.sun.xml.fastinfoset</groupId>
-                    <artifactId>FastInfoset</artifactId>
-                </exclusion>-->
-            </exclusions>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
         </dependency>
         <dependency>
             <groupId>org.glassfish.ha</groupId>
@@ -170,13 +159,10 @@
                     <execution>
                         <id>default-compile</id>
                         <configuration>
-                            <includes>
-                                <include>**/module-info.java</include>
-                            </includes>
                             <!--adds reads for gmbal-->
                             <compilerArgs>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.xml.ws=ALL-UNNAMED</arg>
+                                <arg>com.sun.xml.ws.rt=ALL-UNNAMED</arg>
                             </compilerArgs>
                         </configuration>
                     </execution>
@@ -247,15 +233,13 @@
                 <configuration>
                     <!-- exclude APIs as implementations are needed on the path -->
                     <classpathDependencyExcludes>jakarta.activation:jakarta.activation-api,jakarta.mail:jakarta.mail-api</classpathDependencyExcludes>
-                    <forkCount>1</forkCount>
-                    <reuseForks>true</reuseForks>
                     <systemProperties>
                         <javax.xml.ws.spi.Provider>com.sun.xml.ws.spi.ProviderImpl</javax.xml.ws.spi.Provider>
                     </systemProperties>
+                    <!-- SAAJMessageWrapperTest/com.sun.xml.ws.model.Injector -->
                     <argLine>
-                        --add-opens com.sun.xml.bind/com.sun.xml.bind.v2.model.nav=com.sun.xml.ws
-                        --add-opens java.base/java.lang=com.sun.xml.ws
-                        --add-opens com.sun.xml.ws/com.sun.xml.ws.client.test=com.sun.xml.bind
+                        --add-opens java.base/java.lang=com.sun.xml.ws.rt
+                        --add-opens com.sun.xml.ws.rt/com.sun.xml.ws.client.test=com.sun.xml.bind
                     </argLine>
                 </configuration>
             </plugin>
@@ -298,10 +282,21 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Multi-Release>true</Multi-Release>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <doclint>none</doclint>
-                    <additionalOptions>--add-reads com.sun.xml.ws=ALL-UNNAMED</additionalOptions>
+                    <additionalOptions>--add-reads com.sun.xml.ws.rt=ALL-UNNAMED</additionalOptions>
                 </configuration>
             </plugin>
             <!--

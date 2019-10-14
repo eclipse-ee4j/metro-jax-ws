@@ -178,12 +178,12 @@ public abstract class BindingImpl implements WSBinding {
         }
 
         // SAAJ RI implements it's own DataHandlers which can be used for JAX-WS too;
-        // see com.sun.xml.internal.messaging.saaj.soap.AttachmentPartImpl#initializeJavaActivationHandlers
+        // see com.sun.xml.messaging.saaj.soap.AttachmentPartImpl#initializeJavaActivationHandlers
         // so if found any of SAAJ or our own handler registered, we are ok; anyway using SAAJ directly here
         // is not good idea since we don't want standalone JAX-WS to depend on specific SAAJ impl.
         // This is also reason for duplication of Handler's code by JAX-WS
-        String saajClassName = "com.sun.xml.internal.messaging.saaj.soap.XmlDataContentHandler";
-        String jaxwsClassName = "com.sun.xml.internal.ws.encoding.XmlDataContentHandler";
+        String saajClassName = "com.sun.xml.messaging.saaj.soap.XmlDataContentHandler";
+        String jaxwsClassName = "com.sun.xml.ws.encoding.XmlDataContentHandler";
         for (CommandInfo command : commands) {
             String commandClass = command.getCommandClass();
             if (saajClassName.equals(commandClass) ||

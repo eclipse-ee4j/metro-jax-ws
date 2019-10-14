@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -8,13 +8,14 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-package com.sun.xml.ws.api.databinding;
+package com.sun.xml.ws.test;
 
 import javax.jws.WebService;
 import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
+import com.oracle.webservices.api.databinding.Databinding;
 import com.oracle.webservices.api.databinding.DatabindingFactory;
 import com.oracle.webservices.api.databinding.WSDLGenerator;
 import com.oracle.webservices.api.message.MessageContext;
@@ -77,7 +78,7 @@ public class DatabindingTest extends TestCase {
       mcf.setSAAJFactory(saajFac);
       builder.property("com.sun.xml.ws.api.message.MessageContextFactory", mcf);
       com.oracle.webservices.api.databinding.Databinding db = builder.build();
-      assertTrue(((Databinding)db).getMessageContextFactory() == mcf);
+      assertTrue(((com.sun.xml.ws.api.databinding.Databinding)db).getMessageContextFactory() == mcf);
       Class[] paramType = {String.class};
       Object[] params = { "echoResponse" };
       com.oracle.webservices.api.databinding.JavaCallInfo call = 

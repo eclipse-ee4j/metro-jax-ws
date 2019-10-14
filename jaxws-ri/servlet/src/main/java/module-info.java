@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,10 +14,9 @@
  * @since 2.4.0
  */
 module com.sun.xml.ws.servlet {
-    requires com.sun.xml.ws;
-    requires com.sun.istack.runtime;
+    requires com.sun.xml.ws.rt;
     requires java.logging;
-    requires java.jws;
+    requires java.servlet;
 
     exports com.sun.xml.ws.developer.servlet;
     exports com.sun.xml.ws.server.servlet;

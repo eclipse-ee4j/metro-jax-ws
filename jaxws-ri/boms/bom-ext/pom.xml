@@ -31,7 +31,7 @@
     <description>JAX-WS Reference Implementation Bill-of-Materials (BOM) Extensions</description>
 
     <properties>
-        <ant.version>1.10.5</ant.version>
+        <ant.version>1.10.7</ant.version>
         <!-- CQ 19627 -->
         <asm.version>7.1</asm.version>
         <commonj.sdo.version>2.1.1</commonj.sdo.version>

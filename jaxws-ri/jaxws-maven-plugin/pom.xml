@@ -3,7 +3,7 @@
 
     DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-    Copyright (c) 2006, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2006, 2019 Oracle and/or its affiliates. All rights reserved.
 
     Oracle licenses this file to You under the Apache License, Version 2.0
     (the "License"); you may not use this file except in compliance with
@@ -197,6 +197,22 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <release>8</release>
+                    <testRelease>8</testRelease>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>base-compile</id>
+                        <configuration>
+                            <skipMain>true</skipMain>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
                 <executions>
                     <execution>
@@ -207,6 +223,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <release>8</release>
+                    <detectOfflineLinks>false</detectOfflineLinks>
+                </configuration>
             </plugin>
         </plugins>
     </build>

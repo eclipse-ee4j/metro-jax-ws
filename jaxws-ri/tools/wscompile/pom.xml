@@ -29,7 +29,6 @@
     <description>JAX-WS RI Tools</description>
 
     <properties>
-        <ant.version>1.10.5</ant.version>
         <spotbugs.exclude>${project.basedir}/exclude.xml</spotbugs.exclude>
     </properties>
 
@@ -55,15 +54,11 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>policy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
+            <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-jxc</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
+            <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-xjc</artifactId>
         </dependency>
 
@@ -197,9 +192,12 @@
                     <execution>
                         <id>default-compile</id>
                         <configuration>
-                            <includes>
-                                <include>module-info.java</include>
-                            </includes>
+                            <compilerArgs>
+                                <arg>--add-reads</arg>
+                                <arg>com.sun.tools.ws.wscompile=ALL-UNNAMED</arg>
+                                <arg>--add-reads</arg>
+                                <arg>com.sun.tools.xjc=ALL-UNNAMED</arg>
+                            </compilerArgs>
                         </configuration>
                     </execution>
                     <execution>
@@ -218,20 +216,26 @@
                         <id>default-testCompile</id>
                         <configuration>
                             <compilerArgs>
+                                <arg>--add-modules</arg>
+                                <arg>junit,ant</arg>
+                                <arg>--add-reads</arg>
+                                <arg>com.sun.tools.ws.wscompile.test=junit</arg>
+                                <arg>--add-reads</arg>
+                                <arg>com.sun.tools.ws.wscompile=ant</arg>
                                 <arg>--add-exports</arg>
-                                <arg>com.sun.tools.ws/com.sun.tools.ws.wsdl.parser=com.sun.tools.ws.test</arg>
+                                <arg>com.sun.tools.ws.wscompile/com.sun.tools.ws.processor=com.sun.tools.ws.wscompile.test</arg>
                                 <arg>--add-exports</arg>
-                                <arg>com.sun.tools.ws/com.sun.tools.ws.processor=com.sun.tools.ws.test</arg>
+                                <arg>com.sun.tools.ws.wscompile/com.sun.tools.ws.processor.modeler=com.sun.tools.ws.wscompile.test</arg>
                                 <arg>--add-exports</arg>
-                                <arg>com.sun.tools.ws/com.sun.tools.ws.processor.modeler=com.sun.tools.ws.test</arg>
+                                <arg>com.sun.tools.ws.wscompile/com.sun.tools.ws.processor.modeler.annotation=com.sun.tools.ws.wscompile.test</arg>
                                 <arg>--add-exports</arg>
-                                <arg>com.sun.tools.ws/com.sun.tools.ws.processor.modeler.annotation=com.sun.tools.ws.test</arg>
+                                <arg>com.sun.tools.ws.wscompile/com.sun.tools.ws.processor.modeler.wsdl=com.sun.tools.ws.wscompile.test</arg>
                                 <arg>--add-exports</arg>
-                                <arg>com.sun.tools.ws/com.sun.tools.ws.processor.modeler.wsdl=com.sun.tools.ws.test</arg>
+                                <arg>com.sun.tools.ws.wscompile/com.sun.tools.ws.util=com.sun.tools.ws.wscompile.test</arg>-->
                                 <arg>--add-exports</arg>
-                                <arg>com.sun.tools.ws/com.sun.tools.ws.wsdl.document=com.sun.tools.ws.test</arg>
+                                <arg>com.sun.tools.ws.wscompile/com.sun.tools.ws.wsdl.document=com.sun.tools.ws.wscompile.test</arg>
                                 <arg>--add-exports</arg>
-                                <arg>com.sun.tools.ws/com.sun.tools.ws.util=com.sun.tools.ws.test</arg>
+                                <arg>com.sun.tools.ws.wscompile/com.sun.tools.ws.wsdl.parser=com.sun.tools.ws.wscompile.test</arg>
                             </compilerArgs>
                         </configuration>
                     </execution>
@@ -250,17 +254,6 @@
                         <jaxws-api.version>${jaxws-api.version}</jaxws-api.version>
                         <net.sourceforge.cobertura.datafile>${net.sourceforge.cobertura.datafile}</net.sourceforge.cobertura.datafile>
                     </systemPropertyVariables>
-                    <forkCount>1</forkCount>
-                    <reuseForks>true</reuseForks>
-                    <argLine>
-                        --add-exports com.sun.tools.ws/com.sun.tools.ws.wsdl.parser=com.sun.tools.ws.test
-                        --add-exports com.sun.tools.ws/com.sun.tools.ws.processor=com.sun.tools.ws.test
-                        --add-exports com.sun.tools.ws/com.sun.tools.ws.processor.modeler=com.sun.tools.ws.test
-                        --add-exports com.sun.tools.ws/com.sun.tools.ws.processor.modeler.annotation=com.sun.tools.ws.test
-                        --add-exports com.sun.tools.ws/com.sun.tools.ws.processor.modeler.wsdl=com.sun.tools.ws.test
-                        --add-exports com.sun.tools.ws/com.sun.tools.ws.wsdl.document=com.sun.tools.ws.test
-                        --add-exports com.sun.tools.ws/com.sun.tools.ws.util=com.sun.tools.ws.test
-                    </argLine>
                 </configuration>
                 <executions>
                     <execution>
@@ -290,16 +283,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-jar</id>
-                        <configuration>
-                            <archive>
-                                <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
-                            </archive>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Multi-Release>true</Multi-Release>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
             </plugin>
 <!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -372,12 +362,22 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Multi-Release>true</Multi-Release>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <doclint>none</doclint>
                     <additionalOptions>
-                        --add-reads com.sun.tools.ws=ALL-UNNAMED
-                        --add-reads com.sun.istack.tools=ALL-UNNAMED
+                        --add-reads com.sun.tools.ws.wscompile=ALL-UNNAMED
+                        --add-reads com.sun.tools.xjc=ALL-UNNAMED
                     </additionalOptions>
                 </configuration>
             </plugin>
