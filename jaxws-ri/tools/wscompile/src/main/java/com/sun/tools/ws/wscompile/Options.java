@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,6 +25,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import javax.tools.FileObject;
 
 /**
  * Provide common jaxws tool options.
@@ -47,13 +48,10 @@ public class Options {
      */
     public boolean keep;
 
-    
-
     /**
      * -d
      */
     public File destDir = new File(".");
-
 
     /**
      * -s
@@ -74,11 +72,10 @@ public class Options {
 
     /**
      * -javacOptions
-     * 
+     *
      * @since 2.2.9
      */
     public List<String> javacOptions;
-
 
     /**
      * -Xnocompile
@@ -142,7 +139,7 @@ public class Options {
         public static Target getLoadedAPIVersion() {
             return LOADED_API_VERSION;
         }
-        
+
         private static final Target LOADED_API_VERSION;
 
         static {
@@ -196,11 +193,25 @@ public class Options {
 
 
     /**
-     * Remember info on  generated source file generated so that it
+     * Remember info on generated source file so that it
      * can be removed later, if appropriate.
+     *
+     * @param file generated File
+     *
+     * @deprecated Use {@link #addGeneratedFile(javax.tools.FileObject) } instead.
      */
+    @Deprecated
     public void addGeneratedFile(File file) {
         generatedFiles.add(file);
+    }
+
+    /**
+     * Remember info on generated file so that it can be removed later, if appropriate.
+     *
+     * @param fo generated FileObject
+     */
+    public void addGeneratedFile(FileObject fo) {
+        generatedFiles.add(new File(fo.toUri()));
     }
 
     /**
@@ -215,7 +226,7 @@ public class Options {
                 }
             }
         }
-        generatedFiles.clear();        
+        generatedFiles.clear();
     }
 
     /**
