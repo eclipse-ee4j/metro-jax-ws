@@ -29,10 +29,10 @@
     <name>JAX-WS RI Runtime</name>
 
     <modules>
-        <module>../rt</module>
-        <module>../rt-fi</module>
-        <module>../httpspi-servlet</module>
-        <module>../servlet</module>
+        <module>rt</module>
+        <module>rt-fi</module>
+        <module>httpspi-servlet</module>
+        <module>servlet</module>
         <module>../bundles/jaxws-rt</module>
     </modules>
 
