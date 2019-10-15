@@ -104,7 +104,33 @@
         <javax.activation.version>1.2.1</javax.activation.version>
     </properties>
 
-    <dependencyManagement>
+    <!-- XXX: REMOVE ME once artifacts are made available in standard staging area -->
+    <repositories>
+        <repository>
+            <id>saaj</id>
+            <name>saaj</name>
+            <url>https://oss.sonatype.org/service/local/repositories/comsunxmlmessagingsaaj-1014/content</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>policy</id>
+            <name>policy</name>
+            <url>https://oss.sonatype.org/service/local/repositories/comsunxmlws-1026/content</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+  <dependencyManagement>
         <dependencies>
 
             <!-- Parsers -->
