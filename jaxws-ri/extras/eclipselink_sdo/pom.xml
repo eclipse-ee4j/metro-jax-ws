@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,16 +17,16 @@
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
         <version>2.4.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.xml.ws</groupId>
-    <artifactId>jaxws-eclipselink-plugin</artifactId>
+    <artifactId>sdo-eclipselink-plugin</artifactId>
     <version>2.4.0-SNAPSHOT</version>
 
-    <name>JAX-WS RI Eclipselink Plugin</name>
-    <description>Pluggable databinding module employing Eclipselink JAXB (MOXy)</description>
+    <name>JAX-WS RI Eclipselink SDO Plugin</name>
+    <description>Pluggable databinding module employing Eclipselink SDO</description>
 
     <properties>
         <spotbugs.exclude>${project.basedir}/exclude.xml</spotbugs.exclude>
@@ -34,45 +34,20 @@
 
     <dependencies>
         <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.sdo</artifactId>
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.moxy</artifactId>
+            <artifactId>commonj.sdo</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jaxws-rt</artifactId>
-            <version>${project.version}</version>
         </dependency>
-
-        <!-- Cannot use API jar since it has different module name than the impl jar -->
-<!--        <dependency>
-            <groupId>jakarta.mail</groupId>
-            <artifactId>jakarta.mail-api</artifactId>
-            <scope>provided</scope>
-        </dependency>-->
-
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
-            <!--<scope>runtime</scope>-->
-        </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-xjc</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.ant</groupId>
-            <artifactId>ant</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -81,34 +56,18 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
+                <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>enforce-property</id>
+                        <id>copy-dependencies</id>
+                        <phase>process-sources</phase>
                         <goals>
-                            <goal>enforce</goal>
+                            <goal>copy-dependencies</goal>
                         </goals>
-                        <phase>validate</phase>
                         <configuration>
-                            <rules>
-                                <requireProperty>
-                                    <property>jaxws.osgiVersion</property>
-                                    <message>Property jaxws.osgiVersion not imported or set!</message>
-                                </requireProperty>
-                                <requireProperty>
-                                    <property>mail.majorVersion</property>
-                                    <message>Property mail.majorVersion not imported or set!</message>
-                                </requireProperty>
-                                <requireProperty>
-                                    <property>jaxb-api.osgiVersion</property>
-                                    <message>Property jaxb-api.osgiVersion not imported or set!</message>
-                                </requireProperty>
-                                <requireProperty>
-                                    <property>stax-ex.version</property>
-                                    <message>Property stax-ex.version not imported or set!</message>
-                                </requireProperty>
-                            </rules>
-                            <fail>true</fail>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <excludeScope>provided</excludeScope>
+                            <stripVersion>true</stripVersion>
                         </configuration>
                     </execution>
                 </executions>
@@ -123,7 +82,7 @@
                             <!--adds reads for gmbal-->
                             <compilerArgs>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.xml.ws.eclipselink=ALL-UNNAMED</arg>
+                                <arg>com.sun.xml.ws.sdo=ALL-UNNAMED</arg>
                             </compilerArgs>
                         </configuration>
                     </execution>
@@ -133,15 +92,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <classpathDependencyExcludes>jakarta.activation:jakarta.activation-api,jakarta.mail:jakarta.mail-api</classpathDependencyExcludes>
-                    <!-- to make sure that plugin's classes are at the end of the cp
-                    otherwise testHelloEchoNoMode(com.sun.xml.ws.jaxbri.JAXBRIBasicTest) will fail
-                    as it requires specific order of jars on the cp -->
-                    <classesDirectory>/non/existing/directory</classesDirectory>
-                    <additionalClasspathElements>
-                        <additionalClasspathElement>${project.build.outputDirectory}</additionalClasspathElement>
-                    </additionalClasspathElements>
-                    <forkCount>0</forkCount>
+                    <!--TODO tests are skipped due to
+                        Modules commonj.sdo and org.eclipse.persistence.sdo export package commonj.sdo.impl to module ha.api
+                        remove after Eclipselink split package resolution.
+                    -->
+                    <skip>true</skip>
                 </configuration>
             </plugin>
             <plugin>
@@ -150,7 +105,7 @@
                 <configuration>
                     <additionalJOptions>
                         <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.xml.ws.eclipselink=ALL-UNNAMED</additionalJOption>
+                        <additionalJOption>com.sun.xml.ws.sdo=ALL-UNNAMED</additionalJOption>
                     </additionalJOptions>
                 </configuration>
             </plugin>
@@ -168,6 +123,32 @@
             <build>
                 <plugins>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>enforce-property</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <phase>validate</phase>
+                                <configuration>
+                                    <rules>
+                                        <requireProperty>
+                                            <property>jaxb-api.osgiVersion</property>
+                                            <message>Property jaxb-api.osgiVersion not imported or set!</message>
+                                        </requireProperty>
+                                        <requireProperty>
+                                            <property>jaxws.osgiVersion</property>
+                                            <message>Property jaxws.osgiVersion not imported or set!</message>
+                                        </requireProperty>
+                                    </rules>
+                                    <fail>true</fail>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
                         <groupId>org.apache.felix</groupId>
                         <artifactId>maven-bundle-plugin</artifactId>
                         <executions>
@@ -182,6 +163,7 @@
                                         <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
                                         <Import-Package>
                                             javax.activation;version=!,
+                                            commonj.sdo.*;version=!,
                                             org.eclipse.persistence.*;version=!,
                                             *
                                         </Import-Package>
@@ -191,8 +173,7 @@
                         </executions>
                     </plugin>
                     <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
+                        <artifactId>maven-jar-plugin</artifactId>
                         <configuration>
                             <archive>
                                 <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
