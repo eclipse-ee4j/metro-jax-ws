@@ -34,7 +34,9 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.Authenticator;
 import java.net.HttpURLConnection;
+import java.net.PasswordAuthentication;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.GZIPOutputStream;
@@ -61,6 +63,7 @@ public class HttpClientTransport {
     /*package*/ String statusMessage;
     /*package*/ int contentLength;
     private final Map<String, List<String>> reqHeaders;
+    private final PasswordAuthentication passwordAuthentication;
     private Map<String, List<String>> respHeaders = null;
 
     private OutputStream outputStream;
@@ -71,10 +74,16 @@ public class HttpClientTransport {
     private final Integer chunkSize;
 
 
-    public HttpClientTransport(@NotNull Packet packet, @NotNull Map<String,List<String>> reqHeaders) {
+    public HttpClientTransport(@NotNull Packet packet, @NotNull Map<String, List<String>> reqHeaders) {
+        this(packet, reqHeaders, null);
+    }
+
+    public HttpClientTransport(@NotNull Packet packet, @NotNull Map<String,List<String>> reqHeaders,
+                               @Nullable PasswordAuthentication passwordAuthentication) {
         endpoint = packet.endpointAddress;
         context = packet;
         this.reqHeaders = reqHeaders;
+        this.passwordAuthentication = passwordAuthentication;
         chunkSize = (Integer)context.invocationProperties.get(JAXWSProperties.HTTP_CLIENT_STREAMING_CHUNK_SIZE);
     }
 
@@ -225,13 +234,22 @@ public class HttpClientTransport {
 
     	if (httpConnection == null)
     		httpConnection = (HttpURLConnection) endpoint.openConnection();
-    	
+
+        if (passwordAuthentication != null) {
+            httpConnection.setAuthenticator(new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return passwordAuthentication;
+                }
+            });
+        }
         String scheme = endpoint.getURI().getScheme();
         if (scheme.equals("https")) {
             https = true;
         }
         if (checkHTTPS(httpConnection))
         	https = true;
+
 
         // allow interaction with the web page - user may have to supply
         // username, password id web page is accessed from web browser
