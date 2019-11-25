@@ -60,7 +60,7 @@ public class WsimportOptions extends Options {
     public String wsdlLocation;
 
     /**
-     * Actually stores {@link com.sun.org.apache.xml.internal.resolver.tools.CatalogResolver}, but the field
+     * Actually stores {@code com.sun.org.apache.xml.internal.resolver.tools.CatalogResolver}, but the field
      * type is made to {@link org.xml.sax.EntityResolver} so that XJC can be
      * used even if resolver.jar is not available in the classpath.
      */

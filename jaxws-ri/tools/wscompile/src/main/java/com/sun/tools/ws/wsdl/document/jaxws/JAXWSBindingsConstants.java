@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,14 +26,14 @@ public interface JAXWSBindingsConstants {
 
     /**
      * jaxws:bindings schema component
-     *
+     * <pre>{@code
      * <jaxws:bindings wsdlLocation="xs:anyURI"? node="xs:string"?
      *      version="string"?> binding declarations...
      * </jaxws:bindings>
      *
      * wsdlLocation="xs:anyURI"? node="xs:string"? version="string"?> binding
      * declarations... </jaxws:bindings>
-     *
+     *}</pre>
      * <code>@wsdlLocation</code> A URI pointing to a WSDL file establishing the scope of the
      *               contents of this binding declaration. It MUST NOT be
      *               present if the binding declaration is used as an extension

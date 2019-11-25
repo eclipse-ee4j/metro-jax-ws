@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<descriptor since="2.1.3">
+  <description>Asynchronous processing with rpc/lit</description>
+  <service basedir="./server">
+    <wsdl href="hello_literal.wsdl" />
+  </service>
+  <pre-client>
+    //req = new HelloType();
+    //req.setArgument("foo");
+    //req.setExtra("bar");
+
+    // wait for the completion of the requets
+    static void block(Future response) {
+      System.out.print("\npolling for response ...");
+      while (!response.isDone())
+        Thread.yield();
+    }
+
+    static void assertFooBar(HelloType output) {
+      assertEquals("foo", output.getArgument());
+      assertEquals("bar", output.getExtra());
+    }
+  </pre-client>
+  <client name="async.rpclit1"><![CDATA[
+    HelloType req = new HelloType();
+    req.setArgument("foo");
+    req.setExtra("bar");
+
+    Holder inout = new Holder(req);
+    helloPort.hello(inout);
+
+    assertFooBar((HelloType) inout.value);
+  ]]></client>
+  <client name="async.rpclit2"><![CDATA[
+    HelloType req = new HelloType();
+    req.setArgument("foo");
+    req.setExtra("bar");
+
+    Future response = helloPort.helloAsync(req);
+    block(response);
+
+    assertFooBar((HelloType) response.get());
+  ]]></client>
+  <client name="async.rpclit3"><![CDATA[
+    HelloType req = new HelloType();
+    req.setArgument("foo");
+    req.setExtra("bar");
+
+    block(helloPort.helloAsync(req, new HelloCallbackHandler()));
+  ]]></client>
+  <client name="async.rpclit4"><![CDATA[
+    HelloType req = new HelloType();
+    req.setArgument("foo");
+    req.setExtra("bar");
+
+    Holder inout = new Holder(req);
+    int age = helloPort.hello2(inout, "foo");
+
+    assertFooBar((HelloType) inout.value);
+    assertEquals(age, 1234);
+  ]]></client>
+  <client name="async.rpclit5"><![CDATA[
+    HelloType req = new HelloType();
+    req.setArgument("foo");
+    req.setExtra("bar");
+
+    Future response = helloPort.hello2Async(req, "foo");
+    block(response);
+    Hello2Response resp = (Hello2Response) response.get();
+    assertFooBar(resp.getParam());
+    assertEquals(resp.getAge(), 1234);
+  ]]></client>
+  <client name="async.rpclit6"><![CDATA[
+    HelloType req = new HelloType();
+    req.setArgument("foo");
+    req.setExtra("bar");
+
+    block(helloPort.hello2Async(req, "foo", new Hello2CallbackHandler()));
+  ]]></client>
+  <client name="async.rpclit7"><![CDATA[
+    HelloType req = new HelloType();
+    req.setArgument("foo");
+    req.setExtra("bar");
+
+    HelloType reqH = new HelloType();
+    reqH.setArgument("header arg");
+    reqH.setExtra("header extra");
+
+    Holder resp = new Holder();
+    Holder respH = new Holder();
+    Holder hdr = new Holder("Hello");
+    helloPort.hello1(req, reqH, resp, respH);
+
+    assertFooBar((HelloType) resp.value);
+    assertEquals(((HelloType) reqH).getArgument(), ((HelloType) respH.value).getArgument());
+    assertEquals(((HelloType) reqH).getExtra(), ((HelloType) respH.value).getExtra());
+  ]]></client>
+  <client name="async.rpclit8"><![CDATA[
+    HelloType req = new HelloType();
+    req.setArgument("foo");
+    req.setExtra("bar");
+
+    HelloType reqH = new HelloType();
+    reqH.setArgument("header arg");
+    reqH.setExtra("header extra");
+
+
+    Response response = helloPort.hello1Async(req, reqH);
+    block(response);
+
+    Hello1Response resp = (Hello1Response) response.get();
+    assertFooBar(resp.getRes());
+    HelloType outH = resp.getHeader();
+    assertEquals(reqH.getArgument(), outH.getArgument());
+    assertEquals(reqH.getExtra(), outH.getExtra());
+  ]]></client>
+  <client name="async.rpclit9"><![CDATA[
+    HelloType req = new HelloType();
+    req.setArgument("foo");
+    req.setExtra("bar");
+
+    HelloType reqH = new HelloType();
+    reqH.setArgument("header arg");
+    reqH.setExtra("header extra");
+
+    block(helloPort.hello1Async(req, reqH, new Hello1CallbackHandler()));
+  ]]></client>
+  <client name="async.rpclit10"><![CDATA[
+    HelloType req = new HelloType();
+    req.setArgument("foo");
+    req.setExtra("bar");
+
+    assertEquals(helloPort.hello0(54321), 54321);
+  ]]></client>
+  <client name="async.rpclit11"><![CDATA[
+    HelloType req = new HelloType();
+    req.setArgument("foo");
+    req.setExtra("bar");
+
+    Response response = helloPort.hello0Async(54321);
+    block(response);
+    assertEquals((int) response.get(), 54321);
+  ]]></client>
+  <client name="async.rpclit12"><![CDATA[
+    HelloType req = new HelloType();
+    req.setArgument("foo");
+    req.setExtra("bar");
+
+    HelloType reqH = new HelloType();
+    reqH.setArgument("header arg");
+    reqH.setExtra("header extra");
+
+    Response response = helloPort.hello4Async(req, reqH);
+    block(response);
+    Hello4Response resp = (Hello4Response) response.get();
+    HelloType outH = resp.getHeader();
+
+    assertFooBar(resp.getRes());
+    assertEquals(reqH.getArgument(), outH.getArgument());
+    assertEquals(reqH.getExtra(), outH.getExtra());
+  ]]></client>
+</descriptor>

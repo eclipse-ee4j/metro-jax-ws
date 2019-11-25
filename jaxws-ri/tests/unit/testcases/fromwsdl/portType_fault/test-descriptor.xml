@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<descriptor since="2.2" bugs="jax-ws-736">
+    <description>This is a from wsdl fault test where portType and binding faults does not match</description>
+    <client name="fromwsdl.portType_fault1">
+        <description>
+            test nulls in fault bean
+        </description>
+        try{
+            String in = "nullBean";
+            faultPort.echo(in);
+            assertTrue(false);
+        }catch(Fault2Exception e){
+            assertTrue(e.getFaultInfo() == null);
+        }
+    </client>
+
+    <client name="fromwsdl.portType_fault4">
+        <description>
+            test WSDL defined Fault4
+        </description>
+        try {
+            String in = "Fault4";
+            Object ret = faultPort.echo(in);
+            fail("did not receive an exception");
+        } catch (Fault4Exception e) {
+            System.out.println("Expected exception received: " + e.getMessage());
+            Fault4 faultbean = e.getFaultInfo();
+            assertEquals(faultbean.getMessage(),"fault4");
+        }
+    </client>
+
+
+    <client href="dispatch.bsh"/>
+    
+    <service basedir="./server">
+        <wsdl href="fault.wsdl"/>
+    </service>
+</descriptor>

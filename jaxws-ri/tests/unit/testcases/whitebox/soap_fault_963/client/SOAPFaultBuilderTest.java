@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 package whitebox.soap_fault_963.client;
 
-import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
+//import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
 import com.sun.xml.messaging.saaj.soap.ver1_1.Detail1_1Impl;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.message.Message;
@@ -54,36 +54,10 @@ public class SOAPFaultBuilderTest extends TestCase {
     SOAPFactory fac = soapVersion.saajSoapFactory;
     SOAPFault sf = fac.createFault("This is a fault.", soapVersion.faultCodeClient);
     Detail d = sf.addDetail();
-    // inject null value to Detail element's namespace uri
-    injectNullNamespaceURI(d);
+    // value of underlied element/ElementNSImpl is null
     SOAPElement de = d.addChildElement(DETAIL1_QNAME);
     de.addAttribute(new QName("", "msg1"), "This is the first detail message.");
     return sf;
-  }
-
-  /**
-   * Because current SAAJ have no any API to set namespace URI with null value.
-   * It will convert null value to empty string for namespace URI while constructing or getting it.
-   * So we have to inject it with reflection API
-   * @param d detail element
-   */
-  private static void injectNullNamespaceURI(Detail d) {
-    if (d instanceof ElementNSImpl) {
-      ElementNSImpl detail = (ElementNSImpl) d;
-      try {
-        Field namespaceURIField = ElementNSImpl.class.getDeclaredField("namespaceURI");
-        namespaceURIField.setAccessible(true);
-        namespaceURIField.set(detail, null);
-      } catch (NoSuchFieldException e) {
-        // not continue to inject value
-        e.printStackTrace();
-        return;
-      } catch (IllegalAccessException e) {
-        // not continue to inject value
-        e.printStackTrace();
-        return;
-      }
-    }
   }
 
   public void testCreate11FaultFromSFE() throws Exception {

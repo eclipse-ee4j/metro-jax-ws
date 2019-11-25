@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<descriptor since="2.1.5">
+    <description>
+        Tests W3CEndpointReference API,
+        Regression test for 6675760. Checks for extension elements and attributes
+    </description>
+    <pre-client>
+        static Object getField(Object instance, Class cls, String name) throws Exception {
+            java.lang.reflect.Field f = cls.getDeclaredField(name);
+            f.setAccessible(true);
+            return f.get(instance);
+        }
+    </pre-client>
+    <client name="test.bsh">
+        javax.xml.transform.Source source = new javax.xml.transform.stream.StreamSource(
+        new java.io.FileInputStream(resource("w3cepr.xml")));
+        javax.xml.ws.wsaddressing.W3CEndpointReference jaxwsEPR = new javax.xml.ws.wsaddressing.W3CEndpointReference(source);
+        String str = jaxwsEPR.toString();
+
+        Object address = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "address");
+        assertTrue(address != null);
+
+        Object referenceParameters = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "referenceParameters");
+        assertTrue(referenceParameters != null);
+
+        Object metadata = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "metadata");
+        assertTrue(metadata != null);
+
+        Object elements = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "elements");
+        assertTrue(elements != null);
+
+        Object attributes = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "attributes");
+        assertTrue(attributes != null);
+
+        assertTrue(str.indexOf("eprattr") != -1);
+        assertTrue(str.indexOf("epr-attribute") != -1);
+
+        assertTrue(str.indexOf("addrattr") != -1);
+        assertTrue(str.indexOf("address-attribute") != -1);
+
+        assertTrue(str.indexOf("refattr") != -1);
+        assertTrue(str.indexOf("ref-attribute") != -1);
+        assertTrue(str.indexOf("refelem1") != -1);
+        assertTrue(str.indexOf("ref-element-1-text") != -1);
+        assertTrue(str.indexOf("refelem2") != -1);
+        assertTrue(str.indexOf("ref-element-2-text") != -1);
+
+        assertTrue(str.indexOf("metaattr") != -1);
+        assertTrue(str.indexOf("meta-attribute") != -1);
+        assertTrue(str.indexOf("metaelem") != -1);
+        assertTrue(str.indexOf("metaelemattr") != -1);
+        assertTrue(str.indexOf("meta-element-attribute") != -1);
+        assertTrue(str.indexOf("meta-element-text") != -1);
+
+        assertTrue(str.indexOf("eprelem") != -1);
+        assertTrue(str.indexOf("eprelemattr") != -1);
+        assertTrue(str.indexOf("epr-element-attribute") != -1);
+        assertTrue(str.indexOf("epr-element-text") != -1);
+    </client>
+</descriptor>
+

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<descriptor since="2.0">
+    <description>Randon fromwsdl tests</description>
+    <service basedir="./server">
+        <wsdl href="hello_literal.wsdl"/>
+    </service>
+    <client name="fromwsdl.doclit1">
+        <description>
+            Test hello().
+        </description>
+        String arg = "foo";
+        String extra = "bar";
+        Hello_Type req = new Hello_Type();
+        req.setArgument(arg);
+        req.setExtra(extra);
+        HelloResponse response = helloPort.hello(req);
+        assertEquals(arg, response.getArgument());
+        assertEquals(extra, response.getExtra());
+    </client>
+    <client name="fromwsdl.doclit2">
+        <description>
+            Test Keywords.
+        </description>
+        String resp = helloPort.testKeyword("Hello");
+        assertEquals(resp, "Hello World!");
+    </client>
+
+    <client name="fromwsdl.doclit3">
+        <description>
+            Test method with void.
+        </description>
+        VoidType req = new VoidType();
+        VoidType response = helloPort.voidTest(req);
+        assertNotNull(response);
+    </client>
+
+    <client name="fromwsdl.doclit4">
+        <description>
+            Test echoArray()
+        </description>
+        String[] in = new String[]{"JAXRPC 1.0", "JAXRPC 1.1", "JAXRPC 1.1.2", "JAXRPC 2.0"};
+
+        NameType nt = new NameType();
+        nt.getName().add(in[0]);
+        nt.getName().add(in[1]);
+        nt.getName().add(in[2]);
+        nt.getName().add(in[3]);
+        Holder req = new javax.xml.ws.Holder(nt);
+        helloPort.echoArray(req);
+        assertNull(req.value);
+    </client>
+
+    <client name="fromwsdl.doclit5">
+        <description>
+            Test echoArray1()
+        </description>
+        String[] in = new String[]{"JAXRPC 1.0", "JAXRPC 1.1", "JAXRPC 1.1.2", "JAXRPC 2.0", "EA"};
+
+        NameType nt = new NameType();
+        nt.getName().add(in[0]);
+        nt.getName().add(in[1]);
+        nt.getName().add(in[2]);
+        nt.getName().add(in[3]);
+        Holder req = new javax.xml.ws.Holder(nt);
+        helloPort.echoArray1(req);
+        assertTrue(Arrays.equals(in, ((NameType)req.value).getName().toArray()));
+    </client>
+
+    <client name="fromwsdl.doclit6">
+        <description>
+            Test echoArray2().
+        </description>
+        Holder req = new javax.xml.ws.Holder();
+        helloPort.echoArray2(req);
+        assertNull(req.value);
+    </client>
+
+    <client name="fromwsdl.doclit7">
+        <description>
+            Test echoArray3()
+        </description>
+        List in = new ArrayList();
+        in.add("JAXRPC 1.0");
+        in.add("JAXRPC 1.1");
+        in.add("JAXRPC 1.1.2");
+        in.add("JAXRPC 2.0");
+        Holder req = new javax.xml.ws.Holder(in);
+        helloPort.echoArray3(req);
+        assertEquals(in, req.value);
+    </client>
+
+    <client name="fromwsdl.doclit8">
+        <description>
+            Test echoArray4().
+        </description>
+        NameType1 resp = helloPort.echoArray4(new NameType1());
+        assertEquals(((HelloType)resp.getName().get(0)).getArgument(), "arg1");
+        assertEquals(((HelloType)resp.getName().get(0)).getExtra(), "extra1");
+        assertEquals(((HelloType)resp.getName().get(1)).getArgument(), "arg2");
+        assertEquals(((HelloType)resp.getName().get(1)).getExtra(), "extra2");
+    </client>
+
+    <client name="fromwsdl.doclit9">
+        <description>
+            Test MU
+        </description>
+        String next_1_1 = "http://schemas.xmlsoap.org/soap/actor/next";
+
+        ((BindingProvider) helloPort).getBinding().setHandlerChain(new ArrayList());
+        MUHelperHandler handler = new MUHelperHandler();
+
+        List handlers = ((BindingProvider) helloPort).getBinding().getHandlerChain();
+        handlers.add(handler);
+        ((BindingProvider) helloPort).getBinding().setHandlerChain(handlers);
+
+        // have handler set header that is ignored
+        handler.setMUHeader(new QName("urn:mutest", "someheader"),
+            "notarealactor");
+
+        // make the call
+        String arg = "foo";
+        Hello_Type req = new Hello_Type();
+        req.setArgument(arg);
+        HelloResponse response = helloPort.hello(req);
+        assertEquals(arg, response.getArgument());
+
+        // add header that should result in soap fault
+        handler.setMUHeader(new QName("urn:mutest", "someheader"), next_1_1);
+
+        // make the call
+        try {
+            response = helloPort.hello(req);
+            fail("did not receive any exception");
+        } catch (javax.xml.ws.ProtocolException e) {
+            if (e instanceof SOAPFaultException) {
+                // pass
+            } else {
+                fail("did not receive soap fault, received: " +
+                    e.toString());
+            }
+        } catch (Exception e) {
+            fail("did not receive protocol exception. received " +
+                e.toString());
+        }
+    </client>
+
+    <client name="fromwsdl.echoAnyType">
+        <description>
+            Test echoAnyType
+        </description>
+        <![CDATA[
+        //import javax.xml.namespace.QName;
+        
+        String str = "\u0938\u094D\u0935\u093E\u0917\u0924";
+        assertEquals(str, (String)helloPort.echoAnyType(str));
+
+        QName qname = new QName("http://example.org/","local");
+        assertEquals(qname, (QName) helloPort.echoAnyType(qname));
+
+        short sh =255;
+        assertEquals((Short)sh,(Short) helloPort.echoAnyType(sh));
+        ]]>
+    </client>
+
+</descriptor>

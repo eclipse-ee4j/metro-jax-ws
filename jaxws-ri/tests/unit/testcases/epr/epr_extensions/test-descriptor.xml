@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<descriptor since="2.2" uses="ri" transport="http">
+    <!-- Not run in local transport, as WSDL filters run during WSDL publshing are not run in In-vm container -->
+    <description>Tests pluugability of EndpointReferenceExtensionContributor andd cess of extensions on server/client</description>
+    <service basedir="./server">
+        <wsdl href="HelloService.wsdl"/>
+    </service>
+    
+</descriptor>
+

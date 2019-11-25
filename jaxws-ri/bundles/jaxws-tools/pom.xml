@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,26 +11,25 @@
 
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>bundles</artifactId>
+        <artifactId>project</artifactId>
         <groupId>com.sun.xml.ws</groupId>
         <version>2.4.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-tools</artifactId>
-    <version>2.4.0-SNAPSHOT</version>
-    
-    <packaging>pom</packaging>
-    <name>JAX-WS RI Tools Bundle</name>
+    <name>JAX-WS RI Tools (jaxws-tools)</name>
     <description>Open source Reference Implementation of JSR-224: Java API for XML Web Services</description>
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
         </dependency>
         <dependency>
@@ -41,135 +40,212 @@
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-jxc</artifactId>
         </dependency>
-
-        <!-- module dependencies -->
         <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>wscompile</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>tools</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
-        <!-- module sources -->
         <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>wscompile</artifactId>
-            <version>${project.version}</version>
-            <classifier>sources</classifier>
-            <scope>provided</scope>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>tools</artifactId>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-launcher</artifactId>
+            <version>${ant.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- provided -->
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>wscompile</artifactId>
             <version>${project.version}</version>
-            <classifier>sources</classifier>
             <scope>provided</scope>
         </dependency>
     </dependencies>
 
-    <modules>
-        <module>../../tools/wscompile</module>
-        <module>tools</module>
-    </modules>
+    <properties>
+        <spotbugs.skip>true</spotbugs.skip>
+        <dep.sources>${project.build.directory}/generated-sources/dependencies</dep.sources>
+        <dep.sources.mr>${project.build.directory}/generated-sources/dependencies-mr</dep.sources.mr>
+    </properties>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
+                <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>make-bin-assembly</id>
-                        <phase>prepare-package</phase>
+                        <id>unpack-sources</id>
+                        <phase>generate-sources</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <appendAssemblyId>false</appendAssemblyId>
-                            <descriptors>
-                                <descriptor>src/main/assembly/assembly.xml</descriptor>
-                            </descriptors>
-                            <archive>
-                                <manifest>
-                                    <mainClass>com.sun.tools.ws.WsImport</mainClass>
-                                </manifest>
-                                <manifestEntries>
-                                    <Class-Path>jaxws-rt.jar jaxb-xjc.jar jaxb-jxc.jar</Class-Path>
-                                    <Extension-Name>com.sun.tools.jaxws</Extension-Name>
-                                    <Multi-Release>true</Multi-Release>
-                                </manifestEntries>
-                            </archive>
+                            <includeGroupIds>${project.groupId}</includeGroupIds>
+                            <includeScope>provided</includeScope>
+                            <classifier>sources</classifier>
+                            <excludeTransitive>true</excludeTransitive>
+                            <excludes>module-info.*,META-INF/versions/**, META-INF/MANIFEST.MF</excludes>
+                            <outputDirectory>${dep.sources}</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>make-src-assembly</id>
-                        <phase>prepare-package</phase>
+                        <id>unpack-sources-mr</id>
+                        <phase>generate-sources</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <appendAssemblyId>true</appendAssemblyId>
-                            <descriptors>
-                                <descriptor>src/main/assembly/assembly-src.xml</descriptor>
-                            </descriptors>
-                            <archive>
-                                <manifest>
-                                    <mainClass>com.sun.tools.ws.WsImport</mainClass>
-                                </manifest>
-                                <manifestEntries>
-                                    <Class-Path>jaxws-rt.jar jaxb-xjc.jar jaxb-jxc.jar</Class-Path>
-                                    <Extension-Name>com.sun.tools.ws</Extension-Name>
-                                </manifestEntries>
-                            </archive>
+                            <includeGroupIds>${project.groupId}</includeGroupIds>
+                            <includeArtifactIds>wscompile</includeArtifactIds>
+                            <includeScope>provided</includeScope>
+                            <classifier>sources</classifier>
+                            <excludeTransitive>true</excludeTransitive>
+                            <includes>META-INF/versions/9/**</includes>
+                            <outputDirectory>${dep.sources.mr}</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${dep.sources}</directory>
+                                    <excludes>
+                                        <exclude>**/*.java</exclude>
+                                        <exclude>com/sun/tools/ws/version.properties</exclude>
+                                    </excludes>
+                                </resource>
+                                <resource>
+                                    <directory>${dep.sources}</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>com/sun/tools/ws/version.properties</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${dep.sources}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-mr-resource</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${dep.sources.mr}</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <configuration>
+                            <compilerArgs>
+                                <arg>--add-reads</arg>
+                                <arg>com.sun.tools.ws=ALL-UNNAMED</arg>
+                                <arg>--add-reads</arg>
+                                <arg>com.sun.tools.xjc=ALL-UNNAMED</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-compile-mr</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <compileSourceRoots>
+                                <compileSourceRoot>${dep.sources.mr}/META-INF/versions/9</compileSourceRoot>
+                            </compileSourceRoots>
+                            <outputDirectory>${project.build.outputDirectory}/META-INF/versions/9</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>osgi-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                        <configuration>
+                            <instructions>
+                                <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+                                <Export-Package>
+                                    !META-INF.*,
+                                    *
+                                </Export-Package>
+                                <Class-Path>jaxws-rt.jar jaxb-xjc.jar jaxb-jxc.jar</Class-Path>
+                                <Extension-Name>com.sun.tools.jaxws</Extension-Name>
+                                <Multi-Release>true</Multi-Release>
+                            </instructions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                        <manifest>
+                            <mainClass>com.sun.tools.ws.WsImport</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <additionalOptions>
+                        --add-reads com.sun.tools.ws=ALL-UNNAMED
+                        --add-reads com.sun.tools.xjc=ALL-UNNAMED
+                    </additionalOptions>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>oss-release</id>
-            <dependencies>
-                <!-- module javadoc -->
-                <dependency>
-                    <groupId>com.sun.xml.ws</groupId>
-                    <artifactId>tools</artifactId>
-                    <version>${project.version}</version>
-                    <classifier>javadoc</classifier>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>make-javadoc-assembly</id>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                                <configuration>
-                                    <appendAssemblyId>true</appendAssemblyId>
-                                    <descriptors>
-                                        <descriptor>src/main/assembly/assembly-javadoc.xml</descriptor>
-                                    </descriptors>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

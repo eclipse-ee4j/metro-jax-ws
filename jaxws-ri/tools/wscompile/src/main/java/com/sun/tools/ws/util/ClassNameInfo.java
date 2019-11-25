@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,7 @@ public final class ClassNameInfo {
     /**
      *
      *
-     * @param className Generic class, such as java.util.List<java.lang.String>
+     * @param className Generic class, such as java.util.List&lt;java.lang.String&gt;
      * @return the generic class, such as java.util.List
      */
     public static String getGenericClass(String className) {

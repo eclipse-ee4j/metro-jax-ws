@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<descriptor since="2.0">
+    <description>This is a fromwsdl rpc/lit fault test</description>
+
+    <client name="header.rpclit2">
+        <description>
+            test echo()
+        </description>
+        EchoType reqBody = new EchoType();
+        reqBody.setReqInfo("foobar");
+        EchoType reqHeader = new EchoType();
+        reqHeader.setReqInfo("foobar");
+        EchoResponseType response = helloPort.echo(reqBody, reqHeader);
+        assertEquals("foobarfoobar", response.getRespInfo());
+    </client>
+
+    <client name="header.rpclit3">
+        <description>
+            test NULL parameter to test BP 1.1 R2211 violation
+        </description>
+        EchoType reqHeader = new EchoType();
+        reqHeader.setReqInfo("foobar");
+        try{
+            EchoResponseType response = helloPort.echo(null, reqHeader);
+            assertTrue(false);
+        }catch(WebServiceException e){
+            assertTrue(true);
+        }
+    </client>
+
+    <client name="header.rpclit4">
+        <description>
+            Test Null parameter on the server, BP 1.1 R2211 violation
+        </description>
+        ObjectFactory of = new ObjectFactory();
+        EchoType reqBody = new EchoType();
+        reqBody.setReqInfo("sendNull");
+        EchoType reqHeader = new EchoType();
+        reqHeader.setReqInfo("foobar");
+        try{
+            EchoResponseType response = helloPort.echo(reqBody, reqHeader);
+            assertTrue(false);
+        }catch(WebServiceException e){
+            assertTrue(true);
+        }
+    </client>
+
+    <client name="header.rpclit5">
+        <description>
+            Test echo1().
+        </description>
+        Holder req = new Holder("Hello");
+        helloPort.echo1(req);
+        assertEquals("Hello World!", req.value);
+    </client>
+
+    <client name="header.rpclit6">
+        <description>
+            Test echo2()
+        </description>
+
+        ObjectFactory of = new ObjectFactory();
+        EchoType reqBody = of.createEchoType();
+        reqBody.setReqInfo("foobar");
+        EchoType req1Header = of.createEchoType();
+        req1Header.setReqInfo("foobar");
+        Echo2Type req2Header = of.createEcho2Type();
+        req2Header.setReqInfo("foobar");
+        Echo2ResponseType response = helloPort.echo2(reqBody, req1Header, req2Header);
+        assertEquals("foobarfoobarfoobar", response.getRespInfo());
+    </client>
+    <service basedir="./server">
+        <wsdl href="header.wsdl"/>
+    </service>
+</descriptor>

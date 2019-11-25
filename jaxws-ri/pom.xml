@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,8 +26,8 @@
     <artifactId>project</artifactId>
     <version>2.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JAX-WS (JSR-224) Reference Implementation</name>
-    <description>Open source Reference Implementation of JSR-224: Java API for XML Web Services</description>
+    <name>Jakarta XML Web Services Implementation</name>
+    <description>Open source Implementation of Jakarta XML Web Services (formerly JSR-224: Java API for XML Web Services)</description>
 
     <scm>
         <connection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</connection>
@@ -84,26 +84,33 @@
     </mailingLists>
 
     <properties>
+        <copyright.exclude>src/main/resources/copyright-exclude</copyright.exclude>
+        <copyright.ignoreyear>false</copyright.ignoreyear>
+        <copyright.scmonly>true</copyright.scmonly>
+        <copyright.template>src/main/resources/copyright.txt</copyright.template>
+        <copyright.update>false</copyright.update>
+        <spotbugs.common>src/main/resources/exclude-common.xml</spotbugs.common>
+        <spotbugs.exclude/>
+        <spotbugs.skip>false</spotbugs.skip>
+        <spotbugs.threshold>Normal</spotbugs.threshold>
+        <spotbugs.version>3.1.12.2</spotbugs.version>
+
         <ignore.failing.tests>true</ignore.failing.tests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <findbugs.skip>false</findbugs.skip>
-        <findbugs.threshold>Normal</findbugs.threshold>
-        <findbugs.common>exclude-common.xml</findbugs.common>
-        <findbugs.exclude/>
-        <findbugs.version>3.0.1</findbugs.version>
-        <glassfish.findbugs.version>1.7</glassfish.findbugs.version>
         <mrjar.sourceDirectory>${project.basedir}/src/main/java-mr</mrjar.sourceDirectory>
         <base.java.level>8</base.java.level>
         <upper.java.level>9</upper.java.level>
         <legal.doc.source>${maven.multiModuleProjectDirectory}/..</legal.doc.source>
         <oss.disallow.snapshots>true</oss.disallow.snapshots>
+        <vendor.name>Eclipse Foundation</vendor.name>
+        <vendor.id>org.eclipse</vendor.id>
     </properties>
 
     <modules>
         <module>boms/bom</module>
         <module>boms/bom-ext</module>
-        <module>bundles/jaxws-rt</module>
-        <module>bundles/jaxws-tools</module>
+        <module>runtime</module>
+        <module>tools</module>
         <module>extras</module>
         <module>tests</module>
     </modules>
@@ -188,12 +195,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>3.1.0</version>
                     <configuration>
                         <escapeString>\</escapeString>
                     </configuration>
@@ -209,7 +216,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.0.0-M1</version>
+                    <version>3.0.0-M2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.glassfish.hk2</groupId>
@@ -252,15 +259,15 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.0</version>
+                    <version>3.8.1</version>
+                    <configuration>
+                        <source>${upper.java.level}</source>
+                        <target>${upper.java.level}</target>
+                        <compilerArguments>
+                            <Xlint:all/>
+                        </compilerArguments>
+                    </configuration>
                     <executions>
-                        <execution>
-                            <id>default-compile</id>
-                            <configuration>
-                                <source>${upper.java.level}</source>
-                                <target>${upper.java.level}</target>
-                            </configuration>
-                        </execution>
                         <execution>
                             <id>base-compile</id>
                             <goals>
@@ -269,62 +276,36 @@
                             <configuration>
                                 <release>${base.java.level}</release>
                                 <excludes>
-                                   <exclude>module-info.java</exclude>
+                                    <exclude>module-info.java</exclude>
                                 </excludes>
                             </configuration>
                         </execution>
                     </executions>
-                    <configuration>
-                        <!--test compile-->
-                        <source>${upper.java.level}</source>
-                        <target>${upper.java.level}</target>
-                    </configuration>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M1</version>
-                    <configuration>
-                        <forkCount>1</forkCount>
-                        <reuseForks>true</reuseForks>
-                    </configuration>
+                    <version>3.0.0-M3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.2</version>
-                    <configuration>
-                        <archive>
-                            <manifestEntries>
-                                <Specification-Title>The Java API for XML Web Services</Specification-Title>
-                                <Specification-Version>${jaxws-api.majorVersion}.${jaxws-api.minorVersion}</Specification-Version>
-                                <Implementation-Title>JAX-WS Implementation</Implementation-Title>
-                                <Implementation-Version>${project.version}</Implementation-Version>
-                                <Implementation-Vendor>Sun Microsystems Inc</Implementation-Vendor>
-                                <Implementation-Vendor-Id>com.sun</Implementation-Vendor-Id>
-                                <Build-Id>${project.version}</Build-Id>
-                                <Git-Revision>${buildNumber}</Git-Revision>
-                                <Git-Url>${project.scm.connection}</Git-Url>
-                                <Build-Version>JAX-WS RI ${project.version}</Build-Version>
-                                <Major-Version>${jaxws.majorVersion}.${jaxws.minorVersion}.${jaxws.incrementalVersion}</Major-Version>
-                            </manifestEntries>
-                        </archive>
-                    </configuration>
+                    <version>3.1.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>3.1.0</version>
                     <configuration>
                         <archive>
                             <manifestEntries>
-                                <Specification-Title>The Java API for XML Web Services</Specification-Title>
+                                <Specification-Title>Jakarta XML Web Services</Specification-Title>
                                 <Specification-Version>${jaxws-api.majorVersion}.${jaxws-api.minorVersion}</Specification-Version>
-                                <Implementation-Title>JAX-WS Implementation</Implementation-Title>
+                                <Implementation-Title>Jakarta XML Web Services Implementation</Implementation-Title>
                                 <Implementation-Version>${project.version}</Implementation-Version>
-                                <Implementation-Vendor>Sun Microsystems Inc</Implementation-Vendor>
-                                <Implementation-Vendor-Id>com.sun</Implementation-Vendor-Id>
+                                <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
+                                <Implementation-Vendor-Id>${vendor.id}</Implementation-Vendor-Id>
                                 <Build-Id>${project.version}</Build-Id>
                                 <Git-Revision>${buildNumber}</Git-Revision>
                                 <Git-Url>${project.scm.connection}</Git-Url>
@@ -337,16 +318,16 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.1.1</version>
                     <configuration>
                         <archive>
                             <manifestEntries>
-                                <Specification-Title>The Java API for XML Web Services</Specification-Title>
+                                <Specification-Title>Jakarta XML Web Services</Specification-Title>
                                 <Specification-Version>${jaxws-api.majorVersion}.${jaxws-api.minorVersion}</Specification-Version>
-                                <Implementation-Title>JAX-WS Implementation</Implementation-Title>
+                                <Implementation-Title>Jakarta XML Web Services Implementation</Implementation-Title>
                                 <Implementation-Version>${project.version}</Implementation-Version>
-                                <Implementation-Vendor>Sun Microsystems Inc</Implementation-Vendor>
-                                <Implementation-Vendor-Id>com.sun</Implementation-Vendor-Id>
+                                <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
+                                <Implementation-Vendor-Id>${vendor.id}</Implementation-Vendor-Id>
                                 <Build-Id>${project.version}</Build-Id>
                                 <Git-Revision>${buildNumber}</Git-Revision>
                                 <Git-Url>${project.scm.connection}</Git-Url>
@@ -359,8 +340,9 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>3.1.1</version>
                     <configuration>
+                        <release>11</release>
                         <aggregate>false</aggregate>
                         <dependencySourceExcludes>
                             <dependencySourceExclude>com.sun.xml.ws:*</dependencySourceExclude>
@@ -375,59 +357,48 @@
                         <dependency>
                             <groupId>org.apache.ant</groupId>
                             <artifactId>ant</artifactId>
-                            <version>1.10.2</version>
+                            <version>${ant.version}</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.ant</groupId>
                             <artifactId>ant-junit</artifactId>
-                            <version>1.10.2</version>
+                            <version>${ant.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>3.5.1</version>
-                    <extensions>true</extensions>
+                    <version>4.2.1</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>${findbugs.version}</version>
+                    <groupId>com.github.spotbugs</groupId>
+                    <artifactId>spotbugs-maven-plugin</artifactId>
+                    <version>${spotbugs.version}</version>
                     <configuration>
-                        <skip>${findbugs.skip}</skip>
-                        <threshold>${findbugs.threshold}</threshold>
+                        <skip>${spotbugs.skip}</skip>
+                        <threshold>${spotbugs.threshold}</threshold>
                         <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
                         <excludeFilterFile>
-                            ${findbugs.exclude}
+                            ${spotbugs.common},${spotbugs.exclude}
                         </excludeFilterFile>
                         <fork>true</fork>
                         <jvmArgs>-Xms64m -Xmx256m</jvmArgs>
                     </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.glassfish.findbugs</groupId>
-                            <artifactId>findbugs</artifactId>
-                            <version>${glassfish.findbugs.version}</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.glassfish.copyright</groupId>
                     <artifactId>glassfish-copyright-maven-plugin</artifactId>
-                    <version>1.50</version>
+                    <version>2.2</version>
                     <configuration>
-                        <templateFile>src/main/resources/copyright.txt</templateFile>
-                        <excludeFile>src/main/resources/copyright-exclude</excludeFile>
-                        <scm>git</scm>
+                        <templateFile>${copyright.template}</templateFile>
+                        <excludeFile>${copyright.exclude}</excludeFile>
                         <!-- skip files not under SCM-->
-                        <scmOnly>true</scmOnly>
-                        <!-- turn off warnings -->
-                        <warn>true</warn>
+                        <scmOnly>${copyright.scmonly}</scmOnly>
                         <!-- for use with repair -->
-                        <update>false</update>
+                        <update>${copyright.update}</update>
                         <!-- check that year is correct -->
-                        <ignoreYear>false</ignoreYear>
+                        <ignoreYear>${copyright.ignoreyear}</ignoreYear>
                     </configuration>
                 </plugin>
             </plugins>
@@ -517,6 +488,35 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <configuration>
+                            <archive>
+                                <manifestEntries>
+                                    <Specification-Title>Jakarta XML Web Services</Specification-Title>
+                                    <Specification-Version>${jaxws-api.majorVersion}.${jaxws-api.minorVersion}</Specification-Version>
+                                    <Implementation-Title>Jakarta XML Web Services Implementation</Implementation-Title>
+                                    <Implementation-Version>${project.version}</Implementation-Version>
+                                    <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
+                                    <Implementation-Vendor-Id>${vendor.id}</Implementation-Vendor-Id>
+                                    <Build-Id>${project.version}</Build-Id>
+                                    <Git-Revision>${buildNumber}</Git-Revision>
+                                    <Git-Url>${project.scm.connection}</Git-Url>
+                                    <Build-Version>JAX-WS RI ${project.version}</Build-Version>
+                                    <Major-Version>${jaxws.majorVersion}.${jaxws.minorVersion}.${jaxws.incrementalVersion}</Major-Version>
+                                </manifestEntries>
+                            </archive>
+                            <excludes>
+                                <exclude>META-INF/jpms.args</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
                     <execution>
@@ -537,23 +537,6 @@
         </extensions-->
     </build>
 
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>${findbugs.version}</version>
-                <configuration>
-                    <skip>${findbugs.skip}</skip>
-                    <threshold>${findbugs.threshold}</threshold>
-                    <excludeFilterFile>
-                        ${findbugs.common},${findbugs.exclude}
-                    </excludeFilterFile>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
-  
     <profiles>
         <profile>
             <id>dev</id>
@@ -740,6 +723,12 @@
     <dependencies>
         <!-- Make sure new apis are used across the project -->
         <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>jakarta.xml.ws</groupId>
             <artifactId>jakarta.xml.ws-api</artifactId>
         </dependency>
@@ -747,6 +736,12 @@
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>jakarta.activation</groupId>
+                    <artifactId>jakarta.activation-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
