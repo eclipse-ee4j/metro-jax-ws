@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +14,7 @@ import javax.xml.ws.WebServiceFeature;
 
 import com.oracle.webservices.api.databinding.DatabindingModeFeature;
 
-import com.sun.xml.ws.WsDatabindingTestBase;
+import com.sun.xml.ws.base.WsDatabindingTestBase;
 import com.sun.xml.ws.api.databinding.DatabindingConfig;
 import com.sun.xml.ws.binding.WebServiceFeatureList;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,6 +13,7 @@ package com.sun.xml.ws.assembler;
 import com.sun.istack.NotNull;
 import com.sun.istack.logging.Logger;
 import com.sun.xml.ws.assembler.dev.ClientTubelineAssemblyContext;
+import com.sun.xml.ws.assembler.dev.ServerTubelineAssemblyContext;
 import com.sun.xml.ws.resources.TubelineassemblyMessages;
 import com.sun.xml.ws.runtime.config.TubeFactoryConfig;
 import com.sun.xml.ws.runtime.config.TubeFactoryList;
@@ -81,7 +82,7 @@ final class TubelineAssemblyController {
      *
      * @return collection of WSIT/Metro server-side tube creators
      */
-    Collection<TubeCreator> getTubeCreators(DefaultServerTubelineAssemblyContext context) {
+    Collection<TubeCreator> getTubeCreators(ServerTubelineAssemblyContext context) {
         URI endpointUri;
         if (context.getEndpoint() != null) {
             endpointUri = createEndpointComponentUri(context.getEndpoint().getServiceName(), context.getEndpoint().getPortName());

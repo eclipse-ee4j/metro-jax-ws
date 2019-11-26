@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2008, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -66,7 +66,7 @@ final class Injector {
                 U = AccessController.doPrivileged(new PrivilegedExceptionAction() {
                     @Override
                     public Object run() throws Exception {
-                        Class u = Class.forName("sun.misc.Unsafe");
+                        Class u = Class.forName("jdk.internal.misc.Unsafe");
                         Field theUnsafe = u.getDeclaredField("theUnsafe");
                         theUnsafe.setAccessible(true);
                         return theUnsafe.get(null);

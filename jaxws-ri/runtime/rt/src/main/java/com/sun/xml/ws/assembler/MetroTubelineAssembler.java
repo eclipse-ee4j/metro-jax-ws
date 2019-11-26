@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,6 +17,8 @@ import com.sun.xml.ws.api.pipe.ClientTubeAssemblerContext;
 import com.sun.xml.ws.api.pipe.ServerTubeAssemblerContext;
 import com.sun.xml.ws.api.pipe.Tube;
 import com.sun.xml.ws.api.pipe.TubelineAssembler;
+import com.sun.xml.ws.assembler.dev.ClientTubelineAssemblyContext;
+import com.sun.xml.ws.assembler.dev.ServerTubelineAssemblyContext;
 import com.sun.xml.ws.assembler.dev.TubelineAssemblyDecorator;
 import com.sun.xml.ws.dump.LoggingDumpTube;
 import com.sun.xml.ws.resources.TubelineassemblyMessages;
@@ -33,7 +35,7 @@ import java.util.logging.Level;
 public class MetroTubelineAssembler implements TubelineAssembler {
 
     private static final String COMMON_MESSAGE_DUMP_SYSTEM_PROPERTY_BASE = "com.sun.metro.soap.dump";
-    public static final MetroConfigNameImpl JAXWS_TUBES_CONFIG_NAMES = new MetroConfigNameImpl("jaxws-tubes-default.xml", "jaxws-tubes.xml");
+    public static final MetroConfigName JAXWS_TUBES_CONFIG_NAMES = new MetroConfigNameImpl("jaxws-tubes-default.xml", "jaxws-tubes.xml");
 
     private static enum Side {
 
@@ -83,7 +85,7 @@ public class MetroTubelineAssembler implements TubelineAssembler {
             LOGGER.finer("Assembling client-side tubeline for WS endpoint: " + jaxwsContext.getAddress().getURI().toString());
         }
 
-        DefaultClientTubelineAssemblyContext context = createClientContext(jaxwsContext);
+        ClientTubelineAssemblyContext context = createClientContext(jaxwsContext);
 
         Collection<TubeCreator> tubeCreators = tubelineAssemblyController.getTubeCreators(context);
 
@@ -95,6 +97,7 @@ public class MetroTubelineAssembler implements TubelineAssembler {
                 ServiceFinder.find(TubelineAssemblyDecorator.class, context.getContainer()));
         
         boolean first = true;
+        TubelineAssemblyContextImpl contextImpl = (TubelineAssemblyContextImpl) context;
         for (TubeCreator tubeCreator : tubeCreators) {
             final MessageDumpingInfo msgDumpInfo = setupMessageDumping(tubeCreator.getMessageDumpPropertyBase(), Side.Client);
 
@@ -102,12 +105,12 @@ public class MetroTubelineAssembler implements TubelineAssembler {
             LoggingDumpTube afterDumpTube = null;
             if (msgDumpInfo.dumpAfter) {
                 afterDumpTube = new LoggingDumpTube(msgDumpInfo.logLevel, LoggingDumpTube.Position.After, context.getTubelineHead());
-                context.setTubelineHead(afterDumpTube);
+                contextImpl.setTubelineHead(afterDumpTube);
             }
 
-            if (!context.setTubelineHead(decorator.decorateClient(tubeCreator.createTube(context), context))) { // no new tube has been created
+            if (!contextImpl.setTubelineHead(decorator.decorateClient(tubeCreator.createTube(context), context))) { // no new tube has been created
                 if (afterDumpTube != null) {
-                    context.setTubelineHead(oldTubelineHead); // removing possible "after" message dumping tube
+                    contextImpl.setTubelineHead(oldTubelineHead); // removing possible "after" message dumping tube
                 }
             } else {
                 final String loggedTubeName = context.getTubelineHead().getClass().getName();
@@ -118,12 +121,12 @@ public class MetroTubelineAssembler implements TubelineAssembler {
                 if (msgDumpInfo.dumpBefore) {
                     final LoggingDumpTube beforeDumpTube = new LoggingDumpTube(msgDumpInfo.logLevel, LoggingDumpTube.Position.Before, context.getTubelineHead());
                     beforeDumpTube.setLoggedTubeName(loggedTubeName);
-                    context.setTubelineHead(beforeDumpTube);
+                    contextImpl.setTubelineHead(beforeDumpTube);
                 }
             }
             
             if (first) {
-                context.setTubelineHead(decorator.decorateClientTail(context.getTubelineHead(), context));
+                contextImpl.setTubelineHead(decorator.decorateClientTail(context.getTubelineHead(), context));
                 first = false;
             }
         }
@@ -137,7 +140,7 @@ public class MetroTubelineAssembler implements TubelineAssembler {
             LOGGER.finer("Assembling endpoint tubeline for WS endpoint: " + jaxwsContext.getEndpoint().getServiceName() + "::" + jaxwsContext.getEndpoint().getPortName());
         }
 
-        DefaultServerTubelineAssemblyContext context = createServerContext(jaxwsContext);
+        ServerTubelineAssemblyContext context = createServerContext(jaxwsContext);
 
         // FIXME endpoint URI for provider case
         Collection<TubeCreator> tubeCreators = tubelineAssemblyController.getTubeCreators(context);
@@ -149,6 +152,7 @@ public class MetroTubelineAssembler implements TubelineAssembler {
                 ServiceFinder.find(TubelineAssemblyDecorator.class, context.getEndpoint().getContainer()));
         
         boolean first = true;
+        TubelineAssemblyContextImpl contextImpl = (TubelineAssemblyContextImpl) context;
         for (TubeCreator tubeCreator : tubeCreators) {
             final MessageDumpingInfo msgDumpInfo = setupMessageDumping(tubeCreator.getMessageDumpPropertyBase(), Side.Endpoint);
 
@@ -156,12 +160,12 @@ public class MetroTubelineAssembler implements TubelineAssembler {
             LoggingDumpTube afterDumpTube = null;
             if (msgDumpInfo.dumpAfter) {
                 afterDumpTube = new LoggingDumpTube(msgDumpInfo.logLevel, LoggingDumpTube.Position.After, context.getTubelineHead());
-                context.setTubelineHead(afterDumpTube);
+                contextImpl.setTubelineHead(afterDumpTube);
             }
 
-            if (!context.setTubelineHead(decorator.decorateServer(tubeCreator.createTube(context), context))) { // no new tube has been created
+            if (!contextImpl.setTubelineHead(decorator.decorateServer(tubeCreator.createTube(context), context))) { // no new tube has been created
                 if (afterDumpTube != null) {
-                    context.setTubelineHead(oldTubelineHead); // removing possible "after" message dumping tube
+                    contextImpl.setTubelineHead(oldTubelineHead); // removing possible "after" message dumping tube
                 }
             } else {
                 final String loggedTubeName = context.getTubelineHead().getClass().getName();
@@ -172,12 +176,12 @@ public class MetroTubelineAssembler implements TubelineAssembler {
                 if (msgDumpInfo.dumpBefore) {
                     final LoggingDumpTube beforeDumpTube = new LoggingDumpTube(msgDumpInfo.logLevel, LoggingDumpTube.Position.Before, context.getTubelineHead());
                     beforeDumpTube.setLoggedTubeName(loggedTubeName);
-                    context.setTubelineHead(beforeDumpTube);
+                    contextImpl.setTubelineHead(beforeDumpTube);
                 }
             }
             
             if (first) {
-                context.setTubelineHead(decorator.decorateServerTail(context.getTubelineHead(), context));
+                contextImpl.setTubelineHead(decorator.decorateServerTail(context.getTubelineHead(), context));
                 first = false;
             }
         }
@@ -298,12 +302,12 @@ public class MetroTubelineAssembler implements TubelineAssembler {
     }
 
     // Extension point to change Tubeline Assembly behaviour: override if necessary ...
-    protected DefaultServerTubelineAssemblyContext createServerContext(ServerTubeAssemblerContext jaxwsContext) {
+    protected ServerTubelineAssemblyContext createServerContext(ServerTubeAssemblerContext jaxwsContext) {
         return new DefaultServerTubelineAssemblyContext(jaxwsContext);
     }
 
     // Extension point to change Tubeline Assembly behaviour: override if necessary ...
-    protected DefaultClientTubelineAssemblyContext createClientContext(ClientTubeAssemblerContext jaxwsContext) {
+    protected ClientTubelineAssemblyContext createClientContext(ClientTubeAssemblerContext jaxwsContext) {
         return new DefaultClientTubelineAssemblyContext(jaxwsContext);
     }
 
