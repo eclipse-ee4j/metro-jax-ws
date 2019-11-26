@@ -14,6 +14,8 @@ module com.sun.xml.ws.transport.local {
 
     exports com.sun.xml.ws.transport.local;
 
+    opens com.sun.xml.ws.transport.local to com.sun.xml.ws;
+
     provides com.sun.xml.ws.api.pipe.TransportTubeFactory with
             com.sun.xml.ws.transport.local.LocalTransportFactory,
             com.sun.xml.ws.transport.local.InVmTransportFactory;

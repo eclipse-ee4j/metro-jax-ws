@@ -123,32 +123,6 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>enforce-property</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <phase>validate</phase>
-                                <configuration>
-                                    <rules>
-                                        <requireProperty>
-                                            <property>jaxb-api.osgiVersion</property>
-                                            <message>Property jaxb-api.osgiVersion not imported or set!</message>
-                                        </requireProperty>
-                                        <requireProperty>
-                                            <property>jaxws.osgiVersion</property>
-                                            <message>Property jaxws.osgiVersion not imported or set!</message>
-                                        </requireProperty>
-                                    </rules>
-                                    <fail>true</fail>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
                         <groupId>org.apache.felix</groupId>
                         <artifactId>maven-bundle-plugin</artifactId>
                         <executions>

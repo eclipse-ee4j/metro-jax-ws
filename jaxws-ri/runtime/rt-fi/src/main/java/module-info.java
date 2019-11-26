@@ -17,4 +17,6 @@ module com.sun.xml.ws.fi {
     requires com.sun.xml.ws.rt;
     requires com.sun.xml.streambuffer;
     requires com.sun.xml.fastinfoset;
+
+    exports com.sun.xml.ws.encoding.fastinfoset;
 }

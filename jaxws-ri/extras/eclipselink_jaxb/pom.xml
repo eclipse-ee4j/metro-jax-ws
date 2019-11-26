@@ -81,40 +81,6 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>enforce-property</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <phase>validate</phase>
-                        <configuration>
-                            <rules>
-                                <requireProperty>
-                                    <property>jaxws.osgiVersion</property>
-                                    <message>Property jaxws.osgiVersion not imported or set!</message>
-                                </requireProperty>
-                                <requireProperty>
-                                    <property>mail.majorVersion</property>
-                                    <message>Property mail.majorVersion not imported or set!</message>
-                                </requireProperty>
-                                <requireProperty>
-                                    <property>jaxb-api.osgiVersion</property>
-                                    <message>Property jaxb-api.osgiVersion not imported or set!</message>
-                                </requireProperty>
-                                <requireProperty>
-                                    <property>stax-ex.version</property>
-                                    <message>Property stax-ex.version not imported or set!</message>
-                                </requireProperty>
-                            </rules>
-                            <fail>true</fail>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <executions>
                     <execution>

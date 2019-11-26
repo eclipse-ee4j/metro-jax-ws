@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,6 +13,7 @@ package com.sun.xml.ws.assembler;
 import com.sun.istack.logging.Logger;
 import com.sun.xml.ws.api.pipe.Tube;
 import com.sun.xml.ws.assembler.dev.ClientTubelineAssemblyContext;
+import com.sun.xml.ws.assembler.dev.ServerTubelineAssemblyContext;
 import com.sun.xml.ws.assembler.dev.TubeFactory;
 import com.sun.xml.ws.assembler.dev.TubelineAssemblyContextUpdater;
 import com.sun.xml.ws.resources.TubelineassemblyMessages;
@@ -56,12 +57,12 @@ final class TubeCreator {
         }
     }
 
-    Tube createTube(DefaultClientTubelineAssemblyContext context) {
+    Tube createTube(ClientTubelineAssemblyContext context) {
         // TODO implement passing init parameters (if any) to the factory
         return factory.createTube(context);
     }
 
-    Tube createTube(DefaultServerTubelineAssemblyContext context) {
+    Tube createTube(ServerTubelineAssemblyContext context) {
         // TODO implement passing init parameters (if any) to the factory
         return factory.createTube(context);
     }
@@ -72,7 +73,7 @@ final class TubeCreator {
         }
     }
 
-    void updateContext(DefaultServerTubelineAssemblyContext context) {
+    void updateContext(ServerTubelineAssemblyContext context) {
         if (factory instanceof TubelineAssemblyContextUpdater) {
             ((TubelineAssemblyContextUpdater) factory).prepareContext(context);
         }

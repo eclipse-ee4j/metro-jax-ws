@@ -21,7 +21,7 @@ import com.oracle.webservices.api.databinding.WSDLGenerator;
 import com.oracle.webservices.api.message.MessageContext;
 import com.oracle.webservices.api.message.MessageContextFactory;
 
-import com.sun.xml.ws.InVmWSDLResolver;
+import com.sun.xml.ws.base.InVmWSDLResolver;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.message.saaj.SAAJMessage;
 
