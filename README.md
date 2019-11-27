@@ -1,4 +1,4 @@
-[![Master Build Status](https://travis-ci.org/eclipse-ee4j/metro-jax-ws.svg?branch=master)](https://travis-ci.org/eclipse-ee4j/metro-jax-ws)
+[![Build Status](https://travis-ci.com/eclipse-ee4j/metro-jax-ws.svg?branch=master)](https://travis-ci.com/eclipse-ee4j/metro-jax-ws)
 
 # JAX-WS
 
