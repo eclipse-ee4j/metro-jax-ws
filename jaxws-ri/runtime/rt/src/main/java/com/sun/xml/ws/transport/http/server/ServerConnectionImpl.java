@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -268,28 +268,27 @@ final class ServerConnectionImpl extends WSHTTPConnection implements WebServiceC
 
     @Override @NotNull
     public String getBaseAddress() {
-        /*
-         * Computes the Endpoint's address from the request. Use "Host" header
+        /* Computes the Endpoint's address from the request.
+         * Uses "X-Forwarded-Proto", "X-Forwarded-Host" and "Host" headers
          * so that it has correct address(IP address or someother hostname)
          * through which the application reached the endpoint.
-         *
          */
-        StringBuilder strBuf = new StringBuilder();
-        strBuf.append((httpExchange instanceof HttpsExchange) ? "https" : "http");
-        strBuf.append("://");
+        String protocol = httpExchange.getRequestHeaders().getFirst("X-Forwarded-Proto");
+        if (protocol == null) {
+            protocol = getRequestScheme();
+        }
 
-        String hostHeader = httpExchange.getRequestHeaders().getFirst("Host");
-        if (hostHeader != null) {
-            strBuf.append(hostHeader);   // Uses Host header
-        } else {
-            strBuf.append(httpExchange.getLocalAddress().getHostName());
-            strBuf.append(":");
-            strBuf.append(httpExchange.getLocalAddress().getPort());
+        String host = httpExchange.getRequestHeaders().getFirst("X-Forwarded-Host");
+        if (host == null) {
+            host = httpExchange.getRequestHeaders().getFirst("Host");
+        }
+        if (host == null) {
+            host = getServerName() + ":" + getServerPort();
         }
         //Do not include URL pattern here
         //strBuf.append(httpExchange.getRequestURI().getPath());
 
-        return strBuf.toString();
+        return protocol + "://" +  host;
     }
 
     @Override

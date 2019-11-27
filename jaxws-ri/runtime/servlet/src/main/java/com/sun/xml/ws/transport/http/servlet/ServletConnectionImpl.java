@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -320,12 +320,33 @@ public class ServletConnectionImpl extends WSHTTPConnection implements WebServic
     }
 
     static @NotNull String getBaseAddress(HttpServletRequest request) {
+        /* Computes the Endpoint's address from the request.
+         * Uses "X-Forwarded-Proto", "X-Forwarded-Host" and "Host" headers
+         * so that it has correct address(IP address or someother hostname)
+         * through which the application reached the endpoint.
+         */
         StringBuilder buf = new StringBuilder();
-        buf.append(request.getScheme());
+
+        String protocol = request.getHeader("X-Forwarded-Proto");
+        if (protocol == null) {
+            protocol = request.getScheme();
+        }
+
+        // An X-Forwarded-Host header would mean we are behind a reverse
+        // proxy. Use it as host address if found, or the Host header
+        // otherwise.
+        String host = request.getHeader("X-Forwarded-Host");
+        if (host == null) {
+            host = request.getHeader("Host");
+        }
+        // Fallback
+        if (host == null) {
+            host = request.getServerName() + ":" + request.getServerPort();
+        }
+
+        buf.append(protocol);
         buf.append("://");
-        buf.append(request.getServerName());
-        buf.append(':');
-        buf.append(request.getServerPort());
+        buf.append(host);
         buf.append(request.getContextPath());
 
         return buf.toString();
