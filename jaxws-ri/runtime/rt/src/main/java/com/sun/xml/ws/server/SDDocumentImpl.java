@@ -51,7 +51,7 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
     private static final QName SCHEMA_IMPORT_QNAME = new QName(NS_XSD, "import");
     private static final QName SCHEMA_REDEFINE_QNAME = new QName(NS_XSD, "redefine");
     private static final String VERSION_COMMENT =
-        " Published by JAX-WS RI (http://jax-ws.java.net). RI's version is "+RuntimeVersion.VERSION+". ";
+        " Published by JAX-WS RI (https://github.com/eclipse-ee4j/metro-jax-ws). RI's version is "+RuntimeVersion.VERSION+". ";
 
     private final QName rootName;
     private final SDDocumentSource source;
