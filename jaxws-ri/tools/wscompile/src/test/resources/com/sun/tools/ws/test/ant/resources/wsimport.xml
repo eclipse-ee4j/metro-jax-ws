@@ -197,8 +197,8 @@
             extension="true"
             fork="true">
             <jvmArg line="${coverage}"/>
-            <javacarg value="-source=1.6"/>
-            <javacarg value="-target=1.6"/>
+            <javacarg value="-source=1.8"/>
+            <javacarg value="-target=1.8"/>
         </wsimport>
     </target>
 

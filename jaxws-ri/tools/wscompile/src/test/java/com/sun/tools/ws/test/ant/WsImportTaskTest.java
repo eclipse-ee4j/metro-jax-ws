@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -165,13 +165,13 @@ public class WsImportTaskTest extends WsAntTaskTestBase {
         DataInputStream in = new DataInputStream(new FileInputStream(f));
         assertEquals(0xcafebabe, in.readInt());
         assertEquals(0, in.readUnsignedShort());
-        assertEquals(50, in.readUnsignedShort());
+        assertEquals(52, in.readUnsignedShort());
 
         f = new File(buildDir, "test/Hello.class");
         in = new DataInputStream(new FileInputStream(f));
         assertEquals(0xcafebabe, in.readInt());
         assertEquals(0, in.readUnsignedShort());
-        assertEquals(50, in.readUnsignedShort());
+        assertEquals(52, in.readUnsignedShort());
     }
 
 }

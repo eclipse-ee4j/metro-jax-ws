@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -118,13 +118,13 @@ public class WsGenTaskTest extends WsAntTaskTestBase {
         DataInputStream in = new DataInputStream(new FileInputStream(f));
         assertEquals(0xcafebabe, in.readInt());
         assertEquals(0, in.readUnsignedShort());
-        assertEquals(50, in.readUnsignedShort());
+        assertEquals(52, in.readUnsignedShort());
 
         //ws class is compiled by default javac (6+)
         f = new File(srcDir, "test/TestWs.class");
         in = new DataInputStream(new FileInputStream(f));
         assertEquals(0xcafebabe, in.readInt());
         in.readUnsignedShort();
-        assertTrue(50 != in.readUnsignedShort());
+        assertTrue(52 != in.readUnsignedShort());
     }
 }

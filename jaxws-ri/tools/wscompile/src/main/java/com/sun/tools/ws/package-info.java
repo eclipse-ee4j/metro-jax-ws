@@ -9,7 +9,7 @@
  */
 
 /**
- * <h1>JAX-WS 2.1 Tools</h1>
+ * <h2>JAX-WS 2.1 Tools</h2>
  * This document describes the tools included with JAX-WS 2.0.1.
  *
  * <h2>ANT Tasks</h2>
