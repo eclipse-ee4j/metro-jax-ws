@@ -222,20 +222,6 @@
                                 <arg>com.sun.tools.ws.wscompile.test=junit</arg>
                                 <arg>--add-reads</arg>
                                 <arg>com.sun.tools.ws.wscompile=ant</arg>
-                                <arg>--add-exports</arg>
-                                <arg>com.sun.tools.ws.wscompile/com.sun.tools.ws.processor=com.sun.tools.ws.wscompile.test</arg>
-                                <arg>--add-exports</arg>
-                                <arg>com.sun.tools.ws.wscompile/com.sun.tools.ws.processor.modeler=com.sun.tools.ws.wscompile.test</arg>
-                                <arg>--add-exports</arg>
-                                <arg>com.sun.tools.ws.wscompile/com.sun.tools.ws.processor.modeler.annotation=com.sun.tools.ws.wscompile.test</arg>
-                                <arg>--add-exports</arg>
-                                <arg>com.sun.tools.ws.wscompile/com.sun.tools.ws.processor.modeler.wsdl=com.sun.tools.ws.wscompile.test</arg>
-                                <arg>--add-exports</arg>
-                                <arg>com.sun.tools.ws.wscompile/com.sun.tools.ws.util=com.sun.tools.ws.wscompile.test</arg>-->
-                                <arg>--add-exports</arg>
-                                <arg>com.sun.tools.ws.wscompile/com.sun.tools.ws.wsdl.document=com.sun.tools.ws.wscompile.test</arg>
-                                <arg>--add-exports</arg>
-                                <arg>com.sun.tools.ws.wscompile/com.sun.tools.ws.wsdl.parser=com.sun.tools.ws.wscompile.test</arg>
                             </compilerArgs>
                         </configuration>
                     </execution>
