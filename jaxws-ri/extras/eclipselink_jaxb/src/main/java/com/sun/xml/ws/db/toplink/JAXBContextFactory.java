@@ -150,10 +150,10 @@ public class JAXBContextFactory extends BindingContextFactory {
         }
         TypeMappingInfo[] types = typeList.toArray(new TypeMappingInfo[typeList.size()]);
         if (extMapping != null) {
-            properties.put(JAXBContextProperties.ECLIPSELINK_OXM_XML_KEY, extMapping);
+            properties.put(OXM_XML_OVERRIDE, extMapping);
         }
         if (bi.getDefaultNamespace() != null) {
-            properties.put(JAXBContextProperties.DEFAULT_TARGET_NAMESPACE_KEY, bi.getDefaultNamespace());
+            properties.put(OXM_XML_ELEMENT, bi.getDefaultNamespace());
         }
         try {
             org.eclipse.persistence.jaxb.JAXBContext jaxbContext = (org.eclipse.persistence.jaxb.JAXBContext) org.eclipse.persistence.jaxb.JAXBContextFactory
