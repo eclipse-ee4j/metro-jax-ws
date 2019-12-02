@@ -10,9 +10,6 @@
 
 package com.sun.xml.ws.db.toplink;
 
-import static org.eclipse.persistence.jaxb.JAXBContextFactory.DEFAULT_TARGET_NAMESPACE_KEY;
-import static org.eclipse.persistence.jaxb.JAXBContextFactory.ECLIPSELINK_OXM_XML_KEY;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.GenericArrayType;
@@ -45,6 +42,7 @@ import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.ws.WebServiceException;
 
+import org.eclipse.persistence.jaxb.JAXBContextProperties;
 import org.eclipse.persistence.jaxb.TypeMappingInfo;
 import org.eclipse.persistence.jaxb.TypeMappingInfo.ElementScope;
 import org.w3c.dom.Document;
@@ -69,8 +67,8 @@ import com.sun.xml.ws.spi.db.WrapperComposite;
  */
 public class JAXBContextFactory extends BindingContextFactory {
 
-    static final public String OXM_XML_OVERRIDE = "eclipselink-oxm-xml";
-    static final public String OXM_XML_ELEMENT = "eclipselink-oxm-xml.xml-element";
+    static final public String OXM_XML_OVERRIDE = JAXBContextProperties.OXM_METADATA_SOURCE;
+    static final public String OXM_XML_ELEMENT = JAXBContextProperties.DEFAULT_TARGET_NAMESPACE;
 
     @Override
     protected boolean isFor(String str) {
@@ -151,8 +149,12 @@ public class JAXBContextFactory extends BindingContextFactory {
             }
         }
         TypeMappingInfo[] types = typeList.toArray(new TypeMappingInfo[typeList.size()]);
-        properties.put(ECLIPSELINK_OXM_XML_KEY, extMapping);
-        properties.put(DEFAULT_TARGET_NAMESPACE_KEY, bi.getDefaultNamespace());
+        if (extMapping != null) {
+            properties.put(OXM_XML_OVERRIDE, extMapping);
+        }
+        if (bi.getDefaultNamespace() != null) {
+            properties.put(OXM_XML_ELEMENT, bi.getDefaultNamespace());
+        }
         try {
             org.eclipse.persistence.jaxb.JAXBContext jaxbContext = (org.eclipse.persistence.jaxb.JAXBContext) org.eclipse.persistence.jaxb.JAXBContextFactory
                     .createContext(types, properties, bi.getClassLoader());
