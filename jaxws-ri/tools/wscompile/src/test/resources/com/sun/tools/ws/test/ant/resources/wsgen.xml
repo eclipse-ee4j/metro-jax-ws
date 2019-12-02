@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2011, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2011, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -186,8 +186,8 @@
                 <pathelement location="${src.dir}"/>
             </classpath>
             <jvmarg line="${coverage}"/>
-            <javacarg value="-source=1.6"/>
-            <javacarg value="-target=1.6"/>
+            <javacarg value="-source=1.8"/>
+            <javacarg value="-target=1.8"/>
         </wsgen>
     </target>
 
