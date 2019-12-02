@@ -31,8 +31,16 @@ module com.sun.tools.ws {
     exports com.sun.tools.ws.ant;
     exports com.sun.tools.ws.api;
     exports com.sun.tools.ws.api.wsdl;
+    exports com.sun.tools.ws.processor;
+    exports com.sun.tools.ws.processor.modeler;
+    exports com.sun.tools.ws.processor.modeler.annotation;
+    exports com.sun.tools.ws.processor.modeler.wsdl;
     exports com.sun.tools.ws.spi;
+    exports com.sun.tools.ws.util;
+    exports com.sun.tools.ws.util.xml;
     exports com.sun.tools.ws.wscompile;
+    exports com.sun.tools.ws.wsdl.document;
+    exports com.sun.tools.ws.wsdl.parser;
 
     uses com.sun.tools.ws.wscompile.Plugin;
 
