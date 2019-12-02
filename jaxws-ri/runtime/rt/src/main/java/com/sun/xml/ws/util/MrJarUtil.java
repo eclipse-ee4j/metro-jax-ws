@@ -10,6 +10,9 @@
 
 package com.sun.xml.ws.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
@@ -35,5 +38,30 @@ public class MrJarUtil {
                 return Boolean.getBoolean(baseName + ".noPool");
             }
         });
+    }
+
+    static InputStream getResourceAsStream(Class clazz, String resource) {
+        URL url = clazz.getResource(resource);
+        if (url == null) {
+            url = Thread.currentThread().getContextClassLoader().
+                    getResource(resource);
+        }
+        if (url == null) {
+            String tmp = clazz.getPackage().getName();
+            tmp = tmp.replace('.', '/');
+            tmp += "/" + resource;
+            url =
+                    Thread.currentThread().getContextClassLoader().getResource(tmp);
+        }
+        if (url == null) {
+            throw new UtilException("util.failed.to.find.handlerchain.file",
+                    clazz.getName(), resource);
+        }
+        try {
+            return url.openStream();
+        } catch (IOException e) {
+            throw new UtilException("util.failed.to.parse.handlerchain.file",
+                    clazz.getName(), resource);
+        }
     }
 }

@@ -38,7 +38,7 @@ import java.util.logging.Logger;
  * from annotated class. The public methods all return a
  * HandlerChainInfo that contains the handlers and role information
  * needed at runtime.
- * 
+ *
  * <p>All of the handler chain descriptors follow the same schema,
  * whether they are wsdl customizations, handler files specified
  * by an annotation, or are included in the sun-jaxws.xml file.
@@ -183,27 +183,6 @@ public class HandlerAnnotationProcessor {
     }
 
    static InputStream getFileAsStream(Class clazz, HandlerChain chain) {
-        URL url = clazz.getResource(chain.file());
-        if (url == null) {
-            url = Thread.currentThread().getContextClassLoader().
-                getResource(chain.file());
-        }
-        if (url == null) {
-            String tmp = clazz.getPackage().getName();
-            tmp = tmp.replace('.', '/');
-            tmp += "/" + chain.file();
-            url =
-                Thread.currentThread().getContextClassLoader().getResource(tmp);
-        }
-        if (url == null) {
-            throw new UtilException("util.failed.to.find.handlerchain.file",
-                clazz.getName(), chain.file());
-        }
-        try {
-            return url.openStream();
-        } catch (IOException e) {
-            throw new UtilException("util.failed.to.parse.handlerchain.file",
-                clazz.getName(), chain.file());
-        }
+        return MrJarUtil.getResourceAsStream(clazz, chain.file());
     }
 }
