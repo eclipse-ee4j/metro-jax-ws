@@ -331,7 +331,7 @@ public class XmlUtil {
                featureToSet = EXTERNAL_PE;
                factory.setFeature(featureToSet, false);
                featureToSet = LOAD_EXTERNAL_DTD;
-               factory.setFeature(featureToSet, false);               
+               factory.setFeature(featureToSet, false);
             }
         } catch (ParserConfigurationException e) {
             LOGGER.log(Level.WARNING, "Factory [{0}] doesn't support "+featureToSet+" feature!", new Object[] {factory.getClass().getName()} );
