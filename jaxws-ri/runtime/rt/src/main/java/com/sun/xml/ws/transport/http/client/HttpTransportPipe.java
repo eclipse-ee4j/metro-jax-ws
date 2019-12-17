@@ -33,9 +33,7 @@ import javax.xml.ws.WebServiceFeature;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.soap.SOAPBinding;
 import java.io.*;
-import java.net.CookieHandler;
-import java.net.HttpURLConnection;
-import java.net.PasswordAuthentication;
+import java.net.*;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -120,8 +118,8 @@ public class HttpTransportPipe extends AbstractTubeImpl {
         return doReturnWith(response);
     }
 
-    protected HttpClientTransport getTransport(Packet request, Map<String, List<String>> reqHeaders, PasswordAuthentication authentication) {
-        return new HttpClientTransport(request, reqHeaders,authentication);
+    protected HttpClientTransport getTransport(Packet request, Map<String, List<String>> reqHeaders,  Authenticator authenticator) {
+        return new HttpClientTransport(request, reqHeaders, authenticator);
     }
 
     @Override
@@ -147,10 +145,10 @@ public class HttpTransportPipe extends AbstractTubeImpl {
 
             addCookies(request, reqHeaders);
 
-            final PasswordAuthentication authentication = getAuthentication(request);
+            final Authenticator authentication = getAuthentication(request);
 
 
-            con = getTransport(request, reqHeaders,authentication);
+            con = getTransport(request, reqHeaders,  authentication);
             request.addSatellite(new HttpResponseProperties(con));
 
             ContentType ct = codec.getStaticContentType(request);
@@ -209,12 +207,17 @@ public class HttpTransportPipe extends AbstractTubeImpl {
         }
     }
 
-    private PasswordAuthentication getAuthentication(Packet request) {
+    private Authenticator getAuthentication(Packet request) {
         String user = (String) request.invocationProperties.get(BindingProvider.USERNAME_PROPERTY);
         if (user != null) {
             String pw = (String) request.invocationProperties.get(BindingProvider.PASSWORD_PROPERTY);
             if (pw != null) {
-                return new PasswordAuthentication(user, pw.toCharArray());
+                return new Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(user, pw.toCharArray());
+                    }
+                };
 
             }
         }

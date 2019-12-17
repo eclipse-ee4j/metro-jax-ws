@@ -59,11 +59,12 @@ public class HttpClientTransport {
         }
     }
 
+    private final Authenticator auth;
+
     /*package*/ int statusCode;
     /*package*/ String statusMessage;
     /*package*/ int contentLength;
     private final Map<String, List<String>> reqHeaders;
-    private final PasswordAuthentication passwordAuthentication;
     private Map<String, List<String>> respHeaders = null;
 
     private OutputStream outputStream;
@@ -78,13 +79,13 @@ public class HttpClientTransport {
         this(packet, reqHeaders, null);
     }
 
-    public HttpClientTransport(@NotNull Packet packet, @NotNull Map<String,List<String>> reqHeaders,
-                               @Nullable PasswordAuthentication passwordAuthentication) {
+    public HttpClientTransport(@NotNull Packet packet, @NotNull Map<String, List<String>> reqHeaders,
+                               @Nullable  Authenticator auth) {
         endpoint = packet.endpointAddress;
         context = packet;
         this.reqHeaders = reqHeaders;
-        this.passwordAuthentication = passwordAuthentication;
         chunkSize = (Integer)context.invocationProperties.get(JAXWSProperties.HTTP_CLIENT_STREAMING_CHUNK_SIZE);
+        this.auth = auth;
     }
 
     /*
@@ -235,13 +236,8 @@ public class HttpClientTransport {
     	if (httpConnection == null)
     		httpConnection = (HttpURLConnection) endpoint.openConnection();
 
-        if (passwordAuthentication != null) {
-            httpConnection.setAuthenticator(new Authenticator() {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return passwordAuthentication;
-                }
-            });
+        if (auth != null) {
+            httpConnection.setAuthenticator(auth);
         }
         String scheme = endpoint.getURI().getScheme();
         if (scheme.equals("https")) {
