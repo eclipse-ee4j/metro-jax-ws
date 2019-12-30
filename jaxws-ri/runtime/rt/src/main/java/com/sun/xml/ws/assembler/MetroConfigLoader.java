@@ -343,6 +343,7 @@ class MetroConfigLoader {
                     }
                     try {
                         final Method method = context.getClass().getMethod("getResource", String.class);
+                        method.setAccessible(true);
                         final Object result = method.invoke(context, "/WEB-INF/" + resource);
                         return URL.class.cast(result);
                     } catch (Exception e) {
