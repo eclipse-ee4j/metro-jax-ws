@@ -884,14 +884,15 @@ public class WSServiceDelegate extends WSService {
     private static ClassLoader getDelegatingLoader(ClassLoader loader1, ClassLoader loader2) {
     	if (loader1 == null) return loader2;
     	if (loader2 == null) return loader1;
-        //If there is already a parent-child relationship between loaders,
-        //it does not make sense to create a new one
-        //The created proxy might be reusable, otherwise a new proxy is 
-        //created on each call since a new loader is used each time
-        ClassLoader parent = loader1.getParent();
-        while (parent != null) {
-           if (parent == loader2) return loader1;
-           parent = parent.getParent();
+
+      //If there is already a parent-child relationship between loaders,
+      //it does not make sense to create a new one
+      //The created proxy might be reusable, otherwise a new proxy is
+      //created on each call since a new loader is used each time
+      ClassLoader parent = loader1;
+      while (parent != null) {
+         if (parent == loader2) return loader1;
+         parent = parent.getParent();
     	}
     	return new DelegatingLoader(loader1, loader2);
     }
