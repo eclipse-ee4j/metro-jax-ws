@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -484,7 +484,7 @@ public class SaajStaxWriter implements XMLStreamWriter {
                     }
                     // add namespace declarations
                     for (NamespaceDeclaration namespace : this.namespaceDeclarations) {
-                        target.addNamespaceDeclaration(namespace.prefix, namespace.namespaceUri);
+                        newElement.addNamespaceDeclaration(namespace.prefix, namespace.namespaceUri);
                     }
                     // add attribute declarations
                     for (AttributeDeclaration attribute : this.attributeDeclarations) {

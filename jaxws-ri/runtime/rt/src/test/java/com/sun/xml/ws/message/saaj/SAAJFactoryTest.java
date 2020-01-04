@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -139,7 +139,7 @@ public class SAAJFactoryTest extends TestCase {
         XMLStreamReader envelope = inputFactory.createXMLStreamReader(new StringReader("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
                 "<s:Body>" +
-                "<SampleServiceRequest xmlns=\"http://sample.ex.org/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">" +
+                "<SampleServiceRequest xmlns=\"http://sample.ex.org/\">" +
                 "<RequestParams xmlns=\"\">" +
                 "<Param1>hogehoge</Param1>" +
                 "<Param2>fugafuga</Param2>" +
@@ -193,7 +193,7 @@ public class SAAJFactoryTest extends TestCase {
         XMLStreamReader envelope = inputFactory.createXMLStreamReader(new StringReader("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
                 "<s:Body>" +
-                "<SampleServiceRequest xmlns=\"http://sample.ex.org/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">" +
+                "<SampleServiceRequest xmlns=\"http://sample.ex.org/\">" +
                 "<RequestParams xmlns=\"\">" +
                 "<Param1>hogehoge</Param1>" +
                 "<Param2>fugafuga</Param2>" +
