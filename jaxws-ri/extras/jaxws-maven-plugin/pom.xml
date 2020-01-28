@@ -3,7 +3,7 @@
 
     DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-    Copyright (c) 2006, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2006, 2020 Oracle and/or its affiliates. All rights reserved.
 
     Oracle licenses this file to You under the Apache License, Version 2.0
     (the "License"); you may not use this file except in compliance with
@@ -363,7 +363,7 @@
                                     <outputDirectory>${project.build.directory}</outputDirectory>
                                 </configuration>
                             </execution>
-                            <execution>
+                            <!--execution>
                                 <id>merge</id>
                                 <phase>verify</phase>
                                 <goals>
@@ -377,7 +377,7 @@
                                         <sourceFolder>${project.build.directory}/generated-sources/plugin</sourceFolder>
                                     </sourceFolders>
                                 </configuration>
-                            </execution>
+                            </execution-->
                         </executions>
                     </plugin>
                     <plugin>

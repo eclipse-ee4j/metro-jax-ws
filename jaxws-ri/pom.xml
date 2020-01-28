@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -657,28 +657,37 @@
                 <pluginManagement>
                     <plugins>
                         <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>cobertura-maven-plugin</artifactId>
-                            <version>2.5.2</version>
+                            <groupId>org.jacoco</groupId>
+                            <artifactId>jacoco-maven-plugin</artifactId>
+                            <version>0.8.3</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>cobertura-maven-plugin</artifactId>
-                        <inherited>true</inherited>
-                        <configuration>
-                            <attach>true</attach>
-                            <skip>${cobertura.skip}</skip>
-                        </configuration>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>instrument-code</id>
-                                <phase>process-classes</phase>
+                                <id>default-prepare-agent</id>
                                 <goals>
-                                    <goal>instrument</goal>
+                                    <goal>prepare-agent</goal>
                                 </goals>
+                            </execution>
+                            <execution>
+                                <id>default-report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <!-- configuration should be removed once this bug https://github.com/jacoco/jacoco/issues/407 is fixed -->
+                                <configuration>
+                                    <excludes>
+                                        <exclude>com/sun/tools/ws/ant/WsGen2.class</exclude>
+                                        <exclude>com/sun/tools/ws/ant/WsImport2.class</exclude>
+                                        <exclude>com/sun/tools/ws/ant/WsImport.class</exclude>
+                                        <exclude>com/sun/tools/ws/ant/WsGen.class</exclude>
+                                    </excludes>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
