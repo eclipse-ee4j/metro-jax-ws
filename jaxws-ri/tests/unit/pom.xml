@@ -492,11 +492,11 @@
             <id>coverage</id>
             <activation>
                 <property>
-                    <name>cobertura-build</name>
+                    <name>jacoco-build</name>
                 </property>
             </activation>
             <properties>
-                <ws.jvmOpts>-Dnet.sourceforge.cobertura.datafile=${basedir}/target/cobertura.ser</ws.jvmOpts>
+                <ws.jvmOpts>-Djacoco-agent.destfile=${basedir}/target/jacoco.exec</ws.jvmOpts>
             </properties>
             <build>
                 <plugins>
@@ -505,14 +505,14 @@
                         <artifactId>maven-antrun-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>copy-ser-file</id>
+                                <id>copy-exec-file</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>run</goal>
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <copy todir="target/cobertura" file="${basedir}/target/cobertura.ser"
+                                        <copy todir="target/jacoco" file="${basedir}/target/jacoco.exec"
                                               verbose="true" failonerror="true"/>
                                     </target>
                                 </configuration>
@@ -524,15 +524,17 @@
                         <artifactId>jacoco-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>default-prepare-agent</id>
+                                <id>instrument-code</id>
+                                <phase>package</phase>
                                 <goals>
-                                    <goal>prepare-agent</goal>
+                                    <goal>instrument</goal>
                                 </goals>
                             </execution>
                             <execution>
-                                <id>default-report</id>
+                                <id>default-restore-instrumented-classes</id>
+                                <phase>package</phase>
                                 <goals>
-                                    <goal>report</goal>
+                                    <goal>restore-instrumented-classes</goal>
                                 </goals>
                             </execution>
                         </executions>

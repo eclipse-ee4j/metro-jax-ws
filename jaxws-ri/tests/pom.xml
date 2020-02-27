@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -95,7 +95,7 @@
             <activation>
                 <!--<activeByDefault>true</activeByDefault>-->
                 <property>
-                    <name>cobertura-build</name>
+                    <name>jacoco-build</name>
                 </property>
             </activation>
             <modules>
@@ -104,7 +104,7 @@
 
             <properties>
                 <jaxwsri.dep.classifier>instrumented</jaxwsri.dep.classifier>
-                <ws.jvmOpts>-Dnet.sourceforge.cobertura.datafile=${project.build.directory}/cobertura.ser</ws.jvmOpts>
+                <ws.jvmOpts>-Djacoco-agent.destfile=${project.build.directory}/jacoco.exec</ws.jvmOpts>
             </properties>
 
             <dependencies>

@@ -32,7 +32,7 @@
     <description>JAX-WS RI Unit Tests Coverage</description>
 
     <properties>
-        <cobertura.report.format>xml</cobertura.report.format>
+        <jacoco.report.format>xml</jacoco.report.format>
     </properties>
 
     <build>
@@ -43,7 +43,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <descriptors>
-                        <descriptor>${basedir}/src/main/assembly/coberturaReporting.xml</descriptor>
+                        <descriptor>${basedir}/src/main/assembly/jacocoReporting.xml</descriptor>
                     </descriptors>
                     <attach>true</attach>
                 </configuration>
@@ -57,30 +57,30 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>generate-cobertura-report</id>
+                        <id>generate-jacoco-report</id>
                         <phase>test</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
                         <configuration>
                             <target>
-                                <property name="cbt.reporting.dir" value="${project.build.directory}/${project.artifactId}-coberturaReporting"/>
+                                <property name="cbt.reporting.dir" value="${project.build.directory}/${project.artifactId}-jacocoReporting"/>
                                 <mkdir dir="${cbt.reporting.dir}"/>
-                                <unzip src="${project.build.directory}/${project.artifactId}-coberturaReporting.zip" dest="${cbt.reporting.dir}"/>
-                                <ant antfile="${cbt.reporting.dir}/cobertura.xml" dir="${cbt.reporting.dir}" target="create-report">
+                                <unzip src="${project.build.directory}/${project.artifactId}-jacocoReporting.zip" dest="${cbt.reporting.dir}"/>
+                                <ant antfile="${cbt.reporting.dir}/jacoco.xml" dir="${cbt.reporting.dir}" target="create-report">
                                     <property name="coveragereport.dir" location="${project.build.directory}/report"/>
-                                    <property name="coveragereport.format" value="${cobertura.report.format}"/>
+                                    <property name="coveragereport.format" value="${jacoco.report.format}"/>
                                 </ant>
                             </target>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin-->
+            </plugin>
         </plugins>
     </build>
 
@@ -97,8 +97,8 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>jaxws-unit</artifactId>
                     <version>${project.version}</version>
-                    <!--classifier>cobertura</classifier-->
-                    <type>jar</type>
+                    <classifier>jacoco</classifier>
+                    <type>exec</type>
                     <scope>compile</scope>
                 </dependency>
             </dependencies>
@@ -112,11 +112,10 @@
                 </property>
             </activation>
             <dependencies>
-
                 <dependency>
                     <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.3</version>
+                    <artifactId>org.jacoco.agent</artifactId>
+                    <version>${jacoco.version}</version>
                     <scope>compile</scope>
                 </dependency>
 
@@ -132,7 +131,7 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>rt</artifactId>
                     <version>${project.version}</version>
-                    <!--classifier>cobertura</classifier-->
+                    <!--classifier>jacoco</classifier-->
                     <type>jar</type>
                     <scope>compile</scope>
                 </dependency>
@@ -140,7 +139,7 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>rt-fi</artifactId>
                     <version>${project.version}</version>
-                    <!--classifier>cobertura</classifier-->
+                    <!--classifier>jacoco</classifier-->
                     <type>jar</type>
                     <scope>compile</scope>
                 </dependency>
@@ -148,7 +147,7 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>httpspi-servlet</artifactId>
                     <version>${project.version}</version>
-                    <!--classifier>cobertura</classifier-->
+                    <!--classifier>jacoco</classifier-->
                     <type>jar</type>
                     <scope>compile</scope>
                 </dependency>
@@ -156,7 +155,7 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>servlet</artifactId>
                     <version>${project.version}</version>
-                    <!--classifier>cobertura</classifier-->
+                    <!--classifier>jacoco</classifier-->
                     <type>jar</type>
                     <scope>compile</scope>
                 </dependency>
@@ -173,7 +172,7 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>wscompile</artifactId>
                     <version>${project.version}</version>
-                    <!--classifier>cobertura</classifier-->
+                    <!--classifier>jacoco</classifier-->
                     <type>jar</type>
                     <scope>compile</scope>
                 </dependency>
@@ -190,7 +189,7 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>jaxws-eclipselink-plugin</artifactId>
                     <version>${project.version}</version>
-                    <!--classifier>cobertura</classifier-->
+                    <!--classifier>jacoco</classifier-->
                     <type>jar</type>
                     <scope>compile</scope>
                 </dependency>
@@ -207,7 +206,7 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>sdo-eclipselink-plugin</artifactId>
                     <version>${project.version}</version>
-                    <!--classifier>cobertura</classifier-->
+                    <!--classifier>jacoco</classifier-->
                     <type>jar</type>
                     <scope>compile</scope>
                 </dependency>

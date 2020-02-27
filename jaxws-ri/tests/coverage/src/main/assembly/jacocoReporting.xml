@@ -1,6 +1,6 @@
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,14 +13,14 @@
 <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-    <id>coberturaReporting</id>
+    <id>jacocoReporting</id>
     <formats>
         <format>zip</format>
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
     <files>
         <file>
-            <source>${basedir}/src/main/coberturaScripts/cobertura.xml</source>
+            <source>${basedir}/src/main/jacocoScripts/jacoco.xml</source>
             <outputDirectory>/</outputDirectory>
             <filtered>false</filtered>
         </file>
@@ -31,7 +31,8 @@
             <outputDirectory>/antjars</outputDirectory>
             <scope>test</scope>
             <includes>
-                <include>net.sourceforge.cobertura:cobertura</include>
+                <include>org.jacoco:org.jacoco.agent</include>
+                <include>org.jacoco:org.jacoco.ant</include>
                 <include>oro:oro</include>
                 <include>asm:asm*</include>
                 <include>log4j:log4j</include>
@@ -73,11 +74,11 @@
         </dependencySet>
         <dependencySet>
             <unpack>false</unpack>
-            <outputDirectory>/cobertura</outputDirectory>
+            <outputDirectory>/jacoco</outputDirectory>
             <scope>compile</scope>
             <useTransitiveDependencies>false</useTransitiveDependencies>
             <includes>
-                <include>*:ser:cobertura</include>
+                <include>*:exec:jacoco</include>
             </includes>
         </dependencySet>
     </dependencySets>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,8 +46,8 @@ public class AntExecutor {
         cmd.add("-Dbin.folder=" + System.getProperty("bin.folder"));
 //        cmd.add("-Djaxp.debug=true");
         //dump coverage data:
-        if (System.getProperty("net.sourceforge.cobertura.datafile") != null) {
-            cmd.add("-Dnet.sourceforge.cobertura.datafile=" + System.getProperty("net.sourceforge.cobertura.datafile"));
+        if (System.getProperty("jacoco-agent.destfile") != null) {
+            cmd.add("-Djacoco-agent.destfile=" + System.getProperty("jacoco-agent.destfile"));
         }
         cmd.add("-cp");
         cmd.add(getAntCP(new File(System.getProperty("bin.folder"), "lib/ant")));

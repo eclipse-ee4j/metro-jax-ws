@@ -592,21 +592,21 @@
             <id>coverage</id>
             <activation>
                 <property>
-                    <name>cobertura-build</name>
+                    <name>jacoco-build</name>
                 </property>
             </activation>
             <properties>
-                <cobertura.report.format>xml</cobertura.report.format>
-                <cobertura.version>1.9.4.1</cobertura.version>
-                <cobertura.skip>false</cobertura.skip>
-                <net.sourceforge.cobertura.datafile>${basedir}/target/cobertura/cobertura.ser</net.sourceforge.cobertura.datafile>
+                <jacoco.report.format>xml</jacoco.report.format>
+                <jacoco.version>0.8.3</jacoco.version>
+                <jacoco.skip>false</jacoco.skip>
+                <jacoco-agent.destfile>${basedir}/target/jacoco/jacoco.exec</jacoco-agent.destfile>
             </properties>
             <dependencies>
-                <!-- cobertura library -->
+                <!-- jacoco library -->
                 <dependency>
-                    <groupId>net.sourceforge.cobertura</groupId>
-                    <artifactId>cobertura</artifactId>
-                    <version>${cobertura.version}</version>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>org.jacoco.agent</artifactId>
+                    <version>${jacoco.version}</version>
                     <exclusions>
                         <exclusion>
                             <groupId>oro</groupId>
@@ -626,7 +626,62 @@
                         </exclusion>
                     </exclusions>
                 </dependency>
-                <!-- needed for cobertura-instrument ant task to work (in *-rt, *-tools)
+                <dependency>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>org.jacoco.agent</artifactId>
+                    <classifier>runtime</classifier>
+                    <version>${jacoco.version}</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>oro</groupId>
+                            <artifactId>oro</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>asm</groupId>
+                            <artifactId>asm</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>asm</groupId>
+                            <artifactId>asm-tree</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>log4j</groupId>
+                            <artifactId>log4j</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <dependency>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>org.jacoco.ant</artifactId>
+                    <version>${jacoco.version}</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>oro</groupId>
+                            <artifactId>oro</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>asm</groupId>
+                            <artifactId>asm</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>asm</groupId>
+                            <artifactId>asm-tree</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>asm</groupId>
+                            <artifactId>asm-common</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>asm</groupId>
+                            <artifactId>asm-analysis</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>log4j</groupId>
+                            <artifactId>log4j</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <!-- needed for jacoco-instrument ant task to work (in *-rt, *-tools)
                 and to not be included in assemblies/shaded jars -->
                 <dependency>
                     <groupId>oro</groupId>
@@ -659,7 +714,7 @@
                         <plugin>
                             <groupId>org.jacoco</groupId>
                             <artifactId>jacoco-maven-plugin</artifactId>
-                            <version>0.8.3</version>
+                            <version>${jacoco.version}</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
@@ -668,6 +723,19 @@
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
                         <executions>
+                            <execution>
+                                <id>instrument-code</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>instrument</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>default-restore-instrumented-classes</id>
+                                <goals>
+                                    <goal>restore-instrumented-classes</goal>
+                                </goals>
+                            </execution>
                             <execution>
                                 <id>default-prepare-agent</id>
                                 <goals>
@@ -686,6 +754,12 @@
                                         <exclude>com/sun/tools/ws/ant/WsImport2.class</exclude>
                                         <exclude>com/sun/tools/ws/ant/WsImport.class</exclude>
                                         <exclude>com/sun/tools/ws/ant/WsGen.class</exclude>
+                                        <exclude>com/sun/xml/ws/util/xml/XmlCatalogUtil.class</exclude>
+                                        <exclude>com/sun/xml/ws/util/MrJarUtil.class</exclude>
+                                        <exclude>com/sun/xml/ws/util/MrJarUtil$1.class</exclude>
+                                        <exclude>com/sun/xml/ws/api/server/SDDocumentSource.class</exclude>
+                                        <exclude>com/sun/xml/ws/api/server/SDDocumentSource$1.class</exclude>
+                                        <exclude>com/sun/xml/ws/api/server/SDDocumentSource$2.class</exclude>
                                     </excludes>
                                 </configuration>
                             </execution>
