@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -160,10 +160,10 @@ public abstract class BindingImpl implements WSBinding {
 
                 // registering our DCH since javamail's DCH doesn't handle
                 if (!cmdMapInitialized(mailMap)) {
-                    mailMap.addMailcap("text/xml;;x-java-content-handler=com.sun.xml.internal.ws.encoding.XmlDataContentHandler");
-                    mailMap.addMailcap("application/xml;;x-java-content-handler=com.sun.xml.internal.ws.encoding.XmlDataContentHandler");
-                    mailMap.addMailcap("image/*;;x-java-content-handler=com.sun.xml.internal.ws.encoding.ImageDataContentHandler");
-                    mailMap.addMailcap("text/plain;;x-java-content-handler=com.sun.xml.internal.ws.encoding.StringDataContentHandler");
+                    mailMap.addMailcap("text/xml;;x-java-content-handler=com.sun.xml.ws.encoding.XmlDataContentHandler");
+                    mailMap.addMailcap("application/xml;;x-java-content-handler=com.sun.xml.ws.encoding.XmlDataContentHandler");
+                    mailMap.addMailcap("image/*;;x-java-content-handler=com.sun.xml.ws.encoding.ImageDataContentHandler");
+                    mailMap.addMailcap("text/plain;;x-java-content-handler=com.sun.xml.ws.encoding.StringDataContentHandler");
                 }
             }
         } catch (Throwable t) {
@@ -182,8 +182,8 @@ public abstract class BindingImpl implements WSBinding {
         // so if found any of SAAJ or our own handler registered, we are ok; anyway using SAAJ directly here
         // is not good idea since we don't want standalone JAX-WS to depend on specific SAAJ impl.
         // This is also reason for duplication of Handler's code by JAX-WS
-        String saajClassName = "com.sun.xml.internal.messaging.saaj.soap.XmlDataContentHandler";
-        String jaxwsClassName = "com.sun.xml.internal.ws.encoding.XmlDataContentHandler";
+        String saajClassName = "com.sun.xml.messaging.saaj.soap.XmlDataContentHandler";
+        String jaxwsClassName = "com.sun.xml.ws.encoding.XmlDataContentHandler";
         for (CommandInfo command : commands) {
             String commandClass = command.getCommandClass();
             if (saajClassName.equals(commandClass) ||
