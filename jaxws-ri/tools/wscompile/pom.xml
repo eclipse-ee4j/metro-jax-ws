@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -169,7 +169,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <excludeArtifactIds>jakarta.activation-api,ant-launcher,ant-nodeps,cobertura,cobertura-runtime</excludeArtifactIds>
+                            <excludeArtifactIds>jakarta.activation-api,ant-launcher,ant-nodeps</excludeArtifactIds>
                             <excludeScope>system</excludeScope>
                         </configuration>
                     </execution>
@@ -181,7 +181,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib/ant</outputDirectory>
-                            <includeArtifactIds>ant,ant-launcher,ant-nodeps,cobertura</includeArtifactIds>
+                            <includeArtifactIds>ant,ant-launcher,ant-nodeps</includeArtifactIds>
                         </configuration>
                     </execution>
                 </executions>
@@ -238,7 +238,7 @@
                         <javax.jws-api.version>${javax.jws-api.version}</javax.jws-api.version>
                         <javax.annotation-api.version>${javax.annotation-api.version}</javax.annotation-api.version>
                         <jaxws-api.version>${jaxws-api.version}</jaxws-api.version>
-                        <net.sourceforge.cobertura.datafile>${net.sourceforge.cobertura.datafile}</net.sourceforge.cobertura.datafile>
+                        <jacoco-agent.destfile>${jacoco-agent.destfile}</jacoco-agent.destfile>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>

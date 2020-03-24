@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2011, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2011, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,8 +23,8 @@
         <property name="lib.dir" value="lib"/>
         <property name="build.dir" value="build"/>
         <property name="src.dir" value="src"/>
-        <condition property="coverage" value="-Dnet.sourceforge.cobertura.datafile=${net.sourceforge.cobertura.datafile}" else="">
-            <isset property="net.sourceforge.cobertura.datafile"/>
+        <condition property="coverage" value="-Djacoco-agent.destfile=${jacoco-agent.destfile}" else="">
+            <isset property="jacoco-agent.destfile"/>
         </condition>
     </target>
 
@@ -40,7 +40,7 @@
             <fileset dir="${libs.folder}/api" />
         </copy>
         <path id="task.cp">
-            <pathelement location="${bin.folder}/generated-classes/cobertura"/>
+            <pathelement location="${bin.folder}/generated-classes/jacoco"/>
             <pathelement location="${bin.folder}/generated-sources/rsrc-gen"/>
             <pathelement location="${bin.folder}/classes"/>
             <fileset dir="${lib.dir}" />
