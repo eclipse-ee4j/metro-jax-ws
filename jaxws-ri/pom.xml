@@ -42,11 +42,6 @@
             <url>http://www.eclipse.org/org/documents/edl-v10.php</url>
             <distribution>repo</distribution>
         </license>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
     </licenses>
 
     <developers>
@@ -84,6 +79,7 @@
     </mailingLists>
 
     <properties>
+        <copyright.alternatetemplate>src/main/resources/copyright-apache2.txt</copyright.alternatetemplate>
         <copyright.exclude>src/main/resources/copyright-exclude</copyright.exclude>
         <copyright.ignoreyear>false</copyright.ignoreyear>
         <copyright.scmonly>true</copyright.scmonly>
@@ -392,6 +388,7 @@
                     <version>2.3</version>
                     <configuration>
                         <templateFile>${copyright.template}</templateFile>
+                        <alternateTemplateFile>${copyright.alternatetemplate}</alternateTemplateFile>
                         <excludeFile>${copyright.exclude}</excludeFile>
                         <!-- skip files not under SCM-->
                         <scmOnly>${copyright.scmonly}</scmOnly>
