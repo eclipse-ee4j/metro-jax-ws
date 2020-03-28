@@ -23,64 +23,12 @@
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-ri-bom</artifactId>
+
     <version>2.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+
     <name>JAX-WS RI Bill-of-Materials (BOM)</name>
     <description>JAX-WS Reference Implementation Bill-of-Materials (BOM)</description>
-
-    <scm>
-        <connection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</connection>
-        <developerConnection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</developerConnection>
-        <url>https://github.com/eclipse-ee4j/metro-jax-ws</url>
-        <tag>HEAD</tag>
-    </scm>
-
-    <licenses>
-        <license>
-            <name>Eclipse Distribution License - v 1.0</name>
-            <url>http://www.eclipse.org/org/documents/edl-v10.php</url>
-            <distribution>repo</distribution>
-        </license>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>lukasj</id>
-            <name>Lukas Jungmann</name>
-            <email>lukas.jungmann@oracle.com</email>
-            <organization>Oracle Corporation</organization>
-        </developer>
-        <developer>
-            <id>bravehorsie</id>
-            <name>Roman Grigoriadi</name>
-            <email>Roman.Grigoriadi@oracle.com</email>
-        </developer>
-        <developer>
-            <id>zhengjl</id>
-            <name>Zheng Jun Li</name>
-            <email>zheng.jun.li@oracle.com</email>
-        </developer>
-    </developers>
-
-    <issueManagement>
-        <system>github</system>
-        <url>https://github.com/eclipse-ee4j/metro-jax-ws/issues</url>
-    </issueManagement>
-
-    <mailingLists>
-        <mailingList>
-            <name>Eclipse Metro mailing list</name>
-            <post>metro-dev@eclipse.org</post>
-            <subscribe>https://accounts.eclipse.org/mailing-list/metro-dev</subscribe>
-            <unsubscribe>https://accounts.eclipse.org/mailing-list/metro-dev</unsubscribe>
-            <archive>https://dev.eclipse.org/mhonarc/lists/metro-dev</archive>
-        </mailingList>
-    </mailingLists>
 
     <properties>
         <!--************************************************************-->
