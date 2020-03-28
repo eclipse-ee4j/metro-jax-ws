@@ -166,10 +166,10 @@
     </dependencies>
 
     <properties>
-        <copyright.exclude>../../src/main/resources/copyright-exclude</copyright.exclude>
+        <copyright.exclude>${project.basedir}/copyright-exclude</copyright.exclude>
         <copyright.ignoreyear>false</copyright.ignoreyear>
         <copyright.scmonly>true</copyright.scmonly>
-        <copyright.template>copyright.txt</copyright.template>
+        <copyright.template>${project.basedir}/copyright.txt</copyright.template>
         <copyright.update>false</copyright.update>
         <spotbugs.common>src/main/resources/exclude-common.xml</spotbugs.common>
         <spotbugs.exclude/>
