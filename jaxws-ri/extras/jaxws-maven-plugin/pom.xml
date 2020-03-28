@@ -24,10 +24,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.sun.xml.ws</groupId>
+        <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>2.4.0-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
+        <version>1.0.6</version>
+        <relativePath/>
     </parent>
 
     <groupId>com.sun.xml.ws</groupId>
@@ -166,7 +166,19 @@
     </dependencies>
 
     <properties>
+        <copyright.exclude>../../src/main/resources/copyright-exclude</copyright.exclude>
+        <copyright.ignoreyear>false</copyright.ignoreyear>
+        <copyright.scmonly>true</copyright.scmonly>
+        <copyright.template>copyright.txt</copyright.template>
+        <copyright.update>false</copyright.update>
+        <spotbugs.common>src/main/resources/exclude-common.xml</spotbugs.common>
+        <spotbugs.exclude/>
+        <spotbugs.skip>false</spotbugs.skip>
+        <spotbugs.threshold>Normal</spotbugs.threshold>
+        <spotbugs.version>4.0.0</spotbugs.version>
+
         <jaxws-tools.version>${project.version}</jaxws-tools.version>
+        <!--<jaxws-tools.version>2.3.2</jaxws-tools.version>-->
     </properties>
 
     <build>
@@ -174,8 +186,18 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.0.0-M3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-plugin-plugin</artifactId>
-                    <version>3.5.2</version>
+                    <version>3.6.0</version>
                     <configuration>
                         <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
                         <extractors>
@@ -183,12 +205,53 @@
                         </extractors>
                     </configuration>
                 </plugin>
-                <!-- inherited plugins -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.2.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.github.spotbugs</groupId>
+                    <artifactId>spotbugs-maven-plugin</artifactId>
+                    <version>${spotbugs.version}</version>
                     <configuration>
-                        <forkMode>once</forkMode>
+                        <skip>${spotbugs.skip}</skip>
+                        <threshold>${spotbugs.threshold}</threshold>
+                        <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+                        <excludeFilterFile>
+                            ${spotbugs.common},${spotbugs.exclude}
+                        </excludeFilterFile>
+                        <fork>true</fork>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.glassfish.copyright</groupId>
+                    <artifactId>glassfish-copyright-maven-plugin</artifactId>
+                    <version>2.3</version>
+                    <configuration>
+                        <templateFile>${copyright.template}</templateFile>
+                        <excludeFile>${copyright.exclude}</excludeFile>
+                        <!-- skip files not under SCM-->
+                        <scmOnly>${copyright.scmonly}</scmOnly>
+                        <!-- for use with repair -->
+                        <update>${copyright.update}</update>
+                        <!-- check that year is correct -->
+                        <ignoreYear>${copyright.ignoreyear}</ignoreYear>
                     </configuration>
                 </plugin>
             </plugins>
@@ -240,7 +303,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.9</version>
+                <version>3.0.0</version>
                 <configuration>
                     <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                 </configuration>
@@ -254,15 +317,15 @@
                     </reportSet>
                 </reportSets>
             </plugin>
-            <plugin>
+<!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>3.5.2</version>
-            </plugin>
+                <version>3.6.0</version>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.5</version>
+                <version>3.0.0</version>
                 <configuration>
                     <linkJavadoc>false</linkJavadoc>
                 </configuration>
@@ -279,24 +342,6 @@
     </reporting>
 
     <profiles>
-        <profile>
-            <!-- This is only for non MAC OS X builds, hence the property below -->
-            <id>default-tools.jar</id>
-            <activation>
-                <file>
-                    <exists>${java.home}/../lib/tools.jar</exists>
-                </file>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>com.sun</groupId>
-                    <artifactId>tools</artifactId>
-                    <version>1.6.0</version>
-                    <scope>system</scope>
-                    <systemPath>${java.home}/../lib/tools.jar</systemPath>
-                </dependency>
-            </dependencies>
-        </profile>
         <profile>
             <id>coverage</id>
             <activation>
@@ -437,12 +482,12 @@
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-invoker-plugin</artifactId>
-                            <version>3.1.0</version>
+                            <version>3.2.1</version>
                         </plugin>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-failsafe-plugin</artifactId>
-                            <version>3.0.0-M1</version>
+                            <version>3.0.0-M4</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
