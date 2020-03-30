@@ -24,7 +24,7 @@
     <taskdef classpathref="antjars.classpath" resource="tasks.properties" />
 
     <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
-        <classpath path="antjars/org.jacoco.ant-0.8.3.jar:antjars/org.jacoco.report-0.8.3.jar:antjars/org.jacoco.core-0.8.3.jar:antjars/asm-7.0.jar" />
+        <classpath path="antjars/org.jacoco.ant-0.8.5.jar:antjars/org.jacoco.report-0.8.5.jar:antjars/org.jacoco.core-0.8.5.jar:antjars/asm-7.2.jar" />
     </taskdef>
 
     <target name="init">
