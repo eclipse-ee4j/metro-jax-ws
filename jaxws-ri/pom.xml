@@ -89,7 +89,7 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
-        <spotbugs.version>3.1.12.2</spotbugs.version>
+        <spotbugs.version>4.0.0</spotbugs.version>
 
         <ignore.failing.tests>true</ignore.failing.tests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -130,7 +130,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                     <executions>
                         <execution>
                             <id>jaxb.version</id>
@@ -222,7 +222,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.1.2</version>
                 </plugin>
                 <plugin>
                     <groupId>com.sun.wts.tools.ant</groupId>
@@ -292,9 +292,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.2.1</version>
                     <configuration>
                         <archive>
+                            <manifest>
+                                <addDefaultEntries>false</addDefaultEntries>
+                            </manifest>
                             <manifestEntries>
                                 <Specification-Title>Jakarta XML Web Services</Specification-Title>
                                 <Specification-Version>${jaxws-api.majorVersion}.${jaxws-api.minorVersion}</Specification-Version>
@@ -317,6 +320,9 @@
                     <version>3.2.0</version>
                     <configuration>
                         <archive>
+                            <manifest>
+                                <addDefaultEntries>false</addDefaultEntries>
+                            </manifest>
                             <manifestEntries>
                                 <Specification-Title>Jakarta XML Web Services</Specification-Title>
                                 <Specification-Version>${jaxws-api.majorVersion}.${jaxws-api.minorVersion}</Specification-Version>
@@ -336,8 +342,13 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.2.0</version>
                     <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultEntries>false</addDefaultEntries>
+                            </manifest>
+                        </archive>
                         <release>11</release>
                         <aggregate>false</aggregate>
                         <dependencySourceExcludes>
@@ -366,6 +377,11 @@
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
                     <version>4.2.1</version>
+                    <configuration>
+                        <instructions>
+                            <_noextraheaders>true</_noextraheaders>
+                        </instructions>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
@@ -379,7 +395,6 @@
                             ${spotbugs.common},${spotbugs.exclude}
                         </excludeFilterFile>
                         <fork>true</fork>
-                        <jvmArgs>-Xms64m -Xmx256m</jvmArgs>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -491,6 +506,9 @@
                         <id>default-jar</id>
                         <configuration>
                             <archive>
+                                <manifest>
+                                    <addDefaultEntries>false</addDefaultEntries>
+                                </manifest>
                                 <manifestEntries>
                                     <Specification-Title>Jakarta XML Web Services</Specification-Title>
                                     <Specification-Version>${jaxws-api.majorVersion}.${jaxws-api.minorVersion}</Specification-Version>
@@ -594,7 +612,7 @@
             </activation>
             <properties>
                 <jacoco.report.format>xml</jacoco.report.format>
-                <jacoco.version>0.8.3</jacoco.version>
+                <jacoco.version>0.8.5</jacoco.version>
                 <jacoco.skip>false</jacoco.skip>
                 <jacoco-agent.destfile>${basedir}/target/jacoco/jacoco.exec</jacoco-agent.destfile>
             </properties>
