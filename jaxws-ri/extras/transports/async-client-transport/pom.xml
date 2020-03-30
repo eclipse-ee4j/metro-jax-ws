@@ -60,7 +60,6 @@
                                 </goals>
                                 <configuration>
                                     <instructions>
-                                        <_removeheaders>Bnd-LastModified,Include-Resource,Private-Package</_removeheaders>
                                         <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
                                     </instructions>
                                 </configuration>
