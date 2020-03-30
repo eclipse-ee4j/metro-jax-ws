@@ -37,12 +37,12 @@
         <gmbal-api.version>4.0.1</gmbal-api.version>
         <pfl.version>4.1.0</pfl.version>
         <ha-api.version>3.1.12</ha-api.version>
-        <jaxb.version>2.3.3-b02</jaxb.version>
+        <jaxb.version>2.3.3</jaxb.version>
         <jaxws-api.version>2.3.3</jaxws-api.version>
         <javax.jws-api.version>2.1.0</javax.jws-api.version>
         <management-api.version>3.2.2</management-api.version>
         <mimepull.version>1.9.13</mimepull.version>
-        <policy.version>2.7.9</policy.version>
+        <policy.version>2.7.10</policy.version>
         <resolver.version>20050927</resolver.version>
         <saaj-api.version>1.4.2</saaj-api.version>
         <saaj-impl.version>1.5.2-b01</saaj-impl.version>
