@@ -118,25 +118,25 @@
                                         <artifactItem>
                                             <groupId>jakarta.xml.bind</groupId>
                                             <artifactId>jakarta.xml.bind-api</artifactId>
-                                            <version>2.3.2</version>
+                                            <version>2.3.3</version>
                                             <type>jar</type>
                                         </artifactItem>
                                         <artifactItem>
                                             <groupId>jakarta.xml.ws</groupId>
                                             <artifactId>jakarta.xml.ws-api</artifactId>
-                                            <version>2.3.2</version>
+                                            <version>2.3.3</version>
                                             <type>jar</type>
                                         </artifactItem>
                                         <artifactItem>
                                             <groupId>jakarta.xml.soap</groupId>
                                             <artifactId>jakarta.xml.soap-api</artifactId>
-                                            <version>1.5.1</version>
+                                            <version>1.5.2</version>
                                             <type>jar</type>
                                         </artifactItem>
                                         <artifactItem>
                                             <groupId>jakarta.jws</groupId>
                                             <artifactId>jakarta.jws-api</artifactId>
-                                            <version>1.1.1</version>
+                                            <version>2.1.0</version>
                                             <type>jar</type>
                                         </artifactItem>
                                     </artifactItems>

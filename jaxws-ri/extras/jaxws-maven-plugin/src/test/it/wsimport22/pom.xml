@@ -34,14 +34,6 @@
 
     <name>Test project for wsimport (2.2.x)</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.jvnet.jaxb2_commons</groupId>
-            <artifactId>jaxb2-basics-runtime</artifactId>
-            <version>0.6.4</version>
-        </dependency>
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -51,13 +43,6 @@
             <plugin>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jvnet.jaxb2_commons</groupId>
-                        <artifactId>jaxb2-basics</artifactId>
-                        <version>0.6.4</version>
-                    </dependency>
-                </dependencies>
                 <executions>
                     <execution>
                         <id>id1</id>
@@ -87,10 +72,6 @@
                                 <bindingFile>bindings-default.xjc</bindingFile>
                             </bindingFiles>
                             <wsdlDirectory>${project.build.directory}</wsdlDirectory>
-                            <xjcArgs>
-                                <xjcArg>-Xequals</xjcArg>
-                                <xjcArg>-XtoString</xjcArg>
-                            </xjcArgs>
                         </configuration>
                     </execution>
 <!--                    <execution>

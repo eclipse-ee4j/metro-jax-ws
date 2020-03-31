@@ -34,8 +34,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jaxws.plugin.version>2.3.2</jaxws.plugin.version>
-        <jaxws-ri.version>2.3.2</jaxws-ri.version>
+        <jaxws.plugin.version>2.3.3</jaxws.plugin.version>
+        <jaxws-ri.version>2.3.3</jaxws-ri.version>
     </properties>
 
     <dependencies>
@@ -62,7 +62,6 @@
                         </goals>
                         <configuration>
                             <target>
-                                <setproxy proxyhost="www-proxy.us.oracle.com" proxyport="80"/>
                                 <delete dir="${project.build.directory}" />
                                 <mkdir dir="${project.build.directory}" />
                                 <get src="http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl"
