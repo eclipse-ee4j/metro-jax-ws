@@ -17,9 +17,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Properties;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 
 import testutil.converter.config.Configuration;
 import testutil.converter.config.WsdlType;
@@ -34,7 +34,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.namespace.QName;
 import java.util.List;
 
-import static javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT;
+import static jakarta.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT;
 
 import com.sun.xml.bind.IXmlElementImpl;
 

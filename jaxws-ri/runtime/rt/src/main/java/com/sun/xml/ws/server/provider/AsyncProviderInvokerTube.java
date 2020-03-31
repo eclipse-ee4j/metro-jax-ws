@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -143,7 +143,7 @@ class AsyncProviderInvokerTube<T> extends ProviderInvokerTube<T> {
     }
 
     /**
-     * The single {@link javax.xml.ws.WebServiceContext} instance injected into application.
+     * The single {@link jakarta.xml.ws.WebServiceContext} instance injected into application.
      */
     /*private static final*/ public class AsyncWebServiceContext extends AbstractWebServiceContext { // TODO public for DISI
         final Packet packet;

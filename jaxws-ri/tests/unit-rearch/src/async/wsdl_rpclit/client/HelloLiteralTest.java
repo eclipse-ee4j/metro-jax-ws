@@ -14,9 +14,9 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 import testutil.ClientServerTestUtil;
 
-import javax.xml.ws.AsyncHandler;
-import javax.xml.ws.Holder;
-import javax.xml.ws.Response;
+import jakarta.xml.ws.AsyncHandler;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.Response;
 import javax.xml.namespace.QName;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;

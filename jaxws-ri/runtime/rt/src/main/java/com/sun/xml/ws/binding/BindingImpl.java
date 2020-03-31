@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,14 +22,14 @@ import com.sun.xml.ws.client.HandlerConfiguration;
 import com.sun.xml.ws.developer.MemberSubmissionAddressingFeature;
 import com.sun.xml.ws.developer.BindingTypeFeature;
 
-import javax.activation.CommandInfo;
-import javax.activation.CommandMap;
-import javax.activation.MailcapCommandMap;
+import jakarta.activation.CommandInfo;
+import jakarta.activation.CommandMap;
+import jakarta.activation.MailcapCommandMap;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.soap.AddressingFeature;
-import javax.xml.ws.handler.Handler;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.soap.AddressingFeature;
+import jakarta.xml.ws.handler.Handler;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -74,7 +74,7 @@ public abstract class BindingImpl implements WSBinding {
     // Features that are set(enabled/disabled) on the binding, an operation or a fault message
     protected final Map<MessageKey, WebServiceFeatureList> faultMessageFeatures = new HashMap<MessageKey, WebServiceFeatureList>();
 
-    protected javax.xml.ws.Service.Mode serviceMode = javax.xml.ws.Service.Mode.PAYLOAD;
+    protected jakarta.xml.ws.Service.Mode serviceMode = jakarta.xml.ws.Service.Mode.PAYLOAD;
 
     protected MessageContextFactory messageContextFactory;
 

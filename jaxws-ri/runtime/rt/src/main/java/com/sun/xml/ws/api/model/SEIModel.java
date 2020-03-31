@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,10 +17,10 @@ import com.sun.xml.bind.api.TypeReference;
 import com.sun.xml.ws.api.model.wsdl.WSDLPort;
 import com.sun.xml.ws.util.Pool;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Provider;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Provider;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
@@ -65,7 +65,7 @@ public interface SEIModel {
 
     /**
      * Its a known fault if the exception thrown by {@link Method} is annotated with the
-     * {@link javax.xml.ws.WebFault#name()} thas equal to the name passed as parameter.
+     * {@link jakarta.xml.ws.WebFault#name()} thas equal to the name passed as parameter.
      *
      * @param name   is the qualified name of fault detail element as specified by wsdl:fault@element value.
      * @param method is the Java {@link Method}

@@ -15,8 +15,8 @@
 
 package client.dispatch.wsdl_hello_lit_asyncpoll.server;
 
-import javax.jws.WebService;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import javax.xml.namespace.QName;
 
 @WebService(

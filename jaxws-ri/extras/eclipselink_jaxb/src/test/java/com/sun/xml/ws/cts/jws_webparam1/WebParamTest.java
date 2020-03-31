@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 package com.sun.xml.ws.cts.jws_webparam1;
 
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceFeature;
 
 import com.oracle.webservices.api.databinding.DatabindingModeFeature;
 
@@ -44,7 +44,7 @@ public class WebParamTest extends WsDatabindingTestBase {
         cliConfig.setFeatures(f);     
         WebParamWebService port = createProxy(WebParamWebService.class, srvConfig, cliConfig, debug);
         {
-            javax.xml.ws.Holder<Employee> employeeHolder = new javax.xml.ws.Holder<Employee>();
+            jakarta.xml.ws.Holder<Employee> employeeHolder = new jakarta.xml.ws.Holder<Employee>();
             port.helloString4("jsr181", employeeHolder);
             Employee employee = (Employee) employeeHolder.value;
             Name output = employee.getName();
@@ -52,7 +52,7 @@ public class WebParamTest extends WsDatabindingTestBase {
             assertEquals(output.getLastName(),  "jaxws");
         }
         {
-            javax.xml.ws.Holder<Employee> employeeHolder = new javax.xml.ws.Holder<Employee>();
+            jakarta.xml.ws.Holder<Employee> employeeHolder = new jakarta.xml.ws.Holder<Employee>();
             Name name = new Name();
             name.setFirstName("jsr181");
             name.setLastName("jsr109");

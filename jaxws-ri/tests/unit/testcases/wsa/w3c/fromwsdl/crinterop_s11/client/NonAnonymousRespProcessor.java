@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,9 +10,9 @@
 
 package wsa.w3c.fromwsdl.crinterop_s11.client;
 import static wsa.w3c.fromwsdl.crinterop_s11.client.TestConstants.*;
-import javax.xml.ws.soap.SOAPBinding;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPException;
+import jakarta.xml.ws.soap.SOAPBinding;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPException;
 import java.util.Calendar;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Exchanger;
@@ -21,7 +21,7 @@ import java.util.concurrent.TimeoutException;
 import java.io.IOException;
 
 
-import javax.xml.ws.*;
+import jakarta.xml.ws.*;
 
 /**
  * This class handles the non-anonymous responses

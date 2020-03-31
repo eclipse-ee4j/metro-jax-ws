@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@ import com.sun.xml.ws.api.message.Message;
 import com.sun.xml.ws.api.model.SEIModel;
 import com.sun.xml.ws.api.model.wsdl.WSDLPort;
 
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.MessageContext;
 import java.util.Set;
 
 /**
@@ -46,7 +46,7 @@ public interface MessageHandlerContext extends MessageContext {
     public void setMessage(Message message);
 
     /**
-     * @see javax.xml.ws.handler.soap.SOAPMessageContext#getRoles()
+     * @see jakarta.xml.ws.handler.soap.SOAPMessageContext#getRoles()
      */
      public Set<String> getRoles();
 

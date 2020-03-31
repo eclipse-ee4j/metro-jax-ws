@@ -12,9 +12,9 @@ package wsa.fromjava.custom_action.client;
 
 import java.util.Map;
 
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Binding;
-import javax.xml.ws.soap.AddressingFeature;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.Binding;
+import jakarta.xml.ws.soap.AddressingFeature;
 
 import junit.framework.TestCase;
 

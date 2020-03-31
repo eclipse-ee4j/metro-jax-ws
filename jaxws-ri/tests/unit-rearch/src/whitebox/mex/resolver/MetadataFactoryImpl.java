@@ -25,7 +25,7 @@ import org.xml.sax.EntityResolver;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import java.io.*;
 import java.net.URI;
 import java.util.ArrayList;

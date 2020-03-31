@@ -10,8 +10,8 @@
 
 package fromjava.webmethod_exclude.server;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebService;
 
 @WebService(name="Echo", serviceName="EchoService", targetNamespace="http://echo.org/")
 

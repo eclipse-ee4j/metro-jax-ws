@@ -10,7 +10,7 @@
 
 package wsa.fromwsdl.requiredfalse.common;
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import testutil.WsaBaseSOAPHandler;
 
 /**

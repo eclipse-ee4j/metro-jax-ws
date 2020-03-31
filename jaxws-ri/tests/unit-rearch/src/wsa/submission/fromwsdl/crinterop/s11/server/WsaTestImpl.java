@@ -10,12 +10,12 @@
 
 package wsa.submission.fromwsdl.crinterop.s11.server;
 
-import javax.xml.ws.soap.SOAPFaultException;
-import javax.xml.ws.WebServiceException;
-import javax.xml.soap.SOAPFault;
-import javax.xml.soap.SOAPException;
+import jakarta.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.soap.SOAPFault;
+import jakarta.xml.soap.SOAPException;
 import javax.xml.namespace.QName;
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.developer.MemberSubmissionAddressing;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,10 +10,10 @@
 
 package epr.epr_extensions.server;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 import javax.annotation.Resource;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 
 /**
  * @author Rama Pulavarthi

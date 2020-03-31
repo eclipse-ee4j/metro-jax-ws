@@ -36,7 +36,7 @@ public class EndorsedFilter implements DependencyFilter {
             "jakarta.annotation-api", "jakarta.activation-api",
             "jaxws-api", "jaxb-api",
             "saaj-api", "jsr181-api",
-            "javax.annotation-api", "javax.activation-api",
+            "javax.annotation-api", "jakarta.activation-api",
             "webservices-api");
 
     @Override
@@ -44,8 +44,8 @@ public class EndorsedFilter implements DependencyFilter {
         Artifact a = dn.getDependency().getArtifact();
         if (APIS.contains(a.getArtifactId())) {
             return true;
-        } else if (a.getArtifactId().startsWith("javax.xml.ws")
-                || a.getArtifactId().startsWith("javax.xml.bind")) {
+        } else if (a.getArtifactId().startsWith("jakarta.xml.ws")
+                || a.getArtifactId().startsWith("jakarta.xml.bind")) {
             return true;
         } else if (a.getArtifactId().startsWith("jakarta.xml.ws")
                 || a.getArtifactId().startsWith("jakarta.xml.bind")) {

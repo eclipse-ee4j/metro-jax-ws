@@ -12,15 +12,15 @@ package fromwsdl.mime.simple_doclit.server;
 
 import com.sun.xml.ws.developer.JAXWSProperties;
 
-import javax.activation.DataHandler;
-import javax.jws.WebService;
-import javax.jws.WebParam;
+import jakarta.activation.DataHandler;
+import jakarta.jws.WebService;
+import jakarta.jws.WebParam;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.handler.MessageContext;
 import javax.servlet.ServletContext;
 import java.awt.*;
 import java.io.File;

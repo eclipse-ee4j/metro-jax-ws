@@ -9,7 +9,7 @@
  */
 
 module server {
-    requires java.xml.ws;
+    requires jakarta.xml.ws;
       requires jdk.httpserver;
       requires java.logging; 
 

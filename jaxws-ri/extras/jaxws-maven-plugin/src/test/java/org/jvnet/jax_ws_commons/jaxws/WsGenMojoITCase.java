@@ -157,7 +157,7 @@ public class WsGenMojoITCase {
         assertFilePresent(project, "target/classes/tests/jaxwscommons43/jaxws/Bye.class");
         assertFilePresent(project, "target/generated-sources/wsdl/WsImplAService.wsdl");
         assertFilePresent(project, "target/generated-sources/wsdl/WsImplBService.wsdl");
-        assertFileContains(project, "build.log", "No @javax.jws.WebService found.");
+        assertFileContains(project, "build.log", "No @jakarta.jws.WebService found.");
         assertFileContains(project, "build.log", "Skipping tests, nothing to do.");
     }
 

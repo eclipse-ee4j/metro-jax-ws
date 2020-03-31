@@ -78,11 +78,11 @@
                                             javax.xml.stream,
                                             javax.xml.transform,
                                             javax.xml.transform.stream,
-                                            javax.xml.ws;version=${jaxws-api.osgiVersion},
-                                            javax.xml.ws.http;version=${jaxws-api.osgiVersion},
-                                            javax.xml.ws.soap;version=${jaxws-api.osgiVersion},
-                                            javax.xml.ws.spi;version=${jaxws-api.osgiVersion},
-                                            javax.xml.ws.spi.http;version=${jaxws-api.osgiVersion}
+                                            jakarta.xml.ws;version=${jaxws-api.osgiVersion},
+                                            jakarta.xml.ws.http;version=${jaxws-api.osgiVersion},
+                                            jakarta.xml.ws.soap;version=${jaxws-api.osgiVersion},
+                                            jakarta.xml.ws.spi;version=${jaxws-api.osgiVersion},
+                                            jakarta.xml.ws.spi.http;version=${jaxws-api.osgiVersion}
                                         </Import-Package>
                                     </instructions>
                                 </configuration>

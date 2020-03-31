@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,14 +10,14 @@
 
 package server.endpoint_6790700.client;
 
-import javax.xml.ws.Provider;
+import jakarta.xml.ws.Provider;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.WebServiceProvider;
-import javax.xml.ws.ServiceMode;
-import javax.xml.ws.Service;
-import javax.xml.ws.Service.Mode;
-import javax.xml.ws.*;
+import jakarta.xml.ws.WebServiceProvider;
+import jakarta.xml.ws.ServiceMode;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Service.Mode;
+import jakarta.xml.ws.*;
 import java.io.StringReader;
 import java.io.*;
 

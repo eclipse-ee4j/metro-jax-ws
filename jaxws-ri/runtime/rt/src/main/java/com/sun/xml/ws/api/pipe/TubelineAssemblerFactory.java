@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,7 @@ public abstract class TubelineAssemblerFactory {
      * Creates a {@link TubelineAssembler} applicable for the given binding ID.
      *
      * @param bindingId The binding ID for which a tubeline will be created,
-     *                  such as {@link javax.xml.ws.soap.SOAPBinding#SOAP11HTTP_BINDING}.
+     *                  such as {@link jakarta.xml.ws.soap.SOAPBinding#SOAP11HTTP_BINDING}.
      *                  Must not be null.
      * @return null if this factory doesn't recognize the given binding ID.
      */

@@ -13,12 +13,12 @@ package fromwsdl.xmlbind_handler.common;
 import java.io.ByteArrayOutputStream;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.http.HTTPException;
-import javax.xml.ws.handler.LogicalHandler;
-import javax.xml.ws.handler.LogicalMessageContext;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.LogicalMessage;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.http.HTTPException;
+import jakarta.xml.ws.handler.LogicalHandler;
+import jakarta.xml.ws.handler.LogicalMessageContext;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.LogicalMessage;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;

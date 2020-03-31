@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,9 +28,9 @@ import com.sun.xml.ws.spi.db.BindingContext;
 import com.sun.xml.ws.spi.db.TypeInfo;
 import com.sun.xml.ws.spi.db.XMLBridge;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.attachment.AttachmentMarshaller;
-import javax.xml.bind.attachment.AttachmentUnmarshaller;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.attachment.AttachmentMarshaller;
+import jakarta.xml.bind.attachment.AttachmentUnmarshaller;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
@@ -91,7 +91,7 @@ public class SDOBond<T> implements XMLBridge<T> {
         return javaType;
     }
 
-    private T deserialize(Source src, javax.xml.bind.attachment.AttachmentUnmarshaller au) {
+    private T deserialize(Source src, jakarta.xml.bind.attachment.AttachmentUnmarshaller au) {
         try {
             if (!commonj.sdo.DataObject.class.isAssignableFrom(javaType) && !javaType.isInterface()) {
                 return (T) deserializePrimitives(src);
@@ -204,7 +204,7 @@ public class SDOBond<T> implements XMLBridge<T> {
     }
 
     private void serializeDataObject(DataObject java, Result result,
-            javax.xml.bind.attachment.AttachmentMarshaller am) {
+            jakarta.xml.bind.attachment.AttachmentMarshaller am) {
         logger.entering(CLASSNAME, "serializeDataObject");
         try {
             HelperContext context = parent.getHelperContext();

@@ -11,8 +11,8 @@
 package server.provider.rest.common;
 
 import javax.xml.transform.Source;
-import javax.xml.ws.LogicalMessage;
-import javax.xml.ws.handler.*;
+import jakarta.xml.ws.LogicalMessage;
+import jakarta.xml.ws.handler.*;
 public class MyHandler
     implements LogicalHandler<LogicalMessageContext> {
 

@@ -10,7 +10,7 @@
 
 package wsa.fromwsdl.anonymous.server;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 /**
  * @author Arun Gupta

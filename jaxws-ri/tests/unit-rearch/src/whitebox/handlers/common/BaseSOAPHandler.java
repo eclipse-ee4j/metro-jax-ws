@@ -18,10 +18,10 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.handler.*;
-import javax.xml.ws.handler.soap.*;
-import javax.xml.ws.ProtocolException;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.ws.handler.*;
+import jakarta.xml.ws.handler.soap.*;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.soap.SOAPMessage;
 
 public class BaseSOAPHandler implements SOAPHandler<SOAPMessageContext> {
     

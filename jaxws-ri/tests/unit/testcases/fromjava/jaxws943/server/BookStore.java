@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,8 +13,8 @@ package fromjava.jaxws943.server;
 import com.sun.xml.ws.developer.StatefulWebServiceManager;
 import fromjava.jaxws943.server.book.Book;
 
-import javax.jws.WebService;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 
 /**
  * The entry point to the book store web application.
@@ -27,7 +27,7 @@ import javax.xml.ws.wsaddressing.W3CEndpointReference;
  * an individual book.
  *
  * <p>
- * {@link javax.xml.ws.wsaddressing.W3CEndpointReference} (EPR) is just that kind of remote reference.
+ * {@link jakarta.xml.ws.wsaddressing.W3CEndpointReference} (EPR) is just that kind of remote reference.
  * You can turn a server-side {@link fromjava.jaxws943.server.book.Book} object to a "remote reference"
  * by calling {@link StatefulWebServiceManager#export(Object)} and then
  * send it back to the client. The remote client can then use that EPR

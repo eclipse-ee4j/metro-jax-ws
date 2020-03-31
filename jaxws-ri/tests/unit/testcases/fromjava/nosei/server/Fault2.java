@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,7 @@
 package fromjava.nosei.server;
 
 
-@javax.xml.ws.WebFault(faultBean="fromjava.nosei.server.MyFault2Bean", name="MyFault2", targetNamespace="http://mynamespace")
+@jakarta.xml.ws.WebFault(faultBean="fromjava.nosei.server.MyFault2Bean", name="MyFault2", targetNamespace="http://mynamespace")
 public class Fault2 extends Exception {
     
     String zing;

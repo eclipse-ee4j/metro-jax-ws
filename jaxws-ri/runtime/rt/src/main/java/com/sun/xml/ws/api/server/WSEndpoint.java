@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,10 +41,10 @@ import org.xml.sax.EntityResolver;
 import org.w3c.dom.Element;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Binding;
-import javax.xml.ws.EndpointReference;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Binding;
+import jakarta.xml.ws.EndpointReference;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.WebServiceException;
 
 import java.net.URL;
 import java.util.Collection;
@@ -484,7 +484,7 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
      * @param binding
      *      JAX-WS implementation of {@link Binding}. This object can be created by
      *      {@link BindingID#createBinding()}. Usually the binding can be got from
-     *      DD, {@link javax.xml.ws.BindingType}.
+     *      DD, {@link jakarta.xml.ws.BindingType}.
      *
      *
      * TODO: DD has a configuration for MTOM threshold.

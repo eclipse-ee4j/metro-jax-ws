@@ -16,23 +16,23 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import testutil.ClientServerTestUtil;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPConstants;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.SOAPConstants;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.SOAPBinding;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -147,10 +147,10 @@ public class DispatchHelloLiteralTest extends DispatchTestCase {
     }
 
 
-    private static javax.xml.bind.JAXBContext createJAXBContext() {
+    private static jakarta.xml.bind.JAXBContext createJAXBContext() {
         try {
-            return javax.xml.bind.JAXBContext.newInstance(client.dispatch.soap12.hello.client.ObjectFactory.class);
-        } catch (javax.xml.bind.JAXBException e) {
+            return jakarta.xml.bind.JAXBContext.newInstance(client.dispatch.soap12.hello.client.ObjectFactory.class);
+        } catch (jakarta.xml.bind.JAXBException e) {
             throw new WebServiceException(e.getMessage(), e);
         }
     }

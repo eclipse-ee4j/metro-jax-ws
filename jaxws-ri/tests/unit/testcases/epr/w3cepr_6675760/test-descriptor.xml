@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,22 +26,22 @@
     <client name="test.bsh">
         javax.xml.transform.Source source = new javax.xml.transform.stream.StreamSource(
         new java.io.FileInputStream(resource("w3cepr.xml")));
-        javax.xml.ws.wsaddressing.W3CEndpointReference jaxwsEPR = new javax.xml.ws.wsaddressing.W3CEndpointReference(source);
+        jakarta.xml.ws.wsaddressing.W3CEndpointReference jaxwsEPR = new jakarta.xml.ws.wsaddressing.W3CEndpointReference(source);
         String str = jaxwsEPR.toString();
 
-        Object address = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "address");
+        Object address = getField(jaxwsEPR, jakarta.xml.ws.wsaddressing.W3CEndpointReference.class, "address");
         assertTrue(address != null);
 
-        Object referenceParameters = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "referenceParameters");
+        Object referenceParameters = getField(jaxwsEPR, jakarta.xml.ws.wsaddressing.W3CEndpointReference.class, "referenceParameters");
         assertTrue(referenceParameters != null);
 
-        Object metadata = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "metadata");
+        Object metadata = getField(jaxwsEPR, jakarta.xml.ws.wsaddressing.W3CEndpointReference.class, "metadata");
         assertTrue(metadata != null);
 
-        Object elements = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "elements");
+        Object elements = getField(jaxwsEPR, jakarta.xml.ws.wsaddressing.W3CEndpointReference.class, "elements");
         assertTrue(elements != null);
 
-        Object attributes = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "attributes");
+        Object attributes = getField(jaxwsEPR, jakarta.xml.ws.wsaddressing.W3CEndpointReference.class, "attributes");
         assertTrue(attributes != null);
 
         assertTrue(str.indexOf("eprattr") != -1);

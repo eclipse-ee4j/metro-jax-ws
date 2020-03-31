@@ -13,14 +13,14 @@ package server.provider.xmlbind_datasource.server;
 import java.io.ByteArrayInputStream;
 import java.util.Map;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.ws.LogicalMessage;
-import javax.xml.ws.handler.*;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.ws.LogicalMessage;
+import jakarta.xml.ws.handler.*;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.WebServiceException;
-import javax.xml.soap.*;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.soap.*;
 import org.w3c.dom.Node;
 
 public class MyHandler
@@ -28,10 +28,10 @@ public class MyHandler
 
     private static final JAXBContext jaxbContext = createJAXBContext ();
     
-    private static javax.xml.bind.JAXBContext createJAXBContext (){
+    private static jakarta.xml.bind.JAXBContext createJAXBContext (){
         try{
             return JAXBContext.newInstance (ObjectFactory.class);
-        }catch(javax.xml.bind.JAXBException e){
+        }catch(jakarta.xml.bind.JAXBException e){
             throw new WebServiceException (e.getMessage (), e);
         }
     }

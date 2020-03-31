@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,8 +13,8 @@ package com.sun.xml.mail.mime;
 import java.io.IOException;
 import java.util.Properties;
 import javax.mail.internet.MimeMessage;
-import javax.activation.CommandMap;
-import javax.activation.MailcapCommandMap;
+import jakarta.activation.CommandMap;
+import jakarta.activation.MailcapCommandMap;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.InternetHeaders;

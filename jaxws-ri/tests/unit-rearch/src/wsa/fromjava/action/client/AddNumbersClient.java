@@ -12,7 +12,7 @@ package wsa.fromjava.action.client;
 
 import java.util.Map;
 
-import javax.xml.ws.BindingProvider;
+import jakarta.xml.ws.BindingProvider;
 
 import junit.framework.TestCase;
 

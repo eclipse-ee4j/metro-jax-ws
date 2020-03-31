@@ -15,5 +15,5 @@
 // Generated on: 2006.04.06 at 03:27:58 PM EDT 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "urn:yahoo:yn")
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "urn:yahoo:yn")
 package client.dispatch.xmlhttp_jaxb.client;

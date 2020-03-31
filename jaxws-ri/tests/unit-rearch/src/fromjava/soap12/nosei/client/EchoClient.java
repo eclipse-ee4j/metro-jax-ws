@@ -10,15 +10,15 @@
 
 package fromjava.soap12.nosei.client;
 
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import testutil.ClientServerTestUtil;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Holder;
 import java.util.ArrayList;
 import java.util.List;
 

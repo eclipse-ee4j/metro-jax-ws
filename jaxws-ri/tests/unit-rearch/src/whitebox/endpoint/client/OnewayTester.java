@@ -13,15 +13,15 @@ package whitebox.endpoint.client;
 import java.io.StringReader;
 import java.net.URL;
  
-import javax.jws.WebMethod;
-import javax.jws.WebService;
-import javax.jws.Oneway;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebService;
+import jakarta.jws.Oneway;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Endpoint;
-import javax.xml.ws.Service;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.BindingProvider;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Endpoint;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.BindingProvider;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.Transformer;
@@ -31,8 +31,8 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.stream.*;
 import java.io.*;
 import java.util.*;
-import javax.jws.soap.SOAPBinding;
-import javax.jws.soap.SOAPBinding.Style;
+import jakarta.jws.soap.SOAPBinding;
+import jakarta.jws.soap.SOAPBinding.Style;
 
 import junit.framework.TestCase;
 

@@ -10,9 +10,9 @@
 
 package whitebox.endpoint.client;
 
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import javax.xml.ws.WebServiceException;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * @author Vivek Pandey

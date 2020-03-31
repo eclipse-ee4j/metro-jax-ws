@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,9 +23,9 @@ import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.ws.*;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.http.HTTPBinding;
 
 /**
  * RESTful client for Google Base web service.
@@ -53,7 +53,7 @@ public class GoogleClientTest extends TestCase {
 
     private Dispatch<Source> createDispatch(URI uri) {
         // Create service and port to obtain Dispatch instance
-        Service s = javax.xml.ws.Service.create(
+        Service s = jakarta.xml.ws.Service.create(
                 new QName("http://google.com", "google"));
         QName portName = new QName("http://google.com", "port");
         s.addPort(portName, HTTPBinding.HTTP_BINDING,

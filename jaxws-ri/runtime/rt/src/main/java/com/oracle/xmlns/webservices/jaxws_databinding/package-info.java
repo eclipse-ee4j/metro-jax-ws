@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,5 +15,5 @@
 // Generated on: 2012.03.21 at 10:57:01 AM CET 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://xmlns.oracle.com/webservices/jaxws-databinding", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://xmlns.oracle.com/webservices/jaxws-databinding", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package com.oracle.xmlns.webservices.jaxws_databinding;

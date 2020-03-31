@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,17 +33,17 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 import org.xml.sax.helpers.LocatorImpl;
 
-import javax.activation.DataHandler;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.soap.*;
+import jakarta.activation.DataHandler;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.soap.*;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -541,7 +541,7 @@ public class SAAJMessage extends Message {
         }
 
         /**
-         * Gets the attachment as a {@link javax.activation.DataHandler}.
+         * Gets the attachment as a {@link jakarta.activation.DataHandler}.
          */
         public DataHandler asDataHandler() {
             try {
@@ -586,7 +586,7 @@ public class SAAJMessage extends Message {
         }
 
         /**
-         * Writes this attachment to the given {@link javax.xml.soap.SOAPMessage}.
+         * Writes this attachment to the given {@link jakarta.xml.soap.SOAPMessage}.
          */
         public void writeTo(SOAPMessage saaj) {
             saaj.addAttachmentPart(ap);
@@ -604,7 +604,7 @@ public class SAAJMessage extends Message {
 				}
 
 				public MimeHeader next() {
-					final javax.xml.soap.MimeHeader mh = (javax.xml.soap.MimeHeader) it.next();
+					final jakarta.xml.soap.MimeHeader mh = (jakarta.xml.soap.MimeHeader) it.next();
 					return new MimeHeader() {
 						public String getName() {
 							return mh.getName();

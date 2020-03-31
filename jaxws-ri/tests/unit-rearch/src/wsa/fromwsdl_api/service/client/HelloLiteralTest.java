@@ -14,15 +14,15 @@ import client.common.client.DispatchTestCase;
 import com.sun.xml.ws.developer.MemberSubmissionEndpointReference;
 import testutil.ClientServerTestUtil;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.*;
-import javax.xml.ws.soap.SOAPBinding;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -692,10 +692,10 @@ public class HelloLiteralTest extends DispatchTestCase {
     }
 
 
-    private static javax.xml.bind.JAXBContext createJAXBContext() {
+    private static jakarta.xml.bind.JAXBContext createJAXBContext() {
         try {
-            return javax.xml.bind.JAXBContext.newInstance(wsa.fromwsdl_api.service.client.ObjectFactory.class);
-        } catch (javax.xml.bind.JAXBException e) {
+            return jakarta.xml.bind.JAXBContext.newInstance(wsa.fromwsdl_api.service.client.ObjectFactory.class);
+        } catch (jakarta.xml.bind.JAXBException e) {
             throw new WebServiceException(e.getMessage(), e);
         }
     }

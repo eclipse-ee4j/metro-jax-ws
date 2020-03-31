@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,10 +23,10 @@ import com.sun.xml.ws.binding.BindingImpl;
 import com.sun.xml.ws.client.HandlerConfiguration;
 import com.sun.xml.ws.message.DataHandlerAttachment;
 
-import javax.activation.DataHandler;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.Handler;
+import jakarta.activation.DataHandler;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.Handler;
 import java.util.*;
 import java.util.Map.Entry;
 

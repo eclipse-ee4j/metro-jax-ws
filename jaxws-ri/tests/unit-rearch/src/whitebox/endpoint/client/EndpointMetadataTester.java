@@ -14,7 +14,7 @@ import junit.framework.TestCase;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.ws.*;
+import jakarta.xml.ws.*;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import java.net.URL;

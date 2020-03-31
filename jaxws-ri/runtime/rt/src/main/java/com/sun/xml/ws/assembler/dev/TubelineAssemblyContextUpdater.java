@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 package com.sun.xml.ws.assembler.dev;
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  *
@@ -21,7 +21,7 @@ public interface TubelineAssemblyContextUpdater {
      * TODO javadoc
      * 
      * @param context
-     * @throws javax.xml.ws.WebServiceException
+     * @throws jakarta.xml.ws.WebServiceException
      */
     void prepareContext(ClientTubelineAssemblyContext context) throws WebServiceException;
     
@@ -29,7 +29,7 @@ public interface TubelineAssemblyContextUpdater {
      * TODO javadoc
      * 
      * @param context
-     * @throws javax.xml.ws.WebServiceException
+     * @throws jakarta.xml.ws.WebServiceException
      */
     void prepareContext(ServerTubelineAssemblyContext context) throws WebServiceException;
 }

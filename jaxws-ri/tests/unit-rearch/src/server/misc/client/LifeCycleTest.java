@@ -16,7 +16,7 @@ import java.util.Random;
 import junit.framework.*;
 import testutil.ClientServerTestUtil;
 import testutil.HTTPResponseInfo;
-import javax.xml.soap.*;
+import jakarta.xml.soap.*;
 import javax.xml.namespace.QName;
 
 

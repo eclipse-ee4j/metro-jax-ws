@@ -12,8 +12,8 @@ package server.provider.wsdl_hello_lit_soap12.client;
 
 import junit.framework.*;
 import testutil.ClientServerTestUtil;
-import javax.xml.ws.Service;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import javax.xml.namespace.QName;
 import java.io.PrintStream;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -90,7 +90,7 @@
             String in = "NullPointerException";
             Object ret = faultPort.echo(in);
             fail("did not receive an exception");
-        } catch (javax.xml.ws.ProtocolException e) {
+        } catch (jakarta.xml.ws.ProtocolException e) {
             System.out.println("Expected exception received: " + e.getMessage());
             assertTrue(true);
         }
@@ -104,7 +104,7 @@
             String in = "SOAPFaultException";
             Object ret = faultPort.echo(in);
             fail("did not receive an exception");
-        } catch (javax.xml.ws.ProtocolException e) {
+        } catch (jakarta.xml.ws.ProtocolException e) {
             if (e instanceof SOAPFaultException) {
                 System.out.println("Expected exception received: " + e.getMessage());
                 Detail detail = ((SOAPFaultException)e).getFault().getDetail();
@@ -173,9 +173,9 @@
             String in = "ProtocolException";
             Object ret = faultPort.echo(in);
             fail("did not receive an exception");
-        } catch (javax.xml.ws.ProtocolException e) {
+        } catch (jakarta.xml.ws.ProtocolException e) {
             System.out.println("Expected exception received: " + e.getMessage());
-            if (e.getMessage().indexOf("javax.xml.ws.ProtocolException") != -1)
+            if (e.getMessage().indexOf("jakarta.xml.ws.ProtocolException") != -1)
                 assertTrue(true);
             else
                 assertTrue(false);
@@ -190,7 +190,7 @@
             String in = "ProtocolException2";
             Object ret = faultPort.echo(in);
             fail("did not receive an exception");
-        } catch (javax.xml.ws.ProtocolException e) {
+        } catch (jakarta.xml.ws.ProtocolException e) {
             System.out.println("Expected exception received: " + e.getMessage());
             if (e.getMessage().indexOf("FaultImpl") != -1)
                 assertTrue(true);

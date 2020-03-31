@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,8 +20,8 @@ import com.sun.xml.ws.binding.WebServiceFeatureList;
 import com.sun.istack.NotNull;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.handler.Handler;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.handler.Handler;
+import jakarta.xml.ws.WebServiceFeature;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;

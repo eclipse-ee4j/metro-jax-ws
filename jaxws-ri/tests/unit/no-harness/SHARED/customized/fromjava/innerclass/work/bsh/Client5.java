@@ -10,13 +10,13 @@
 
 package bsh;
 
-import javax.activation.*;
-import javax.xml.ws.*;
-import javax.xml.ws.soap.*;
-import javax.xml.ws.handler.*;
-import javax.xml.ws.handler.soap.*;
-import javax.xml.bind.*;
-import javax.xml.soap.*;
+import jakarta.activation.*;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.soap.*;
+import jakarta.xml.ws.handler.*;
+import jakarta.xml.ws.handler.soap.*;
+import jakarta.xml.bind.*;
+import jakarta.xml.soap.*;
 import javax.xml.namespace.*;
 import javax.xml.transform.*;
 import javax.xml.transform.sax.*;

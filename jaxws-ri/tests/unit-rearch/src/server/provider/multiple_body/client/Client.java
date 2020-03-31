@@ -12,15 +12,15 @@ package server.provider.multiple_body.client;
 
 import junit.framework.TestCase;
 
-import javax.xml.ws.Service;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.SOAPBinding;
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPBody;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPBody;
 
 import com.sun.xml.ws.api.SOAPVersion;
 import org.w3c.dom.NodeList;

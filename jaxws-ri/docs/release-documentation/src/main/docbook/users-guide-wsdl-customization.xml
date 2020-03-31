@@ -764,7 +764,7 @@ public Future<?> addNumbers(int number1, int number2,
             togather with a handler configuration file which has everything
             inside <literal>jaxws:bindings</literal> element enclosing the
             <literal>jws:handler-chain</literal> element. It also add
-            <literal>@javax.jws.HandlerChain</literal> annotation in the
+            <literal>@jakarta.jws.HandlerChain</literal> annotation in the
             generated SEI class. &ws.impl.name; runtime uses the
             <literal>@HandlerChain</literal> annotation from the SEI to find
             the handlers that has to be added into the handle chain.</para>

@@ -10,24 +10,24 @@
 
 package server.provider.xmlbind_source.client;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import junit.framework.Assert;
 
-import javax.xml.ws.Response;
+import jakarta.xml.ws.Response;
 
 /**
  * @author WS Development Team
  */
-public class SourceAsyncHandler implements javax.xml.ws.AsyncHandler {
+public class SourceAsyncHandler implements jakarta.xml.ws.AsyncHandler {
     JAXBContext jaxbContext;
     
     public SourceAsyncHandler() { 
         try {
             jaxbContext = JAXBContext.newInstance(ObjectFactory.class);
-        } catch(javax.xml.bind.JAXBException e) {
+        } catch(jakarta.xml.bind.JAXBException e) {
             throw new WebServiceException(e.getMessage(), e);
         }
     }

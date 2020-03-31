@@ -16,9 +16,9 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import javax.xml.ws.LogicalMessage;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.handler.*;
+import jakarta.xml.ws.LogicalMessage;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.handler.*;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 

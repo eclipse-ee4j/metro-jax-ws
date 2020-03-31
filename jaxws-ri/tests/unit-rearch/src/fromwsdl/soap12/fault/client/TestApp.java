@@ -11,10 +11,10 @@
 package fromwsdl.soap12.fault.client;
 
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPFault;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.soap.SOAPFault;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.soap.SOAPFaultException;
 
 import java.util.ArrayList;
 import java.util.List;

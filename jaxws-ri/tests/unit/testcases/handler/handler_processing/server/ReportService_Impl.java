@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,7 @@ import handler.handler_processing.common.TestConstants;
 /**
  * @author Rama Pulavarthi
  */
-@javax.jws.WebService(serviceName="ReportService", portName="ReportServicePort", targetNamespace="urn:test", endpointInterface="handler.handler_processing.server.ReportService")
+@jakarta.jws.WebService(serviceName="ReportService", portName="ReportServicePort", targetNamespace="urn:test", endpointInterface="handler.handler_processing.server.ReportService")
 public class ReportService_Impl implements ReportService, TestConstants {
 
     public void setInstruction(String name, int x) {

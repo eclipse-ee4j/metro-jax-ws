@@ -17,10 +17,10 @@ import testutil.XMLTestCase;
 import static wsa.fromwsdl.crinterop.s11.client.BindingProviderUtil.*;
 import static wsa.fromwsdl.crinterop.s11.common.TestConstants.*;
 
-import javax.xml.soap.SOAPFault;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.soap.SOAPFault;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import java.io.ByteArrayOutputStream;
 
 /**

@@ -10,8 +10,8 @@
 
 package fromjava.seiimpl.server;
 
-import javax.jws.WebService;
-import javax.xml.ws.Holder;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.Holder;
 import java.util.List;
 
 @WebService(endpointInterface="fromjava.seiimpl.server.EchoIF")

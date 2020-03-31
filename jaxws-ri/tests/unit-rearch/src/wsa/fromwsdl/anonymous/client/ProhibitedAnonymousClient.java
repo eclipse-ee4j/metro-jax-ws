@@ -10,8 +10,8 @@
 
 package wsa.fromwsdl.anonymous.client;
 
-import javax.xml.ws.soap.SOAPFaultException;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.WebServiceException;
 
 import junit.framework.TestCase;
 import com.sun.xml.ws.addressing.W3CAddressingConstants;

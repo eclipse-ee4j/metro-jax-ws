@@ -94,7 +94,7 @@
 
                 For example:
                 <programlisting language="java" linenumbering="unnumbered">
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceFeature;
 import com.oracle.webservices.api.databinding.DatabindingModeFeature;
 import com.sun.xml.ws.db.toplink.JAXBContextFactory;
 ...
@@ -107,7 +107,7 @@ WebServiceFeature[] features = { new DatabindingModeFeature(JAXBContextFactory.E
 
                 For example:
                 <programlisting language="java" linenumbering="unnumbered">
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 import com.oracle.webservices.api.databinding.DatabindingMode;
 import com.sun.xml.ws.db.toplink.JAXBContextFactory;
 ...

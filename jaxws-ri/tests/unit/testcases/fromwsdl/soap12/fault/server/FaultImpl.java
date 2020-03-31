@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,13 +10,13 @@
 
 package fromwsdl.soap12.fault.server;
 
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.soap.SOAPFaultException;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.BindingType;
+import jakarta.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.soap.SOAPBinding;
 import javax.xml.namespace.QName;
-import javax.xml.soap.*;
+import jakarta.xml.soap.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -28,7 +28,7 @@ import java.util.Properties;
 /**
  * @author Vivek Pandey
  */
-@javax.jws.WebService(endpointInterface="fromwsdl.soap12.fault.server.Fault")
+@jakarta.jws.WebService(endpointInterface="fromwsdl.soap12.fault.server.Fault")
 @BindingType(SOAPBinding.SOAP12HTTP_BINDING)
 public class FaultImpl
         implements Fault {

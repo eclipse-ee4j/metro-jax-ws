@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,7 +48,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.LocatorImpl;
 
-import javax.jws.WebParam.Mode;
+import jakarta.jws.WebParam.Mode;
 import javax.xml.namespace.QName;
 import java.util.*;
 import java.io.IOException;
@@ -1748,7 +1748,7 @@ public class WSDLModeler extends WSDLModelerBase {
                         TypeAndAnnotation inTa = jaxbType.getJavaType().getType().getTypeAnn();
                         TypeAndAnnotation outTa = outJaxbType.getJavaType().getType().getTypeAnn();
                         if ((((inTa != null) && (outTa != null) && inTa.equals(outTa))) && !inType.equals(outType)) {
-                            String javaType = "javax.activation.DataHandler";
+                            String javaType = "jakarta.activation.DataHandler";
 
                             //S2JJAXBModel jaxbModel = getJAXBModelBuilder().getJAXBModel().getS2JJAXBModel();
                             //JCodeModel cm = jaxbModel.generateCode(null, errReceiver);
@@ -1881,7 +1881,7 @@ public class WSDLModeler extends WSDLModelerBase {
                     String inType = type.getJavaType().getType().getName();
                     String outType = outJaxbType.getJavaType().getType().getName();
                     if (!inType.equals(outType)) {
-                        String javaType = "javax.activation.DataHandler";
+                        String javaType = "jakarta.activation.DataHandler";
                         JType jt = options.getCodeModel().ref(javaType);
                         JAXBTypeAndAnnotation jaxbTa = type.getJavaType().getType();
                         jaxbTa.setType(jt);
@@ -2199,7 +2199,7 @@ public class WSDLModeler extends WSDLModelerBase {
         } else if (mimeType.equals("text/xml") || mimeType.equals("application/xml")) {
             return "javax.xml.transform.Source";
         }
-        return "javax.activation.DataHandler";
+        return "jakarta.activation.DataHandler";
     }
 
     private JAXBType getAttachmentType(List<MIMEContent> mimeContents, MessagePart part) {
@@ -2209,7 +2209,7 @@ public class WSDLModeler extends WSDLModelerBase {
         String javaType;
         List<String> mimeTypes = getAlternateMimeTypes(mimeContents);
         if (mimeTypes.size() > 1) {
-            javaType = "javax.activation.DataHandler";
+            javaType = "jakarta.activation.DataHandler";
         } else {
             javaType = getJavaTypeForMimeType(mimeTypes.get(0));
         }
@@ -2284,7 +2284,7 @@ public class WSDLModeler extends WSDLModelerBase {
     }
 
     protected void createJavaInterfaceForProviderPort(Port port) {
-        String interfaceName = "javax.xml.ws.Provider";
+        String interfaceName = "jakarta.xml.ws.Provider";
         JavaInterface intf = new JavaInterface(interfaceName);
         port.setJavaInterface(intf);
     }
@@ -2385,7 +2385,7 @@ public class WSDLModeler extends WSDLModelerBase {
                             parameter,
                             parameter.getLinkedParameter() != null);
             if (javaParameter.isHolder()) {
-                javaParameter.setHolderName(javax.xml.ws.Holder.class.getName());
+                javaParameter.setHolderName(jakarta.xml.ws.Holder.class.getName());
             }
             method.addParameter(javaParameter);
             parameter.setJavaParameter(javaParameter);
@@ -2439,7 +2439,7 @@ public class WSDLModeler extends WSDLModelerBase {
                             param,
                             param.isINOUT() || param.isOUT());
             if (javaParameter.isHolder()) {
-                javaParameter.setHolderName(javax.xml.ws.Holder.class.getName());
+                javaParameter.setHolderName(jakarta.xml.ws.Holder.class.getName());
             }
             method.addParameter(javaParameter);
             param.setJavaParameter(javaParameter);

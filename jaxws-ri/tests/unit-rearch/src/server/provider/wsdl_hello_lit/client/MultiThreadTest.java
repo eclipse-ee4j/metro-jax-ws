@@ -12,10 +12,10 @@ package server.provider.wsdl_hello_lit.client;
 
 import junit.framework.*;
 import testutil.ClientServerTestUtil;
-import javax.xml.ws.Service;
+import jakarta.xml.ws.Service;
 import javax.xml.namespace.QName;
 import java.io.PrintStream;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import java.util.Random;
 
 /*

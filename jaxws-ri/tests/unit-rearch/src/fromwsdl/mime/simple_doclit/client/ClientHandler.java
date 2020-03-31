@@ -18,14 +18,14 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.soap.SOAPHandler;
-import javax.xml.ws.handler.soap.SOAPMessageContext;
-import javax.xml.ws.WebServiceException;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPBody;
-import javax.xml.soap.SOAPException;
-import javax.activation.DataHandler;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.soap.SOAPHandler;
+import jakarta.xml.ws.handler.soap.SOAPMessageContext;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPBody;
+import jakarta.xml.soap.SOAPException;
+import jakarta.activation.DataHandler;
 
 /**
  * Used to test message context properties on the client side.

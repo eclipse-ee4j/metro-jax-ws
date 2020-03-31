@@ -10,7 +10,7 @@
 
 package fromjava.nosei_default.server;
 
-import javax.jws.*;
+import jakarta.jws.*;
 
 @WebService
 public class EchoImpl {

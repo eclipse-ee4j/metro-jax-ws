@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,7 +26,7 @@ import com.sun.xml.ws.api.model.wsdl.editable.EditableWSDLPortType;
 import com.sun.xml.ws.api.model.wsdl.editable.EditableWSDLService;
 import com.sun.xml.ws.policy.PolicyMap;
 
-import javax.jws.WebParam.Mode;
+import jakarta.jws.WebParam.Mode;
 import javax.xml.namespace.QName;
 
 import java.util.Collections;

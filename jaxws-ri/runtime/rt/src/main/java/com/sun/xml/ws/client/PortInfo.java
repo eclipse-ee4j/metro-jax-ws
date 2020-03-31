@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,7 @@ import com.sun.xml.ws.policy.PolicyMap;
 import com.sun.xml.ws.policy.jaxws.PolicyUtil;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceFeature;
 
 /**
  * Information about a port.
@@ -172,7 +172,7 @@ public class PortInfo implements WSPortInfo {
 
     /**
      * @deprecated
-     *      Only meant to be used via {@link javax.xml.ws.handler.PortInfo}.
+     *      Only meant to be used via {@link jakarta.xml.ws.handler.PortInfo}.
      *      Use {@link WSServiceDelegate#getServiceName()}.
      */
     public QName getServiceName() {
@@ -180,7 +180,7 @@ public class PortInfo implements WSPortInfo {
     }
 
     /**
-     *      Only meant to be used via {@link javax.xml.ws.handler.PortInfo}.
+     *      Only meant to be used via {@link jakarta.xml.ws.handler.PortInfo}.
      *      Use {@link #portName}.
      */
     public QName getPortName() {
@@ -189,7 +189,7 @@ public class PortInfo implements WSPortInfo {
 
     /**
      * @deprecated
-     *      Only meant to be used via {@link javax.xml.ws.handler.PortInfo}.
+     *      Only meant to be used via {@link jakarta.xml.ws.handler.PortInfo}.
      *      Use {@link #bindingId}.
      */
     public String getBindingID() {

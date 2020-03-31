@@ -11,15 +11,15 @@
 package whitebox.endpoint.client;
 
 import java.security.Principal;
-import javax.jws.*;
-import javax.jws.soap.SOAPBinding;
+import jakarta.jws.*;
+import jakarta.jws.soap.SOAPBinding;
                                                                                 
 import java.rmi.RemoteException;
                                                                                 
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceContext;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceContext;
 import javax.annotation.Resource;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * @author Jitendra Kotamraju

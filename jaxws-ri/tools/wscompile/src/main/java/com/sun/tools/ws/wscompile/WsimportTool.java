@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -49,7 +49,7 @@ import org.xml.sax.SAXException;
  */
 public class WsimportTool {
     /** JAXWS module name. JAXWS dependency is mandatory in generated Java module. */
-    private static final String JAXWS_MODULE = "java.xml.ws";
+    private static final String JAXWS_MODULE = "jakarta.xml.ws";
 
     private static final String WSIMPORT = "wsimport";
     private final PrintStream out;

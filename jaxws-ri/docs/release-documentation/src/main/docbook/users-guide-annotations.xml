@@ -67,7 +67,7 @@
         hope that all of the changes we have made will be folded in.</para>
 
         <section xml:id="javax-jws-webservice-outline">
-            <title><literal>@javax.jws.WebService</literal></title>
+            <title><literal>@jakarta.jws.WebService</literal></title>
 
             <para>The purpose of this annotation is to mark an endpoint
             implementation as implementing a web service or to mark that a
@@ -79,7 +79,7 @@
             </link> specification.</para>
 
             <table frame="all">
-                <title><literal>@javax.jws.WebService</literal> - Description
+                <title><literal>@jakarta.jws.WebService</literal> - Description
                 of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -207,7 +207,7 @@ public @interface WebService {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.jws.WebService</literal> - Example
+                    <title><literal>@jakarta.jws.WebService</literal> - Example
                     1</title>
 
                     <programlisting language="java"><![CDATA[@WebService(name = "AddNumbers",
@@ -245,7 +245,7 @@ public class AddNumbersImpl {
                 endpoint interface.</para>
 
                 <example>
-                    <title><literal>@javax.jws.WebService</literal> - Example
+                    <title><literal>@jakarta.jws.WebService</literal> - Example
                     2 - Implementation class using Service Endpoint
                     Interface</title>
 
@@ -280,7 +280,7 @@ public interface AddNumbersIF extends Remote {
         </section>
 
         <section xml:id="javax-jws-webmethod-outline">
-            <title><literal>@javax.jws.WebMethod</literal></title>
+            <title><literal>@jakarta.jws.WebMethod</literal></title>
 
             <para>The purpose of this annotation is to expose a method as a
             web service operation. The method must meet all the requirements
@@ -289,7 +289,7 @@ public interface AddNumbersIF extends Remote {
             </link> specification.</para>
 
             <table frame="all">
-                <title><literal>@javax.jws.WebMethod</literal> - Description
+                <title><literal>@jakarta.jws.WebMethod</literal> - Description
                 of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -373,7 +373,7 @@ public @interface WebMethod {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.jws.WebMethod</literal> -
+                    <title><literal>@jakarta.jws.WebMethod</literal> -
                     Example</title>
 
                     <programlisting language="java"><![CDATA[@WebService(targetNamespace = "http://duke.example.org",
@@ -390,7 +390,7 @@ public interface AddNumbersIF extends Remote {
         </section>
 
         <section xml:id="javax-jws-oneway-outline">
-            <title><literal>@javax.jws.OneWay</literal></title>
+            <title><literal>@jakarta.jws.OneWay</literal></title>
 
             <para>The purpose of this annotation is to mark a method as a web
             service one-way operation. The method must meet all the
@@ -416,7 +416,7 @@ public @interface Oneway {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.jws.OneWay</literal> -
+                    <title><literal>@jakarta.jws.OneWay</literal> -
                     Example</title>
 
                     <programlisting language="java"><![CDATA[@WebService(name = "CheckIn")
@@ -432,13 +432,13 @@ public class CheckInIF {
         </section>
 
         <section xml:id="javax-jws-webparam-outline">
-            <title><literal>@javax.jws.WebParam</literal></title>
+            <title><literal>@jakarta.jws.WebParam</literal></title>
 
             <para>This annotation is used to customize the mapping of a single
             parameter to a message part or element.</para>
 
             <table frame="all">
-                <title><literal>@javax.jws.WebParam</literal> - Description of
+                <title><literal>@jakarta.jws.WebParam</literal> - Description of
                 Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -583,7 +583,7 @@ public @interface WebParam {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.jws.WebParam</literal> - Example
+                    <title><literal>@jakarta.jws.WebParam</literal> - Example
                     1</title>
 
                     <programlisting language="java"><![CDATA[@WebService(targetNamespace = "http://duke.example.org",
@@ -600,7 +600,7 @@ public interface AddNumbersIF extends Remote {
                 </example>
 
                 <example>
-                    <title><literal>@javax.jws.WebParam</literal> - Example
+                    <title><literal>@jakarta.jws.WebParam</literal> - Example
                     2</title>
 
                     <programlisting language="java"><![CDATA[@WebService(targetNamespace = "http://duke.example.org",
@@ -621,13 +621,13 @@ public interface AddNumbersIF extends Remote {
         </section>
 
         <section xml:id="javax-jws-webresult-outline">
-            <title><literal>@javax.jws.WebResult</literal></title>
+            <title><literal>@jakarta.jws.WebResult</literal></title>
 
             <para>This annotation is used to customize the mapping of the
             method return value to a WSDL part or XML element.</para>
 
             <table frame="all">
-                <title><literal>@javax.jws.WebResult</literal> - Description
+                <title><literal>@jakarta.jws.WebResult</literal> - Description
                 of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -731,7 +731,7 @@ public @interface WebResult {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.jws.WebResult</literal> -
+                    <title><literal>@jakarta.jws.WebResult</literal> -
                     Example</title>
 
                     <programlisting language="java"><![CDATA[@WebService(targetNamespace = "http://duke.example.org",
@@ -750,13 +750,13 @@ public interface AddNumbersIF extends Remote {
         </section>
 
         <section xml:id="javax-jws-handlerchain-outline">
-            <title><literal>@javax.jws.HandlerChain</literal></title>
+            <title><literal>@jakarta.jws.HandlerChain</literal></title>
 
             <para>This annotation is used to specified an externally defined
             handler chain.</para>
 
             <table frame="all">
-                <title><literal>@javax.jws.HandlerChain</literal> -
+                <title><literal>@jakarta.jws.HandlerChain</literal> -
                 Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -825,7 +825,7 @@ public @interface HandlerChain {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.jws.HandlerChain</literal> -
+                    <title><literal>@jakarta.jws.HandlerChain</literal> -
                     Example</title>
 
                     <programlisting language="java"><![CDATA[@WebService
@@ -851,7 +851,7 @@ public class AddNumbersImpl {
                 </example>
 
                 <example>
-                    <title><literal>@javax.jws.HandlerChain</literal> -
+                    <title><literal>@jakarta.jws.HandlerChain</literal> -
                     Example - handlers.xml</title>
 
                     <programlisting language="xml"><![CDATA[<jws:handler-config xmlns:jws="http://java.sun.com/xml/ns/javaee">
@@ -881,7 +881,7 @@ public class AddNumbersImpl {
         </section>
 
         <section xml:id="javax-jws-soap-soapbinding-outline">
-            <title><literal>@javax.jws.soap.SOAPBinding</literal></title>
+            <title><literal>@jakarta.jws.soap.SOAPBinding</literal></title>
 
             <para>&metadata.spec.name; also allows you to specify a
             <literal>SOAPBinding</literal> annotation on an endpoint
@@ -905,7 +905,7 @@ public class AddNumbersImpl {
             implied wrapper element around the invocation body.</para>
 
             <table frame="all">
-                <title><literal>@javax.jws.soap.SOAPBinding</literal> -
+                <title><literal>@jakarta.jws.soap.SOAPBinding</literal> -
                 Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -1002,7 +1002,7 @@ public @interface SOAPBinding {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.jws.soap.SOAPBinding</literal> -
+                    <title><literal>@jakarta.jws.soap.SOAPBinding</literal> -
                     Example</title>
 
                     <programlisting language="java"><![CDATA[@WebService(targetNamespace = "http://duke.example.org",
@@ -1032,7 +1032,7 @@ public interface AddNumbersIF extends Remote {
         they will be presented here to avoid confusion.</para>
 
         <section xml:id="javax-xml-ws-bindingtype-outline">
-            <title><literal>@javax.xml.ws.BindingType</literal></title>
+            <title><literal>@jakarta.xml.ws.BindingType</literal></title>
 
             <para>The <literal>BindingType</literal> annotation is used to
             specify the binding to use for a web service endpoint
@@ -1043,7 +1043,7 @@ public interface AddNumbersIF extends Remote {
             deployment descriptors, depending on the platform in use.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.ws.BindingType</literal> -
+                <title><literal>@jakarta.xml.ws.BindingType</literal> -
                 Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -1073,10 +1073,10 @@ public interface AddNumbersIF extends Remote {
                             <literal>HTTPBinding</literal> for the definition of
                             the standard binding
                             identifiers.</para><para><code>@see
-                            javax.xml.ws.Binding</code></para><para><code>@see
-                            javax.xml.ws.soap.SOAPBinding#SOAP11HTTP_BINDING</code></para><para><code>@see
-                            javax.xml.ws.soap.SOAPBinding#SOAP12HTTP_BINDING</code></para><para><code>@see
-                            javax.xml.ws.http.HTTPBinding#HTTP_BINDING</code></para></entry>
+                            jakarta.xml.ws.Binding</code></para><para><code>@see
+                            jakarta.xml.ws.soap.SOAPBinding#SOAP11HTTP_BINDING</code></para><para><code>@see
+                            jakarta.xml.ws.soap.SOAPBinding#SOAP12HTTP_BINDING</code></para><para><code>@see
+                            jakarta.xml.ws.http.HTTPBinding#HTTP_BINDING</code></para></entry>
 
                             <entry><para>"<literal>SOAP 1.1
                             Protocol</literal>"/<literal>HTTP</literal></para></entry>
@@ -1103,10 +1103,10 @@ public @interface BindingType {
      * HTTPBinding
      * for the definition of the standard binding identifiers.
      *
-     * @see javax.xml.ws.Binding
-     * @see javax.xml.ws.soap.SOAPBinding#SOAP11HTTP_BINDING
-     * @see javax.xml.ws.soap.SOAPBinding#SOAP12HTTP_BINDING
-     * @see javax.xml.ws.http.HTTPBinding#HTTP_BINDING
+     * @see jakarta.xml.ws.Binding
+     * @see jakarta.xml.ws.soap.SOAPBinding#SOAP11HTTP_BINDING
+     * @see jakarta.xml.ws.soap.SOAPBinding#SOAP12HTTP_BINDING
+     * @see jakarta.xml.ws.http.HTTPBinding#HTTP_BINDING
      */
     String value() default "";
 
@@ -1122,9 +1122,9 @@ public @interface BindingType {
      * SOAPBinding
      * for the definition of the standard feature identifiers.
      *
-     * @see javax.xml.ws.RespectBindingFeature
-     * @see javax.xml.ws.soap.AddressingFeature
-     * @see javax.xml.ws.soap.MTOMFeature
+     * @see jakarta.xml.ws.RespectBindingFeature
+     * @see jakarta.xml.ws.soap.AddressingFeature
+     * @see jakarta.xml.ws.soap.MTOMFeature
      * @since JAX-WS 2.1
      */
     Feature[] features() default {};
@@ -1136,7 +1136,7 @@ public @interface BindingType {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.xml.ws.BindingType</literal> -
+                    <title><literal>@jakarta.xml.ws.BindingType</literal> -
                     Example</title>
 
                     <para>Given the web service defined by</para>
@@ -1169,7 +1169,7 @@ public class AddNumbersImpl {
         </section>
 
         <section xml:id="javax-xml-ws-requestwrapper-outline">
-            <title><literal>@javax.xml.ws.RequestWrapper</literal></title>
+            <title><literal>@jakarta.xml.ws.RequestWrapper</literal></title>
 
             <para>This annotation annotates methods in the Service Endpoint
             Interface with the request wrapper bean to be used at
@@ -1181,7 +1181,7 @@ public class AddNumbersImpl {
             case.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.ws.RequestWrapper</literal> -
+                <title><literal>@jakarta.xml.ws.RequestWrapper</literal> -
                 Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -1212,7 +1212,7 @@ public class AddNumbersImpl {
 
                             <entry><para><literal>operationName</literal> as
                             defined by
-                            <literal>@javax.jws.WebMethod</literal></para></entry>
+                            <literal>@jakarta.jws.WebMethod</literal></para></entry>
                         </row>
 
                         <row>
@@ -1266,7 +1266,7 @@ public @interface RequestWrapper {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.xml.ws.RequestWrapper</literal> -
+                    <title><literal>@jakarta.xml.ws.RequestWrapper</literal> -
                     Example</title>
 
                     <programlisting language="java"><![CDATA[public interface AddNumbersImpl {
@@ -1292,7 +1292,7 @@ public @interface RequestWrapper {
         </section>
 
         <section xml:id="javax-xml-ws-responsewrapper-outline">
-            <title><literal>@javax.xml.ws.ResponseWrapper</literal></title>
+            <title><literal>@jakarta.xml.ws.ResponseWrapper</literal></title>
 
             <para>This annotation annotates methods in the Service Endpoint
             Interface with the response wrapper bean to be used at
@@ -1304,7 +1304,7 @@ public @interface RequestWrapper {
             case.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.ws.ResponseWrapper</literal> -
+                <title><literal>@jakarta.xml.ws.ResponseWrapper</literal> -
                 Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -1335,7 +1335,7 @@ public @interface RequestWrapper {
 
                             <entry><para><literal>operationName</literal> as
                             defined by
-                            <literal>@javax.jws.WebMethod</literal></para></entry>
+                            <literal>@jakarta.jws.WebMethod</literal></para></entry>
                         </row>
 
                         <row>
@@ -1389,7 +1389,7 @@ public @interface ResponseWrapper {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.xml.ws.ResponseWrapper</literal> -
+                    <title><literal>@jakarta.xml.ws.ResponseWrapper</literal> -
                     Example</title>
 
                     <programlisting language="java"><![CDATA[public interface AddNumbersImpl {
@@ -1415,7 +1415,7 @@ public @interface ResponseWrapper {
         </section>
 
         <section xml:id="javax-xml-ws-servicemode-outline">
-            <title><literal>@javax.xml.ws.ServiceMode</literal></title>
+            <title><literal>@jakarta.xml.ws.ServiceMode</literal></title>
 
             <para>This annotation allows the <xref
             linkend="users-guide-provider" xrefstyle="select:title" />
@@ -1424,7 +1424,7 @@ public @interface ResponseWrapper {
             just with protocol message payloads.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.ws.ServiceMode</literal> -
+                <title><literal>@jakarta.xml.ws.ServiceMode</literal> -
                 Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -1487,7 +1487,7 @@ public @interface ServiceMode {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.xml.ws.ServiceMode</literal> -
+                    <title><literal>@jakarta.xml.ws.ServiceMode</literal> -
                     Example</title>
 
                     <programlisting language="java"><![CDATA[@ServiceMode(value = Service.Mode.PAYLOAD)
@@ -1527,7 +1527,7 @@ public class AddNumbersImpl implements Provider<Source> {
         </section>
 
         <section xml:id="javax-xml-ws-webendpoint-outline">
-            <title><literal>@javax.xml.ws.WebEndpoint</literal></title>
+            <title><literal>@jakarta.xml.ws.WebEndpoint</literal></title>
 
             <para>Used to annotate the <literal>getPortName()</literal>
             methods of a generated service interface.</para>
@@ -1539,7 +1539,7 @@ public class AddNumbersImpl implements Provider<Source> {
             on the generated service interface itself.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.ws.WebEndpoint</literal> -
+                <title><literal>@jakarta.xml.ws.WebEndpoint</literal> -
                 Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -1587,7 +1587,7 @@ public class AddNumbersImpl implements Provider<Source> {
  * determined based on the value of the <code>WebServiceClient</code>
  * annotation on the generated service interface itself.
  *
- * @see javax.xml.ws.WebServiceClient
+ * @see jakarta.xml.ws.WebServiceClient
  * @since JAX-WS 2.0
  */
 @Target({ElementType.METHOD})
@@ -1606,7 +1606,7 @@ public @interface WebEndpoint {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.xml.ws.WebEndpoint</literal> -
+                    <title><literal>@jakarta.xml.ws.WebEndpoint</literal> -
                     Example</title>
 
                     <programlisting language="java"><![CDATA[@WebServiceClient(name = "AddNumbersImplService", 
@@ -1652,7 +1652,7 @@ public class AddNumbersImplService extends Service {
         </section>
 
         <section xml:id="javax-xml-ws-webfault-outline">
-            <title><literal>@javax.xml.ws.WebFault</literal></title>
+            <title><literal>@jakarta.xml.ws.WebFault</literal></title>
 
             <para>This annotation is generated by the &ws.spec.name; tools into
             service specific exception classes generated from a WSDL to
@@ -1669,7 +1669,7 @@ public class AddNumbersImplService extends Service {
             </link> specification.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.ws.WebFault</literal> - Description
+                <title><literal>@jakarta.xml.ws.WebFault</literal> - Description
                 of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -1768,10 +1768,10 @@ public @interface WebFault {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.xml.ws.WebFault</literal> -
+                    <title><literal>@jakarta.xml.ws.WebFault</literal> -
                     Example</title>
 
-                    <programlisting language="java"><![CDATA[@javax.xml.ws.WebFault(name = "AddNumbersException",
+                    <programlisting language="java"><![CDATA[@jakarta.xml.ws.WebFault(name = "AddNumbersException",
         targetNamespace = "http://server.fromjava/jaxws")
 public class AddNumbersException_Exception extends Exception {
     private fromjava.client.AddNumbersException faultInfo;
@@ -1799,7 +1799,7 @@ public class AddNumbersException_Exception extends Exception {
         </section>
 
         <section xml:id="javax-xml-ws-webserviceclient-outline">
-            <title><literal>@javax.xml.ws.WebServiceClient</literal></title>
+            <title><literal>@jakarta.xml.ws.WebServiceClient</literal></title>
 
             <para>The information specified in this annotation is sufficient
             to uniquely identify a <literal>wsdl:service</literal> element
@@ -1808,7 +1808,7 @@ public class AddNumbersException_Exception extends Exception {
             interface provides a client view.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.ws.WebServiceClient</literal> -
+                <title><literal>@jakarta.xml.ws.WebServiceClient</literal> -
                 Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -1902,7 +1902,7 @@ public @interface WebServiceClient {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.xml.ws.WebServiceClient</literal> -
+                    <title><literal>@jakarta.xml.ws.WebServiceClient</literal> -
                     Example</title>
 
                     <programlisting language="java"><![CDATA[@WebServiceClient(name = "AddNumbersImplService", 
@@ -1948,13 +1948,13 @@ public class AddNumbersImplService extends Service {
         </section>
 
         <section xml:id="javax-xml-ws-webserviceprovider-outline">
-            <title><literal>@javax.xml.ws.WebServiceProvider</literal></title>
+            <title><literal>@jakarta.xml.ws.WebServiceProvider</literal></title>
 
             <para>Annotation used to annotate a <literal>Provider</literal>
             implementation class.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.ws.WebServiceProvider</literal> -
+                <title><literal>@jakarta.xml.ws.WebServiceProvider</literal> -
                 Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -2030,7 +2030,7 @@ public class AddNumbersImplService extends Service {
  * Used to annotate a Provider implementation class.
  *
  * @since JAX-WS 2.0
- * @see javax.xml.ws.Provider
+ * @see jakarta.xml.ws.Provider
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -2063,7 +2063,7 @@ public @interface WebServiceProvider {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.xml.ws.WebServiceProvider</literal>
+                    <title><literal>@jakarta.xml.ws.WebServiceProvider</literal>
                     - Example</title>
 
                     <programlisting language="java"><![CDATA[@ServiceMode(value = Service.Mode.PAYLOAD)
@@ -2102,7 +2102,7 @@ public class AddNumbersImpl implements Provider {
         </section>
 
         <section xml:id="javax-xml-ws-webserviceref-outline">
-            <title><literal>@javax.xml.ws.WebServiceRef</literal></title>
+            <title><literal>@jakarta.xml.ws.WebServiceRef</literal></title>
 
             <para>The <literal>WebServiceRef</literal> annotation is used to
             define a reference to a web service and (optionally) an injection
@@ -2110,7 +2110,7 @@ public class AddNumbersImpl implements Provider {
             sense.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.ws.WebServiceRef</literal> -
+                <title><literal>@jakarta.xml.ws.WebServiceRef</literal> -
                 Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -2170,7 +2170,7 @@ public class AddNumbersImpl implements Provider {
                             <entry><para><literal>value</literal></para></entry>
 
                             <entry><para>The service class, always a type
-                            extending <literal>javax.xml.ws.Service</literal>.
+                            extending <literal>jakarta.xml.ws.Service</literal>.
                             This element must be specified whenever the type of
                             the reference is a service endpoint
                             interface.</para></entry>
@@ -2267,7 +2267,7 @@ public @interface WebServiceRef {
 
     /**
      * The service class, alwiays a type extending
-     * <code>javax.xml.ws.Service</code>. This element MUST be specified
+     * <code>jakarta.xml.ws.Service</code>. This element MUST be specified
      * whenever the type of the reference is a service endpoint interface.
      */
     // 2.1 has Class value() default Object.class;
@@ -2297,7 +2297,7 @@ public @interface WebServiceRef {
         </section>
 
         <section xml:id="javax-xml-ws-action-outline">
-            <title><literal>@javax.xml.ws.Action</literal></title>
+            <title><literal>@jakarta.xml.ws.Action</literal></title>
 
             <para>The <literal>Action</literal> annotation allows explicit
             association of <literal>Action</literal> message addressing
@@ -2315,7 +2315,7 @@ public @interface WebServiceRef {
             <literal>Action</literal> annotation have been specified.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.ws.Action</literal> - Description
+                <title><literal>@jakarta.xml.ws.Action</literal> - Description
                 of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -2443,14 +2443,14 @@ public @interface Action {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.xml.ws.Action</literal> - Example 1
+                    <title><literal>@jakarta.xml.ws.Action</literal> - Example 1
                     - Specify explicit values for <literal>Action</literal>
                     message addressing property for <literal>input</literal>
                     and <literal>output</literal> messages.</title>
 
-                    <programlisting language="java"><![CDATA[@javax.jws.WebService
+                    <programlisting language="java"><![CDATA[@jakarta.jws.WebService
 public class AddNumbersImpl {
-    @javax.xml.ws.Action(
+    @jakarta.xml.ws.Action(
             input = "http://example.com/inputAction",
             output = "http://example.com/outputAction")
     public int addNumbers(int number1, int number2) {
@@ -2479,7 +2479,7 @@ public class AddNumbersImpl {
                 </example>
 
                 <example>
-                    <title><literal>@javax.xml.ws.Action</literal> - Example 2
+                    <title><literal>@jakarta.xml.ws.Action</literal> - Example 2
                     - Specify explicit value for <literal>Action</literal>
                     message addressing property for only the
                     <literal>input</literal> message.</title>
@@ -2487,9 +2487,9 @@ public class AddNumbersImpl {
                     <para>The default values are used for the
                     <literal>output</literal> message.</para>
 
-                    <programlisting language="java"><![CDATA[@javax.jws.WebService
+                    <programlisting language="java"><![CDATA[@jakarta.jws.WebService
 public class AddNumbersImpl {
-    @javax.xml.ws.Action(input = "http://example.com/inputAction")
+    @jakarta.xml.ws.Action(input = "http://example.com/inputAction")
     public int addNumbers(int number1, int number2) {
         return number1 + number2;
     }
@@ -2521,7 +2521,7 @@ public class AddNumbersImpl {
                 </example>
 
                 <example>
-                    <title><literal>@javax.xml.ws.Action</literal> - Example 3
+                    <title><literal>@jakarta.xml.ws.Action</literal> - Example 3
                     - <literal>@FaultAction</literal></title>
 
                     <para>See <literal><xref
@@ -2535,7 +2535,7 @@ public class AddNumbersImpl {
         </section>
 
         <section xml:id="javax-xml-ws-faultaction-outline">
-            <title><literal>@javax.xml.ws.FaultAction</literal></title>
+            <title><literal>@jakarta.xml.ws.FaultAction</literal></title>
 
             <para>The <literal>FaultAction</literal> annotation is used inside
             an <literal>Action</literal> annotation to allow an explicit
@@ -2548,7 +2548,7 @@ public class AddNumbersImpl {
             explicit <literal>wsaw:Action</literal> attribute.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.ws.FaultAction</literal> -
+                <title><literal>@jakarta.xml.ws.FaultAction</literal> -
                 Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -2618,20 +2618,20 @@ public @interface FaultAction {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.xml.ws.FaultAction</literal> -
+                    <title><literal>@jakarta.xml.ws.FaultAction</literal> -
                     Example 1 - Specify explicit values for
                     <literal>Action</literal> message addressing property for
                     the <literal>input</literal>, <literal>output</literal>
                     and <literal>fault</literal> message if the Java method
                     throws only one service specific exception.</title>
 
-                    <programlisting language="java"><![CDATA[@javax.jws.WebService
+                    <programlisting language="java"><![CDATA[@jakarta.jws.WebService
 public class AddNumbersImpl {
-    @javax.xml.ws.Action(
+    @jakarta.xml.ws.Action(
             input = "http://example.com/inputAction",
             output = "http://example.com/outputAction",
             fault = {
-                    @javax.xml.ws.FaultAction(className = 
+                    @jakarta.xml.ws.FaultAction(className =
                             AddNumbersException.class,
                             value = "http://example.com/faultAction")})
     public int addNumbers(int number1, int number2) throws 
@@ -2664,7 +2664,7 @@ public class AddNumbersImpl {
                 </example>
 
                 <example>
-                    <title><literal>@javax.xml.ws.FaultAction</literal> -
+                    <title><literal>@jakarta.xml.ws.FaultAction</literal> -
                     Example 1 - Specify explicit values for
                     <literal>Action</literal> message addressing property if
                     the Java method throws only one service specific
@@ -2672,10 +2672,10 @@ public class AddNumbersImpl {
                     <literal>input</literal> and <literal>output</literal>
                     messages.</title>
 
-                    <programlisting language="java"><![CDATA[@javax.jws.WebService
+                    <programlisting language="java"><![CDATA[@jakarta.jws.WebService
 public class AddNumbersImpl {
-    @javax.xml.ws.Action(
-            fault = {@javax.xml.ws.FaultAction(className = 
+    @jakarta.xml.ws.Action(
+            fault = {@jakarta.xml.ws.FaultAction(className =
                     AddNumbersException.class,
                     value = "http://example.com/faultAction")})
     public int addNumbers(int number1, int number2) throws 
@@ -2705,20 +2705,20 @@ public class AddNumbersImpl {
                 </example>
 
                 <example>
-                    <title><literal>@javax.xml.ws.FaultAction</literal> -
+                    <title><literal>@jakarta.xml.ws.FaultAction</literal> -
                     Example 1 - Specify explicit values for
                     <literal>Action</literal> message addressing property if
                     the Java method throws more than one service specific
                     exception.</title>
 
-                    <programlisting language="java"><![CDATA[@javax.jws.WebService
+                    <programlisting language="java"><![CDATA[@jakarta.jws.WebService
 public class AddNumbersImpl {
-    @javax.xml.ws.Action(
-            fault = {@javax.xml.ws.FaultAction(className = 
+    @jakarta.xml.ws.Action(
+            fault = {@jakarta.xml.ws.FaultAction(className =
                     AddNumbersException.class,
                     value = "http://example.com/addFaultAction"),
 
-                    @javax.xml.ws.FaultAction(className = 
+                    @jakarta.xml.ws.FaultAction(className =
                             TooBigNumbersException.class,
                             value = "http://example" +
                                     ".com/toobigFaultAction")})
@@ -2767,14 +2767,14 @@ public class AddNumbersImpl {
         specification</link>.</para>
 
         <section xml:id="javax-xml-bind-annotation-xmlrootelement-outline">
-            <title><literal>@javax.xml.bind.annotation.XmlRootElement</literal></title>
+            <title><literal>@jakarta.xml.bind.annotation.XmlRootElement</literal></title>
 
             <para>This annotation is used to map a top level class to a global
             element in the XML schema used by the WSDL of the web
             service.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.bind.annotation.XmlRootElement</literal>
+                <title><literal>@jakarta.xml.bind.annotation.XmlRootElement</literal>
                 - Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -2856,7 +2856,7 @@ public @interface XmlRootElement {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.xml.bind.annotation.XmlRootElement</literal>
+                    <title><literal>@jakarta.xml.bind.annotation.XmlRootElement</literal>
                     - Example</title>
 
                     <programlisting language="java"><![CDATA[@XmlRootElement(name = "addNumbers", namespace = "http://server.fromjava/")
@@ -2891,13 +2891,13 @@ public class AddNumbers {
         </section>
 
         <section xml:id="javax-xml-bind-annotation-xmlaccessortype-outline">
-            <title><literal>@javax.xml.bind.annotation.XmlAccessorType</literal></title>
+            <title><literal>@jakarta.xml.bind.annotation.XmlAccessorType</literal></title>
 
             <para>This annotation is used to specify whether fields or
             properties are serialized by default.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.bind.annotation.XmlAccessorType</literal>
+                <title><literal>@jakarta.xml.bind.annotation.XmlAccessorType</literal>
                 - Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -3003,7 +3003,7 @@ public enum XmlAccessType {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.xml.bind.annotation.XmlAccessorType</literal>
+                    <title><literal>@jakarta.xml.bind.annotation.XmlAccessorType</literal>
                     - Example</title>
 
                     <programlisting language="java"><![CDATA[@XmlRootElement(name = "addNumbers", namespace = "http://server.fromjava/")
@@ -3038,7 +3038,7 @@ public class AddNumbers {
         </section>
 
         <section xml:id="javax-xml-bind-annotation-xmltype-outline">
-            <title><literal>@javax.xml.bind.annotation.XmlType</literal></title>
+            <title><literal>@jakarta.xml.bind.annotation.XmlType</literal></title>
 
             <para>This annotation is used to map a value class to an XML
             Schema type. A value class is a data container for values
@@ -3048,7 +3048,7 @@ public class AddNumbers {
             etc).</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.bind.annotation.XmlType</literal> -
+                <title><literal>@jakarta.xml.bind.annotation.XmlType</literal> -
                 Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -3194,7 +3194,7 @@ public @interface XmlType {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.xml.bind.annotation.XmlType</literal>
+                    <title><literal>@jakarta.xml.bind.annotation.XmlType</literal>
                     - Example</title>
 
                     <programlisting language="java"><![CDATA[@XmlRootElement(name = "addNumbers", namespace = "http://server.fromjava/")
@@ -3229,14 +3229,14 @@ public class AddNumbers {
         </section>
 
         <section xml:id="section-147120285802621">
-            <title><literal>@javax.xml.bind.annotation.XmlElement</literal></title>
+            <title><literal>@jakarta.xml.bind.annotation.XmlElement</literal></title>
 
             <para>This annotation is used to map a property contained in a
             class to a local element in the XML Schema complex type to which
             the containing class is mapped.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.bind.annotation.XmlElement</literal>
+                <title><literal>@jakarta.xml.bind.annotation.XmlElement</literal>
                 - Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -3386,7 +3386,7 @@ public @interface XmlElement {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.xml.bind.annotation.XmlElement</literal>
+                    <title><literal>@jakarta.xml.bind.annotation.XmlElement</literal>
                     - Example</title>
 
                     <programlisting language="java"><![CDATA[@XmlRootElement(name = "addNumbers", namespace = "http://server.fromjava/")
@@ -3421,13 +3421,13 @@ public class AddNumbers {
         </section>
 
         <section xml:id="javax-xml-bind-annotation-xmlseealso">
-            <title><literal>@javax.xml.bind.annotation.XmlSeeAlso</literal></title>
+            <title><literal>@jakarta.xml.bind.annotation.XmlSeeAlso</literal></title>
 
             <para>Instructs &binding.spec.name; to also bind other classes when binding this
             class.</para>
 
             <table frame="all">
-                <title><literal>@javax.xml.bind.annotation.XmlSeeAlso</literal>
+                <title><literal>@jakarta.xml.bind.annotation.XmlSeeAlso</literal>
                 - Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">

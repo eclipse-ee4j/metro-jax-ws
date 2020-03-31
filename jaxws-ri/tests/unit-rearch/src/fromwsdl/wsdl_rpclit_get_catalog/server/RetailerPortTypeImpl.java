@@ -12,8 +12,8 @@ package fromwsdl.wsdl_rpclit_get_catalog.server;
 
 import java.math.*;
 
-import javax.xml.ws.Holder;
-@javax.jws.WebService(endpointInterface="fromwsdl.wsdl_rpclit_get_catalog.server.RetailerPortType")
+import jakarta.xml.ws.Holder;
+@jakarta.jws.WebService(endpointInterface="fromwsdl.wsdl_rpclit_get_catalog.server.RetailerPortType")
 public class RetailerPortTypeImpl implements RetailerPortType {
     public fromwsdl.wsdl_rpclit_get_catalog.server.CatalogType getCatalog() {
              try{
@@ -41,9 +41,9 @@ public class RetailerPortTypeImpl implements RetailerPortType {
              return null;
     }
 
-    public void getGCBug(String fn, String ln, String mn,int age,javax.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.server.NameType> nameHolder,
-            javax.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.server.PersonalDetailsType> personalHolder,
-            javax.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.server.AddressType> addressHolder){
+    public void getGCBug(String fn, String ln, String mn,int age,jakarta.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.server.NameType> nameHolder,
+            jakarta.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.server.PersonalDetailsType> personalHolder,
+            jakarta.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.server.AddressType> addressHolder){
         try{
             fromwsdl.wsdl_rpclit_get_catalog.server.ObjectFactory of = new fromwsdl.wsdl_rpclit_get_catalog.server.ObjectFactory();
             fromwsdl.wsdl_rpclit_get_catalog.server.NameType name = of.createNameType();
@@ -68,7 +68,7 @@ public class RetailerPortTypeImpl implements RetailerPortType {
          return input;
     }
 
-    public fromwsdl.wsdl_rpclit_get_catalog.server.CatalogType testCatalog(javax.xml.ws.Holder<java.lang.String> name, int index)
+    public fromwsdl.wsdl_rpclit_get_catalog.server.CatalogType testCatalog(jakarta.xml.ws.Holder<java.lang.String> name, int index)
     {
         name.value += " Microsystems";
         try{
@@ -92,7 +92,7 @@ public class RetailerPortTypeImpl implements RetailerPortType {
              System.out.println("HelloOneWay FAILED: received \""+parameters+"\", expected \"JAXRPC 2.0\"");
     }
 
-     public double testHolders(java.lang.String name,javax.xml.ws.Holder<java.lang.Integer> inout){
+     public double testHolders(java.lang.String name,jakarta.xml.ws.Holder<java.lang.Integer> inout){
             inout.value = 2;
             return 1.0;
      }
@@ -106,7 +106,7 @@ public class RetailerPortTypeImpl implements RetailerPortType {
         return null;
      }
 
-     public int testParameterOrder(int bar, String foo, javax.xml.ws.Holder<String> foo1){
+     public int testParameterOrder(int bar, String foo, jakarta.xml.ws.Holder<String> foo1){
          foo1.value = foo;
          return bar;
      }

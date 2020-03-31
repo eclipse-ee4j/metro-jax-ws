@@ -15,8 +15,8 @@ import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.Response;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Response;
+import jakarta.xml.ws.WebServiceException;
 import java.io.OutputStream;
 import java.io.ByteArrayOutputStream;
 
@@ -26,7 +26,7 @@ import java.io.ByteArrayOutputStream;
  * Date: Jul 15, 2004
  * Time: 3:38:43 PM
  */
-public class XMLAsyncHandler implements javax.xml.ws.AsyncHandler{
+public class XMLAsyncHandler implements jakarta.xml.ws.AsyncHandler{
 
         Source source;
 

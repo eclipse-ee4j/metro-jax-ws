@@ -10,7 +10,7 @@
 
 package fromjava.seinoimpl_inherited.server;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 @WebService(endpointInterface="fromjava.seinoimpl_inherited.server.EchoIF")
 public class EchoImpl {

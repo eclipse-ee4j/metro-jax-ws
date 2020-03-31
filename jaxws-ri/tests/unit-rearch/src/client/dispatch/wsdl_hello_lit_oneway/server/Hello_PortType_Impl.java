@@ -10,8 +10,8 @@
 
 package client.dispatch.wsdl_hello_lit_oneway.server;
 
-import javax.jws.WebService;
-import javax.jws.Oneway;
+import jakarta.jws.WebService;
+import jakarta.jws.Oneway;
 
 
 

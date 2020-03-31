@@ -181,7 +181,7 @@
                         <entry><para><literal>provider</literal></para></entry>
 
                         <entry><para>Demonstrates how to build, deploy, and
-                        invoke <literal>javax.xml.ws.Provider</literal> based
+                        invoke <literal>jakarta.xml.ws.Provider</literal> based
                         Web service endpoint.</para></entry>
                     </row>
 
@@ -509,7 +509,7 @@
 
         <para>Some samples (e.g. <application>fromjava</application>,
         <application>supplychain</application>) can be built, deployed using
-        <literal>javax.xml.ws.Endpoint</literal> API. These samples support
+        <literal>jakarta.xml.ws.Endpoint</literal> API. These samples support
         extra targets:</para>
 
         <informaltable frame="all">

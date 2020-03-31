@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,11 +37,11 @@ import com.sun.xml.ws.developer.UsesJAXBContextFeature;
 import com.sun.xml.ws.developer.JAXBContextFactory;
 import com.sun.xml.ws.binding.WebServiceFeatureList;
 
-import javax.jws.WebParam.Mode;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import jakarta.jws.WebParam.Mode;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.namespace.QName;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 
 import java.lang.reflect.Method;

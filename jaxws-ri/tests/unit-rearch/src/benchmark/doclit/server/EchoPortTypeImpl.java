@@ -13,7 +13,7 @@ package benchmark.doclit.server;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 /**

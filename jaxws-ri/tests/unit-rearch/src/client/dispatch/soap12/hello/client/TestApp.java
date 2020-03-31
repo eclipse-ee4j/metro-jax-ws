@@ -68,7 +68,7 @@ public class TestApp extends TestCase {
 //              nt.getName().add(in[1]);
 //              nt.getName().add(in[2]);
 //              nt.getName().add(in[3]);
-//              javax.xml.ws.Holder<NameType> req = new javax.xml.ws.Holder<NameType>(nt);
+//              jakarta.xml.ws.Holder<NameType> req = new jakarta.xml.ws.Holder<NameType>(nt);
 //              stub.echoArray(req);
 //              System.out.println("Here we are");
 //              assertTrue(req.value == null);
@@ -91,7 +91,7 @@ public class TestApp extends TestCase {
 //            nt.getName().add(in[1]);
 //            nt.getName().add(in[2]);
 //            nt.getName().add(in[3]);
-//            javax.xml.ws.Holder<NameType> req = new javax.xml.ws.Holder<NameType>(nt);
+//            jakarta.xml.ws.Holder<NameType> req = new jakarta.xml.ws.Holder<NameType>(nt);
 //            stub.echoArray1(req);
 //            assertTrue(java.util.Arrays.equals(in, req.value.getName().toArray()));
 //        }catch(Exception e){
@@ -105,7 +105,7 @@ public class TestApp extends TestCase {
 
     /*   public void testEchoArray2c() throws Exception {
            try {
-               javax.xml.ws.Holder<NameType> req = new javax.xml.ws.Holder<NameType>();
+               jakarta.xml.ws.Holder<NameType> req = new jakarta.xml.ws.Holder<NameType>();
                stub.echoArray2(req);
                assertTrue(req.value != null);
            } catch (Exception e) {
@@ -121,7 +121,7 @@ public class TestApp extends TestCase {
                in.add("JAXRPC 1.1");
                in.add("JAXRPC 1.1.2");
                in.add("JAXRPC 2.0");
-               javax.xml.ws.Holder<java.util.List<String>> req = new javax.xml.ws.Holder<java.util.List<String>>(in);
+               jakarta.xml.ws.Holder<java.util.List<String>> req = new jakarta.xml.ws.Holder<java.util.List<String>>(in);
                stub.echoArray3(req);
                assertTrue(in.equals(req.value));
            } catch (Exception e) {

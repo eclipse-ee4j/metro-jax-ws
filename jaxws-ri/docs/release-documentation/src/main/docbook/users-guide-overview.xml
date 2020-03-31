@@ -503,7 +503,7 @@
             <para>The Dispatch API is intended for advanced XML developers who
             prefer to use XML constructs at the
             <literal>java.lang.transform.Source</literal> or
-            <literal>javax.xml.soap.SOAPMessage</literal> level. For added
+            <literal>jakarta.xml.soap.SOAPMessage</literal> level. For added
             convenience use of the <literal>Dispatch</literal> API with &binding.spec.name;
             data-bound objects is supported. The <literal>Dispatch</literal>
             API can be used in both <literal>Message</literal> and
@@ -597,12 +597,12 @@
                 <itemizedlist>
                     <listitem>
                         <para>It <emphasis>must</emphasis> carry a
-                        javax.jws.WebService annotation (see &metadata.spec.name;).</para>
+                        jakarta.jws.WebService annotation (see JSR 181).</para>
                     </listitem>
 
                     <listitem>
                         <para>Any of its methods <emphasis>may</emphasis>
-                        carry a javax.jws.WebMethod annotation (see
+                        carry a jakarta.jws.WebMethod annotation (see
                         7.5.2).</para>
                     </listitem>
 
@@ -634,7 +634,7 @@
                 <informalexample>
                     <programlisting language="java"><![CDATA[package fromjava.server;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 @WebService
 public class AddNumbersImpl {
@@ -846,19 +846,19 @@ WEB-INF/classes/fromjava/server/jaxws/AddNumbersResponse.class]]></programlistin
                 <informalexample>
                     <programlisting language="java"><![CDATA[package fromwsdl.server;
 
-@javax.jws.WebService(
+@jakarta.jws.WebService(
         name = "AddNumbersPortType",
         serviceName = "AddNumbersService",
         targetNamespace = "http://duke.example.org")
-@javax.jws.soap.SOAPBinding(
-        style = javax.jws.soap.SOAPBinding.Style.DOCUMENT,
-        use = javax.jws.soap.SOAPBinding.Use.LITERAL,
-        parameterStyle = javax.jws.soap.SOAPBinding.ParameterStyle.WRAPPED)
+@jakarta.jws.soap.SOAPBinding(
+        style = jakarta.jws.soap.SOAPBinding.Style.DOCUMENT,
+        use = jakarta.jws.soap.SOAPBinding.Use.LITERAL,
+        parameterStyle = jakarta.jws.soap.SOAPBinding.ParameterStyle.WRAPPED)
 public interface AddNumbersPortType extends java.rmi.Remote {
-    @javax.jws.WebMethod(operationName = "addNumbers")
-    @javax.jws.WebResult(name = "return")
-    public int addNumbers(@javax.jws.WebParam(name = "arg0") int arg0, 
-                          @javax.jws.WebParam(name = "arg1") int arg1) 
+    @jakarta.jws.WebMethod(operationName = "addNumbers")
+    @jakarta.jws.WebResult(name = "return")
+    public int addNumbers(@jakarta.jws.WebParam(name = "arg0") int arg0,
+                          @jakarta.jws.WebParam(name = "arg1") int arg1)
             throws fromwsdl.server.AddNumbersFault_Exception, java.rmi.RemoteException;
 }]]></programlisting>
                 </informalexample>
@@ -970,7 +970,7 @@ public class AddNumbersImpl implements AddNumbersPortType {
                 <title>Java SE Endpoints</title>
 
                 <para>Endpoints can be created and published programmatically
-                using <literal>javax.xml.ws.Endpoint</literal> API in Java SE. To
+                using <literal>jakarta.xml.ws.Endpoint</literal> API in J2SE. To
                 learn more about these endpoints, see <xref
                 linkend="users-guide-endpoint-api"
                 xrefstyle="select:title" />.</para>
@@ -1048,11 +1048,11 @@ int result = port.addNumbers(10, 20);]]></programlisting>
                 <para>The <literal>Dispatch</literal> API is intended for
                 advanced XML developers who prefer using XML constructs at the
                 <literal>java.lang.transform.Source</literal> or
-                <literal>javax.xml.soap.SOAPMessage</literal> level. For added
+                <literal>jakarta.xml.soap.SOAPMessage</literal> level. For added
                 convenience use of <literal>Dispatch</literal> with &binding.spec.name; data
                 binding object is supported. With the
                 <literal>XML/HTTP</literal> binding a
-                <literal>javax.activation.DataSource</literal> can also be
+                <literal>jakarta.activation.DataSource</literal> can also be
                 used. The <literal>Dispatch</literal> APIs can be used in both
                 <literal>Message</literal> and <literal>Payload</literal>
                 modes. The <literal>Dispatch</literal> API client with an

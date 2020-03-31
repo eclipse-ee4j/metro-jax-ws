@@ -10,8 +10,8 @@
 
 package fromjava.mbyte.server;
 
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
 import java.util.Date;
 
 

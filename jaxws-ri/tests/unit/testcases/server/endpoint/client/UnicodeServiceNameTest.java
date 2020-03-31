@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,9 +14,9 @@ import junit.framework.TestCase;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.ws.*;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
+import jakarta.xml.ws.*;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.stream.*;

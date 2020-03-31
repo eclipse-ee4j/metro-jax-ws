@@ -75,6 +75,12 @@
             <artifactId>ant</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>rt</artifactId>
+            <version>2.4.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -147,7 +153,7 @@
                                     <instructions>
                                         <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
                                         <Import-Package>
-                                            javax.activation;version=!,
+                                            jakarta.activation;version=!,
                                             org.eclipse.persistence.*;version=!,
                                             *
                                         </Import-Package>

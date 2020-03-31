@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -58,13 +58,13 @@ import org.glassfish.gmbal.ManagedObjectManager;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.EndpointReference;
-import javax.xml.ws.RespectBindingFeature;
-import javax.xml.ws.Response;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.http.HTTPBinding;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.EndpointReference;
+import jakarta.xml.ws.RespectBindingFeature;
+import jakarta.xml.ws.Response;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,13 +16,13 @@ import junit.framework.TestSuite;
 import testutil.ClientServerTestUtil;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Holder;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.ws.Endpoint;
+import jakarta.xml.ws.Endpoint;
 import javax.xml.transform.Source;
-import javax.xml.ws.Dispatch;
+import jakarta.xml.ws.Dispatch;
 import javax.xml.transform.stream.StreamSource;
 import java.net.URL;
 import java.net.HttpURLConnection;
@@ -37,8 +37,8 @@ import com.sun.net.httpserver.BasicAuthenticator;
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
-import javax.xml.ws.soap.SOAPBinding;
-import javax.xml.ws.BindingProvider;
+import jakarta.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.BindingProvider;
 
 import testutil.PortAllocator;
 

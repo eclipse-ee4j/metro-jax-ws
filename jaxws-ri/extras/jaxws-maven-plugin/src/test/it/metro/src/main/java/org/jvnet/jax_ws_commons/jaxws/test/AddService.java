@@ -18,9 +18,9 @@
 
 package org.jvnet.jax_ws_commons.jaxws.test;
 
-import javax.jws.WebService;
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
+import jakarta.jws.WebService;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
 
 /**
  *

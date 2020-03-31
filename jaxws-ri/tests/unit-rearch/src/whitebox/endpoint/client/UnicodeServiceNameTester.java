@@ -14,9 +14,9 @@ import junit.framework.TestCase;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.ws.*;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
+import jakarta.xml.ws.*;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.stream.*;

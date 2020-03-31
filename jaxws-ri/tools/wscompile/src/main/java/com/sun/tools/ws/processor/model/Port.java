@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -111,7 +111,7 @@ public class Port extends ModelObject {
         JavaInterface intf = getJavaInterface();
         if (intf != null) {
             String sei = intf.getName();
-            if (sei.equals(javax.xml.ws.Provider.class.getName())) {
+            if (sei.equals(jakarta.xml.ws.Provider.class.getName())) {
                 return true;
             }
         }

@@ -15,7 +15,7 @@ import static fromwsdl.handler_singlepipe.common.TestConstants.*;
 
 /**
  */
-@javax.jws.WebService(endpointInterface="fromwsdl.handler_singlepipe.server.Hello")
+@jakarta.jws.WebService(endpointInterface="fromwsdl.handler_singlepipe.server.Hello")
 public class HelloService_Impl implements Hello {
     
     public int hello(int x) {

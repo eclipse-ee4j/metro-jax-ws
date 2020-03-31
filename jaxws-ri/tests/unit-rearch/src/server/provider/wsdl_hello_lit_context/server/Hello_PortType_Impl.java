@@ -13,9 +13,9 @@ package server.provider.wsdl_hello_lit_context.server;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.WebServiceProvider;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.WebServiceProvider;
+import jakarta.xml.ws.WebServiceException;
 
 @WebServiceProvider(
     wsdlLocation="WEB-INF/wsdl/hello_literal_overridden.wsdl")

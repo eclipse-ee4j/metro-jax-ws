@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 
 import javax.xml.namespace.QName;
 
@@ -31,17 +31,17 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 
-import javax.xml.ws.Binding;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.handler.Handler;
-import javax.xml.ws.handler.HandlerResolver;
-import javax.xml.ws.handler.PortInfo;
-import javax.xml.ws.Service;
-import static javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.MimeHeaders;
+import jakarta.xml.ws.Binding;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.handler.Handler;
+import jakarta.xml.ws.handler.HandlerResolver;
+import jakarta.xml.ws.handler.PortInfo;
+import jakarta.xml.ws.Service;
+import static jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.MimeHeaders;
 
 import fromwsdl.handler_simple.common.SOAPTestHandler;
 
@@ -364,7 +364,7 @@ public class HandlerClient extends TestCase {
         // create service with just qname -- no handlers in that case
         QName serviceQName = new QName("urn:test", "Hello");
         Service service = Service.create(serviceQName);
-        service.addPort(portQName, javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING, endpointAddress);
+        service.addPort(portQName, jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING, endpointAddress);
         Dispatch dispatch = service.createDispatch(portQName, SOAPMessage.class , Service.Mode.MESSAGE);
         MessageFactory messageFactory = MessageFactory.newInstance();
         MimeHeaders headers = new MimeHeaders();

@@ -10,7 +10,7 @@
 
 package wsa.submission.fromwsdl.fault.client;
 
-import javax.xml.ws.soap.AddressingFeature;
+import jakarta.xml.ws.soap.AddressingFeature;
 
 import junit.framework.TestCase;
 import com.sun.xml.ws.developer.MemberSubmissionAddressingFeature;

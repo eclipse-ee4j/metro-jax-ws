@@ -235,7 +235,7 @@
                         <java.io.tmpdir>${project.build.directory}/test-antprojects</java.io.tmpdir>
                         <bin.folder>${project.build.directory}</bin.folder>
                         <jaxb-api.version>${jaxb-api.version}</jaxb-api.version>
-                        <javax.jws-api.version>${javax.jws-api.version}</javax.jws-api.version>
+                        <jakarta.jws-api.version>${jakarta.jws-api.version}</jakarta.jws-api.version>
                         <javax.annotation-api.version>${javax.annotation-api.version}</javax.annotation-api.version>
                         <jaxws-api.version>${jaxws-api.version}</jaxws-api.version>
                         <jacoco-agent.destfile>${project.build.directory}</jacoco-agent.destfile>
@@ -456,19 +456,19 @@
                                     com.sun.xml.ws.wsdl.parser;version=${project.version},
                                     com.sun.xml.ws.wsdl.writer;version=${project.version},
                                     com.sun.xml.xsom.parser;version=${jaxb-xjc.version},
-                                    javax.activation,
+                                    jakarta.activation,
                                     javax.annotation.processing,
-                                    javax.jws,
-                                    javax.jws.soap,
+                                    jakarta.jws,
+                                    jakarta.jws.soap,
                                     javax.lang.model,
                                     javax.lang.model.element,
                                     javax.lang.model.type,
                                     javax.lang.model.util,
                                     javax.net.ssl,
                                     javax.tools,
-                                    javax.xml.bind;version=${jaxb-api.version},
-                                    javax.xml.bind.annotation;version=${jaxb-api.version},
-                                    javax.xml.bind.annotation.adapters;version=${jaxb-api.version},
+                                    jakarta.xml.bind;version=${jaxb-api.version},
+                                    jakarta.xml.bind.annotation;version=${jaxb-api.version},
+                                    jakarta.xml.bind.annotation.adapters;version=${jaxb-api.version},
                                     javax.xml.namespace,
                                     javax.xml.parsers,
                                     javax.xml.stream,
@@ -476,7 +476,7 @@
                                     javax.xml.transform.dom,
                                     javax.xml.transform.sax,
                                     javax.xml.transform.stream,
-                                    javax.xml.ws;version=${jaxws-api.osgiVersion},
+                                    jakarta.xml.ws;version=${jaxws-api.osgiVersion},
                                     javax.xml.xpath,
                                     org.apache.tools.ant;optional=true,
                                     org.apache.tools.ant.taskdefs;optional=true,

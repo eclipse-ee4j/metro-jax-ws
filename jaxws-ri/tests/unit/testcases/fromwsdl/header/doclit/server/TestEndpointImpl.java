@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,9 +13,9 @@ package fromwsdl.header.doclit.server;
 /**
  * @author Vivek Pandey
  */
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 
-@javax.jws.WebService(endpointInterface="fromwsdl.header.doclit.server.HelloPortType")
+@jakarta.jws.WebService(endpointInterface="fromwsdl.header.doclit.server.HelloPortType")
 public class TestEndpointImpl implements HelloPortType {
     public EchoResponseType echo(EchoType reqBody,
                                               EchoType reqHeader,
@@ -29,7 +29,7 @@ public class TestEndpointImpl implements HelloPortType {
         return info+"bar";
     }
 
-    public void echo3(javax.xml.ws.Holder<java.lang.String> reqInfo) {
+    public void echo3(jakarta.xml.ws.Holder<java.lang.String> reqInfo) {
         reqInfo.value += "bar";
     }
 

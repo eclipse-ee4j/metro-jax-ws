@@ -13,15 +13,15 @@ package client.marshalltest.server;
 
 import client.marshalltest.server.*;
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
-import javax.xml.soap.*;
+import jakarta.xml.soap.*;
 
 import java.util.*;
 
 // Service Implementation Class - as outlined in JAX-RPC Specification
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 @WebService(
     serviceName="MarshallTestService",

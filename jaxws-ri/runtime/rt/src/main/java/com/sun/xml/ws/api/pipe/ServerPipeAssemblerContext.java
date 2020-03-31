@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -83,7 +83,7 @@ public final class ServerPipeAssemblerContext extends ServerTubeAssemblerContext
      *
      * <p>
      * (Just to give you the idea how this is used, normally the terminal pipe
-     * is the one that invokes the user application or {@link javax.xml.ws.Provider}.)
+     * is the one that invokes the user application or {@link jakarta.xml.ws.Provider}.)
      *
      * @return always non-null terminal pipe
      */

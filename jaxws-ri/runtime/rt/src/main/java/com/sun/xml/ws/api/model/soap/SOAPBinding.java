@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,12 +13,12 @@ package com.sun.xml.ws.api.model.soap;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.model.JavaMethod;
 
-import javax.jws.soap.SOAPBinding.Style;
-import javax.jws.soap.SOAPBinding.Use;
-import javax.jws.WebMethod;
+import jakarta.jws.soap.SOAPBinding.Style;
+import jakarta.jws.soap.SOAPBinding.Use;
+import jakarta.jws.WebMethod;
 
 /**
- * Models soap:binding in a WSDL document or a {@link javax.jws.soap.SOAPBinding} annotation. This
+ * Models soap:binding in a WSDL document or a {@link jakarta.jws.soap.SOAPBinding} annotation. This
  * can be the return of {@link JavaMethod#getBinding()}.
  *
  * @author Vivek Pandey

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,11 +13,11 @@
  * the Web Services Metadata API.
  *
  *
- * @uses javax.xml.soap.MessageFactory
- * @uses javax.xml.soap.SAAJMetaFactory
- * @uses javax.xml.soap.SOAPConnectionFactory
- * @uses javax.xml.soap.SOAPFactory
- * @uses javax.xml.ws.spi.Provider
+ * @uses jakarta.xml.soap.MessageFactory
+ * @uses jakarta.xml.soap.SAAJMetaFactory
+ * @uses jakarta.xml.soap.SOAPConnectionFactory
+ * @uses jakarta.xml.soap.SOAPFactory
+ * @uses jakarta.xml.ws.spi.Provider
  *
  * @since 2.4.0
  */
@@ -30,11 +30,11 @@ module com.sun.xml.ws {
 
     requires transitive jakarta.activation;
     requires java.annotation;
-    requires transitive java.jws;
+    requires transitive jakarta.jws;
     requires transitive java.xml;
-    requires transitive java.xml.bind;
-    requires transitive java.xml.soap;
-    requires transitive java.xml.ws;
+    requires transitive jakarta.xml.bind;
+    requires transitive jakarta.xml.soap;
+    requires transitive jakarta.xml.ws;
     requires static java.servlet;
 
     requires org.jvnet.mimepull;
@@ -117,34 +117,34 @@ module com.sun.xml.ws {
     exports com.sun.xml.ws.transport.http.servlet;
 
     // XML document content needs to be exported
-    opens com.sun.xml.ws.runtime.config to java.xml.bind;
+    opens com.sun.xml.ws.runtime.config to jakarta.xml.bind;
 
     // com.sun.xml.ws.fault.SOAPFaultBuilder uses JAXBContext.newInstance
-    opens com.sun.xml.ws.fault to java.xml.bind;
+    opens com.sun.xml.ws.fault to jakarta.xml.bind;
 
     // com.sun.xml.ws.addressing.WsaTubeHelperImpl uses JAXBContext.newInstance
-    opens com.sun.xml.ws.addressing to java.xml.bind;
+    opens com.sun.xml.ws.addressing to jakarta.xml.bind;
 
     // com.sun.xml.ws.addressing.v200408.WsaTubeHelperImpl uses JAXBContext.newInstance
-    opens com.sun.xml.ws.addressing.v200408 to java.xml.bind;
+    opens com.sun.xml.ws.addressing.v200408 to jakarta.xml.bind;
 
     // com.sun.xml.ws.developer.MemberSubmissionEndpointReference uses JAXBContext.newInstance
-    opens com.sun.xml.ws.developer to java.xml.bind;
+    opens com.sun.xml.ws.developer to jakarta.xml.bind;
 
     // com.sun.xml.ws.model.ExternalMetadataReader uses JAXBContext.newInstance
-    opens com.oracle.xmlns.webservices.jaxws_databinding to java.xml.bind;
+    opens com.oracle.xmlns.webservices.jaxws_databinding to jakarta.xml.bind;
 
 
-    uses javax.xml.ws.spi.Provider;
-    uses javax.xml.soap.MessageFactory;
-    uses javax.xml.soap.SAAJMetaFactory;
-    uses javax.xml.soap.SOAPConnectionFactory;
-    uses javax.xml.soap.SOAPFactory;
+    uses jakarta.xml.ws.spi.Provider;
+    uses jakarta.xml.soap.MessageFactory;
+    uses jakarta.xml.soap.SAAJMetaFactory;
+    uses jakarta.xml.soap.SOAPConnectionFactory;
+    uses jakarta.xml.soap.SOAPFactory;
 
     uses com.sun.xml.ws.policy.jaxws.spi.PolicyFeatureConfigurator;
     uses com.sun.xml.ws.policy.jaxws.spi.PolicyMapConfigurator;
 
-    provides javax.xml.ws.spi.Provider with
+    provides jakarta.xml.ws.spi.Provider with
             com.sun.xml.ws.spi.ProviderImpl;
 
     provides com.sun.xml.ws.policy.spi.LoggingProvider with

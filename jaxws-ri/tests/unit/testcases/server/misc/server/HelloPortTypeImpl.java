@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,15 +10,15 @@
 
 package server.misc.server;
 
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.handler.MessageContext;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
-@javax.jws.WebService(endpointInterface="server.misc.server.HelloPortType")
+@jakarta.jws.WebService(endpointInterface="server.misc.server.HelloPortType")
 public class HelloPortTypeImpl implements HelloPortType {
 	private WebServiceContext wsContext;
 
@@ -40,10 +40,10 @@ public class HelloPortTypeImpl implements HelloPortType {
     public String echo2(String info) {
 		MessageContext msgCtxt = wsContext.getMessageContext();
 /*
-		if (msgCtxt.get("javax.xml.ws.servlet.context") == null
-        	|| msgCtxt.get("javax.xml.ws.servlet.session") == null
-        	|| msgCtxt.get("javax.xml.ws.servlet.request") == null
-        	|| msgCtxt.get("javax.xml.ws.servlet.response") == null) {
+		if (msgCtxt.get("jakarta.xml.ws.servlet.context") == null
+        	|| msgCtxt.get("jakarta.xml.ws.servlet.session") == null
+        	|| msgCtxt.get("jakarta.xml.ws.servlet.request") == null
+        	|| msgCtxt.get("jakarta.xml.ws.servlet.response") == null) {
 			throw new WebServiceException("MessageContext is not populated.");
 		}
 */

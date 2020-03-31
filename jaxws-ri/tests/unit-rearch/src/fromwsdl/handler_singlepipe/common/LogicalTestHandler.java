@@ -12,10 +12,10 @@ package fromwsdl.handler_singlepipe.common;
 
 import static fromwsdl.handler_singlepipe.common.TestConstants.*;
 
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.handler.LogicalHandler;
-import javax.xml.ws.handler.LogicalMessageContext;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.handler.LogicalHandler;
+import jakarta.xml.ws.handler.LogicalMessageContext;
+import jakarta.xml.ws.handler.MessageContext;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 

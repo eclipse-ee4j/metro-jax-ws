@@ -199,8 +199,8 @@ public class MyLogicalHandler implements
             annotation to refer to a file describing the chain.</para>
 
             <informalexample>
-                <programlisting language="java"><![CDATA[import javax.jws.HandlerChain;
-import javax.jws.WebService;
+                <programlisting language="java"><![CDATA[import jakarta.jws.HandlerChain;
+import jakarta.jws.WebService;
 
 @WebService
 @HandlerChain(file = "handlers.xml")

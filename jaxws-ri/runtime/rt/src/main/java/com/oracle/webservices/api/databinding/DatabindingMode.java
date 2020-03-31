@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@ package com.oracle.webservices.api.databinding;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.xml.ws.spi.WebServiceFeatureAnnotation;
+import jakarta.xml.ws.spi.WebServiceFeatureAnnotation;
 
 @WebServiceFeatureAnnotation(id="", bean=com.oracle.webservices.api.databinding.DatabindingModeFeature.class)
 @Retention(RetentionPolicy.RUNTIME)

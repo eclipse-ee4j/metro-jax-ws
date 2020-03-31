@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -57,11 +57,11 @@ public enum ModelerConstants {
     QNAME_CLASSNAME("javax.xml.namespace.QName"),
     VOID_CLASSNAME("void"),
     OBJECT_CLASSNAME("java.lang.Object"),
-    SOAPELEMENT_CLASSNAME("javax.xml.soap.SOAPElement"),
+    SOAPELEMENT_CLASSNAME("jakarta.xml.soap.SOAPElement"),
     IMAGE_CLASSNAME("java.awt.Image"),
     MIME_MULTIPART_CLASSNAME("javax.mail.internet.MimeMultipart"),
     SOURCE_CLASSNAME("javax.xml.transform.Source"),
-    DATA_HANDLER_CLASSNAME("javax.activation.DataHandler"),
+    DATA_HANDLER_CLASSNAME("jakarta.activation.DataHandler"),
     URI_CLASSNAME("java.net.URI"),
     //     URI_CLASSNAME                ("java.lang.String"),
     // Collections

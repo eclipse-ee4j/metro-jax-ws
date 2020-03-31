@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,7 @@
 package fromjava.wsa.custom_action.server;
 
 import testutil.WsaBaseSOAPHandler;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import fromjava.wsa.custom_action.common.TestConstants;
 
 /**

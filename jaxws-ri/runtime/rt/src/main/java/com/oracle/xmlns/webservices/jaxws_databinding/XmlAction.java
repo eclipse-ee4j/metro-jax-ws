@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,12 +10,12 @@
 
 package com.oracle.xmlns.webservices.jaxws_databinding;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
     "faultAction"
 })
 @XmlRootElement(name = "action")
-public class XmlAction implements javax.xml.ws.Action {
+public class XmlAction implements jakarta.xml.ws.Action {
 
     @XmlElement(name = "fault-action")
     protected List<XmlFaultAction> faultAction;
@@ -147,12 +147,12 @@ public class XmlAction implements javax.xml.ws.Action {
     }
 
     @Override
-    public javax.xml.ws.FaultAction[] fault() {
-        return new javax.xml.ws.FaultAction[0];
+    public jakarta.xml.ws.FaultAction[] fault() {
+        return new jakarta.xml.ws.FaultAction[0];
     }
 
     @Override
     public Class<? extends Annotation> annotationType() {
-        return javax.xml.ws.Action.class;
+        return jakarta.xml.ws.Action.class;
     }
 }

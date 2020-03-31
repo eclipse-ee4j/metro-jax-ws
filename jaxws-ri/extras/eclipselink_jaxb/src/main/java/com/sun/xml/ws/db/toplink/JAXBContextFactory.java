@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,12 +24,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -40,7 +40,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 import org.eclipse.persistence.jaxb.JAXBContextProperties;
 import org.eclipse.persistence.jaxb.TypeMappingInfo;
@@ -338,9 +338,9 @@ public class JAXBContextFactory extends BindingContextFactory {
                 tmi.setNillable(e.isNillable());
                 if (e.getGenericType() != null) {
                     String gts = e.getGenericType().toString();
-                    if (gts.startsWith("javax.xml.ws.Holder")) {
+                    if (gts.startsWith("jakarta.xml.ws.Holder")) {
                         tmi.setType(e.type);
-                    } else if (gts.startsWith("javax.xml.ws.Response")) {
+                    } else if (gts.startsWith("jakarta.xml.ws.Response")) {
                         tmi.setType(e.type);
                     } else if (gts.startsWith("java.util.concurrent.Future")) {
                         tmi.setType(e.type);
@@ -361,7 +361,7 @@ public class JAXBContextFactory extends BindingContextFactory {
                     for (Annotation a : aa) {
                         for (Class<?> clz : a.getClass().getInterfaces()) {
                             if (clz.getName().startsWith(
-                                    "javax.xml.bind.annotation.")) {
+                                    "jakarta.xml.bind.annotation.")) {
                                 la.add(a);
                                 break;
                             }

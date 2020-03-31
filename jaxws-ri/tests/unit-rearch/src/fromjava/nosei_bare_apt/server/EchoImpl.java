@@ -11,11 +11,11 @@
 package fromjava.nosei_bare_apt.server;
 
 import fromjava.nosei_bare_apt.server.Bar;
-import javax.jws.*;
-import javax.jws.soap.*;
-import javax.jws.soap.SOAPBinding.ParameterStyle;
+import jakarta.jws.*;
+import jakarta.jws.soap.*;
+import jakarta.jws.soap.SOAPBinding.ParameterStyle;
 
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 import org.omg.CORBA.BAD_CONTEXT;
 @WebService(name="Echo", serviceName="EchoService", targetNamespace="http://echo.org/")
 @SOAPBinding(parameterStyle=ParameterStyle.BARE)

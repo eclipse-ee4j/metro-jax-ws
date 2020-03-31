@@ -33,8 +33,8 @@ import java.io.OutputStream;
 import com.sun.xml.messaging.saaj.packaging.mime.internet.MimeBodyPart;
 import com.sun.xml.messaging.saaj.packaging.mime.internet.MimeMultipart;
 import com.sun.xml.messaging.saaj.packaging.mime.internet.InternetHeaders;
-import javax.activation.DataSource;
-import javax.xml.ws.WebServiceException;
+import jakarta.activation.DataSource;
+import jakarta.xml.ws.WebServiceException;
 
 import com.sun.xml.ws.transport.Headers;
 

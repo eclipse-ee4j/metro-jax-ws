@@ -10,10 +10,10 @@
 
 package fromwsdl.jaxws102.server;
 
-import javax.jws.WebService;
-import javax.jws.WebParam;
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceException;
+import jakarta.jws.WebService;
+import jakarta.jws.WebParam;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * @author Vivek Pandey

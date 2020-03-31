@@ -14,7 +14,7 @@ import testutil.MemberSubmissionAddressingConstants;
 import testutil.WsaBaseSOAPHandler;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * @author Arun Gupta

@@ -10,7 +10,7 @@
 
 package fromwsdl.handler.common;
 
-import javax.xml.ws.ProtocolException;
+import jakarta.xml.ws.ProtocolException;
 
 /**
  * This exception class is used by some tests to make sure that

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,10 +30,10 @@ import com.sun.xml.ws.api.SOAPVersion;
 
 import com.sun.xml.ws.util.ServiceFinder;
 
-import javax.jws.WebService;
-import javax.xml.ws.BindingType;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.BindingType;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 	static
   {
     TRANSLATION_MAP.put(SOAPConstants.URI_SOAP_TRANSPORT_HTTP,
-    		javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING);
+    		jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING);
   }
 	// save the generated impl files' info
 	private final List<String> implFiles = new ArrayList<String>();
@@ -381,8 +381,8 @@ public final class JwsImplGenerator extends GeneratorBase {
 	private String resolveBindingValue(TWSDLExtension wsdlext) {
 		if (wsdlext.getClass().equals(SOAPBinding.class)) {
 			SOAPBinding sb = (SOAPBinding) wsdlext;
-			if(javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING.equals(sb.getTransport()))
-				return javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING;
+			if(jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING.equals(sb.getTransport()))
+				return jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING;
                         else {
                             for(GeneratorExtension f : ServiceFinder.find(GeneratorExtension.class) ) {
                                 String bindingValue = f.getBindingValue(sb.getTransport(), SOAPVersion.SOAP_11);
@@ -390,13 +390,13 @@ public final class JwsImplGenerator extends GeneratorBase {
                                     return bindingValue;
                                 }
                             }
-                                return javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING;
+                                return jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING;
                         }
 		}
 		if (wsdlext.getClass().equals(SOAP12Binding.class)) {
 			SOAP12Binding sb = (SOAP12Binding) wsdlext;
-			if(javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_MTOM_BINDING.equals(sb.getTransport()))
-				return javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_MTOM_BINDING;
+			if(jakarta.xml.ws.soap.SOAPBinding.SOAP12HTTP_MTOM_BINDING.equals(sb.getTransport()))
+				return jakarta.xml.ws.soap.SOAPBinding.SOAP12HTTP_MTOM_BINDING;
 		    else {
 		        for(GeneratorExtension f : ServiceFinder.find(GeneratorExtension.class) ) {
 		            String bindingValue = f.getBindingValue(sb.getTransport(), SOAPVersion.SOAP_12);
@@ -404,7 +404,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 		                return bindingValue;
 		            }
 		        }
-		            return javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING;
+		            return jakarta.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING;
 		    }
 		}
 		return null;

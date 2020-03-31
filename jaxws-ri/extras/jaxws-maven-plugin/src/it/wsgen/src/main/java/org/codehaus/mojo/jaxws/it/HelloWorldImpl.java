@@ -18,8 +18,8 @@
 
 package org.codehaus.mojo.jaxws.it;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebService;
 
 /**
  * A web service implementation class.

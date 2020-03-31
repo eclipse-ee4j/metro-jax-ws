@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,9 +26,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 import javax.xml.namespace.QName;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceFeature;
 
 import org.eclipse.persistence.sdo.helper.SDOHelperContext;
 import org.eclipse.persistence.sdo.helper.SDOXSDHelper;
@@ -274,7 +274,7 @@ abstract public class SDODatabindingTestBase extends TestCase {
             public <A extends Annotation> A getAnnotation(final Class<A> annType, final Class<?> cls) {
                 if (WebService.class.equals(annType)) {
                     final WebService ws = cls.getAnnotation(WebService.class);
-                    return (A)new javax.jws.WebService() {
+                    return (A)new jakarta.jws.WebService() {
                         public Class<? extends Annotation> annotationType() {
                             return WebService.class;
                         }

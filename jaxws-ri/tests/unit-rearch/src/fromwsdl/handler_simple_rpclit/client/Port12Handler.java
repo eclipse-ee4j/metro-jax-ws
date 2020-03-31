@@ -15,10 +15,10 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.handler.*;
-import javax.xml.ws.handler.soap.*;
-import javax.xml.ws.ProtocolException;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.ws.handler.*;
+import jakarta.xml.ws.handler.soap.*;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.soap.SOAPMessage;
     
 /**
  * This handler will be set on the soap 12 binding in the

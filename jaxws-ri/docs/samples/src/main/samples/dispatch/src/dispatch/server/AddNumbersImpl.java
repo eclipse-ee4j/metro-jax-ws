@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 package dispatch.server;
 
-@javax.jws.WebService (endpointInterface="dispatch.server.AddNumbersPortType")
+@jakarta.jws.WebService (endpointInterface="dispatch.server.AddNumbersPortType")
 public class AddNumbersImpl implements AddNumbersPortType {
     public int addNumbers (int number1, int number2) {
         return number1 + number2;

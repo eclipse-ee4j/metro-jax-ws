@@ -102,11 +102,11 @@
 
                     <tbody>
                         <row>
-                            <entry><para><literal>javax.jws.WebService(name="AddNumbers", portName="AddNumbersPort")</literal></para></entry>
+                            <entry><para><literal>jakarta.jws.WebService(name="AddNumbers", portName="AddNumbersPort")</literal></para></entry>
                             <entry><para><literal><![CDATA[<web-service name="AddNumbers" port-name="AddNumbersPort" />]]></literal></para></entry>
                         </row>
                         <row>
-                            <entry><para><literal>javax.xml.ws.WebServiceProvider(
+                            <entry><para><literal>jakarta.xml.ws.WebServiceProvider(
                                 targetNamespace="urn:test",
                                 serviceName="Endpoint",
                                 portName="EndpointPort")
@@ -117,7 +117,7 @@
                             port-name="EndpointPort" />]]></literal></para></entry>
                         </row>
                         <row>
-                            <entry><para><literal>javax.xml.ws.ServiceMode(Service.Mode.MESSAGE)</literal></para> </entry>
+                            <entry><para><literal>jakarta.xml.ws.ServiceMode(Service.Mode.MESSAGE)</literal></para> </entry>
                             <entry><para><literal><![CDATA[<service-mode value="MESSAGE" />]]></literal></para></entry>
                         </row>
                     </tbody>

@@ -17,11 +17,11 @@ import testutil.ClientServerTestUtil;
 import testutil.XMLTestCase;
 
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.ws.*;
-import javax.xml.ws.soap.AddressingFeature;
-import javax.xml.ws.soap.SOAPFaultException;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.soap.AddressingFeature;
+import jakarta.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 
 
 /**

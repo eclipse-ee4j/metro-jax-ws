@@ -201,7 +201,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
 
     /**
      * Binding W3C EndpointReferenceType to Java. By default WsImport follows spec and does not bind
-     * EndpointReferenceType to Java and uses the spec provided {@link javax.xml.ws.wsaddressing.W3CEndpointReference}
+     * EndpointReferenceType to Java and uses the spec provided {@link jakarta.xml.ws.wsaddressing.W3CEndpointReference}
      */
     @Parameter(defaultValue = "false")
     private boolean xnoAddressingDataBinding;

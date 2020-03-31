@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,16 +36,16 @@ import com.sun.xml.ws.spi.db.WrapperComposite;
 import static com.sun.xml.ws.binding.WebServiceFeatureList.getSoapVersion;   
 import static com.sun.xml.ws.model.Utils.REFLECTION_NAVIGATOR;
 
-import javax.jws.*;
-import javax.jws.WebParam.Mode;
-import javax.jws.soap.SOAPBinding;
-import javax.jws.soap.SOAPBinding.Style;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import jakarta.jws.*;
+import jakarta.jws.WebParam.Mode;
+import jakarta.jws.soap.SOAPBinding;
+import jakarta.jws.soap.SOAPBinding.Style;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.namespace.QName;
-import javax.xml.ws.*;
-import javax.xml.ws.soap.MTOM;
-import javax.xml.ws.soap.MTOMFeature;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.soap.MTOM;
+import jakarta.xml.ws.soap.MTOMFeature;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -60,7 +60,7 @@ import java.util.TreeMap;
 import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
-import static javax.jws.soap.SOAPBinding.ParameterStyle.WRAPPED;
+import static jakarta.jws.soap.SOAPBinding.ParameterStyle.WRAPPED;
 
 /**
  * Creates a runtime model of a SEI (portClass).
@@ -470,10 +470,10 @@ public class RuntimeModeler {
      * Section 3.3 of spec
      * Otherwise, the class implicitly defines a service endpoint interface (SEI) which
      * comprises all of the public methods that satisfy one of the following conditions:
-     *  1. They are annotated with the javax.jws.WebMethod annotation with the exclude element set to
+     *  1. They are annotated with the jakarta.jws.WebMethod annotation with the exclude element set to
      *     false or missing (since false is the default for this annotation element).
-     *  2. They are not annotated with the javax.jws.WebMethod annotation but their declaring class has a
-     *     javax.jws.WebService annotation.
+     *  2. They are not annotated with the jakarta.jws.WebMethod annotation but their declaring class has a
+     *     jakarta.jws.WebService annotation.
      *
      * also the method should non-static or non-final
      */
@@ -518,8 +518,8 @@ public class RuntimeModeler {
     }
 
     /**
-     * creates a runtime model <code>SOAPBinding</code> from a <code>javax.jws.soap.SOAPBinding</code> object
-     * @param soapBinding the <code>javax.jws.soap.SOAPBinding</code> to model
+     * creates a runtime model <code>SOAPBinding</code> from a <code>jakarta.jws.soap.SOAPBinding</code> object
+     * @param soapBinding the <code>jakarta.jws.soap.SOAPBinding</code> to model
      * @return returns the runtime model SOAPBinding corresponding to <code>soapBinding</code>
      */
     protected SOAPBindingImpl createBinding(SOAPBinding soapBinding) {
@@ -1090,8 +1090,8 @@ public class RuntimeModeler {
             }
             Mode paramMode = isHolder ? Mode.INOUT : Mode.IN;
             for (Annotation annotation : pannotations[pos]) {
-                if (annotation.annotationType() == javax.jws.WebParam.class) {
-                    javax.jws.WebParam webParam = (javax.jws.WebParam) annotation;
+                if (annotation.annotationType() == jakarta.jws.WebParam.class) {
+                    jakarta.jws.WebParam webParam = (jakarta.jws.WebParam) annotation;
                     paramName = webParam.name();
                     partName = webParam.partName();
                     isHeader = webParam.header();
@@ -1196,7 +1196,7 @@ public class RuntimeModeler {
                 continue;
             if (RUNTIME_EXCEPTION_CLASS.isAssignableFrom(exception) || isRemoteException(exception))
                 continue;
-            if (getAnnotation(exception, javax.xml.bind.annotation.XmlTransient.class) != null)
+            if (getAnnotation(exception, jakarta.xml.bind.annotation.XmlTransient.class) != null)
                 continue;            
             Class exceptionBean;
             Annotation[] anns;
@@ -1339,8 +1339,8 @@ public class RuntimeModeler {
 
             Mode paramMode = isHolder ? Mode.INOUT : Mode.IN;
             for (Annotation annotation : pannotations[pos]) {
-                if (annotation.annotationType() == javax.jws.WebParam.class) {
-                    javax.jws.WebParam webParam = (javax.jws.WebParam) annotation;
+                if (annotation.annotationType() == jakarta.jws.WebParam.class) {
+                    jakarta.jws.WebParam webParam = (jakarta.jws.WebParam) annotation;
                     paramMode = webParam.mode();
                     if (isHolder && paramMode == Mode.IN)
                         paramMode = Mode.INOUT;

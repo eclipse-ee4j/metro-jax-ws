@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,8 +16,8 @@ import com.sun.tools.ws.resources.WscompileMessages;
 import com.sun.tools.ws.wscompile.Options;
 import com.sun.xml.bind.util.Which;
 
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebServiceFeature;
 import javax.xml.namespace.QName;
 import java.io.OutputStream;
 import java.io.IOException;
@@ -175,8 +175,8 @@ public final class Invoker {
         List<String> mask = new ArrayList<String>(Arrays.asList(maskedPackages));
         if(urls.length>1) {
             // we need to load 2.1 API from side. so add them to the mask
-            mask.add("javax.xml.bind.");
-            mask.add("javax.xml.ws.");
+            mask.add("jakarta.xml.bind.");
+            mask.add("jakarta.xml.ws.");
         }
 
         // first create a protected area so that we load JAXB/WS 2.1 API

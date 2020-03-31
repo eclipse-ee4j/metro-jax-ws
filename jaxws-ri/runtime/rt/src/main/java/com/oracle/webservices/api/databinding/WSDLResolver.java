@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,7 @@
 package com.oracle.webservices.api.databinding;
 
 import javax.xml.transform.Result;
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 
 /**
  * WSDLResolver is used by WSDLGenerator while generating WSDL and its associated

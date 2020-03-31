@@ -13,7 +13,7 @@ package fromjava.seinoimpl_inherited.server;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 /**
  * @author JAX-RPC Development Team
