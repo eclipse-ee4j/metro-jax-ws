@@ -19,8 +19,8 @@ import jakarta.xml.soap.SOAPMessage;
 import jakarta.xml.soap.SOAPBody;
 import jakarta.xml.soap.SOAPElement;
 import jakarta.xml.soap.SOAPException;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import java.util.Set;
 
 public class SOAPTestHandler implements SOAPHandler<SOAPMessageContext> {

@@ -10,7 +10,7 @@
 
 package bugs.jaxws1044.server;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.jws.WebService;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

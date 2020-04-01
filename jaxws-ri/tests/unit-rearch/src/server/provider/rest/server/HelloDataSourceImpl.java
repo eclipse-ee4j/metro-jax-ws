@@ -20,7 +20,7 @@ import jakarta.xml.ws.WebServiceProvider;
 import jakarta.xml.ws.Service;
 import jakarta.xml.ws.ServiceMode;
 import jakarta.xml.ws.handler.MessageContext;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.xml.ws.http.HTTPException;
 import java.util.Collections;
 import java.util.Map;

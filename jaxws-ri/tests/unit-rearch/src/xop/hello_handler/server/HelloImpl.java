@@ -15,7 +15,7 @@ import com.sun.xml.ws.developer.JAXWSProperties;
 
 import jakarta.xml.ws.WebServiceException;
 import jakarta.activation.DataHandler;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.jws.WebService;
 import jakarta.xml.ws.Holder;
 import jakarta.xml.ws.WebServiceContext;

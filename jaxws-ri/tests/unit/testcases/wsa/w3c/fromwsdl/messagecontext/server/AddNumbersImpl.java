@@ -11,7 +11,7 @@
 package wsa.w3c.fromwsdl.messagecontext.server;
 
 import jakarta.jws.WebService;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.WebServiceException;
 import jakarta.xml.ws.handler.MessageContext;

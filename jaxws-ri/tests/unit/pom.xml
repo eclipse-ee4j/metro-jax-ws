@@ -113,8 +113,8 @@
                                     <message>Property jaxws-api.version not imported or set!</message>
                                 </requireProperty>
                                 <requireProperty>
-                                    <property>javax.annotation-api.version</property>
-                                    <message>Property javax.annotation-api.version not imported or set!</message>
+                                    <property>jakarta.annotation-api.version</property>
+                                    <message>Property jakarta.annotation-api.version not imported or set!</message>
                                 </requireProperty>
                             </rules>
                             <fail>true</fail>

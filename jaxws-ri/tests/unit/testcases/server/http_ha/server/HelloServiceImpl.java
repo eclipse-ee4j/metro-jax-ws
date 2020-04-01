@@ -12,7 +12,7 @@ package server.http_ha.server;
 
 import java.util.*;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;

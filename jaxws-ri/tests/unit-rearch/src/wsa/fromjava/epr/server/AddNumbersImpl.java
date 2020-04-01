@@ -10,7 +10,7 @@
 
 package wsa.fromjava.epr.server;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.jws.WebService;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.wsaddressing.W3CEndpointReference;

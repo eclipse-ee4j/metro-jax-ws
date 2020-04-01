@@ -10,7 +10,7 @@
 
 package fromjava.encoding.clientsf.server;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.jws.*;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.WebServiceException;

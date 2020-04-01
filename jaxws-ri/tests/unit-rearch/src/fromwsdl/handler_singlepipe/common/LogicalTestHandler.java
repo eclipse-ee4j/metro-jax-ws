@@ -16,8 +16,8 @@ import jakarta.xml.ws.ProtocolException;
 import jakarta.xml.ws.handler.LogicalHandler;
 import jakarta.xml.ws.handler.LogicalMessageContext;
 import jakarta.xml.ws.handler.MessageContext;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 /*
  * This handler needs to be in the same package as the

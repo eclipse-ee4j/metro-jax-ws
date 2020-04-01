@@ -12,7 +12,7 @@ package fromjava.encoding.serversf.server;
 
 import com.sun.xml.ws.developer.Serialization;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.jws.*;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.WebServiceException;

@@ -17,7 +17,7 @@ import com.sun.xml.ws.api.pipe.helper.AbstractFilterTubeImpl;
 import com.sun.xml.ws.api.pipe.helper.AbstractTubeImpl;
 import com.sun.xml.ws.api.server.Adapter;
 
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 import jakarta.xml.ws.Dispatch;
 import jakarta.xml.ws.Provider;
 import jakarta.xml.ws.WebServiceException;

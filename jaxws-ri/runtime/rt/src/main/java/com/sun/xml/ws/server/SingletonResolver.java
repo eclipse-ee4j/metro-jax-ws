@@ -17,8 +17,8 @@ import com.sun.xml.ws.api.server.InstanceResolver;
 import com.sun.xml.ws.api.server.WSEndpoint;
 import com.sun.xml.ws.api.server.WSWebServiceContext;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 /**
  * {@link InstanceResolver} that always returns a single instance.

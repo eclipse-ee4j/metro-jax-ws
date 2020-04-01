@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.Map;
 import java.util.List;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;

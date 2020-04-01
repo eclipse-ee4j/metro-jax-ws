@@ -17,7 +17,7 @@ import com.sun.xml.ws.api.pipe.Tube;
 import com.sun.xml.ws.api.server.AsyncProvider;
 import com.sun.xml.ws.api.server.AsyncProviderCallback;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 import jakarta.xml.ws.EndpointReference;

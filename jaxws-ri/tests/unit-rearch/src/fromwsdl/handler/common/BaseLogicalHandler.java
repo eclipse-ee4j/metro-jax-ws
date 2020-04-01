@@ -13,8 +13,8 @@ package fromwsdl.handler.common;
 import java.io.StringWriter;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 import jakarta.xml.ws.LogicalMessage;
 import jakarta.xml.ws.ProtocolException;

@@ -23,7 +23,7 @@ import jakarta.xml.ws.Provider;
 import javax.xml.transform.Source;
 import jakarta.xml.ws.WebServiceProvider;
 import java.io.StringReader;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.handler.MessageContext;
 import jakarta.xml.ws.http.HTTPBinding;

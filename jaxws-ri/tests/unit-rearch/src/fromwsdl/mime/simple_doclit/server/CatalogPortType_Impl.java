@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Map;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 
 @WebService(endpointInterface = "fromwsdl.mime.simple_doclit.server.CatalogPortType")

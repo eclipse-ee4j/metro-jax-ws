@@ -13,8 +13,8 @@ package com.sun.xml.ws.transport.httpspi.servlet;
 import jakarta.xml.ws.spi.Invoker;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.WebServiceException;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 import com.sun.xml.ws.util.InjectionPlan;
 

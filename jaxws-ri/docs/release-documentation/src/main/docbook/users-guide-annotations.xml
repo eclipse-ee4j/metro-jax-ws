@@ -2216,7 +2216,7 @@ public class AddNumbersImpl implements Provider {
  * that is specified with <code>WebServiceRef</code>, 
  * an ERROR MUST be given.
  *
- * @see javax.annotation.Resource
+ * @see jakarta.annotation.Resource
  * @see WebServiceFeatureAnnotation
  * @since JAX-WS 2.0
  */
@@ -3525,7 +3525,7 @@ public @interface XmlSeeAlso {
         </link>.</para>
 
         <section xml:id="javax-xml-bind-annotation-xmlrootelement-outline1">
-            <title><literal>@javax.annotation.Resource</literal></title>
+            <title><literal>@jakarta.annotation.Resource</literal></title>
 
             <para>This annotation is used to mark a WebServiceContext resource
             that is needed by a web service. It is applied to a field or a
@@ -3534,7 +3534,7 @@ public @interface XmlSeeAlso {
             when it is initialized.</para>
 
             <table frame="all">
-                <title><literal>@javax.annotation.Resource</literal> -
+                <title><literal>@jakarta.annotation.Resource</literal> -
                 Description of Properties</title>
 
                 <tgroup cols="3" colsep="1" rowsep="1">
@@ -3596,7 +3596,7 @@ public @interface Resource {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.annotation.Resource</literal> -
+                    <title><literal>@jakarta.annotation.Resource</literal> -
                     Example</title>
 
                     <programlisting language="java"><![CDATA[@WebService
@@ -3613,7 +3613,7 @@ public class HelloImpl {
         </section>
 
         <section xml:id="javax-annotation-postconstruct">
-            <title><literal>@javax.annotation.PostConstruct</literal></title>
+            <title><literal>@jakarta.annotation.PostConstruct</literal></title>
 
             <para>This annotation is used on a method that needs to be
             executed after dependency injection is done to perform any
@@ -3650,8 +3650,8 @@ public class HelloImpl {
  * and
  * even   recover from them.
  *
- * @see javax.annotation.PreDestroy
- * @see javax.annotation.Resource
+ * @see jakarta.annotation.PreDestroy
+ * @see jakarta.annotation.Resource
  * @since Common Annotations 1.0
  */
 @Documented
@@ -3666,7 +3666,7 @@ public @interface PostConstruct {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.annotation.PostConstruct</literal>
+                    <title><literal>@jakarta.annotation.PostConstruct</literal>
                     - Example</title>
 
                     <para><programlisting language="java"><![CDATA[@WebService
@@ -3685,7 +3685,7 @@ public class HelloImpl {
         </section>
 
         <section xml:id="section-930833968571058">
-            <title><literal>@javax.annotation.PreDestroy</literal></title>
+            <title><literal>@jakarta.annotation.PreDestroy</literal></title>
 
             <para>The PreDestroy annotation is used on methods as a callback
             notification to signal that the instance is in the process of
@@ -3722,8 +3722,8 @@ public class HelloImpl {
  * the
  * case of EJBs where the EJB can handle exceptions.
  *
- * @see javax.annotation.PostConstruct
- * @see javax.annotation.Resource
+ * @see jakarta.annotation.PostConstruct
+ * @see jakarta.annotation.Resource
  * @since Common Annotations 1.0
  */
 
@@ -3739,7 +3739,7 @@ public @interface PreDestroy {
                 <title>Examples</title>
 
                 <example>
-                    <title><literal>@javax.annotation.PreDestroy</literal> -
+                    <title><literal>@jakarta.annotation.PreDestroy</literal> -
                     Example</title>
 
                     <programlisting language="java"><![CDATA[@WebService

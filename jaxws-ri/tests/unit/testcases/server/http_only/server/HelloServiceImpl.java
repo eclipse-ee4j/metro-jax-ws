@@ -13,7 +13,7 @@ package server.http_only.server;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;

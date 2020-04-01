@@ -414,7 +414,7 @@
                                                 com.sun.xml.ws.policy.spi;version=${policy.version},
                                                 com.sun.xml.ws.policy.subject;version=${policy.version},
                                                 jakarta.activation,
-                                                javax.annotation,
+                                                jakarta.annotation,
                                                 javax.imageio,
                                                 javax.imageio.stream,
                                                 jakarta.jws,

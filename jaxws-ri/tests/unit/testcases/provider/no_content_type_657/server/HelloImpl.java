@@ -17,7 +17,7 @@
 package provider.no_content_type_657.server;
 
 import jakarta.activation.DataSource;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.xml.ws.*;
 import jakarta.xml.ws.http.HTTPBinding;
 import jakarta.xml.ws.handler.MessageContext;

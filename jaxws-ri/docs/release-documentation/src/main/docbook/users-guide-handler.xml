@@ -80,8 +80,8 @@
         <literal>void</literal> and take no arguments:</para>
 
         <informalexample>
-            <programlisting language="java"><![CDATA[import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+            <programlisting language="java"><![CDATA[import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 public class MyLogicalHandler implements 
         LogicalHandler<LogicalMessageContext> {

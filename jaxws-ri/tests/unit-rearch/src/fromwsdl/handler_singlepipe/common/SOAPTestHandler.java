@@ -12,8 +12,8 @@ package fromwsdl.handler_singlepipe.common;
 
 import static fromwsdl.handler_singlepipe.common.TestConstants.*;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import javax.xml.namespace.QName;
 import jakarta.xml.ws.ProtocolException;
 import jakarta.xml.ws.handler.MessageContext;

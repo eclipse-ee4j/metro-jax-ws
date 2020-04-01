@@ -11,7 +11,7 @@
 package fromwsdl.mime.simple_doclit_content_id.server;
 
 import jakarta.activation.DataHandler;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.jws.WebService;
 import javax.xml.transform.Source;
 import jakarta.xml.ws.Holder;

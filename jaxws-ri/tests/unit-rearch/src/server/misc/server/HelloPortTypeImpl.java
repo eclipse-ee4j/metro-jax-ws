@@ -14,9 +14,9 @@ import jakarta.xml.ws.Holder;
 import jakarta.xml.ws.WebServiceException;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.handler.MessageContext;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.annotation.Resource;
 
 @jakarta.jws.WebService(endpointInterface="server.misc.server.HelloPortType")
 public class HelloPortTypeImpl implements HelloPortType {

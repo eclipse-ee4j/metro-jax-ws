@@ -17,7 +17,7 @@ import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.WebServiceException;
 import jakarta.xml.ws.handler.MessageContext;
 import javax.xml.namespace.QName;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * This tests the WSDL_OPERATION property in MessageContext

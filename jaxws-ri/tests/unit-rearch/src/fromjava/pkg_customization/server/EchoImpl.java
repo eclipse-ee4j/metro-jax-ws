@@ -12,7 +12,7 @@ package fromjava.pkg_customization.server;
 import fromjava.pkg_customization.server.types.*;
 import jakarta.jws.*;
 import jakarta.xml.ws.*;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 @WebService(name ="EchoIF", portName="EchoImplPort",targetNamespace = "http://example.org/")
 public class EchoImpl  {

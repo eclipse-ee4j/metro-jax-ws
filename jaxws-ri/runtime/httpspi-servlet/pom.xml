@@ -71,7 +71,7 @@
                                         </Export-Package>
                                         <Import-Package>
                                             com.sun.xml.ws.util;version=${jaxws.osgiVersion},
-                                            javax.annotation,
+                                            jakarta.annotation,
                                             javax.servlet;version=${servlet-api.version},
                                             javax.servlet.http;version=${servlet-api.version},
                                             javax.xml.namespace,

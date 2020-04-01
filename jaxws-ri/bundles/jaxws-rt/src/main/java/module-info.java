@@ -29,7 +29,7 @@ module com.sun.xml.ws {
     requires jdk.httpserver;
 
     requires transitive jakarta.activation;
-    requires java.annotation;
+    requires jakarta.annotation;
     requires transitive jakarta.jws;
     requires transitive java.xml;
     requires transitive jakarta.xml.bind;

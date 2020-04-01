@@ -14,7 +14,7 @@ import jakarta.jws.*;
 import jakarta.xml.ws.*;
 import jakarta.xml.ws.handler.MessageContext;
 import javax.xml.namespace.QName;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 @WebService(endpointInterface="fromjava.seinoimpl.server.EchoIF")
 public class EchoImpl  {

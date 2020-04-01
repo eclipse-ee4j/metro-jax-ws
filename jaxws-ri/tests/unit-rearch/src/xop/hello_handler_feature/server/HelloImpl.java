@@ -14,7 +14,7 @@ package xop.hello_handler_feature.server;
 import com.sun.xml.ws.developer.JAXWSProperties;
 
 import jakarta.activation.DataHandler;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.jws.WebService;
 import jakarta.xml.ws.handler.MessageContext;
 import java.awt.*;

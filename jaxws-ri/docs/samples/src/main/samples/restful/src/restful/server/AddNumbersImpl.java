@@ -10,7 +10,7 @@
 
 package restful.server;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import jakarta.xml.ws.BindingType;

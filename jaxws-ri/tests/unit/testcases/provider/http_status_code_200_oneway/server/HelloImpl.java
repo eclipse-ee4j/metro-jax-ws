@@ -11,7 +11,7 @@
 package provider.http_status_code_200_oneway.server;
 
 import jakarta.activation.DataSource;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.xml.ws.*;
 import jakarta.xml.ws.http.HTTPBinding;
 import jakarta.xml.ws.handler.MessageContext;

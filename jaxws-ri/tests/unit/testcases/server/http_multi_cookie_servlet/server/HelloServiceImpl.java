@@ -10,7 +10,7 @@
 
 package server.http_multi_cookie_servlet.server;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.jws.WebService;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;

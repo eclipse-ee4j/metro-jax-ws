@@ -18,7 +18,7 @@ import java.rmi.RemoteException;
                                                                                 
 import jakarta.xml.ws.Holder;
 import jakarta.xml.ws.WebServiceContext;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.xml.ws.WebServiceException;
 
 /**

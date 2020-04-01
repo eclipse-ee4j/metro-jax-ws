@@ -15,7 +15,7 @@ import org.w3c.dom.Element;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.WebServiceException;
 import jakarta.xml.ws.handler.MessageContext;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;

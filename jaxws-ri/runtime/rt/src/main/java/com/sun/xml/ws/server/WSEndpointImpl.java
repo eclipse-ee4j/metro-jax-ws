@@ -42,7 +42,7 @@ import com.sun.xml.ws.wsdl.OperationDispatcher;
 import org.glassfish.gmbal.ManagedObjectManager;
 import org.w3c.dom.Element;
 
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import jakarta.xml.ws.EndpointReference;

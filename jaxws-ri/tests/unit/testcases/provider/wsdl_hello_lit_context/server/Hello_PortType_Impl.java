@@ -10,9 +10,9 @@
 
 package provider.wsdl_hello_lit_context.server;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.annotation.Resource;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.WebServiceProvider;
 import jakarta.xml.ws.WebServiceException;

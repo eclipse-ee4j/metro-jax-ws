@@ -13,7 +13,7 @@ package com.sun.xml.ws.api.server;
 import com.sun.istack.NotNull;
 import com.sun.xml.ws.server.DefaultResourceInjector;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.WebServiceException;
 

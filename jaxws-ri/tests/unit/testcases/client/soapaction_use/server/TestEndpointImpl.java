@@ -18,7 +18,7 @@ import jakarta.xml.ws.BindingProvider;
 import jakarta.xml.ws.BindingType;
 import jakarta.xml.ws.soap.Addressing;
 import jakarta.xml.ws.handler.MessageContext;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Map;
 
 

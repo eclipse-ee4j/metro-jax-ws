@@ -36,7 +36,7 @@ public class EndorsedFilter implements DependencyFilter {
             "jakarta.annotation-api", "jakarta.activation-api",
             "jaxws-api", "jaxb-api",
             "saaj-api", "jsr181-api",
-            "javax.annotation-api", "jakarta.activation-api",
+            "jakarta.annotation-api", "jakarta.activation-api",
             "webservices-api");
 
     @Override

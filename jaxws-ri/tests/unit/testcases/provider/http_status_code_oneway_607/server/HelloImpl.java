@@ -36,7 +36,7 @@ import jakarta.xml.ws.ServiceMode;
 import jakarta.xml.ws.WebServiceProvider;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.handler.MessageContext;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.io.StringReader;
 
 import org.w3c.dom.Node;

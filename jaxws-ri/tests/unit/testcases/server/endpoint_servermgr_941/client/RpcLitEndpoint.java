@@ -10,7 +10,7 @@
 
 package server.endpoint_servermgr_941.client;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import jakarta.xml.ws.WebServiceContext;

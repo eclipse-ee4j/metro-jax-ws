@@ -10,7 +10,7 @@
 
 package provider.xmlbind_649.server;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
 import jakarta.xml.ws.*;

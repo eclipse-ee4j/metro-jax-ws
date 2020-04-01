@@ -10,7 +10,7 @@
 
 package provider.wsdl_hello_lit_context1.server;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import jakarta.xml.soap.MessageFactory;
 import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.Source;

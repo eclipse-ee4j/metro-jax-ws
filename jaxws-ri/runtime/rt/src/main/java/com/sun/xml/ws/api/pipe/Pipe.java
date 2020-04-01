@@ -15,7 +15,7 @@ import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.api.pipe.helper.AbstractFilterPipeImpl;
 import com.sun.xml.ws.api.pipe.helper.AbstractPipeImpl;
 
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 import jakarta.xml.ws.Dispatch;
 import jakarta.xml.ws.Provider;
 import jakarta.xml.ws.WebServiceException;
