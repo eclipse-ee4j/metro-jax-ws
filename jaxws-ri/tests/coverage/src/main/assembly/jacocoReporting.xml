@@ -78,7 +78,7 @@
             <scope>compile</scope>
             <useTransitiveDependencies>false</useTransitiveDependencies>
             <includes>
-                <include>*:exec:jacoco</include>
+                <include>*:exec</include>
             </includes>
         </dependencySet>
     </dependencySets>

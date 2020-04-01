@@ -238,7 +238,7 @@
                     </systemProperties>
                     <!-- SAAJMessageWrapperTest/com.sun.xml.ws.model.Injector -->
                     <argLine>
-                        --add-opens java.base/java.lang=com.sun.xml.ws.rt
+                        @{argLine} --add-opens java.base/java.lang=com.sun.xml.ws.rt
                         --add-opens com.sun.xml.ws.rt/com.sun.xml.ws.client.test=com.sun.xml.bind
                     </argLine>
                 </configuration>

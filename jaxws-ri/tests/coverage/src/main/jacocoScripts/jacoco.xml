@@ -51,7 +51,7 @@
         </echoproperties>
     </target>
 
-    <!--target name="create-merged-sers-basic" unless="jacoco.extra.dir"
+    <!--target name="create-merged-exec-basic" unless="jacoco.extra.dir"
           depends="init">
 
         <jacoco:merge destfile="${merged.exec}">
@@ -61,7 +61,7 @@
         </jacoco:merge>
     </target>
 
-    <target name="create-merged-sers-extra" if="jacoco.extra.dir"
+    <target name="create-merged-exec-extra" if="jacoco.extra.dir"
           depends="init">
 
         <jacoco:merge destfile="${merged.exec}">
@@ -76,7 +76,7 @@
 
     <target name="create-report"
           description="Generate an html coverage report using the contents of the jacoco.ser file.  Performs clean first."
-          depends="init, clean"> <!--create-merged-sers-basic, create-merged-sers-extra-->
+          depends="init, clean"> <!--create-merged-exec-basic, create-merged-exec-extra-->
 
         <jacoco:report>
             <!--executiondata>
@@ -104,9 +104,9 @@
     </target>
 
     <target name="clean-tomcat-data"
-          description="Delete the jacoco.ser file created by tomcat"
+          description="Delete the jacoco.exec file created by tomcat"
           depends="init">
-        <delete file="${jacoco.ser.file}"/>
+        <delete file="${jacoco.exec.file}"/>
     </target>
 
     <target name="clean"
@@ -120,7 +120,7 @@
     </target>
 
     <target name="clean-merges"
-          description="Delete the merged jacoco.ser file"
+          description="Delete the merged jacoco.exec file"
           depends="init">
         <delete dir="${merge.dir}"/>
     </target>

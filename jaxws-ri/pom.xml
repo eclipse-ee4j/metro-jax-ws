@@ -620,63 +620,17 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>org.jacoco.agent</artifactId>
                     <version>${jacoco.version}</version>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>asm</groupId>
-                            <artifactId>asm</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>asm</groupId>
-                            <artifactId>asm-tree</artifactId>
-                        </exclusion>
-                    </exclusions>
                 </dependency>
                 <dependency>
                     <groupId>org.jacoco</groupId>
                     <artifactId>org.jacoco.agent</artifactId>
                     <classifier>runtime</classifier>
                     <version>${jacoco.version}</version>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>asm</groupId>
-                            <artifactId>asm</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>asm</groupId>
-                            <artifactId>asm-tree</artifactId>
-                        </exclusion>
-                    </exclusions>
                 </dependency>
                 <dependency>
                     <groupId>org.jacoco</groupId>
                     <artifactId>org.jacoco.ant</artifactId>
                     <version>${jacoco.version}</version>
-                </dependency>
-                <!-- needed for jacoco-instrument ant task to work (in *-rt, *-tools)
-                and to not be included in assemblies/shaded jars -->
-                <dependency>
-                    <groupId>oro</groupId>
-                    <artifactId>oro</artifactId>
-                    <version>2.0.8</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>asm</groupId>
-                    <artifactId>asm</artifactId>
-                    <version>3.0</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>asm</groupId>
-                    <artifactId>asm-tree</artifactId>
-                    <version>3.0</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                    <version>1.2.9</version>
-                    <scope>test</scope>
                 </dependency>
             </dependencies>
             <build>
