@@ -45,7 +45,7 @@
         <policy.version>2.7.9</policy.version>
         <resolver.version>20050927</resolver.version>
         <saaj-api.version>2.0.0-RC3</saaj-api.version>
-        <saaj-impl.version>1.5.2-b01</saaj-impl.version>
+        <saaj-impl.version>2.0.0-M1</saaj-impl.version>
         <streambuffer.version>2.0.0-M2</streambuffer.version>
         <woodstox-core.version>5.1.0</woodstox-core.version>
         <stax2-api.version>4.1</stax2-api.version>
