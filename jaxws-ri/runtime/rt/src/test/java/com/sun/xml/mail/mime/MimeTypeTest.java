@@ -12,14 +12,14 @@ package com.sun.xml.mail.mime;
 
 import java.io.IOException;
 import java.util.Properties;
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.activation.CommandMap;
 import jakarta.activation.MailcapCommandMap;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.InternetHeaders;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMultipart;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.internet.InternetHeaders;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMultipart;
 import junit.framework.TestCase;
 
 /**

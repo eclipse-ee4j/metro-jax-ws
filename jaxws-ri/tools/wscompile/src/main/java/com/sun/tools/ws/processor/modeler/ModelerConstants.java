@@ -59,7 +59,7 @@ public enum ModelerConstants {
     OBJECT_CLASSNAME("java.lang.Object"),
     SOAPELEMENT_CLASSNAME("jakarta.xml.soap.SOAPElement"),
     IMAGE_CLASSNAME("java.awt.Image"),
-    MIME_MULTIPART_CLASSNAME("javax.mail.internet.MimeMultipart"),
+    MIME_MULTIPART_CLASSNAME("jakarta.mail.internet.MimeMultipart"),
     SOURCE_CLASSNAME("javax.xml.transform.Source"),
     DATA_HANDLER_CLASSNAME("jakarta.activation.DataHandler"),
     URI_CLASSNAME("java.net.URI"),

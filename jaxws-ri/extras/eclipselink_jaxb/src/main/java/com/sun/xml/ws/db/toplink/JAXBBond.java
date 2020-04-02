@@ -17,7 +17,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 
 import jakarta.activation.DataHandler;
-import javax.mail.internet.MimeMultipart;
+import jakarta.mail.internet.MimeMultipart;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.attachment.AttachmentMarshaller;

@@ -37,20 +37,20 @@
         <gmbal-api.version>4.0.1</gmbal-api.version>
         <pfl.version>4.1.0</pfl.version>
         <ha-api.version>3.1.12</ha-api.version>
-        <jaxb.version>3.0.0-SNAPSHOT</jaxb.version>
-        <jaxws-api.version>3.0.0-RC1</jaxws-api.version>
+        <jaxb.version>3.0.0-M1</jaxb.version>
+        <jaxws-api.version>3.0.0-RC2</jaxws-api.version>
         <jakarta.jws-api.version>3.0.0-RC2</jakarta.jws-api.version>
         <management-api.version>3.2.2</management-api.version>
         <mimepull.version>1.9.13</mimepull.version>
         <policy.version>2.7.9</policy.version>
         <resolver.version>20050927</resolver.version>
-        <saaj-api.version>2.0.0-RC2</saaj-api.version>
+        <saaj-api.version>2.0.0-RC3</saaj-api.version>
         <saaj-impl.version>1.5.2-b01</saaj-impl.version>
         <streambuffer.version>2.0.0-M2</streambuffer.version>
         <woodstox-core.version>5.1.0</woodstox-core.version>
         <stax2-api.version>4.1</stax2-api.version>
         <jakarta.annotation-api.version>2.0.0-RC1</jakarta.annotation-api.version>
-        <jakarta.activation.version>2.0.0-RC2</jakarta.activation.version>
+        <jakarta.activation.version>2.0.0-RC3</jakarta.activation.version>
     </properties>
 
     <dependencyManagement>
