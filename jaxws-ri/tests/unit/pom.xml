@@ -240,7 +240,7 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>jaxws-ri</artifactId>
                     <version>${project.version}</version>
-                    <classifier>${jaxwsri.dep.classifier}</classifier>
+                    <!--classifier>${jaxwsri.dep.classifier}</classifier-->
                     <type>zip</type>
                 </dependency>
                 <dependency>
