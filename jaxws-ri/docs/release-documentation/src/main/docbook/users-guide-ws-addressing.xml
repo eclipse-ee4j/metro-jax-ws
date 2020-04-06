@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,22 +25,22 @@
     <title>WS-Addressing</title>
 
     <section xml:id="ws-addressing-in">
-        <title>WS-Addressing in &jax-ws.product.name.short;</title>
+        <title>WS-Addressing in &ws.impl.name;</title>
 
         <para><link xlink:href="http://www.w3.org/2002/ws/addr/">Web Services
         Addressing</link> provides transport-neutral mechanisms to address Web
-        services and messages. JAX-WS 2.2 specification requires support for
+        services and messages. &ws.spec.name; specification requires support for
         W3C <link xlink:href="http://www.w3.org/TR/ws-addr-core">Core</link>,
         <link xlink:href="http://www.w3.org/TR/ws-addr-soap">SOAP
         Binding</link> and <link
         xlink:href="http://www.w3.org/TR/2007/REC-ws-addr-metadata-20070904">Addressing
         1.0 - Metadata</link> specifications and defines standard API to
         enable/disable W3C WS-Addressing on the client and service endpoint.
-        In addition to that, &jax-ws.product.name.short; also supports <link
+        In addition to that, &ws.impl.name; also supports <link
         xlink:href="http://www.w3.org/Submission/ws-addressing/">Member
         Submission</link> version of WS-Addressing. The member submission
         version is supported in an implementation specific way.  For
-        compatility with JAX-WS 2.1 behavior, &jax-ws.product.name; also
+        compatility with &ws.spec.name; 2.1 behavior, &ws.impl.name.full; also
         supports wsdls conforming to <link
         xlink:href="http://www.w3.org/TR/ws-addr-wsdl">WSDL Binding</link>
         specification. The subsequent sections describe how the two
@@ -231,7 +231,7 @@ SOAPAction: http://example.com/fabrikam/SubmitPO
             parameters from the EPR are available as first-class SOAP headers
             allowing the endpoint to restore the state.</para>
 
-            <para>&jax-ws.product.name; enables <link xlink:href="#users-guide-stateful-webservice">stateful
+            <para>&ws.impl.name.full; enables <link xlink:href="#users-guide-stateful-webservice">stateful
             Web services</link> to be annotated with
             <literal>com.sun.xml.ws.developer.Stateful</literal>
             annotation.</para>
@@ -515,7 +515,7 @@ SOAPAction: http://example.com/fabrikam/SubmitPO
         for Web service stack implementers. This collective set of
         specifications is referred as "W3C WS-Addressing".</para>
 
-        <para>&jax-ws.product.name.short; supports both versions
+        <para>&ws.impl.name; supports both versions
         out-of-the-box. Check below on how to enable either of the versions on a service
         endpoint starting from Java or starting from WSDL.</para>
     </section>
@@ -536,7 +536,7 @@ SOAPAction: http://example.com/fabrikam/SubmitPO
         specification for better interoperability. Also,  There is no standard
         mechanism to describe Member Submission version support in the WSDL
         and some implementaions have used WS-Policy to indicate the support of
-        member submission version and &jax-ws.product.name.short; understands
+        member submission version and &ws.impl.name; understands
         such assertion.</para>
 
         <section xml:id="ws-addressing-1-0-metadata">
@@ -621,7 +621,7 @@ SOAPAction: http://example.com/fabrikam/SubmitPO
             element, <link
             xlink:href="http://www.w3.org/TR/2006/CR-ws-addr-wsdl-20060529/#uaee">wsaw:UsingAddressing</link>,
             that can be used to indicate that an endpoint conforms to the
-            WS-Addressing specification. &jax-ws.product.name.short; generates
+            WS-Addressing specification. &ws.impl.name; generates
             this extension element in the WSDL if W3C WS-Addressing is enabled
             on the server-side. On the client side, the RI recognizes this
             extension element and enforce the rules defined by the W3C
@@ -815,10 +815,10 @@ class AddNumbersImpl {
         <title>On the client side</title>
 
         <para>This section describes how WS-Addressing can be enabled/disabled
-        on the client-side. &jax-ws.product.name.short; follows the standard
+        on the client-side. &ws.impl.name; follows the standard
         extensibility elements in WSDL to enable WS-Addressing support on the
         client side. In addition, it also allows the client to instruct
-        &jax-ws.product.name.short; to disable WS-Addressing processing. The
+        &ws.impl.name; to disable WS-Addressing processing. The
         assumption is that in this case the client has it's own WS-Addressing
         processing module. For example, a Dispatch-based client in MESSAGE
         mode may be used to perform non-anonymous ReplyTo/FaultTo
@@ -831,7 +831,7 @@ class AddNumbersImpl {
             linkend="describing-ws-addressing-in-wsdl"
             xrefstyle="select:title" />, If the WSDL contains metadata about
             the support or requirement of WS-Addressing,
-            &jax-ws.product.name.short; runtime enables Addressing feature on
+            &ws.impl.name; runtime enables Addressing feature on
             the client-side.</para>
 
             <itemizedlist>
@@ -862,7 +862,7 @@ class AddNumbersImpl {
             Submission WS-Addressing can be explicitly enabled using
             <literal>createDispatch</literal> and <literal>getPort</literal>
             methods on <literal>javax.xml.ws.Service</literal>. The following
-            new APIs are added in JAX-WS 2.1:</para>
+            new APIs are added in &ws.spec.name; 2.1:</para>
 
             <itemizedlist>
                 <listitem>
@@ -891,16 +891,16 @@ class AddNumbersImpl {
             </itemizedlist>
 
             <para>Each method is a variation of an already existing method in
-            JAX-WS 2.0. The only addition is an extra var-arg
+            &ws.spec.name;. The only addition is an extra var-arg
             <literal>javax.xml.ws.WebServiceFeature</literal> parameter. A
             <literal>WebServiceFeature</literal> is a new class introduced in
-            JAX-WS 2.1 specification used to represent a feature that can be
+            &ws.spec.name; 2.1 specification used to represent a feature that can be
             enabled or disabled for a Web service.</para>
 
-            <para>The JAX-WS 2.1 specification defines
+            <para>The &ws.spec.name; 2.1 specification defines
             <literal>javax.xml.ws.soap.AddressingFeature</literal> to enable
             W3C WS-Addressing on the client side. In addition, the
-            &jax-ws.product.name.short; also defines
+            &ws.impl.name; also defines
             <literal>com.sun.xml.ws.developer.MemberSubmissionAddressingFeature</literal>
             to enable Member Submission WS-Addressing on the client
             side.</para>
@@ -956,14 +956,14 @@ class AddNumbersImpl {
         <section xml:id="explicit-disabling">
             <title>Explicit disabling</title>
 
-            <para>A client may like to instruct &jax-ws.product.name.short; to
+            <para>A client may like to instruct &ws.impl.name; to
             disable WS-Addressing processing. The assumption is that in this
             case the client has it's own WS-Addressing processing module. For
             example, a Dispatch-based client in MESSAGE mode may be used to
             perform non-anonymous ReplyTo/FaultTo processing.</para>
 
             <para>WS-Addressing processing can be explicitly disabled using
-            one of new methods added to JAX-WS 2.1 specification as defined in
+            one of new methods added to &ws.spec.name; 2.1 specification as defined in
             Section 3.2. For example, W3C WS-Addressing processing can be
             disabled using the following code:</para>
 
@@ -981,12 +981,12 @@ class AddNumbersImpl {
         that if a receiver processes a message containing a
         <literal>wsa:Action</literal> header, then SOAP Binding is engaged,
         and the rules of the specification are enforced. In
-        &jax-ws.product.name.short;, if WS-Addressing is explicitly disabled
+        &ws.impl.name;, if WS-Addressing is explicitly disabled
         then the RI does not follow the rules of engagement. However if
         WS-Addressing is either implicitly or explicitly enabled then
-        &jax-ws.product.name.short; engages WS-Addressing based upon the
+        &ws.impl.name; engages WS-Addressing based upon the
         presence of <literal>wsa:Action</literal> header.
-        &jax-ws.product.name.short; follows same rule for Member Submission
+        &ws.impl.name; follows same rule for Member Submission
         version as well.</para>
 
         <para>In effect, if an endpoint advertises WS-Addressing is required
@@ -1029,7 +1029,7 @@ class AddNumbersImpl {
             WS-Addressing 1.0 - Metadata</link> and <link
             xlink:href="http://www.w3.org/Submission/ws-addressing/#_Toc77464325">Member
             Submission WS-Addressing</link> define mechanisms to associate
-            Action Message Addressing Property with an operation. JAX-WS 2.1
+            Action Message Addressing Property with an operation. &ws.spec.name;
             defines <literal>javax.xml.ws.Action</literal> and
             <literal>javax.xml.ws.FaultAction</literal> annotations to
             explicitly associate an Action with <literal>input</literal>,

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,7 @@
                 <para>Starting from Java sources: <orderedlist>
                         <listitem>
                             <para>Use <command>annotationProcessing</command> Ant task
-                            to generate the artifacts required by the JAX-WS
+                            to generate the artifacts required by the &ws.spec.name;
                             specification.</para>
                         </listitem>
 
@@ -118,8 +118,8 @@
         </orderedlist>
     </section>
 
-    <section xml:id="running-on-jdk6">
-        <title>Running tools on JDK6</title>
+    <section xml:id="running-on-jdk8">
+        <title>Running tools on Java SE 8</title>
 
         <itemizedlist>
             <listitem>
@@ -128,17 +128,17 @@
                 <filename>&jax-ws.home;/lib/jakarta.jws-api.jar</filename>
                 <filename>&jax-ws.home;/lib/jakarta.xml.ws-api.jar</filename>
                 <filename>&jax-ws.home;/lib/jakarta.xml.bind-api.jar</filename> to
-                <filename>$JDK6_HOME/jre/lib/endorsed</filename>
+                <filename>$JDK8_HOME/jre/lib/endorsed</filename>
                 directory</para>
             </listitem>
         </itemizedlist>
 
         <para>For details see <link
-        xlink:href="http://docs.oracle.com/javase/6/docs/technotes/guides/standards/">Endorsed
+        xlink:href="https://docs.oracle.com/javase/8/docs/technotes/guides/standards/">Endorsed
         Directory Mechanism</link>. Above,
         <filename>&jax-ws.home;</filename> points to the root directory of
-        the extracted &jax-ws.product.name.short; bundle.
-        <filename>JDK6_HOME</filename> points to JDK 6 installation
+        the extracted &ws.impl.name; bundle.
+        <filename>JDK8_HOME</filename> points to JDK 8 installation
         directory.</para>
     </section>
 

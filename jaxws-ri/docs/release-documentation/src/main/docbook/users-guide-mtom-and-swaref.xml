@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,16 +41,16 @@
     </section>
 
     <section xml:id="mtom-in-jaxws-2-0">
-        <title>MTOM in JAX-WS 2.0</title>
+        <title>MTOM in &ws.spec.name;</title>
 
-        <para>MTOM feature is disabled in JAX-WS by default. It can be enabled
+        <para>MTOM feature is disabled in &ws.spec.name; by default. It can be enabled
         on the client and server. Once enabled all the XML binary data, XML
         elements of type <literal>xs:base64Binary</literal> and
         <literal>xs:hexBinary</literal> is optimally transmitted. Currently
         MTOM works only with proxy port.</para>
-        <para>Note: MTOM optimization is applied right at the time when JAX-WS writes 
+        <para>Note: MTOM optimization is applied right at the time when &ws.spec.name; writes 
         the message on to the wire. This is done to avoid any bufferring. Having 
-        a handler means that JAX-WS transforms the Message in to DOM or 
+        a handler means that &ws.spec.name; transforms the Message in to DOM or 
         SOAPMessage. It results in inlined base64 encoded data and it remains so 
         when the data is written over the wire as attachment. This is done in 
         order to avoid unnecessary conversion to and from when handlers are being 
@@ -65,7 +65,7 @@
             or <literal>xs:hexBinary</literal> can be annotated by using
             attribute reference using <link
             xlink:href="http://www.w3.org/TR/xml-media-types/"><literal>xmime:expectedContentType</literal></link>
-            JAXB 2.0 specification defines
+            &binding.spec.name; specification defines
             <literal>xmime:expectedContentType</literal> to Java type mapping
             in <xref linkend="users-guide-mtom-and-swaref-table-1" />. Here is
             this table:</para>
@@ -196,7 +196,7 @@ req.setContentType("application/xml");</literal><![CDATA[ ]]></programlisting>
         </section>
 
         <section xml:id="how-to-enable-mtom-in-jaxws-2-0">
-            <title>How to enable MTOM in JAX-WS 2.0</title>
+            <title>How to enable MTOM in &ws.spec.name;</title>
 
             <para><emphasis role="bold">Enabling MTOM on
             Server:</emphasis></para>
@@ -277,7 +277,7 @@ public class HelloImpl implements Hello {
                 </listitem>
 
                 <listitem>
-                    <para>JAX-WS 2.0 specification has defined API to enable
+                    <para>&ws.spec.name; specification has defined API to enable
                     and to check if the MTOM is enabled. <itemizedlist>
                             <listitem>
                                 <para>javax.xml.ws.soap.SOAPBinding.setMTOMEnabled(boolean
@@ -304,10 +304,10 @@ binding.setMTOMEnabled(true);]]></programlisting>
         <section xml:id="attach-vs-in-line">
             <title>Attach vs In-line</title>
 
-            <para>As defined by JAXB 2.0 specification
+            <para>As defined by &binding.spec.name; specification
             <literal>xs:base64Binary</literal> and
             <literal>xs:hexBinary</literal> mapping to java is
-            <literal>byte[]</literal>. JAX-WS implementation has set a
+            <literal>byte[]</literal>. &ws.impl.name; has set a
             threshold of 1KB of <literal>byte[]</literal> size. This threshold
             can be modified using implementation specific property
             <literal>com.sun.xml.ws.developer.JAXWSProperties.MTOM_THRESHOLD_VALUE</literal>
@@ -315,9 +315,9 @@ binding.setMTOMEnabled(true);]]></programlisting>
             the <literal>MessageContext</literal> on the server side. If the
             <literal>byte[]</literal> that is being sent is less than this
             threshold (default is 1KB) then the binary data is base64 encoded
-            by JAXB and in lined inside the SOAP Body otherwise the binary
+            by &binding.spec.name; and in lined inside the SOAP Body otherwise the binary
             data is sent as attachment mime part in Multipart/Related package
-            and XML infoset for the binary data is XOP encoded by JAXB
+            and XML infoset for the binary data is XOP encoded by &binding.spec.name;
             <programlisting><![CDATA[<xop:Include href=...>]]></programlisting>is
             used to reference the attachment. The XOP encoding and packaging
             is done as per described by the <link
@@ -338,8 +338,8 @@ binding.setMTOMEnabled(true);]]></programlisting>
                 can set a threshold value for MTOM by using
                 <literal>@MTOM</literal> annotation on server-side or using
                 MTOMFeature on client-side. Let's say you set MTOM threshold
-                as 3000, this serves as hint to JAX-WS when to send binary dat
-                as attachments. In this case, JAX-WS will send any byte array
+                as 3000, this serves as hint to &ws.spec.name; when to send binary dat
+                as attachments. In this case, &ws.spec.name; will send any byte array
                 in the message thats equal to or larger than 3KB as attachment
                 and the corresponding XML infoset will be XOP encoded (will
                 contain reference to this attachment)</para>
@@ -367,7 +367,7 @@ binding.setMTOMEnabled(true);]]></programlisting>
             <example xml:id="mtom">
                 <title>MTOM Sample - mtom</title>
 
-                <para>This is SOAP 1.1 MTOM SampleThis is how the JAX-WS
+                <para>This is SOAP 1.1 MTOM SampleThis is how the &ws.spec.name;
                 generated XOP packaged SOAP message looks on the wire:</para>
 
                 <informalexample>
@@ -433,7 +433,7 @@ Content-ID: <5aeaa450-17f0-4484-b845-a8480c363444@example.org>
             <example xml:id="mtom-soap12">
                 <title>MTOM Sample - mtom-soap12</title>
 
-                <para>This is SOAP 1.2 MTOM Sample. Here is how the JAX-WS
+                <para>This is SOAP 1.2 MTOM Sample. Here is how the &ws.spec.name;
                 generated soap message looks on the wire:</para>
 
                 <informalexample>
@@ -501,13 +501,13 @@ Content-ID: <42a7ee0a-20ee-426b-a135-094d72bc138f@example.org>
         2111</link>.</para>
 
         <section xml:id="swaref-in-jaxws-2-0">
-            <title>swaRef in JAX-WS 2.0</title>
+            <title>swaRef in &ws.spec.name;</title>
 
-            <para>JAXB 2.0 defines mapping of <literal>wsi:swaRef</literal>
+            <para>&binding.spec.name; defines mapping of <literal>wsi:swaRef</literal>
             schema type to javax.activation.DataHandler. An application will
             construct the DataHandler with the data and the appropriate MIME
-            type and JAX-WS will coordinate with JAXB and SAAJ to send it as
-            attachment MIME part.</para>
+            type and &ws.spec.name; will coordinate with &binding.spec.name;
+            and Jakarta SOAP with Attachments to send it as attachment MIME part.</para>
         </section>
 
         <section xml:id="how-to-use-swaref">

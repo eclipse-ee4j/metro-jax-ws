@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2010, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,27 +27,27 @@
     <title>Samples</title>
 
     <para>This document explains the samples that are bundled along with
-    &jax-ws.product.name;.</para>
+    &ws.impl.name.full;.</para>
 
-    <para>The samples included with &jax-ws.product.name.short; that is
-    distributed on GitHub documents how to use &jax-ws.product.name.short;
-    in a non-Java EE 5 servlet container using a proprietary deployment
+    <para>The samples included with &ws.impl.name; that is
+    distributed on GitHub documents how to use &ws.impl.name;
+    in a non-Jakarta EE servlet container using a proprietary deployment
     descriptor <literal>sun-jaxws.xml</literal> and servlet
     <literal>com.sun.xml.ws.transport.http.servlet.WSServlet</literal>. This
-    means that you can these &jax-ws.product.name.short; applications in any
-    servlet container that has been enabled with &jax-ws.product.name.short;.
+    means that you can these &ws.impl.name; applications in any
+    servlet container that has been enabled with &ws.impl.name;.
     Applications that use the proprietary DD and servlet will run in a
-    &jax-ws.product.name.short; enabled Java EE 5 servlet container, but they
-    will be non-portable. If you wish to use these &jax-ws.product.name.short;
-    samples in a Java EE container in a Java EE portable manner you need to
-    modify them to use the standard Java EE 5 deployment descriptor; please
-    refer to the <link xlink:href="http://java.sun.com/javaee/index.jsp">Java
-    EE 5</link> or <link
-    xlink:href="https://javaee.github.io/glassfish/">Glassfish</link>
+    &ws.impl.name; enabled Jakarta EE servlet container, but they
+    will be non-portable. If you wish to use these &ws.impl.name;
+    samples in a Jakarta EE container in a Jakarta EE portable manner you need to
+    modify them to use the standard Jakarta EE deployment descriptor; please
+    refer to the <link xlink:href="https://jakarta.ee/specifications/platform/">Jakarta
+    EE</link> or <link
+    xlink:href="https://eclipse-ee4j.github.io/glassfish/">GlassFish</link>
     documentation/samples.</para>
 
-    <para>All these samples are tested to run on Glassfish
-    V2.1 build and on Apache Tomcat 5.x.</para>
+    <para>All these samples are tested to run on GlassFish v5.x
+    and on Apache Tomcat 5.x.</para>
 
     <section xml:id="a-1-0">
         <title>Directory Structure</title>
@@ -78,10 +78,10 @@
                     <row>
                         <entry><para><literal>asyncservice</literal></para></entry>
 
-                        <entry><para>Demonstrates JAX-WS RI specific endpoint
+                        <entry><para>Demonstrates &ws.impl.name; specific endpoint
                         to achieve server side asynchrony. This sample
                         requires Servlet 3.0 API supported container like
-                        Glassfish 3.0.</para></entry>
+                        GlassFish 5.x.</para></entry>
                     </row>
 
                     <row>
@@ -96,7 +96,7 @@
                         <entry><para><literal>optional_webxml</literal></para></entry>
 
                         <entry><para>Demonstrates the simplified deployment of
-                        web services using JAX-WS RI deployment by not
+                        web services using &ws.impl.name; deployment by not
                         requiring the configuration of web.xml.</para></entry>
                     </row>
 
@@ -348,12 +348,12 @@
                         <entry><para><literal>restful</literal></para></entry>
 
                         <entry><para>Shows an example of a REST Web Service
-                        implemented as a JAX-WS 2.0
-                        <literal>Provider</literal> and accessed via a JAX-WS
+                        implemented as a &ws.spec.name;
+                        <literal>Provider</literal> and accessed via a &ws.spec.name;
                         <literal>Dispatch</literal> client. The
                         <literal>Request</literal> uses an HTTP
                         <literal>GET</literal> Request Method and uses the
-                        JAX-WS <literal>MessageContext</literal> properties
+                        &ws.spec.name; <literal>MessageContext</literal> properties
                         <literal>PATH_INFO</literal> and
                         <literal>QUERY_STRING</literal>.</para></entry>
                     </row>
@@ -362,7 +362,7 @@
                         <entry><para><literal>stateful</literal></para></entry>
 
                         <entry><para>This sample shows the
-                        &jax-ws.product.name.short;'s stateful webservice
+                        &ws.impl.name;'s stateful webservice
                         support feature.</para></entry>
                     </row>
 
@@ -370,7 +370,7 @@
                         <entry><para><literal>schema_validation</literal></para></entry>
 
                         <entry><para>This sample demonstrates
-                        &jax-ws.product.name.short;'s validation feature that
+                        &ws.impl.name;'s validation feature that
                         validates the incoming/outgoing messages are as per
                         schema.</para></entry>
                     </row>
@@ -379,7 +379,7 @@
                         <entry><para><literal>dual-binding</literal></para></entry>
 
                         <entry><para>This sample demonstrates the
-                        &jax-ws.product.name.short;'s featuer to expose the
+                        &ws.impl.name;'s featuer to expose the
                         same service class under <literal>SOAP/HTTP</literal>
                         and <literal>XML/HTTP</literal>
                         binding.</para></entry>
@@ -421,19 +421,19 @@
 
         <orderedlist>
             <listitem>
-                <para>Download Java SE 6 or later. Set <literal>JAVA_HOME</literal> to the J2SE
+                <para>Download Java SE 8 or later. Set <literal>JAVA_HOME</literal> to the Java SE
                 installation directory.</para>
             </listitem>
 
             <listitem>
-                <para>Set <literal>&jax-ws.home;</literal> to the JAX-WS
+                <para>Set <literal>&jax-ws.home;</literal> to the &ws.impl.name;
                 installation directory.</para>
             </listitem>
         </orderedlist>
     </section>
 
     <section xml:id="a-3-0">
-        <title>Installing &jax-ws.product.name;</title>
+        <title>Installing &ws.impl.name.full;</title>
 
         <itemizedlist>
             <listitem>
@@ -477,7 +477,7 @@
                         role="bold">server</literal></para></entry>
 
                         <entry><para>Builds and deploy the service endpoint
-                        WAR on Glassfish v2 installation referenced by
+                        WAR on GlassFish v5.x installation referenced by
                         <literal>$AS_HOME</literal></para></entry>
                     </row>
 
@@ -556,7 +556,7 @@
         service endpoint correctly before building the client.</para>
 
         <para>We appreciate your feedback, please send it to <link
-        xlink:href="https://projects.eclipse.org/projects/ee4j.metro">https://projects.eclipse.org/projects/ee4j.metro</link>.</para>
+        xlink:href="https://accounts.eclipse.org/mailing-list/metro-dev">metro-dev@eclipse.org</link>.</para>
     </section>
 
 </chapter>

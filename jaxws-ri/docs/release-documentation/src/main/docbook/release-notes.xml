@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,17 +30,17 @@
 
         <itemizedlist>
             <listitem>
-                <para>Requires JDK 6 or later</para>
+                <para>Requires Java SE 8 or later</para>
             </listitem>
 
             <listitem>
                 <para>Requires <link
                 xlink:href="http://ant.apache.org/bindownload.cgi">Ant
-                1.7.1</link> or later</para>
+                1.9.7</link> or later</para>
             </listitem>
 
             <listitem>
-                <para>Tested with GlassFish v4.x and Apache Tomcat 5.5.20</para>
+                <para>Tested with GlassFish v5.x and Apache Tomcat 5.5.20</para>
             </listitem>
         </itemizedlist>
     </section>
@@ -48,18 +48,19 @@
     <section xml:id="installation-instructions">
         <title>Installation Instructions</title>
 
-        <para>The following applies to the JAX-WS standalone bundles.</para>
+        <para>The following applies to the &ws.impl.name; standalone bundles.</para>
 
         <itemizedlist>
             <listitem>
-                <para>Extract &jax-ws.product.name; bundle</para>
+                <para>Extract &ws.impl.name.full; bundle</para>
             </listitem>
 
             <listitem>
                 <para>To use with GlassFish<itemizedlist>
                         <listitem>
-                            <para>Glassfish contains JAX-WS within Metro package so no installation required.
-                            For updating JAX-WS installation in Glassfish please refer to <link xlink:href="http://javaee.github.io/metro">Metro</link> project.</para>
+                            <para>GlassFish contains &ws.impl.name; within Metro package so no installation required.
+                            For updating &ws.impl.name; installation in GlassFish please refer to
+                            <link xlink:href="http://eclipselink-ee4j.github.io/metro-wsit">Metro</link> project.</para>
                         </listitem>
                     </itemizedlist></para>
             </listitem>
@@ -74,13 +75,13 @@
                         <listitem>
                             <para>Run <programlisting language="cli"><![CDATA[ant install]]></programlisting>This
                             essentially copies <filename>lib/*.jar</filename>
-                            from the root of &jax-ws.product.name.short;
+                            from the root of &ws.impl.name;
                             extracted bundle to
                             <literal>$CATALINA_HOME/shared/lib</literal></para>
                         </listitem>
 
                         <listitem>
-                            <para>If you are running on top of JDK6, run
+                            <para>If you are running on top of JDK8, run
                             <programlisting language="cli"><![CDATA[ant install-api]]></programlisting>or
                             use <programlisting language="cli"><![CDATA[ant -help]]></programlisting>
                             for detailed information.</para>
@@ -93,18 +94,18 @@
         <para>If you intend to only invoke an already existing Web service,
         then alternatively you can use the <command>wsimport</command> and
         <command>wsgen</command> scripts in the <literal>bin</literal>
-        directory of the &jax-ws.product.name; bundle.</para>
+        directory of the &ws.impl.name.full; bundle.</para>
     </section>
 
-    <section xml:id="running-on-top-of-jdk-6">
-        <title>Running on top of JDK 6</title>
+    <section xml:id="running-on-top-of-jdk-8">
+        <title>Running on top of JDK 8</title>
 
-        <para>JDK includes JAX-WS and JAXB API and RI.
-        &jax-ws.product.name; includes RI of JAX-WS/JAXB 2.2. In order to run
-        &jax-ws.product.name; you would need to specify ONLY
+        <para>JDK includes &ws.spec.name; and JAXB API and RI.
+        &ws.impl.name.full; includes RI of &ws.spec.name;/JAXB 2.3. In order to run
+        &ws.impl.name.full; you would need to specify ONLY
         <filename>jakarta.xml.ws-api.jar</filename>, and
         <filename>jakarta.xml.bind-api.jar</filename> jars using the <link
-        xlink:href="http://docs.oracle.com/javase/6/docs/technotes/guides/standards/">Java
+        xlink:href="https://docs.oracle.com/javase/8/docs/technotes/guides/standards/">Java
         Endorsed Standards Override Mechanism</link></para>
     </section>
 
@@ -132,7 +133,7 @@
                         <filename>jakarta.jws-api.jar</filename>,
                         <filename>mimepull.jar</filename>,
                         <filename>javax.xml.soap-api.jar</filename>,
-                        <filename>saaj-impl.jar *</filename>,
+                        <filename>saaj-impl.jar</filename>,
                         <filename>stax2-api.jar</filename>,
                         <filename>woodstox-core.jar</filename>,
                         <filename>stax-ex.jar</filename>,
@@ -156,12 +157,12 @@
             </tgroup>
         </table>
 
-        <para>If you run &jax-ws.product.name; with IBM JDK, there are two options:
+        <para>If you run &ws.impl.name.full; with IBM JDK, there are two options:
             <itemizedlist>
                 <listitem><para>to add Oracles's JAXP implementation jars along</para></listitem>
                 <listitem><para>to remove the saaj-impl.jar from the libraries in order IBM SAAJ implementation to be used</para></listitem>
             </itemizedlist>
-            JAXWS also depends on resolver implementation form JDK, which is not found on AIX. The repackaged resolver.jar can be found in the distribution, or <link
+            &ws.impl.name; also depends on resolver implementation form JDK, which is not found on AIX. The repackaged resolver.jar can be found in the distribution, or <link
         xlink:href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.sun.org.apache.xml.internal%22">Maven</link> though.
             
             First approach is recommended.
@@ -182,18 +183,18 @@
             </listitem>
 
             <listitem>
-                <para>Although JAX-WS customizations are portable across
+                <para>Although &ws.spec.name; customizations are portable across
                 implementations, the names of WSDL and schema files generated
                 are not specified. Therefore each vendor may and most likely
                 will generate different names. Therefore, when switching
-                between implementations of JAX-WS, it may be necessary to
+                between implementations of &ws.spec.name;, it may be necessary to
                 modify your customization files to reflect different WSDL and
                 schema file names.</para>
             </listitem>
 
             <listitem>
                 <para>This holds true for different releases of the
-                &jax-ws.product.name.short;. The &jax-ws.product.name.short;
+                &ws.impl.name;. The &ws.impl.name;
                 may in each release change these file names to resolve bugs.
                 If and when this does occur, a developer would need to change
                 the filenames in their customization files to match the new

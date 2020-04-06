@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@
     <section xml:id="wsimport-task-overview">
         <title><command>wsimport</command> Task Overview</title>
 
-        <para>The <command>wsimport</command> generates JAX-WS portable
+        <para>The <command>wsimport</command> generates &ws.spec.name; portable
         artifacts, such as:</para>
 
         <itemizedlist>
@@ -50,7 +50,7 @@
             </listitem>
 
             <listitem>
-                <para>JAXB generated value types (mapped java classes from
+                <para>&binding.spec.name; generated value types (mapped java classes from
                 schema types)</para>
             </listitem>
         </itemizedlist>
@@ -73,7 +73,7 @@
         <link
         xlink:href="http://ant.apache.org/manual/using.html#path">path-like
         structure</link>, defined elsewhere in the build environment, and
-        contains the list of classes required by the JAX-WS tools.</para>
+        contains the list of classes required by the &ws.spec.name; tools.</para>
 
         <section xml:id="section-8164488302388055">
             <title>Environment Variables</title>
@@ -209,7 +209,7 @@
                         <row>
                             <entry><literal>verbose</literal></entry>
 
-                            <entry>Output JAX-WS RI version and messages about what the compiler is
+                            <entry>Output &ws.impl.name; version and messages about what the compiler is
                             doing</entry>
 
                             <entry>No. Defaults to false.</entry>
@@ -220,7 +220,7 @@
                         <row>
                             <entry><literal>binding</literal></entry>
 
-                            <entry>Specify external JAX-WS or JAXB binding files
+                            <entry>Specify external &ws.spec.name; or &binding.spec.name; binding files
                             or additional schema files (Each
                             <literal>&lt;file&gt;</literal> must have its own
                             <option>-b</option>).</entry>
@@ -295,7 +295,7 @@
 
                             <entry>No. It default to the WSDL/Schema
                             targetNamespace to package mapping as defined by the
-                            JAXB 2.1 spec.</entry>
+                            &binding.spec.name; 2.1 spec.</entry>
 
                             <entry><literal>-p</literal></entry>
                         </row>
@@ -382,7 +382,9 @@
                         <row>
                             <entry><literal>xdisableAuthenticator</literal></entry>
 
-                            <entry>Disables Authenticator used by JAX-WS RI, <literal>-Xauthfile</literal> option will be ignored if <literal>-XdisableAuthenticator</literal> is set.</entry>
+                            <entry>Disables Authenticator used by &ws.impl.name;,
+                            <literal>-Xauthfile</literal> option will be ignored if
+                            <literal>-XdisableAuthenticator</literal> is set.</entry>
 
                             <entry>No. Defaults to false.</entry>
 
@@ -461,7 +463,7 @@
 
                 <para>The usage is similar to <literal>&lt;arg&gt;</literal>
                 nested element, except that these arguments are directly
-                passed to the XJC tool (JAXB Schema Compiler), which will be
+                passed to the XJC tool (&binding.spec.name; Schema Compiler), which will be
                 used for compiling the schema referenced in the wsdl. For
                 details about the syntax, see <link
                 xlink:href="http://ant.apache.org/manual/using.html#arg">the
@@ -543,16 +545,16 @@
         </informalexample>
 
         <para>The above example shows how to generates artifacts for
-        <literal>AddNumbers.wsdl</literal> while passing options to JAXB
+        <literal>AddNumbers.wsdl</literal> while passing options to &binding.spec.name;
         <command>xjc</command> tool for XML Schema to Java compilation using
-        your JAXB plugin. Note extension attribute which is set to
-        <literal>true</literal>. You need to set this to use JAXB
+        your &binding.spec.name; plugin. Note extension attribute which is set to
+        <literal>true</literal>. You need to set this to use &binding.spec.name;
         plugins.</para>
 
-        <para>Multiple JAX-WS and JAXB binding files can be specified using
+        <para>Multiple &ws.spec.name; and &binding.spec.name; binding files can be specified using
         <option>-b</option> option and they can be used to customize various
-        things like package names, bean names, etc. More information on JAX-WS
-        and JAXB binding files can be found in the <xref
+        things like package names, bean names, etc. More information on &ws.spec.name;
+        and &binding.spec.name; binding files can be found in the <xref
         linkend="users-guide-wsdl-customization"
         xrefstyle="select:title" />.</para>
     </section>

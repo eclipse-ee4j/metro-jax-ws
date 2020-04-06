@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2010, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,7 +26,7 @@
          xmlns:db="http://docbook.org/ns/docbook">
 <title>Extensions</title>
 
-    <para>This page contains information about &jax-ws.product.name; specific
+    <para>This page contains information about &ws.impl.name.full; specific
     features and extensions:</para>
 
     <section xml:id="sending-and-receiving-soap-headers">
@@ -37,7 +37,7 @@
         your application needs to do it anyway. One approach has been to write
         a <literal>SOAPHandler</literal> to do it, but its more work and is
         expensive as <literal>SOAPHandlers</literal> work on
-        <literal>SOAPMesssage</literal> which is DOM based and JAX-WS runtime
+        <literal>SOAPMesssage</literal> which is DOM based and &ws.impl.name; runtime
         would need to do conversion from its abstract
         <literal>Message</literal> representation to
         <literal>SOAPMessage</literal> and vice versa.</para>
@@ -61,7 +61,7 @@ WSBindingProvider bp = (WSBindingProvider) port;
 bp.setOutboundHeaders(
         // simple string value as a header, like stringValue
         Headers.create(new QName("simpleHeader"), "stringValue"),
-        // create a header from JAXB object
+        // create a header from Jakarta XML Binding object
         Headers.create(jaxbContext, myJaxbObject));]]></programlisting>
             </informalexample>
         </section>
@@ -81,7 +81,7 @@ bp.setOutboundHeaders(
         <para>Web Services developers generally need to see SOAP Messages that
         are transferred between client and service for debugging. There are
         SOAP Monitors for this job, but you need modify the client or server
-        code to use those tools. &jax-ws.product.name.short; provides logging
+        code to use those tools. &ws.impl.name; provides logging
         of SOAP messages</para>
 
         <section xml:id="on-the-client">
@@ -110,7 +110,7 @@ bp.setOutboundHeaders(
 
         <para>This is a very useful feature while developing Web Services.
         Often the soap fault messages for not user defined faults does not
-        convey enough information about the problem. &jax-ws.product.name.short;
+        convey enough information about the problem. &ws.impl.name;
         relieves you from digging out the server logs to find out the stacktrace.
         Whole stacktrace (including nested exceptions) can be propagated in the
         SOAP Fault and the complete exception stacktrace can be made visible to

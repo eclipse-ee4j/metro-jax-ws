@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,7 @@
 
     <para>Four Message Exchange Protocols(MEP) are supported:
     request-response, one way, asynchronous polling, and callback. Each of
-    these invocation MEPs are required with JAXB data bound
+    these invocation MEPs are required with &binding.spec.name; data bound
     <literal>java.lang.Object</literal>,
     <literal>javax.xml.transform.Source</literal>,
     <literal>javax.xml.soap.SOAPMessage</literal> and
@@ -98,11 +98,11 @@ Service service = Service.create(URL wsdlLocation, QName serviceQName);]]></prog
 
             <para>Developers who have used web service applications in the
             past are familiar with the port <literal>QName</literal> and
-            endpoint address parameters of this method. &jax-ws.product.name;
+            endpoint address parameters of this method. &ws.impl.name.full;
             supports three <literal>Binding</literal> URI's, that of the SOAP
             1.1, the SOAP 1.2 and XML/HTTP Binding. For more information on
             SOAP 1.2 support please refer to the SOAP 1.2 documents. For the
-            XML/HTTP binding please see chapter 11 of the JAX-WS 2.0 PFD
+            XML/HTTP binding please see chapter 11 of the &ws.spec.name;
             Specification.</para>
 
             <para>The addition of the SOAP 1.1 port using the
@@ -148,7 +148,7 @@ Dispatch dispatch = service.createDispatch(QName portName,
         JAXBContext jaxbcontext, Service.Mode mode);]]></programlisting>
             </informalexample>
 
-            <para>For a <literal>javax.xml.transform.Source</literal> and JAXB
+            <para>For a <literal>javax.xml.transform.Source</literal> and &binding.spec.name;
             data binding <literal>java.lang.Object</literal>
             <literal>Dispatch&lt;T&gt;</literal> can be created in both
             <literal>Service.Mode.PAYLOAD</literal> and
@@ -160,14 +160,14 @@ Dispatch dispatch = service.createDispatch(QName portName,
             <literal>javax.xml.soap.SOAPMessage</literal> specific to the
             <literal>Dispatch&lt;T&gt;</literal> instance.</para>
 
-            <para>A JAXB object-specific instance can only be created using
+            <para>A &binding.spec.name; object-specific instance can only be created using
             the second method listed above.</para>
 
             <para>It is important to note that once the
             <literal>Dispatch&lt;T&gt;</literal> instance is created it is
             static. That is, its <literal>Service.Mode</literal> or request
             type can not be changed. The instance can be reused given the
-            caveat that if it is a JAXB-specific
+            caveat that if it is a &binding.spec.name;-specific
             <literal>Dispatch&lt;T&gt;</literal> it must be reused with
             objects known to the same <literal>JAXBContext</literal>.</para>
         </section>
@@ -181,7 +181,7 @@ Dispatch dispatch = service.createDispatch(QName portName,
             <literal>BindingProvider</literal> interface defines accessor
             methods for the request and response context maps. Standard
             <literal>BindingProvider</literal> properties are defined by the
-            JAX-WS 2.0 specification and the client program may set and get
+            &ws.spec.name; specification and the client program may set and get
             these properties. The application may also define
             application-specific properties, but the specification discourages
             this for portability reasons.</para>
@@ -224,7 +224,7 @@ Future<?> response = dispatch.invokeAsync(T, AsyncHandler);]]></programlisting>
 
         <para>The <literal>javax.xml.ws.Response&lt;T&gt;</literal> implements
         the <literal>java.util.concurrent.Future&lt;T&gt;</literal> interface
-        that is included in J2SE 5.0. The <literal>Response&lt;T&gt;</literal>
+        that is included in Java SE. The <literal>Response&lt;T&gt;</literal>
         object returns the actual response via its <literal>get</literal>
         method, which blocks if the response is not ready to be
         returned.</para>
@@ -243,7 +243,7 @@ Future<?> response = dispatch.invokeAsync(T, AsyncHandler);]]></programlisting>
 
         <para>For more information on the
         <literal>java.util.concurrent.Future&lt;?&gt;</literal> interface see
-        the J2SE 5.0 documentation.</para>
+        the Java SE documentation.</para>
 
         <informalexample>
             <programlisting language="java"><![CDATA[public interface Response<T> extends java.util.concurrent.Future<T> {
