@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,9 +28,9 @@
         <title>Introduction</title>
 
         <para>This document describes the new features available in this
-        release of the &jax-ws.product.name.short;. The main focus of this
+        release of the &ws.impl.name;. The main focus of this
         document is to describe the tools used to develop
-        &jax-ws.product.name; web service endpoints and clients. Readers of
+        &ws.impl.name.full; web service endpoints and clients. Readers of
         this document should be familiar with web services <link
         xlink:href="http://www.w3.org/TR/2000/REC-xml-20001006">XML</link>,
         <link
@@ -38,42 +38,42 @@
         Schema</link> and <link
         xlink:href="http://www.w3.org/TR/2001/NOTE-wsdl-20010315">WSDL</link>.
         Familiarity with <link
-        xlink:href="http://jcp.org/en/jsr/detail?id=101">JAX-RPC 1.1</link>
+        xlink:href="https://jakarta.ee/specifications/xml-rpc/">Jakarta XML RPC 1.1</link>
         may also be beneficial but is not necessary.</para>
 
-        <para>The documentation/samples discusses how to use JAX-WS in a
-        non-Java EE 5 servlet container using a proprietary deployment
+        <para>The documentation/samples discusses how to use &ws.impl.name;
+        in a non-Jakarta EE servlet container using a proprietary deployment
         descriptor <literal>sun-jaxws.xml</literal> and servlet
         <literal>com.sun.xml.ws.transport.http.servlet.WSServlet</literal>.
-        This means that you can run &jax-ws.product.name.short; applications
+        This means that you can run &ws.impl.name; applications
         in any servlet container that has been enabled with the
-        &jax-ws.product.name.short;. Applications that use the proprietary DD
-        and servlet will run in a &jax-ws.product.name.short; enabled Java EE
-        5 servlet container, but they will be non-portable. If you wish to use
-        JAX-WS in a Java EE container in a Java EE portable manner you need to
-        use the standard Java EE 5 deployment descriptor; please refer to the
-        <link xlink:href="http://java.sun.com/javaee/index.jsp">Java EE
-        5</link> or <link
-        xlink:href="https://javaee.github.io/glassfish/">Glassfish</link>
+        &ws.impl.name;. Applications that use the proprietary DD
+        and servlet will run in a &ws.impl.name; enabled Jakarta EE
+        servlet container, but they will be non-portable. If you wish to use
+        &ws.spec.name; in a Jakarta EE container in a Jakarta EE portable manner you need to
+        use the standard Jakarta EE deployment descriptor; please refer to the
+        <link xlink:href="https://jakarta.ee/specifications/platform/">Jakarta EE
+        </link> or <link
+        xlink:href="https://eclipse-ee4j.github.io/glassfish/">GlassFish</link>
         documentation/samples. The majority of the documentation included with
-        JAX-WS is valid with Java EE 5 as well.</para>
+        &ws.spec.name; is valid with Jakarta EE as well.</para>
     </section>
 
     <section xml:id="features">
         <title>Features</title>
 
         <section xml:id="jax-ws-api">
-            <title>JAX-WS &jax-ws.release.spec.version; API</title>
+            <title>&ws.spec.name.full; API</title>
 
-            <para>JAX-WS &jax-ws.release.spec.version; is a Maintainence
+            <para>&ws.spec.name.full; is a Maintainence
             Release of JAXWS 2.0 API.</para>
 
-            <para>JAX-WS &jax-ws.release.spec.version; has the following new
-            features from JAX-WS 2.1 specification:</para>
+            <para>&ws.spec.name.full; has the following new
+            features from &ws.spec.name; 2.1 specification:</para>
 
             <itemizedlist>
                 <listitem>
-                    <para>Support for JAXB 2.2 APIs (JSR 222)</para>
+                    <para>Support for &binding.spec.name; APIs</para>
                 </listitem>
 
                 <listitem>
@@ -100,7 +100,7 @@
                 </listitem>
             </itemizedlist>
 
-            <para>JAX-WS 2.1 has the following new features from JAX-WS 2.0
+            <para>&ws.spec.name; 2.1 has the following new features from &ws.spec.name; 2.0
             specification:</para>
 
             <itemizedlist>
@@ -129,14 +129,14 @@
                             <listitem>
                                 <para>EPR Propagation <itemizedlist>
                                         <listitem>
-                                            <para>Using JAXB 2.1 bind W3C EPR to
+                                            <para>Using &binding.spec.name; 2.1 bind W3C EPR to
                                             <literal>W3CEndpointReference</literal> class</para>
                                         </listitem>
 
                                         <listitem>
                                             <para>Marshall/Unmarshall
                                             <literal>W3CEndpointReference</literal> class using
-                                            JAXB</para>
+                                            &binding.spec.name;</para>
                                         </listitem>
                                     </itemizedlist></para>
                             </listitem>
@@ -149,18 +149,18 @@
                 </listitem>
             </itemizedlist>
 
-            <para>JAX-RPC users should note that JAX-WS is a completely
+            <para>JAX-RPC users should note that &ws.spec.name; is a completely
             different technology than JAX-RPC and thus cannot run JAX-RPC
-            applications on top of JAX-WS. If you have an existing JAX-RPC
-            application it must be converted to work with JAX-WS.</para>
+            applications on top of &ws.spec.name;. If you have an existing JAX-RPC
+            application it must be converted to work with &ws.spec.name;.</para>
         </section>
 
         <section xml:id="fully-dynamic-runtime">
             <title>Fully Dynamic Runtime</title>
 
-            <para>In JAX-WS, all artifacts generated by
+            <para>In &ws.spec.name;, all artifacts generated by
             <command>annotationProcessing</command>, <command>wsimport</command> and
-            <command>wsgen</command> are portable. JAX-WS uses the annotations
+            <command>wsgen</command> are portable. &ws.spec.name; uses the annotations
             within the SEI to aid in marshalling/unmarshalling messages.
             Because we no longer generated non-portable artifacts, we were
             able to get rid of tools like JAX-RPC's
@@ -175,7 +175,7 @@
             importing WSDLs and generating the portable artifacts.
             <command>wsgen</command> processes a compiled SEI and generates
             the portable artifacts. Unlike JAX-RPC's
-            <command>wscompile</command> JAX-WS's <command>wsgen</command>
+            <command>wscompile</command> &ws.spec.name;'s <command>wsgen</command>
             does not generate WSDL at tool-time, the WSDL is now generated
             when the endpoint is deployed. There however is an option on
             <command>wsgen</command> to generate the WSDL for developement
@@ -185,19 +185,19 @@
         <section xml:id="mtom-amp-swaref">
             <title>MTOM &amp; swaRef</title>
 
-            <para>MTOM and swaRef support was added in JAX-WS 2.0 RI FCS
-            release. MTOM and swaref support is required by the JAX-WS 2.0
+            <para>MTOM and swaRef support was added in &ws.impl.name;
+            release. MTOM and swaref support is required by the &ws.spec.name;
             specification. This means that the MTOM or swaref solution
-            developed with &jax-ws.product.name.short; will be fully portable
-            with any JAX-WS 2.0 compliant implementation.</para>
+            developed with &ws.impl.name; will be fully portable
+            with any &ws.spec.name; compliant implementation.</para>
 
             <para>MTOM implementation was completely re-written to allow
             streaming attachment support and just like rest of the
-            &jax-ws.product.name.short; runtime its written for better
-            performance. This implementation was released as part of JAX-WS
-            2.0.1 M1 release.</para>
+            &ws.impl.name; runtime its written for better
+            performance. This implementation was released as part of
+            &ws.impl.name; release.</para>
 
-            <para>JAX-WS &jax-ws.release.spec.version; brings in support for
+            <para>&ws.impl.name; brings in support for
             optimized transmission of binary data as specified by <link
             xlink:href="http://www.w3.org/TR/soap12-mtom/">MTOM</link> (SOAP
             Message Transmission Optimization Mechanism)/ <link
@@ -235,26 +235,26 @@
         <section xml:id="soap-1-2">
             <title>SOAP 1.2</title>
 
-            <para>SOAP 1.2 support is added to JAX-WS
-            &jax-ws.release.spec.version;. For details refer to <xref
+            <para>SOAP 1.2 support is added to &ws.impl.name;.
+            For details refer to <xref
             linkend="users-guide-soap-1-2" xrefstyle="select:title" />.</para>
         </section>
 
         <section xml:id="xml-http-binding">
             <title>XML/HTTP Binding</title>
 
-            <para>Support for XML/HTTP binding is added to JAX-WS 2.0. One can
+            <para>Support for XML/HTTP binding is added to &ws.spec.name;. One can
             directly send XML over HTTP using <xref
             linkend="users-guide-provider" xrefstyle="select:title" /> and
             <xref linkend="users-guide-dispatch" xrefstyle="select:title" />
             implementations. This enables support for REST style Web Services
-            in JAX-WS. For details refer to restful sample.</para>
+            in &ws.spec.name;. For details refer to restful sample.</para>
         </section>
 
         <section xml:id="jaxb-2-0">
-            <title>JAXB 2.2</title>
+            <title>&binding.spec.name; &binding.spec.version;</title>
 
-            <para>&jax-ws.product.name; uses JAXB 2.2 for data-binding between
+            <para>&ws.impl.name.full; uses &binding.spec.name; &binding.spec.version; for data-binding between
             Java and XML which enables features such as separate compilation,
             type substitution and other improvements.</para>
 
@@ -262,8 +262,8 @@
                 <title>Type Substitution using
                 <literal>@XmlSeeAlso</literal></title>
 
-                <para>JAXB 2.1 defines <literal>@XmlSeeAlso</literal>
-                annotation which can be used to tell JAXB to use the classes
+                <para>&binding.spec.name; 2.1 defines <literal>@XmlSeeAlso</literal>
+                annotation which can be used to tell &binding.spec.name; to use the classes
                 mentioned with this annotation. This allows type substitution
                 to takes place. See the <literal>samples/type_substitution/src/type_substitution/server/CarDealer.java</literal> sample
                 that demonstrates it.</para>
@@ -280,9 +280,9 @@
                 <title><literal>@XmlElement</literal> on web service SEI
                 parameters</title>
 
-                <para>JAX-WS 2.2 spec allows <literal>@XmlElement</literal> on
+                <para>&ws.spec.name; 2.2 spec allows <literal>@XmlElement</literal> on
                 web service SEI parameters, which enables better control of
-                XML representation. For this support, JAX-WS relies on JAXB
+                XML representation. For this support, &ws.spec.name; relies on &binding.spec.name;
                 2.2 API which allows the <literal>@XmlElement</literal>
                 annotation on parameters.</para>
             </section>
@@ -291,19 +291,19 @@
         <section xml:id="ws-addressing">
             <title>WS-Addressing</title>
 
-            <para>&jax-ws.product.name; supports for W3C <link
+            <para>&ws.impl.name.full; supports for W3C <link
             xlink:href="http://www.w3.org/TR/ws-addr-core">Core</link>, <link
             xlink:href="http://www.w3.org/TR/ws-addr-soap">SOAP Binding</link>
             and <link
             xlink:href="http://www.w3.org/TR/2007/REC-ws-addr-metadata-20070904">Addressing
             1.0 - Metadata</link> specifications and defines standard API and
             annotations to enable/disable W3C WS-Addressing on the client and
-            service endpoint. In addition to that, JAX-WS RI also supports
+            service endpoint. In addition to that, &ws.impl.name; also supports
             <link
             xlink:href="http://www.w3.org/Submission/ws-addressing/">Member
             Submission</link> version of WS-Addressing. The member submission
             version is supported in an implementation specific way. For
-            compatility with JAX-WS 2.1 behavior, JAX-WS RI 2.2 also supports
+            compatility with &ws.spec.name; 2.1 behavior, &ws.impl.name; 2.2 also supports
             wsdls conforming to <link
             xlink:href="http://www.w3.org/TR/ws-addr-wsdl">WSDL Binding</link>
             specification.</para>
@@ -313,22 +313,21 @@
             samples <emphasis role="bold">fromjava-wsaddressing</emphasis>,
             <emphasis role="bold">fromwsdl-wsaddressing-policy</emphasis> and
             <emphasis role="bold">fromwsdl-wsaddressing</emphasis> with the
-            &jax-ws.product.name; for details on the WS-Addressing programming
+            &ws.impl.name.full; for details on the WS-Addressing programming
             model.</para>
         </section>
 
         <section xml:id="annotations">
             <title>Annotations</title>
 
-            <para>JAX-WS &jax-ws.release.spec.version; relies heavily on the
+            <para>&ws.spec.name.full; relies heavily on the
             use of annotations as provided by <emphasis>A Metadata Facility
             for the Java Programming Language</emphasis> <link
             xlink:href="http://jcp.org/en/jsr/detail?id=175">(JSR 175)</link>
-            and and <emphasis>Web Services Metadata for the Java
-            Platform</emphasis> <link
-            xlink:href="http://jcp.org/en/jsr/detail?id=181.">(JSR 181)</link>
-            as well as additional annotations defined by JAX-WS
-            &jax-ws.release.spec.version;. These annotations are used to
+            and <emphasis>&metadata.spec.name;</emphasis> <link
+            xlink:href="https://jakarta.ee/specifications/web-services-metadata/">(link)</link>
+            as well as additional annotations defined by &ws.spec.name.full;.
+            These annotations are used to
             customize the mapping from Java to XML schema/WSDL and are used at
             runtime to alleviate the need for non-portable
             serializers/deserializers that were generated in JAX-RPC
@@ -336,18 +335,18 @@
             <link xlink:href="http://jcp.org/en/jsr/detail?id=269">(JSR 269)</link>
             Pluggable Annotation Processing API comes as replacement of apt</para>
 
-            <para>The &jax-ws.product.name.short; utilizes an
+            <para>The &ws.impl.name; utilizes an
             <command>javac</command> Pluggable Annotation Processing API functionality
             that was introduced in Java SE 6. <command>javac</command> allows the SI to
             process Java source files directly to generate the portable
-            artifacts specified by the JAX-WS 2.0 specification.
+            artifacts specified by the &ws.spec.name; specification.
             <command>javac</command> comes as replacement of deprecated <command>apt</command>.
             More documentation about <command>javac</command> can be found in section <xref
             linkend="tools-annotation-processing" xrefstyle="select:title" />
             Deprecated <command>apt</command> will be covered in more detail in section
             <xref linkend="tools-apt" xrefstyle="select:title" />.</para>
 
-            <para>For more information on the annotations used by JAX-WS 2.0
+            <para>For more information on the annotations used by &ws.spec.name; 2.0
             please refer to <xref linkend="users-guide-annotations"
             xrefstyle="select:title" />.</para>
         </section>
@@ -355,8 +354,8 @@
         <section xml:id="customizations">
             <title>Customizations</title>
 
-            <para>&jax-ws.product.name; carries forward customization support
-            introduced in JAX-WS 2.0 RI.</para>
+            <para>&ws.impl.name.full; carries forward customization support
+            introduced in &ws.spec.name;.</para>
 
             <itemizedlist>
                 <listitem>
@@ -374,7 +373,7 @@
                 </listitem>
             </itemizedlist>
 
-            <para>JAX-WS 2.0 specification defines standard XML based
+            <para>&ws.spec.name; specification defines standard XML based
             customization for a WSDL file to Java mapping and to control
             certain features. These customizations, or <emphasis>binding
             declarations,</emphasis> can customize almost all WSDL components
@@ -390,11 +389,11 @@
 
             <para>These binding declarations can be inlined in a WSDL file or
             can live outside as an external file. The binding declarations
-            closely align with the JAXB binding declarations. An application
-            importing a WSDL file can inline JAXB bindings inside JAX-WS
+            closely align with the &binding.spec.name; binding declarations. An application
+            importing a WSDL file can inline &binding.spec.name; bindings inside &ws.spec.name;
             binding declarations to customize the inlined schema declared in
             the WSDL file. Schema files that are imported from a WSDL file can
-            be customized using JAXB binding files and can be passed to
+            be customized using &binding.spec.name; binding files and can be passed to
             <command>wscompile</command> using the <option>-b</option> option
             switch.</para>
 
@@ -408,8 +407,8 @@
                 </listitem>
 
                 <listitem>
-                    <para>Close alignment with JAXB bindings. JAXB binding
-                    declarations can be inlined in an external JAX-WS binding
+                    <para>Close alignment with &binding.spec.name; bindings. &binding.spec.name; binding
+                    declarations can be inlined in an external &ws.spec.name; binding
                     file.</para>
                 </listitem>
 
@@ -461,17 +460,17 @@
             </itemizedlist>
 
             <para>XML Schema Java mapping can be customized using standard
-            JAXB customizations.</para>
+            &binding.spec.name; customizations.</para>
 
-            <para>For more information on the customizations used by JAX-WS
-            2.0 please refer to <xref linkend="users-guide-wsdl-customization"
+            <para>For more information on the customizations used by &ws.spec.name;
+            please refer to <xref linkend="users-guide-wsdl-customization"
             xrefstyle="select:title" />.</para>
         </section>
 
         <section xml:id="improved-handler-framework">
             <title>Improved Handler Framework</title>
 
-            <para>JAX-WS 2.0 specification defines two types of handlers:
+            <para>&ws.spec.name; specification defines two types of handlers:
             logical and protocol handlers. While protocol handlers have access
             to an entire message such as a SOAP message, logical handlers deal
             only with the payload of a message and are independent of the
@@ -481,7 +480,7 @@
             information easily with handlers.</para>
 
             <para>For more information on the handler framework in
-            &jax-ws.product.name; please refer to <xref
+            &ws.impl.name.full; please refer to <xref
             linkend="users-guide-handler" xrefstyle="select:title" />.</para>
         </section>
 
@@ -493,7 +492,7 @@
             Here the endpoints access messages or message payloads using this
             low level, generic API.</para>
 
-            <para>For more information on providers in &jax-ws.product.name;
+            <para>For more information on providers in &ws.impl.name.full;
             please refer to <xref linkend="users-guide-provider"
             xrefstyle="select:title" />.</para>
         </section>
@@ -505,7 +504,7 @@
             prefer to use XML constructs at the
             <literal>java.lang.transform.Source</literal> or
             <literal>javax.xml.soap.SOAPMessage</literal> level. For added
-            convenience use of the <literal>Dispatch</literal> API with JAXB
+            convenience use of the <literal>Dispatch</literal> API with &binding.spec.name;
             data-bound objects is supported. The <literal>Dispatch</literal>
             API can be used in both <literal>Message</literal> and
             <literal>Payload</literal> modes.</para>
@@ -519,7 +518,7 @@
             <title>Asynchronous Client Operations</title>
 
             <para>For more information on asynchronous clients in
-            &jax-ws.product.name; please refer to <xref
+            &ws.impl.name.full; please refer to <xref
             linkend="users-guide-asynchronous-client"
             xrefstyle="select:title" />.</para>
         </section>
@@ -577,7 +576,7 @@
             <section xml:id="generate-portable-artifacts">
                 <title>Generate Portable Artifacts</title>
 
-                <para>Portable artifacts generated by &jax-ws.product.name;
+                <para>Portable artifacts generated by &ws.impl.name.full;
                 include zero or more JavaBean classes to aide in the
                 marshaling of method invocations and responses, as well as
                 service-specific exceptions.</para>
@@ -589,16 +588,16 @@
                 generated for each service-specific exception.</para>
 
                 <para>When starting from Java the developer must provide the
-                JAX-WS tools with a valid endpoint implementation class. This
+                &ws.spec.name; tools with a valid endpoint implementation class. This
                 implementation class is the class that implements the desired
-                web service. JAX-WS has a number of restrictions on endpoint
+                web service. &ws.spec.name; has a number of restrictions on endpoint
                 implementation classes. A valid endpoint implementation class
                 must meet the following requirements:</para>
 
                 <itemizedlist>
                     <listitem>
                         <para>It <emphasis>must</emphasis> carry a
-                        javax.jws.WebService annotation (see JSR 181).</para>
+                        javax.jws.WebService annotation (see &metadata.spec.name;).</para>
                     </listitem>
 
                     <listitem>
@@ -615,7 +614,7 @@
 
                     <listitem>
                         <para>All method parameters and return types
-                        <emphasis>must</emphasis> be compatible with the JAXB
+                        <emphasis>must</emphasis> be compatible with the &binding.spec.name;
                         2.0 Java to XML Schema mapping definition.</para>
                     </listitem>
 
@@ -659,13 +658,13 @@ public class AddNumbersImpl {
 
                 <para>If you are familiar with JAX-RPC 1.1, you will notice
                 that this implementation class does not implement a service
-                endpoint interface. In &jax-ws.product.name; a service
+                endpoint interface. In &ws.impl.name.full; a service
                 endpoint interface is no longer required.</para>
 
                 <para>When starting from a Java endpoint implementation class,
                 it is recommended that the portable artifacts be generated
                 from source using <command>annotationProcessing</command>. This because the
-                JAX-WS tools will then have full access to the source code and
+                &ws.spec.name; tools will then have full access to the source code and
                 will be able to utilize parameter names that are otherwise not
                 available through the Java reflection APIs. If the source for
                 the endpoint implementation class is not available, the
@@ -707,13 +706,13 @@ AddNumbersResponse.java]]></programlisting>
                 <filename>AddNumbersImplService.wsdl</filename> and contains
                 the datatypes used by the web service. The
                 <filename>AddNumbers.class</filename>/<filename>AddNumbers.java</filename>
-                files contain the a bean used by a JAXB to marshall/unmarshall
+                files contain the a bean used by a &binding.spec.name; to marshall/unmarshall
                 the <literal>addNumbers</literal> request. The
                 <filename>AddNumbersExceptionBean.class</filename>/<filename>AddNumbersExceptionBean.java</filename>
-                file is a bean used by JAXB to marshall the contents of the
+                file is a bean used by &binding.spec.name; to marshall the contents of the
                 <literal>AddNumbersException</literal> class. The
                 <filename>AddNumbersResponse.class</filename>/<filename>AddNumbersResponse.java</filename>
-                files represent the response bean used by JAXB to
+                files represent the response bean used by &binding.spec.name; to
                 marshall/unmarshall the <literal>addNumbers</literal>
                 response.</para>
             </section>
@@ -780,7 +779,7 @@ WEB-INF/classes/fromjava/server/jaxws/AddNumbersResponse.class]]></programlistin
                 </informalexample>
 
                 <para>The WAR file created can now be published on a
-                &jax-ws.product.name.short; enabled servlet container such as
+                &ws.impl.name; enabled servlet container such as
                 the <link
                 xlink:href="http://java.sun.com/j2ee/1.4/download.html">Sun
                 Java System Application Server Platform Edition
@@ -865,7 +864,7 @@ public interface AddNumbersPortType extends java.rmi.Remote {
                 </informalexample>
 
                 <para>The generated service endpoint interface has annotations
-                that can be used by the future versions of JAX-WS 2.0 to do
+                that can be used by the future versions of &ws.spec.name; to do
                 dynamic binding and serialization/deserialization at runtime.
                 Alternatively this service endpoint interface can be used to
                 generate a WSDL and schema file. Please note that
@@ -960,7 +959,7 @@ public class AddNumbersImpl implements AddNumbersPortType {
                 xrefstyle="select:title" />.</para>
 
                 <para>The WAR file created can now be published on a
-                &jax-ws.product.name.short; enabled servlet container such as
+                &ws.impl.name; enabled servlet container such as
                 the <link
                 xlink:href="http://java.sun.com/j2ee/1.4/download.html">Sun
                 Java System Application Server Platform Edition
@@ -968,10 +967,10 @@ public class AddNumbersImpl implements AddNumbersPortType {
             </section>
 
             <section xml:id="j2se-endpoints">
-                <title>J2SE Endpoints</title>
+                <title>Java SE Endpoints</title>
 
                 <para>Endpoints can be created and published programmatically
-                using <literal>javax.xml.ws.Endpoint</literal> API in J2SE. To
+                using <literal>javax.xml.ws.Endpoint</literal> API in Java SE. To
                 learn more about these endpoints, see <xref
                 linkend="users-guide-endpoint-api"
                 xrefstyle="select:title" />.</para>
@@ -1050,7 +1049,7 @@ int result = port.addNumbers(10, 20);]]></programlisting>
                 advanced XML developers who prefer using XML constructs at the
                 <literal>java.lang.transform.Source</literal> or
                 <literal>javax.xml.soap.SOAPMessage</literal> level. For added
-                convenience use of <literal>Dispatch</literal> with JAXB data
+                convenience use of <literal>Dispatch</literal> with &binding.spec.name; data
                 binding object is supported. With the
                 <literal>XML/HTTP</literal> binding a
                 <literal>javax.activation.DataSource</literal> can also be
@@ -1062,7 +1061,7 @@ int result = port.addNumbers(10, 20);]]></programlisting>
                 information.</para>
 
                 <para>For more information on <literal>Dispatch</literal> in
-                &jax-ws.product.name; please refer to <xref
+                &ws.impl.name.full; please refer to <xref
                 linkend="users-guide-dispatch"
                 xrefstyle="select:title" />.</para>
             </section>
@@ -1084,7 +1083,7 @@ int result = port.addNumbers(10, 20);]]></programlisting>
         <para>Please use the <link
         xlink:href="https://projects.eclipse.org/projects/ee4j.metro">METRO</link> forum for feedback.</para>
 
-        <para>The JAX-WS project on GitHub is: <link
+        <para>The &ws.impl.name; project on GitHub is: <link
         xlink:href="https://github.com/eclipse-ee4j/metro-jax-ws">https://github.com/eclipse-ee4j/metro-jax-ws</link>.</para>
     </section>
 </section>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,7 @@
          xmlns:m="http://www.w3.org/1998/Math/MathML">
     <title>WSDL Customization</title>
 
-    <para>The JAX-WS 2.0 specification defines standard XML-based
+    <para>The &ws.spec.name; specification defines standard XML-based
     customization for WSDL to Java mapping and to control certain features.
     These customizations, or <emphasis>binding declarations</emphasis>, can
     customize almost all WSDL components that can be mapped to Java, such as
@@ -59,7 +59,7 @@
     </itemizedlist>
 
     <para>But these customizations were not portable and could not be used
-    across other JAX-RPC implementations. &jax-ws.product.name; provides
+    across other JAX-RPC implementations. &ws.impl.name.full; provides
     complete support for all the binding declarations defined by the
     specification.</para>
 
@@ -74,7 +74,7 @@
         <emphasis>external binding file</emphasis>. The second approach
         consists of embedding binding declarations directly inside a WSDL
         document. In either case, the <literal>jaxws:bindings</literal>
-        element is used as a container for JAX-WS binding declarations. The
+        element is used as a container for &ws.spec.name; binding declarations. The
         <literal>jaxws</literal> prefix maps to the
         <literal>http://java.sun.com/xml/ns/jaxws</literal> namespace.</para>
 
@@ -161,7 +161,7 @@
             <para>Embedded binding declarations directly inside the WSDL
             follow different rules compared to the binding declarations
             declared in the external binding file. Here are some important
-            facts and rules as defined in the JAX-WS 2.0 specification:</para>
+            facts and rules as defined in the &ws.spec.name; specification:</para>
 
             <itemizedlist>
                 <listitem>
@@ -685,7 +685,7 @@ public Future<?> addNumbers(int number1, int number2,
             <title>XML Schema Customization</title>
 
             <para>An XML schema inlined inside a compiled WSDL file can be
-            customized by using standard JAXB bindings. These JAXB bindings
+            customized by using standard &binding.spec.name; bindings. These &binding.spec.name; bindings
             can live inside the schema or as the child of a
             <literal>jaxws:bindings</literal> element in an external binding
             declaration file:</para>
@@ -700,7 +700,7 @@ public Future<?> addNumbers(int number1, int number2,
             </informalexample>
 
             <para>External XML schema files imported by the WSDL file can be
-            customized using a JAXB external binding declaration file:</para>
+            customized using a &binding.spec.name; external binding declaration file:</para>
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<jxb:bindings xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -718,9 +718,9 @@ public Future<?> addNumbers(int number1, int number2,
 </jxb:bindings>]]></programlisting>
             </informalexample>
 
-            <para>The external JAXB binding declaration file can be passed to
+            <para>The external &binding.spec.name; binding declaration file can be passed to
             <command>wsimport</command> using the <option>-b</option> switch.
-            See the JAX-WS <xref linkend="tools-wsimport"
+            See the &ws.spec.name; <xref linkend="tools-wsimport"
             xrefstyle="select:title" /> documentation for details.</para>
         </section>
 
@@ -729,11 +729,11 @@ public Future<?> addNumbers(int number1, int number2,
 
             <para><literal>jaxws:bindings</literal> customization can be used
             to customize or add handlers. All that is needed is to inline a
-            handler chain configuration conforming to JSR 181 Handler Chain
+            handler chain configuration conforming to &metadata.spec.name; Handler Chain
             configuration schema inside <literal>jaxws:bindings</literal>
             element.</para>
 
-            <para>Below is a sample JAX-WS binding declaration file with JSR
+            <para>Below is a sample &ws.spec.name; binding declaration file with JSR
             181 handler chain configuration:</para>
 
             <informalexample>
@@ -765,7 +765,7 @@ public Future<?> addNumbers(int number1, int number2,
             inside <literal>jaxws:bindings</literal> element enclosing the
             <literal>jws:handler-chain</literal> element. It also add
             <literal>@javax.jws.HandlerChain</literal> annotation in the
-            generated SEI class. JAXWS runtime uses the
+            generated SEI class. &ws.impl.name; runtime uses the
             <literal>@HandlerChain</literal> annotation from the SEI to find
             the handlers that has to be added into the handle chain.</para>
         </section>

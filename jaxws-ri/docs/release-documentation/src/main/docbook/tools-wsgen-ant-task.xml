@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,8 +27,8 @@
     <section xml:id="wsgen-task-overview">
         <title><command>wsgen</command> Task Overview</title>
 
-        <para><literal>wsgen</literal> generates JAX-WS portable artifacts
-        used in JAX-WS web services. The tool reads a web service endpoint
+        <para><literal>wsgen</literal> generates &ws.spec.name; portable artifacts
+        used in &ws.spec.name; web services. The tool reads a web service endpoint
         class and generates all the required artifacts for web service
         deployment, and invocation.</para>
     </section>
@@ -49,7 +49,7 @@
         <link
         xlink:href="http://ant.apache.org/manual/using.html#path">path-like
         structure</link>, defined elsewhere in the build environment, and
-        contains the list of classes required by the JAX-WS tools.</para>
+        contains the list of classes required by the &ws.impl.name; tools.</para>
 
         <section xml:id="wsgen-task-envvar">
             <title>Environment Variables</title>

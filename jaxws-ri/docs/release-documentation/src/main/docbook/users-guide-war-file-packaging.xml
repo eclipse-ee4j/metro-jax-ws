@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,7 +62,7 @@
                     <row>
                         <entry><code>WEB-INF/sun-jaxws.xml</code></entry>
 
-                        <entry><para>JAX-WS RI deployment
+                        <entry><para>&ws.impl.name; deployment
                         descriptor</para></entry>
                     </row>
 
@@ -146,7 +146,7 @@
                         <entry><para>Primary wsdl file location in the WAR
                         file. For e.g.
                         <filename>WEB-INF/wsdl/HelloService.wsdl</filename>.
-                        If this isn't specified, JAX-WS will create and
+                        If this isn't specified, &ws.impl.name; will create and
                         publish a new WSDL. When the service is developed from
                         Java, it is recommended to omit this
                         attribute.</para></entry>
@@ -202,7 +202,7 @@
 
                         <entry><para>Y</para></entry>
 
-                        <entry><para>Binding id defined in the JAX-WS API. The
+                        <entry><para>Binding id defined in the &ws.spec.name; API. The
                         possible values are:</para><itemizedlist>
                                 <listitem>
                                     <para><literal>"http://schemas.xmlsoap.org/wsdl/soap/http"</literal></para>
@@ -252,7 +252,7 @@
 
         <para>The following shows a <literal>web.xml</literal> file for a
         simple <literal>HelloWorld</literal> service. It specifies
-        &jax-ws.product.name.short; specific listener, servlet classes. These
+        &ws.impl.name; specific listener, servlet classes. These
         classes are
         <literal>com.sun.ws.transport.http.servlet.WSServletContextListener</literal>,
         and <literal>com.sun.xml.ws.transport.http.servlet.WSServlet</literal>
