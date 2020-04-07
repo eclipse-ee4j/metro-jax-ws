@@ -235,7 +235,7 @@
                                     <target xmlns:jacoco="antlib:org.jacoco.ant">
                                         <!--taskdef classpathref="maven.test.classpath" resource="tasks.properties" /-->
                                         <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
-                                            <classpath path="target/lib/org.jacoco.ant-0.8.3.jar:target/lib/org.jacoco.core-0.8.3.jar:target/lib/org.jacoco.report-0.8.3.jar:target/lib/asm-7.2.jar:target/lib/asm-commons-7.2.jar:target/lib/asm-tree-7.2.jar" />
+                                            <classpath path="target/lib/org.jacoco.ant-0.8.5.jar:target/lib/org.jacoco.core-0.8.5.jar:target/lib/org.jacoco.report-0.8.5.jar:target/lib/asm-7.2.jar:target/lib/asm-commons-7.2.jar:target/lib/asm-tree-7.2.jar" />
                                         </taskdef>
                                         <property name="jaxws-ri.instr.dir" location="${project.build.directory}/jaxws-ri-instrumented"/>
                                         <property name="jaxws-ri.instr.full.name" location="${project.build.directory}/jaxws-ri-instrumented-full.zip"/>

@@ -611,10 +611,8 @@
                 </property>
             </activation>
             <properties>
-                <jacoco.report.format>xml</jacoco.report.format>
                 <jacoco.version>0.8.5</jacoco.version>
                 <jacoco.skip>false</jacoco.skip>
-                <jacoco-agent.destfile>${basedir}/target/jacoco/jacoco.exec</jacoco-agent.destfile>
             </properties>
             <dependencies>
                 <!-- jacoco library -->
@@ -622,105 +620,17 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>org.jacoco.agent</artifactId>
                     <version>${jacoco.version}</version>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>oro</groupId>
-                            <artifactId>oro</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>asm</groupId>
-                            <artifactId>asm</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>asm</groupId>
-                            <artifactId>asm-tree</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>log4j</groupId>
-                            <artifactId>log4j</artifactId>
-                        </exclusion>
-                    </exclusions>
                 </dependency>
                 <dependency>
                     <groupId>org.jacoco</groupId>
                     <artifactId>org.jacoco.agent</artifactId>
                     <classifier>runtime</classifier>
                     <version>${jacoco.version}</version>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>oro</groupId>
-                            <artifactId>oro</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>asm</groupId>
-                            <artifactId>asm</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>asm</groupId>
-                            <artifactId>asm-tree</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>log4j</groupId>
-                            <artifactId>log4j</artifactId>
-                        </exclusion>
-                    </exclusions>
                 </dependency>
                 <dependency>
                     <groupId>org.jacoco</groupId>
                     <artifactId>org.jacoco.ant</artifactId>
                     <version>${jacoco.version}</version>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>oro</groupId>
-                            <artifactId>oro</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>asm</groupId>
-                            <artifactId>asm</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>asm</groupId>
-                            <artifactId>asm-tree</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>asm</groupId>
-                            <artifactId>asm-common</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>asm</groupId>
-                            <artifactId>asm-analysis</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>log4j</groupId>
-                            <artifactId>log4j</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <!-- needed for jacoco-instrument ant task to work (in *-rt, *-tools)
-                and to not be included in assemblies/shaded jars -->
-                <dependency>
-                    <groupId>oro</groupId>
-                    <artifactId>oro</artifactId>
-                    <version>2.0.8</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>asm</groupId>
-                    <artifactId>asm</artifactId>
-                    <version>3.0</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>asm</groupId>
-                    <artifactId>asm-tree</artifactId>
-                    <version>3.0</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                    <version>1.2.9</version>
-                    <scope>test</scope>
                 </dependency>
             </dependencies>
             <build>
@@ -738,19 +648,6 @@
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
                         <executions>
-                            <execution>
-                                <id>instrument-code</id>
-                                <phase>process-classes</phase>
-                                <goals>
-                                    <goal>instrument</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>default-restore-instrumented-classes</id>
-                                <goals>
-                                    <goal>restore-instrumented-classes</goal>
-                                </goals>
-                            </execution>
                             <execution>
                                 <id>default-prepare-agent</id>
                                 <goals>

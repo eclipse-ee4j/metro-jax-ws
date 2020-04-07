@@ -30,6 +30,10 @@
 
     <properties>
         <spotbugs.exclude>${project.basedir}/exclude.xml</spotbugs.exclude>
+        <argLine>
+            --add-opens java.base/java.lang=com.sun.xml.ws.rt
+            --add-opens com.sun.xml.ws.rt/com.sun.xml.ws.client.test=com.sun.xml.bind
+        </argLine>
     </properties>
 
     <dependencies>
@@ -237,10 +241,6 @@
                         <javax.xml.ws.spi.Provider>com.sun.xml.ws.spi.ProviderImpl</javax.xml.ws.spi.Provider>
                     </systemProperties>
                     <!-- SAAJMessageWrapperTest/com.sun.xml.ws.model.Injector -->
-                    <argLine>
-                        --add-opens java.base/java.lang=com.sun.xml.ws.rt
-                        --add-opens com.sun.xml.ws.rt/com.sun.xml.ws.client.test=com.sun.xml.bind
-                    </argLine>
                 </configuration>
             </plugin>
             <plugin>

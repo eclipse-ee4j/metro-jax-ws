@@ -238,7 +238,7 @@
                         <javax.jws-api.version>${javax.jws-api.version}</javax.jws-api.version>
                         <javax.annotation-api.version>${javax.annotation-api.version}</javax.annotation-api.version>
                         <jaxws-api.version>${jaxws-api.version}</jaxws-api.version>
-                        <jacoco-agent.destfile>${jacoco-agent.destfile}</jacoco-agent.destfile>
+                        <jacoco-agent.destfile>${project.build.directory}</jacoco-agent.destfile>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>
