@@ -5,6 +5,7 @@
  ------
  2013-06-03
 
+~~ Copyright 2013-2020 Oracle
 ~~ Copyright 2006 Codehaus
 ~~
 ~~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,9 +23,11 @@
 
 JAX-WS Maven Plugin
 
-  This plugin contains Maven adapter for {{{http://jax-ws.java.net/}JAX-WS}}'s
+  This plugin contains Maven adapter for {{{https://eclipse-ee4j.github.io/metro-jax-ws/}Jakarta XML Web Services}}'
   toolset. The original version of this was developed in the codehaus mojo project,
-  but as of March 2007, the project is moved to jax-ws-commons.
+  in March 2007, the project was moved to jax-ws-commons, but as of December 2018,
+  the project is moved to {{{http://eclipse.org}Eclipse Foundation}} and plugin's
+  group id is changed to <<<com.sun.xml.ws>>>.
 
   * <<License:>> {{{http://www.apache.org/licenses/LICENSE-2.0}Apache License, Version 2.0}}
 
@@ -36,14 +39,15 @@ JAX-WS Maven Plugin
 
 * Goals Overview
   
-  * {{{./wsimport-mojo.html}jaxws:wsimport}}: generates JAX-WS portable artifacts used in JAX-WS
+  * {{{./wsimport-mojo.html}jaxws:wsimport}}: generates portable artifacts used in
+     Jakarta XML Web Services compliant
      clients and services. The tool reads a WSDL and generates all the required artifacts 
      for web service development, deployment, and invocation. 
   
   * {{{./wsimport-test-mojo.html}jaxws:wsimport-test}}: same as <<<jaxws:wsimport>>> but for tests.
 
   * {{{./wsgen-mojo.html}jaxws:wsgen}}: reads a service endpoint implementation class
-     and generates all of the portable artifacts for a JAX-WS web service.
+     and generates all of the portable artifacts for a Jakarta XML Web Service.
 
   * {{{./wsgen-test-mojo.html}jaxws:wsgen-test}}: same as <<<jaxws:wsgen>>> but for tests.
     
@@ -55,9 +59,9 @@ JAX-WS Maven Plugin
 
   * {{{./examples/using-wstools-from-jdk.html}Using JAX-WS tools from JDK}}
 
-  * {{{./examples/using-jaxb-plugins.html}Using JAXB xjc plugins}}
+  * {{{./examples/using-jaxb-plugins.html}Using xjc plugins}}
 
-  * {{{./examples/using-jaxws22-on-jdk6.html}Using JAX-WS 2.2.x on JDK 6}}
+  * {{{./examples/using-jaxws22-on-jdk6.html}Using Jakarta XML Web Services 2.3.x on Java SE 8}}
 
   * {{{./examples/using-wsdlLocation.html}Using wsdlLocation as a path prefix for multiple WSDL URLs}}
 
@@ -65,9 +69,9 @@ JAX-WS Maven Plugin
 
   * {{{./examples/using-snapshots.html}Using SNAPSHOT build}}
 
-  * There are also some {{{http://java.net/projects/jax-ws-commons/sources/svn/show/tags/jaxws-maven-plugin-2.3/src/it}buildable examples}}
-    in {{{http://java.net/projects/jax-ws-commons/sources/svn/show/tags/jaxws-maven-plugin-2.3/}SVN repository}}.
-    You can also check {{{http://java.net/projects/jax-ws-commons/sources/svn/show/tags/jaxws-maven-plugin-2.3/src/test/it}available tests}}.
+  * There are also some {{{https://github.com/eclipse-ee4j/metro-jax-ws/tree/master/jaxws-ri/extras/jaxws-maven-plugin/src/it}buildable examples}}
+    in {{{https://github.com/eclipse-ee4j/metro-jax-ws/tree/master/jaxws-ri/extras/jaxws-maven-plugin/}GIT repository}}.
+    You can also check {{{https://github.com/eclipse-ee4j/metro-jax-ws/tree/master/jaxws-ri/extras/jaxws-maven-plugin/src/test/it}available tests}}.
 
  []
 

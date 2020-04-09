@@ -1,3 +1,4 @@
+~~ Copyright 2013-2020 Oracle
 ~~ Copyright 2006 Codehaus
 ~~
 ~~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +16,9 @@
 
 Usage
 
-  This plugin runs the JAXWS WsImport compiler from Maven2. 
-  Please be aware this plugin requires a Java 5.0+ compiler.
-  
+  This plugin runs the WsImport compiler from Maven2.
+  Please be aware this plugin requires a Java SE 8+ compiler.
+
 +------------------------------------------+
 <project>
   ...
@@ -26,7 +27,7 @@ Usage
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
       <artifactId>jaxws-rt</artifactId>
-      <version>2.2.8</version>
+      <version>2.3.3</version>
     </dependency>
     ...
   </dependencies>
@@ -34,9 +35,9 @@ Usage
   <build>
     <plugins>
       <plugin>
-        <groupId>org.jvnet.jax-ws-commons</groupId>
+        <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
-        <version>2.3</version>
+        <version>2.3.3</version>
         <executions>
           <execution>
             <goals>
@@ -49,7 +50,7 @@ Usage
           <packageName>com.example.myservice</packageName>
         </configuration>
 
-        <!-- if you want to use a specific version of JAX-WS, you can do so like this -->
+        <!-- if you want to use a specific version of JAX-WS/Jakarta XML Web Services, you can do so like this -->
         <dependencies>
           <dependency>
             <groupId>com.sun.xml.ws</groupId>
@@ -59,12 +60,12 @@ Usage
         </dependencies>
       </plugin>
 
-      <!-- Don't forget to use endorsed with JAX-WS 2.2 on Java 6 !! -->
+      <!-- Don't forget to use endorsed with Jakarta XML Web Services on Java 8 !! -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.8</source>
+          <target>1.8</target>
           <compilerArguments>
             <endorseddirs>${project.build.directory}/endorsed</endorseddirs>
           </compilerArguments>
@@ -73,7 +74,7 @@ Usage
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.3</version>
+        <version>3.1.2</version>
         <executions>
           <execution>
             <phase>validate</phase>
@@ -85,15 +86,15 @@ Usage
               <silent>true</silent>
               <artifactItems>
                 <artifactItem>
-                  <groupId>javax.xml.bind</groupId>
-                  <artifactId>jaxb-api</artifactId>
-                  <version>2.2.7</version>
+                  <groupId>jakarta.xml.bind</groupId>
+                  <artifactId>jakarta.xml.bind-api</artifactId>
+                  <version>2.3.3</version>
                   <type>jar</type>
                 </artifactItem>
                 <artifactItem>
-                  <groupId>javax.xml.ws</groupId>
-                  <artifactId>jaxws-api</artifactId>
-                  <version>2.2.9</version>
+                  <groupId>jakarta.xml.ws</groupId>
+                  <artifactId>jakarta.xml.ws-api</artifactId>
+                  <version>2.3.3</version>
                   <type>jar</type>
                 </artifactItem>
               </artifactItems>

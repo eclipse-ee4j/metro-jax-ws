@@ -1,5 +1,5 @@
 ~~
-~~ Copyright 2011-2013 Oracle
+~~ Copyright 2011-2020 Oracle
 ~~
 ~~ Licensed under the Apache License, Version 2.0 (the "License");
 ~~ you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 ~~ limitations under the License.
 ~~
 
-Using JAX-WS 2.2.x on JDK 6
+Using Jakarta XML Web Services 2.3.x on JDK 8
 
 +------------------------------------------+
 <project>
@@ -24,7 +24,7 @@ Using JAX-WS 2.2.x on JDK 6
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
       <artifactId>jaxws-rt</artifactId>
-      <version>2.2.8</version>
+      <version>2.3.3</version>
     </dependency>
     ...
   </dependencies>
@@ -32,10 +32,10 @@ Using JAX-WS 2.2.x on JDK 6
   <profiles>
     ...
     <profile>
-      <id>jdk6</id>
+      <id>jdk8</id>
       <activation>
-        <!-- needed only on JDK 6-->
-        <jdk>1.6</jdk>
+        <!-- needed only on JDK 8-->
+        <jdk>1.8</jdk>
       </activation>
       <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -45,7 +45,7 @@ Using JAX-WS 2.2.x on JDK 6
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
-            <version>2.3</version>
+            <version>3.1.2</version>
             <executions>
               <execution>
                 <phase>validate</phase>
@@ -55,18 +55,18 @@ Using JAX-WS 2.2.x on JDK 6
                 <configuration>
                   <outputDirectory>${endorsed.dir}</outputDirectory>
                   <silent>true</silent>
-                  <!-- need JAXB API and JAX-WS API in an endorsed dir-->
+                  <!-- need APIs in an endorsed dir-->
                   <artifactItems>
                     <artifactItem>
-                      <groupId>javax.xml.bind</groupId>
-                      <artifactId>jaxb-api</artifactId>
-                      <version>2.2.7</version>
+                      <groupId>jakarta.xml.bind</groupId>
+                      <artifactId>jakarta.xml.bind-api</artifactId>
+                      <version>2.3.3</version>
                       <type>jar</type>
                     </artifactItem>
                     <artifactItem>
-                      <groupId>javax.xml.ws</groupId>
-                      <artifactId>jaxws-api</artifactId>
-                      <version>2.2.9</version>
+                      <groupId>jakarta.xml.ws</groupId>
+                      <artifactId>jakarta.xml.ws-api</artifactId>
+                      <version>2.3.3</version>
                       <type>jar</type>
                     </artifactItem>
                   </artifactItems>
@@ -77,10 +77,10 @@ Using JAX-WS 2.2.x on JDK 6
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>2.3.2</version>
+            <version>3.8.1</version>
             <configuration>
-              <source>1.6</source>
-              <target>1.6</target>
+              <source>1.8</source>
+              <target>1.8</target>
               <compilerArguments>
                 <!-- tell compiler to use endorsed dir -->
                 <endorseddirs>${endorsed.dir}</endorseddirs>
