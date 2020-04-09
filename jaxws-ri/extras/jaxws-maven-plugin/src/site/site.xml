@@ -31,8 +31,8 @@
 
   <body>
     <links>
-      <item name="JAX-WS" href="http://jax-ws.java.net/" />
-      <item name="Glassfish" href="http://glassfish.java.net/"/>
+      <item name="Jakarta XML Web Services" href="https://eclipse-ee4j.github.io/metro-jax-ws/" />
+      <item name="Glassfish" href="https://eclipse-ee4j.github.io/glassfish/"/>
     </links>
     <menu name="Overview">
       <item name="Introduction" href="index.html"/>
