@@ -1,0 +1,104 @@
+---
+layout: content
+---
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+<html>
+  <head>
+    <title>JAX-WS Maven plugin &#x2013; </title>
+    <style type="text/css" media="all">
+      @import url("../css/maven-base.css");
+      @import url("../css/maven-theme.css");
+      @import url("../css/site.css");
+    </style>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      </head>
+  <body class="composite">
+    <!-- TODO: move this into JavaScript to patch the skin
+      <div class="xright">      <a href="https://eclipse-ee4j.github.io/metro-jax-ws/">Jakarta XML Web Services</a>
+          |
+          <a href="https://eclipse-ee4j.github.io/glassfish/">Glassfish</a>
+      </div>
+    -->
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <section>
+<h2><a name="Use_wsdlLocation_as_a_path_prefix_for_multiple_WSDL_URLs"></a>Use wsdlLocation as a path prefix for multiple WSDL URLs</h2>
+<div class="source">
+<pre>&lt;project&gt;
+  ...
+  &lt;dependencies&gt;
+      ...
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+      &lt;artifactId&gt;jaxws-rt&lt;/artifactId&gt;
+      &lt;version&gt;2.3.3&lt;/version&gt;
+    &lt;/dependency&gt;
+    ...
+  &lt;/dependencies&gt;
+  ...
+  &lt;build&gt;
+    ...
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+        &lt;artifactId&gt;jaxws-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;2.3.3&lt;/version&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;wsimport&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;!-- Following configuration will invoke wsimport once for each wsdl. --&gt;
+            &lt;configuration&gt;
+              &lt;wsdlLocation&gt;http://example.com/mywebservices/*&lt;/wsdlLocation&gt;
+              &lt;wsdlDirectory&gt;src/mywsdls&lt;/wsdlDirectory&gt;
+              &lt;wsdlFiles&gt;
+                &lt;wsdlFile&gt;a.wsdl&lt;/wsdlFile&gt;                         &lt;!-- produces wsdlLocation = http://example.com/mywebservices/a.wsdl --&gt;
+                &lt;wsdlFile&gt;b/b.wsdl&lt;/wsdlFile&gt;                       &lt;!-- produces wsdlLocation = http://example.com/mywebservices/b/b.wsdl --&gt;
+                &lt;wsdlFile&gt;${basedir}/src/mywsdls/c.wsdl&lt;/wsdlFile&gt;  &lt;!-- produces wsdlLocation = /path/to/basedir/src/mywsdls/c.wsdl --&gt;
+              &lt;/wsdlFiles&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;
+      ...
+    &lt;/plugins&gt;
+    ...
+  &lt;build&gt;
+  ...
+&lt;/project&gt;</pre></div></section>
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2017-2020
+    
+          Eclipse Foundation
+          
+  
+
+  
+  
+  &nbsp;| Last Published: 2020-04-09
+  &nbsp;| Version: 2.3.3
+</div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>

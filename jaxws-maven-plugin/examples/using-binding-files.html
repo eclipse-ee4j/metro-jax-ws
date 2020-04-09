@@ -1,0 +1,148 @@
+---
+layout: content
+---
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+<html>
+  <head>
+    <title>JAX-WS Maven plugin &#x2013; </title>
+    <style type="text/css" media="all">
+      @import url("../css/maven-base.css");
+      @import url("../css/maven-theme.css");
+      @import url("../css/site.css");
+    </style>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      </head>
+  <body class="composite">
+    <!-- TODO: move this into JavaScript to patch the skin
+      <div class="xright">      <a href="https://eclipse-ee4j.github.io/metro-jax-ws/">Jakarta XML Web Services</a>
+          |
+          <a href="https://eclipse-ee4j.github.io/glassfish/">Glassfish</a>
+      </div>
+    -->
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <section>
+<h2><a name="External_binding_files_can_be_passed_to_wsimport_mojo_in_two_ways:"></a>External binding files can be passed to <a href="../wsimport-mojo.html">wsimport mojo</a> in two ways:</h2>
+<ul>
+<li>using <b>bindingFiles</b> configuration element - absolute and/or relative paths can be used. Note that relative path have their base directory set to <code>src/jaxws</code>
+<div class="source">
+<pre>&lt;project&gt;
+  ...
+  &lt;dependencies&gt;
+      ...
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+      &lt;artifactId&gt;jaxws-rt&lt;/artifactId&gt;
+      &lt;version&gt;2.3.3&lt;/version&gt;
+    &lt;/dependency&gt;
+    ...
+  &lt;/dependencies&gt;
+  ...
+  &lt;build&gt;
+    ...
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+        &lt;artifactId&gt;jaxws-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;2.3.3&lt;/version&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;wsimport&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;!-- Following configuration will pass ${basedir}/src/remote-xjc/bindings.xjc and ${basedir}/src/jaxws/bindings-default.xjc to wsimport. --&gt;
+            &lt;configuration&gt;
+              &lt;bindingFiles&gt;
+                &lt;bindingFile&gt;${basedir}/src/remote-xjc/bindings.xjc&lt;/bindingFile&gt;
+                &lt;bindingFile&gt;bindings-default.xjc&lt;/bindingFile&gt;
+              &lt;/bindingFiles&gt;
+              &lt;wsdlUrls&gt;
+                &lt;wsdlUrl&gt;http://example.com/mywebservices/MyService?WSDL&lt;/wsdlUrl&gt;
+              &lt;/wsdlUrls&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;
+      ...
+    &lt;/plugins&gt;
+    ...
+  &lt;build&gt;
+  ...
+&lt;/project&gt;</pre></div></li>
+<li>using <b>bindingDirectory</b> configuration element - all <code>XML</code> files from this directory will be passed to wsimport
+<div class="source">
+<pre>&lt;project&gt;
+  ...
+  &lt;dependencies&gt;
+      ...
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+      &lt;artifactId&gt;jaxws-rt&lt;/artifactId&gt;
+      &lt;version&gt;2.3.3&lt;/version&gt;
+    &lt;/dependency&gt;
+    ...
+  &lt;/dependencies&gt;
+  ...
+  &lt;build&gt;
+    ...
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+        &lt;artifactId&gt;jaxws-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;2.3.3&lt;/version&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;wsimport&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;!-- Following configuration will pass all XML files from ${basedir}/src/bindings to wsimport. --&gt;
+            &lt;configuration&gt;
+              &lt;bindingDirectory&gt;${basedir}/src/bindings&lt;/bindingDirectory&gt;
+              &lt;wsdlUrls&gt;
+                &lt;wsdlUrl&gt;http://example.com/mywebservices/MyService?WSDL&lt;/wsdlUrl&gt;
+              &lt;/wsdlUrls&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;
+      ...
+    &lt;/plugins&gt;
+    ...
+  &lt;build&gt;
+  ...
+&lt;/project&gt;</pre></div></li></ul></section>
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2017-2020
+    
+          Eclipse Foundation
+          
+  
+
+  
+  
+  &nbsp;| Last Published: 2020-04-09
+  &nbsp;| Version: 2.3.3
+</div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>
