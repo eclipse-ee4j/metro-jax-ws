@@ -35,8 +35,8 @@
         <!-- CQ 21208 -->
         <asm.version>7.2</asm.version>
         <commonj.sdo.version>2.1.1</commonj.sdo.version>
-        <eclipselink.version>3.0.0-SNAPSHOT</eclipselink.version>
-        <javax.persistance.version>2.2.3</javax.persistance.version>
+        <eclipselink.version>3.0.0-M1</eclipselink.version>
+        <javax.persistance.version>3.0.0-RC2</javax.persistance.version>
         <junit.version>4.12</junit.version>
         <mail.version>2.0.0-RC4</mail.version>
         <servlet-api.version>4.0.3</servlet-api.version>

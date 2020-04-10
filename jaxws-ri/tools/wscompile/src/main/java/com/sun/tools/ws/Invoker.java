@@ -204,7 +204,7 @@ public final class Invoker {
             if(res==null)
                 throw new ClassNotFoundException("There's no JAX-WS 2.2 API in the classpath");
             urls.add(ParallelWorldClassLoader.toJarUrl(res));
-            res = cl.getResource("javax/xml/bind/JAXBPermission.class");
+            res = cl.getResource("jakarta/xml/bind/JAXBPermission.class");
             if(res==null)
                 throw new ClassNotFoundException("There's no JAXB 2.2 API in the classpath");
             urls.add(ParallelWorldClassLoader.toJarUrl(res));
