@@ -300,6 +300,7 @@
                                     javax.servlet.*;version=!;resolution:=optional,
                                     javax.xml.catalog;resolution:=optional,
                                     sun.misc;resolution:=optional,
+                                    jdk.internal.misc;resolution:=optional,
                                     *
                                 </Import-Package>
                                 <Multi-Release>true</Multi-Release>
