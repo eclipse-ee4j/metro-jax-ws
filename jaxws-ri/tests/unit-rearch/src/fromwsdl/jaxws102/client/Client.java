@@ -12,7 +12,7 @@ package fromwsdl.jaxws102.client;
 
 import junit.framework.TestCase;
 
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 
 /**
  * @author Vivek Pandey

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,8 +12,8 @@ package com.sun.xml.ws.db.sdo;
 
 import org.eclipse.persistence.oxm.attachment.XMLAttachmentMarshaller;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -28,9 +28,9 @@ import java.io.OutputStream;
  * To change this template use File | Settings | File Templates.
  */
 public class SDOAttachmentMarshaller implements XMLAttachmentMarshaller {
-    private javax.xml.bind.attachment.AttachmentMarshaller jbm;
+    private jakarta.xml.bind.attachment.AttachmentMarshaller jbm;
 
-    public SDOAttachmentMarshaller(javax.xml.bind.attachment.AttachmentMarshaller jbm) {
+    public SDOAttachmentMarshaller(jakarta.xml.bind.attachment.AttachmentMarshaller jbm) {
        this.jbm = jbm;
     }
     public String addSwaRefAttachment(byte[] data, int start, int length) {

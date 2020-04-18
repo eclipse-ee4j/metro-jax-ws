@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,7 @@ import java.util.Map;
  *  <li>Accepts Object[] that represents arguments for a Java method,
  *      and creates {@link com.sun.xml.ws.message.jaxb.JAXBMessage} that represents a request message.
  *  <li>Takes a {@link com.sun.xml.ws.api.message.Message] that represents a response,
- *      and extracts the return value (and updates {@link javax.xml.ws.Holder }s.)
+ *      and extracts the return value (and updates {@link jakarta.xml.ws.Holder }s.)
  * </ol>
  *
  * <h2>Creating {@link com.sun.xml.ws.message.jaxb.JAXBMessage }</h2>

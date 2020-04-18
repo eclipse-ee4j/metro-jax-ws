@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,11 +10,11 @@
 
 package bugs.jaxb274;
 
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import static javax.jws.soap.SOAPBinding.ParameterStyle.WRAPPED;
-import static javax.jws.soap.SOAPBinding.Style.DOCUMENT;
-import static javax.jws.soap.SOAPBinding.Use.LITERAL;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
+import static jakarta.jws.soap.SOAPBinding.ParameterStyle.WRAPPED;
+import static jakarta.jws.soap.SOAPBinding.Style.DOCUMENT;
+import static jakarta.jws.soap.SOAPBinding.Use.LITERAL;
 
 @WebService(portName="DocLitWrappedPort")
 @SOAPBinding(style=DOCUMENT, use=LITERAL ,parameterStyle=WRAPPED)

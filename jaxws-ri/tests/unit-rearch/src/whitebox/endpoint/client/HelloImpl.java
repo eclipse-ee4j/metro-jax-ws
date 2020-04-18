@@ -10,10 +10,10 @@
 
 package whitebox.endpoint.client;
 
-import javax.jws.*;
-import javax.jws.soap.*;
-import javax.xml.ws.Holder;
-import javax.jws.WebParam.Mode;
+import jakarta.jws.*;
+import jakarta.jws.soap.*;
+import jakarta.xml.ws.Holder;
+import jakarta.jws.WebParam.Mode;
 
 /**
  * @author Jitendra Kotamraju

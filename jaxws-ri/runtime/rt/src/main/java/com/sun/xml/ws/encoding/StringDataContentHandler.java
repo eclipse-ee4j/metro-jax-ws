@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,10 +10,9 @@
 
 package com.sun.xml.ws.encoding;
 
-import javax.activation.ActivationDataFlavor;
-import javax.activation.DataSource;
-import javax.activation.DataContentHandler;
-import java.awt.datatransfer.DataFlavor;
+import jakarta.activation.ActivationDataFlavor;
+import jakarta.activation.DataSource;
+import jakarta.activation.DataContentHandler;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -37,8 +36,8 @@ public class StringDataContentHandler implements DataContentHandler {
      *
      * @return The DataFlavors
      */
-    public DataFlavor[] getTransferDataFlavors() {
-        return new DataFlavor[]{getDF()};
+    public ActivationDataFlavor[] getTransferDataFlavors() {
+        return new ActivationDataFlavor[]{getDF()};
     }
 
     /**
@@ -48,7 +47,7 @@ public class StringDataContentHandler implements DataContentHandler {
      * @param ds The DataSource corresponding to the data
      * @return String object
      */
-    public Object getTransferData(DataFlavor df, DataSource ds)
+    public Object getTransferData(ActivationDataFlavor df, DataSource ds)
             throws IOException {
         // use myDF.equals to be sure to get ActivationDataFlavor.equals,
         // which properly ignores Content-Type parameters in comparison

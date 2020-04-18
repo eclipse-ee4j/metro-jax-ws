@@ -10,7 +10,7 @@
 
 package wsa.fromwsdl.anonymous.client;
 
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.soap.SOAPFaultException;
 
 import junit.framework.TestCase;
 import testutil.WsaUtils;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,12 +25,12 @@ import com.sun.xml.ws.model.ParameterImpl;
 import com.sun.xml.ws.model.WrapperParameter;
 import com.sun.xml.ws.wsdl.DispatchException;
 
-import javax.jws.WebParam.Mode;
-import javax.xml.bind.JAXBException;
+import jakarta.jws.WebParam.Mode;
+import jakarta.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.ws.Holder;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.WebServiceException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;

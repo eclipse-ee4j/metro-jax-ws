@@ -12,19 +12,19 @@ package client.dispatch.header.doclit.client;
 
 import junit.framework.TestCase;
 
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Binding;
-import javax.xml.ws.soap.SOAPBinding;
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Binding;
+import jakarta.xml.ws.soap.SOAPBinding;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.sax.SAXSource;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.MessageFactory;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.soap.MessageFactory;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;

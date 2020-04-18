@@ -12,12 +12,12 @@ package fromwsdl.handler.client;
 
 import java.util.List;
 
-import javax.xml.soap.SOAPFault;
+import jakarta.xml.soap.SOAPFault;
 
-import javax.xml.ws.Binding;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.Binding;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.soap.SOAPFaultException;
 
 import fromwsdl.handler.common.HandlerTracker;
 import fromwsdl.handler.common.TestProtocolException;

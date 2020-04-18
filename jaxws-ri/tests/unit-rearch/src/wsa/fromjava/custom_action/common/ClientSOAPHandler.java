@@ -10,10 +10,10 @@
 
 package wsa.fromjava.custom_action.common;
 
-import javax.xml.soap.SOAPBody;
-import javax.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPBody;
+import jakarta.xml.soap.SOAPException;
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import testutil.WsaBaseSOAPHandler;
 
 /**

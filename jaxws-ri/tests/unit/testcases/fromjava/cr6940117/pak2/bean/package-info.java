@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,5 +15,5 @@
 // Generated on: 2009.12.10 at 02:07:19 PM EST 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://namespace2", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://namespace2", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package fromjava.cr6940117.pak2.bean;

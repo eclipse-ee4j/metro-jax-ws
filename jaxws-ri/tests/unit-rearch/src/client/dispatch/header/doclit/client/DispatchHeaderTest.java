@@ -13,14 +13,14 @@ package client.dispatch.header.doclit.client;
 import testutil.ClientServerTestUtil;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.soap.SOAPFaultException;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBElement;
 import javax.xml.transform.*;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPMessage;
 import java.io.*;
 
 //import client.dispatch.TestCaseBase;
@@ -55,7 +55,7 @@ public class DispatchHeaderTest extends TestCaseBase {
     }
 
 
-    private static javax.xml.bind.JAXBContext createJAXBContext() {
+    private static jakarta.xml.bind.JAXBContext createJAXBContext() {
         try {
             return JAXBContext.newInstance(ObjectFactory.class);
         } catch (JAXBException e) {

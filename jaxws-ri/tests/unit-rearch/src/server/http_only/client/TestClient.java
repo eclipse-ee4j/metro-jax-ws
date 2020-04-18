@@ -13,9 +13,9 @@ package server.http_only.client;
 import java.util.Map;
 import java.util.List;
 
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.Service;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.Service;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

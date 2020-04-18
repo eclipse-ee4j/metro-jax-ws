@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,15 +26,15 @@ import com.sun.xml.ws.model.RuntimeModelerException;
 import com.sun.xml.ws.resources.ModelerMessages;
 import com.sun.xml.bind.util.Which;
 
-import javax.xml.ws.RespectBinding;
-import javax.xml.ws.RespectBindingFeature;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.soap.Addressing;
-import javax.xml.ws.soap.AddressingFeature;
-import javax.xml.ws.soap.MTOM;
-import javax.xml.ws.soap.MTOMFeature;
-import javax.xml.ws.spi.WebServiceFeatureAnnotation;
+import jakarta.xml.ws.RespectBinding;
+import jakarta.xml.ws.RespectBindingFeature;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.soap.Addressing;
+import jakarta.xml.ws.soap.AddressingFeature;
+import jakarta.xml.ws.soap.MTOM;
+import jakarta.xml.ws.soap.MTOMFeature;
+import jakarta.xml.ws.spi.WebServiceFeatureAnnotation;
 
 import com.oracle.webservices.api.EnvelopeStyleFeature;
 

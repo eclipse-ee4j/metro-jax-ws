@@ -11,10 +11,10 @@
 package fromwsdl.soap12.fault.server;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.soap.SOAPFaultException;
-import javax.xml.soap.*;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.soap.*;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -25,7 +25,7 @@ import java.util.Properties;
 
 import org.w3c.dom.*;
 
-@javax.jws.WebService(endpointInterface="fromwsdl.soap12.fault.server.Fault")
+@jakarta.jws.WebService(endpointInterface="fromwsdl.soap12.fault.server.Fault")
 public class FaultImpl
         implements Fault {
     public java.lang.String echo(java.lang.String type)

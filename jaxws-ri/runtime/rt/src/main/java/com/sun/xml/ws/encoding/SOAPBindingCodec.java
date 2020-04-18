@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,9 +27,9 @@ import com.sun.xml.ws.resources.StreamingMessages;
 import com.sun.xml.ws.server.UnsupportedMediaException;
 import static com.sun.xml.ws.binding.WebServiceFeatureList.getSoapVersion;   
 
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.soap.MTOMFeature;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.soap.MTOMFeature;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;

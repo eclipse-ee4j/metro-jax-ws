@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,12 +11,12 @@
 package fromjava.mtom_rpclit.server;
 
 import java.io.*;
-import javax.jws.WebService;
-import javax.activation.*;
-import javax.jws.*;
-import javax.xml.bind.annotation.*;
-import javax.xml.ws.soap.*;
-import javax.xml.ws.*;
+import jakarta.jws.WebService;
+import jakarta.activation.*;
+import jakarta.jws.*;
+import jakarta.xml.bind.annotation.*;
+import jakarta.xml.ws.soap.*;
+import jakarta.xml.ws.*;
 
 import com.sun.xml.ws.developer.StreamingDataHandler;
 
@@ -26,7 +26,7 @@ import com.sun.xml.ws.developer.StreamingDataHandler;
 
 @MTOM
 @WebService
-@javax.jws.soap.SOAPBinding(style = javax.jws.soap.SOAPBinding.Style.RPC)
+@jakarta.jws.soap.SOAPBinding(style = jakarta.jws.soap.SOAPBinding.Style.RPC)
 public class UploadImpl {
     
     public void fileUpload(String name, @XmlMimeType("application/octet-stream") DataHandler data) {

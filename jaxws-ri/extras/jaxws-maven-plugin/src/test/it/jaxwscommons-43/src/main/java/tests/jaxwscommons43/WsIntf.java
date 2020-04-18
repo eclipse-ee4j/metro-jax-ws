@@ -18,7 +18,7 @@
 
 package tests.jaxwscommons43;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 /**
  *

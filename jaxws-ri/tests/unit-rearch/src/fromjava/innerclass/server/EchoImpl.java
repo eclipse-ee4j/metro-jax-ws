@@ -10,7 +10,7 @@
 
 package fromjava.innerclass.server;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 public class EchoImpl {
     @WebService(endpointInterface="fromjava.innerclass.server.EchoIF", portName="EchoPort")

@@ -12,15 +12,15 @@ package server.provider.xmlbind_jaxb.client;
 
 import testutil.ClientServerTestUtil;
 import java.io.File;
-import javax.xml.ws.Service;
+import jakarta.xml.ws.Service;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.soap.SOAPBinding;
 import junit.framework.TestCase;
-import javax.xml.bind.JAXBContext;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.http.HTTPBinding;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.soap.SOAPBinding;
 import java.net.URI;
 
 /**
@@ -53,10 +53,10 @@ public class HelloLiteralTest extends TestCase {
         return jaxbContext;
     }
 
-    private static javax.xml.bind.JAXBContext createJAXBContext(){
+    private static jakarta.xml.bind.JAXBContext createJAXBContext(){
         try {
             return JAXBContext.newInstance(ObjectFactory.class);
-        } catch(javax.xml.bind.JAXBException e) {
+        } catch(jakarta.xml.bind.JAXBException e) {
             throw new WebServiceException(e.getMessage(), e);
         }
     }

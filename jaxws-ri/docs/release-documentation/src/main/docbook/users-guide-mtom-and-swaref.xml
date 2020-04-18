@@ -48,9 +48,9 @@
         elements of type <literal>xs:base64Binary</literal> and
         <literal>xs:hexBinary</literal> is optimally transmitted. Currently
         MTOM works only with proxy port.</para>
-        <para>Note: MTOM optimization is applied right at the time when &ws.spec.name; writes 
+        <para>Note: MTOM optimization is applied right at the time when &ws.spec.name; writes
         the message on to the wire. This is done to avoid any bufferring. Having 
-        a handler means that &ws.spec.name; transforms the Message in to DOM or 
+        a handler means that &ws.spec.name; transforms the Message in to DOM or
         SOAPMessage. It results in inlined base64 encoded data and it remains so 
         when the data is written over the wire as attachment. This is done in 
         order to avoid unnecessary conversion to and from when handlers are being 
@@ -204,9 +204,9 @@ req.setContentType("application/xml");</literal><![CDATA[ ]]></programlisting>
             <itemizedlist>
                 <listitem>
                     <para>Enable using
-                    <literal>@javax.xml.ws.soap.MTOM</literal> annotation on
+                    <literal>@jakarta.xml.ws.soap.MTOM</literal> annotation on
                     the endpoint (SEI) implementation class <informalexample>
-                            <programlisting language="java"><![CDATA[@javax.xml.ws.soap.MTOM
+                            <programlisting language="java"><![CDATA[@jakarta.xml.ws.soap.MTOM
 @WebService(endpointInterface = "mtom.server.Hello")
 public class HelloImpl implements Hello {
     // ...
@@ -238,13 +238,13 @@ public class HelloImpl implements Hello {
                     <para>Enable using <literal>@BindingType</literal> on the
                     endpoint (SEI) implementation class <itemizedlist>
                             <listitem>
-                                <para><literal>@BindingType(value=javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING)</literal>
+                                <para><literal>@BindingType(value=jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING)</literal>
                                 will enable MTOM on the deployed endpoint for SOAP
                                 1.1 binding</para>
                             </listitem>
 
                             <listitem>
-                                <para><literal>@BindingType(value=javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_MTOM_BINDING)</literal>
+                                <para><literal>@BindingType(value=jakarta.xml.ws.soap.SOAPBinding.SOAP12HTTP_MTOM_BINDING)</literal>
                                 will enable MTOM on the deployed endpoint for SOAP
                                 1.2 binding</para>
                             </listitem>
@@ -258,7 +258,7 @@ public class HelloImpl implements Hello {
             <itemizedlist>
                 <listitem>
                     <para>To enable MTOM on client-side, pass
-                    javax.xml.ws.soap.MTOMFeature as WebServiceFeature
+                    jakarta.xml.ws.soap.MTOMFeature as WebServiceFeature
                     parameter while crating the Proxy or Dispatch. Here is the
                     code snippet from the client <literal>samples/mtom/src/mtom/client/MtomApp.java</literal>
                     of the mtom sample: <itemizedlist>
@@ -269,8 +269,8 @@ public class HelloImpl implements Hello {
                             </listitem>
 
                             <listitem>
-                                <para>javax.xml.ws.Service.createDispatch(....,new
-                                javax.xml.ws.soap.MTOMFeature()) gives a Dispatch
+                                <para>jakarta.xml.ws.Service.createDispatch(....,new
+                                jakarta.xml.ws.soap.MTOMFeature()) gives a Dispatch
                                 instance with MTOM enabled</para>
                             </listitem>
                         </itemizedlist></para>
@@ -280,12 +280,12 @@ public class HelloImpl implements Hello {
                     <para>&ws.spec.name; specification has defined API to enable
                     and to check if the MTOM is enabled. <itemizedlist>
                             <listitem>
-                                <para>javax.xml.ws.soap.SOAPBinding.setMTOMEnabled(boolean
+                                <para>jakarta.xml.ws.soap.SOAPBinding.setMTOMEnabled(boolean
                                 enable) - enable or disable MTOM.</para>
                             </listitem>
 
                             <listitem>
-                                <para>javax.xml.ws.soap.SOAPBinding.isMTOMEnabled()
+                                <para>jakarta.xml.ws.soap.SOAPBinding.isMTOMEnabled()
                                 - returns true if MTOM is enabled otherwise
                                 false.</para>
                             </listitem>

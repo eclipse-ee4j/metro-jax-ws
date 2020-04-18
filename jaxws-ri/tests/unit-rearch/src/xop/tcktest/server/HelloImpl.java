@@ -13,13 +13,13 @@ package xop.tcktest.server;
 
 import com.sun.xml.ws.developer.JAXWSProperties;
 
-import javax.xml.ws.WebServiceException;
-import javax.activation.DataHandler;
-import javax.annotation.Resource;
-import javax.jws.WebService;
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.activation.DataHandler;
+import jakarta.annotation.Resource;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.handler.MessageContext;
 import java.awt.*;
 import java.io.*;
 import java.util.*;

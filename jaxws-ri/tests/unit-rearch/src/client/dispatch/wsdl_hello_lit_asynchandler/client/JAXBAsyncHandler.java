@@ -12,7 +12,7 @@ package client.dispatch.wsdl_hello_lit_asynchandler.client;
 
 import junit.framework.Assert;
 
-import javax.xml.ws.Response;
+import jakarta.xml.ws.Response;
 
 /**
  * Created by JAXRPC Development Team
@@ -21,7 +21,7 @@ import javax.xml.ws.Response;
  * Time: 3:51:11 PM
  */
 
-public class JAXBAsyncHandler implements javax.xml.ws.AsyncHandler {
+public class JAXBAsyncHandler implements jakarta.xml.ws.AsyncHandler {
 
     Hello_Type hello;
     VoidTest voidTest;

@@ -295,8 +295,8 @@
                                     *
                                 </Export-Package>
                                 <Import-Package>
-                                    javax.activation;version=!,
-                                    javax.annotation;version=!,
+                                    jakarta.activation;version=!,
+                                    jakarta.annotation;version=!,
                                     javax.servlet.*;version=!;resolution:=optional,
                                     javax.xml.catalog;resolution:=optional,
                                     sun.misc;resolution:=optional,

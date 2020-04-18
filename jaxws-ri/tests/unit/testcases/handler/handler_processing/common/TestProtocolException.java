@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 package handler.handler_processing.common;
 
-import javax.xml.ws.ProtocolException;
+import jakarta.xml.ws.ProtocolException;
 
 /**
  * This exception class is used by some tests to make sure that

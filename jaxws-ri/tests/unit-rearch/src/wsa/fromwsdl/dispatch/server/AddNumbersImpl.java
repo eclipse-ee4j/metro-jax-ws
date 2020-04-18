@@ -10,7 +10,7 @@
 
 package wsa.fromwsdl.dispatch.server;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 /**
  * @author Rama Pulavarthi

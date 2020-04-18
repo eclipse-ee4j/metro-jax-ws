@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Vivek Pandey
  */
-@javax.jws.WebService(endpointInterface = "fromwsdl.wsdl_hello_lit.server.Hello")
+@jakarta.jws.WebService(endpointInterface = "fromwsdl.wsdl_hello_lit.server.Hello")
 
 public class TestEndpointImpl implements Hello {
     public HelloResponse hello(Hello_Type req) {
@@ -34,18 +34,18 @@ public class TestEndpointImpl implements Hello {
         return new VoidType();
     }
 
-    public void echoArray(javax.xml.ws.Holder<NameType> name) {
+    public void echoArray(jakarta.xml.ws.Holder<NameType> name) {
     }
 
-    public void echoArray1(javax.xml.ws.Holder<NameType> name) {
+    public void echoArray1(jakarta.xml.ws.Holder<NameType> name) {
         NameType resp = name.value;
         resp.getName().add("EA");
     }
 
-    public void echoArray2(javax.xml.ws.Holder<NameType> name) {
+    public void echoArray2(jakarta.xml.ws.Holder<NameType> name) {
     }
 
-    public void echoArray3(javax.xml.ws.Holder<List<String>> name) {
+    public void echoArray3(jakarta.xml.ws.Holder<List<String>> name) {
 
     }
 

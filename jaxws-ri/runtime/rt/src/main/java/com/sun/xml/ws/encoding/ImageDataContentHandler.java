@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,15 +10,14 @@
 
 package com.sun.xml.ws.encoding;
 
-import javax.activation.DataContentHandler;
-import javax.activation.ActivationDataFlavor;
-import javax.activation.DataSource;
+import jakarta.activation.DataContentHandler;
+import jakarta.activation.ActivationDataFlavor;
+import jakarta.activation.DataSource;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.datatransfer.DataFlavor;
 import java.util.logging.Logger;
 import java.util.Iterator;
 import java.io.IOException;
@@ -34,11 +33,11 @@ public class ImageDataContentHandler extends Component
     implements DataContentHandler {
 
     private static final Logger log = Logger.getLogger(ImageDataContentHandler.class.getName());
-    private final DataFlavor[] flavor;
+    private final ActivationDataFlavor[] flavor;
 
     public ImageDataContentHandler() {
         String[] mimeTypes = ImageIO.getReaderMIMETypes();
-        flavor = new DataFlavor[mimeTypes.length];
+        flavor = new ActivationDataFlavor[mimeTypes.length];
         for(int i=0; i < mimeTypes.length; i++) {
             flavor[i] = new ActivationDataFlavor(Image.class, mimeTypes[i], "Image");
         }
@@ -52,7 +51,7 @@ public class ImageDataContentHandler extends Component
      *
      * @return The DataFlavors.
      */
-    public DataFlavor[] getTransferDataFlavors() {
+    public ActivationDataFlavor[] getTransferDataFlavors() {
         return Arrays.copyOf(flavor, flavor.length);
     }
 
@@ -65,9 +64,9 @@ public class ImageDataContentHandler extends Component
      * @param ds The DataSource representing the data to be converted.
      * @return The constructed Object.
      */
-    public Object getTransferData(DataFlavor df, DataSource ds)
+    public Object getTransferData(ActivationDataFlavor df, DataSource ds)
         throws IOException {
-        for (DataFlavor aFlavor : flavor) {
+        for (ActivationDataFlavor aFlavor : flavor) {
             if (aFlavor.equals(df)) {
                 return getContent(ds);
             }

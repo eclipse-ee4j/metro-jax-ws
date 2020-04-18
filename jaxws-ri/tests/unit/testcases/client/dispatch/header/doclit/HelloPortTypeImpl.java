@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,8 +10,8 @@
 
 package client.dispatch.header.doclit;
 
-import javax.jws.WebService;
-import javax.xml.ws.Holder;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.Holder;
 
 @WebService(endpointInterface="client.dispatch.header.doclit.HelloPortType")
 public class HelloPortTypeImpl
@@ -28,7 +28,7 @@ public class HelloPortTypeImpl
         return info+"bar";
     }
 
-    public void echo3(javax.xml.ws.Holder<java.lang.String> reqInfo) {
+    public void echo3(jakarta.xml.ws.Holder<java.lang.String> reqInfo) {
         reqInfo.value += "bar";
     }
 

@@ -13,10 +13,10 @@ package fromwsdl.doclit_fault.client;
 import junit.framework.TestCase;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.soap.SOAPFaultException;
-import javax.xml.soap.Detail;
-import javax.xml.soap.DetailEntry;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.soap.Detail;
+import jakarta.xml.soap.DetailEntry;
 import java.util.Iterator;
 
 
@@ -203,7 +203,7 @@ public class TestApp extends TestCase {
             fail("did not receive an exception");
         } catch (ProtocolException e) {
             System.out.println("Expected exception received: " + e.getMessage());
-            if (e.getMessage().indexOf("javax.xml.ws.ProtocolException") != -1)
+            if (e.getMessage().indexOf("jakarta.xml.ws.ProtocolException") != -1)
                 assertTrue(true);
             else
                 assertTrue(false);

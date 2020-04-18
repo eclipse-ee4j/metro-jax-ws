@@ -54,22 +54,22 @@ import com.sun.xml.ws.wsdl.parser.RuntimeWSDLParser;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.SAXException;
 
-import javax.jws.HandlerChain;
-import javax.jws.WebService;
-import javax.xml.bind.JAXBContext;
+import jakarta.jws.HandlerChain;
+import jakarta.jws.WebService;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.EndpointReference;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceClient;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.handler.HandlerResolver;
-import javax.xml.ws.soap.AddressingFeature;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.EndpointReference;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebServiceClient;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.handler.HandlerResolver;
+import jakarta.xml.ws.soap.AddressingFeature;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
@@ -95,7 +95,7 @@ import static com.sun.xml.ws.util.xml.XmlUtil.createDefaultCatalogResolver;
  * <p><code>Service</code> acts as a factory of the following:
  * <ul>
  * <li>Proxies for a target service endpoint.
- * <li>Instances of <code>javax.xml.ws.Dispatch</code> for
+ * <li>Instances of <code>jakarta.xml.ws.Dispatch</code> for
  * dynamic message-oriented invocation of a remote
  * operation.
  * </li>

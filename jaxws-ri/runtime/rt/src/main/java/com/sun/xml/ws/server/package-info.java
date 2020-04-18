@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -59,19 +59,19 @@
  * <H3>External Interactions</H3>
  * <H4>SAAJ API</H4>
  * <UL>
- * 	<LI><P>JAX-WS creates SAAJ javax.xml.soap.SOAPMessage 
+ * 	<LI><P>JAX-WS creates SAAJ jakarta.xml.soap.SOAPMessage
  *      from the HttpServletRequest.
  * 	At present, JAX-WS reads all the bytes from the request stream and
  * 	then creates SOAPMessage along with the HTTP headers.</P>
  * </UL>
- * <P>javax.xml.soap.MessageFactory(binding).createMessage(MimeHeaders, InputStream)</P>
+ * <P>jakarta.xml.soap.MessageFactory(binding).createMessage(MimeHeaders, InputStream)</P>
  * <UL>
  * 	<LI><P>SOAPMessage parses the content from the stream including MIME
  * 	data</P>
  * 	<LI><P>com.sun.xml.ws.server.SOAPMessageDispatcher::checkHeadersPeekBody()</P>
  * 	<P>SOAPMessage.getSOAPHeader() is used for mustUnderstand processing
  * 	of headers. It further uses
- * 	javax.xml.soap.SOAPHeader.examineMustUnderstandHeaderElements(role)</P>
+ * 	jakarta.xml.soap.SOAPHeader.examineMustUnderstandHeaderElements(role)</P>
  * 	<P>SOAPMessage.getSOAPBody().getFistChild() is used for guessing the
  * 	MEP of the request</P>
  * 	<LI><P>com.sun.xml.ws.handler.HandlerChainCaller:insertFaultMessage()</P>
@@ -94,19 +94,19 @@
  * </UL>
  * <H4>JAXB API</H4>
  * <P>JAX-WS RI uses the JAXB API to marshall/unmarshall user created
- * JAXB objects with user created {@link javax.xml.bind.JAXBContext JAXBContext}. 
+ * JAXB objects with user created {@link jakarta.xml.bind.JAXBContext JAXBContext}.
  * Handler, Dispatch in JAX-WS API provide ways for the user to specify his/her own
  * JAXBContext. {@link com.sun.xml.ws.encoding.jaxb.JAXBTypeSerializer JAXBTypeSerializer} class uses all these methods.</P>
  * <UL>
- * 	<LI><p>{@link javax.xml.bind.Marshaller#marshal(Object,XMLStreamWriter) Marshaller.marshal(Object,XMLStreamWriter)}</p>
- * 	<LI><P>{@link javax.xml.bind.Marshaller#marshal(Object,Result) Marshaller.marshal(Object, DomResult)}</P>
- * 	<LI><P>{@link javax.xml.bind.Unmarshaller#unmarshal(XMLStreamReader) Object Unmarshaller.unmarshal(XMLStreamReader)}</P>
- * 	<LI><P>{@link javax.xml.bind.Unmarshaller#unmarshal(Source) Object Unmarshaller.unmarshal(Source)}</P>
+ * 	<LI><p>{@link jakarta.xml.bind.Marshaller#marshal(Object,XMLStreamWriter) Marshaller.marshal(Object,XMLStreamWriter)}</p>
+ * 	<LI><P>{@link jakarta.xml.bind.Marshaller#marshal(Object,Result) Marshaller.marshal(Object, DomResult)}</P>
+ * 	<LI><P>{@link jakarta.xml.bind.Unmarshaller#unmarshal(XMLStreamReader) Object Unmarshaller.unmarshal(XMLStreamReader)}</P>
+ * 	<LI><P>{@link jakarta.xml.bind.Unmarshaller#unmarshal(Source) Object Unmarshaller.unmarshal(Source)}</P>
  * </UL>
  * The following two JAXB classes are implemented by JAX-WS to enable/implement MTOM and XOP
  * <UL>
- *      <LI><P>{@link javax.xml.bind.attachment.AttachmentMarshaller AttachmentMarshaller}</P>
- *      <LI><P>{@link javax.xml.bind.attachment.AttachmentUnmarshaller AttachmentUnmarshaller}</P>
+ *      <LI><P>{@link jakarta.xml.bind.attachment.AttachmentMarshaller AttachmentMarshaller}</P>
+ *      <LI><P>{@link jakarta.xml.bind.attachment.AttachmentUnmarshaller AttachmentUnmarshaller}</P>
  * </UL>
  * <H4>JAXB Runtime-API (private contract)</H4>
  * <P>JAX-WS RI uses these private API for serialization/deserialization

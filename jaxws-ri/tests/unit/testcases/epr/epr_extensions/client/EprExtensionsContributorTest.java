@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,11 +18,11 @@ import junit.framework.TestCase;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.EndpointReference;
-import javax.xml.ws.Service;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.EndpointReference;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -51,7 +51,7 @@ public class EprExtensionsContributorTest extends TestCase {
      */
     public void testEprWithDispatchWithoutWSDL() throws Exception {
         Service service = Service.create(serviceName);
-        service.addPort(portName, javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING, endpointAddress);
+        service.addPort(portName, jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING, endpointAddress);
         Dispatch dispatch = service.createDispatch(portName, Source.class, Service.Mode.PAYLOAD);
         WSEndpointReference wsepr = ((WSBindingProvider) dispatch).getWSEndpointReference();
         assertTrue(wsepr.getEPRExtensions().isEmpty());

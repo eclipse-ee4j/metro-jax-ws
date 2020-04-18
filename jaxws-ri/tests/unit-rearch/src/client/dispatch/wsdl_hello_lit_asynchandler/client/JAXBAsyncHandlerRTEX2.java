@@ -11,8 +11,8 @@
 package client.dispatch.wsdl_hello_lit_asynchandler.client;
 
 import junit.framework.Assert;
-import javax.xml.ws.Response;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Response;
+import jakarta.xml.ws.WebServiceException;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutionException;
  * Time: 3:51:11 PM
  */
 
-public class JAXBAsyncHandlerRTEX2 implements javax.xml.ws.AsyncHandler{
+public class JAXBAsyncHandlerRTEX2 implements jakarta.xml.ws.AsyncHandler{
 
        Hello_Type hello;
        VoidTestResponse voidTest;

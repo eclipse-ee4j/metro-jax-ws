@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.EndpointReference;
+import jakarta.xml.ws.EndpointReference;
 import javax.xml.namespace.QName;
 import java.io.File;
 import java.io.FileInputStream;

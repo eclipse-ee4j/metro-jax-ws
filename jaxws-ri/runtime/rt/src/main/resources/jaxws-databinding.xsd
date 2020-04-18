@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@
   The data is used to define the attributes of a particular Java Web Service
   endpoint.
 
-     Corresponding Java annotation: javax.jws.WebParam.Mode
+     Corresponding Java annotation: jakarta.jws.WebParam.Mode
 
 
  -->
@@ -199,7 +199,7 @@
     <xs:simpleType name="web-param-mode">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.jws.WebParam.Mode (Enum)
+                Corresponding Java annotation: jakarta.jws.WebParam.Mode (Enum)
             </xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
@@ -212,7 +212,7 @@
     <xs:element name="web-service">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.jws.WebService
+                Corresponding Java annotation: jakarta.jws.WebService
                 @Target(value=TYPE)
             </xs:documentation>
         </xs:annotation>
@@ -229,7 +229,7 @@
     <xs:element name="web-param">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.jws.WebParam
+                Corresponding Java annotation: jakarta.jws.WebParam
                 @Target(value={PARAMETER}
             </xs:documentation>
         </xs:annotation>
@@ -249,7 +249,7 @@
     <xs:element name="oneway">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.jws.Oneway
+                Corresponding Java annotation: jakarta.jws.Oneway
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -260,7 +260,7 @@
     <xs:element name="web-method">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.jws.WebMethod
+                Corresponding Java annotation: jakarta.jws.WebMethod
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -273,7 +273,7 @@
     <xs:element name="web-result">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.jws.WebResult
+                Corresponding Java annotation: jakarta.jws.WebResult
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -291,7 +291,7 @@
     <xs:simpleType name="soap-binding-style">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.jws.soap.SOAPBinding.Style
+                Corresponding Java annotation: jakarta.jws.soap.SOAPBinding.Style
             </xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
@@ -303,7 +303,7 @@
     <xs:simpleType name="soap-binding-use">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.jws.soap.SOAPBinding.Use
+                Corresponding Java annotation: jakarta.jws.soap.SOAPBinding.Use
             </xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
@@ -316,7 +316,7 @@
         <xs:annotation>
             <xs:documentation>
                 Corresponding Java annotation:
-                javax.jws.soap.SOAPBinding.ParameterStyle
+                jakarta.jws.soap.SOAPBinding.ParameterStyle
             </xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
@@ -331,7 +331,7 @@
     <xs:element name="soap-binding">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.jws.soap.SOAPBinding
+                Corresponding Java annotation: jakarta.jws.soap.SOAPBinding
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -344,7 +344,7 @@
     <xs:element name="binding-type">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.xml.ws.BindingType
+                Corresponding Java annotation: jakarta.xml.ws.BindingType
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -355,7 +355,7 @@
     <xs:element name="request-wrapper">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.xml.ws.RequestWrapper
+                Corresponding Java annotation: jakarta.xml.ws.RequestWrapper
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -369,7 +369,7 @@
     <xs:element name="response-wrapper">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.xml.ws.ResponseWrapper
+                Corresponding Java annotation: jakarta.xml.ws.ResponseWrapper
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -383,7 +383,7 @@
     <xs:element name="action">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.xml.ws.Action
+                Corresponding Java annotation: jakarta.xml.ws.Action
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -398,7 +398,7 @@
     <xs:element name="fault-action">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.xml.ws.FaultAction
+                Corresponding Java annotation: jakarta.xml.ws.FaultAction
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -410,7 +410,7 @@
     <xs:element name="mtom">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.xml.ws.soap.MTOM
+                Corresponding Java annotation: jakarta.xml.ws.soap.MTOM
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -423,7 +423,7 @@
     <xs:element name="handler-chain">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.jws.HandlerChain
+                Corresponding Java annotation: jakarta.jws.HandlerChain
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -436,7 +436,7 @@
     <xs:element name="service-mode">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.xml.ws.ServiceMode
+                Corresponding Java annotation: jakarta.xml.ws.ServiceMode
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -447,7 +447,7 @@
     <xs:element name="web-endpoint">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.xml.ws.WebEndpoint
+                Corresponding Java annotation: jakarta.xml.ws.WebEndpoint
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -458,7 +458,7 @@
     <xs:element name="web-fault">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.xml.ws.WebFault
+                Corresponding Java annotation: jakarta.xml.ws.WebFault
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -472,7 +472,7 @@
     <xs:element name="web-service-client">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.xml.ws.WebServiceClient
+                Corresponding Java annotation: jakarta.xml.ws.WebServiceClient
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -485,7 +485,7 @@
     <xs:element name="web-service-provider">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.xml.ws.WebServiceProvider
+                Corresponding Java annotation: jakarta.xml.ws.WebServiceProvider
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -499,7 +499,7 @@
     <xs:element name="web-service-ref">
         <xs:annotation>
             <xs:documentation>
-                Corresponding Java annotation: javax.xml.ws.WebServiceRef
+                Corresponding Java annotation: jakarta.xml.ws.WebServiceRef
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -514,7 +514,7 @@
 
     <xs:element name="addressing">
         <xs:annotation>
-            <xs:documentation>Corresponding Java annotation: javax.xml.ws.soap.Addressing</xs:documentation>
+            <xs:documentation>Corresponding Java annotation: jakarta.xml.ws.soap.Addressing</xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:attribute name="enabled" type="xs:boolean" default="true"/>

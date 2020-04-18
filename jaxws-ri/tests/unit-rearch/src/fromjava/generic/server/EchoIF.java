@@ -10,7 +10,7 @@
 
 package fromjava.generic.server;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 /**
  * @author JAX-RPC Development Team

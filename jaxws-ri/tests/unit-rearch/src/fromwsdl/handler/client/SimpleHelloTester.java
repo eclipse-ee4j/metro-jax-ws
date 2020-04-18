@@ -13,7 +13,7 @@ package fromwsdl.handler.client;
 import java.util.List;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.*;
+import jakarta.xml.ws.*;
 
 import fromwsdl.handler.common.HandlerTracker;
 import fromwsdl.handler.common.TestConstants;

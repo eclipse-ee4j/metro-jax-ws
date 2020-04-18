@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,17 +13,17 @@ package server.endpoint.client;
 import junit.framework.TestCase;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
+import jakarta.xml.ws.Service;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.ws.Endpoint;
+import jakarta.xml.ws.Endpoint;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import java.net.URL;
 import java.net.URLConnection;
 import java.io.*;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.soap.SOAPBinding;
 
 import com.sun.xml.ws.transport.http.HttpAdapter;
 import testutil.PortAllocator;
@@ -124,11 +124,11 @@ public class EndpointWsdlLocationTest extends TestCase {
     }
 
 
-    @javax.jws.WebService(name="RpcLit", serviceName="RpcLitEndpoint",
+    @jakarta.jws.WebService(name="RpcLit", serviceName="RpcLitEndpoint",
         portName="RpcLitPort", targetNamespace="http://echo.org/",
         endpointInterface="server.endpoint.client.RpcLitEndpointIF", 
         wsdlLocation="RpcLitEndpoint.wsdl")
-    @javax.jws.soap.SOAPBinding(style=javax.jws.soap.SOAPBinding.Style.RPC)
+    @jakarta.jws.soap.SOAPBinding(style=jakarta.jws.soap.SOAPBinding.Style.RPC)
     public static class RpcLitEndpointWsdlLocation {
 
         public int echoInteger(int arg0) {

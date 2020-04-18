@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,9 +62,9 @@ import com.sun.xml.ws.util.RuntimeVersion;
 import com.sun.xml.ws.policy.jaxws.PolicyWSDLGeneratorExtension;
 import com.sun.xml.ws.encoding.soap.streaming.SOAPNamespaceConstants;
 
-import javax.jws.soap.SOAPBinding.Style;
-import javax.jws.soap.SOAPBinding.Use;
-import javax.xml.bind.SchemaOutputResolver;
+import jakarta.jws.soap.SOAPBinding.Style;
+import jakarta.jws.soap.SOAPBinding.Use;
+import jakarta.xml.bind.SchemaOutputResolver;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
@@ -74,8 +74,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXResult;
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -180,7 +180,7 @@ public class WSDLGenerator {
      * Creates the WSDLGenerator
      * @param model The {@link AbstractSEIModelImpl} used to generate the WSDL
      * @param wsdlResolver The {@link WSDLResolver} to use resovle names while generating the WSDL
-     * @param binding specifies which {@link javax.xml.ws.BindingType} to generate
+     * @param binding specifies which {@link jakarta.xml.ws.BindingType} to generate
      * @param extensions an array {@link WSDLGeneratorExtension} that will 
      * be invoked to generate WSDL extensions
      */
@@ -193,7 +193,7 @@ public class WSDLGenerator {
      * Creates the WSDLGenerator
      * @param model The {@link AbstractSEIModelImpl} used to generate the WSDL
      * @param wsdlResolver The {@link WSDLResolver} to use resovle names while generating the WSDL
-     * @param binding specifies which {@link javax.xml.ws.BindingType} to generate
+     * @param binding specifies which {@link jakarta.xml.ws.BindingType} to generate
      * @param disableXmlSecurity specifies whether to disable the secure xml processing feature
      * @param extensions an array {@link WSDLGeneratorExtension} that will
      * be invoked to generate WSDL extensions

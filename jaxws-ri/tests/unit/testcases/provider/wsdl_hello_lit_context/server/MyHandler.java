@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,8 +16,8 @@ package provider.wsdl_hello_lit_context.server;
 import java.io.ByteArrayInputStream;
 import java.util.Map;
 
-import javax.xml.ws.LogicalMessage;
-import javax.xml.ws.handler.*;
+import jakarta.xml.ws.LogicalMessage;
+import jakarta.xml.ws.handler.*;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 

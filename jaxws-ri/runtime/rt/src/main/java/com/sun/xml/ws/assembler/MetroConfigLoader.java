@@ -21,11 +21,11 @@ import com.sun.xml.ws.runtime.config.TubelineDefinition;
 import com.sun.xml.ws.runtime.config.TubelineMapping;
 import com.sun.xml.ws.util.xml.XmlUtil;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLInputFactory;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;

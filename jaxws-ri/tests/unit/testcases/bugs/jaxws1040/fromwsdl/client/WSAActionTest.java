@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,11 +13,11 @@ package bugs.jaxws1040.fromwsdl.client;
 import com.sun.xml.ws.developer.MemberSubmissionAddressingFeature;
 import junit.framework.TestCase;
 
-import javax.xml.ws.Action;
+import jakarta.xml.ws.Action;
 import java.lang.reflect.Method;
 
 /**
- * Test verifying bugfix for JAX_WS-1040 - correct wsdl2java generation (annotation javax.xml.ws.Action)
+ * Test verifying bugfix for JAX_WS-1040 - correct wsdl2java generation (annotation jakarta.xml.ws.Action)
  *
  * @author Miroslav Kos (miroslav.kos at oracle.com)
  */

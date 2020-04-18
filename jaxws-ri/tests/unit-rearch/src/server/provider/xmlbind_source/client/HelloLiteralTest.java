@@ -10,10 +10,10 @@
 
 package server.provider.xmlbind_source.client;
 
-import javax.xml.ws.Response;
+import jakarta.xml.ws.Response;
 import testutil.ClientServerTestUtil;
 
-import javax.xml.ws.Service;
+import jakarta.xml.ws.Service;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -26,17 +26,17 @@ import java.io.*;
 import java.awt.Toolkit;
 import java.awt.Image;
 import java.util.Iterator;
-import javax.xml.soap.AttachmentPart;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.MimeHeader;
-import javax.xml.soap.MimeHeaders;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.soap.AttachmentPart;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.MimeHeader;
+import jakarta.xml.soap.MimeHeaders;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.soap.SOAPBinding;
 import junit.framework.TestCase;
-import javax.xml.bind.JAXBContext;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.http.HTTPBinding;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.http.HTTPBinding;
 import java.util.concurrent.Future;
 import java.net.URI;
 
@@ -77,10 +77,10 @@ public class HelloLiteralTest extends TestCase {
         return jaxbContext;
     }
     
-    private static javax.xml.bind.JAXBContext createJAXBContext(){
+    private static jakarta.xml.bind.JAXBContext createJAXBContext(){
         try {
             return JAXBContext.newInstance(ObjectFactory.class);
-        } catch(javax.xml.bind.JAXBException e) {
+        } catch(jakarta.xml.bind.JAXBException e) {
             throw new WebServiceException(e.getMessage(), e);
         }
     }

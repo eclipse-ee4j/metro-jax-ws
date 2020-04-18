@@ -10,8 +10,8 @@
 
 package wsa.fromjava.epr.client;
 
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.namespace.QName;
 

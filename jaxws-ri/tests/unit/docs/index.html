@@ -1,6 +1,6 @@
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -786,7 +786,7 @@ helloPort.sayHelloTo("duke");
     <p>Junit based tests can use System property to access the endpoint address, for ex: System.getProperty("helloPortAddress")  
     <pre class="script">
 // create dispatch
-helloService.addPort(new QName("foo","bar"), javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING, endpointAddress);
+helloService.addPort(new QName("foo","bar"), jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING, endpointAddress);
 </pre>               
     <a name="More_on_Script_Execution_Environment"></a>
     <h4>
@@ -807,10 +807,10 @@ helloService.addPort(new QName("foo","bar"), javax.xml.ws.soap.SOAPBinding.SOAP1
             <li>java.lang</li>
             <li>java.util</li>
             <li>java.util.cocurrent</li>
-            <li>javax.xml.soap</li>
-            <li>javax.xml.ws</li>
-            <li>javax.xml.ws.soap</li>
-            <li>javax.xml.bind</li>
+            <li>jakarta.xml.soap</li>
+            <li>jakarta.xml.ws</li>
+            <li>jakarta.xml.ws.soap</li>
+            <li>jakarta.xml.bind</li>
             <li>javax.xml.namespace</li>
             <li>javax.xml.transform</li>
             <li>javax.xml.transform.sax</li>
@@ -819,7 +819,7 @@ helloService.addPort(new QName("foo","bar"), javax.xml.ws.soap.SOAPBinding.SOAP1
             <li>(client artifact packages)</li>
           </ul> So you could just say
           <tt>JAXBContext.newInstance(...)</tt> instead of
-          <tt>javax.xml.bind.JAXBContext.newInstance(...)</tt>. Client artifact packages are all imported, too, so for example if you need to create a bean for service invocation, you can do as follows: 
+          <tt>jakarta.xml.bind.JAXBContext.newInstance(...)</tt>. Client artifact packages are all imported, too, so for example if you need to create a bean for service invocation, you can do as follows:
           <pre class="script">
 bean = new FooBarBean(); // instead of new test.fromwsdl.helloLit.client.FooBarBean();
 bean.setName("Duke");
@@ -880,7 +880,7 @@ bean.setId(53);
             <img src="tip.png"> 
           </td>
           <td> To set a binding in fromjava scenarios, use the
-            <tt>javax.xml.ws.BindingType</tt> annotation on your service class. For example,
+            <tt>jakarta.xml.ws.BindingType</tt> annotation on your service class. For example,
             <pre>
 @WebService
 @BindingType(SOAPBinding.SOAP11HTTP_BINDING)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@ import com.sun.istack.Nullable;
 import com.sun.xml.ws.api.WSService;
 import com.sun.xml.ws.util.ServiceFinder;
 
-import javax.xml.ws.Service;
+import jakarta.xml.ws.Service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

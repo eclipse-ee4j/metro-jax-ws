@@ -12,10 +12,10 @@ package fromjava.nosei_apt.server;
 
 
 import fromjava.nosei_apt.server.Bar.InnerBar;
-import javax.jws.*;
+import jakarta.jws.*;
 
-import javax.xml.ws.Holder;
-import javax.xml.ws.*;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.*;
 
 
 @WebService(name="Echo", serviceName="EchoService", targetNamespace="http://echo.org/")

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,15 +15,15 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import testutil.ClientServerTestUtil;
 
-import javax.xml.ws.Endpoint;
-import javax.xml.ws.http.HTTPBinding;
-import javax.xml.ws.Provider;
-import javax.activation.DataSource;
-import javax.xml.ws.WebServiceProvider;
-import javax.xml.ws.ServiceMode;
-import javax.xml.ws.Service;
-import javax.xml.ws.Service.Mode;
-import javax.xml.ws.BindingType;
+import jakarta.xml.ws.Endpoint;
+import jakarta.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.Provider;
+import jakarta.activation.DataSource;
+import jakarta.xml.ws.WebServiceProvider;
+import jakarta.xml.ws.ServiceMode;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Service.Mode;
+import jakarta.xml.ws.BindingType;
 
 import testutil.PortAllocator;
 

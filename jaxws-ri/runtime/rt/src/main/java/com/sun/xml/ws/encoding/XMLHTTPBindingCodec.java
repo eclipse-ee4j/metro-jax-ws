@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,8 +24,8 @@ import com.sun.xml.ws.encoding.xml.XMLMessage.XMLMultiPart;
 import com.sun.xml.ws.resources.StreamingMessages;
 import com.sun.xml.ws.util.ByteArrayBuffer;
 
-import javax.activation.DataSource;
-import javax.xml.ws.WebServiceException;
+import jakarta.activation.DataSource;
+import jakarta.xml.ws.WebServiceException;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -10,7 +10,7 @@
 
 package client.jaxws21.epr_get_port_na.server;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 /**
  * @author Arun Gupta

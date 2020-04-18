@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,15 +18,15 @@ import com.sun.xml.ws.api.server.ContainerResolver;
 import com.sun.xml.ws.api.server.WSEndpoint;
 import com.sun.xml.ws.client.WSServiceDelegate;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.EndpointReference;
-import javax.xml.ws.Service;
-import javax.xml.ws.Service.Mode;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.spi.ServiceDelegate;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.EndpointReference;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Service.Mode;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.spi.ServiceDelegate;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.security.AccessController;
@@ -67,13 +67,13 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
     public abstract <T> T getPort(WSEndpointReference epr, Class<T> portInterface, WebServiceFeature... features);
 
     /**
-     * Works like {@link #createDispatch(javax.xml.ws.EndpointReference, java.lang.Class, javax.xml.ws.Service.Mode, javax.xml.ws.WebServiceFeature[])}
+     * Works like {@link #createDispatch(jakarta.xml.ws.EndpointReference, java.lang.Class, jakarta.xml.ws.Service.Mode, jakarta.xml.ws.WebServiceFeature[])}
      * but it takes the port name separately, so that EPR without embedded metadata can be used.
      */
     public abstract <T> Dispatch<T> createDispatch(QName portName, WSEndpointReference wsepr, Class<T> aClass, Service.Mode mode, WebServiceFeature... features);
 
     /**
-     * Works like {@link #createDispatch(javax.xml.ws.EndpointReference, javax.xml.bind.JAXBContext, javax.xml.ws.Service.Mode, javax.xml.ws.WebServiceFeature[])}
+     * Works like {@link #createDispatch(jakarta.xml.ws.EndpointReference, jakarta.xml.bind.JAXBContext, jakarta.xml.ws.Service.Mode, jakarta.xml.ws.WebServiceFeature[])}
      * but it takes the port name separately, so that EPR without embedded metadata can be used.
      */
     public abstract Dispatch<Object> createDispatch(QName portName, WSEndpointReference wsepr, JAXBContext jaxbContext, Service.Mode mode, WebServiceFeature... features);

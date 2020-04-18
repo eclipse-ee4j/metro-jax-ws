@@ -14,10 +14,10 @@ import testutil.ClientServerTestUtil;
 import testutil.W3CAddressingConstants;
 
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Service;
-import javax.xml.ws.soap.AddressingFeature;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.soap.AddressingFeature;
 import java.util.UUID;
 
 /**

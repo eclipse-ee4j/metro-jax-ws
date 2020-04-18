@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,8 +15,8 @@ import com.sun.istack.Nullable;
 import com.sun.xml.ws.api.WSFeatureList;
 import com.sun.xml.ws.api.wsdl.parser.WSDLParserExtension;
 
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.WebServiceFeature;
 
 /**
  * {@link WSDLObject} that can have features associated with it.

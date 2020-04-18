@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,18 +10,18 @@
 
 package com.sun.xml.ws.eclipselink;
 
-import static javax.jws.soap.SOAPBinding.Style.RPC;
-import static javax.jws.soap.SOAPBinding.Use.LITERAL;
+import static jakarta.jws.soap.SOAPBinding.Style.RPC;
+import static jakarta.jws.soap.SOAPBinding.Use.LITERAL;
 
 import java.lang.reflect.Method;
 
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.ws.RequestWrapper;
-import javax.xml.ws.ResponseWrapper;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.ws.RequestWrapper;
+import jakarta.xml.ws.ResponseWrapper;
+import jakarta.xml.ws.WebServiceFeature;
 
 import junit.framework.TestCase;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,7 +33,7 @@
  * <P></P>
  * The Delegate.send method iterates through the ContactInfoList and picks up the 
  * correct {@link com.sun.pept.ept.ContactInfo} based upon the binding id of 
- * {@link javax.xml.ws.BindingProvider} and sets it on the MessageInfo. After the 
+ * {@link jakarta.xml.ws.BindingProvider} and sets it on the MessageInfo. After the
  * Delegate obtains a specific ContactInfo it uses that ContactInfo to obtain a 
  * protocol-specific {@link com.sun.pept.protocol.MessageDispatcher}. There will be 
  * two types of client-side MessageDispatchers for JAX-WS 2.0.1, 
@@ -50,8 +50,8 @@
  * There will be two types of client-side SOAPXMLEncoder for JAX-WS 2.0.1, 
  * SOAPXMEncoder for SOAP 1.1 and {@link com.sun.xml.ws.encoding.soap.client.SOAP12XMLEncoder}
  * for SOAP 1.2. The MessageDispatcher invokes configured handlers and use the 
- * codec to convert the InternalMessage to a {@link javax.xml.soap.SOAPMessage}.
- * The metadata from the MessageInfo is classified into {@link javax.xml.soap.MimeHeaders} 
+ * codec to convert the InternalMessage to a {@link jakarta.xml.soap.SOAPMessage}.
+ * The metadata from the MessageInfo is classified into {@link jakarta.xml.soap.MimeHeaders}
  * of this SOAPMessage and context information for {@link com.sun.xml.ws.api.server.WSConnection}.
  * The SOAPMessge is then written to the output stream of the WSConnection
  * obtained from MessageInfo.
@@ -103,19 +103,19 @@
  * </UL>
  * <H4>JAXB API</H4>
  * <P>JAX-WS RI uses the JAXB API to marshall/unmarshall user created
- * JAXB objects with user created {@link javax.xml.bind.JAXBContext JAXBContext}. 
+ * JAXB objects with user created {@link jakarta.xml.bind.JAXBContext JAXBContext}.
  * Handler, Dispatch in JAX-WS API provide ways for the user to specify his/her own
  * JAXBContext. {@link com.sun.xml.ws.encoding.jaxb.JAXBTypeSerializer JAXBTypeSerializer} class uses all these methods.</P>
  * <UL>
- * 	<LI><p>{@link javax.xml.bind.Marshaller#marshal(Object,XMLStreamWriter) Marshaller.marshal(Object,XMLStreamWriter)}</p>
- * 	<LI><P>{@link javax.xml.bind.Marshaller#marshal(Object,Result) Marshaller.marshal(Object, DomResult)}</P>
- * 	<LI><P>{@link javax.xml.bind.Unmarshaller#unmarshal(XMLStreamReader) Object Unmarshaller.unmarshal(XMLStreamReader)}</P>
- * 	<LI><P>{@link javax.xml.bind.Unmarshaller#unmarshal(Source) Object Unmarshaller.unmarshal(Source)}</P>
+ * 	<LI><p>{@link jakarta.xml.bind.Marshaller#marshal(Object,XMLStreamWriter) Marshaller.marshal(Object,XMLStreamWriter)}</p>
+ * 	<LI><P>{@link jakarta.xml.bind.Marshaller#marshal(Object,Result) Marshaller.marshal(Object, DomResult)}</P>
+ * 	<LI><P>{@link jakarta.xml.bind.Unmarshaller#unmarshal(XMLStreamReader) Object Unmarshaller.unmarshal(XMLStreamReader)}</P>
+ * 	<LI><P>{@link jakarta.xml.bind.Unmarshaller#unmarshal(Source) Object Unmarshaller.unmarshal(Source)}</P>
  * </UL>
  * The following two JAXB classes are implemented by JAX-WS to enable/implement MTOM and XOP
  * <UL>
- *      <LI><P>{@link javax.xml.bind.attachment.AttachmentMarshaller AttachmentMarshaller}</P>
- *      <LI><P>{@link javax.xml.bind.attachment.AttachmentUnmarshaller AttachmentUnmarshaller}</P>
+ *      <LI><P>{@link jakarta.xml.bind.attachment.AttachmentMarshaller AttachmentMarshaller}</P>
+ *      <LI><P>{@link jakarta.xml.bind.attachment.AttachmentUnmarshaller AttachmentUnmarshaller}</P>
  * </UL>
  * <H4>JAXB Runtime-API (private contract)</H4>
  * <P>JAX-WS RI uses these private API for serialization/deserialization

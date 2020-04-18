@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,11 +16,11 @@ import com.sun.xml.bind.v2.model.nav.Navigator;
 import com.sun.xml.ws.spi.db.BindingHelper;
 import com.sun.xml.ws.util.StringUtils;
 
-import javax.jws.WebParam;
-import javax.jws.WebResult;
-import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.xml.ws.WebServiceException;
+import jakarta.jws.WebParam;
+import jakarta.jws.WebResult;
+import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.ws.WebServiceException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

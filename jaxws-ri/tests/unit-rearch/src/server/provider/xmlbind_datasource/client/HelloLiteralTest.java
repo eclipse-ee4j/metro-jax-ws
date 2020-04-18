@@ -14,18 +14,18 @@ import junit.framework.TestCase;
 import org.w3c.dom.Node;
 import testutil.ClientServerTestUtil;
 
-import javax.activation.DataSource;
-import javax.xml.bind.JAXBContext;
+import jakarta.activation.DataSource;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
-import javax.xml.soap.AttachmentPart;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.AttachmentPart;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.http.HTTPBinding;
 import java.awt.*;
 import java.io.*;
 import java.net.URI;
@@ -60,14 +60,14 @@ public class HelloLiteralTest extends TestCase {
         }
     }
     
-    public javax.xml.bind.JAXBContext getJAXBContext(){
+    public jakarta.xml.bind.JAXBContext getJAXBContext(){
         return jaxbContext;
     }
     
-    private static javax.xml.bind.JAXBContext createJAXBContext(){
+    private static jakarta.xml.bind.JAXBContext createJAXBContext(){
         try{
             return JAXBContext.newInstance(ObjectFactory.class);
-        }catch(javax.xml.bind.JAXBException e){
+        }catch(jakarta.xml.bind.JAXBException e){
             throw new WebServiceException(e.getMessage(), e);
         }
     }

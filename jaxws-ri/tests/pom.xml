@@ -74,7 +74,7 @@
 
     <modules>
         <module>jaxwsTestUtil</module>
-        <module>unit</module>
+        <!--module>unit</module-->
     </modules>
 
     <profiles>

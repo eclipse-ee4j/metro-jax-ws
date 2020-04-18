@@ -19,8 +19,8 @@ import junit.framework.TestCase;
 import org.w3c.dom.Node;
 
 import javax.xml.namespace.QName;
-import javax.xml.soap.*;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.soap.*;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;

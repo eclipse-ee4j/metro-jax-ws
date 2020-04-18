@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,9 +25,9 @@ import com.sun.xml.ws.wsdl.ActionBasedOperationSignature;
 import com.sun.istack.Nullable;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Action;
-import javax.xml.ws.WebServiceException;
-import javax.jws.WebMethod;
+import jakarta.xml.ws.Action;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.jws.WebMethod;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;

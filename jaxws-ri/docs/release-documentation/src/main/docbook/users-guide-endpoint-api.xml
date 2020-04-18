@@ -25,7 +25,7 @@
     <title>Endpoint API</title>
 
     <para>Web Service endpoints can be created and published programmatically
-    using <literal>javax.xml.ws.Endpoint</literal> API. An endpoint consists
+    using <literal>jakarta.xml.ws.Endpoint</literal> API. An endpoint consists
     of a Web Service Implementation object and some configuration information.
     The implementation hosts the web service endpoint using a light weight
     http server and clients can access the web service as if the endpoint is

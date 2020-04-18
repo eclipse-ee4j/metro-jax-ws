@@ -10,7 +10,7 @@
 
 package fromwsdl.handler_dd.server;
 
-@javax.jws.WebService(endpointInterface="fromwsdl.handler_dd.server.Hello")
+@jakarta.jws.WebService(endpointInterface="fromwsdl.handler_dd.server.Hello")
 public class HelloService_Impl implements Hello {
     
     public int hello(int x) {

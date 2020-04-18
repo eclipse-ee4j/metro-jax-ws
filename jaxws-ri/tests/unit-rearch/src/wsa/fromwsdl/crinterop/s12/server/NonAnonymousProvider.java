@@ -13,14 +13,14 @@ package wsa.fromwsdl.crinterop.s12.server;
 import java.util.Calendar;
 import java.io.IOException;
 
-import javax.xml.ws.WebServiceProvider;
-import javax.xml.ws.ServiceMode;
-import javax.xml.ws.Service;
-import javax.xml.ws.Provider;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.soap.SOAPBinding;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPException;
+import jakarta.xml.ws.WebServiceProvider;
+import jakarta.xml.ws.ServiceMode;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Provider;
+import jakarta.xml.ws.BindingType;
+import jakarta.xml.ws.soap.SOAPBinding;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPException;
 
 /**
  * @author Arun Gupta

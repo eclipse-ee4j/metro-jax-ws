@@ -12,11 +12,11 @@ package fromwsdl.handler_singlepipe.server;
 
 import static fromwsdl.handler_singlepipe.common.TestConstants.*;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 /**
  */
-@javax.jws.WebService(endpointInterface="fromwsdl.handler_singlepipe.server.Hello12")
+@jakarta.jws.WebService(endpointInterface="fromwsdl.handler_singlepipe.server.Hello12")
 public class HelloService12_Impl implements Hello12 {
     
     public int hello12(int x) {

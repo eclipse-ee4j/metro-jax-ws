@@ -11,7 +11,7 @@
 package fromjava.nosei.server;
 
 
-@javax.xml.ws.WebFault
+@jakarta.xml.ws.WebFault
 public class Exception1 extends Exception {
     String faultString;
 

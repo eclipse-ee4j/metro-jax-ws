@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,10 +10,10 @@
 
 package wsimport.wsdl_import.server;
 
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 import java.math.BigDecimal;
 
-@javax.jws.WebService(endpointInterface="wsimport.wsdl_import.server.RetailerPortType")
+@jakarta.jws.WebService(endpointInterface="wsimport.wsdl_import.server.RetailerPortType")
 public class RetailerImpl implements RetailerPortType {
     public CatalogType getCatalog() {
              try{
@@ -42,8 +42,8 @@ public class RetailerImpl implements RetailerPortType {
     }
 
     public void getGCBug(String fn, String ln, String mn,int age,Holder<NameType> nameHolder,
-            javax.xml.ws.Holder<PersonalDetailsType> personalHolder,
-            javax.xml.ws.Holder<AddressType> addressHolder){
+            jakarta.xml.ws.Holder<PersonalDetailsType> personalHolder,
+            jakarta.xml.ws.Holder<AddressType> addressHolder){
         try{
             ObjectFactory of = new ObjectFactory();
             NameType name = of.createNameType();

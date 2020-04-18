@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +17,7 @@ import com.sun.tools.ws.resources.WscompileMessages;
 import com.sun.xml.bind.util.Which;
 import org.apache.tools.ant.BuildException;
 
-import javax.xml.ws.Service;
+import jakarta.xml.ws.Service;
 import java.io.IOException;
 
 /**

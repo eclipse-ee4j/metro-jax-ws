@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,13 +12,13 @@ package mtom.encoding.client;
 
 import junit.framework.TestCase;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.xml.ws.*;
-import javax.xml.soap.*;
-import javax.xml.ws.http.*;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.xml.ws.*;
+import jakarta.xml.soap.*;
+import jakarta.xml.ws.http.*;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service.Mode;
+import jakarta.xml.ws.Service.Mode;
 import java.awt.*;
 import java.io.*;
 import java.util.Iterator;

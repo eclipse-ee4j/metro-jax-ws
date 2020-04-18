@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,8 +10,8 @@
 
 package fromwsdl.soap12.hello.server;
 
-import javax.xml.ws.BindingType;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.BindingType;
+import jakarta.xml.ws.soap.SOAPBinding;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ import java.util.List;
  * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-@javax.jws.WebService(endpointInterface="fromwsdl.soap12.hello.server.Hello")
+@jakarta.jws.WebService(endpointInterface="fromwsdl.soap12.hello.server.Hello")
 @BindingType(SOAPBinding.SOAP12HTTP_BINDING)
 public class HelloImpl implements Hello {
     public HelloResponse hello(Hello_Type req)  {
@@ -41,18 +41,18 @@ public class HelloImpl implements Hello {
             return new VoidType();
     }
 
-    public void echoArray(javax.xml.ws.Holder<NameType> name) {
+    public void echoArray(jakarta.xml.ws.Holder<NameType> name) {
     }
 
-    public void echoArray1(javax.xml.ws.Holder<NameType> name) {
+    public void echoArray1(jakarta.xml.ws.Holder<NameType> name) {
         NameType resp = name.value;
         resp.getName().add("EA");
     }
 
-    public void echoArray2(javax.xml.ws.Holder<NameType> name) {
+    public void echoArray2(jakarta.xml.ws.Holder<NameType> name) {
     }
 
-    public void echoArray3(javax.xml.ws.Holder<List<String>> name) {
+    public void echoArray3(jakarta.xml.ws.Holder<List<String>> name) {
 
     }
     public NameType1 echoArray4(NameType1 request) {

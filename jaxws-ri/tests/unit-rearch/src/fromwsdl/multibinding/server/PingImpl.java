@@ -10,7 +10,7 @@
 
 package fromwsdl.multibinding.server;
 
-@javax.jws.WebService (endpointInterface="fromwsdl.multibinding.server.PingPort")
+@jakarta.jws.WebService (endpointInterface="fromwsdl.multibinding.server.PingPort")
 public class PingImpl implements PingPort {
     
    public String ping(TicketType ticket, String message) {

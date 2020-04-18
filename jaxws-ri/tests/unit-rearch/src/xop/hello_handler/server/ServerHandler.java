@@ -10,10 +10,10 @@
 
 package xop.hello_handler.server;
 
-import javax.xml.ws.handler.soap.SOAPHandler;
-import javax.xml.ws.handler.soap.SOAPMessageContext;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.ws.handler.soap.SOAPHandler;
+import jakarta.xml.ws.handler.soap.SOAPMessageContext;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.soap.SOAPMessage;
 import java.util.Set;
 import java.util.List;
 import java.util.Map;

@@ -18,10 +18,10 @@ import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Service;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.http.HTTPBinding;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -73,7 +73,7 @@ public class GoogleClient extends TestCase {
     private Dispatch<Source> createDispatch(URI uri) {
 
         // Create service and port to obtain Dispatch instance
-        Service s = javax.xml.ws.Service.create(GOOGLE_SERVICE_NAME);
+        Service s = jakarta.xml.ws.Service.create(GOOGLE_SERVICE_NAME);
         s.addPort(GOOGLE_PORT_NAME, HTTPBinding.HTTP_BINDING, uri.toString());
 
         Dispatch<Source> d = s.createDispatch(GOOGLE_PORT_NAME, Source.class, Service.Mode.PAYLOAD);

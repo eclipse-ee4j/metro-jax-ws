@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,12 +15,12 @@ import com.sun.xml.ws.util.DOMUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 import javax.xml.namespace.QName;
-import javax.xml.soap.Detail;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPFault;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.soap.Detail;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPFault;
+import jakarta.xml.ws.WebServiceException;
 import java.util.Iterator;
 
 /**
@@ -41,7 +41,7 @@ import java.util.Iterator;
  *     &lt;/soap:Fault>
  * <br>
  * Above, m:msg, if a known fault (described in the WSDL), IOW, if m:msg is known by JAXBContext it should be unmarshalled into a
- * Java object otherwise it should be deserialized as {@link javax.xml.soap.Detail}
+ * Java object otherwise it should be deserialized as {@link jakarta.xml.soap.Detail}
  * </pre>
  * <br>
  *
@@ -73,7 +73,7 @@ class SOAP11Fault extends SOAPFaultBuilder {
     }
 
     /**
-     * This constructor takes soap fault detail among other things. The detail could represent {@link javax.xml.soap.Detail}
+     * This constructor takes soap fault detail among other things. The detail could represent {@link jakarta.xml.soap.Detail}
      * or a java object that can be marshalled/unmarshalled by JAXB.
      *
      * @param code

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,14 +16,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.SchemaOutputResolver;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchema;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 
 import com.sun.xml.ws.api.model.SEIModel;
@@ -53,7 +53,7 @@ public class JAXBContextWrapper implements BindingContext {
 
     private boolean hasSwaRef = false;
 
-	JAXBContextWrapper(javax.xml.bind.JAXBContext cxt, Map<TypeInfo, TypeMappingInfo> map, SEIModel model) {
+	JAXBContextWrapper(jakarta.xml.bind.JAXBContext cxt, Map<TypeInfo, TypeMappingInfo> map, SEIModel model) {
 		jaxbContext = (org.eclipse.persistence.jaxb.JAXBContext) cxt;
 		infoMap = map;
 	    mpool = new ObjectPool<JAXBMarshaller>() {

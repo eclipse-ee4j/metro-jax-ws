@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@ import junit.framework.TestCase;
 
 import java.util.Map;
 
-import static javax.xml.ws.BindingProvider.SOAPACTION_URI_PROPERTY;
+import static jakarta.xml.ws.BindingProvider.SOAPACTION_URI_PROPERTY;
 
 /**
  * Test for new implementation of {@link com.sun.xml.ws.api.PropertySet#asMap()} ()} - it should be used instead of the

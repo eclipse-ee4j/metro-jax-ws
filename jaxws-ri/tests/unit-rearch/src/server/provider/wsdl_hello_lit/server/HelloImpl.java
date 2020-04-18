@@ -14,14 +14,14 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.Provider;
-import javax.xml.ws.Service;
-import javax.xml.ws.Service.Mode;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.Provider;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Service.Mode;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.WebServiceProvider;
+import jakarta.xml.ws.WebServiceProvider;
 
 @WebServiceProvider(
     wsdlLocation="WEB-INF/wsdl/hello_literal.wsdl",

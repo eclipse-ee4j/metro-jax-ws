@@ -13,9 +13,9 @@ package async.wsdl_hello_lit_fault.client;
 import junit.framework.TestCase;
 import testutil.ClientServerTestUtil;
 
-import javax.xml.ws.AsyncHandler;
-import javax.xml.ws.Response;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.AsyncHandler;
+import jakarta.xml.ws.Response;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import javax.xml.namespace.QName;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;

@@ -9,7 +9,7 @@
  */
 
 package wsa.fromjava.action.common;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import testutil.WsaBaseSOAPHandler;
 
 

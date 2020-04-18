@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,12 +12,12 @@ package com.sun.xml.ws.sdo.sample.service;
 
 import com.sun.xml.ws.sdo.sample.service.types.*;
 
-import javax.xml.ws.ResponseWrapper;
-import javax.xml.ws.RequestWrapper;
+import jakarta.xml.ws.ResponseWrapper;
+import jakarta.xml.ws.RequestWrapper;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.jws.WebMethod;
-import javax.jws.WebResult;
-import javax.jws.WebParam;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebResult;
+import jakarta.jws.WebParam;
 //import javax.wsdl.WSDLException;
 import java.util.logging.Logger;
 import java.util.*;
@@ -38,7 +38,7 @@ import com.sun.xml.ws.db.sdo.SDOUtils;
 import com.sun.xml.ws.db.sdo.SchemaInfo;
 
 //@SchemaLocation(value = "data/sdo/HRAppService.wsdl")
-@javax.jws.WebService(targetNamespace="http://sdo.sample.service/", name="HRAppService")
+@jakarta.jws.WebService(targetNamespace="http://sdo.sample.service/", name="HRAppService")
 public class HRAppServiceImpl implements HRAppService {
     private static final Logger LOG = Logger.getLogger(HRAppServiceImpl.class.getName());
 

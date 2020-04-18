@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,14 +32,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.bind.annotation.XmlAttachmentRef;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlList;
-import javax.xml.bind.annotation.XmlMimeType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlAttachmentRef;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlList;
+import jakarta.xml.bind.annotation.XmlMimeType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * Runtime Wrapper and exception bean generator implementation.
@@ -105,12 +105,12 @@ public class WrapperBeanGenerator {
 
         cw.visit(Opcodes.V1_8, Opcodes.ACC_PUBLIC + Opcodes.ACC_SUPER, replaceDotWithSlash(className), null, "java/lang/Object", null);
 
-        AnnotationVisitor root = cw.visitAnnotation("Ljavax/xml/bind/annotation/XmlRootElement;", true);
+        AnnotationVisitor root = cw.visitAnnotation("Ljakarta/xml/bind/annotation/XmlRootElement;", true);
         root.visit("name", rootName);
         root.visit("namespace", rootNS);
         root.visitEnd();
 
-        AnnotationVisitor type = cw.visitAnnotation("Ljavax/xml/bind/annotation/XmlType;", true);
+        AnnotationVisitor type = cw.visitAnnotation("Ljakarta/xml/bind/annotation/XmlType;", true);
         type.visit("name", typeName);
         type.visit("namespace", typeNS);
         if (fields.size() > 1) {
@@ -127,23 +127,23 @@ public class WrapperBeanGenerator {
 
             for(Annotation ann : field.jaxbAnnotations) {
                 if (ann instanceof XmlMimeType) {
-                    AnnotationVisitor mime = fv.visitAnnotation("Ljavax/xml/bind/annotation/XmlMimeType;", true);
+                    AnnotationVisitor mime = fv.visitAnnotation("Ljakarta/xml/bind/annotation/XmlMimeType;", true);
                     mime.visit("value", ((XmlMimeType)ann).value());
                     mime.visitEnd();
                 } else if (ann instanceof XmlJavaTypeAdapter) {
-                    AnnotationVisitor ada = fv.visitAnnotation("Ljavax/xml/bind/annotation/adapters/XmlJavaTypeAdapter;", true);
+                    AnnotationVisitor ada = fv.visitAnnotation("Ljakarta/xml/bind/annotation/adapters/XmlJavaTypeAdapter;", true);
                     ada.visit("value", getASMType(((XmlJavaTypeAdapter)ann).value()));
                     // XmlJavaTypeAdapter.type() is for package only. No need to copy.
                     // ada.visit("type", ((XmlJavaTypeAdapter)ann).type());
                     ada.visitEnd();
                 } else if (ann instanceof XmlAttachmentRef) {
-                    AnnotationVisitor att = fv.visitAnnotation("Ljavax/xml/bind/annotation/XmlAttachmentRef;", true);
+                    AnnotationVisitor att = fv.visitAnnotation("Ljakarta/xml/bind/annotation/XmlAttachmentRef;", true);
                     att.visitEnd();
                 } else if (ann instanceof XmlList) {
-                    AnnotationVisitor list = fv.visitAnnotation("Ljavax/xml/bind/annotation/XmlList;", true);
+                    AnnotationVisitor list = fv.visitAnnotation("Ljakarta/xml/bind/annotation/XmlList;", true);
                     list.visitEnd();
                 } else if (ann instanceof XmlElement) {
-                    AnnotationVisitor elem = fv.visitAnnotation("Ljavax/xml/bind/annotation/XmlElement;", true);
+                    AnnotationVisitor elem = fv.visitAnnotation("Ljakarta/xml/bind/annotation/XmlElement;", true);
                     XmlElement xmlElem = (XmlElement)ann;
                     elem.visit("name", xmlElem.name());
                     elem.visit("namespace", xmlElem.namespace());

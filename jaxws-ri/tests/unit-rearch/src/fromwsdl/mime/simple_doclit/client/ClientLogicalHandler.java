@@ -18,13 +18,13 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import javax.xml.ws.LogicalMessage;
-import javax.xml.ws.handler.LogicalHandler;
-import javax.xml.ws.handler.LogicalMessageContext;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.LogicalMessage;
+import jakarta.xml.ws.handler.LogicalHandler;
+import jakarta.xml.ws.handler.LogicalMessageContext;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.WebServiceException;
 
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 
 /**
  * Used to test message context properties on the client side.

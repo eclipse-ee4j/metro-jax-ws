@@ -10,17 +10,17 @@
 
 package wsa.fromjava.default_action.server;
 
-import javax.jws.HandlerChain;
-import javax.jws.WebService;
-import javax.jws.WebMethod;
-import javax.jws.Oneway;
-import javax.xml.ws.Action;
-import javax.xml.ws.FaultAction;
-import javax.xml.ws.BindingType;
+import jakarta.jws.HandlerChain;
+import jakarta.jws.WebService;
+import jakarta.jws.WebMethod;
+import jakarta.jws.Oneway;
+import jakarta.xml.ws.Action;
+import jakarta.xml.ws.FaultAction;
+import jakarta.xml.ws.BindingType;
 
-import javax.xml.ws.soap.SOAPBinding;
-import javax.xml.ws.soap.AddressingFeature;
-import javax.xml.ws.soap.Addressing;
+import jakarta.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.soap.AddressingFeature;
+import jakarta.xml.ws.soap.Addressing;
 
 /**
  * @author Rama Pulavarthi

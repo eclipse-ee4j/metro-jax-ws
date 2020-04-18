@@ -43,14 +43,14 @@ public final class PluginImpl extends Plugin {
 
     @Override
     public String getUsage() {
-        return "  -mark-generated    :  mark the generated code as @javax.annotation.Generated";
+        return "  -mark-generated    :  mark the generated code as @jakarta.annotation.Generated";
     }
 
     @Override
     public boolean run(Model model, WsimportOptions wo, ErrorReceiver er) throws SAXException {
         JCodeModel cm = wo.getCodeModel();
         // we want this to work without requiring JSR-250 jar.
-        annotation = cm.ref("javax.annotation.Generated");
+        annotation = cm.ref("jakarta.annotation.Generated");
 
         for (Iterator<JPackage> i = cm.packages(); i.hasNext();) {
             for (Iterator<JDefinedClass> j = i.next().classes(); j.hasNext();) {

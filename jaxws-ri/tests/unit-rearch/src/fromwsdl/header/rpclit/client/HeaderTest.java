@@ -14,8 +14,8 @@ import junit.framework.TestCase;
 import testutil.ClientServerTestUtil;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  *

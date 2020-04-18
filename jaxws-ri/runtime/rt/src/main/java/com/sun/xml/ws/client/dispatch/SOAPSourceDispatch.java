@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,14 +23,14 @@ import com.sun.xml.ws.message.source.PayloadSourceMessage;
 
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
-import javax.xml.ws.Service.Mode;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Service.Mode;
+import jakarta.xml.ws.WebServiceException;
 
 
 /**
  * The <code>SOAPSourceDispatch</code> class provides support
  * for the dynamic invocation of a service endpoint operation using XML
- * constructs. The <code>javax.xml.ws.Service</code>
+ * constructs. The <code>jakarta.xml.ws.Service</code>
  * interface acts as a factory for the creation of <code>SOAPSourceDispatch</code>
  * instances.
  *

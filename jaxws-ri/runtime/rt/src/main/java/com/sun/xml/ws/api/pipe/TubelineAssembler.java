@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,8 +39,8 @@ public interface TubelineAssembler {
      * Creates a new tubeline for clients.
      *
      * <p>
-     * When a JAX-WS client creates a proxy or a {@link javax.xml.ws.Dispatch} from
-     * a {@link javax.xml.ws.Service}, JAX-WS runtime internally uses this method
+     * When a JAX-WS client creates a proxy or a {@link jakarta.xml.ws.Dispatch} from
+     * a {@link jakarta.xml.ws.Service}, JAX-WS runtime internally uses this method
      * to create a new tubeline as a part of the initilization.
      *
      * @param context
@@ -50,7 +50,7 @@ public interface TubelineAssembler {
      * @return
      *      non-null freshly created tubeline.
      *
-     * @throws javax.xml.ws.WebServiceException
+     * @throws jakarta.xml.ws.WebServiceException
      *      if there's any configuration error that prevents the
      *      tubeline from being constructed. This exception will be
      *      propagated into the application, so it must have
@@ -78,7 +78,7 @@ public interface TubelineAssembler {
      * @return
      *      non-null freshly created tubeline.
      *
-     * @throws javax.xml.ws.WebServiceException
+     * @throws jakarta.xml.ws.WebServiceException
      *      if there's any configuration error that prevents the
      *      tubeline from being constructed. This exception will be
      *      propagated into the container, so it must have

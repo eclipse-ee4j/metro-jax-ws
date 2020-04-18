@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@ import com.sun.xml.ws.transport.http.HttpAdapterList;
 import com.sun.xml.ws.server.ServerRtException;
 import com.sun.xml.ws.resources.ServerMessages;
 
-import javax.xml.ws.EndpointReference;
+import jakarta.xml.ws.EndpointReference;
 import java.util.concurrent.Executor;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -51,8 +51,8 @@ public final class HttpEndpoint extends com.sun.xml.ws.api.server.HttpEndpoint {
     }
 
     public void publish(Object serverContext) {
-        if (serverContext instanceof javax.xml.ws.spi.http.HttpContext) {
-            setHandler((javax.xml.ws.spi.http.HttpContext)serverContext);
+        if (serverContext instanceof jakarta.xml.ws.spi.http.HttpContext) {
+            setHandler((jakarta.xml.ws.spi.http.HttpContext)serverContext);
             return;
         }
         if (serverContext instanceof HttpContext) {
@@ -62,7 +62,7 @@ public final class HttpEndpoint extends com.sun.xml.ws.api.server.HttpEndpoint {
         }
         throw new ServerRtException(ServerMessages.NOT_KNOW_HTTP_CONTEXT_TYPE(
                 serverContext.getClass(), HttpContext.class,
-                javax.xml.ws.spi.http.HttpContext.class));
+                jakarta.xml.ws.spi.http.HttpContext.class));
     }
 
     HttpAdapterList getAdapterOwner() {
@@ -106,7 +106,7 @@ public final class HttpEndpoint extends com.sun.xml.ws.api.server.HttpEndpoint {
         context.setHandler(new WSHttpHandler(adapter, executor));
     }
 
-    private void setHandler(javax.xml.ws.spi.http.HttpContext context) {
+    private void setHandler(jakarta.xml.ws.spi.http.HttpContext context) {
         context.setHandler(new PortableHttpHandler(adapter, executor));
     }
 

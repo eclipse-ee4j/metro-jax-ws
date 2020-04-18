@@ -10,12 +10,12 @@
 
 package fromjava.soap12.nosei.server;
 
-import javax.jws.*;
+import jakarta.jws.*;
 
-import javax.xml.ws.Holder;
-import javax.xml.ws.*;
-import javax.xml.soap.*;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.*;
+import jakarta.xml.soap.*;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import javax.xml.namespace.QName;
 
 @WebService(name="Echo", serviceName="EchoService", targetNamespace="http://echo.org/")

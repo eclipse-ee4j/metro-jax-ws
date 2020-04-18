@@ -14,10 +14,10 @@ import org.w3c.dom.*;
 import org.w3c.dom.Node;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.soap.SOAPFaultException;
-import javax.xml.soap.*;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.soap.*;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -28,7 +28,7 @@ import java.util.Properties;
 
 import com.sun.xml.ws.fault.SOAPFaultBuilder;
 
-@javax.jws.WebService(endpointInterface="fromwsdl.doclit_fault.server.Fault")
+@jakarta.jws.WebService(endpointInterface="fromwsdl.doclit_fault.server.Fault")
 public class FaultImpl{
     public java.lang.String echo(java.lang.String type)
             throws

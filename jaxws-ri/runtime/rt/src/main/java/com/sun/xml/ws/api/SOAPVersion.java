@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,11 +15,11 @@ import com.sun.xml.ws.api.message.saaj.SAAJFactory;
 import com.sun.xml.ws.encoding.soap.SOAP12Constants;
 
 import javax.xml.namespace.QName;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPConstants;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPFactory;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.SOAPConstants;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPFactory;
+import jakarta.xml.ws.soap.SOAPBinding;
 
 import com.oracle.webservices.api.EnvelopeStyle;
 import com.oracle.webservices.api.EnvelopeStyleFeature;
@@ -62,7 +62,7 @@ public enum SOAPVersion {
             com.sun.xml.ws.encoding.soap.SOAPConstants.URI_ENVELOPE,
             "text/xml",
             SOAPConstants.URI_SOAP_ACTOR_NEXT, "actor",
-            javax.xml.soap.SOAPConstants.SOAP_1_1_PROTOCOL,
+            jakarta.xml.soap.SOAPConstants.SOAP_1_1_PROTOCOL,
             new QName(com.sun.xml.ws.encoding.soap.SOAPConstants.URI_ENVELOPE, "MustUnderstand"),
             "Client",
             "Server",
@@ -72,7 +72,7 @@ public enum SOAPVersion {
             SOAP12Constants.URI_ENVELOPE,
             "application/soap+xml",
             SOAPConstants.URI_SOAP_1_2_ROLE_ULTIMATE_RECEIVER, "role",
-            javax.xml.soap.SOAPConstants.SOAP_1_2_PROTOCOL,
+            jakarta.xml.soap.SOAPConstants.SOAP_1_2_PROTOCOL,
             new QName(com.sun.xml.ws.encoding.soap.SOAP12Constants.URI_ENVELOPE, "MustUnderstand"),
             "Sender",
             "Receiver",

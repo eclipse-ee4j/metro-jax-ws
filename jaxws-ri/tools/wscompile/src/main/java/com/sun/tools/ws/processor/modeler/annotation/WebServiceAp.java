@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2010, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,7 +22,7 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedOptions;
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -31,8 +31,8 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.ElementFilter;
 import javax.tools.Diagnostic;
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceProvider;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceProvider;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
@@ -43,32 +43,32 @@ import java.util.Set;
 import java.util.logging.Level;
 
 /**
- * WebServiceAp is a AnnotationProcessor for processing javax.jws.* and
- * javax.xml.ws.* annotations. This class is used either by the WsGen (CompileTool) tool or
+ * WebServiceAp is a AnnotationProcessor for processing jakarta.jws.* and
+ * jakarta.xml.ws.* annotations. This class is used either by the WsGen (CompileTool) tool or
  * indirectly when invoked by javac.
  *
  * @author WS Development Team
  */
 @SupportedAnnotationTypes({
-        "javax.jws.HandlerChain",
-        "javax.jws.Oneway",
-        "javax.jws.WebMethod",
-        "javax.jws.WebParam",
-        "javax.jws.WebResult",
-        "javax.jws.WebService",
-        "javax.jws.soap.InitParam",
-        "javax.jws.soap.SOAPBinding",
-        "javax.jws.soap.SOAPMessageHandler",
-        "javax.jws.soap.SOAPMessageHandlers",
-        "javax.xml.ws.BindingType",
-        "javax.xml.ws.RequestWrapper",
-        "javax.xml.ws.ResponseWrapper",
-        "javax.xml.ws.ServiceMode",
-        "javax.xml.ws.WebEndpoint",
-        "javax.xml.ws.WebFault",
-        "javax.xml.ws.WebServiceClient",
-        "javax.xml.ws.WebServiceProvider",
-        "javax.xml.ws.WebServiceRef"
+        "jakarta.jws.HandlerChain",
+        "jakarta.jws.Oneway",
+        "jakarta.jws.WebMethod",
+        "jakarta.jws.WebParam",
+        "jakarta.jws.WebResult",
+        "jakarta.jws.WebService",
+        "jakarta.jws.soap.InitParam",
+        "jakarta.jws.soap.SOAPBinding",
+        "jakarta.jws.soap.SOAPMessageHandler",
+        "jakarta.jws.soap.SOAPMessageHandlers",
+        "jakarta.xml.ws.BindingType",
+        "jakarta.xml.ws.RequestWrapper",
+        "jakarta.xml.ws.ResponseWrapper",
+        "jakarta.xml.ws.ServiceMode",
+        "jakarta.xml.ws.WebEndpoint",
+        "jakarta.xml.ws.WebFault",
+        "jakarta.xml.ws.WebServiceClient",
+        "jakarta.xml.ws.WebServiceProvider",
+        "jakarta.xml.ws.WebServiceRef"
 })
 @SupportedOptions({WebServiceAp.DO_NOT_OVERWRITE, WebServiceAp.IGNORE_NO_WEB_SERVICE_FOUND_WARNING, WebServiceAp.VERBOSE})
 public class WebServiceAp extends AbstractProcessor implements ModelBuilder {

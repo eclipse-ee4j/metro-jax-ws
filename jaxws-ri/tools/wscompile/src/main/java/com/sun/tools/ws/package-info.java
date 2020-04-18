@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,17 +30,17 @@
    <dl>
  *  <dt><a href="http://download.oracle.com/javase/6/docs/api/javax/annotation/processing/package-summary.html">AP</a></dt>
  <dd>A Java SE tool and framework for processing annotations. Annotation processing will invoke a JAX-WS AnnotationProcossor for
- *   processing Java source  files with javax.jws.* annotations and making them web services.
- *   Annotation processing will compile the Java source files and generate any additional classes needed to make an javax.jws.WebService
+ *   processing Java source  files with jakarta.jws.* annotations and making them web services.
+ *   Annotation processing will compile the Java source files and generate any additional classes needed to make an jakarta.jws.WebService
  *   annotated class a Web service.</dd>
  *
  *  <dt>{@link com.sun.tools.ws.WsGen WsGen}</dt>
- *  <dd>Tool to process a compiled javax.jws.WebService annotated class and to generate the necessary classes to make
+ *  <dd>Tool to process a compiled jakarta.jws.WebService annotated class and to generate the necessary classes to make
  *  it a Web service.</dd>
 
  *  <dt>{@link com.sun.tools.ws.ant.WsImport2 WsImport}</dt>
  *  <dd>
- *    Tool to import a WSDL and to generate an SEI (a javax.jws.WebService) interface that can be either implemented
+ *    Tool to import a WSDL and to generate an SEI (a jakarta.jws.WebService) interface that can be either implemented
  *    on the server to build a web service, or can be used on the client to invoke the web service.</dd>
  *  </dl>
  * <h2>Implementation Classes</h2>
@@ -59,8 +59,8 @@
  *    <dd>The WSDLModeler processes a WSDL to create a Model.</dd>
  *
  *    <dt>{@link com.sun.tools.ws.processor.modeler.annotation.WebServiceAp WebServiceAp}</dt>
- *    <dd>WebServiceAp is a AnnotationProcessor for processing javax.jws.* and
- *    javax.xml.ws.* annotations. This class is used by the WsGen (CompileTool) tool.</dd>
+ *    <dd>WebServiceAp is a AnnotationProcessor for processing jakarta.jws.* and
+ *    jakarta.xml.ws.* annotations. This class is used by the WsGen (CompileTool) tool.</dd>
  *   </dl>
  *
  **/

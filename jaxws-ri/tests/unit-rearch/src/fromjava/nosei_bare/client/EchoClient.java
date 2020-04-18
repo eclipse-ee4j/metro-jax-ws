@@ -16,8 +16,8 @@ import junit.framework.TestSuite;
 import testutil.ClientServerTestUtil;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Holder;
 import java.util.List;
 
 

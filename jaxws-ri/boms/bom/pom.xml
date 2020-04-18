@@ -33,24 +33,24 @@
     <properties>
         <!--************************************************************-->
 
-        <istack.version>3.0.11</istack.version>
+        <istack.version>4.0.0-M1</istack.version>
         <gmbal-api.version>4.0.1</gmbal-api.version>
         <pfl.version>4.1.0</pfl.version>
         <ha-api.version>3.1.12</ha-api.version>
-        <jaxb.version>2.3.3</jaxb.version>
-        <jaxws-api.version>2.3.3</jaxws-api.version>
-        <javax.jws-api.version>2.1.0</javax.jws-api.version>
+        <jaxb.version>3.0.0-M1</jaxb.version>
+        <jaxws-api.version>3.0.0-RC2</jaxws-api.version>
+        <jakarta.jws-api.version>3.0.0-RC2</jakarta.jws-api.version>
         <management-api.version>3.2.2</management-api.version>
         <mimepull.version>1.9.13</mimepull.version>
         <policy.version>2.7.10</policy.version>
         <resolver.version>20050927</resolver.version>
-        <saaj-api.version>1.4.2</saaj-api.version>
-        <saaj-impl.version>1.5.2</saaj-impl.version>
-        <streambuffer.version>1.5.9</streambuffer.version>
+        <saaj-api.version>2.0.0-RC3</saaj-api.version>
+        <saaj-impl.version>2.0.0-M1</saaj-impl.version>
+        <streambuffer.version>2.0.0-M2</streambuffer.version>
         <woodstox-core.version>5.1.0</woodstox-core.version>
         <stax2-api.version>4.1</stax2-api.version>
-        <javax.annotation-api.version>1.3.5</javax.annotation-api.version>
-        <javax.activation.version>1.2.2</javax.activation.version>
+        <jakarta.annotation-api.version>2.0.0-RC1</jakarta.annotation-api.version>
+        <jakarta.activation.version>2.0.0-RC3</jakarta.activation.version>
     </properties>
 
     <dependencyManagement>
@@ -119,7 +119,7 @@
                 <classifier>sources</classifier>
             </dependency>
 
-            <!-- Binary-->
+            <!-- Binary -->
             <dependency>
                 <groupId>org.glassfish.jaxb</groupId>
                 <artifactId>jaxb-bom</artifactId>
@@ -131,7 +131,7 @@
             <dependency>
                 <groupId>jakarta.jws</groupId>
                 <artifactId>jakarta.jws-api</artifactId>
-                <version>${javax.jws-api.version}</version>
+                <version>${jakarta.jws-api.version}</version>
                 <classifier>sources</classifier>
             </dependency>
 
@@ -161,12 +161,12 @@
             <dependency>
                 <groupId>jakarta.activation</groupId>
                 <artifactId>jakarta.activation-api</artifactId>
-                <version>${javax.activation.version}</version>
+                <version>${jakarta.activation.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.activation</groupId>
                 <artifactId>jakarta.activation</artifactId>
-                <version>${javax.activation.version}</version>
+                <version>${jakarta.activation.version}</version>
             </dependency>
 
             <dependency>
@@ -183,7 +183,7 @@
             <dependency>
                 <groupId>jakarta.jws</groupId>
                 <artifactId>jakarta.jws-api</artifactId>
-                <version>${javax.jws-api.version}</version>
+                <version>${jakarta.jws-api.version}</version>
             </dependency>
 
             <dependency>
@@ -201,7 +201,7 @@
             <dependency>
                 <groupId>jakarta.annotation</groupId>
                 <artifactId>jakarta.annotation-api</artifactId>
-                <version>${javax.annotation-api.version}</version>
+                <version>${jakarta.annotation-api.version}</version>
             </dependency>
 
             <!-- To be removed (make optional) in the future -->

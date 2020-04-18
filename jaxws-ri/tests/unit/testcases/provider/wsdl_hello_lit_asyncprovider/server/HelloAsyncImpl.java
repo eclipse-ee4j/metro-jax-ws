@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,16 +14,16 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.ws.WebServiceException;
 import com.sun.xml.ws.api.server.AsyncProvider;
 import com.sun.xml.ws.api.server.AsyncProviderCallback;
-import javax.xml.ws.Service;
-import javax.xml.ws.Service.Mode;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Service.Mode;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.WebServiceProvider;
-import javax.xml.ws.WebServiceContext;
+import jakarta.xml.ws.WebServiceProvider;
+import jakarta.xml.ws.WebServiceContext;
 
 /**
  * @author Jitendra Kotamraju

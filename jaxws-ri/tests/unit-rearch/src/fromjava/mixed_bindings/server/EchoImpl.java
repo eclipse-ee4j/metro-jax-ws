@@ -11,11 +11,11 @@
 package fromjava.mixed_bindings.server;
 
 
-import javax.jws.*;
-import javax.jws.soap.*;
+import jakarta.jws.*;
+import jakarta.jws.soap.*;
 
-import javax.xml.ws.Holder;
-import javax.xml.ws.*;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.*;
 
 
 @WebService(name="Echo", serviceName="EchoService", targetNamespace="http://echo.org/")

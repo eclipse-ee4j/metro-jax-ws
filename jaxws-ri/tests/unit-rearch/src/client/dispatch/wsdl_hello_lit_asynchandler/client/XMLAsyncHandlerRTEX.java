@@ -11,8 +11,8 @@
 package client.dispatch.wsdl_hello_lit_asynchandler.client;
 import junit.framework.Assert;
 import javax.xml.transform.Source;
-import javax.xml.ws.Response;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Response;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * Created by JAXRPC Development Team
@@ -20,7 +20,7 @@ import javax.xml.ws.WebServiceException;
  * Date: Jul 15, 2004
  * Time: 3:38:43 PM
  */
- public class XMLAsyncHandlerRTEX implements javax.xml.ws.AsyncHandler{
+ public class XMLAsyncHandlerRTEX implements jakarta.xml.ws.AsyncHandler{
 
         Source source;
 

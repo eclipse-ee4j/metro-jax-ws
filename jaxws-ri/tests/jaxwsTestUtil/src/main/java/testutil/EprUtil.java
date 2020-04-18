@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,8 +14,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import javax.xml.ws.EndpointReference;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.xml.ws.EndpointReference;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.namespace.QName;
 import com.sun.xml.ws.developer.MemberSubmissionEndpointReference;

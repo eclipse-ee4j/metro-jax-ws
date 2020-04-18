@@ -699,8 +699,8 @@ SOAPAction: http://example.com/fabrikam/SubmitPO
 
                 <para>If WS-Addressing support needs to be enabled on an
                 endpoint, then along with
-                <literal>javax.jws.WebService</literal> annotation,
-                <literal>javax.xml.ws.soap.Addressing</literal> annotation
+                <literal>jakarta.jws.WebService</literal> annotation,
+                <literal>jakarta.xml.ws.soap.Addressing</literal> annotation
                 need to be specified for enabling W3C WS-Addressing. If Member
                 Submission WS-Addressing needs to be enabled then 
                 <literal>com.sun.xml.ws.developer.MemberSubmissionAddressing</literal>
@@ -710,8 +710,8 @@ SOAPAction: http://example.com/fabrikam/SubmitPO
                 like:</para>
 
                 <informalexample>
-                    <programlisting language="java"><![CDATA[@javax.xml.ws.soap.Addressing
-@javax.jws.WebService
+                    <programlisting language="java"><![CDATA[@jakarta.xml.ws.soap.Addressing
+@jakarta.jws.WebService
 public class AddNumbersImpl {
 
     // ...
@@ -724,7 +724,7 @@ public class AddNumbersImpl {
 
                 <informalexample>
                     <programlisting language="java"><![CDATA[@com.sun.xml.ws.developer.MemberSubmissionAddressing
-@javax.jws.WebService
+@jakarta.jws.WebService
 public class AddNumbersImpl {
 
     // ...
@@ -780,7 +780,7 @@ public class AddNumbersImpl {
             <section xml:id="is-addressing-optional-or-required">
                 <title>Is Addressing Optional or Required ?</title>
 
-                <para>Both <literal>javax.xml.ws.soap.Addressing</literal> and
+                <para>Both <literal>jakarta.xml.ws.soap.Addressing</literal> and
                 <literal>com.sun.xml.ws.developer.MemberSubmissionAddressing</literal>
                 annotations take two optional Boolean parameters,
                 <literal>enabled</literal> (default true) and
@@ -800,7 +800,7 @@ public class AddNumbersImpl {
                 <informalexample>
                     <programlisting language="java"><![CDATA[@com.sun.xml.ws.developer.MemberSubmissionAddressing(enabled = true,
         required = true)
-@javax.jws.WebServicepublic
+@jakarta.jws.WebServicepublic
 class AddNumbersImpl {
 
     // ...
@@ -861,7 +861,7 @@ class AddNumbersImpl {
             extensibility element, then either W3C WS-Addressing or Member
             Submission WS-Addressing can be explicitly enabled using
             <literal>createDispatch</literal> and <literal>getPort</literal>
-            methods on <literal>javax.xml.ws.Service</literal>. The following
+            methods on <literal>jakarta.xml.ws.Service</literal>. The following
             new APIs are added in &ws.spec.name; 2.1:</para>
 
             <itemizedlist>
@@ -873,7 +873,7 @@ class AddNumbersImpl {
 
                 <listitem>
                     <para><informalexample>
-                            <programlisting language="java"><![CDATA[Dispatch<java.lang.Object> createDispatch(javax.xml.namespace.QName portName, javax.xml.bind.JAXBContext context, Service.Mode mode, WebServiceFeature... features)]]></programlisting>
+                            <programlisting language="java"><![CDATA[Dispatch<java.lang.Object> createDispatch(javax.xml.namespace.QName portName, jakarta.xml.bind.JAXBContext context, Service.Mode mode, WebServiceFeature... features)]]></programlisting>
                         </informalexample></para>
                 </listitem>
 
@@ -891,14 +891,14 @@ class AddNumbersImpl {
             </itemizedlist>
 
             <para>Each method is a variation of an already existing method in
-            &ws.spec.name;. The only addition is an extra var-arg
-            <literal>javax.xml.ws.WebServiceFeature</literal> parameter. A
+                &ws.spec.name;. The only addition is an extra var-arg
+            <literal>jakarta.xml.ws.WebServiceFeature</literal> parameter. A
             <literal>WebServiceFeature</literal> is a new class introduced in
             &ws.spec.name; 2.1 specification used to represent a feature that can be
             enabled or disabled for a Web service.</para>
 
             <para>The &ws.spec.name; 2.1 specification defines
-            <literal>javax.xml.ws.soap.AddressingFeature</literal> to enable
+            <literal>jakarta.xml.ws.soap.AddressingFeature</literal> to enable
             W3C WS-Addressing on the client side. In addition, the
             &ws.impl.name; also defines
             <literal>com.sun.xml.ws.developer.MemberSubmissionAddressingFeature</literal>
@@ -911,11 +911,11 @@ class AddNumbersImpl {
             <literal>AddNumbersImplService</literal> class. Then a port can be
             obtained using the <literal>getAddNumbersImplPort</literal> method
             and passing an instance of
-            <literal>javax.xml.ws.AddressingFeature</literal>. The code looks
+            <literal>jakarta.xml.ws.AddressingFeature</literal>. The code looks
             like:</para>
 
             <para><informalexample>
-                    <programlisting><![CDATA[new AddNumbersImplService().getAddNumbersImplPort(new javax.xml.ws.AddressingFeature());]]></programlisting>
+                    <programlisting><![CDATA[new AddNumbersImplService().getAddNumbersImplPort(new jakarta.xml.ws.AddressingFeature());]]></programlisting>
                 </informalexample></para>
 
             <para>Similarly, a <literal>Dispatch</literal> instance with
@@ -932,7 +932,7 @@ class AddNumbersImpl {
 
             <para><emphasis role="bold">Feature Parameters</emphasis></para>
 
-            <para>Both <literal>javax.xml.ws.soap.AddressingFeature</literal>
+            <para>Both <literal>jakarta.xml.ws.soap.AddressingFeature</literal>
             and
             <literal>com.sun.xml.ws.developer.MemberSubmissionAddressingFeature</literal>
             take two optional Boolean parameters, <literal>enabled</literal>
@@ -968,7 +968,7 @@ class AddNumbersImpl {
             disabled using the following code:</para>
 
             <para><informalexample>
-                    <programlisting language="java"><![CDATA[new AddNumbersImplService().getAddNumbersImplPort(new javax.xml.ws.AddressingFeature(false));]]></programlisting>
+                    <programlisting language="java"><![CDATA[new AddNumbersImplService().getAddNumbersImplPort(new jakarta.xml.ws.AddressingFeature(false));]]></programlisting>
                 </informalexample></para>
         </section>
     </section>
@@ -1030,8 +1030,8 @@ class AddNumbersImpl {
             xlink:href="http://www.w3.org/Submission/ws-addressing/#_Toc77464325">Member
             Submission WS-Addressing</link> define mechanisms to associate
             Action Message Addressing Property with an operation. &ws.spec.name;
-            defines <literal>javax.xml.ws.Action</literal> and
-            <literal>javax.xml.ws.FaultAction</literal> annotations to
+            defines <literal>jakarta.xml.ws.Action</literal> and
+            <literal>jakarta.xml.ws.FaultAction</literal> annotations to
             explicitly associate an Action with <literal>input</literal>,
             <literal>output</literal>, and <literal>fault</literal> messages
             of the mapped WSDL operation. For example, one of the methods in

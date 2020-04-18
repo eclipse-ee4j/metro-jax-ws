@@ -14,12 +14,12 @@
 
 package whitebox.runtimemodeler.client;
 
-import javax.jws.*;
-import javax.jws.soap.SOAPBinding;
+import jakarta.jws.*;
+import jakarta.jws.soap.SOAPBinding;
 
 import java.rmi.RemoteException;
 
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 
 
 @WebService(name="RpcLit")

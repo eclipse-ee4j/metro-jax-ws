@@ -15,8 +15,8 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import testutil.ClientServerTestUtil;
 
-import javax.xml.ws.Endpoint;
-import javax.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.Endpoint;
+import jakarta.xml.ws.http.HTTPBinding;
 import java.util.concurrent.Executor;
 import java.net.HttpURLConnection;
 import java.net.URL;

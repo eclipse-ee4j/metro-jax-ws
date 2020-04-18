@@ -10,9 +10,9 @@
 
 package customization.jaxb_custom.doclit.server;
 
-import javax.jws.WebService;
-import javax.jws.WebParam;
-import javax.xml.ws.Holder;
+import jakarta.jws.WebService;
+import jakarta.jws.WebParam;
+import jakarta.xml.ws.Holder;
 
 @WebService(
     serviceName="CustomService",

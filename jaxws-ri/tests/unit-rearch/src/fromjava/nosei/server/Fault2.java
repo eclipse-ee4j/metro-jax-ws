@@ -11,7 +11,7 @@
 package fromjava.nosei.server;
 
 
-@javax.xml.ws.WebFault(faultBean="fromjava.nosei.server.MyFault2Bean", name="MyFault2", targetNamespace="http://mynamespace")
+@jakarta.xml.ws.WebFault(faultBean="fromjava.nosei.server.MyFault2Bean", name="MyFault2", targetNamespace="http://mynamespace")
 public class Fault2 extends Exception {
     
     String zing;

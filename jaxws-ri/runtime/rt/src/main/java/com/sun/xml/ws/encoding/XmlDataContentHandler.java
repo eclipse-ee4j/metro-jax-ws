@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,15 +12,14 @@ package com.sun.xml.ws.encoding;
 
 import com.sun.xml.ws.util.xml.XmlUtil;
 
-import javax.activation.ActivationDataFlavor;
-import javax.activation.DataContentHandler;
-import javax.activation.DataSource;
+import jakarta.activation.ActivationDataFlavor;
+import jakarta.activation.DataContentHandler;
+import jakarta.activation.DataSource;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.awt.datatransfer.DataFlavor;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -34,23 +33,23 @@ import java.util.Arrays;
  */
 public class XmlDataContentHandler implements DataContentHandler {
 
-    private final DataFlavor[] flavors;
+    private final ActivationDataFlavor[] flavors;
 
     public XmlDataContentHandler() throws ClassNotFoundException {
-        flavors = new DataFlavor[3];
+        flavors = new ActivationDataFlavor[3];
         flavors[0] = new ActivationDataFlavor(StreamSource.class, "text/xml", "XML");
         flavors[1] = new ActivationDataFlavor(StreamSource.class, "application/xml", "XML");
         flavors[2] = new ActivationDataFlavor(String.class, "text/xml", "XML String");
     }
 
-    public DataFlavor[] getTransferDataFlavors() {
+    public ActivationDataFlavor[] getTransferDataFlavors() {
         return Arrays.copyOf(flavors, flavors.length);
     }
 
-    public Object getTransferData(DataFlavor df, DataSource ds)
+    public Object getTransferData(ActivationDataFlavor df, DataSource ds)
         throws IOException {
 
-        for (DataFlavor aFlavor : flavors) {
+        for (ActivationDataFlavor aFlavor : flavors) {
             if (aFlavor.equals(df)) {
                 return getContent(ds);
             }

@@ -10,7 +10,7 @@
 
 package fromwsdl.multibinding_soap.server;
 
-@javax.jws.WebService (endpointInterface="fromwsdl.multibinding_soap.server.PingPort")
+@jakarta.jws.WebService (endpointInterface="fromwsdl.multibinding_soap.server.PingPort")
 public class PingImpl {
     
    public String ping(String ticket, String message) {

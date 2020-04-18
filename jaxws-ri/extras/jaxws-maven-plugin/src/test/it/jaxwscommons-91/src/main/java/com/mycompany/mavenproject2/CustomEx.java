@@ -18,7 +18,7 @@
 
 package com.mycompany.mavenproject2;
 
-import javax.xml.ws.WebFault;
+import jakarta.xml.ws.WebFault;
 
 /**
  *

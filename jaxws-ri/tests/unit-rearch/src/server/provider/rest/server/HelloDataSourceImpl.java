@@ -11,23 +11,23 @@
 package server.provider.rest.server;
 
 import java.io.StringReader;
-import javax.xml.ws.WebServiceContext;
+import jakarta.xml.ws.WebServiceContext;
 import java.io.ByteArrayInputStream;
-import javax.xml.ws.Provider;
+import jakarta.xml.ws.Provider;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.WebServiceProvider;
-import javax.xml.ws.Service;
-import javax.xml.ws.ServiceMode;
-import javax.xml.ws.handler.MessageContext;
-import javax.annotation.Resource;
-import javax.xml.ws.http.HTTPException;
+import jakarta.xml.ws.WebServiceProvider;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.ServiceMode;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.annotation.Resource;
+import jakarta.xml.ws.http.HTTPException;
 import java.util.Collections;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -35,9 +35,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import javax.activation.DataHandler;
-import javax.jws.HandlerChain;
-import javax.activation.DataSource;
+import jakarta.activation.DataHandler;
+import jakarta.jws.HandlerChain;
+import jakarta.activation.DataSource;
 import java.io.OutputStream;
 
 @WebServiceProvider

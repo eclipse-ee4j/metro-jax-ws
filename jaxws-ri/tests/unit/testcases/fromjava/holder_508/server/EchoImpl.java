@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,12 +10,12 @@
 
 package fromjava.holder_508.server;
 
-import javax.jws.*;
+import jakarta.jws.*;
 
-import javax.xml.ws.Holder;
-import javax.xml.ws.*;
-import javax.xml.soap.*;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.*;
+import jakarta.xml.soap.*;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.List;

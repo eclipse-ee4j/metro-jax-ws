@@ -109,7 +109,7 @@ public class TestApp extends TestCase{
 
         String expectedName = "Sun Microsystems";
 
-        javax.xml.ws.Holder<java.lang.String> name = new javax.xml.ws.Holder<java.lang.String>();
+        jakarta.xml.ws.Holder<java.lang.String> name = new jakarta.xml.ws.Holder<java.lang.String>();
         name.value = "Sun";
 
         int index = 1234;
@@ -134,7 +134,7 @@ public class TestApp extends TestCase{
 
     public void testHolders() throws Exception{
         String str = "1";
-        javax.xml.ws.Holder<java.lang.Integer> inout = new javax.xml.ws.Holder<java.lang.Integer>();
+        jakarta.xml.ws.Holder<java.lang.Integer> inout = new jakarta.xml.ws.Holder<java.lang.Integer>();
         inout.value = 1;
         double out = stub.testHolders(str, inout);
         assertEquals((int)inout.value, 2);
@@ -153,7 +153,7 @@ public class TestApp extends TestCase{
     public void testParameterOrder() throws Exception {
         int bar = 1;
         String foo = "Hello World!";
-        javax.xml.ws.Holder<java.lang.String> foo1 = new javax.xml.ws.Holder<java.lang.String>();
+        jakarta.xml.ws.Holder<java.lang.String> foo1 = new jakarta.xml.ws.Holder<java.lang.String>();
         int resp = stub.testParameterOrder(bar, foo, foo1);
         assertTrue(bar == resp && foo.equals(foo1.value));
     }
@@ -165,8 +165,8 @@ public class TestApp extends TestCase{
     public void testUnboundedParts() throws Exception{
         String foo = "3";
         String foo1 = "4";
-        javax.xml.ws.Holder<java.lang.Integer> bar = new javax.xml.ws.Holder<java.lang.Integer>();
-        javax.xml.ws.Holder<java.lang.Integer> bar1 = new javax.xml.ws.Holder<java.lang.Integer>();
+        jakarta.xml.ws.Holder<java.lang.Integer> bar = new jakarta.xml.ws.Holder<java.lang.Integer>();
+        jakarta.xml.ws.Holder<java.lang.Integer> bar1 = new jakarta.xml.ws.Holder<java.lang.Integer>();
         int resp = stub.testUnboundedParts(foo, foo1, bar, bar1);
         assertTrue(bar.value.intValue() == 3);
         assertTrue(foo1.equals("4"));
@@ -179,9 +179,9 @@ public class TestApp extends TestCase{
         String ln = "bar";
         String mn = "duke";
         int age = 100;
-        javax.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.client.NameType> nameHolder = new javax.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.client.NameType>();
-        javax.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.client.AddressType> addressHolder = new javax.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.client.AddressType>();
-        javax.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.client.PersonalDetailsType> personalHolder = new javax.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.client.PersonalDetailsType>();
+        jakarta.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.client.NameType> nameHolder = new jakarta.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.client.NameType>();
+        jakarta.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.client.AddressType> addressHolder = new jakarta.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.client.AddressType>();
+        jakarta.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.client.PersonalDetailsType> personalHolder = new jakarta.xml.ws.Holder<fromwsdl.wsdl_rpclit_get_catalog.client.PersonalDetailsType>();
         stub.getGCBug(fn, ln, mn, age, nameHolder, personalHolder,addressHolder);
         assertTrue(nameHolder.value.getFn().equals(fn));
         assertTrue(nameHolder.value.getLn().equals(ln));

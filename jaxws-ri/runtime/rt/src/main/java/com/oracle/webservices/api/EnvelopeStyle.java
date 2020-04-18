@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,9 +13,9 @@ package com.oracle.webservices.api;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.xml.ws.http.HTTPBinding;
-import javax.xml.ws.soap.SOAPBinding;
-import javax.xml.ws.spi.WebServiceFeatureAnnotation;
+import jakarta.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.spi.WebServiceFeatureAnnotation;
 
 /**
  * The EnvelopeStyle annotation is used to specify the message envelope style(s)
@@ -47,19 +47,19 @@ public @interface EnvelopeStyle {
 
         /**
          * SOAP1.1. For JAX-WS, this is mapped from:
-         * javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING
+         * jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING
          */
         SOAP11(SOAPBinding.SOAP11HTTP_BINDING),
 
         /**
          * SOAP1.2. For JAX-WS, this is mapped from: 
-         * javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING
+         * jakarta.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING
          */
         SOAP12(SOAPBinding.SOAP12HTTP_BINDING),
 
         /**
          * The raw XML. For JAX-WS, this is mapped from:
-         * javax.xml.ws.http.HTTPBinding.HTTP_BINDING
+         * jakarta.xml.ws.http.HTTPBinding.HTTP_BINDING
          */
         XML(HTTPBinding.HTTP_BINDING);
         

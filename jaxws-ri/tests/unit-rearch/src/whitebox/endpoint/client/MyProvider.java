@@ -10,13 +10,13 @@
 
 package whitebox.endpoint.client;
 
-import javax.xml.ws.Provider;
+import jakarta.xml.ws.Provider;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.WebServiceProvider;
-import javax.xml.ws.ServiceMode;
-import javax.xml.ws.Service;
-import javax.xml.ws.Service.Mode;
+import jakarta.xml.ws.WebServiceProvider;
+import jakarta.xml.ws.ServiceMode;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Service.Mode;
 import java.io.StringReader;
 
 /**

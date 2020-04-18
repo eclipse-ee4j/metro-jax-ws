@@ -10,18 +10,18 @@
 
 package fromwsdl.wsdl_with_epr.client;
 
-import javax.xml.ws.soap.SOAPFaultException;
-import javax.xml.ws.soap.SOAPBinding;
-import javax.xml.ws.soap.AddressingFeature;
+import jakarta.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.soap.AddressingFeature;
 
 import junit.framework.TestCase;
 import testutil.ClientServerTestUtil;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.*;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
-import javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
+import jakarta.xml.bind.JAXBContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.ByteArrayInputStream;
@@ -85,7 +85,7 @@ public class HelloLiteralTest extends TestCase {
             req.setArgument(arg);
             req.setExtra(extra);
             Hello_Service service = new Hello_Service();
-            JAXBContext jc = javax.xml.bind.JAXBContext.newInstance(fromwsdl.wsdl_with_epr.client.ObjectFactory.class);
+            JAXBContext jc = jakarta.xml.bind.JAXBContext.newInstance(fromwsdl.wsdl_with_epr.client.ObjectFactory.class);
             QName port = new QName("urn:test","HelloPort");
             Dispatch<Object> dispatch = service.createDispatch(port, jc, Service.Mode.PAYLOAD, new AddressingFeature());
             HelloResponse response = (HelloResponse) dispatch.invoke(req);
@@ -117,7 +117,7 @@ public class HelloLiteralTest extends TestCase {
             nt.getName().add(in[1]);
             nt.getName().add(in[2]);
             nt.getName().add(in[3]);
-            javax.xml.ws.Holder<NameType> req = new javax.xml.ws.Holder<NameType>(nt);
+            jakarta.xml.ws.Holder<NameType> req = new jakarta.xml.ws.Holder<NameType>(nt);
             newStub.echoArray(req);
             assertTrue(req.value == null);
         } catch (Exception e) {

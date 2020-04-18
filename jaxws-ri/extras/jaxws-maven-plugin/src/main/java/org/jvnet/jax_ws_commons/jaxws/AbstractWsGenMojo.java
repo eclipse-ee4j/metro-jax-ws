@@ -28,7 +28,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -124,7 +124,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
             seis.addAll(getSEIs(getClassesDir()));
         }
         if (seis.isEmpty()) {
-            throw new MojoFailureException("No @javax.jws.WebService found.");
+            throw new MojoFailureException("No @jakarta.jws.WebService found.");
         }
         for (String aSei : seis) {
             processSei(aSei);

@@ -11,7 +11,7 @@
 package wsa.fromwsdl.fault.common;
 
 import testutil.WsaBaseSOAPHandler;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * @author Arun Gupta

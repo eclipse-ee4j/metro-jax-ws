@@ -13,8 +13,8 @@ package server.provider.wsdl_hello_lit_context.server;
 import java.io.ByteArrayInputStream;
 import java.util.Map;
 
-import javax.xml.ws.LogicalMessage;
-import javax.xml.ws.handler.*;
+import jakarta.xml.ws.LogicalMessage;
+import jakarta.xml.ws.handler.*;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 

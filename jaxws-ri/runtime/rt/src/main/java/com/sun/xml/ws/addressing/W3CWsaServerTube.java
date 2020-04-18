@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,7 @@ import static com.sun.xml.ws.addressing.W3CAddressingConstants.ONLY_ANONYMOUS_AD
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 
-import javax.xml.ws.soap.AddressingFeature;
+import jakarta.xml.ws.soap.AddressingFeature;
 
 /**
  * @author Rama Pulavarthi

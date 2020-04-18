@@ -10,11 +10,11 @@
 
 package async.wsdl_hello_lit.server;
 
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 import java.rmi.RemoteException;
 
 
-@javax.jws.WebService(endpointInterface="async.wsdl_hello_lit.server.Hello")
+@jakarta.jws.WebService(endpointInterface="async.wsdl_hello_lit.server.Hello")
 public class Hello_PortType_Impl implements Hello {
     public HelloOutput hello(Hello_Type req){
         System.out.println("Hello_PortType_Impl received: " + req.getArgument() +

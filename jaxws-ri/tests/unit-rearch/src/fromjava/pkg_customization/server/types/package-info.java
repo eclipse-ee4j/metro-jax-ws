@@ -10,5 +10,5 @@
 
 @XmlSchema (namespace="http://example.org/", elementFormDefault=XmlNsForm.QUALIFIED )
 package fromjava.pkg_customization.server.types;
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlNsForm;
+import jakarta.xml.bind.annotation.XmlSchema;

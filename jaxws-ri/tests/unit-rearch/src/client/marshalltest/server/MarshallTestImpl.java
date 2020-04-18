@@ -13,7 +13,7 @@ package client.marshalltest.server;
 
 import java.io.ByteArrayInputStream;
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 import java.util.*;
 
@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 
 // Service Implementation Class - as outlined in JAX-RPC Specification
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 @WebService(
     serviceName="MarshallTestService",

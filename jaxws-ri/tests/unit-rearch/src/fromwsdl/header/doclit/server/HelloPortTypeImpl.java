@@ -10,9 +10,9 @@
 
 package fromwsdl.header.doclit.server;
 
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 
-@javax.jws.WebService(endpointInterface="fromwsdl.header.doclit.server.HelloPortType")
+@jakarta.jws.WebService(endpointInterface="fromwsdl.header.doclit.server.HelloPortType")
 public class HelloPortTypeImpl
         implements HelloPortType {
     public EchoResponseType echo(EchoType reqBody,
@@ -27,7 +27,7 @@ public class HelloPortTypeImpl
         return info+"bar";
     }
 
-    public void echo3(javax.xml.ws.Holder<java.lang.String> reqInfo) {
+    public void echo3(jakarta.xml.ws.Holder<java.lang.String> reqInfo) {
         reqInfo.value += "bar";
     }
 

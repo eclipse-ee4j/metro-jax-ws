@@ -10,20 +10,20 @@
 
 package fromwsdl.wsdl_hello_lit.client;
 
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import junit.framework.TestCase;
 import testutil.ClientServerTestUtil;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.Service;
-import javax.xml.ws.Holder;
-import javax.xml.ws.handler.Handler;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.soap.SOAPMessageContext;
-import javax.xml.ws.handler.soap.SOAPHandler;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.handler.Handler;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.soap.SOAPMessageContext;
+import jakarta.xml.ws.handler.soap.SOAPHandler;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -124,7 +124,7 @@ public class HelloLiteralTest extends TestCase {
               nt.getName().add(in[1]);
               nt.getName().add(in[2]);
               nt.getName().add(in[3]);
-              javax.xml.ws.Holder<NameType> req = new javax.xml.ws.Holder<NameType>(nt);
+              jakarta.xml.ws.Holder<NameType> req = new jakarta.xml.ws.Holder<NameType>(nt);
               stub.echoArray(req);
               System.out.println("Here we are");
               assertTrue(req.value == null);
@@ -145,7 +145,7 @@ public class HelloLiteralTest extends TestCase {
             nt.getName().add(in[1]);
             nt.getName().add(in[2]);
             nt.getName().add(in[3]);
-            javax.xml.ws.Holder<NameType> req = new javax.xml.ws.Holder<NameType>(nt);
+            jakarta.xml.ws.Holder<NameType> req = new jakarta.xml.ws.Holder<NameType>(nt);
             stub.echoArray1(req);
             assertTrue(java.util.Arrays.equals(in, req.value.getName().toArray()));
         }catch(Exception e){
@@ -159,7 +159,7 @@ public class HelloLiteralTest extends TestCase {
 
     public void testEchoArray2c() throws Exception {
         try {
-            javax.xml.ws.Holder<NameType> req = new javax.xml.ws.Holder<NameType>();
+            jakarta.xml.ws.Holder<NameType> req = new jakarta.xml.ws.Holder<NameType>();
             stub.echoArray2(req);
             assertTrue(req.value == null);
         } catch (Exception e) {
@@ -175,7 +175,7 @@ public class HelloLiteralTest extends TestCase {
             in.add("JAXRPC 1.1");
             in.add("JAXRPC 1.1.2");
             in.add("JAXRPC 2.0");
-            javax.xml.ws.Holder<java.util.List<String>> req = new javax.xml.ws.Holder<java.util.List<String>>(in);
+            jakarta.xml.ws.Holder<java.util.List<String>> req = new jakarta.xml.ws.Holder<java.util.List<String>>(in);
             stub.echoArray3(req);
             assertTrue(in.equals(req.value));
         } catch (Exception e) {
