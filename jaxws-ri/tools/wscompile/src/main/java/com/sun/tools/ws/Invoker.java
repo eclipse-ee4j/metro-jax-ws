@@ -200,7 +200,7 @@ public final class Invoker {
 
         if(Service.class.getClassLoader()==null) {
             // JAX-WS API is loaded from bootstrap class loader
-            URL res = cl.getResource("javax/xml/ws/EndpointContext.class");
+            URL res = cl.getResource("jakarta/xml/ws/EndpointContext.class");
             if(res==null)
                 throw new ClassNotFoundException("There's no JAX-WS 2.2 API in the classpath");
             urls.add(ParallelWorldClassLoader.toJarUrl(res));
