@@ -612,7 +612,7 @@ abstract class WsTask2 extends MatchingTask {
 
     private String getApiClassPath(ClassLoader cl) {
         StringBuilder sb = new StringBuilder();
-        URL wsAPI = getResourceFromCP(cl, "javax/xml/ws/EndpointContext.class");
+        URL wsAPI = getResourceFromCP(cl, "jakarta/xml/ws/EndpointContext.class");
         if (wsAPI != null) {
             sb.append(jarToPath(wsAPI));
             URL jaxbAPI = getResourceFromCP(cl, "jakarta/xml/bind/JAXBPermission.class");
