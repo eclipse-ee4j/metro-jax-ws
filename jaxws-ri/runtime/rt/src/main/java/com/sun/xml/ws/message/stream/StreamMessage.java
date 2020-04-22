@@ -13,7 +13,7 @@ package com.sun.xml.ws.message.stream;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 import com.sun.istack.XMLStreamReaderToContentHandler;
-import com.sun.xml.bind.api.Bridge;
+import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.stream.buffer.MutableXMLStreamBuffer;
 import com.sun.xml.stream.buffer.XMLStreamBuffer;
 import com.sun.xml.stream.buffer.XMLStreamBufferMark;

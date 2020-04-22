@@ -11,9 +11,9 @@
 package com.sun.xml.ws.model;
 
 import com.sun.istack.NotNull;
-import com.sun.xml.bind.api.Bridge;
-import com.sun.xml.bind.api.JAXBRIContext;
-import com.sun.xml.bind.api.TypeReference;
+import org.glassfish.jaxb.runtime.api.Bridge;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.TypeReference;
 import com.sun.xml.ws.api.BindingID;
 import com.sun.xml.ws.api.WSBinding;
 import com.sun.xml.ws.api.databinding.Databinding;

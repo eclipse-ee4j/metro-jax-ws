@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,27 +13,8 @@ package com.sun.xml.ws.spi.db;
 import java.lang.reflect.Type;
 
 //TODO SOAPVersion WebServiceFeatureList
-import com.sun.xml.bind.util.Which;
-
-//TODO Packet AbstractMessageImpl
-import com.sun.xml.bind.marshaller.SAX2DOMEx;
-
-//TODO DOMHeader DOMMessage SAAJMessage StatefulInstanceResolver
-import com.sun.xml.bind.unmarshaller.DOMScanner;
-
-//TODO ExceptionBean
-import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
-
-//TODO AbstractWrapperBeanGenerator
-import com.sun.xml.bind.v2.model.annotation.AnnotationReader;
-import com.sun.xml.bind.v2.model.annotation.RuntimeInlineAnnotationReader;
-import com.sun.xml.bind.v2.model.nav.Navigator;
-
-//TODO WSDLGenerator
-import static com.sun.xml.bind.v2.schemagen.Util.*;
 
 import com.sun.xml.bind.api.impl.NameConverter;
-import com.sun.xml.bind.v2.model.nav.Navigator;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;

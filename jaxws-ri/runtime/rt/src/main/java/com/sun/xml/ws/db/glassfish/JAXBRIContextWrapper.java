@@ -20,9 +20,9 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.SchemaOutputResolver;
 import jakarta.xml.bind.Unmarshaller;
 import javax.xml.namespace.QName;
-import com.sun.xml.bind.api.JAXBRIContext;
-import com.sun.xml.bind.api.TypeReference;
-import com.sun.xml.bind.v2.model.runtime.RuntimeTypeInfoSet;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.TypeReference;
+import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeTypeInfoSet;
 import com.sun.xml.ws.spi.db.BindingContext;
 import com.sun.xml.ws.spi.db.XMLBridge;
 import com.sun.xml.ws.spi.db.TypeInfo;
@@ -100,7 +100,7 @@ class JAXBRIContextWrapper implements BindingContext {
         return context.getRuntimeTypeInfoSet();
     }
 
-    public QName getTypeName(com.sun.xml.bind.api.TypeReference tr) {
+    public QName getTypeName(org.glassfish.jaxb.runtime.api.TypeReference tr) {
         return context.getTypeName(tr);
     }
 
@@ -137,7 +137,7 @@ class JAXBRIContextWrapper implements BindingContext {
     @Override
     public XMLBridge createBridge(TypeInfo ti) {
         TypeReference tr = typeRefs.get(ti);
-        com.sun.xml.bind.api.Bridge b = context.createBridge(tr);
+        org.glassfish.jaxb.runtime.api.Bridge b = context.createBridge(tr);
         return WrapperComposite.class.equals(ti.type)
                 ? new WrapperBridge(this, b)
                 : new BridgeWrapper(this, b);
@@ -156,7 +156,7 @@ class JAXBRIContextWrapper implements BindingContext {
 
     @Override
     public XMLBridge createFragmentBridge() {
-        return new MarshallerBridge((com.sun.xml.bind.v2.runtime.JAXBContextImpl) context);
+        return new MarshallerBridge((org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl) context);
     }
 
     @Override

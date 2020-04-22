@@ -10,7 +10,7 @@
 
 package com.sun.xml.ws.model;
 
-import com.sun.xml.bind.api.TypeReference;
+import org.glassfish.jaxb.runtime.api.TypeReference;
 import com.sun.xml.ws.api.databinding.MetadataReader;
 import com.sun.xml.ws.api.model.JavaMethod;
 import com.sun.xml.ws.api.model.MEP;

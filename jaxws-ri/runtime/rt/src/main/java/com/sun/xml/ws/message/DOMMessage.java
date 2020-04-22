@@ -11,7 +11,7 @@
 package com.sun.xml.ws.message;
 
 import com.sun.istack.FragmentContentHandler;
-import com.sun.xml.bind.api.Bridge;
+import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.bind.unmarshaller.DOMScanner;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.message.HeaderList;

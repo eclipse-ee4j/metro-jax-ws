@@ -10,7 +10,7 @@
 
 package com.sun.xml.ws.fault;
 
-import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
+import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
 import com.sun.xml.ws.developer.ServerSideException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -44,7 +44,7 @@ final class ExceptionBean {
     public static void marshal( Throwable t, Node parent ) throws JAXBException {
         Marshaller m = JAXB_CONTEXT.createMarshaller();
         try {
-        	m.setProperty("com.sun.xml.bind.namespacePrefixMapper",nsp);
+            m.setProperty("org.glassfish.jaxb.runtime.namespacePrefixMapper",nsp);
         } catch (PropertyException pe) {}
         m.marshal(new ExceptionBean(t), parent );
     }

@@ -12,8 +12,8 @@ package com.sun.xml.ws.developer;
 
 import com.sun.xml.ws.api.FeatureConstructor;
 import com.sun.xml.ws.api.model.SEIModel;
-import com.sun.xml.bind.api.JAXBRIContext;
-import com.sun.xml.bind.api.TypeReference;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.TypeReference;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 

@@ -28,11 +28,11 @@ import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
 import jakarta.xml.ws.WebServiceException;
 
-import com.sun.xml.bind.v2.schemagen.xmlschema.ComplexType;
-import com.sun.xml.bind.v2.schemagen.xmlschema.Element;
-import com.sun.xml.bind.v2.schemagen.xmlschema.ExplicitGroup;
-import com.sun.xml.bind.v2.schemagen.xmlschema.LocalElement;
-import com.sun.xml.bind.v2.schemagen.xmlschema.Occurs;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.ComplexType;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.Element;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.ExplicitGroup;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.LocalElement;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.Occurs;
 import com.sun.xml.txw2.TXW;
 import com.sun.xml.txw2.output.ResultFactory;
 import com.sun.xml.ws.api.model.SEIModel;

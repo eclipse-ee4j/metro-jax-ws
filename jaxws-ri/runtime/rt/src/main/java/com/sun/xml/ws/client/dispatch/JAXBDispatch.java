@@ -10,7 +10,7 @@
 
 package com.sun.xml.ws.client.dispatch;
 
-import com.sun.xml.bind.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import com.sun.xml.ws.api.addressing.WSEndpointReference;
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.api.message.Headers;

@@ -32,6 +32,7 @@
         <spotbugs.exclude>${project.basedir}/exclude.xml</spotbugs.exclude>
         <argLine>
             --add-opens java.base/java.lang=com.sun.xml.ws.rt
+            --add-opens com.sun.xml.ws.rt/com.sun.xml.ws.client=com.sun.xml.bind
             --add-opens com.sun.xml.ws.rt/com.sun.xml.ws.client.test=com.sun.xml.bind
         </argLine>
     </properties>
