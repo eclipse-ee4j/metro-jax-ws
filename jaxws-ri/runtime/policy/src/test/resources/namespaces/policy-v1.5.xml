@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<wsp:Policy 
+    xmlns:wsp="http://www.w3.org/ns/ws-policy"
+    xmlns:foo="http://schemas.foo.com/">
+    
+    <foo:TopLevelAssertion>
+        <wsp:Policy>
+            <foo:NestedPolicyAssertion_1>
+                <wsp:Policy>
+                    <foo:NestedPolicyAssertion_11 foo:attribute_A='Value A'>
+                        <wsp:Policy>
+                            <foo:NestedPolicyAssertion_111 />
+                        </wsp:Policy>
+                    </foo:NestedPolicyAssertion_11>
+                </wsp:Policy>
+            </foo:NestedPolicyAssertion_1>
+            
+            <foo:NestedPolicyAssertion_2>
+                <wsp:Policy>
+                    <foo:NestedPolicyAssertion_21 foo:attribute_A='Value A'>
+                        <wsp:Policy>
+                            <foo:NestedPolicyAssertion_211 />
+                        </wsp:Policy>
+                    </foo:NestedPolicyAssertion_21>
+                </wsp:Policy>
+            </foo:NestedPolicyAssertion_2>
+            
+            <foo:NestedPolicyAssertion_3>
+                <wsp:Policy>
+                    <foo:NestedPolicyAssertion_31 />
+                </wsp:Policy>
+            </foo:NestedPolicyAssertion_3>
+            
+            <foo:NestedPolicyAssertion_4 />
+            
+            <foo:NestedPolicyAssertion_5 />
+            
+            <wsp:ExactlyOne>
+                <wsp:All>
+                    <foo:NestedPolicyChoice1Assertion_1>
+                        <wsp:Policy>
+                            <wsp:ExactlyOne>
+                                <foo:NestedPolicyChoice1_1Assertion_1 />
+                                <foo:NestedPolicyChoice1_1Assertion_2 />
+                            </wsp:ExactlyOne>
+                        </wsp:Policy>
+                    </foo:NestedPolicyChoice1Assertion_1>
+                    <foo:NestedPolicyChoice1Assertion_2 />
+                </wsp:All>
+                
+                <wsp:All>
+                    <foo:NestedPolicyChoice2Assertion_1>
+                        <wsp:Policy>
+                            <foo:NestedPolicyChoice2Assertion_11 />
+                        </wsp:Policy>
+                    </foo:NestedPolicyChoice2Assertion_1>
+                </wsp:All>
+            </wsp:ExactlyOne>
+        </wsp:Policy>
+    </foo:TopLevelAssertion>
+</wsp:Policy>

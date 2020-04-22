@@ -29,6 +29,7 @@
     <name>JAX-WS RI Runtime</name>
 
     <modules>
+        <module>policy</module>
         <module>rt</module>
         <module>rt-fi</module>
         <module>httpspi-servlet</module>

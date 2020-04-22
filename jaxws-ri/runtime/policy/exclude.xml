@@ -1,0 +1,32 @@
+<!--
+
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<FindBugsFilter>
+
+    <!--
+    No error - correct cast, too many occurences - may be removed when we migrate
+    away from istack logging.
+    -->
+    <Match>
+        <Bug pattern="BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"/>
+    </Match>
+    
+    <!--
+    Not an issue - seems to only be used internally and all usages use the result properly.
+    -->
+    <Match>
+        <Class name="com.sun.xml.ws.policy.sourcemodel.AssertionData"/>
+        <Method name="getAttributesSet"/>
+        <Bug pattern="DMI_ENTRY_SETS_MAY_REUSE_ENTRY_OBJECTS"/>
+    </Match>
+    
+</FindBugsFilter>
