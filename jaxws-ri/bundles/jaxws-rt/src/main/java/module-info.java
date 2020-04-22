@@ -42,7 +42,14 @@ module com.sun.xml.ws {
     requires transitive com.sun.xml.bind;
     requires com.sun.xml.fastinfoset;
     requires transitive com.sun.xml.streambuffer;
-    requires transitive com.sun.xml.ws.policy;
+
+    exports com.sun.xml.ws.policy;
+    exports com.sun.xml.ws.policy.sourcemodel;
+    exports com.sun.xml.ws.policy.sourcemodel.attach /* TODO: to metro-wsit only ? */;
+    exports com.sun.xml.ws.policy.sourcemodel.wspolicy;
+    exports com.sun.xml.ws.policy.spi;
+    exports com.sun.xml.ws.policy.subject;
+    exports com.sun.xml.ws.policy.privateutil /* TODO: to metro-wsit only ! */;
 
     exports com.oracle.webservices.api;
     exports com.oracle.webservices.api.databinding;
@@ -143,6 +150,11 @@ module com.sun.xml.ws {
 
     uses com.sun.xml.ws.policy.jaxws.spi.PolicyFeatureConfigurator;
     uses com.sun.xml.ws.policy.jaxws.spi.PolicyMapConfigurator;
+
+    uses com.sun.xml.ws.policy.spi.LoggingProvider;
+    uses com.sun.xml.ws.policy.spi.PolicyAssertionValidator;
+    uses com.sun.xml.ws.policy.spi.PolicyAssertionCreator;
+    uses com.sun.xml.ws.policy.spi.PrefixMapper;
 
     provides jakarta.xml.ws.spi.Provider with
             com.sun.xml.ws.spi.ProviderImpl;

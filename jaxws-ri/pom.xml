@@ -257,6 +257,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.1</version>
                     <configuration>
+                        <release>${upper.java.level}</release>
                         <source>${upper.java.level}</source>
                         <target>${upper.java.level}</target>
                         <compilerArguments>
@@ -359,7 +360,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.8</version>
+                    <version>3.0.0</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.ant</groupId>

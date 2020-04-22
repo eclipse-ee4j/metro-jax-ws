@@ -1,0 +1,52 @@
+<!--
+
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<wsp:Policy 
+  xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+  xmlns:foo="http://schemas.foo.com/foo">
+  <wsp:ExactlyOne>
+    <wsp:All>
+      <foo:AssertionA foo:name="1"/>
+      <foo:AssertionA foo:name="2"/>
+      <foo:AssertionA foo:name="3"/>
+    </wsp:All>
+  
+    <wsp:All>
+      <foo:AssertionA foo:name="1"/>
+      <foo:AssertionA foo:name="3"/>
+      <foo:AssertionB />
+    </wsp:All>
+  
+    <wsp:All>
+      <foo:AssertionA foo:name="1"/>
+      <foo:AssertionA foo:name="2"/>
+      <foo:AssertionB />
+    </wsp:All>
+  
+    <wsp:All>
+      <foo:AssertionA foo:name="1"/>
+      <foo:AssertionB />
+    </wsp:All>
+  
+    <wsp:All>
+      <foo:AssertionA foo:name="1"/>
+      <foo:AssertionB />
+      <foo:AssertionC />
+    </wsp:All>
+  
+    <wsp:All>
+      <foo:AssertionA foo:name="1"/>
+      <foo:AssertionA foo:name="2"/>
+      <foo:AssertionC />
+    </wsp:All>
+  </wsp:ExactlyOne>
+</wsp:Policy>
