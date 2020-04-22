@@ -14,7 +14,7 @@ import com.oracle.xmlns.webservices.jaxws_databinding.JavaMethod;
 import com.oracle.xmlns.webservices.jaxws_databinding.JavaParam;
 import com.oracle.xmlns.webservices.jaxws_databinding.JavaWsdlMappingType;
 import com.oracle.xmlns.webservices.jaxws_databinding.ObjectFactory;
-import com.sun.xml.bind.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import com.sun.xml.ws.streaming.XMLStreamReaderUtil;
 import com.sun.xml.ws.util.xml.XmlUtil;
 import org.w3c.dom.Element;

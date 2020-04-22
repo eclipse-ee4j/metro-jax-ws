@@ -25,16 +25,14 @@ import javax.xml.transform.Source;
 import org.w3c.dom.Node;
 import org.xml.sax.ContentHandler;
 
-import com.sun.istack.NotNull;
-import com.sun.xml.bind.api.TypeReference;
-import com.sun.xml.bind.v2.runtime.JAXBContextImpl;
-import com.sun.xml.bind.v2.runtime.MarshallerImpl;
+import org.glassfish.jaxb.runtime.api.TypeReference;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.MarshallerImpl;
 import com.sun.xml.ws.spi.db.BindingContext;
-import com.sun.xml.ws.spi.db.DatabindingException;
 import com.sun.xml.ws.spi.db.TypeInfo;
 
 public class MarshallerBridge 
-   extends com.sun.xml.bind.api.Bridge
+   extends org.glassfish.jaxb.runtime.api.Bridge
 implements com.sun.xml.ws.spi.db.XMLBridge {
 
     protected MarshallerBridge(JAXBContextImpl context) {

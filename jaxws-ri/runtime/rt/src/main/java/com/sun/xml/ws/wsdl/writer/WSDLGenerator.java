@@ -11,7 +11,7 @@
 package com.sun.xml.ws.wsdl.writer;
 
 
-import static com.sun.xml.bind.v2.schemagen.Util.*;
+import static org.glassfish.jaxb.runtime.v2.schemagen.Util.*;
 
 import com.oracle.webservices.api.databinding.WSDLResolver;
 

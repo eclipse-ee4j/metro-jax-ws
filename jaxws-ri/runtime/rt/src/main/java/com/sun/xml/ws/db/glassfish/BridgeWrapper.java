@@ -27,7 +27,7 @@ import javax.xml.transform.Source;
 import org.w3c.dom.Node;
 import org.xml.sax.ContentHandler;
 
-import com.sun.xml.bind.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import com.sun.xml.ws.spi.db.BindingContext;
 import com.sun.xml.ws.spi.db.XMLBridge;
 import com.sun.xml.ws.spi.db.DatabindingException;
@@ -36,9 +36,9 @@ import com.sun.xml.ws.spi.db.TypeInfo;
 public class BridgeWrapper<T> implements XMLBridge<T> {
 
     private JAXBRIContextWrapper parent;
-    private com.sun.xml.bind.api.Bridge<T> bridge;
+    private org.glassfish.jaxb.runtime.api.Bridge<T> bridge;
 
-    public BridgeWrapper(JAXBRIContextWrapper p, com.sun.xml.bind.api.Bridge<T> b) {
+    public BridgeWrapper(JAXBRIContextWrapper p, org.glassfish.jaxb.runtime.api.Bridge<T> b) {
         parent = p;
         bridge = b;
     }
@@ -48,7 +48,7 @@ public class BridgeWrapper<T> implements XMLBridge<T> {
         return parent;
     }
 
-    com.sun.xml.bind.api.Bridge getBridge() {
+    org.glassfish.jaxb.runtime.api.Bridge getBridge() {
         return bridge;
     }
 

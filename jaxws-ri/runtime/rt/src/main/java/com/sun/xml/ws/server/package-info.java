@@ -114,15 +114,15 @@
  * parameters at the time of JAXBTypeSerializer class uses all
  * these methods.</P>
  * <UL>
- * 	<LI><P>{@link com.sun.xml.bind.api.Bridge#marshal(BridgeContext, Object, XMLStreamWriter) Bridge.marshal(BridgeContext, Object, XMLStreamWriter)}</P>
- * 	<LI><P>{@link com.sun.xml.bind.api.Bridge#marshal(BridgeContext, Object, Node) Bridge.marshal(BridgeContext, Object, Node)}</P>
- * 	<LI><P>{@link com.sun.xml.bind.api.Bridge#unmarshal(BridgeContext, XMLStreamReader) Object Bridge.unmarshal(BridgeContext, XMLStreamReader)}</P>
+ * 	<LI><P>{@link org.glassfish.jaxb.runtime.api.Bridge#marshal(BridgeContext, Object, XMLStreamWriter) Bridge.marshal(BridgeContext, Object, XMLStreamWriter)}</P>
+ * 	<LI><P>{@link org.glassfish.jaxb.runtime.api.Bridge#marshal(BridgeContext, Object, Node) Bridge.marshal(BridgeContext, Object, Node)}</P>
+ * 	<LI><P>{@link org.glassfish.jaxb.runtime.api.Bridge#unmarshal(BridgeContext, XMLStreamReader) Object Bridge.unmarshal(BridgeContext, XMLStreamReader)}</P>
  * </UL>
  * 
  **/
 package com.sun.xml.ws.server;
 
-import com.sun.xml.bind.api.BridgeContext;
+import org.glassfish.jaxb.runtime.api.BridgeContext;
 
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;

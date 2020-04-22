@@ -26,9 +26,9 @@ import javax.xml.transform.Source;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import com.sun.xml.bind.api.BridgeContext;
-import com.sun.xml.bind.v2.runtime.BridgeContextImpl;
-import com.sun.xml.bind.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.api.BridgeContext;
+import org.glassfish.jaxb.runtime.v2.runtime.BridgeContextImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 
 import org.w3c.dom.Node;
 import org.xml.sax.ContentHandler;

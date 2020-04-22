@@ -10,7 +10,7 @@
 
 package com.sun.xml.ws.message.source;
 
-import com.sun.xml.bind.api.Bridge;
+import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.pipe.Codecs;
 import com.sun.xml.ws.api.pipe.StreamSOAPCodec;

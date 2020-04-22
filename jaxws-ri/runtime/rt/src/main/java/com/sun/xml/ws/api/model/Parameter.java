@@ -10,7 +10,7 @@
 
 package com.sun.xml.ws.api.model;
 
-import com.sun.xml.bind.api.Bridge;
+import org.glassfish.jaxb.runtime.api.Bridge;
 
 import javax.xml.namespace.QName;
 import jakarta.xml.ws.Holder;

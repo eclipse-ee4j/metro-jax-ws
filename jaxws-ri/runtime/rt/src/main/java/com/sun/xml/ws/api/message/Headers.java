@@ -11,9 +11,7 @@
 package com.sun.xml.ws.api.message;
 
 import com.sun.istack.NotNull;
-import com.sun.xml.bind.api.Bridge;
-import com.sun.xml.bind.api.JAXBRIContext;
-import com.sun.xml.bind.v2.runtime.MarshallerImpl;
+import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.pipe.Pipe;
 import com.sun.xml.ws.message.DOMHeader;

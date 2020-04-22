@@ -18,12 +18,12 @@ import java.lang.reflect.Type;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 
-import com.sun.xml.bind.api.TypeReference;
-import com.sun.xml.bind.api.JAXBRIContext;
-import com.sun.xml.bind.api.CompositeStructure;
-import com.sun.xml.bind.v2.ContextFactory;
-import com.sun.xml.bind.v2.model.annotation.RuntimeAnnotationReader;
-import com.sun.xml.bind.v2.runtime.MarshallerImpl;
+import org.glassfish.jaxb.runtime.api.TypeReference;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.CompositeStructure;
+import org.glassfish.jaxb.runtime.v2.ContextFactory;
+import org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeAnnotationReader;
+import org.glassfish.jaxb.runtime.v2.runtime.MarshallerImpl;
 import com.sun.xml.ws.developer.JAXBContextFactory;
 import com.sun.xml.ws.spi.db.BindingContext;
 import com.sun.xml.ws.spi.db.BindingContextFactory;
@@ -57,7 +57,7 @@ public class JAXBRIContextFactory extends BindingContextFactory {
         Map<Class, Class> subclassReplacements = bi.subclassReplacements();
         String defaultNamespaceRemap = bi.getDefaultNamespace();
         Boolean c14nSupport = (Boolean) bi.properties().get("c14nSupport");
-        RuntimeAnnotationReader ar = (RuntimeAnnotationReader) bi.properties().get("com.sun.xml.bind.v2.model.annotation.RuntimeAnnotationReader");
+        RuntimeAnnotationReader ar = (RuntimeAnnotationReader) bi.properties().get("org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeAnnotationReader");
         JAXBContextFactory jaxbContextFactory = (JAXBContextFactory) bi.properties().get(JAXBContextFactory.class.getName());
         try {
             JAXBRIContext context = (jaxbContextFactory != null)
@@ -110,6 +110,6 @@ public class JAXBRIContextFactory extends BindingContextFactory {
     protected boolean isFor(String str) {
         return (str.equals("glassfish.jaxb")
                 || str.equals(this.getClass().getName())
-                || str.equals("com.sun.xml.bind.v2.runtime"));
+                || str.equals("org.glassfish.jaxb.runtime.v2.runtime"));
     }
 }

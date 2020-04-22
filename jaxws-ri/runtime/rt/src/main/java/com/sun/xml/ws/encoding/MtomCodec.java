@@ -11,7 +11,7 @@
 package com.sun.xml.ws.encoding;
 
 import com.sun.istack.NotNull;
-import com.sun.xml.bind.DatatypeConverterImpl;
+import org.glassfish.jaxb.runtime.DatatypeConverterImpl;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.WSFeatureList;
 import com.sun.xml.ws.api.message.Attachment;
@@ -29,7 +29,6 @@ import com.sun.xml.ws.util.ByteArrayDataSource;
 import com.sun.xml.ws.util.xml.NamespaceContextExAdaper;
 import com.sun.xml.ws.util.xml.XMLStreamReaderFilter;
 import com.sun.xml.ws.util.xml.XMLStreamWriterFilter;
-import com.sun.xml.ws.streaming.MtomStreamWriter;
 import com.sun.xml.ws.streaming.XMLStreamReaderUtil;
 import com.sun.xml.ws.server.UnsupportedMediaException;
 import org.jvnet.staxex.Base64Data;

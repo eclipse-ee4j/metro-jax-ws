@@ -10,11 +10,11 @@
 
 package com.sun.xml.ws.message.jaxb;
 
-import com.sun.xml.bind.api.Bridge;
-import com.sun.xml.bind.api.JAXBRIContext;
-import com.sun.xml.bind.api.TypeReference;
-import com.sun.xml.bind.v2.runtime.JAXBContextImpl;
-import com.sun.xml.bind.v2.runtime.MarshallerImpl;
+import org.glassfish.jaxb.runtime.api.Bridge;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.TypeReference;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.MarshallerImpl;
 import org.w3c.dom.Node;
 import org.xml.sax.ContentHandler;
 

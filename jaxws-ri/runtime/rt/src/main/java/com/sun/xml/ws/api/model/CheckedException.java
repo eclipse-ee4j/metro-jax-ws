@@ -10,7 +10,7 @@
 
 package com.sun.xml.ws.api.model;
 
-import com.sun.xml.bind.api.Bridge;
+import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.spi.db.TypeInfo;
 
 import jakarta.xml.ws.WebFault;
@@ -59,7 +59,7 @@ public interface CheckedException {
     Class getDetailBean();
 
     /**
-     * Gives the {@link com.sun.xml.bind.api.Bridge} associated with the detail
+     * Gives the {@link org.glassfish.jaxb.runtime.api.Bridge} associated with the detail
      * @deprecated Why do you need this?
      */
     Bridge getBridge();

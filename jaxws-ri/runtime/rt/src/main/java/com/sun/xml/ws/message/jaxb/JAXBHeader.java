@@ -12,10 +12,9 @@ package com.sun.xml.ws.message.jaxb;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.XMLStreamException2;
-import com.sun.xml.bind.api.Bridge;
+import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.stream.buffer.MutableXMLStreamBuffer;
 import com.sun.xml.stream.buffer.XMLStreamBuffer;
-import com.sun.xml.stream.buffer.XMLStreamBufferResult;
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.encoding.SOAPBindingCodec;
 import com.sun.xml.ws.message.AbstractHeaderImpl;
