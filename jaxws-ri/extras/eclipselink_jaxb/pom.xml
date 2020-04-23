@@ -153,7 +153,6 @@
                                     <instructions>
                                         <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
                                         <Import-Package>
-                                            jakarta.activation;version=!,
                                             org.eclipse.persistence.*;version=!,
                                             *
                                         </Import-Package>
