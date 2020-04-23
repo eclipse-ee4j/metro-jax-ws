@@ -17,13 +17,13 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.0-M1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>runtime</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0-M1</version>
 
     <packaging>pom</packaging>
     <name>JAX-WS RI Runtime</name>
