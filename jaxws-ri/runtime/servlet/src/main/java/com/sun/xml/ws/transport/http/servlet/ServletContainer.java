@@ -15,7 +15,7 @@ import com.sun.xml.ws.api.ResourceLoader;
 import com.sun.xml.ws.api.server.BoundEndpoint;
 import com.sun.xml.ws.api.server.Container;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import jakarta.xml.ws.WebServiceException;
 import java.util.ArrayList;
 import java.util.List;

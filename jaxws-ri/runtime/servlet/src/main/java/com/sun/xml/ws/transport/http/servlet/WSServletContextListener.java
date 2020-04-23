@@ -16,7 +16,7 @@ import com.sun.xml.ws.resources.WsservletMessages;
 import com.sun.xml.ws.transport.http.DeploymentDescriptorParser;
 import com.sun.xml.ws.transport.http.HttpAdapter;
 
-import javax.servlet.*;
+import jakarta.servlet.*;
 import jakarta.xml.ws.WebServiceException;
 import java.net.URL;
 import java.util.*;

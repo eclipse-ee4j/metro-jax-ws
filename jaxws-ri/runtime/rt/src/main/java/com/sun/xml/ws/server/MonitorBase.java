@@ -111,7 +111,7 @@ public abstract class MonitorBase {
                 container.getClass().getDeclaredMethod("getSPI", Class.class);
             getSPI.setAccessible(true);
             Class servletContextClass = 
-                Class.forName("javax.servlet.ServletContext");
+                Class.forName("jakarta.servlet.ServletContext");
             Object servletContext =
                 getSPI.invoke(container, servletContextClass);
             if (servletContext != null) {

@@ -51,45 +51,5 @@
                 </configuration>
             </plugin>
         </plugins>
-        <!--
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.felix</groupId>
-                        <artifactId>maven-bundle-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>osgi-bundle</id>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>bundle</goal>
-                                </goals>
-                                <configuration>
-                                    <instructions>
-                                        <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
-                                        <Export-Package>
-                                            com.sun.xml.ws.transport.httpspi.servlet;version=${project.version}
-                                        </Export-Package>
-                                        <Import-Package>
-                                            com.sun.xml.ws.util;version=${jaxws.osgiVersion},
-                                            jakarta.annotation,
-                                            javax.servlet;version=${servlet-api.version},
-                                            javax.servlet.http;version=${servlet-api.version},
-                                            javax.xml.namespace,
-                                            javax.xml.stream,
-                                            javax.xml.transform,
-                                            javax.xml.transform.stream,
-                                            jakarta.xml.ws;version=${jaxws-api.osgiVersion},
-                                            jakarta.xml.ws.http;version=${jaxws-api.osgiVersion},
-                                            jakarta.xml.ws.soap;version=${jaxws-api.osgiVersion},
-                                            jakarta.xml.ws.spi;version=${jaxws-api.osgiVersion},
-                                            jakarta.xml.ws.spi.http;version=${jaxws-api.osgiVersion}
-                                        </Import-Package>
-                                    </instructions>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-        -->
     </build>
 </project>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,7 +51,7 @@ public interface ResourceLoader {
      *      null if the path is invalid. empty if the path didn't contain
      *      any entry in it.
      *
-     * @see javax.servlet.ServletContext#getResourcePaths(String)
+     * @see jakarta.servlet.ServletContext#getResourcePaths(String)
      */
     Set<String> getResourcePaths(String path);
 }

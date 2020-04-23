@@ -10,9 +10,9 @@
 
 package com.sun.xml.ws.transport.httpspi.servlet;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.xml.ws.Binding;
 import jakarta.xml.ws.WebServiceException;
 import jakarta.xml.ws.http.HTTPBinding;

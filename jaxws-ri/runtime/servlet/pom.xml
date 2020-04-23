@@ -66,55 +66,5 @@
                 </configuration>
             </plugin>
         </plugins>
-<!--
-        <plugins>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>osgi-bundle</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>bundle</goal>
-                        </goals>
-                        <configuration>
-                            <instructions>
-                                <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
-                                <Export-Package>
-                                    com.sun.xml.ws.developer.servlet;version=${project.version}
-                                    com.sun.xml.ws.transport.http.servlet;version=${project.version}
-                                </Export-Package>
-                                <Import-Package>
-                                    com.oracle.webservices.api.message;version=${jaxws-rt.version},
-                                    com.sun.istack.localization;version=${jaxb-impl.version},
-                                    com.sun.xml.ws.api;version=${jaxws-rt.version},
-                                    com.sun.xml.ws.api.ha;version=${jaxws-rt.version},
-                                    com.sun.xml.ws.api.message;version=${jaxws-rt.version},
-                                    com.sun.xml.ws.api.model.wsdl;version=${jaxws-rt.version},
-                                    com.sun.xml.ws.api.server;version=${jaxws-rt.version},
-                                    com.sun.xml.ws.resources;version=${jaxws-rt.version},
-                                    com.sun.xml.ws.server;version=${jaxws-rt.version},
-                                    com.sun.xml.ws.transport;version=${jaxws-rt.version},
-                                    com.sun.xml.ws.transport.http;version=${jaxws-rt.version},
-                                    com.sun.xml.ws.util.exception;version=${jaxws-rt.version},
-                                    com.sun.xml.ws.util.localization;version=${jaxws-rt.version},
-                                    jakarta.jws,
-                                    javax.servlet;version=${servlet-api.version},
-                                    javax.servlet.annotation;version=${servlet-api.version},
-                                    javax.servlet.http;version=${servlet-api.version},
-                                    javax.xml.namespace,
-                                    jakarta.xml.ws;version=${jaxws-api.osgiVersion},
-                                    jakarta.xml.ws.http;version=${jaxws-api.osgiVersion},
-                                    jakarta.xml.ws.spi;version=${jaxws-api.osgiVersion},
-                                    org.glassfish.external.probe.provider.annotations
-                                </Import-Package>
-                            </instructions>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
--->
     </build>
 </project>

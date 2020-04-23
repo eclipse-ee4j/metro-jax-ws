@@ -10,7 +10,7 @@
 
 package com.sun.xml.ws.transport.httpspi.servlet;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.xml.ws.spi.http.HttpExchange;
 import java.util.*;
 

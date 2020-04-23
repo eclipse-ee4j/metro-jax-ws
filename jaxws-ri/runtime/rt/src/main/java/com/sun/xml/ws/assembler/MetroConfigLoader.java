@@ -335,7 +335,7 @@ class MetroConfigLoader {
         private URL loadFromServletContext(String resource) throws RuntimeException {
             Object context = null;
             try {
-                final Class<?> contextClass = Class.forName("javax.servlet.ServletContext");
+                final Class<?> contextClass = Class.forName("jakarta.servlet.ServletContext");
                 context = container.getSPI(contextClass);
                 if (context != null) {
                     if (LOGGER.isLoggable(Level.FINE)) {
@@ -352,7 +352,7 @@ class MetroConfigLoader {
                 }
             } catch (ClassNotFoundException e) {
                 if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.fine(TubelineassemblyMessages.MASM_0014_UNABLE_TO_LOAD_CLASS("javax.servlet.ServletContext"));
+                    LOGGER.fine(TubelineassemblyMessages.MASM_0014_UNABLE_TO_LOAD_CLASS("jakarta.servlet.ServletContext"));
                 }
             }
             return null;
