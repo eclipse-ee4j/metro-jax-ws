@@ -289,6 +289,16 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.2.0</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultEntries>false</addDefaultEntries>
+                            </manifest>
+                        </archive>
+                        <excludes>
+                            <exclude>META-INF/jpms.args</exclude>
+                        </excludes>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -379,6 +389,7 @@
                     <artifactId>maven-bundle-plugin</artifactId>
                     <version>4.2.1</version>
                     <configuration>
+                        <niceManifest>true</niceManifest>
                         <instructions>
                             <_noextraheaders>true</_noextraheaders>
                         </instructions>
