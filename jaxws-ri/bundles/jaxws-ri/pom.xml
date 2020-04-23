@@ -49,7 +49,7 @@
             <artifactId>jaxws-tools</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!--dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jaxws-eclipselink-plugin</artifactId>
             <version>${project.version}</version>
@@ -58,7 +58,7 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>sdo-eclipselink-plugin</artifactId>
             <version>${project.version}</version>
-        </dependency-->
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>release-documentation</artifactId>

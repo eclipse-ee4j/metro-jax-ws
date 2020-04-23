@@ -29,8 +29,8 @@
     <name>JAX-WS RI Extras</name>
 
     <modules>
-        <!--module>eclipselink_jaxb</module>
-        <module>eclipselink_sdo</module-->
+        <module>eclipselink_jaxb</module>
+        <module>eclipselink_sdo</module>
         <module>transports/local</module>
         <module>transports/async-client-transport</module>
         <module>jaxws-maven-plugin</module>
