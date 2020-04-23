@@ -36,7 +36,6 @@
         <asm.version>7.2</asm.version>
         <commonj.sdo.version>2.1.1</commonj.sdo.version>
         <eclipselink.version>3.0.0-M1</eclipselink.version>
-        <javax.persistance.version>3.0.0-RC2</javax.persistance.version>
         <junit.version>4.13</junit.version>
         <mail.version>2.0.0-RC4</mail.version>
         <servlet-api.version>5.0.0-M1</servlet-api.version>
@@ -62,11 +61,6 @@
                 <groupId>com.sun.mail</groupId>
                 <artifactId>jakarta.mail</artifactId>
                 <version>${mail.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>jakarta.persistence</groupId>
-                <artifactId>jakarta.persistence-api</artifactId>
-                <version>${javax.persistance.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>
