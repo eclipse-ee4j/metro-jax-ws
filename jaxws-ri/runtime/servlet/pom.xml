@@ -16,14 +16,14 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.0-M1</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>servlet</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0-M1</version>
 
     <name>JAX-WS RI Servlet Support (servlet)</name>
     <description>Servlet Support for JAX-WS RI</description>
