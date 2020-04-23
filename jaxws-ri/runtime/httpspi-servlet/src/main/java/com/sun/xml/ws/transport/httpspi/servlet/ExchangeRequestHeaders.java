@@ -11,7 +11,7 @@
 package com.sun.xml.ws.transport.httpspi.servlet;
 
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.xml.ws.spi.http.HttpExchange;
 import java.util.*;
 

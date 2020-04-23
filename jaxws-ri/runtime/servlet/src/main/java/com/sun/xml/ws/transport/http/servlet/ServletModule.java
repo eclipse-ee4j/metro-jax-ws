@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@ package com.sun.xml.ws.transport.http.servlet;
 import com.sun.istack.NotNull;
 import com.sun.xml.ws.api.server.Module;
 import com.sun.xml.ws.api.server.WebModule;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * {@link WebModule} that is a servlet container.

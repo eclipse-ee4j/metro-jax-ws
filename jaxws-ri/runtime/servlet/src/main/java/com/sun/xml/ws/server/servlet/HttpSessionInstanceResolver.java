@@ -15,8 +15,8 @@ import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.developer.servlet.HttpSessionScope;
 import com.sun.xml.ws.server.AbstractMultiInstanceResolver;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.xml.ws.WebServiceException;
 import jakarta.xml.ws.handler.MessageContext;
 

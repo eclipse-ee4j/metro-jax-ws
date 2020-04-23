@@ -14,7 +14,7 @@ import com.sun.xml.ws.api.server.InstanceResolverAnnotation;
 import com.sun.xml.ws.server.servlet.HttpSessionInstanceResolver;
 
 import jakarta.jws.WebService;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import jakarta.xml.ws.spi.WebServiceFeatureAnnotation;
 import java.lang.annotation.Documented;
 import static java.lang.annotation.ElementType.TYPE;

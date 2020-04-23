@@ -16,11 +16,11 @@ import com.sun.xml.ws.resources.WsservletMessages;
 import com.sun.xml.ws.transport.http.HttpAdapter;
 import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.xml.ws.Binding;
 import jakarta.xml.ws.http.HTTPBinding;
 import java.io.IOException;
