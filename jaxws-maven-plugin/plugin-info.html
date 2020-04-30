@@ -1,0 +1,137 @@
+---
+layout: content
+---
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+<html>
+  <head>
+    <title>JAX-WS Maven plugin &#x2013; Plugin Documentation</title>
+    <style type="text/css" media="all">
+      @import url("./css/maven-base.css");
+      @import url("./css/maven-theme.css");
+      @import url("./css/site.css");
+    </style>
+    <link rel="stylesheet" href="./css/print.css" type="text/css" media="print" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      </head>
+  <body class="composite">
+    <!-- TODO: move this into JavaScript to patch the skin
+      <div class="xright">      <a href="https://eclipse-ee4j.github.io/metro-jax-ws/">Jakarta XML Web Services</a>
+          |
+          <a href="https://eclipse-ee4j.github.io/glassfish/">Glassfish</a>
+      </div>
+    -->
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <section>
+<h2><a name="Plugin_Documentation"></a>Plugin Documentation</h2><a name="Plugin_Documentation"></a>
+<p>Goals available for this plugin:</p>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>Goal</th>
+<th>Description</th></tr>
+<tr class="b">
+<td><a href="help-mojo.html">jaxws:help</a></td>
+<td>Display help information on jaxws-maven-plugin.<br />
+Call <code>mvn jaxws:help -Ddetail=true
+-Dgoal=&lt;goal-name&gt;</code> to display parameter details.</td></tr>
+<tr class="a">
+<td><a href="wsgen-mojo.html">jaxws:wsgen</a></td>
+<td>Reads a JAX-WS service endpoint implementation class and generates
+all of the portable artifacts for a JAX-WS web service.</td></tr>
+<tr class="b">
+<td><a href="wsgen-test-mojo.html">jaxws:wsgen-test</a></td>
+<td>Reads a JAX-WS service endpoint implementation class and generates
+all of the portable artifacts for a JAX-WS web service (into the
+generate test source directory). 
+<p><code>${maven.test.skip}</code> property is honored. If it is
+set, code generation is skipped.</p></td></tr>
+<tr class="a">
+<td><a href="wsimport-mojo.html">jaxws:wsimport</a></td>
+<td>Parses wsdl and binding files and generates Java code needed to
+access it.</td></tr>
+<tr class="b">
+<td><a href="wsimport-test-mojo.html">jaxws:wsimport-test</a></td>
+<td>Parses wsdl and binding files and generates Java code needed to
+access it (for tests). 
+<p><code>${maven.test.skip}</code> property is honored. If it is
+set, code generation is skipped.</p></td></tr></table><section>
+<h3><a name="System_Requirements"></a>System Requirements</h3><a name="System_Requirements"></a>
+<p>The following specifies the minimum requirements to run this Maven plugin:</p>
+<table border="0" class="bodyTable">
+<tr class="a">
+<td>Maven</td>
+<td>3.0</td></tr>
+<tr class="b">
+<td>JDK</td>
+<td>8</td></tr>
+<tr class="a">
+<td>Memory</td>
+<td>No minimum requirement.</td></tr>
+<tr class="b">
+<td>Disk Space</td>
+<td>No minimum requirement.</td></tr></table></section><section>
+<h3><a name="Usage"></a>Usage</h3><a name="Usage"></a>
+<p>You should specify the version in your project's plugin configuration:</p>
+<div class="source">
+<pre>&lt;project&gt;
+  ...
+  &lt;build&gt;
+    &lt;!-- To define the plugin version in your parent POM --&gt;
+    &lt;pluginManagement&gt;
+      &lt;plugins&gt;
+        &lt;plugin&gt;
+          &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+          &lt;artifactId&gt;jaxws-maven-plugin&lt;/artifactId&gt;
+          &lt;version&gt;2.3.3&lt;/version&gt;
+        &lt;/plugin&gt;
+        ...
+      &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+    &lt;!-- To use the plugin goals in your POM or parent POM --&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
+        &lt;artifactId&gt;jaxws-maven-plugin&lt;/artifactId&gt;
+        &lt;version&gt;2.3.3&lt;/version&gt;
+      &lt;/plugin&gt;
+      ...
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+  ...
+&lt;/project&gt;
+</pre></div>
+<p>For more information, see <a class="externalLink" href="http://maven.apache.org/guides/mini/guide-configuring-plugins.html">&quot;Guide to Configuring Plug-ins&quot;</a></p></section></section>
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2017-2020
+    
+          Eclipse Foundation
+          
+  
+
+  
+  
+  &nbsp;| Last Published: 2020-04-09
+  &nbsp;| Version: 2.3.3
+</div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>

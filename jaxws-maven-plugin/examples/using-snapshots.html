@@ -1,0 +1,81 @@
+---
+layout: content
+---
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+<html>
+  <head>
+    <title>JAX-WS Maven plugin &#x2013; </title>
+    <style type="text/css" media="all">
+      @import url("../css/maven-base.css");
+      @import url("../css/maven-theme.css");
+      @import url("../css/site.css");
+    </style>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      </head>
+  <body class="composite">
+    <!-- TODO: move this into JavaScript to patch the skin
+      <div class="xright">      <a href="https://eclipse-ee4j.github.io/metro-jax-ws/">Jakarta XML Web Services</a>
+          |
+          <a href="https://eclipse-ee4j.github.io/glassfish/">Glassfish</a>
+      </div>
+    -->
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <section>
+<h2><a name="Snapshot_builds_of_current_development_version_are_regularly_pushed_to_maven.java.net_snapshots_repository._In_order_to_be_able_to_use_SNAPSHOT_version_in_your_project.2C_you_need_to_add_following_pluginRepository_definition_to_your_pom.xml:"></a>Snapshot builds of current development version are regularly pushed to maven.java.net snapshots repository. In order to be able to use SNAPSHOT version in your project, you need to add following pluginRepository definition to your pom.xml:</h2>
+<div class="source">
+<pre>&lt;project&gt;
+  ...
+  &lt;pluginRepositories&gt;
+    &lt;pluginRepository&gt;
+      &lt;!-- temporary definition for harness plugin to be found--&gt;
+      &lt;id&gt;temp&lt;/id&gt;
+      &lt;url&gt;https://jakarta.oss.sonatype.org/content/repositories/snapshots/&lt;/url&gt;
+      &lt;releases&gt;
+        &lt;enabled&gt;false&lt;/enabled&gt;
+        &lt;updatePolicy&gt;never&lt;/updatePolicy&gt;
+      &lt;/releases&gt;
+      &lt;snapshots&gt;
+        &lt;enabled&gt;true&lt;/enabled&gt;
+        &lt;updatePolicy&gt;always&lt;/updatePolicy&gt;
+      &lt;/snapshots&gt;
+      &lt;layout&gt;default&lt;/layout&gt;
+    &lt;/pluginRepository&gt;
+  &lt;/pluginRepositories&gt;
+  ...
+&lt;/project&gt;</pre></div></section>
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2017-2020
+    
+          Eclipse Foundation
+          
+  
+
+  
+  
+  &nbsp;| Last Published: 2020-04-09
+  &nbsp;| Version: 2.3.3
+</div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>
