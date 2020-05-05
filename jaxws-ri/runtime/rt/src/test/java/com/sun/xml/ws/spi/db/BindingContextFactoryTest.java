@@ -212,7 +212,7 @@ public class BindingContextFactoryTest extends TestCase {
 
         @Override
         protected boolean isFor(String s) {
-            return "com.sun.xml.bind.v2.runtime".equals(s);
+            return "org.glassfish.jaxb.runtime.v2.runtime".equals(s);
         }
     }
 
@@ -256,7 +256,7 @@ public class BindingContextFactoryTest extends TestCase {
 
         @Override
         protected boolean isFor(String s) {
-            return "com.sun.xml.bind.v2.runtime".equals(s);
+            return "org.glassfish.jaxb.runtime.v2.runtime".equals(s);
         }
     }
 

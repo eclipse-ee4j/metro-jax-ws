@@ -173,7 +173,7 @@ abstract public class BindingContextFactory {
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.log(Level.FINE, "Found SPI-determined databindng mode: " + factory.getClass().getName());
             }
-            if (factory.isFor("org.eclipse.persistence.jaxb") || factory.isFor("com.sun.xml.bind.v2.runtime")) { // filter (JAXB RI || MOXy) implementation
+            if (factory.isFor("org.eclipse.persistence.jaxb") || factory.isFor("org.glassfish.jaxb.runtime.v2.runtime")) { // filter (JAXB RI || MOXy) implementation
                 result = factory.newContext(bindingInfo);
                 if (result != null) {
                     return result;
