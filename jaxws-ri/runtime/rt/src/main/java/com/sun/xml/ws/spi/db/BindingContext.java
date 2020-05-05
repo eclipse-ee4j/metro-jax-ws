@@ -280,7 +280,7 @@ public interface BindingContext {
      *
      * @since 2.1 EA2
      */
-    public static final String XMLACCESSORFACTORY_SUPPORT = "com.sun.xml.bind.XmlAccessorFactory";
+    public static final String XMLACCESSORFACTORY_SUPPORT = "org.glassfish.jaxb.runtime.XmlAccessorFactory";
 
     /**
      * Retains references to PropertyInfos.
