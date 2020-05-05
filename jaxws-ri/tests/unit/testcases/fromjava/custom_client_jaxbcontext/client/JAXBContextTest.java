@@ -14,8 +14,8 @@ import junit.framework.TestCase;
 import com.sun.xml.ws.developer.JAXBContextFactory;
 import com.sun.xml.ws.developer.UsesJAXBContextFeature;
 import com.sun.xml.ws.api.model.SEIModel;
-import com.sun.xml.bind.api.JAXBRIContext;
-import com.sun.xml.bind.api.TypeReference;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.TypeReference;
 
 import jakarta.xml.bind.JAXBException;
 import javax.xml.namespace.QName;

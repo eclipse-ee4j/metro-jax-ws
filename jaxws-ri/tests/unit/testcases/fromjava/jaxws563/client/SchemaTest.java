@@ -11,15 +11,9 @@
 package fromjava.jaxws563.client;
 
 import java.io.*;
-import java.util.*;
-import jakarta.xml.ws.*;
-import jakarta.xml.ws.soap.*;
-import jakarta.activation.*;
 import java.math.BigInteger;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * @author Jitendra Kotamraju

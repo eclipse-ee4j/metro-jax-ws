@@ -20,8 +20,8 @@ import java.util.List;
 import com.sun.xml.ws.developer.JAXBContextFactory;
 import com.sun.xml.ws.developer.UsesJAXBContext;
 import com.sun.xml.ws.api.model.SEIModel;
-import com.sun.xml.bind.api.JAXBRIContext;
-import com.sun.xml.bind.api.TypeReference;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.TypeReference;
 
 
 /**

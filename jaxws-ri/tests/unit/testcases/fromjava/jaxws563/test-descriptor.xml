@@ -12,7 +12,7 @@
 -->
 
 <!--TODO: nbug not fixed yet, see https://java.net/jira/browse/JAX_WS-563 -->
-<descriptor since="2.5">
+<descriptor since="4.0">
   <description>This is a JAXWS 563 test</description>
   <service basedir="./server">
   </service>

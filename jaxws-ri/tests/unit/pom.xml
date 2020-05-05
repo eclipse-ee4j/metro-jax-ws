@@ -151,7 +151,6 @@
                         </goals>
                         <configuration>
                             <extDir>${extensions.dir}</extDir>
-                            <endorsedDir>${endorsed.dir}</endorsedDir>
                             <args>
                                 <arg>${ws.all-args}</arg>
                             </args>
