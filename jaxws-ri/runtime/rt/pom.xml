@@ -57,15 +57,7 @@
             </dependency>
         <dependency>
             <groupId>org.glassfish.gmbal</groupId>
-            <artifactId>gmbal</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.pfl</groupId>
-            <artifactId>pfl-tf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.pfl</groupId>
-            <artifactId>pfl-basic</artifactId>
+            <artifactId>gmbal-api-only</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jvnet.staxex</groupId>
@@ -172,7 +164,7 @@
                     <execution>
                         <id>default-compile</id>
                         <configuration>
-                            <!--adds reads for gmbal-->
+                            <!-- adds reads for ha-api, xmlresolver -->
                             <compilerArgs>
                                 <arg>--add-reads</arg>
                                 <arg>com.sun.xml.ws.rt=ALL-UNNAMED</arg>
