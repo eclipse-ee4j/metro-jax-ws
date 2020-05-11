@@ -373,17 +373,7 @@
                 </dependency>
                 <dependency>
                     <groupId>org.glassfish.gmbal</groupId>
-                    <artifactId>gmbal</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.pfl</groupId>
-                    <artifactId>pfl-tf</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.pfl</groupId>
-                    <artifactId>pfl-basic</artifactId>
+                    <artifactId>gmbal-api-only</artifactId>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>

@@ -42,6 +42,7 @@ module com.sun.xml.ws {
     requires transitive com.sun.xml.bind;
     requires com.sun.xml.fastinfoset;
     requires transitive com.sun.xml.streambuffer;
+    requires transitive gmbal;
 
     exports com.sun.xml.ws.policy;
     exports com.sun.xml.ws.policy.sourcemodel;
