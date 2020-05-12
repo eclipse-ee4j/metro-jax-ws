@@ -11,8 +11,8 @@
 package com.sun.xml.ws.model;
 
 import com.sun.istack.NotNull;
-import com.sun.xml.bind.v2.model.annotation.AnnotationReader;
-import com.sun.xml.bind.v2.model.nav.Navigator;
+import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
+import org.glassfish.jaxb.core.v2.model.nav.Navigator;
 import com.sun.xml.ws.spi.db.BindingHelper;
 import com.sun.xml.ws.util.StringUtils;
 

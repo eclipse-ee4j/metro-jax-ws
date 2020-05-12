@@ -10,9 +10,9 @@
 
 package com.sun.xml.ws.model;
 
-import com.sun.xml.bind.v2.model.annotation.AnnotationReader;
+import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
 import org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeInlineAnnotationReader;
-import com.sun.xml.bind.v2.model.nav.Navigator;
+import org.glassfish.jaxb.core.v2.model.nav.Navigator;
 import com.sun.xml.ws.model.AbstractWrapperBeanGenerator.BeanMemberFactory;
 import com.sun.xml.ws.org.objectweb.asm.AnnotationVisitor;
 import com.sun.xml.ws.org.objectweb.asm.ClassWriter;

@@ -22,7 +22,7 @@ import com.sun.xml.ws.policy.jaxws.spi.PolicyFeatureConfigurator;
 import com.sun.xml.ws.policy.privateutil.PolicyLogger;
 import com.sun.xml.ws.addressing.W3CAddressingMetadataConstants;
 import com.sun.xml.ws.resources.ModelerMessages;
-import com.sun.xml.bind.util.Which;
+import org.glassfish.jaxb.core.util.Which;
 
 import java.util.Collection;
 import java.util.Iterator;

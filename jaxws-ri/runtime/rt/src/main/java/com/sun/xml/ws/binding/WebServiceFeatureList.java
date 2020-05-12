@@ -24,7 +24,7 @@ import com.sun.xml.ws.api.model.wsdl.WSDLPort;
 import com.sun.xml.ws.api.model.wsdl.WSDLFeaturedObject;
 import com.sun.xml.ws.model.RuntimeModelerException;
 import com.sun.xml.ws.resources.ModelerMessages;
-import com.sun.xml.bind.util.Which;
+import org.glassfish.jaxb.core.util.Which;
 
 import jakarta.xml.ws.RespectBinding;
 import jakarta.xml.ws.RespectBindingFeature;

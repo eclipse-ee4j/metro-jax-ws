@@ -14,7 +14,7 @@ import com.sun.istack.tools.ProtectedTask;
 import com.sun.tools.ws.Invoker;
 import com.sun.tools.ws.wscompile.Options;
 import com.sun.tools.ws.resources.WscompileMessages;
-import com.sun.xml.bind.util.Which;
+import org.glassfish.jaxb.core.util.Which;
 import org.apache.tools.ant.BuildException;
 
 import jakarta.xml.ws.Service;

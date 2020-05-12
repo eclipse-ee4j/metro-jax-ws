@@ -14,7 +14,7 @@ import com.oracle.webservices.api.message.ContentType;
 import com.oracle.webservices.api.message.PropertySet;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import com.sun.xml.bind.marshaller.SAX2DOMEx;
+import org.glassfish.jaxb.core.marshaller.SAX2DOMEx;
 import com.sun.xml.ws.addressing.WsaPropertyBag;
 import com.sun.xml.ws.addressing.WsaServerTube;
 import com.sun.xml.ws.addressing.WsaTubeHelper;
