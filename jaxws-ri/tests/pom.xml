@@ -29,7 +29,7 @@
     <name>JAX-WS RI Tests</name>
 
     <properties>
-        <test.harness.version>2.3.3</test.harness.version>
+        <test.harness.version>3.0.0-M1</test.harness.version>
         <jaxwsri.dep.classifier>jar</jaxwsri.dep.classifier>
         <!-- DEFAULT = JAXB, TOPLINK = MOXy -->
         <ws.databinding>DEFAULT</ws.databinding>
@@ -74,7 +74,7 @@
 
     <modules>
         <module>jaxwsTestUtil</module>
-        <!--module>unit</module-->
+        <module>unit</module>
     </modules>
 
     <profiles>
