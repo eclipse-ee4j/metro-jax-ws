@@ -150,6 +150,7 @@
                             <goal>ws-test</goal>
                         </goals>
                         <configuration>
+                            <failonerror>true</failonerror>
                             <extDir>${extensions.dir}</extDir>
                             <args>
                                 <arg>${ws.all-args}</arg>
