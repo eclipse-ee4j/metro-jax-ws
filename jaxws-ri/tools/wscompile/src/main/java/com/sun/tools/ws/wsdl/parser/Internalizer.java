@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,7 @@ import com.sun.tools.ws.wscompile.ErrorReceiver;
 import com.sun.tools.ws.wscompile.WsimportOptions;
 import com.sun.tools.ws.wsdl.document.jaxws.JAXWSBindingsConstants;
 import com.sun.tools.xjc.util.DOMUtils;
-import com.sun.xml.bind.v2.util.EditDistance;
+import org.glassfish.jaxb.core.v2.util.EditDistance;
 import com.sun.xml.ws.util.DOMUtil;
 import com.sun.xml.ws.util.JAXWSUtils;
 import com.sun.xml.ws.util.xml.XmlUtil;

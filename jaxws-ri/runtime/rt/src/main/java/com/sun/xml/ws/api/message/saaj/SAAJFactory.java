@@ -22,7 +22,7 @@ import javax.xml.stream.XMLStreamException;
 
 import org.xml.sax.SAXException;
 
-import com.sun.xml.bind.marshaller.SAX2DOMEx;
+import org.glassfish.jaxb.core.marshaller.SAX2DOMEx;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.message.Attachment;
 import com.sun.xml.ws.api.message.AttachmentEx;

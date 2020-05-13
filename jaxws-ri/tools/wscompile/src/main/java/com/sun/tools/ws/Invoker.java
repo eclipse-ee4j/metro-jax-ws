@@ -14,7 +14,7 @@ import com.sun.istack.tools.MaskingClassLoader;
 import com.sun.istack.tools.ParallelWorldClassLoader;
 import com.sun.tools.ws.resources.WscompileMessages;
 import com.sun.tools.ws.wscompile.Options;
-import com.sun.xml.bind.util.Which;
+import org.glassfish.jaxb.core.util.Which;
 
 import jakarta.xml.ws.Service;
 import jakarta.xml.ws.WebServiceFeature;
@@ -52,6 +52,7 @@ public final class Invoker {
             "com.sun.relaxng.",
             "com.sun.xml.xsom.",
             "com.sun.xml.bind.",
+            "org.glassfish.jaxb.",
             "com.ctc.wstx.", //wsimport, wsgen ant task
             "org.codehaus.stax2.", //wsimport, wsgen ant task
             "com.sun.xml.messaging.saaj.", //wsgen ant task

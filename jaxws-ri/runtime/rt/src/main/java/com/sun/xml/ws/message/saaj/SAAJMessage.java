@@ -15,7 +15,7 @@ import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 import com.sun.istack.XMLStreamException2;
 import org.glassfish.jaxb.runtime.api.Bridge;
-import com.sun.xml.bind.unmarshaller.DOMScanner;
+import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.message.*;
 import com.sun.xml.ws.message.AttachmentUnmarshallerImpl;

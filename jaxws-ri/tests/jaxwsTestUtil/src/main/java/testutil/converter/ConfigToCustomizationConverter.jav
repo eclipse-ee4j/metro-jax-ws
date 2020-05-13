@@ -36,7 +36,7 @@ import java.util.List;
 
 import static jakarta.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT;
 
-import com.sun.xml.bind.IXmlElementImpl;
+import org.glassfish.jaxb.core.IXmlElementImpl;
 
 /**
  * @author JAX-RPC Development Team

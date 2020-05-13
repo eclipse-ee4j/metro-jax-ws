@@ -11,7 +11,7 @@
 package com.sun.xml.ws.message;
 
 import org.glassfish.jaxb.runtime.api.Bridge;
-import com.sun.xml.bind.unmarshaller.DOMScanner;
+import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
 import com.sun.xml.ws.streaming.DOMStreamReader;
 import com.sun.xml.ws.util.DOMUtil;
 import org.w3c.dom.Element;

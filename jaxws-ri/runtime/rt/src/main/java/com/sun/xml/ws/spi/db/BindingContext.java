@@ -24,6 +24,7 @@ import javax.xml.namespace.QName;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 
 /**
  * {@link JAXBContext} enhanced with JAXB RI specific functionalities.
@@ -212,7 +213,7 @@ public interface BindingContext {
      *
      * @since 2.0 EA1
      */
-    public static final String DEFAULT_NAMESPACE_REMAP = "com.sun.xml.bind.defaultNamespaceRemap";
+    public static final String DEFAULT_NAMESPACE_REMAP = JAXBRIContext.DEFAULT_NAMESPACE_REMAP;
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -228,7 +229,7 @@ public interface BindingContext {
      *
      * @since 2.0 EA1
      */
-    public static final String TYPE_REFERENCES = "com.sun.xml.bind.typeReferences";
+    public static final String TYPE_REFERENCES = JAXBRIContext.TYPE_REFERENCES;
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -237,7 +238,7 @@ public interface BindingContext {
      *
      * @since 2.0 EA2
      */
-    public static final String CANONICALIZATION_SUPPORT = "com.sun.xml.bind.c14n";
+    public static final String CANONICALIZATION_SUPPORT = JAXBRIContext.CANONICALIZATION_SUPPORT;
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -246,7 +247,7 @@ public interface BindingContext {
      *
      * @since 2.1.3
      */
-    public static final String TREAT_EVERYTHING_NILLABLE = "com.sun.xml.bind.treatEverythingNillable";
+    public static final String TREAT_EVERYTHING_NILLABLE = JAXBRIContext.TREAT_EVERYTHING_NILLABLE;
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -261,7 +262,7 @@ public interface BindingContext {
      *
      * @since 2.0 EA2
      */
-    public static final String ENABLE_XOP = "com.sun.xml.bind.XOP";
+    public static final String ENABLE_XOP = JAXBRIContext.ENABLE_XOP;
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -272,7 +273,7 @@ public interface BindingContext {
      *
      * @since 2.1 EA2
      */
-    public static final String SUBCLASS_REPLACEMENTS = "com.sun.xml.bind.subclassReplacements";
+    public static final String SUBCLASS_REPLACEMENTS = JAXBRIContext.SUBCLASS_REPLACEMENTS;
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -280,13 +281,13 @@ public interface BindingContext {
      *
      * @since 2.1 EA2
      */
-    public static final String XMLACCESSORFACTORY_SUPPORT = "org.glassfish.jaxb.runtime.XmlAccessorFactory";
+    public static final String XMLACCESSORFACTORY_SUPPORT = JAXBRIContext.XMLACCESSORFACTORY_SUPPORT;
 
     /**
      * Retains references to PropertyInfos.
      *
      * @since 2.1.10
      */
-    public static final String RETAIN_REFERENCE_TO_INFO = "retainReferenceToInfo";
+    public static final String RETAIN_REFERENCE_TO_INFO = JAXBRIContext.RETAIN_REFERENCE_TO_INFO;
 
 }

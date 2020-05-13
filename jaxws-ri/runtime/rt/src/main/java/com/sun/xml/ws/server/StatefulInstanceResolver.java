@@ -12,7 +12,7 @@ package com.sun.xml.ws.server;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import com.sun.xml.bind.marshaller.SAX2DOMEx;
+import org.glassfish.jaxb.core.marshaller.SAX2DOMEx;
 import com.sun.xml.ws.api.ha.HighAvailabilityProvider;
 import com.sun.xml.ws.api.ha.HighAvailabilityProvider.StoreType;
 import com.sun.xml.ws.api.message.Header;

@@ -10,7 +10,7 @@
 
 package epr.epr_spec.client;
 
-import com.sun.xml.bind.marshaller.XMLWriter;
+import org.glassfish.jaxb.core.marshaller.XMLWriter;
 import com.sun.xml.stream.buffer.XMLStreamBuffer;
 import com.sun.xml.stream.buffer.XMLStreamBufferException;
 import com.sun.xml.stream.buffer.stax.StreamReaderBufferProcessor;

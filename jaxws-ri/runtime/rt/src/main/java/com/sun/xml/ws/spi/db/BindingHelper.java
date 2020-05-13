@@ -14,7 +14,7 @@ import java.lang.reflect.Type;
 
 //TODO SOAPVersion WebServiceFeatureList
 
-import com.sun.xml.bind.api.impl.NameConverter;
+import org.glassfish.jaxb.core.api.impl.NameConverter;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
