@@ -24,7 +24,7 @@ Using {{{http://metro.java.net}Metro}} binaries
     <dependency>
       <groupId>org.glassfish.metro</groupId>
       <artifactId>webservices-rt</artifactId>
-      <version>2.4.4</version>
+      <version>3.0.0</version>
     </dependency>
     ...
   </dependencies>
@@ -35,18 +35,12 @@ Using {{{http://metro.java.net}Metro}} binaries
       <plugin>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
-        <version>2.3.3</version>
+        <version>3.0.0</version>
         <dependencies>
           <dependency>
             <groupId>org.glassfish.metro</groupId>
             <artifactId>webservices-tools</artifactId>
-            <version>2.4.4</version>
-          </dependency>
-          <!-- see https://java.net/jira/browse/WSIT-1672 -->
-          <dependency>
-            <groupId>org.glassfish.metro</groupId>
-            <artifactId>webservices-rt</artifactId>
-            <version>2.4.4</version>
+            <version>3.0.0</version>
           </dependency>
         </dependencies>
         <executions>
@@ -58,63 +52,5 @@ Using {{{http://metro.java.net}Metro}} binaries
     ...
   <build>
   ...
-
-  <!-- compilation on JDK 8 -->
-  <profiles>
-    ...
-    <profile>
-      <id>jdk8</id>
-      <activation>
-        <!-- needed only on Java SE 8-->
-        <jdk>1.8</jdk>
-      </activation>
-      <properties>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-      </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <version>3.1.2</version>
-            <executions>
-              <execution>
-                <phase>validate</phase>
-                <goals>
-                  <goal>copy</goal>
-                </goals>
-                <configuration>
-                  <outputDirectory>${endorsed.dir}</outputDirectory>
-                  <silent>true</silent>
-                  <!-- need new APIs in an endorsed dir -->
-                  <artifactItems>
-                    <artifactItem>
-                      <groupId>org.glassfish.metro</groupId>
-                      <artifactId>webservices-api</artifactId>
-                      <version>2.4.4</version>
-                      <type>jar</type>
-                    </artifactItem>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.1</version>
-            <configuration>
-              <source>1.8</source>
-              <target>1.8</target>
-              <compilerArguments>
-                <!-- tell compiler to use endorsed dir -->
-                <endorseddirs>${endorsed.dir}</endorseddirs>
-              </compilerArguments>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    ...
-  </profiles>
 </project>
 +------------------------------------------+

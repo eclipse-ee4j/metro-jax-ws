@@ -33,8 +33,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jaxws.plugin.version>2.3.3</jaxws.plugin.version>
-        <jaxws-ri.version>2.3.3</jaxws-ri.version>
+        <jaxws.plugin.version>3.0.0</jaxws.plugin.version>
+        <jaxws-ri.version>3.0.0</jaxws-ri.version>
     </properties>
 
     <dependencies>
@@ -49,7 +49,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
                     <release>8</release>
                 </configuration>
@@ -67,7 +67,6 @@
                             <wsdlUrls>
                                 <wsdlUrl>http://www.ebi.ac.uk/webservices/chebi/2.0/webservice?wsdl</wsdlUrl>
                             </wsdlUrls>
-                            <!-- for JDK 6 compilation compatibility -->
                             <xnocompile>false</xnocompile>
                         </configuration>
                     </execution>

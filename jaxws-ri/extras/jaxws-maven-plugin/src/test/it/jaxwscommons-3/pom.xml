@@ -37,15 +37,26 @@
     <name>JAX_WS_COMMONS-3</name>
     <description>wsgen - support attaching WSDL to artifacts</description>
 
-    <properties>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-    </properties>
-
     <dependencies>
+<!--
+            TODO: put back once EE APIs are available
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>6.0</version>
+            <scope>provided</scope>
+        </dependency>
+-->
+        <dependency>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
+            <version>3.0.0-RC2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>5.0.0-M1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -70,48 +81,12 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <compilerArguments>
-                        <endorseddirs>${endorsed.dir}</endorseddirs>
-                    </compilerArguments>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.1.1</version>
+                <version>3.2.3</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <webappDirectory>target/cst</webappDirectory>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.1</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${endorsed.dir}</outputDirectory>
-                            <silent>true</silent>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>javax</groupId>
-                                    <artifactId>javaee-endorsed-api</artifactId>
-                                    <version>6.0</version>
-                                    <type>jar</type>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -34,6 +34,13 @@
     <name>JAX_WS_COMMONS-43</name>
     <description>wsgen - autodiscovery of SEI classes</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.jws</groupId>
+            <artifactId>jakarta.jws-api</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

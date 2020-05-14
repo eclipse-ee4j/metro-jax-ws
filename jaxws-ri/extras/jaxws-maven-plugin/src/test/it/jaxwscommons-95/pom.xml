@@ -33,7 +33,14 @@
 
     <name>JAX_WS_COMMONS-95</name>
     <description>wsgen, wsimport - source directory registration</description>
-    
+
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

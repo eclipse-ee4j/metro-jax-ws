@@ -24,7 +24,7 @@ Use wsdlLocation as a path prefix for multiple WSDL URLs
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
       <artifactId>jaxws-rt</artifactId>
-      <version>2.3.3</version>
+      <version>3.0.0</version>
     </dependency>
     ...
   </dependencies>
@@ -35,7 +35,7 @@ Use wsdlLocation as a path prefix for multiple WSDL URLs
       <plugin>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
-        <version>2.3.3</version>
+        <version>3.0.0</version>
         <executions>
           <execution>
             <goals>

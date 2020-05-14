@@ -57,11 +57,7 @@ JAX-WS Maven Plugin
 
   * {{{./examples/using-metro.html}Using Metro binaries}}
 
-  * {{{./examples/using-wstools-from-jdk.html}Using JAX-WS tools from JDK}}
-
   * {{{./examples/using-jaxb-plugins.html}Using xjc plugins}}
-
-  * {{{./examples/using-jaxws22-on-jdk6.html}Using Jakarta XML Web Services 2.3.x on Java SE 8}}
 
   * {{{./examples/using-wsdlLocation.html}Using wsdlLocation as a path prefix for multiple WSDL URLs}}
 
@@ -76,6 +72,8 @@ JAX-WS Maven Plugin
  []
 
 * Release Notes
+
+  * {{{./release-notes-300.html}Changes in version 3.0.0}}
 
   * {{{./release-notes-23.html}Changes in version 2.3}}
 

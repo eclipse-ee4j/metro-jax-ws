@@ -37,42 +37,6 @@ public class WsImportMojoITCase {
     public WsImportMojoITCase() {
     }
 
-    @Test(enabled = false)
-    public void wsimport217() throws IOException {
-        project = new File(PROJECTS_DIR, "wsimport217");
-
-        //check HelloWs
-        assertFilePresent(project, "target/classes/org/jvnet/jax_ws_commons/wsimport/test/HelloWs.class");
-        assertFileNotPresent(project, "target/test-classes/org/jvnet/jax_ws_commons/wsimport/test/HelloWs.class");
-        assertFilePresent(project, "target/generated-sources/wsimport/org/jvnet/jax_ws_commons/wsimport/test/HelloWs_Service.java");
-        //this needs to be fixed as there should be a way to not generate sources
-        //assertFileNotPresent(project, "target/jaxws/wsimport/org/jvnet/jax_ws_commons/wsimport/test/HelloWs.java");
-
-        //check sample.wsdl (url)
-        assertFilePresent(project, "target/custom/classes/org/jvnet/jaxwsri/sample/GreetersPortT.class");
-        assertFilePresent(project, "target/custom/sources/org/jvnet/jaxwsri/sample/MyGreeter.java");
-        //-wsdlLocation
-        assertFileContains(project, "target/custom/sources/org/jvnet/jaxwsri/sample/MyGreeter.java", "http://example.com:43210/my?wsdl");
-        //dependency on jaxws-tools-2.1.7
-        assertFileContains(project, "target/custom/sources/org/jvnet/jaxwsri/sample/GreetersPortT.java", "JAX-WS RI 2.1.7");
-        //-target 2.0
-        assertFileContains(project, "target/custom/sources/org/jvnet/jaxwsri/sample/GreetersPortT.java", "Generated source version: 2.0");
-        //-XadditionalHeaders
-        assertFileContains(project, "target/custom/sources/org/jvnet/jaxwsri/sample/GreetersPortT.java", "Holder<String> additionalHeader2");
-
-        //check AddService
-        assertFilePresent(project, "target/test-classes/wsimport/test/AddService.class");
-        assertFilePresent(project, "target/test-classes/wsimport/test/schema/SumType.class");
-        assertFilePresent(project, "target/generated-sources/test-wsimport/wsimport/test/SumUtil.java");
-        assertFileNotPresent(project, "target/classes/wsimport/test/AddService.class");
-        assertFileContains(project, "target/generated-sources/test-wsimport/wsimport/test/SumUtil.java", "JAX-WS RI 2.1.7");
-        //-target (default) - for 2.1.7 it should be 2.1
-        assertFileContains(project, "target/generated-sources/test-wsimport/wsimport/test/SumUtil.java", "Generated source version: 2.1");
-
-        //-encoding is not supported, warning should be present
-        assertFileContains(project, "build.log", "'-encoding' is not supported by jaxws-tools:2.1.7");
-    }
-
     @Test
     public void wsimport22() throws IOException {
         project = new File(PROJECTS_DIR, "wsimport22");
@@ -145,7 +109,7 @@ public class WsImportMojoITCase {
         assertFilePresent(project, "child/target/classes/org/jvnet/jax_ws_commons/jaxws/test/EchoService_Service_handler.xml");
     }
 
-    @Test
+    @Test(enabled = false)
     public void metro_wsimport() throws IOException {
         project = new File(PROJECTS_DIR, "metro");
 
