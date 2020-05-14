@@ -216,7 +216,7 @@ public class WsimportTool {
                 System.out.println(e.getMessage());
                 System.out.println();
             }
-            usage(e.getOptions());
+            usage(options);
             return false;
         } finally{
             deleteGeneratedFiles();
@@ -552,6 +552,16 @@ public class WsimportTool {
     protected void usage(Options options) {
         System.out.println(WscompileMessages.WSIMPORT_HELP(WSIMPORT));
         System.out.println(WscompileMessages.WSIMPORT_USAGE_EXTENSIONS());
+        if (options != null) {
+            WsimportOptions opts = (WsimportOptions) options;
+            List<Plugin> plugins = opts.getAllPlugins();
+            if (!plugins.isEmpty()) {
+                System.out.println(WscompileMessages.WSIMPORT_USAGE_PLUGINS());
+                for (Plugin p : plugins) {
+                    System.out.println(p.getUsage());
+                }
+            }
+        }
         System.out.println(WscompileMessages.WSIMPORT_USAGE_EXAMPLES());
     }
 }
