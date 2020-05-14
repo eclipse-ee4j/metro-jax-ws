@@ -53,7 +53,6 @@ public final class PluginImpl extends Plugin {
 
     @Override
     public String getUsage() {
-              //  -Xauthfile                       file to carry authorization information in the format \n\
         return "  -mark-generated                  mark the generated code as @jakarta.annotation.Generated\n"
              + "              -noDate              do not add date\n"
              + "              -Xann <annotation>   generate <annotation> instead of @jakarta.annotation.Generated";
