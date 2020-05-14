@@ -10,13 +10,21 @@
 
 package com.sun.tools.ws.wscompile.plugin.at_generated;
 
-import com.sun.codemodel.*;
+import com.sun.codemodel.JAnnotatable;
+import com.sun.codemodel.JAnnotationUse;
+import com.sun.codemodel.JClass;
+import com.sun.codemodel.JCodeModel;
+import com.sun.codemodel.JDefinedClass;
+import com.sun.codemodel.JPackage;
 import com.sun.tools.ws.ToolVersion;
 import com.sun.tools.ws.processor.model.Model;
+import com.sun.tools.ws.wscompile.BadCommandLineException;
 import com.sun.tools.ws.wscompile.ErrorReceiver;
+import com.sun.tools.ws.wscompile.Options;
 import com.sun.tools.ws.wscompile.Plugin;
 import com.sun.tools.ws.wscompile.WsimportOptions;
 import com.sun.tools.ws.wscompile.WsimportTool;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -32,6 +40,8 @@ import org.xml.sax.SAXException;
 public final class PluginImpl extends Plugin {
 
     private JClass annotation;
+    private boolean noDate = false;
+    private String genAnnotation = "jakarta.annotation.Generated";
 
     // cache the timestamp so that all the @Generated annotations match
     private String date = null;
@@ -43,29 +53,54 @@ public final class PluginImpl extends Plugin {
 
     @Override
     public String getUsage() {
-        return "  -mark-generated    :  mark the generated code as @jakarta.annotation.Generated";
+        return "  -mark-generated                  mark the generated code as @jakarta.annotation.Generated\n"
+             + "              -noDate              do not add date\n"
+             + "              -Xann <annotation>   generate <annotation> instead of @jakarta.annotation.Generated";
+    }
+
+    @Override
+    public int parseArgument(Options opt, String[] args, int i) throws BadCommandLineException, IOException {
+        if ("-noDate".equals(args[i])) {
+            noDate = true;
+            return 1;
+        }
+        if ("-Xann".equals(args[i])) {
+            genAnnotation = opt.requireArgument("-Xann", args, ++i);
+            return 2;
+        }
+        return 0;
     }
 
     @Override
     public boolean run(Model model, WsimportOptions wo, ErrorReceiver er) throws SAXException {
         JCodeModel cm = wo.getCodeModel();
-        // we want this to work without requiring JSR-250 jar.
-        annotation = cm.ref("jakarta.annotation.Generated");
+        // we want this to work without requiring Jakarta annotations jar.
+        annotation = cm.ref(genAnnotation);
 
         for (Iterator<JPackage> i = cm.packages(); i.hasNext();) {
             for (Iterator<JDefinedClass> j = i.next().classes(); j.hasNext();) {
-                annotate(j.next());
+                annotateCls(j.next());
             }
         }
-        
+
         return true;
     }
 
+    private void annotateCls(JDefinedClass cls) {
+        annotate(cls);
+        //handle inner classes
+        for (Iterator<JDefinedClass> c = cls.classes(); c.hasNext();) {
+            annotateCls(c.next());
+        }
+    }
+
     private void annotate(JAnnotatable m) {
-        m.annotate(annotation)
+        JAnnotationUse au = m.annotate(annotation)
                 .param("value", WsimportTool.class.getName())
-                .param("date", getISO8601Date())
                 .param("comments", ToolVersion.VERSION.BUILD_VERSION);
+        if (!noDate) {
+            au.param("date", getISO8601Date());
+        }
     }
 
     /**
