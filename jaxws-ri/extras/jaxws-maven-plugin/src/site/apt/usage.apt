@@ -26,7 +26,7 @@ Usage
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
       <artifactId>jaxws-rt</artifactId>
-      <version>2.3.3</version>
+      <version>3.0.0</version>
     </dependency>
     ...
   </dependencies>
@@ -36,7 +36,7 @@ Usage
       <plugin>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
-        <version>2.3.3</version>
+        <version>3.0.0</version>
         <executions>
           <execution>
             <goals>
@@ -54,52 +54,9 @@ Usage
           <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-tools</artifactId>
-            <version>2.2.5</version>
+            <version>3.0.0-M2</version>
           </dependency>
         </dependencies>
-      </plugin>
-
-      <!-- Don't forget to use endorsed with Jakarta XML Web Services on Java 8 !! -->
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-          <compilerArguments>
-            <endorseddirs>${project.build.directory}/endorsed</endorseddirs>
-          </compilerArguments>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.1.2</version>
-        <executions>
-          <execution>
-            <phase>validate</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/endorsed</outputDirectory>
-              <silent>true</silent>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>jakarta.xml.bind</groupId>
-                  <artifactId>jakarta.xml.bind-api</artifactId>
-                  <version>2.3.3</version>
-                  <type>jar</type>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>jakarta.xml.ws</groupId>
-                  <artifactId>jakarta.xml.ws-api</artifactId>
-                  <version>2.3.3</version>
-                  <type>jar</type>
-                </artifactItem>
-              </artifactItems>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       ...
     </plugins>

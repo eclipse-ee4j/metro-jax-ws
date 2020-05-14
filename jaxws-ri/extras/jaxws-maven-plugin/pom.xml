@@ -539,7 +539,9 @@
                             <filterProperties>
                                 <jaxws.plugin.version>${project.version}</jaxws.plugin.version>
                                 <jaxws-ri.version>${jaxws-tools.version}</jaxws-ri.version>
-                                <metro.version>2.4.3</metro.version>
+                                <jws.api.version>3.0.0-RC2</jws.api.version>
+                                <xml.ws.api.version>3.0.0-RC3</xml.ws.api.version>
+                                <metro.version>3.0.0-M1</metro.version>
                             </filterProperties>
                             <properties>
                                 <javax.xml.accessExternalSchema>all</javax.xml.accessExternalSchema>
@@ -549,8 +551,8 @@
                                 <setupInclude>wsdl-lib/pom.xml</setupInclude>
                             </setupIncludes>
                             <pomExcludes>
-                                <pomExclude>wsimport217/pom.xml</pomExclude>
-                                <pomExclude>wsgen217/pom.xml</pomExclude>
+                                <!-- TODO: Needs metro 3.0.0-M2 or newer -->
+                                <pomExclude>metro/pom.xml</pomExclude>
                             </pomExcludes>
                         </configuration>
                         <executions>

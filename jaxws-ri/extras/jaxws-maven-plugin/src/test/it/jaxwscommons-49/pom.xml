@@ -35,6 +35,13 @@
     <name>JAX_WS_COMMONS-49</name>
     <description>wsimport - execution's configuration is ignored</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

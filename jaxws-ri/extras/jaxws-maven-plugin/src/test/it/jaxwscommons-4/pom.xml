@@ -36,6 +36,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.sun.xml.ws.tests</groupId>
             <artifactId>wsdl-lib</artifactId>
             <version>1.0-SNAPSHOT</version>

@@ -53,12 +53,9 @@ import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.RepositorySystemSession;
 import org.eclipse.aether.graph.DependencyFilter;
 import org.eclipse.aether.graph.DependencyNode;
-import org.eclipse.aether.graph.DependencyVisitor;
 import org.eclipse.aether.repository.RemoteRepository;
 import org.eclipse.aether.resolution.DependencyResolutionException;
 import org.eclipse.aether.resolution.DependencyResult;
-import org.eclipse.aether.util.filter.NotDependencyFilter;
-import org.eclipse.aether.util.graph.visitor.FilteringDependencyVisitor;
 import org.eclipse.aether.util.graph.visitor.PreorderNodeListGenerator;
 
 /**
@@ -71,7 +68,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
     /**
      * The Maven Project Object.
      */
-	@Parameter(defaultValue = "${project}", readonly = true)
+    @Parameter(defaultValue = "${project}", readonly = true)
     protected MavenProject project;
 
     /**
@@ -170,21 +167,17 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
     protected PluginDescriptor pluginDescriptor;
 
     private static final Logger logger = Logger.getLogger(AbstractJaxwsMojo.class.getName());
-    private static final List<String> METRO_22 = new ArrayList<String>();
-    private static final List<String> METRO_221 = new ArrayList<String>();
-    private static final List<String> METRO_23 = new ArrayList<String>();
+    private static final List<String> METRO_30 = new ArrayList<String>();
 
     static {
-        METRO_22.add("-encoding");
-        METRO_22.add("-clientjar");
-        METRO_22.add("-generateJWS");
-        METRO_22.add("-implDestDir");
-        METRO_22.add("-implServiceName");
-        METRO_22.add("-implPortName");
-        METRO_221.addAll(METRO_22);
-        METRO_221.add("-XdisableAuthenticator");
-        METRO_23.addAll(METRO_221);
-        METRO_23.add("-x");
+        METRO_30.add("-encoding");
+        METRO_30.add("-clientjar");
+        METRO_30.add("-generateJWS");
+        METRO_30.add("-implDestDir");
+        METRO_30.add("-implServiceName");
+        METRO_30.add("-implPortName");
+        METRO_30.add("-XdisableAuthenticator");
+        METRO_30.add("-x");
     }
 
     protected abstract String getMain();
@@ -269,7 +262,12 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
     protected boolean isArgSupported(String arg) throws MojoExecutionException {
         //try Metro first
         Artifact a = pluginDescriptor.getArtifactMap().get("org.glassfish.metro:webservices-tools");
-        List<String> supportedArgs = null;
+        if (a == null) {
+            a = pluginDescriptor.getArtifactMap().get("com.sun.xml.ws:jaxws-tools");
+        }
+        List<String> supportedArgs = METRO_30;
+        /*
+        // to be re-enabled once new options get added to future Metro version(s)
         String v = null;
         try {
             if (a != null) {
@@ -280,7 +278,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
                 } else if (av.getMajorVersion() == 2 && av.getMinorVersion() == 2 && av.getIncrementalVersion() >= 1) {
                     supportedArgs = METRO_221;
                 } else { //if (av.getMajorVersion() >= 2 && av.getMinorVersion() >= 3) {
-                    supportedArgs = METRO_23;
+                    supportedArgs = METRO_30;
                 }
             } else {
                 //fallback to RI
@@ -292,15 +290,20 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
                 } else if (av.getMajorVersion() == 2 && av.getMinorVersion() == 2 && av.getIncrementalVersion() == 7) {
                     supportedArgs = METRO_221;
                 } else { //if (av.getMajorVersion() >= 2 && av.getMinorVersion() >= 2 && av.getIncrementalVersion() >= 8) {
-                    supportedArgs = METRO_23;
+                    supportedArgs = METRO_30;
                 }
             }
         } catch (OverConstrainedVersionException ex) {
             throw new MojoExecutionException(ex.getMessage(), ex);
         }
+        */
         boolean isSupported = supportedArgs.contains(arg);
         if (!isSupported) {
-            getLog().warn("'" + arg + "' is not supported by " + a.getArtifactId() + ":" + v);
+            try {
+                getLog().warn("'" + arg + "' is not supported by " + a.getArtifactId() + ":" + a.getSelectedVersion().toString());
+            } catch (OverConstrainedVersionException ex) {
+                throw new MojoExecutionException(ex.getMessage(), ex);
+            }
         }
         return isSupported;
     }
@@ -332,16 +335,13 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
                     }
                 }
                 String[] classpath = getCP();
-                if (!isModular()) {
-                    cmd.createArg().setValue("-Xbootclasspath/p:" + classpath[0]);
-                }
                 cmd.createArg().setValue("-cp");
-                cmd.createArg().setValue(classpath[2]);
+                cmd.createArg().setValue(classpath[1]);
                 cmd.createArg().setLine("org.jvnet.jax_ws_commons.jaxws.Invoker");
                 cmd.createArg().setLine(getMain());
                 String extraCp = getExtraClasspath();
                 String cp = extraCp != null ? extraCp + File.pathSeparator : "";
-                cp += classpath[1];
+                cp += classpath[0];
                 try {
                     File pathFile = createPathFile(cp);
                     cmd.createArg().setLine("-pathfile " + pathFile.getAbsolutePath());
@@ -366,19 +366,8 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
             if (CommandLineUtils.executeCommandLine(cmd, sc, sc) != 0) {
                 throw new MojoExecutionException("Mojo failed - check output");
             }
-        } catch (DependencyResolutionException dre) {
+        } catch (DependencyResolutionException | CommandLineException dre) {
             throw new MojoExecutionException(dre.getMessage(), dre);
-        } catch (CommandLineException t) {
-            throw new MojoExecutionException(t.getMessage(), t);
-        }
-    }
-
-    private boolean isModular() {
-        try {
-            Class<?> moduleClass = Class.forName("java.lang.Module");
-            return moduleClass != null;
-        } catch (ClassNotFoundException e) {
-            return false;
         }
     }
 
@@ -403,7 +392,6 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
     }
 
     private String[] getCP() throws DependencyResolutionException {
-        Set<org.eclipse.aether.artifact.Artifact> endorsedCp = new HashSet<org.eclipse.aether.artifact.Artifact>();
         Map<String, org.eclipse.aether.artifact.Artifact> cp = new HashMap<String, org.eclipse.aether.artifact.Artifact>();
         Plugin p = pluginDescriptor.getPlugin();
         boolean toolsFound = false;
@@ -411,7 +399,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
             DependencyResult result = DependencyResolver.resolve(d,
                     new ExclusionFilter(d.getExclusions()),
                     pluginRepos, repoSystem, repoSession);
-            sortArtifacts(result, cp, endorsedCp);
+            sortArtifacts(result, cp);
             if (containsTools(cp.keySet())) {
                 toolsFound = true;
             }
@@ -421,20 +409,19 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
                     pluginDescriptor.getArtifactMap().get(dep),
                     toolsFound ? new DepFilter(getExtraArtifactIDs()) : null,
                     pluginRepos, repoSystem, repoSession);
-            sortArtifacts(result, cp, endorsedCp);
+            sortArtifacts(result, cp);
         }
         if (!containsTools(cp.keySet())) {
             DependencyResult result = DependencyResolver.resolve(
                     pluginDescriptor.getArtifactMap().get("com.sun.xml.ws:jaxws-tools"),
                     null, pluginRepos, repoSystem, repoSession);
-            sortArtifacts(result, cp, endorsedCp);
+            sortArtifacts(result, cp);
         }
         StringBuilder sb = getCPasString(cp.values());
-        StringBuilder esb = getCPasString(endorsedCp);
         //add custom invoker
         String invokerPath = AbstractJaxwsMojo.class.getProtectionDomain().getCodeSource().getLocation().toExternalForm();
         try {
-            invokerPath = new URI(invokerPath.substring(5)).getPath();
+            invokerPath = new URI(invokerPath).getPath();
             sb.append(invokerPath);
         } catch (URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -449,9 +436,9 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
             sb.append(toolsJar.getAbsolutePath());
             sb.append(File.pathSeparator);
         }
-        getLog().debug("getCP esb: " + esb);
         getLog().debug("getCP sb: " + sb);
-        return new String[]{esb.substring(0, ((esb.length() > 0) ? esb.length() - 1 : 0)), sb.substring(0, sb.length() - 1), invokerPath};
+        getLog().debug("getCP iv: " + invokerPath);
+        return new String[]{sb.substring(0, sb.length() - 1), invokerPath};
     }
 
     private String getJavaExec() {
@@ -500,21 +487,9 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
         return sb;
     }
 
-    private void sortArtifacts(DependencyResult result, Map<String, org.eclipse.aether.artifact.Artifact> cp, Set<org.eclipse.aether.artifact.Artifact> endorsedCp) {
+    private void sortArtifacts(DependencyResult result, Map<String, org.eclipse.aether.artifact.Artifact> cp) {
         PreorderNodeListGenerator nlg = new PreorderNodeListGenerator();
-        DependencyVisitor visitor = nlg;
-        if (!isModular()) {
-            visitor = new FilteringDependencyVisitor(
-                nlg, new NotDependencyFilter(new EndorsedFilter()));
-
-            PreorderNodeListGenerator enNlg = new PreorderNodeListGenerator();
-            FilteringDependencyVisitor enVisitor = new FilteringDependencyVisitor(
-                    enNlg, new EndorsedFilter());
-            result.getRoot().accept(enVisitor);
-            endorsedCp.addAll(enNlg.getArtifacts(false));
-        }
-
-        result.getRoot().accept(visitor);
+        result.getRoot().accept(nlg);
         for (org.eclipse.aether.artifact.Artifact a : nlg.getArtifacts(false)) {
             cp.put(a.getGroupId() + ":" + a.getArtifactId(), a);
         }

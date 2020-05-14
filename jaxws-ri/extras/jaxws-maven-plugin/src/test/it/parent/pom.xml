@@ -38,6 +38,8 @@
     </modules>-->
 
     <properties>
+        <xml.ws.api.version>@xml.ws.api.version@</xml.ws.api.version>
+        <jws.api.version>@jws.api.version@</jws.api.version>
         <jaxws-ri.version>@jaxws-ri.version@</jaxws-ri.version>
         <metro.version>@metro.version@</metro.version>
         <jaxws.plugin.version>@project.version@</jaxws.plugin.version>
@@ -46,6 +48,21 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>jakarta.jws</groupId>
+                <artifactId>jakarta.jws-api</artifactId>
+                <version>${jws.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.xml.ws</groupId>
+                <artifactId>jakarta.xml.ws-api</artifactId>
+                <version>${xml.ws.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.metro</groupId>
+                <artifactId>webservices-api</artifactId>
+                <version>${metro.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-rt</artifactId>
@@ -72,15 +89,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.1.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.0</version>
-                    <configuration>
-                        <release>8</release>
-                    </configuration>
+                    <version>3.8.1</version>
                 </plugin>
                 <plugin>
                     <groupId>com.sun.xml.ws</groupId>
@@ -90,72 +104,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
-    <profiles>
-        <profile>
-            <id>jdk6</id>
-            <activation>
-                <jdk>1.6</jdk>
-            </activation>
-            <properties>
-                <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${endorsed.dir}</outputDirectory>
-                                    <silent>true</silent>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>jakarta.xml.bind</groupId>
-                                            <artifactId>jakarta.xml.bind-api</artifactId>
-                                            <version>2.3.3</version>
-                                            <type>jar</type>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>jakarta.xml.ws</groupId>
-                                            <artifactId>jakarta.xml.ws-api</artifactId>
-                                            <version>2.3.3</version>
-                                            <type>jar</type>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>jakarta.xml.soap</groupId>
-                                            <artifactId>jakarta.xml.soap-api</artifactId>
-                                            <version>1.5.2</version>
-                                            <type>jar</type>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>jakarta.jws</groupId>
-                                            <artifactId>jakarta.jws-api</artifactId>
-                                            <version>2.1.0</version>
-                                            <type>jar</type>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                            <release>8</release>
-                            <compilerArguments>
-                                <endorseddirs>${endorsed.dir}</endorseddirs>
-                            </compilerArguments>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
