@@ -18,12 +18,12 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>bundles</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.0.0-M3</version>
     </parent>
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-ri</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0-M3</version>
 
     <packaging>pom</packaging>
     <name>JAX-WS RI Standalone Zipped Bundle</name>
