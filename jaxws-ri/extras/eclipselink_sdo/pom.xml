@@ -30,6 +30,7 @@
 
     <properties>
         <spotbugs.exclude>${project.basedir}/exclude.xml</spotbugs.exclude>
+        <argLine/>
     </properties>
 
     <dependencies>
@@ -60,24 +61,6 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <excludeScope>provided</excludeScope>
-                            <stripVersion>true</stripVersion>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <executions>
                     <execution>
@@ -96,11 +79,16 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <!--TODO tests are skipped due to
-                        Modules commonj.sdo and org.eclipse.persistence.sdo export package commonj.sdo.impl to module ha.api
-                        remove after Eclipselink split package resolution.
-                    -->
-                    <skip>true</skip>
+                    <argLine>
+                        --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.test=ALL-UNNAMED
+                        --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.test.add=ALL-UNNAMED
+                        --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.test.helloSDO=ALL-UNNAMED
+                        --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.sample.service=ALL-UNNAMED
+                        --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.sample.service=com.sun.xml.ws
+                        --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.sample.service.types=ALL-UNNAMED
+                        @{argLine}
+                    </argLine>
+                    <forkCount>1</forkCount>
                 </configuration>
             </plugin>
             <plugin>
