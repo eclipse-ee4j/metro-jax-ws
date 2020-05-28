@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,6 +20,8 @@ import com.sun.istack.Nullable;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.logging.Logger;
 
 /**
@@ -38,6 +40,8 @@ public final class WSDLPatcher extends XMLStreamReaderToXMLStreamWriter {
 
     private static final Logger logger = Logger.getLogger(
             com.sun.xml.ws.util.Constants.LoggingDomain + ".wsdl.patcher");
+
+    private final boolean useExternalSchemaLocationURL = getBooleanSystemProperty("com.sun.xml.ws.wsdl.externalSchemaLocationURL").booleanValue();
 
     private final DocumentLocationResolver docResolver;
     private final PortAddressResolver portAddressResolver;
@@ -89,7 +93,11 @@ public final class WSDLPatcher extends XMLStreamReaderToXMLStreamWriter {
 
             logger.fine("Fixing the relative location:"+relPath
                     +" with absolute location:"+actualPath);
-            writeAttribute(i, actualPath);
+            if(!useExternalSchemaLocationURL) {
+                writeAttribute(i, actualPath);
+            } else {
+                writeAttribute(i, relPath);
+            }
             return;
         }
 
@@ -219,6 +227,17 @@ public final class WSDLPatcher extends XMLStreamReaderToXMLStreamWriter {
         return (portAddressResolver == null || portName == null)
                 ? null : portAddressResolver.getAddressFor(serviceName, portName.getLocalPart(), portAddress);
     }
+
+    private static Boolean getBooleanSystemProperty(final String prop) {
+        return AccessController.doPrivileged(
+            new PrivilegedAction<Boolean>() {
+                public Boolean run() {
+                    return Boolean.getBoolean(prop);
+                }
+            }
+        );
+    }
+
 }
     
 
