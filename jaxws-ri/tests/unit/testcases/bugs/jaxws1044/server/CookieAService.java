@@ -12,9 +12,9 @@ package bugs.jaxws1044.server;
 
 import jakarta.annotation.Resource;
 import jakarta.jws.WebService;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.handler.MessageContext;
 import java.util.logging.Logger;
