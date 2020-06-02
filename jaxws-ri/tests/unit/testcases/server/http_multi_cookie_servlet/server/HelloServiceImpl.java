@@ -12,8 +12,8 @@ package server.http_multi_cookie_servlet.server;
 
 import jakarta.annotation.Resource;
 import jakarta.jws.WebService;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.WebServiceException;
 import jakarta.xml.ws.handler.MessageContext;

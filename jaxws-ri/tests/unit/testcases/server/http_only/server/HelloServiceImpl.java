@@ -18,8 +18,8 @@ import jakarta.annotation.Resource;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 
 import jakarta.xml.ws.handler.MessageContext;
 import jakarta.xml.ws.WebServiceException;

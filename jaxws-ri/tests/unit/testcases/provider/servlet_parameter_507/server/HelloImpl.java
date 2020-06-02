@@ -16,7 +16,7 @@ import javax.xml.transform.stream.StreamSource;
 import jakarta.xml.ws.*;
 import jakarta.xml.ws.handler.MessageContext;
 import java.io.ByteArrayInputStream;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Client sends form request in the POST request.
