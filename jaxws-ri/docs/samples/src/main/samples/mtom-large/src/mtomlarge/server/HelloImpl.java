@@ -68,8 +68,7 @@ public class HelloImpl implements Hello {
     private void validateDataHandler(int expTotal, DataHandler dh) throws IOException {
         // readOnce() doesn't store attachment on the disk in some cases
         // for e.g when only one attachment is in the message
-        StreamingDataHandler sdh = (StreamingDataHandler)dh;
-        InputStream in = sdh.readOnce();
+        InputStream in = dh.getInputStream();
         byte[] buf = new byte[8192];
         int total = 0;
         int len;
@@ -85,7 +84,6 @@ public class HelloImpl implements Hello {
             }
         }
         in.close();
-        sdh.close();
         if (total != expTotal) {
            throw new WebServiceException("DataHandler data size is different");
         }

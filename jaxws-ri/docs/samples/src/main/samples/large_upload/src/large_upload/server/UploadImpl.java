@@ -30,11 +30,22 @@ public class UploadImpl {
     
     public void fileUpload(String name, @XmlMimeType("application/octet-stream") DataHandler data) {
         try {
-             StreamingDataHandler dh = (StreamingDataHandler)data;
              File file = File.createTempFile(name, "");
              System.out.println("Creating file = "+file);
-             dh.moveTo(file);
-             dh.close();
+             InputStream i = data.getInputStream();
+             OutputStream o = new FileOutputStream(file);
+             try {
+                 byte[] temp = new byte[4096];
+                 int len;
+                 while((len=i.read(temp)) != -1) {
+                     o.write(temp, 0, len);
+                 }
+                 i.close();
+             } finally {
+                 if (o != null) {
+                     o.close();
+                 }
+             }
              System.out.println("Verifying file = "+file);
              verifyFile(file);
              System.out.println("Verified file = "+file);
@@ -48,7 +59,7 @@ public class UploadImpl {
     private void verifyFile(File file) throws IOException {
         FileInputStream fin = new FileInputStream(file);
         try {
-             byte buf[] = new byte[8192];
+             byte buf[] = new byte[4096];
              
              for(int i=0; i < 100000; i++) {
                  int len = 0;
