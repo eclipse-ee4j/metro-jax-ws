@@ -82,4 +82,4 @@ The release includes the following documentation:
 - [Users Guide](3.0.0/docs/ch03.html)
 - [Tools](3.0.0/docs/ch04.html)
 - [Samples](3.0.0/docs/ch07.html)
-
+- [Change log](https://github.com/eclipse-ee4j/metro-jax-ws/releases/tag/3.0.0-M3)
