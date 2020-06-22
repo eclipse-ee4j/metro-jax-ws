@@ -11,7 +11,7 @@
 
 # utility to help importing release documentation
 
-VERSION=2.3.3
+VERSION=3.0.0-M3
 ARTIFACT=https://jakarta.oss.sonatype.org/content/groups/staging/com/sun/xml/ws/release-documentation/$VERSION/release-documentation-$VERSION-docbook.zip
 
 wget -O release-documentation.zip $ARTIFACT
