@@ -30,27 +30,16 @@ public class UploadImpl {
     
     public void fileUpload(String name, @XmlMimeType("application/octet-stream") DataHandler data) {
         try {
-             File file = File.createTempFile(name, "");
-             System.out.println("Creating file = "+file);
-             InputStream i = data.getInputStream();
-             OutputStream o = new FileOutputStream(file);
-             try {
-                 byte[] temp = new byte[4096];
-                 int len;
-                 while((len=i.read(temp)) != -1) {
-                     o.write(temp, 0, len);
-                 }
-                 i.close();
-             } finally {
-                 if (o != null) {
-                     o.close();
-                 }
-             }
-             System.out.println("Verifying file = "+file);
-             verifyFile(file);
-             System.out.println("Verified file = "+file);
-             file.delete();
-             System.out.println("Deleted file = "+file);
+            StreamingDataHandler dh = (StreamingDataHandler)data;
+            File file = File.createTempFile(name, "");
+            System.out.println("Creating file = "+file);
+            dh.moveTo(file);
+            dh.close();
+            System.out.println("Verifying file = "+file);
+            verifyFile(file);
+            System.out.println("Verified file = "+file);
+            file.delete();
+            System.out.println("Deleted file = "+file);
         } catch(Exception e) {
             throw new WebServiceException(e);
         }
