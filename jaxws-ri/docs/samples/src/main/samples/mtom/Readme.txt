@@ -30,7 +30,7 @@ There are 2 operations. The abstract definition of schema element data is
 annotated with xmime:expectedCotentTypes to demonstrates the corresponding
 mapping of it in the generated SEI on the client side.
     * upload - this operation uploads an Image to the endpoint using MTOM
-    * doanload - this operation downloads binary data using MTOM in streaming
+    * download - this operation downloads binary data using MTOM in streaming
       fashion
 
 * etc - configuration files
