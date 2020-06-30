@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -64,6 +64,20 @@ public class XMLReaderCompositeTest extends TestCase {
 
         xrc.next();
         assertTrue(xrc.isEndElement());
+    }
+
+    public void testInvalidXML() throws Exception {
+        XMLInputFactory fac = XMLInputFactory.newFactory();
+        ByteArrayInputStream in = new ByteArrayInputStream("test".getBytes());
+        XMLStreamReader r = fac.createXMLStreamReader(in);
+        try {
+            XMLStreamReaderUtil.readRest(r);
+            fail("Exception should be thrown");
+        } catch (Exception e) {
+            assertEquals("XML reader error: Unexpected character 't' (code 116) in prolog; expected '<'\n" + 
+                    " at [row,col {unknown-source}]: [1,1]", e.getMessage());
+        }
+
     }
 
     private XMLStreamReader r(String msg) throws XMLStreamException {
