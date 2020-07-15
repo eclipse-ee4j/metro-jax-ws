@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -293,7 +293,8 @@ public class XMLStreamReaderUtil {
     }
     
     private static XMLStreamReaderException wrapException(XMLStreamException e) {
-        return new XMLStreamReaderException("xmlreader.ioException",e);
+        // https://github.com/eclipse-ee4j/metro-jax-ws/issues/156
+        return new XMLStreamReaderException("xmlreader.ioException", e.getMessage());
     }
 
     // -- Auxiliary classes ----------------------------------------------
