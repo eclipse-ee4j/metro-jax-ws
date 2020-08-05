@@ -8,7 +8,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-package com.sun.xml.ws.util;
+package com.sun.tools.ws.util;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
@@ -224,10 +224,10 @@ public final class ServiceFinder<T> implements Iterable<T> {
     @SuppressWarnings("unchecked")
     public Iterator<T> iterator() {
         Iterator<T> it = MrJarUtil.getIterator(serviceClass, classLoader);
-        return component != null ?
-        		new CompositeIterator<T>(
-        				component.getIterableSPI(serviceClass).iterator(),it) :
-        		it;
+        return component != null
+                ? new CompositeIterator<T>(
+                        component.getIterableSPI(serviceClass).iterator(), it)
+                : it;
     }
 
     /**
@@ -339,69 +339,75 @@ public final class ServiceFinder<T> implements Iterable<T> {
     }
 
     private static ComponentEx getComponentEx(Component component) {
-    	if (component instanceof ComponentEx)
-    		return (ComponentEx) component;
+        if (component instanceof ComponentEx) {
+            return (ComponentEx) component;
+        }
 
-    	return component != null ? new ComponentExWrapper(component) : null;
+        return component != null ? new ComponentExWrapper(component) : null;
     }
 
     private static class ComponentExWrapper implements ComponentEx {
-    	private final Component component;
 
-    	public ComponentExWrapper(Component component) {
-    		this.component = component;
-    	}
+        private final Component component;
 
-		public <S> S getSPI(Class<S> spiType) {
-			return component.getSPI(spiType);
-		}
+        public ComponentExWrapper(Component component) {
+            this.component = component;
+        }
 
-		public <S> Iterable<S> getIterableSPI(Class<S> spiType) {
-	    	S item = getSPI(spiType);
-	    	if (item != null) {
-	    		Collection<S> c = Collections.singletonList(item);
-	    		return c;
-	    	}
-	    	return Collections.emptySet();
-		}
+        public <S> S getSPI(Class<S> spiType) {
+            return component.getSPI(spiType);
+        }
+
+        public <S> Iterable<S> getIterableSPI(Class<S> spiType) {
+            S item = getSPI(spiType);
+            if (item != null) {
+                Collection<S> c = Collections.singletonList(item);
+                return c;
+            }
+            return Collections.emptySet();
+        }
     }
 
     private static class CompositeIterator<T> implements Iterator<T> {
-    	private final Iterator<Iterator<T>> it;
-    	private Iterator<T> current = null;
 
-    	public CompositeIterator(Iterator<T>... iterators) {
-    		it = Arrays.asList(iterators).iterator();
-    	}
+        private final Iterator<Iterator<T>> it;
+        private Iterator<T> current = null;
 
-		public boolean hasNext() {
-			if (current != null && current.hasNext())
-				return true;
+        public CompositeIterator(Iterator<T>... iterators) {
+            it = Arrays.asList(iterators).iterator();
+        }
 
-			while (it.hasNext()) {
-				current = it.next();
-				if (current.hasNext())
-					return true;
+        public boolean hasNext() {
+            if (current != null && current.hasNext()) {
+                return true;
+            }
 
-			}
+            while (it.hasNext()) {
+                current = it.next();
+                if (current.hasNext()) {
+                    return true;
+                }
 
-			return false;
-		}
+            }
 
-		public T next() {
-			if (!hasNext())
-				throw new NoSuchElementException();
-                        T next = current.next();
-                        if (LOGGER.isLoggable(Level.FINER)) {
-                            LOGGER.log(Level.FINE, "returning: {0} (by {1})", new Object[]{next.getClass().getName(), current.getClass().getName()});
-                        }
+            return false;
+        }
 
-			return next;
-		}
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            T next = current.next();
+            if (LOGGER.isLoggable(Level.FINER)) {
+                LOGGER.log(Level.FINE, "returning: {0} (by {1})", new Object[]{next.getClass().getName(), current.getClass().getName()});
+            }
 
-		public void remove() {
+            return next;
+        }
+
+        public void remove() {
             throw new UnsupportedOperationException();
-		}
+        }
     }
 
     /**

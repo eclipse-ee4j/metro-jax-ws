@@ -31,7 +31,7 @@ import com.sun.tools.ws.wsdl.parser.MetadataFinder;
 import com.sun.tools.ws.wsdl.parser.WSDLInternalizationLogic;
 import com.sun.tools.xjc.util.NullStream;
 import com.sun.xml.ws.api.server.Container;
-import com.sun.xml.ws.util.ServiceFinder;
+import com.sun.tools.ws.util.ServiceFinder;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.SAXParseException;
 
