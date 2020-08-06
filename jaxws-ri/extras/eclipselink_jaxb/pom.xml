@@ -93,7 +93,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <classpathDependencyExcludes>jakarta.activation:jakarta.activation-api,jakarta.mail:jakarta.mail-api</classpathDependencyExcludes>
+                    <classpathDependencyExcludes>jakarta.mail:jakarta.mail-api</classpathDependencyExcludes>
                     <!-- to make sure that plugin's classes are at the end of the cp
                     otherwise testHelloEchoNoMode(com.sun.xml.ws.jaxbri.JAXBRIBasicTest) will fail
                     as it requires specific order of jars on the cp -->
