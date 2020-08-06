@@ -34,8 +34,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -124,7 +122,6 @@ import java.util.logging.Logger;
  */
 public final class ServiceFinder<T> implements Iterable<T> {
 
-    private static final Logger LOGGER = Logger.getLogger(ServiceFinder.class.getName());
     private static final String prefix = "META-INF/services/";
 
     private static WeakHashMap<ClassLoader, ConcurrentHashMap<String, ServiceName[]>> serviceNameCache
@@ -397,12 +394,7 @@ public final class ServiceFinder<T> implements Iterable<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            T next = current.next();
-            if (LOGGER.isLoggable(Level.FINER)) {
-                LOGGER.log(Level.FINE, "returning: {0} (by {1})", new Object[]{next.getClass().getName(), current.getClass().getName()});
-            }
-
-            return next;
+            return current.next();
         }
 
         public void remove() {
@@ -486,19 +478,10 @@ public final class ServiceFinder<T> implements Iterable<T> {
                 ConcurrentHashMap<String, ServiceName[]> nameMap = null;
                 synchronized(serviceNameCache){ nameMap = serviceNameCache.get(loader); }
                 names = (nameMap != null)? nameMap.get(service.getName()) : null;
-                if (LOGGER.isLoggable(Level.FINER)) {
-                    LOGGER.fine("Looking for: " + service.getName());
-                }
                 if (names == null) {
                     names = serviceClassNames(service, loader);
                     if (nameMap == null) nameMap = new ConcurrentHashMap<String, ServiceName[]>();
                     nameMap.put(service.getName(), names);
-                    if (LOGGER.isLoggable(Level.FINER)) {
-                        LOGGER.fine("for: " + service.getName());
-                        for (ServiceName sn : names) {
-                            LOGGER.fine("\tfound: " + sn.className);
-                        }
-                    }
                     synchronized(serviceNameCache){ serviceNameCache.put(loader,nameMap); }
                 }
             }
