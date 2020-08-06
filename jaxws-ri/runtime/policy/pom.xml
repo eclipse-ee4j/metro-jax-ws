@@ -88,7 +88,7 @@
 
         <jaxb.version>3.0.0-M2</jaxb.version>
         <junit.version>4.13</junit.version>
-        <istack.version>4.0.0-M2</istack.version>
+        <istack.version>4.0.0</istack.version>
     </properties>
 
     <dependencyManagement>
