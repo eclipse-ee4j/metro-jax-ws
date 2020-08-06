@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -57,7 +57,7 @@ class TubelineAssemblyContextImpl implements TubelineAssemblyContext {
         adaptedHead = null;
         
         if (LOGGER.isLoggable(Level.FINER)) {
-            LOGGER.finer(MessageFormat.format("Added '{0}' tube instance to the tubeline.", (newHead == null) ? null : newHead.getClass().getName()));
+            LOGGER.finer(MessageFormat.format("Added ''{0}'' tube instance to the tubeline.", (newHead == null) ? null : newHead.getClass().getName()));
         }
 
         return true;

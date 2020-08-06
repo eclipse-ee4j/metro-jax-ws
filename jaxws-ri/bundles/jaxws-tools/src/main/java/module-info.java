@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,6 +42,8 @@ module com.sun.tools.ws {
     exports com.sun.tools.ws.wsdl.document;
     exports com.sun.tools.ws.wsdl.parser;
 
+    uses com.sun.tools.ws.api.WsgenExtension;
+    uses com.sun.tools.ws.api.wsdl.TWSDLExtensionHandler;
     uses com.sun.tools.ws.wscompile.Plugin;
 
     provides com.sun.tools.ws.wscompile.Plugin with
