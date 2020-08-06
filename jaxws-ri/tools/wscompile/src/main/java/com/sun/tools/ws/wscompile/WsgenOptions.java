@@ -15,7 +15,7 @@ import com.sun.tools.ws.api.WsgenProtocol;
 import com.sun.tools.ws.resources.WscompileMessages;
 import com.sun.xml.ws.api.BindingID;
 import com.sun.xml.ws.binding.SOAPBindingImpl;
-import com.sun.xml.ws.util.ServiceFinder;
+import com.sun.tools.ws.util.ServiceFinder;
 
 import javax.jws.WebService;
 import javax.xml.namespace.QName;

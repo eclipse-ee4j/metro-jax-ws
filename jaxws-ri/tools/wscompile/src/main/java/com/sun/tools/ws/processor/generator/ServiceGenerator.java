@@ -50,7 +50,7 @@ import javax.xml.ws.WebServiceException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.sun.xml.ws.util.ServiceFinder;
+import com.sun.tools.ws.util.ServiceFinder;
 import java.util.Locale;
 
 /**

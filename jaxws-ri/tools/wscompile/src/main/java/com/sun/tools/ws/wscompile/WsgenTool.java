@@ -30,7 +30,7 @@ import com.sun.xml.ws.api.wsdl.writer.WSDLGeneratorExtension;
 import com.sun.xml.ws.binding.WebServiceFeatureList;
 import com.sun.xml.ws.model.ExternalMetadataReader;
 import com.sun.xml.ws.model.AbstractSEIModelImpl;
-import com.sun.xml.ws.util.ServiceFinder;
+import com.sun.tools.ws.util.ServiceFinder;
 import org.xml.sax.SAXParseException;
 
 import javax.tools.JavaCompiler;

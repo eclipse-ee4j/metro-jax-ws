@@ -18,4 +18,8 @@ module com.sun.tools.ws.wscompile.test {
     requires java.compiler;
     requires java.logging;
     requires com.sun.tools.xjc;
+
+    uses com.sun.tools.ws.api.WsgenExtension;
+    uses com.sun.tools.ws.api.wsdl.TWSDLExtensionHandler;
+    uses com.sun.tools.ws.wscompile.Plugin;
 }

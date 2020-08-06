@@ -28,7 +28,7 @@ import com.sun.tools.ws.wscompile.WsimportOptions;
 import com.sun.codemodel.JClassAlreadyExistsException;
 import com.sun.xml.ws.api.SOAPVersion;
 
-import com.sun.xml.ws.util.ServiceFinder;
+import com.sun.tools.ws.util.ServiceFinder;
 
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;

@@ -45,6 +45,8 @@ module com.sun.tools.ws.wscompile {
     exports com.sun.tools.ws.wsdl.document;
     exports com.sun.tools.ws.wsdl.parser;
 
+    uses com.sun.tools.ws.api.WsgenExtension;
+    uses com.sun.tools.ws.api.wsdl.TWSDLExtensionHandler;
     uses com.sun.tools.ws.wscompile.Plugin;
 
     provides com.sun.tools.ws.wscompile.Plugin with
