@@ -23,7 +23,7 @@
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>policy</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0-M4</version>
 
     <name>WS-Policy Implementation</name>
     <description>WS-Policy implementation for Project Metro</description>
