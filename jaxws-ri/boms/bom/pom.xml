@@ -36,7 +36,7 @@
         <istack.version>4.0.0</istack.version>
         <gmbal-api.version>4.0.2</gmbal-api.version>
         <ha-api.version>3.1.12</ha-api.version>
-        <jaxb.version>3.0.0-M4</jaxb.version>
+        <jaxb.version>3.0.0-M5</jaxb.version>
         <jaxws-api.version>3.0.0</jaxws-api.version>
         <jakarta.jws-api.version>3.0.0</jakarta.jws-api.version>
         <management-api.version>3.2.3</management-api.version>
@@ -48,7 +48,7 @@
         <woodstox-core.version>6.2.1</woodstox-core.version>
         <stax2-api.version>4.2.1</stax2-api.version>
         <jakarta.annotation-api.version>2.0.0</jakarta.annotation-api.version>
-        <jakarta.activation.version>2.0.0</jakarta.activation.version>
+        <activation.version>2.0.0</activation.version>
     </properties>
 
     <dependencyManagement>
@@ -147,12 +147,12 @@
             <dependency>
                 <groupId>jakarta.activation</groupId>
                 <artifactId>jakarta.activation-api</artifactId>
-                <version>${jakarta.activation.version}</version>
+                <version>${activation.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.activation</groupId>
                 <artifactId>jakarta.activation</artifactId>
-                <version>${jakarta.activation.version}</version>
+                <version>${activation.version}</version>
             </dependency>
 
             <dependency>

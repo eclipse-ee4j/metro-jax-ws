@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,7 +21,7 @@ import javax.xml.namespace.QName;
 public interface JAXWSBindingsConstants {
 
     static final String NS_JAXWS_BINDINGS = "http://java.sun.com/xml/ns/jaxws";
-    static final String NS_JAXB_BINDINGS = "http://java.sun.com/xml/ns/jaxb";
+    static final String NS_JAXB_BINDINGS = "https://jakarta.ee/xml/ns/jaxb";
     static final String NS_XJC_BINDINGS = "http://java.sun.com/xml/ns/jaxb/xjc";
 
     /**
@@ -173,7 +173,7 @@ public interface JAXWSBindingsConstants {
      * jaxb:bindgs QName
      */
     static final QName JAXB_BINDINGS = new QName(NS_JAXB_BINDINGS, "bindings");
-    static final String JAXB_BINDING_VERSION = "2.0";
+    static final String JAXB_BINDING_VERSION = "3.0";
     static final QName XSD_APPINFO = new QName(Constants.NS_XSD, "appinfo");
     static final QName XSD_ANNOTATION = new QName(Constants.NS_XSD, "annotation");
 }

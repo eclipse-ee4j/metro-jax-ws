@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@
         xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
         xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
         xmlns:types1="urn:test:types"
-        xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+        xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <jaxws:package name="customization.external.doclit.client"/>
     <jaxws:enableWrapperStyle>false</jaxws:enableWrapperStyle>
@@ -25,7 +25,7 @@
 
     <jaxws:bindings node="ns1:definitions/ns1:types/xs:schema[@targetNamespace='urn:test:types']"
                     xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://schemas.xmlsoap.org/wsdl/">
-        <ns2:schemaBindings xmlns:ns2="http://java.sun.com/xml/ns/jaxb">
+        <ns2:schemaBindings xmlns:ns2="https://jakarta.ee/xml/ns/jaxb">
             <ns2:package name="customization.external.doclit.client"/>
         </ns2:schemaBindings>
         <jaxb:bindings node="//xs:complexType[@name='AbstractType']">
