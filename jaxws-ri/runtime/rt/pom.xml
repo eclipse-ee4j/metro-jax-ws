@@ -214,8 +214,8 @@
                         <configuration>
                             <rules>
                                 <requireProperty>
-                                    <property>jaxb-api.version</property>
-                                    <message>Property not imported!</message>
+                                    <property>xml.bind-api.version</property>
+                                    <message>Property xml.bind-api.version not imported or set!</message>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>stax-ex.version</property>

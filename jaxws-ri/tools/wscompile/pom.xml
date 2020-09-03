@@ -110,8 +110,8 @@
                         <configuration>
                             <rules>
                                 <requireProperty>
-                                    <property>jaxb-api.version</property>
-                                    <message>Property not imported!</message>
+                                    <property>xml.bind-api.version</property>
+                                    <message>Property xml.bind-api.version not imported or set!</message>
                                 </requireProperty>
                             </rules>
                             <fail>true</fail>
@@ -234,7 +234,7 @@
                     <systemPropertyVariables>
                         <java.io.tmpdir>${project.build.directory}/test-antprojects</java.io.tmpdir>
                         <bin.folder>${project.build.directory}</bin.folder>
-                        <xml.bind-api.version>${jaxb-api.version}</xml.bind-api.version>
+                        <xml.bind-api.version>${xml.bind-api.version}</xml.bind-api.version>
                         <jakarta.jws-api.version>${jakarta.jws-api.version}</jakarta.jws-api.version>
                         <jakarta.annotation-api.version>${jakarta.annotation-api.version}</jakarta.annotation-api.version>
                         <jaxws-api.version>${jaxws-api.version}</jaxws-api.version>

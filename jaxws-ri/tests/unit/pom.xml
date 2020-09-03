@@ -101,8 +101,8 @@
                         <configuration>
                             <rules>
                                 <requireProperty>
-                                    <property>jaxb-api.version</property>
-                                    <message>Property jaxb-api.version not imported or set!</message>
+                                    <property>xml.bind-api.version</property>
+                                    <message>Property xml.bind-api.version not imported or set!</message>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>saaj-api.version</property>

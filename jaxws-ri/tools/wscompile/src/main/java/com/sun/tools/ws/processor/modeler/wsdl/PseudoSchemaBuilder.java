@@ -44,10 +44,10 @@ public class PseudoSchemaBuilder {
     private final List<InputSource> schemas = new ArrayList<InputSource>();
     private final HashMap<QName, Port> bindingNameToPortMap = new HashMap<QName, Port>();
     private static final String w3ceprSchemaBinding = "<bindings\n" +
-            "  xmlns=\"http://java.sun.com/xml/ns/jaxb\"\n" +
+            "  xmlns=\"https://jakarta.ee/xml/ns/jaxb\"\n" +
             "  xmlns:wsa=\"http://www.w3.org/2005/08/addressing\"\n" +
             "  xmlns:xjc=\"http://java.sun.com/xml/ns/jaxb/xjc\"\n" +
-            "  version=\"2.1\">\n" +
+            "  version=\"3.0\">\n" +
             "  \n" +
             "  <bindings scd=\"x-schema::wsa\" if-exists=\"true\">\n" +
    //comment the following, otw JAXB won't generate ObjectFactory, classes from wsa schema. See JAX-WS-804
@@ -62,9 +62,9 @@ public class PseudoSchemaBuilder {
             "</bindings>";
 
     private static final String memberSubmissionEPR = "<bindings\n" +
-            "  xmlns=\"http://java.sun.com/xml/ns/jaxb\"\n" +
+            "  xmlns=\"https://jakarta.ee/xml/ns/jaxb\"\n" +
             "  xmlns:wsa=\"http://schemas.xmlsoap.org/ws/2004/08/addressing\"\n" +
-            "  version=\"2.1\">\n" +
+            "  version=\"3.0\">\n" +
             "  \n" +
             "  <bindings scd=\"x-schema::wsa\" if-exists=\"true\">\n" +
 //comment the following, otw JAXB won't generate ObjectFactory, classes from wsa schema. See JAX-WS-804
@@ -229,10 +229,10 @@ public class PseudoSchemaBuilder {
 
         print(
                 "<xs:schema xmlns:xs=''http://www.w3.org/2001/XMLSchema''" +
-                "           xmlns:jaxb=''http://java.sun.com/xml/ns/jaxb''" +
+                "           xmlns:jaxb=''https://jakarta.ee/xml/ns/jaxb''" +
                 "           xmlns:xjc=''http://java.sun.com/xml/ns/jaxb/xjc''" +
                 "           jaxb:extensionBindingPrefixes=''xjc''" +
-                "           jaxb:version=''1.0''" +
+                "           jaxb:version=''3.0''" +
                 "           targetNamespace=''{0}''>",
                 elementName.getNamespaceURI());
 

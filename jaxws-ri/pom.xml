@@ -144,14 +144,14 @@
                             </configuration>
                         </execution>
                         <execution>
-                            <id>jaxb-api.version</id>
+                            <id>xml.bind-api.version</id>
                             <phase>validate</phase>
                             <goals>
                                 <goal>parse-version</goal>
                             </goals>
                             <configuration>
                                 <propertyPrefix>jaxb-api</propertyPrefix>
-                                <versionString>${jaxb-api.version}</versionString>
+                                <versionString>${xml.bind-api.version}</versionString>
                             </configuration>
                         </execution>
                         <execution>
