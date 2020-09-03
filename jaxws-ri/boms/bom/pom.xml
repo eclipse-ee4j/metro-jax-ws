@@ -43,7 +43,7 @@
         <mimepull.version>1.9.13</mimepull.version>
         <resolver.version>20050927</resolver.version>
         <saaj-api.version>2.0.0</saaj-api.version>
-        <saaj-impl.version>2.0.0-M1</saaj-impl.version>
+        <saaj-impl.version>2.0.0</saaj-impl.version>
         <streambuffer.version>2.0.0</streambuffer.version>
         <woodstox-core.version>6.2.1</woodstox-core.version>
         <stax2-api.version>4.2.1</stax2-api.version>
