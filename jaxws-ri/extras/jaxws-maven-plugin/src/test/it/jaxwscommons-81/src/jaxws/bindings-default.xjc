@@ -19,9 +19,10 @@
 
 -->
 
-<jaxws:bindings wsdlLocation="https://raw.githubusercontent.com/eclipse-ee4j/metro-jax-ws/master/jaxws-ri/tests/unit/testcases/fromwsdl/additional_header/doclit/server/sample.wsdl" version="2.0" jaxb:version="2.0"
+<jaxws:bindings wsdlLocation="https://raw.githubusercontent.com/eclipse-ee4j/metro-jax-ws/master/jaxws-ri/tests/unit/testcases/fromwsdl/additional_header/doclit/server/sample.wsdl"
+                version="2.0" jaxb:version="3.0"
     xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
     <jaxws:bindings node="wsdl:definitions/wsdl:portType[@name='HelloPortType']">
         <jaxws:class name="GreetersPortT"/>
     </jaxws:bindings>
