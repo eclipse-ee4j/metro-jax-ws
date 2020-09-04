@@ -19,7 +19,7 @@
 
 -->
 
-<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.1" xmlns:tns="http://jax_ws_commons.jvnet.org/wsimport/test">
+<bindings xmlns="https://jakarta.ee/xml/ns/jaxb" version="3.0" xmlns:tns="http://jax_ws_commons.jvnet.org/wsimport/test">
   <bindings scd="/type::tns:add">
     <class name="SumType"/>
   </bindings>

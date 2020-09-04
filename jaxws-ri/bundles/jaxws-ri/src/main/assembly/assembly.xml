@@ -66,6 +66,7 @@
                 <include>jakarta.jws:jakarta.jws-api</include>
                 <include>jakarta.xml.bind:jakarta.xml.bind-api</include>
                 <include>jakarta.xml.ws:jakarta.xml.ws-api</include>
+                <include>com.sun.activation:jakarta.activation</include>
                 <include>${project.groupId}:jaxws-rt</include>
                 <include>${project.groupId}:jaxws-tools</include>
             </includes>
