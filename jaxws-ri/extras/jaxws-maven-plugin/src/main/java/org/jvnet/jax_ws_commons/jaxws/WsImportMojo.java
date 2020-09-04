@@ -422,7 +422,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
 
         if(xauthFile != null){
             args.add("-Xauthfile");
-            args.add(xauthFile.getAbsolutePath());
+            args.add("'" + xauthFile.getAbsolutePath() + "'");
         }
 
         if (xdisableSSLHostnameVerification) {
