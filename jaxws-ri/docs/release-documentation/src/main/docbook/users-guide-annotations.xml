@@ -854,7 +854,7 @@ public class AddNumbersImpl {
                     <title><literal>@jakarta.jws.HandlerChain</literal> -
                     Example - handlers.xml</title>
 
-                    <programlisting language="xml"><![CDATA[<jws:handler-config xmlns:jws="http://java.sun.com/xml/ns/javaee">
+                    <programlisting language="xml"><![CDATA[<jws:handler-config xmlns:jws="https://jakarta.ee/xml/ns/jakartaee">
     <jws:handler-chains>
         <jws:handler-chain>
             <jws:handler>

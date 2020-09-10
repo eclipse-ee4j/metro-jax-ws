@@ -137,6 +137,13 @@ public class WSDLParser {
             }
 
             NodeList nl = binding.getElementsByTagNameNS(
+                "https://jakarta.ee/xml/ns/jakartaee", "handler-chains");
+            for(int i = 0; i < nl.getLength(); i++){
+                options.addHandlerChainConfiguration((Element) nl.item(i));
+            }
+
+            // fallback to pre-jakarta version
+            nl = binding.getElementsByTagNameNS(
                 "http://java.sun.com/xml/ns/javaee", "handler-chains");
             for(int i = 0; i < nl.getLength(); i++){
                 options.addHandlerChainConfiguration((Element) nl.item(i));

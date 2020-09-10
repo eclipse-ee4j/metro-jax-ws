@@ -67,7 +67,7 @@
         <title>Declaring Customizations</title>
 
         <para>All the binding declaration elements live in
-        <literal>http://java.sun.com/xml/ns/jaxws</literal> namespace. There
+        <literal>https://jakarta.ee/xml/ns/jaxws</literal> namespace. There
         are two ways to specify binding declarations. In the first approach,
         all binding declarations pertaining to a given WSDL document are
         grouped together in a standalone document, called an
@@ -76,7 +76,7 @@
         document. In either case, the <literal>jaxws:bindings</literal>
         element is used as a container for &ws.spec.name; binding declarations. The
         <literal>jaxws</literal> prefix maps to the
-        <literal>http://java.sun.com/xml/ns/jaxws</literal> namespace.</para>
+        <literal>https://jakarta.ee/xml/ns/jaxws</literal> namespace.</para>
 
         <section xml:id="external-binding-declaration">
             <title>External Binding Declaration</title>
@@ -111,7 +111,7 @@
                 <informalexample>
                     <programlisting language="xml"><![CDATA[<jaxws:bindings
         wsdlLocation="http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"
-        jaxws:xmlns="http://java.sun.com/xml/ns/jaxws">
+        jaxws:xmlns="https://jakarta.ee/xml/ns/jaxws">
     
     ...
 
@@ -134,7 +134,7 @@
                 <informalexample>
                     <programlisting language="xml"><![CDATA[<jaxws:bindings
         wsdlLocation="http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"
-        jaxws:xmlns="http://java.sun.com/xml/ns/jaxws">
+        jaxws:xmlns="https://jakarta.ee/xml/ns/jaxws">
     <jaxws:bindings node="wsdl:definitions"
             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
         <jaxws:package name="external_customize.client"/>
@@ -193,7 +193,7 @@
             <informalexample>
                 <programlisting language="xml"><![CDATA[<wsdl:portType name="AddNumbersImpl">
     <!-- wsdl:portType customizations -->
-    <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+    <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
         <!-- rename the generated SEI from AddNumbersImpl to MathUtil -->
         <jaxws:class name="MathUtil"/>
         ...
@@ -248,7 +248,7 @@
             <informalexample>
                 <programlisting language="xml"><![CDATA[<bindings xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
         wsdlLocation="http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"
-        xmlns="http://java.sun.com/xml/ns/jaxws">
+        xmlns="https://jakarta.ee/xml/ns/jaxws">
     
     <package name="external_customize.client"/>
     <enableWrapperStyle>true</enableWrapperStyle>
@@ -287,7 +287,7 @@
             <informalexample>
                 <programlisting language="xml"><![CDATA[<bindings xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
         wsdlLocation="http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"
-        xmlns="http://java.sun.com/xml/ns/jaxws">
+        xmlns="https://jakarta.ee/xml/ns/jaxws">
     <package name="external_customize.client">
         <javadoc>Mathutil package</javadoc>
     </package>
@@ -302,7 +302,7 @@
             <informalexample>
                 <programlisting language="xml"><![CDATA[<bindings xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
         wsdlLocation="http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"
-        xmlns="http://java.sun.com/xml/ns/jaxws">
+        xmlns="https://jakarta.ee/xml/ns/jaxws">
     <bindings node="wsdl:definitions">
         <package name="external_customize.client">
             <javadoc>Mathutil package</javadoc>
@@ -357,7 +357,7 @@
             <informalexample>
                 <programlisting language="xml"><![CDATA[<bindings xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
         wsdlLocation="http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"
-        xmlns="http://java.sun.com/xml/ns/jaxws">
+        xmlns="https://jakarta.ee/xml/ns/jaxws">
     
     <!-- applies to wsdl:definitions node, that would mean the entire wsdl -->
     <enableWrapperStyle>true</enableWrapperStyle>
@@ -427,7 +427,7 @@
             <informalexample>
                 <programlisting language="xml"><![CDATA[<bindings xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
         wsdlLocation="http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"
-        xmlns="http://java.sun.com/xml/ns/jaxws">
+        xmlns="https://jakarta.ee/xml/ns/jaxws">
     
     <!-- applies to wsdl:definitions node, that would mean the entire wsdl -->
     <enableAsyncMapping>false</enableAsyncMapping>
@@ -741,8 +741,8 @@ public Future<?> addNumbers(int number1, int number2,
         xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
         xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
         wsdlLocation="http://localhost:8080/jaxws-fromwsdlhandler/addnumbers?WSDL"
-        xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
-        xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+        xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws"
+        xmlns:javaee="https://jakarta.ee/xml/ns/jakartaee">
     <jaxws:bindings node="wsdl:definitions">
         <javaee:handler-chain>
             <javaee:handler-chain-name>LoggingHandlers

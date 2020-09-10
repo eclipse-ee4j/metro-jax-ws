@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -92,7 +92,7 @@ public class Options {
     public boolean disableXmlSecurity;
 
     public enum Target {
-        V2_0, V2_1, V2_2;
+        V2_0, V2_1, V2_2, V3_0;
 
         /**
          * Returns true if this version is equal or later than the given one.
@@ -113,6 +113,8 @@ public class Options {
                 return Target.V2_1;
             else if (token.equals("2.2"))
                 return Target.V2_2;
+            else if (token.equals("3.0"))
+                return Target.V3_0;
             return null;
         }
 
@@ -127,35 +129,26 @@ public class Options {
                 return "2.1";
             case V2_2:
                 return "2.2";
+            case V3_0:
+                return "3.0";
             default:
                 return null;
             }
         }
 
         public static Target getDefault() {
-            return V2_2;
+            return V3_0;
         }
 
         public static Target getLoadedAPIVersion() {
             return LOADED_API_VERSION;
         }
 
-        private static final Target LOADED_API_VERSION;
+        private static final Target LOADED_API_VERSION = Target.V3_0;
 
-        static {
-            // check if we are indeed loading JAX-WS 2.2 API
-            if (Invoker.checkIfLoading22API()) {
-                LOADED_API_VERSION = Target.V2_2;
-            } // check if we are indeed loading JAX-WS 2.1 API
-            else if (Invoker.checkIfLoading21API()) {
-                LOADED_API_VERSION = Target.V2_1;
-            } else {
-                LOADED_API_VERSION = Target.V2_0;
-            }
-        }
     }
 
-    public Target target = Target.V2_2;
+    public Target target = Target.V3_0;
 
     /**
      * Type of input schema language. One of the {@code SCHEMA_XXX}

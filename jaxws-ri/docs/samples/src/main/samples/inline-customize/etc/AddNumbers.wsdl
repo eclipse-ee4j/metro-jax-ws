@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,7 @@
     targetNamespace="http://duke.example.org">
 
   <!-- customizations with global scope below it shows the default customizations -->
-  <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+  <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
       <jaxws:enableWrapperStyle>true</jaxws:enableWrapperStyle>
       <jaxws:enableAsyncMapping>false</jaxws:enableAsyncMapping>
   </jaxws:bindings>
@@ -58,7 +58,7 @@
 
   <portType name="AddNumbersImpl">
     <!-- wsdl:portType customizations -->
-    <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+    <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
         <!-- rename the generated SEI from AddNumbersImpl to MathUtil -->
         <jaxws:class name="MathUtil"/>
 
@@ -69,7 +69,7 @@
 
     <operation name="addNumbers">
       <!-- wsdl:portType operation customizations -->
-      <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
           <!-- change java method name from addNumbers() to add() -->
           <jaxws:method name="add"/>
           <!-- rename method parameters-->
@@ -86,7 +86,7 @@
 
       <fault name="AddNumbersException" message="tns:AddNumbersException">
         <!-- wsdl:fault customization -->
-        <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+        <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
             <!-- change the generated exception class name -->
             <jaxws:class name="MathUtilException"/>
         </jaxws:bindings>
@@ -110,14 +110,14 @@
 
   <service name="AddNumbersService">
     <!-- wsdl:service customization -->
-    <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+    <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
         <!-- change the generated service class -->
         <jaxws:class name="MathUtilService"/>        
     </jaxws:bindings>
 
     <port name="AddNumbersPort" binding="tns:AddNumbersImplBinding">
       <!-- change the port accessor method -->
-      <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+      <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
           <jaxws:method name="getMathUtil"/>
       </jaxws:bindings>
       <soap:address location="http://localhost:8080/jaxws-inline-customize/addnumbers"/>

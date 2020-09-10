@@ -99,7 +99,7 @@ public class DeploymentDescriptorParser<A> {
     public static final String ATTR_BINDING = "binding";
     public static final String ATTR_DATABINDING = "databinding";
 
-    public static final List<String> ATTRVALUE_SUPPORTED_VERSIONS = Arrays.asList("2.0", "2.1");
+    public static final List<String> ATTRVALUE_SUPPORTED_VERSIONS = Arrays.asList("3.0", "2.0", "2.1");
 
     private static final Logger logger = Logger.getLogger(com.sun.xml.ws.util.Constants.LoggingDomain + ".server.http");
 

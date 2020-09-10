@@ -176,7 +176,7 @@ public abstract class GeneratorBase implements ModelVisitor {
         }
         JAnnotationUse handlerChainAnn = cls.annotate(cm.ref(HandlerChain.class));
         NodeList nl = e.getElementsByTagNameNS(
-            "http://java.sun.com/xml/ns/javaee", "handler-chain");
+            "https://jakarta.ee/xml/ns/jakartaee", "handler-chain");
         if(nl.getLength() > 0){
             String fName = getHandlerConfigFileName(className);
             handlerChainAnn.param("file", fName);
