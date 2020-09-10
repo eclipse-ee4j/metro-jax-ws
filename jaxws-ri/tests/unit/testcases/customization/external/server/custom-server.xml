@@ -12,7 +12,7 @@
 -->
 
 <jaxws:bindings wsdlLocation="custom.wsdl"
-                xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+                xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws"
                 xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
                 xmlns:types="urn:test:types">
     <jaxws:bindings node="wsdl:definitions">

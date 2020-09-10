@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@
 
 <bindings
     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns="http://java.sun.com/xml/ns/jaxws">
+    xmlns="https://jakarta.ee/xml/ns/jaxws">
 
 
   <bindings node="wsdl:definitions/wsdl:portType[@name='TestService']">
@@ -21,7 +21,7 @@
   </bindings>
 
   <bindings>
-    <handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+    <handler-chains xmlns="https://jakarta.ee/xml/ns/jakartaee">
       <handler-chain>
         <!-- handler should be on both ports -->
         <port-name-pattern xmlns:ns2="urn:test">ns2:*Service*</port-name-pattern>

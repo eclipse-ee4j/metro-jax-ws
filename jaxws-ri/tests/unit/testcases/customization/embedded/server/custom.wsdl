@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,7 +21,7 @@
         xmlns:types="urn:test:types"
         xmlns:tns="urn:test">
 
-    <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+    <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
         <jaxws:enableWrapperStyle>false</jaxws:enableWrapperStyle>
         <jaxws:enableAsyncMapping>true</jaxws:enableAsyncMapping>
     </jaxws:bindings>
@@ -121,7 +121,7 @@
 
     <portType name="Hello">
 
-        <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+        <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
             <!-- rename the generated SEI from Hello.java to HelloWorld.java -->
             <jaxws:class name="HelloWorld"/>
             <!-- disable async operation -->
@@ -129,7 +129,7 @@
         </jaxws:bindings>
 
         <operation name="void">
-            <jaxws:bindings wsdlLocation="hello_literal.wsdl" xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+            <jaxws:bindings wsdlLocation="hello_literal.wsdl" xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
                 <!-- rename the generated java method name-->
                 <jaxws:method name="voidTest"/>
                 <jaxws:enableWrapperStyle>true</jaxws:enableWrapperStyle>
@@ -139,7 +139,7 @@
         </operation>
 
         <operation name="Hello">
-            <jaxws:bindings wsdlLocation="hello_literal.wsdl" xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+            <jaxws:bindings wsdlLocation="hello_literal.wsdl" xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
                 <!-- rename the generated java method name-->
                 <jaxws:method name="helloWorld"/>
                 <jaxws:enableWrapperStyle>true</jaxws:enableWrapperStyle>
@@ -155,7 +155,7 @@
         </operation>
 
         <operation name="Foo">
-            <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+            <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
                 <!-- rename the generated java method name-->
                 <jaxws:method name="echoFoo"/>
                 <jaxws:enableAsyncMapping>false</jaxws:enableAsyncMapping>
@@ -166,7 +166,7 @@
             <input message="tns:FooRequest"/>
             <output message="tns:FooResponse"/>
             <fault name="FooFault" message="tns:FooFaultMessage">
-                <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+                <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
                     <jaxws:class name="FooException"/>
                 </jaxws:bindings>
             </fault>
@@ -197,7 +197,7 @@
             <output>
                 <soap:body use="literal"/>
             </output>
-            <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+            <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
                 <jaxws:parameter part="wsdl:definitions/wsdl:message[@name='headerMessage']/wsdl:part[@name='info']"
                                  element="types:info" name="infoHeader"/>
                 <!--jaxws:exception>
@@ -225,12 +225,12 @@
     </binding>
 
     <service name="Hello">
-        <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+        <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
             <jaxws:class name="CustomService"/>
         </jaxws:bindings>
 
         <port name="HelloPort" binding="tns:HelloBinding">
-            <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+            <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
                 <jaxws:method name="getCustomizedPort"/>
             </jaxws:bindings>
             <soap:address location="http://test.org/hello"/>
@@ -238,7 +238,7 @@
 
         <!--
             <port name="HelloPort2" binding="tns:HelloBinding">
-            <jaxws:bindings xmlns:jaxws="http://java.sun.com/xml/ns/jaxws">
+            <jaxws:bindings xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws">
                 <jaxws:method name="getCustomizedPort2"/>
                 <jaxws:provider>false</jaxws:provider>
             </jaxws:bindings>

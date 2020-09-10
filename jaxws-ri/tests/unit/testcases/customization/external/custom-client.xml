@@ -12,7 +12,7 @@
 -->
 
 <jaxws:bindings
-        xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+        xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws"
         xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
         xmlns:types1="urn:test:types"
         xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
