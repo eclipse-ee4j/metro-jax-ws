@@ -410,7 +410,7 @@ public class HandlerChainsModel {
     public static final String PROTOCOL_XML_TOKEN = "##XML_HTTP";
 
     public static final String NS_109 =
-            "http://java.sun.com/xml/ns/javaee";
+            "https://jakarta.ee/xml/ns/jakartaee";
     public static final QName QNAME_CHAIN_PORT_PATTERN =
             new QName(NS_109, "port-name-pattern");
     public static final QName QNAME_CHAIN_PROTOCOL_BINDING =

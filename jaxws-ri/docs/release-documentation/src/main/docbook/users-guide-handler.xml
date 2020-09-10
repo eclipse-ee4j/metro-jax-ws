@@ -146,8 +146,8 @@ public class MyLogicalHandler implements
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<-- excerpt from customization file -->
-<bindings xmlns="http://java.sun.com/xml/ns/jaxws">
-    <handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+<bindings xmlns="https://jakarta.ee/xml/ns/jaxws">
+    <handler-chains xmlns="https://jakarta.ee/xml/ns/jakartaee">
         <handler-chain>
             <handler>
                 <handler-class>fromwsdl.handler_simple.common.TestHandler
@@ -167,7 +167,7 @@ public class MyLogicalHandler implements
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<-- excerpt -->
-<handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+<handler-chains xmlns="https://jakarta.ee/xml/ns/jakartaee">
     <handler-chain>
         <service-name-pattern xmlns:ns1="urn:namespace">ns1:My*Service
         </service-name-pattern>
@@ -215,7 +215,7 @@ public class MyServiceImpl {
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<jws:handler-chains xmlns:jws="http://java.sun.com/xml/ns/javaee">
+<jws:handler-chains xmlns:jws="https://jakarta.ee/xml/ns/jakartaee">
     <jws:handler-chain>
         <jws:handler>
             <jws:handler-class>fromjava.handler_simple.common.TestHandler
@@ -240,7 +240,7 @@ public class MyServiceImpl {
             <informalexample>
                 <programlisting language="xml"><![CDATA[<endpoints ...>
     <endpoint...>
-        <handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+        <handler-chains xmlns="https://jakarta.ee/xml/ns/jakartaee">
             <handler-chain>
                 ...
             </handler-chain>

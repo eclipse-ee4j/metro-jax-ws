@@ -20,7 +20,7 @@ import javax.xml.namespace.QName;
  */
 public interface JAXWSBindingsConstants {
 
-    static final String NS_JAXWS_BINDINGS = "http://java.sun.com/xml/ns/jaxws";
+    static final String NS_JAXWS_BINDINGS = "https://jakarta.ee/xml/ns/jaxws";
     static final String NS_JAXB_BINDINGS = "https://jakarta.ee/xml/ns/jaxb";
     static final String NS_XJC_BINDINGS = "http://java.sun.com/xml/ns/jaxb/xjc";
 
