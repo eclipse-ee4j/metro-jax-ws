@@ -221,4 +221,13 @@ public interface JAXWSProperties {
      */
     public static final String REST_BINDING = "http://jax-ws.dev.java.net/rest";
     
+	/**
+	 * Set this property to enable {@link HttpURLConnection#setAuthenticator(Authenticator)}, 
+	 * available in JDK9+.
+	 *
+	 * @since 2.3.4
+	 */
+    public static final String REQUEST_AUTHENTICATOR = "com.sun.xml.ws.request.authenticator";
+
+    
 }

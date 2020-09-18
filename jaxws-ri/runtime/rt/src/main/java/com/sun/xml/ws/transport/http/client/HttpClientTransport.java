@@ -18,6 +18,7 @@ import com.sun.xml.ws.client.ClientTransportException;
 import com.sun.xml.ws.resources.ClientMessages;
 import com.sun.xml.ws.transport.Headers;
 import com.sun.xml.ws.developer.JAXWSProperties;
+import com.sun.xml.ws.util.AuthUtil;
 import com.sun.istack.Nullable;
 import com.sun.istack.NotNull;
 
@@ -39,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.GZIPOutputStream;
 import java.util.zip.GZIPInputStream;
+import java.net.Authenticator;
 
 /**
  *
@@ -267,6 +269,11 @@ public class HttpClientTransport {
         Integer chunkSize = (Integer)context.invocationProperties.get(JAXWSProperties.HTTP_CLIENT_STREAMING_CHUNK_SIZE);
         if (chunkSize != null) {
             httpConnection.setChunkedStreamingMode(chunkSize);
+        }
+
+        Authenticator auth = (Authenticator)context.invocationProperties.get(JAXWSProperties.REQUEST_AUTHENTICATOR);
+        if ( auth != null ) {
+            AuthUtil.setAuthenticator(auth, httpConnection);
         }
 
         // set the properties on HttpURLConnection
