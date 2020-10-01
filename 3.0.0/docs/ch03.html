@@ -22,7 +22,7 @@ layout: content
         <code class="literal">metadata</code></a></span></dt></dl></dd><dt><span class="section"><a href="ch03.html#users-guide-modular-databinding">17. Modular Databinding</a></span></dt><dd><dl><dt><span class="section"><a href="ch03.html#md-introduction">17.1. Introduction</a></span></dt><dt><span class="section"><a href="ch03.html#md-jvm">17.2. Configure databinding for JVM</a></span></dt><dt><span class="section"><a href="ch03.html#md-endpoint">17.3. Configure databinding for an endpoint</a></span></dt></dl></dd><dt><span class="section"><a href="ch03.html#users-guide-external-metadata">18. External Web Service Metadata</a></span></dt><dd><dl><dt><span class="section"><a href="ch03.html#external-metadata-xml-per-file">18.1. Configuration files</a></span></dt><dt><span class="section"><a href="ch03.html#external-metadata-xsd">18.2. XSD Schema</a></span></dt><dt><span class="section"><a href="ch03.html#external-metadata-passing-configurations">18.3. Passing Configuration Files to Eclipse Implementation of XML Web Services</a></span></dt></dl></dd></dl></div><div lang="en" class="section" title="1.&nbsp;Overview"><div class="titlepage"><div><div><h2 class="title" style="clear: both" id="users-guide-overview">1.&nbsp;Overview</h2></div></div></div><div class="section" title="1.1.&nbsp;Introduction"><div class="titlepage"><div><div><h3 class="title" id="introduction">1.1.&nbsp;Introduction</h3></div></div></div><p>This document describes the new features available in this
         release of the Eclipse Implementation of XML Web Services. The main focus of this
         document is to describe the tools used to develop
-        Eclipse Implementation of XML Web Services 3.0.0-M3 web service endpoints and clients. Readers of
+        Eclipse Implementation of XML Web Services 3.0.0-M5 web service endpoints and clients. Readers of
         this document should be familiar with web services <a class="link" href="http://www.w3.org/TR/2000/REC-xml-20001006" target="_top">XML</a>,
         <a class="link" href="http://www.w3.org/TR/2001/REC-xmlschema-1-20010502/" target="_top">XML
         Schema</a> and <a class="link" href="http://www.w3.org/TR/2001/NOTE-wsdl-20010315" target="_top">WSDL</a>.
@@ -98,7 +98,7 @@ layout: content
             directly send XML over HTTP using <a class="xref" href="ch03.html#users-guide-provider" title="2.&nbsp;Provider">Provider</a> and
             <a class="xref" href="ch03.html#users-guide-dispatch" title="4.&nbsp;Dispatch">Dispatch</a>
             implementations. This enables support for REST style Web Services
-            in Jakarta XML Web Services. For details refer to restful sample.</p></div><div class="section" title="1.2.6.&nbsp;Jakarta XML Binding 2.3"><div class="titlepage"><div><div><h4 class="title" id="jaxb-2-0">1.2.6.&nbsp;Jakarta XML Binding 2.3</h4></div></div></div><p>Eclipse Implementation of XML Web Services 3.0.0-M3 uses Jakarta XML Binding 2.3 for data-binding between
+            in Jakarta XML Web Services. For details refer to restful sample.</p></div><div class="section" title="1.2.6.&nbsp;Jakarta XML Binding 2.3"><div class="titlepage"><div><div><h4 class="title" id="jaxb-2-0">1.2.6.&nbsp;Jakarta XML Binding 2.3</h4></div></div></div><p>Eclipse Implementation of XML Web Services 3.0.0-M5 uses Jakarta XML Binding 2.3 for data-binding between
             Java and XML which enables features such as separate compilation,
             type substitution and other improvements.</p><div class="section" title="1.2.6.1.&nbsp;Type Substitution using @XmlSeeAlso"><div class="titlepage"><div><div><h5 class="title" id="type-substitution">1.2.6.1.&nbsp;Type Substitution using
                 <code class="literal">@XmlSeeAlso</code></h5></div></div></div><p>Jakarta XML Binding 2.1 defines <code class="literal">@XmlSeeAlso</code>
@@ -115,7 +115,7 @@ layout: content
                 web service SEI parameters, which enables better control of
                 XML representation. For this support, Jakarta XML Web Services relies on Jakarta XML Binding
                 2.2 API which allows the <code class="literal">@XmlElement</code>
-                annotation on parameters.</p></div></div><div class="section" title="1.2.7.&nbsp;WS-Addressing"><div class="titlepage"><div><div><h4 class="title" id="ws-addressing">1.2.7.&nbsp;WS-Addressing</h4></div></div></div><p>Eclipse Implementation of XML Web Services 3.0.0-M3 supports for W3C <a class="link" href="http://www.w3.org/TR/ws-addr-core" target="_top">Core</a>, <a class="link" href="http://www.w3.org/TR/ws-addr-soap" target="_top">SOAP Binding</a>
+                annotation on parameters.</p></div></div><div class="section" title="1.2.7.&nbsp;WS-Addressing"><div class="titlepage"><div><div><h4 class="title" id="ws-addressing">1.2.7.&nbsp;WS-Addressing</h4></div></div></div><p>Eclipse Implementation of XML Web Services 3.0.0-M5 supports for W3C <a class="link" href="http://www.w3.org/TR/ws-addr-core" target="_top">Core</a>, <a class="link" href="http://www.w3.org/TR/ws-addr-soap" target="_top">SOAP Binding</a>
             and <a class="link" href="http://www.w3.org/TR/2007/REC-ws-addr-metadata-20070904" target="_top">Addressing
             1.0 - Metadata</a> specifications and defines standard API and
             annotations to enable/disable W3C WS-Addressing on the client and
@@ -129,7 +129,7 @@ layout: content
             samples <span class="bold"><strong>fromjava-wsaddressing</strong></span>,
             <span class="bold"><strong>fromwsdl-wsaddressing-policy</strong></span> and
             <span class="bold"><strong>fromwsdl-wsaddressing</strong></span> with the
-            Eclipse Implementation of XML Web Services 3.0.0-M3 for details on the WS-Addressing programming
+            Eclipse Implementation of XML Web Services 3.0.0-M5 for details on the WS-Addressing programming
             model.</p></div><div class="section" title="1.2.8.&nbsp;Annotations"><div class="titlepage"><div><div><h4 class="title" id="annotations">1.2.8.&nbsp;Annotations</h4></div></div></div><p>Jakarta XML Web Services $ws.spec.version; relies heavily on the
             use of annotations as provided by <span class="emphasis"><em>A Metadata Facility
             for the Java Programming Language</em></span> <a class="link" href="http://jcp.org/en/jsr/detail?id=175" target="_top">(JSR 175)</a>
@@ -150,7 +150,7 @@ layout: content
             More documentation about <span class="command"><strong>javac</strong></span> can be found in section <a class="xref" href="ch04.html#tools-annotation-processing" title="6.&nbsp;Annotation Processing"><span class="command"><strong>Annotation Processing</strong></span></a>
             Deprecated <span class="command"><strong>apt</strong></span> will be covered in more detail in section
             <a class="xref" href="ch04.html#tools-apt" title="8.&nbsp;apt"><span class="command"><strong>apt</strong></span></a>.</p><p>For more information on the annotations used by Jakarta XML Web Services 2.0
-            please refer to <a class="xref" href="ch03.html#users-guide-annotations" title="10.&nbsp;Annotations">Annotations</a>.</p></div><div class="section" title="1.2.9.&nbsp;Customizations"><div class="titlepage"><div><div><h4 class="title" id="customizations">1.2.9.&nbsp;Customizations</h4></div></div></div><p>Eclipse Implementation of XML Web Services 3.0.0-M3 carries forward customization support
+            please refer to <a class="xref" href="ch03.html#users-guide-annotations" title="10.&nbsp;Annotations">Annotations</a>.</p></div><div class="section" title="1.2.9.&nbsp;Customizations"><div class="titlepage"><div><div><h4 class="title" id="customizations">1.2.9.&nbsp;Customizations</h4></div></div></div><p>Eclipse Implementation of XML Web Services 3.0.0-M5 carries forward customization support
             introduced in Jakarta XML Web Services.</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>Define a package where Java artifacts mapped from a
                     WSDL file will be generated</p></li><li class="listitem"><p>Package customization for value classes mapped from
                     the imported XML schemas by the WSDL document</p></li><li class="listitem"><p>Handler chain customization</p></li></ul></div><p>Jakarta XML Web Services specification defines standard XML based
@@ -193,10 +193,10 @@ layout: content
             per-port, per-protocol, or per-service basis. A new framework of
             context objects has been added to allow client code to share
             information easily with handlers.</p><p>For more information on the handler framework in
-            Eclipse Implementation of XML Web Services 3.0.0-M3 please refer to <a class="xref" href="ch03.html#users-guide-handler" title="6.&nbsp;Handler">Handler</a>.</p></div><div class="section" title="1.2.11.&nbsp;Provider"><div class="titlepage"><div><div><h4 class="title" id="provider">1.2.11.&nbsp;Provider</h4></div></div></div><p>Web service endpoints may choose to work at the XML message
+            Eclipse Implementation of XML Web Services 3.0.0-M5 please refer to <a class="xref" href="ch03.html#users-guide-handler" title="6.&nbsp;Handler">Handler</a>.</p></div><div class="section" title="1.2.11.&nbsp;Provider"><div class="titlepage"><div><div><h4 class="title" id="provider">1.2.11.&nbsp;Provider</h4></div></div></div><p>Web service endpoints may choose to work at the XML message
             level by implementing the <code class="literal">Provider</code> interface.
             Here the endpoints access messages or message payloads using this
-            low level, generic API.</p><p>For more information on providers in Eclipse Implementation of XML Web Services 3.0.0-M3
+            low level, generic API.</p><p>For more information on providers in Eclipse Implementation of XML Web Services 3.0.0-M5
             please refer to <a class="xref" href="ch03.html#users-guide-provider" title="2.&nbsp;Provider">Provider</a>.</p></div><div class="section" title="1.2.12.&nbsp;Dispatch"><div class="titlepage"><div><div><h4 class="title" id="dispatch">1.2.12.&nbsp;Dispatch</h4></div></div></div><p>The Dispatch API is intended for advanced XML developers who
             prefer to use XML constructs at the
             <code class="literal">java.lang.transform.Source</code> or
@@ -206,7 +206,7 @@ layout: content
             API can be used in both <code class="literal">Message</code> and
             <code class="literal">Payload</code> modes.</p><p>For more information on the <code class="literal">Dispatch</code>&nbsp;
             please refer to <a class="xref" href="ch03.html#users-guide-dispatch" title="4.&nbsp;Dispatch">Dispatch</a>.</p></div><div class="section" title="1.2.13.&nbsp;Asynchronous Client Operations"><div class="titlepage"><div><div><h4 class="title" id="asynchronous-client-operations">1.2.13.&nbsp;Asynchronous Client Operations</h4></div></div></div><p>For more information on asynchronous clients in
-            Eclipse Implementation of XML Web Services 3.0.0-M3 please refer to <a class="xref" href="ch03.html#users-guide-asynchronous-client" title="5.&nbsp;Asynchronous Client">Asynchronous Client</a>.</p></div></div><div class="section" title="1.3.&nbsp;Programming Model"><div class="titlepage"><div><div><h3 class="title" id="programming-model">1.3.&nbsp;Programming Model</h3></div></div></div><p>This section of the documentation will focus on the programming
+            Eclipse Implementation of XML Web Services 3.0.0-M5 please refer to <a class="xref" href="ch03.html#users-guide-asynchronous-client" title="5.&nbsp;Asynchronous Client">Asynchronous Client</a>.</p></div></div><div class="section" title="1.3.&nbsp;Programming Model"><div class="titlepage"><div><div><h3 class="title" id="programming-model">1.3.&nbsp;Programming Model</h3></div></div></div><p>This section of the documentation will focus on the programming
         model for both developing and publishing a web service endpoint, and
         writing a web service client. A web service endpoint is the
         implementation of a web service. A web service client is an
@@ -227,7 +227,7 @@ layout: content
             has total control over what XML schema is used, but has less
             control over what the generated service endpoint and the classes
             it uses will contain.</p><div class="section" title="1.3.1.1.&nbsp;Starting from Java"><div class="titlepage"><div><div><h5 class="title" id="starting-from-java">1.3.1.1.&nbsp;Starting from Java</h5></div></div></div><p>The basic process for deploying a web service from a
-                Java class consists of two steps.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Generate portable artifacts.</p></li><li class="listitem"><p>Create a WAR file to deploy</p></li></ol></div></div><div class="section" title="1.3.1.2.&nbsp;Generate Portable Artifacts"><div class="titlepage"><div><div><h5 class="title" id="generate-portable-artifacts">1.3.1.2.&nbsp;Generate Portable Artifacts</h5></div></div></div><p>Portable artifacts generated by Eclipse Implementation of XML Web Services 3.0.0-M3
+                Java class consists of two steps.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Generate portable artifacts.</p></li><li class="listitem"><p>Create a WAR file to deploy</p></li></ol></div></div><div class="section" title="1.3.1.2.&nbsp;Generate Portable Artifacts"><div class="titlepage"><div><div><h5 class="title" id="generate-portable-artifacts">1.3.1.2.&nbsp;Generate Portable Artifacts</h5></div></div></div><p>Portable artifacts generated by Eclipse Implementation of XML Web Services 3.0.0-M5
                 include zero or more JavaBean classes to aide in the
                 marshaling of method invocations and responses, as well as
                 service-specific exceptions.</p><p>In document/literal wrapped mode, two JavaBeans are
@@ -275,7 +275,7 @@ layout: content
     }
 }</pre></div><p>If you are familiar with JAX-RPC 1.1, you will notice
                 that this implementation class does not implement a service
-                endpoint interface. In Eclipse Implementation of XML Web Services 3.0.0-M3 a service
+                endpoint interface. In Eclipse Implementation of XML Web Services 3.0.0-M5 a service
                 endpoint interface is no longer required.</p><p>When starting from a Java endpoint implementation class,
                 it is recommended that the portable artifacts be generated
                 from source using <span class="command"><strong>annotationProcessing</strong></span>. This because the
@@ -488,7 +488,7 @@ AddNumbersPortType port = <span class="ReservedWord">new</span> AddNumbersServic
                 <code class="literal">XML/HTTP</code> binding can be used with REST Web
                 Services. Please see the restful sample program for more
                 information.</p><p>For more information on <code class="literal">Dispatch</code> in
-                Eclipse Implementation of XML Web Services 3.0.0-M3 please refer to <a class="xref" href="ch03.html#users-guide-dispatch" title="4.&nbsp;Dispatch">Dispatch</a>.</p></div></div></div><div class="section" title="1.4.&nbsp;Useful Information"><div class="titlepage"><div><div><h3 class="title" id="useful-information">1.4.&nbsp;Useful Information</h3></div></div></div><p><a class="link" href="http://jcp.org/aboutJava/communityprocess/final/jsr269/" target="_top">Pluggable Annotation Processing API </a> &#8211;
+                Eclipse Implementation of XML Web Services 3.0.0-M5 please refer to <a class="xref" href="ch03.html#users-guide-dispatch" title="4.&nbsp;Dispatch">Dispatch</a>.</p></div></div></div><div class="section" title="1.4.&nbsp;Useful Information"><div class="titlepage"><div><div><h3 class="title" id="useful-information">1.4.&nbsp;Useful Information</h3></div></div></div><p><a class="link" href="http://jcp.org/aboutJava/communityprocess/final/jsr269/" target="_top">Pluggable Annotation Processing API </a> &#8211;
             http://jcp.org/aboutJava/communityprocess/final/jsr269/</p><p><a class="link" href="http://docs.oracle.com/javase/6/docs/technotes/guides/apt/index.html" target="_top">Annotation
         Processing Tool (apt)</a> &#8211;
         http://docs.oracle.com/javase/6/docs/technotes/guides/apt/index.html.</p><p>Please use the <a class="link" href="https://projects.eclipse.org/projects/ee4j.metro" target="_top">METRO</a> forum for feedback.</p><p>The Eclipse Implementation of XML Web Services project on GitHub is: <a class="link" href="https://github.com/eclipse-ee4j/metro-jax-ws" target="_top">https://github.com/eclipse-ee4j/metro-jax-ws</a>.</p></div></div><div lang="en" class="section" title="2.&nbsp;Provider"><div class="titlepage"><div><div><h2 class="title" style="clear: both" id="users-guide-provider">2.&nbsp;Provider</h2></div></div></div><p>Web Service endpoints may choose to work at the XML message level by
@@ -548,7 +548,7 @@ AddNumbersPortType port = <span class="ReservedWord">new</span> AddNumbersServic
         port.</p><p>For example:</p><div class="informalexample"><pre class="programlisting"><span class="hl-directive" style="color: maroon">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;</span>
 <span class="ReservedWord">&lt;bindings</span>
         <span class="Identifier">...</span>
-        <span class="Identifier">wsdlLocaption</span>=<span class="String">"AddNumbers.wsdl"</span><span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
+        <span class="Identifier">wsdlLocaption</span>=<span class="String">"AddNumbers.wsdl"</span><span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;bindings</span> <span class="Identifier">node</span>=<span class="String">"wsdl:definitions"</span><span class="ReservedWord">&gt;</span>
         <span class="ReservedWord">&lt;package</span> <span class="Identifier">name</span>=<span class="String">"provider.server"</span><span class="ReservedWord">/&gt;</span>
         <span class="ReservedWord">&lt;provider&gt;</span>true<span class="ReservedWord">&lt;/provider&gt;</span>
@@ -624,7 +624,7 @@ AddNumbersPortType port = <span class="ReservedWord">new</span> AddNumbersServic
         <code class="literal">@HandlerChain</code> on the <code class="literal">Provider</code>
         implementation.</p><p>For example:</p><div class="informalexample"><pre class="programlisting"><span class="hl-directive" style="color: maroon">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
 <span class="ReservedWord">&lt;endpoints</span> <span class="Identifier">xmlns</span>=<span class="String">'http://java.sun.com/xml/ns/jax-ws/ri/runtime'</span>
-        <span class="Identifier">xmlns:javaee</span>=<span class="String">"http://java.sun.com/xml/ns/javaee"</span> <span class="Identifier">version</span>=<span class="String">'2.0'</span><span class="ReservedWord">&gt;</span>
+        <span class="Identifier">xmlns:javaee</span>=<span class="String">"https://jakarta.ee/xml/ns/jakartaee"</span> <span class="Identifier">version</span>=<span class="String">'2.0'</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;endpoint</span> <span class="Identifier">name</span>=<span class="String">'AddNumbers'</span>
             <span class="Identifier">implementation</span>=<span class="String">'provider.server.AddNumbersImpl'</span>
             <span class="Identifier">wsdl</span>=<span class="String">'WEB-INF/wsdl/AddNumbers.wsdl'</span>
@@ -717,7 +717,7 @@ Service service = Service.create(URL wsdlLocation, QName serviceQName);</pre></d
             specific for the binding information provided in the supplied WSDL
             file.</p><p>Developers who have used web service applications in the
             past are familiar with the port <code class="literal">QName</code> and
-            endpoint address parameters of this method. Eclipse Implementation of XML Web Services 3.0.0-M3
+            endpoint address parameters of this method. Eclipse Implementation of XML Web Services 3.0.0-M5
             supports three <code class="literal">Binding</code> URI's, that of the SOAP
             1.1, the SOAP 1.2 and XML/HTTP Binding. For more information on
             SOAP 1.2 support please refer to the SOAP 1.2 documents. For the
@@ -878,7 +878,7 @@ Future&lt;?&gt; response = dispatch.invokeAsync(T, AsyncHandler);</pre></div></d
         <span class="Identifier">xmlns:xsd</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
         <span class="Identifier">xmlns:wsdl</span>=<span class="String">"http://schemas.xmlsoap.org/wsdl/"</span>
         <span class="Identifier">wsdlLocaption</span>=<span class="String">"http://localhost:8080/jaxws-async/addnumbers?WSDL"</span>
-        <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
+        <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;bindings</span> <span class="Identifier">node</span>=<span class="String">"wsdl:definitions"</span><span class="ReservedWord">&gt;</span>
         <span class="ReservedWord">&lt;package</span> <span class="Identifier">name</span>=<span class="String">"async.client"</span><span class="ReservedWord">/&gt;</span>
         <span class="ReservedWord">&lt;enableAsyncMapping&gt;</span>true<span class="ReservedWord">&lt;/enableAsyncMapping&gt;</span>
@@ -1019,8 +1019,8 @@ System.out.println(<span class="String">"The sum is: "</span> + callbackHandler.
             customization file. The following is a simple handler chain with
             one handler (customization may be on server or client
             side):</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;--</span> <span class="Identifier">excerpt</span> <span class="Identifier">from</span> <span class="Identifier">customization</span> <span class="Identifier">file</span> <span class="Identifier">--&gt;</span>
-<span class="Identifier">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
-    <span class="ReservedWord">&lt;handler-chains</span> <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/javaee"</span><span class="ReservedWord">&gt;</span>
+<span class="Identifier">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;handler-chains</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jakartaee"</span><span class="ReservedWord">&gt;</span>
         <span class="ReservedWord">&lt;handler-chain&gt;</span>
             <span class="ReservedWord">&lt;handler&gt;</span>
                 <span class="ReservedWord">&lt;handler-class&gt;</span>fromwsdl.handler_simple.common.TestHandler
@@ -1034,7 +1034,7 @@ System.out.println(<span class="String">"The sum is: "</span> + callbackHandler.
             their description to apply some chains to certain ports and
             protocols and not to others. For instance (note the wildcard
             character used in the service name):</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;--</span> <span class="Identifier">excerpt</span> <span class="Identifier">--&gt;</span>
-<span class="Identifier">&lt;handler-chains</span> <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/javaee"</span><span class="ReservedWord">&gt;</span>
+<span class="Identifier">&lt;handler-chains</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jakartaee"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;handler-chain&gt;</span>
         <span class="ReservedWord">&lt;service-name-pattern</span> <span class="Identifier">xmlns:ns1</span>=<span class="String">"urn:namespace"</span><span class="ReservedWord">&gt;</span>ns1:My*Service
         <span class="ReservedWord">&lt;/service-name-pattern&gt;</span>
@@ -1067,7 +1067,7 @@ System.out.println(<span class="String">"The sum is: "</span> + callbackHandler.
 }</pre></div><p>An example <code class="literal">handlers.xml</code> file is shown
             below. The schema is the same that is used for the
             customization.</p><div class="informalexample"><pre class="programlisting"><span class="hl-directive" style="color: maroon">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="ReservedWord">&lt;jws:handler-chains</span> <span class="Identifier">xmlns:jws</span>=<span class="String">"http://java.sun.com/xml/ns/javaee"</span><span class="ReservedWord">&gt;</span>
+<span class="ReservedWord">&lt;jws:handler-chains</span> <span class="Identifier">xmlns:jws</span>=<span class="String">"https://jakarta.ee/xml/ns/jakartaee"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;jws:handler-chain&gt;</span>
         <span class="ReservedWord">&lt;jws:handler&gt;</span>
             <span class="ReservedWord">&lt;jws:handler-class&gt;</span>fromjava.handler_simple.common.TestHandler
@@ -1084,7 +1084,7 @@ System.out.println(<span class="String">"The sum is: "</span> + callbackHandler.
             customizations or annotated classes. The schema for the handler
             section is the same as in the previous examples:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;endpoints</span> <span class="Identifier">...&gt;</span>
     <span class="Identifier">&lt;endpoint...&gt;</span>
-        <span class="Identifier">&lt;handler-chains</span> <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/javaee"</span><span class="ReservedWord">&gt;</span>
+        <span class="Identifier">&lt;handler-chains</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jakartaee"</span><span class="ReservedWord">&gt;</span>
             <span class="ReservedWord">&lt;handler-chain&gt;</span>
                 ...
             <span class="ReservedWord">&lt;/handler-chain&gt;</span>
@@ -1529,10 +1529,10 @@ SOAPAction: ""
     to:</p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>Define a package where Java artifacts mapped from a WSDL
             file will be generated.</p></li><li class="listitem"><p>Customize the package for the value classes mapped from the
             imported XML schema by the WSDL document.</p></li><li class="listitem"><p>Customize handler chains.</p></li></ul></div><p>But these customizations were not portable and could not be used
-    across other JAX-RPC implementations. Eclipse Implementation of XML Web Services 3.0.0-M3 provides
+    across other JAX-RPC implementations. Eclipse Implementation of XML Web Services 3.0.0-M5 provides
     complete support for all the binding declarations defined by the
     specification.</p><div class="section" title="9.1.&nbsp;Declaring Customizations"><div class="titlepage"><div><div><h3 class="title" id="declaring-customizations">9.1.&nbsp;Declaring Customizations</h3></div></div></div><p>All the binding declaration elements live in
-        <code class="literal">http://java.sun.com/xml/ns/jaxws</code> namespace. There
+        <code class="literal">https://jakarta.ee/xml/ns/jaxws</code> namespace. There
         are two ways to specify binding declarations. In the first approach,
         all binding declarations pertaining to a given WSDL document are
         grouped together in a standalone document, called an
@@ -1541,7 +1541,7 @@ SOAPAction: ""
         document. In either case, the <code class="literal">jaxws:bindings</code>
         element is used as a container for Jakarta XML Web Services binding declarations. The
         <code class="literal">jaxws</code> prefix maps to the
-        <code class="literal">http://java.sun.com/xml/ns/jaxws</code> namespace.</p><div class="section" title="9.1.1.&nbsp;External Binding Declaration"><div class="titlepage"><div><div><h4 class="title" id="external-binding-declaration">9.1.1.&nbsp;External Binding Declaration</h4></div></div></div><p>External binding files are semantically equivalent to
+        <code class="literal">https://jakarta.ee/xml/ns/jaxws</code> namespace.</p><div class="section" title="9.1.1.&nbsp;External Binding Declaration"><div class="titlepage"><div><div><h4 class="title" id="external-binding-declaration">9.1.1.&nbsp;External Binding Declaration</h4></div></div></div><p>External binding files are semantically equivalent to
             embedded binding declarations. When <span class="command"><strong>wsimport</strong></span>
             processes the WSDL document for which there is an external binding
             file, it internalizes the binding declarations defined in the
@@ -1561,7 +1561,7 @@ SOAPAction: ""
                 declaration is same as the WSDL location URI given to
                 <span class="command"><strong>wsimport</strong></span>.</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;jaxws:bindings</span>
         <span class="Identifier">wsdlLocation</span>=<span class="String">"http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"</span>
-        <span class="Identifier">jaxws:xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
+        <span class="Identifier">jaxws:xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
     
     ...
 
@@ -1572,7 +1572,7 @@ SOAPAction: ""
                 to the WSDL node it customizes.</p><p>Here is an excerpt from an external binding file <code class="literal">samples/external-customize/etc/custom-client.xml</code>
                 in the <code class="literal">external-customize</code> sample:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;jaxws:bindings</span>
         <span class="Identifier">wsdlLocation</span>=<span class="String">"http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"</span>
-        <span class="Identifier">jaxws:xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
+        <span class="Identifier">jaxws:xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;jaxws:bindings</span> <span class="Identifier">node</span>=<span class="String">"wsdl:definitions"</span>
             <span class="Identifier">xmlns:wsdl</span>=<span class="String">"http://schemas.xmlsoap.org/wsdl/"</span><span class="ReservedWord">&gt;</span>
         <span class="ReservedWord">&lt;jaxws:package</span> <span class="Identifier">name</span>=<span class="String">"external_customize.client"</span><span class="ReservedWord">/&gt;</span>
@@ -1602,7 +1602,7 @@ SOAPAction: ""
             WSDL <code class="literal">AddNumbers.wsdl</code> from the
             <code class="literal">inline-customize</code> sample:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;wsdl:portType</span> <span class="Identifier">name</span>=<span class="String">"AddNumbersImpl"</span><span class="ReservedWord">&gt;</span>
     <span class="Comment">&lt;!-- wsdl:portType customizations --&gt;</span>
-    <span class="ReservedWord">&lt;jaxws:bindings</span> <span class="Identifier">xmlns:jaxws</span>=<span class="String">"http://java.sun.com/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;jaxws:bindings</span> <span class="Identifier">xmlns:jaxws</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
         <span class="Comment">&lt;!-- rename the generated SEI from AddNumbersImpl to MathUtil --&gt;</span>
         <span class="ReservedWord">&lt;jaxws:class</span> <span class="Identifier">name</span>=<span class="String">"MathUtil"</span><span class="ReservedWord">/&gt;</span>
         ...
@@ -1633,7 +1633,7 @@ SOAPAction: ""
             declarations in the external customization file. For
             example:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns:wsdl</span>=<span class="String">"http://schemas.xmlsoap.org/wsdl/"</span>
         <span class="Identifier">wsdlLocation</span>=<span class="String">"http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"</span>
-        <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
+        <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
     
     <span class="ReservedWord">&lt;package</span> <span class="Identifier">name</span>=<span class="String">"external_customize.client"</span><span class="ReservedWord">/&gt;</span>
     <span class="ReservedWord">&lt;enableWrapperStyle&gt;</span>true<span class="ReservedWord">&lt;/enableWrapperStyle&gt;</span>
@@ -1656,7 +1656,7 @@ SOAPAction: ""
             the schema package customization specified using jaxb schema
             customization.</p><p>For example:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns:wsdl</span>=<span class="String">"http://schemas.xmlsoap.org/wsdl/"</span>
         <span class="Identifier">wsdlLocation</span>=<span class="String">"http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"</span>
-        <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
+        <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;package</span> <span class="Identifier">name</span>=<span class="String">"external_customize.client"</span><span class="ReservedWord">&gt;</span>
         <span class="ReservedWord">&lt;javadoc&gt;</span>Mathutil package<span class="ReservedWord">&lt;/javadoc&gt;</span>
     <span class="ReservedWord">&lt;/package&gt;</span>
@@ -1665,7 +1665,7 @@ SOAPAction: ""
     
 <span class="ReservedWord">&lt;/bindings&gt;</span></pre></div><p>or</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns:wsdl</span>=<span class="String">"http://schemas.xmlsoap.org/wsdl/"</span>
         <span class="Identifier">wsdlLocation</span>=<span class="String">"http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"</span>
-        <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
+        <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;bindings</span> <span class="Identifier">node</span>=<span class="String">"wsdl:definitions"</span><span class="ReservedWord">&gt;</span>
         <span class="ReservedWord">&lt;package</span> <span class="Identifier">name</span>=<span class="String">"external_customize.client"</span><span class="ReservedWord">&gt;</span>
             <span class="ReservedWord">&lt;javadoc&gt;</span>Mathutil package<span class="ReservedWord">&lt;/javadoc&gt;</span>
@@ -1692,7 +1692,7 @@ SOAPAction: ""
                     <code class="literal">portType</code></p></li><li class="listitem"><p><code class="literal">wsdl:operation</code> applies to only
                     this <code class="literal">wsdl:operation</code></p></li></ul></div><p>For example:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns:wsdl</span>=<span class="String">"http://schemas.xmlsoap.org/wsdl/"</span>
         <span class="Identifier">wsdlLocation</span>=<span class="String">"http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"</span>
-        <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
+        <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
     
     <span class="Comment">&lt;!-- applies to wsdl:definitions node, that would mean the entire wsdl --&gt;</span>
     <span class="ReservedWord">&lt;enableWrapperStyle&gt;</span>true<span class="ReservedWord">&lt;/enableWrapperStyle&gt;</span>
@@ -1732,7 +1732,7 @@ SOAPAction: ""
                     <code class="literal">portType</code></p></li><li class="listitem"><p><code class="literal">wsdl:operation</code> applies to only
                     this <code class="literal">wsdl:operation</code></p></li></ul></div><p>Example :</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns:wsdl</span>=<span class="String">"http://schemas.xmlsoap.org/wsdl/"</span>
         <span class="Identifier">wsdlLocation</span>=<span class="String">"http://localhost:8080/jaxws-external-customize/addnumbers?WSDL"</span>
-        <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
+        <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxws"</span><span class="ReservedWord">&gt;</span>
     
     <span class="Comment">&lt;!-- applies to wsdl:definitions node, that would mean the entire wsdl --&gt;</span>
     <span class="ReservedWord">&lt;enableAsyncMapping&gt;</span>false<span class="ReservedWord">&lt;/enableAsyncMapping&gt;</span>
@@ -1895,8 +1895,8 @@ SOAPAction: ""
         <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
         <span class="Identifier">xmlns:wsdl</span>=<span class="String">"http://schemas.xmlsoap.org/wsdl/"</span>
         <span class="Identifier">wsdlLocation</span>=<span class="String">"http://localhost:8080/jaxws-fromwsdlhandler/addnumbers?WSDL"</span>
-        <span class="Identifier">xmlns:jaxws</span>=<span class="String">"http://java.sun.com/xml/ns/jaxws"</span>
-        <span class="Identifier">xmlns:javaee</span>=<span class="String">"http://java.sun.com/xml/ns/javaee"</span><span class="ReservedWord">&gt;</span>
+        <span class="Identifier">xmlns:jaxws</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxws"</span>
+        <span class="Identifier">xmlns:javaee</span>=<span class="String">"https://jakarta.ee/xml/ns/jakartaee"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;jaxws:bindings</span> <span class="Identifier">node</span>=<span class="String">"wsdl:definitions"</span><span class="ReservedWord">&gt;</span>
         <span class="ReservedWord">&lt;javaee:handler-chain&gt;</span>
             <span class="ReservedWord">&lt;javaee:handler-chain-name&gt;</span>LoggingHandlers
@@ -1963,7 +1963,7 @@ SOAPAction: ""
                             interface is not required.</p></td></tr><tr><td><p><code class="literal">portName</code></p></td><td><p>The
                             <code class="literal">wsdl:portName</code></p></td><td><p>The <code class="literal">WebService.name</code>
                             + "Port"</p></td></tr><tr><td><p><code class="literal">wsdlLocation</code></p></td><td><p>Not currently used by
-                            Eclipse Implementation of XML Web Services 3.0.0-M3</p></td><td><p></p></td></tr></tbody></table></div></div><br class="table-break"><div class="section" title="10.2.1.1.&nbsp;Annotation Type Definition"><div class="titlepage"><div><div><h5 class="title" id="section-5790511949612727">10.2.1.1.&nbsp;Annotation Type Definition</h5></div></div></div><div class="informalexample"><pre class="programlisting"><span class="Annotation">@Retention(value = RetentionPolicy.RUNTIME)</span>
+                            Eclipse Implementation of XML Web Services 3.0.0-M5</p></td><td><p></p></td></tr></tbody></table></div></div><br class="table-break"><div class="section" title="10.2.1.1.&nbsp;Annotation Type Definition"><div class="titlepage"><div><div><h5 class="title" id="section-5790511949612727">10.2.1.1.&nbsp;Annotation Type Definition</h5></div></div></div><div class="informalexample"><pre class="programlisting"><span class="Annotation">@Retention(value = RetentionPolicy.RUNTIME)</span>
 <span class="Annotation">@Target({ElementType.TYPE})</span>
 <span class="ReservedWord">public</span> <span class="Annotation">@interface</span> WebService {
     String name() <span class="ReservedWord">default</span> <span class="String">""</span>;
@@ -2266,7 +2266,7 @@ SOAPAction: ""
     }
 
 }</pre></div></div><br class="example-break"><div class="example"><a name="d0e4499"></a><p class="title"><b>Example&nbsp;11.&nbsp;<code class="literal">@jakarta.jws.HandlerChain</code> -
-                    Example - handlers.xml</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;jws:handler-config</span> <span class="Identifier">xmlns:jws</span>=<span class="String">"http://java.sun.com/xml/ns/javaee"</span><span class="ReservedWord">&gt;</span>
+                    Example - handlers.xml</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;jws:handler-config</span> <span class="Identifier">xmlns:jws</span>=<span class="String">"https://jakarta.ee/xml/ns/jakartaee"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;jws:handler-chains&gt;</span>
         <span class="ReservedWord">&lt;jws:handler-chain&gt;</span>
             <span class="ReservedWord">&lt;jws:handler&gt;</span>
@@ -3834,7 +3834,7 @@ SOAPAction: ""
         In addition to that, Eclipse Implementation of XML Web Services also supports <a class="link" href="http://www.w3.org/Submission/ws-addressing/" target="_top">Member
         Submission</a> version of WS-Addressing. The member submission
         version is supported in an implementation specific way.&nbsp; For
-        compatility with Jakarta XML Web Services 2.1 behavior, Eclipse Implementation of XML Web Services 3.0.0-M3 also
+        compatility with Jakarta XML Web Services 2.1 behavior, Eclipse Implementation of XML Web Services 3.0.0-M5 also
         supports wsdls conforming to <a class="link" href="http://www.w3.org/TR/ws-addr-wsdl" target="_top">WSDL Binding</a>
         specification. The subsequent sections describe how the two
         WS-Addressing versions can be enabled/disabled on client and server
@@ -3927,7 +3927,7 @@ SOAPAction: http://example.com/fabrikam/SubmitPO
             method on that EPR to do a series of banking operations. On the
             service endpoint, whenever a request is received, the reference
             parameters from the EPR are available as first-class SOAP headers
-            allowing the endpoint to restore the state.</p><p>Eclipse Implementation of XML Web Services 3.0.0-M3 enables <a class="link" href="ch03.html#users-guide-stateful-webservice" title="12.&nbsp;Stateful Webservice">stateful
+            allowing the endpoint to restore the state.</p><p>Eclipse Implementation of XML Web Services 3.0.0-M5 enables <a class="link" href="ch03.html#users-guide-stateful-webservice" title="12.&nbsp;Stateful Webservice">stateful
             Web services</a>&nbsp;to be annotated with
             <code class="literal">com.sun.xml.ws.developer.Stateful</code>
             annotation.</p></div><div class="section" title="11.2.3.&nbsp;Simple and Complex MEPs"><div class="titlepage"><div><div><h4 class="title" id="simple-and-complex-meps">11.2.3.&nbsp;Simple and Complex MEPs</h4></div></div></div><p>WS-Addressing defines standard <a class="link" href="http://www.w3.org/TR/2006/REC-ws-addr-core-20060509/#abstractmaps" target="_top">Message
