@@ -55,7 +55,7 @@ descriptor `sun-jaxws.xml`.
 # <a name="Download_Jakarta_XMLS_Milestone"></a>Download Jakarta XML Web Services Milestone Release
 
 The latest milestone release of Jakarta XML Web Services is available for
-[download](https://repo1.maven.org/maven2/com/sun/xml/ws/jaxws-ri/3.0.0-M5/jaxws-ri-3.0.0-M5.zip)
+[download](https://jakarta.oss.sonatype.org/service/local/repositories/staging/content/com/sun/xml/ws/jaxws-ri/3.0.0-M5/jaxws-ri-3.0.0-M5.zip)
 as well as for consumption through maven.
 ```
         <dependencies>
