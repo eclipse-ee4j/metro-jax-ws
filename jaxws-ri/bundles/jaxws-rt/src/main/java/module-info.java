@@ -35,7 +35,7 @@ module com.sun.xml.ws {
     requires transitive jakarta.xml.bind;
     requires transitive jakarta.xml.soap;
     requires transitive jakarta.xml.ws;
-    requires static java.servlet;
+    requires static jakarta.servlet;
 
     requires org.jvnet.mimepull;
     requires transitive org.jvnet.staxex;

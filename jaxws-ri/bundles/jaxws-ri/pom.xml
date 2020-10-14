@@ -27,13 +27,9 @@
 
     <packaging>pom</packaging>
     <name>JAX-WS RI Standalone Zipped Bundle</name>
-    <description>Open source Reference Implementation of JSR-224: Java API for XML Web Services Distribution Bundle</description>
+    <description>Open source Compatible Implementation of Jakarta XML Web Services Distribution</description>
 
     <dependencies>
-<!--        <dependency>
-            <groupId>jakarta.annotation</groupId>
-            <artifactId>jakarta.annotation-api</artifactId>
-        </dependency>-->
         <dependency>
             <groupId>com.sun.org.apache.xml.internal</groupId>
             <artifactId>resolver</artifactId>

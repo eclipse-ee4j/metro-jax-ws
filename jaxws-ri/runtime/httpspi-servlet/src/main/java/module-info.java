@@ -12,5 +12,5 @@ module com.sun.xml.ws.httpspi.servlet {
     requires com.sun.xml.ws.rt;
     requires java.logging;
     requires jakarta.annotation;
-    requires java.servlet;
+    requires jakarta.servlet;
 }
