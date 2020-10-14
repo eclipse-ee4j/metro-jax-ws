@@ -13,7 +13,7 @@ dist: bionic
 
 jdk:
   - oraclejdk11
-  - oraclejdk14
+  - oraclejdk15
 
 cache:
   directories:
