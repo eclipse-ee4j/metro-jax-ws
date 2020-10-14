@@ -16,7 +16,7 @@
 module com.sun.xml.ws.servlet {
     requires com.sun.xml.ws.rt;
     requires java.logging;
-    requires java.servlet;
+    requires jakarta.servlet;
 
     exports com.sun.xml.ws.developer.servlet;
     exports com.sun.xml.ws.server.servlet;
