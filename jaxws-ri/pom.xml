@@ -18,13 +18,13 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-ri-bom-ext</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1-SNAPSHOT</version>
         <relativePath>boms/bom-ext/pom.xml</relativePath>
     </parent>
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>project</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Jakarta XML Web Services Implementation</name>
     <description>Open source Implementation of Jakarta XML Web Services (formerly JSR-224: Java API for XML Web Services)</description>
