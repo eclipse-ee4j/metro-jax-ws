@@ -43,7 +43,7 @@ layout: content
     &lt;dependency&gt;
       &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
       &lt;artifactId&gt;jaxws-rt&lt;/artifactId&gt;
-      &lt;version&gt;2.3.3&lt;/version&gt;
+      &lt;version&gt;3.0.0&lt;/version&gt;
     &lt;/dependency&gt;
     ...
   &lt;/dependencies&gt;
@@ -53,7 +53,7 @@ layout: content
       &lt;plugin&gt;
         &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
         &lt;artifactId&gt;jaxws-maven-plugin&lt;/artifactId&gt;
-        &lt;version&gt;2.3.3&lt;/version&gt;
+        &lt;version&gt;3.0.0&lt;/version&gt;
         &lt;executions&gt;
           &lt;execution&gt;
             &lt;goals&gt;
@@ -71,52 +71,9 @@ layout: content
           &lt;dependency&gt;
             &lt;groupId&gt;com.sun.xml.ws&lt;/groupId&gt;
             &lt;artifactId&gt;jaxws-tools&lt;/artifactId&gt;
-            &lt;version&gt;2.2.5&lt;/version&gt;
+            &lt;version&gt;3.0.0-M2&lt;/version&gt;
           &lt;/dependency&gt;
         &lt;/dependencies&gt;
-      &lt;/plugin&gt;
-
-      &lt;!-- Don't forget to use endorsed with Jakarta XML Web Services on Java 8 !! --&gt;
-      &lt;plugin&gt;
-        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-        &lt;configuration&gt;
-          &lt;source&gt;1.8&lt;/source&gt;
-          &lt;target&gt;1.8&lt;/target&gt;
-          &lt;compilerArguments&gt;
-            &lt;endorseddirs&gt;${project.build.directory}/endorsed&lt;/endorseddirs&gt;
-          &lt;/compilerArguments&gt;
-        &lt;/configuration&gt;
-      &lt;/plugin&gt;
-      &lt;plugin&gt;
-        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-        &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.1.2&lt;/version&gt;
-        &lt;executions&gt;
-          &lt;execution&gt;
-            &lt;phase&gt;validate&lt;/phase&gt;
-            &lt;goals&gt;
-              &lt;goal&gt;copy&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-              &lt;outputDirectory&gt;${project.build.directory}/endorsed&lt;/outputDirectory&gt;
-              &lt;silent&gt;true&lt;/silent&gt;
-              &lt;artifactItems&gt;
-                &lt;artifactItem&gt;
-                  &lt;groupId&gt;jakarta.xml.bind&lt;/groupId&gt;
-                  &lt;artifactId&gt;jakarta.xml.bind-api&lt;/artifactId&gt;
-                  &lt;version&gt;2.3.3&lt;/version&gt;
-                  &lt;type&gt;jar&lt;/type&gt;
-                &lt;/artifactItem&gt;
-                &lt;artifactItem&gt;
-                  &lt;groupId&gt;jakarta.xml.ws&lt;/groupId&gt;
-                  &lt;artifactId&gt;jakarta.xml.ws-api&lt;/artifactId&gt;
-                  &lt;version&gt;2.3.3&lt;/version&gt;
-                  &lt;type&gt;jar&lt;/type&gt;
-                &lt;/artifactItem&gt;
-              &lt;/artifactItems&gt;
-            &lt;/configuration&gt;
-          &lt;/execution&gt;
-        &lt;/executions&gt;
       &lt;/plugin&gt;
       ...
     &lt;/plugins&gt;
@@ -138,8 +95,8 @@ layout: content
 
   
   
-  &nbsp;| Last Published: 2020-04-09
-  &nbsp;| Version: 2.3.3
+  &nbsp;| Last Published: 2020-11-26
+  &nbsp;| Version: 3.0.0
 </div>
       <div class="clear">
         <hr/>
