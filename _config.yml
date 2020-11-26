@@ -8,11 +8,11 @@ description: [Eclipse Implementation of XML Web Services]
 
 links:
   source: https://github.com/eclipse-ee4j/metro-jax-ws
-  api: https://javadoc.io/doc/jakarta.xml.ws/jakarta.xml.ws-api/2.3.3/overview-summary.html
+  api: https://javadoc.io/doc/jakarta.xml.ws/jakarta.xml.ws-api/3.0.0/
   spec: https://jakarta.ee/specifications/xml-web-services/
-  guide: https://eclipse-ee4j.github.io/metro-jax-ws/2.3.3/docs/
+  guide: https://eclipse-ee4j.github.io/metro-jax-ws/3.0.0/docs/
   plugin: https://eclipse-ee4j.github.io/metro-jax-ws/jaxws-maven-plugin/
-  javadocsrt:  https://javadoc.io/doc/com.sun.xml.ws/jaxws-rt/2.3.3/com.sun.xml.ws/module-summary.html
-  javadocstools:  https://javadoc.io/doc/com.sun.xml.ws/jaxws-tools/2.3.3/com.sun.xml.ws/module-summary.html
-  download: https://repo1.maven.org/maven2/com/sun/xml/ws/jaxws-ri/2.3.3/jaxws-ri-2.3.3.zip
+  javadocsrt:  https://javadoc.io/doc/com.sun.xml.ws/jaxws-rt/3.0.0/
+  javadocstools:  https://javadoc.io/doc/com.sun.xml.ws/jaxws-tools/3.0.0/
+  download: https://repo1.maven.org/maven2/com/sun/xml/ws/jaxws-ri/3.0.0/jaxws-ri-3.0.0.zip
   mailinglist: https://accounts.eclipse.org/mailing-list/metro-dev
