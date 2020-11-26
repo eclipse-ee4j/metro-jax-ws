@@ -39,7 +39,7 @@ The release includes the following documentation:
 - [Users Guide](3.0.0/docs/ch03.html)
 - [Tools](3.0.0/docs/ch04.html)
 - [Samples](3.0.0/docs/ch07.html)
-- [Change log](https://github.com/eclipse-ee4j/metro-jax-ws/releases/tag/3.0.0-M5)
+- [Change log](https://github.com/eclipse-ee4j/metro-jax-ws/releases/tag/3.0.0)
 
 The documentation/samples included with Eclipse Implementation of Jakarta XML Web Services
 [distribution](https://repo1.maven.org/maven2/com/sun/xml/ws/jaxws-ri/3.0.0/jaxws-ri-3.0.0.zip)

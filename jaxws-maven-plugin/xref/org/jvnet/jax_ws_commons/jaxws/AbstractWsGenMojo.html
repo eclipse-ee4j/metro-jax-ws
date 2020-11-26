@@ -39,7 +39,7 @@ layout: content
 <a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> java.util.Set;
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> java.util.logging.Level;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> java.util.logging.Logger;
-<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> javax.jws.WebService;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> jakarta.jws.WebService;
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> org.apache.maven.artifact.Artifact;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> org.apache.maven.model.Resource;
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> org.apache.maven.plugin.MojoExecutionException;
@@ -135,7 +135,7 @@ layout: content
 <a class="jxr_linenumber" name="L124" href="#L124">124</a>             seis.addAll(getSEIs(getClassesDir()));
 <a class="jxr_linenumber" name="L125" href="#L125">125</a>         }
 <a class="jxr_linenumber" name="L126" href="#L126">126</a>         <strong class="jxr_keyword">if</strong> (seis.isEmpty()) {
-<a class="jxr_linenumber" name="L127" href="#L127">127</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoFailureException(<span class="jxr_string">"No @javax.jws.WebService found."</span>);
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> MojoFailureException(<span class="jxr_string">"No @jakarta.jws.WebService found."</span>);
 <a class="jxr_linenumber" name="L128" href="#L128">128</a>         }
 <a class="jxr_linenumber" name="L129" href="#L129">129</a>         <strong class="jxr_keyword">for</strong> (String aSei : seis) {
 <a class="jxr_linenumber" name="L130" href="#L130">130</a>             processSei(aSei);

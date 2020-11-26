@@ -212,7 +212,7 @@ layout: content
 <a class="jxr_linenumber" name="L201" href="#L201">201</a> 
 <a class="jxr_linenumber" name="L202" href="#L202">202</a>     <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L203" href="#L203">203</a> <em class="jxr_javadoccomment">     * Binding W3C EndpointReferenceType to Java. By default WsImport follows spec and does not bind</em>
-<a class="jxr_linenumber" name="L204" href="#L204">204</a> <em class="jxr_javadoccomment">     * EndpointReferenceType to Java and uses the spec provided {@link javax.xml.ws.wsaddressing.W3CEndpointReference}</em>
+<a class="jxr_linenumber" name="L204" href="#L204">204</a> <em class="jxr_javadoccomment">     * EndpointReferenceType to Java and uses the spec provided {@link jakarta.xml.ws.wsaddressing.W3CEndpointReference}</em>
 <a class="jxr_linenumber" name="L205" href="#L205">205</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L206" href="#L206">206</a>     @Parameter(defaultValue = <span class="jxr_string">"false"</span>)
 <a class="jxr_linenumber" name="L207" href="#L207">207</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> xnoAddressingDataBinding;
@@ -433,7 +433,7 @@ layout: content
 <a class="jxr_linenumber" name="L422" href="#L422">422</a> 
 <a class="jxr_linenumber" name="L423" href="#L423">423</a>         <strong class="jxr_keyword">if</strong>(xauthFile != <strong class="jxr_keyword">null</strong>){
 <a class="jxr_linenumber" name="L424" href="#L424">424</a>             args.add(<span class="jxr_string">"-Xauthfile"</span>);
-<a class="jxr_linenumber" name="L425" href="#L425">425</a>             args.add(xauthFile.getAbsolutePath());
+<a class="jxr_linenumber" name="L425" href="#L425">425</a>             args.add(<span class="jxr_string">"'"</span> + xauthFile.getAbsolutePath() + <span class="jxr_string">"'"</span>);
 <a class="jxr_linenumber" name="L426" href="#L426">426</a>         }
 <a class="jxr_linenumber" name="L427" href="#L427">427</a> 
 <a class="jxr_linenumber" name="L428" href="#L428">428</a>         <strong class="jxr_keyword">if</strong> (xdisableSSLHostnameVerification) {
