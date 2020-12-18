@@ -92,7 +92,14 @@ public class Options {
     public boolean disableXmlSecurity;
 
     public enum Target {
-        V2_0, V2_1, V2_2, V3_0;
+
+        V2_0("2.0"), V2_1("2.1"), V2_2("2.2"), V2_3("2.3"), V3_0("3.0");
+
+        private final String version;
+
+        private Target(String version) {
+            this.version = version;
+        }
 
         /**
          * Returns true if this version is equal or later than the given one.
@@ -107,14 +114,11 @@ public class Options {
          * @return null for parsing failure.
          */
         public static Target parse(String token) {
-            if (token.equals("2.0"))
-                return Target.V2_0;
-            else if (token.equals("2.1"))
-                return Target.V2_1;
-            else if (token.equals("2.2"))
-                return Target.V2_2;
-            else if (token.equals("3.0"))
-                return Target.V3_0;
+            for (Target target : Target.values()) {
+                if (target.getVersion().equals(token)) {
+                    return target;
+                }
+            }
             return null;
         }
 
@@ -122,18 +126,7 @@ public class Options {
          * Gives the String representation of the {@link Target}
          */
         public String getVersion(){
-            switch(this){
-            case V2_0:
-                return "2.0";
-            case V2_1:
-                return "2.1";
-            case V2_2:
-                return "2.2";
-            case V3_0:
-                return "3.0";
-            default:
-                return null;
-            }
+            return version;
         }
 
         public static Target getDefault() {

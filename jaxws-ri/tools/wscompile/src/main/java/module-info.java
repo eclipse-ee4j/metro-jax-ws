@@ -51,5 +51,6 @@ module com.sun.tools.ws.wscompile {
     uses com.sun.tools.ws.wscompile.Plugin;
 
     provides com.sun.tools.ws.wscompile.Plugin with
-            com.sun.tools.ws.wscompile.plugin.at_generated.PluginImpl;
+            com.sun.tools.ws.wscompile.plugin.at_generated.PluginImpl,
+            com.sun.tools.ws.wscompile.plugin.javax.PluginImpl;
 }
