@@ -46,6 +46,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -181,8 +182,13 @@ public class WsimportOptions extends Options {
         return schemaCompiler;
     }
 
+    /**
+     * Sets the codeModel and includes the {@link classNameReplacer} in it.
+     * @param codeModel the new codeModel
+     */
     public void setCodeModel(JCodeModel codeModel) {
         this.codeModel = codeModel;
+        addClassReplacersInCodeModel();
     }
 
     private JCodeModel codeModel;
@@ -263,6 +269,14 @@ public class WsimportOptions extends Options {
             destDir = new File(".");
         if(sourceDir == null)
             sourceDir = destDir;
+        addClassReplacersInCodeModel();
+    }
+
+    private void addClassReplacersInCodeModel() {
+        JCodeModel codeModel = getCodeModel();
+        for (Entry<String, String> pair : classNameReplacer.entrySet()) {
+            codeModel.addClassNameReplacer(pair.getKey(), pair.getValue());
+        }
     }
 
     /** -Xno-addressing-databinding option to disable addressing namespace data binding. This is

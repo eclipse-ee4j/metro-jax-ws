@@ -24,7 +24,9 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import javax.tools.FileObject;
 
@@ -34,6 +36,14 @@ import javax.tools.FileObject;
  * @author Vivek Pandey
  */
 public class Options {
+
+    private static final String JAVAX = "javax.xml.bind";
+    private static final String JAKARTA = "jakarta.xml.bind";
+    private static final String JAXB_CORE = "org.glassfish.jaxb.core";
+    private static final String BIND = "com.sun.xml.bind";
+
+    protected final Map<String, String> classNameReplacer = new HashMap<>();
+
     /**
      * -verbose
      */
@@ -310,7 +320,7 @@ public class Options {
             target = Target.parse(token);
             if(target == null)
                 throw new BadCommandLineException(WscompileMessages.WSIMPORT_ILLEGAL_TARGET_VERSION(token));
-            setXmlConversionProp(target);
+            addClassNameReplacers(target);
             return 2;
         } else if (args[i].equals("-classpath") || args[i].equals("-cp")) {
             classpath = requireArgument("-classpath", args, ++i) + File.pathSeparator + System.getProperty("java.class.path");
@@ -362,15 +372,10 @@ public class Options {
         return 0;
     }
 
-    private void setXmlConversionProp(Target target) {
+    private void addClassNameReplacers(Target target) {
         if (target.ordinal() < Target.V3_0.ordinal()) {
-            AccessController.doPrivileged(new PrivilegedAction<Void>() {
-                @Override
-                public Void run() {
-                    System.setProperty("javax.xml.bind.conversion", Boolean.TRUE.toString());
-                    return null;
-                }
-            });
+            classNameReplacer.put(JAKARTA, JAVAX);
+            classNameReplacer.put(JAXB_CORE, BIND);
         }
     }
 
