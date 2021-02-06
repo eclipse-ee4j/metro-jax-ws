@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,12 +12,14 @@ package com.oracle.webservices.api.message;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
+import java.lang.invoke.MethodHandles;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.AccessController;
-import java.security.PrivilegedAction;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -102,6 +104,16 @@ public abstract class BasePropertySet implements PropertySet {
      *   return model;
      * }
      * </pre>
+     * or if the implementation is in different Java module.
+     * <pre>
+     * private static final PropertyMap model;
+     * static {
+     *   model = parse(MyDerivedClass.class, MethodHandles.lookup());
+     * }
+     * protected PropertyMap getPropertyMap() {
+     *   return model;
+     * }
+     * </pre>
      */
     protected abstract PropertyMap getPropertyMap();
 
@@ -109,45 +121,57 @@ public abstract class BasePropertySet implements PropertySet {
      * This method parses a class for fields and methods with {@link PropertySet.Property}.
      */
     protected static PropertyMap parse(final Class clazz) {
+        return parse(clazz, MethodHandles.lookup());
+    }
+
+    /**
+     * This method parses a class for fields and methods with {@link PropertySet.Property}.
+     */
+    protected static PropertyMap parse(final Class clazz, final MethodHandles.Lookup lookup) {
         // make all relevant fields and methods accessible.
         // this allows runtime to skip the security check, so they runs faster.
-        return AccessController.doPrivileged(new PrivilegedAction<PropertyMap>() {
-            @Override
-            public PropertyMap run() {
-                PropertyMap props = new PropertyMap();
-                for (Class c=clazz; c!=null; c=c.getSuperclass()) {
-                    for (Field f : c.getDeclaredFields()) {
-                        Property cp = f.getAnnotation(Property.class);
-                        if(cp!=null) {
-                            for(String value : cp.value()) {
-                                props.put(value, new FieldAccessor(f, value));
+        try {
+            return AccessController.doPrivileged(new PrivilegedExceptionAction<PropertyMap>() {
+                public PropertyMap run() throws IllegalAccessException {
+                    PropertyMap props = new PropertyMap();
+                    for (Class c = clazz; c != Object.class; c = c.getSuperclass()) {
+                        MethodHandles.Lookup privateLookup = AccessorFactory.createPrivateLookup(c, lookup);
+                        for (Field f : c.getDeclaredFields()) {
+                            Property cp = f.getAnnotation(Property.class);
+                            if (cp != null) {
+                                for (String value : cp.value()) {
+                                    props.put(value, AccessorFactory.createAccessor(f, value, privateLookup));
+                                }
                             }
                         }
-                    }
-                    for (Method m : c.getDeclaredMethods()) {
-                        Property cp = m.getAnnotation(Property.class);
-                        if(cp!=null) {
-                            String name = m.getName();
-                            assert name.startsWith("get") || name.startsWith("is");
+                        for (Method m : c.getDeclaredMethods()) {
+                            Property cp = m.getAnnotation(Property.class);
+                            if (cp != null) {
+                                String name = m.getName();
+                                assert name.startsWith("get") || name.startsWith("is");
 
-                            String setName = name.startsWith("is") ? "set"+name.substring(2) : // isFoo -> setFoo
-                                                                     's'  +name.substring(1);  // getFoo -> setFoo
-                            Method setter;
-                            try {
-                                setter = clazz.getMethod(setName,m.getReturnType());
-                            } catch (NoSuchMethodException e) {
-                                setter = null; // no setter
-                            }
-                            for(String value : cp.value()) {
-                                props.put(value, new MethodAccessor(m, setter, value));
+                                String setName = name.startsWith("is")
+                                        ? "set" + name.substring(2) // isFoo -> setFoo
+                                        : 's' + name.substring(1);  // getFoo -> setFoo
+                                Method setter;
+                                try {
+                                    setter = clazz.getMethod(setName, m.getReturnType());
+                                } catch (NoSuchMethodException e) {
+                                    setter = null; // no setter
+                                }
+                                for (String value : cp.value()) {
+                                    props.put(value, AccessorFactory.createAccessor(m, setter, value, privateLookup));
+                                }
                             }
                         }
                     }
+
+                    return props;
                 }
-
-                return props;
-            }
-        });
+            });
+        } catch (PrivilegedActionException ex) {
+            throw new RuntimeException(ex.getCause());
+        }
     }
 
     /**
