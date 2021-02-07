@@ -139,7 +139,7 @@ public abstract class BasePropertySet implements PropertySet {
      * @return the map of strongly-typed known properties keyed by property names
      * @throws NullPointerException if {@code clazz} or {@code caller} is {@code null}
      * @throws SecurityException if denied by the security manager
-     * @throws InaccessibleObjectException if any of the other access checks specified above fails
+     * @throws RuntimeException if any of the other access checks specified above fails
      * @since 3.0.1
      */
     protected static PropertyMap parse(final Class clazz, final MethodHandles.Lookup caller) {
@@ -184,9 +184,8 @@ public abstract class BasePropertySet implements PropertySet {
             });
         } catch (PrivilegedActionException ex) {
             Throwable t = ex.getCause();
-            InaccessibleObjectException ioe = new InaccessibleObjectException(t.getMessage());
-            ioe.initCause(t);
-            throw ioe;
+            // TODO9: use InaccessibleObjectException on JDK 9+ instead
+            throw new RuntimeException(t);
         }
     }
 
