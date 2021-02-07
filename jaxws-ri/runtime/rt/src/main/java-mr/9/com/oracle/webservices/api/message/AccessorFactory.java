@@ -28,6 +28,9 @@ final class AccessorFactory {
     }
 
     static MethodHandles.Lookup createPrivateLookup(Class clazz, MethodHandles.Lookup lookup) throws IllegalAccessException {
+        if (AccessorFactory.class.getModule() == clazz.getModule()) {
+            return MethodHandles.privateLookupIn(clazz, MethodHandles.lookup());
+        }
         return MethodHandles.privateLookupIn(clazz, lookup);
     }
 

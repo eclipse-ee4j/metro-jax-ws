@@ -993,8 +993,8 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
             pw.println(WsservletMessages.MESSAGE_TOO_LONG(HttpAdapter.class.getName() + ".dumpTreshold"));
         } else {
             buf.writeTo(baos);
+            pw.println();
         }
-        pw.println();
         pw.println("--------------------");
 
         String msg = baos.toString();
@@ -1127,6 +1127,13 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
 
     public static void setDump(boolean dumpMessages) {
         HttpAdapter.dump = dumpMessages;
+    }
+
+    public static void setDumpTreshold(int treshold) {
+        if (treshold < 0) {
+            throw new IllegalArgumentException("Treshold must be positive number");
+        }
+        HttpAdapter.dump_threshold = treshold;
     }
 }
 
