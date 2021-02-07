@@ -28,10 +28,9 @@ final class AccessorFactory {
     }
 
     static MethodHandles.Lookup createPrivateLookup(Class clazz, MethodHandles.Lookup lookup) throws IllegalAccessException {
-        if (AccessorFactory.class.getModule() == clazz.getModule()) {
-            return MethodHandles.privateLookupIn(clazz, MethodHandles.lookup());
-        }
-        return MethodHandles.privateLookupIn(clazz, lookup);
+        return (AccessorFactory.class.getModule() == clazz.getModule())
+                ? MethodHandles.privateLookupIn(clazz, MethodHandles.lookup())
+                : MethodHandles.privateLookupIn(clazz, lookup);
     }
 
     static BasePropertySet.Accessor createAccessor(Field f, String name, MethodHandles.Lookup lookup) throws IllegalAccessException {
