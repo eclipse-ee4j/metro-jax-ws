@@ -15,7 +15,6 @@ import com.sun.istack.Nullable;
 import java.lang.invoke.MethodHandles;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InaccessibleObjectException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.AccessController;
