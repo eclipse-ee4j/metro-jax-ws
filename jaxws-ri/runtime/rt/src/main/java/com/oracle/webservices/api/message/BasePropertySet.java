@@ -15,6 +15,7 @@ import com.sun.istack.Nullable;
 import java.lang.invoke.MethodHandles;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InaccessibleObjectException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.AccessController;
@@ -25,6 +26,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -114,11 +116,16 @@ public abstract class BasePropertySet implements PropertySet {
      *   return model;
      * }
      * </pre>
+     * @return the map of strongly-typed known properties keyed by property names
      */
     protected abstract PropertyMap getPropertyMap();
 
     /**
      * This method parses a class for fields and methods with {@link PropertySet.Property}.
+     *
+     * @param clazz Class to be parsed
+     * @return the map of strongly-typed known properties keyed by property names
+     * @see #parse(java.lang.Class, java.lang.invoke.MethodHandles.Lookup)
      */
     protected static PropertyMap parse(final Class clazz) {
         return parse(clazz, MethodHandles.lookup());
@@ -126,51 +133,60 @@ public abstract class BasePropertySet implements PropertySet {
 
     /**
      * This method parses a class for fields and methods with {@link PropertySet.Property}.
+     *
+     * @param clazz Class to be parsed
+     * @param caller the caller lookup object
+     * @return the map of strongly-typed known properties keyed by property names
+     * @throws NullPointerException if {@code clazz} or {@code caller} is {@code null}
+     * @throws SecurityException if denied by the security manager
+     * @throws InaccessibleObjectException if any of the other access checks specified above fails
+     * @since 3.0.1
      */
-    protected static PropertyMap parse(final Class clazz, final MethodHandles.Lookup lookup) {
-        // make all relevant fields and methods accessible.
-        // this allows runtime to skip the security check, so they runs faster.
+    protected static PropertyMap parse(final Class clazz, final MethodHandles.Lookup caller) {
+        Objects.nonNull(clazz);
+        Objects.nonNull(caller);
         try {
-            return AccessController.doPrivileged(new PrivilegedExceptionAction<PropertyMap>() {
-                public PropertyMap run() throws IllegalAccessException {
-                    PropertyMap props = new PropertyMap();
-                    for (Class c = clazz; c != Object.class; c = c.getSuperclass()) {
-                        MethodHandles.Lookup privateLookup = AccessorFactory.createPrivateLookup(c, lookup);
-                        for (Field f : c.getDeclaredFields()) {
-                            Property cp = f.getAnnotation(Property.class);
-                            if (cp != null) {
-                                for (String value : cp.value()) {
-                                    props.put(value, AccessorFactory.createAccessor(f, value, privateLookup));
-                                }
-                            }
-                        }
-                        for (Method m : c.getDeclaredMethods()) {
-                            Property cp = m.getAnnotation(Property.class);
-                            if (cp != null) {
-                                String name = m.getName();
-                                assert name.startsWith("get") || name.startsWith("is");
-
-                                String setName = name.startsWith("is")
-                                        ? "set" + name.substring(2) // isFoo -> setFoo
-                                        : 's' + name.substring(1);  // getFoo -> setFoo
-                                Method setter;
-                                try {
-                                    setter = clazz.getMethod(setName, m.getReturnType());
-                                } catch (NoSuchMethodException e) {
-                                    setter = null; // no setter
-                                }
-                                for (String value : cp.value()) {
-                                    props.put(value, AccessorFactory.createAccessor(m, setter, value, privateLookup));
-                                }
+            return AccessController.doPrivileged((PrivilegedExceptionAction<PropertyMap>) () -> {
+                PropertyMap props = new PropertyMap();
+                for (Class c = clazz; c != Object.class; c = c.getSuperclass()) {
+                    MethodHandles.Lookup privateLookup = AccessorFactory.createPrivateLookup(c, caller);
+                    for (Field f : c.getDeclaredFields()) {
+                        Property cp = f.getAnnotation(Property.class);
+                        if (cp != null) {
+                            for (String value : cp.value()) {
+                                props.put(value, AccessorFactory.createAccessor(f, value, privateLookup));
                             }
                         }
                     }
+                    for (Method m : c.getDeclaredMethods()) {
+                        Property cp = m.getAnnotation(Property.class);
+                        if (cp != null) {
+                            String name = m.getName();
+                            assert name.startsWith("get") || name.startsWith("is");
 
-                    return props;
+                            String setName = name.startsWith("is")
+                                    ? "set" + name.substring(2) // isFoo -> setFoo
+                                    : 's' + name.substring(1);  // getFoo -> setFoo
+                            Method setter;
+                            try {
+                                setter = clazz.getMethod(setName, m.getReturnType());
+                            } catch (NoSuchMethodException e) {
+                                setter = null; // no setter
+                            }
+                            for (String value : cp.value()) {
+                                props.put(value, AccessorFactory.createAccessor(m, setter, value, privateLookup));
+                            }
+                        }
+                    }
                 }
+
+                return props;
             });
         } catch (PrivilegedActionException ex) {
-            throw new RuntimeException(ex.getCause());
+            Throwable t = ex.getCause();
+            InaccessibleObjectException ioe = new InaccessibleObjectException(t.getMessage());
+            ioe.initCause(t);
+            throw ioe;
         }
     }
 
