@@ -126,7 +126,7 @@ public abstract class BasePropertySet implements PropertySet {
      * @return the map of strongly-typed known properties keyed by property names
      * @see #parse(java.lang.Class, java.lang.invoke.MethodHandles.Lookup)
      */
-    protected static PropertyMap parse(final Class clazz) {
+    protected static PropertyMap parse(final Class<?> clazz) {
         return parse(clazz, MethodHandles.lookup());
     }
 
@@ -141,14 +141,14 @@ public abstract class BasePropertySet implements PropertySet {
      * @throws RuntimeException if any of the other access checks specified above fails
      * @since 3.0.1
      */
-    protected static PropertyMap parse(final Class clazz, final MethodHandles.Lookup caller) {
-        Objects.nonNull(clazz);
-        Objects.nonNull(caller);
+    protected static PropertyMap parse(final Class<?> clazz, final MethodHandles.Lookup caller) {
+        Class<?> cl = Objects.requireNonNull(clazz, "clazz must not be null");
+        MethodHandles.Lookup lookup = Objects.requireNonNull(caller, "caller must not be null");
         try {
             return AccessController.doPrivileged((PrivilegedExceptionAction<PropertyMap>) () -> {
                 PropertyMap props = new PropertyMap();
-                for (Class c = clazz; c != Object.class; c = c.getSuperclass()) {
-                    MethodHandles.Lookup privateLookup = AccessorFactory.createPrivateLookup(c, caller);
+                for (Class<?> c = cl; c != Object.class; c = c.getSuperclass()) {
+                    MethodHandles.Lookup privateLookup = AccessorFactory.createPrivateLookup(c, lookup);
                     for (Field f : c.getDeclaredFields()) {
                         Property cp = f.getAnnotation(Property.class);
                         if (cp != null) {
@@ -168,7 +168,7 @@ public abstract class BasePropertySet implements PropertySet {
                                     : 's' + name.substring(1);  // getFoo -> setFoo
                             Method setter;
                             try {
-                                setter = clazz.getMethod(setName, m.getReturnType());
+                                setter = cl.getMethod(setName, m.getReturnType());
                             } catch (NoSuchMethodException e) {
                                 setter = null; // no setter
                             }
