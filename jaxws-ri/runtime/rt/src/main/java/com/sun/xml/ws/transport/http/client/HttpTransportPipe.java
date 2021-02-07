@@ -33,10 +33,18 @@ import jakarta.xml.ws.WebServiceException;
 import jakarta.xml.ws.WebServiceFeature;
 import jakarta.xml.ws.handler.MessageContext;
 import jakarta.xml.ws.soap.SOAPBinding;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.CookieHandler;
 import java.net.HttpURLConnection;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,13 +73,14 @@ public class HttpTransportPipe extends AbstractTubeImpl {
     private final boolean sticky;
 
     static {
-        boolean b;
         try {
-            b = Boolean.getBoolean(HttpTransportPipe.class.getName()+".dump");
-        } catch( Throwable t ) {
-            b = false;
+            dump = Boolean.getBoolean(HttpTransportPipe.class.getName() + ".dump");
+        } catch (SecurityException se) {
+            if (LOGGER.isLoggable(Level.CONFIG)) {
+                LOGGER.log(Level.CONFIG, "Cannot read ''{0}'' property, using defaults.",
+                        new Object[]{HttpTransportPipe.class.getName() + ".dump"});
+            }
         }
-        dump = b;
     }
 
     public HttpTransportPipe(Codec codec, WSBinding binding) {
@@ -440,4 +449,7 @@ public class HttpTransportPipe extends AbstractTubeImpl {
         }
     }
 
+    public static void setDump(boolean dumpMessages) {
+        HttpTransportPipe.dump = dumpMessages;
+    }
 }
