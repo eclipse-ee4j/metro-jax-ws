@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,6 +10,7 @@
 
 package bugs.jaxws1049.client;
 
+import com.oracle.webservices.api.message.BasePropertySet;
 import com.sun.xml.ws.api.PropertySet;
 import junit.framework.TestCase;
 
@@ -103,7 +104,7 @@ public class PropertySetAsMapTest extends TestCase {
         private String soapAction;
 
         @Override
-        protected PropertyMap getPropertyMap() {
+        protected BasePropertySet.PropertyMap getPropertyMap() {
             return parse(MyPropertySet.class);
         }
 
@@ -122,7 +123,7 @@ public class PropertySetAsMapTest extends TestCase {
         private String soapAction;
 
         @Override
-        protected PropertyMap getPropertyMap() {
+        protected BasePropertySet.PropertyMap getPropertyMap() {
             return parse(MyExtensiblePropertySet.class);
         }
 
