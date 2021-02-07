@@ -20,12 +20,12 @@ import java.lang.reflect.Method;
  */
 final class AccessorFactory {
 
+    private AccessorFactory() {
+    }
+
     static MethodHandles.Lookup createPrivateLookup(Class c, MethodHandles.Lookup lookup) {
         //no private lookup on JDK 8
         return null;
-    }
-
-    private AccessorFactory() {
     }
 
     static BasePropertySet.Accessor createAccessor(Field f, String name, MethodHandles.Lookup lookup) throws IllegalAccessException {
