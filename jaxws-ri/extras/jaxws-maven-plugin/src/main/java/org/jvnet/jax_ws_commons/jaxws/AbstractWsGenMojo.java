@@ -20,14 +20,11 @@ package org.jvnet.jax_ws_commons.jaxws;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jakarta.jws.WebService;
 import java.util.List;
 import org.apache.maven.artifact.Artifact;
@@ -45,6 +42,13 @@ import org.codehaus.plexus.util.FileUtils;
  * @version $Id: WsGenMojo.java 3169 2007-01-22 02:51:29Z dantran $
  */
 abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
+
+    /**
+     * Service endpoint implementation class names.
+     * @since 3.0.1
+     */
+    @Parameter
+    private List<String> seis;
 
     /**
      * Service endpoint implementation class name.
@@ -113,17 +117,23 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Set<String> seis = new HashSet<String>();
-        if (sei != null) {
-            seis.add(sei);
-        } else {
-            //find all SEIs within current classes
-            seis.addAll(getSEIs(getClassesDir()));
+        Set<String> allSeis = new HashSet<>();
+        if (seis != null && !seis.isEmpty()) {
+            allSeis.addAll(seis);
         }
-        if (seis.isEmpty()) {
+        if (sei != null) {
+            if (!allSeis.add(sei)) {
+                getLog().warn("'" + sei + "' was already added");
+            }
+        }
+        if (allSeis.isEmpty()) {
+            //find all SEIs within current classes
+            allSeis.addAll(getSEIs(getClassesDir()));
+        }
+        if (allSeis.isEmpty()) {
             throw new MojoFailureException("No @jakarta.jws.WebService found.");
         }
-        for (String aSei : seis) {
+        for (String aSei : allSeis) {
             processSei(aSei);
         }
     }
