@@ -33,7 +33,6 @@ import com.sun.xml.ws.model.AbstractSEIModelImpl;
 import com.sun.tools.ws.util.ServiceFinder;
 import org.xml.sax.SAXParseException;
 
-import javax.tools.DiagnosticCollector;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
@@ -54,7 +53,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import javax.tools.Diagnostic;
+import javax.tools.DiagnosticListener;
+import org.xml.sax.ext.Locator2Impl;
 
 /**
  * @author Vivek Pandey
@@ -155,7 +158,39 @@ public class WsgenTool {
                 out.println(WscompileMessages.WSCOMPILE_CANT_GET_COMPILER(property("java.home"), property("java.version"), property("java.vendor")));
                 return false;
             }
-            DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
+            DiagnosticListener<JavaFileObject> diagnostics = new DiagnosticListener<JavaFileObject>() {
+                @Override
+                public void report(Diagnostic<? extends JavaFileObject> diagnostic) {
+                    boolean fromFile = diagnostic.getSource() != null;
+                    StringBuilder message = new StringBuilder();
+                    if (fromFile) {
+                        message.append(diagnostic.getSource().getName());
+                    }
+                    message.append(diagnostic.getMessage(Locale.getDefault()));
+                    if (fromFile) {
+                        message.append("");
+                    }
+                    switch (diagnostic.getKind()) {
+                        case ERROR:
+                            Locator2Impl l = new Locator2Impl();
+                            l.setSystemId(diagnostic.getSource().getName());
+                            l.setLineNumber((int) diagnostic.getLineNumber());
+                            l.setColumnNumber((int) diagnostic.getColumnNumber());
+                            SAXParseException ex = new SAXParseException(message.toString(), l);
+                            listener.error(ex);
+                            break;
+                        case MANDATORY_WARNING:
+                        case WARNING:
+                            listener.message(message.toString());
+                            break;
+                        default:
+                            if (options.verbose) {
+                                listener.message(message.toString());
+                            }
+                    }
+                }
+            };
+
             StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null);
             JavaCompiler.CompilationTask task = compiler.getTask(
                     null,
