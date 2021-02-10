@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2011, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * Oracle licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -71,8 +71,6 @@ public class WsImportMojoITCase {
         assertFilePresent(project, "target/generated-sources/test-wsimport/wsimport/test/SumUtil.java");
         assertFileNotPresent(project, "target/classes/wsimport/test/AddService.class");
         assertFileContains(project, "target/generated-sources/test-wsimport/wsimport/test/SumUtil.java", "JAX-WS RI " + version);
-        //-target (default) - for 2.2.x it should be 2.2
-        assertFileContains(project, "target/generated-sources/test-wsimport/wsimport/test/SumUtil.java", "Generated source version: 2.2");
     }
 
     @Test

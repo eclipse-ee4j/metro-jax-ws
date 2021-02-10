@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
  * Copyright 2006 Guillaume Nodet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,6 +39,12 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 public class TestWsGenMojo extends AbstractWsGenMojo {
     
     /**
+     * Specify that a WSDL file should be generated in <code>${resourceDestDir}</code>.
+     */
+    @Parameter(defaultValue = "false")
+    private boolean genWsdl;
+
+    /**
      * Specify where to place output generated classes. Use <code>xnocompile</code>
      * to turn this off.
      */
@@ -77,6 +83,11 @@ public class TestWsGenMojo extends AbstractWsGenMojo {
     @Override
     protected File getSourceDestDir() {
         return sourceDestDir;
+    }
+
+    @Override
+    protected boolean getGenWSDL() {
+        return genWsdl;
     }
 
     @Override

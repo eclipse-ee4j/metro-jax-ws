@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
  * Copyright 2006 Guillaume Nodet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,6 +29,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jakarta.jws.WebService;
+import java.util.List;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -44,12 +45,6 @@ import org.codehaus.plexus.util.FileUtils;
  * @version $Id: WsGenMojo.java 3169 2007-01-22 02:51:29Z dantran $
  */
 abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
-
-    /**
-     * Specify that a WSDL file should be generated in <code>${resourceDestDir}</code>.
-     */
-    @Parameter(defaultValue = "false")
-    protected boolean genWsdl;
 
     /**
      * Service endpoint implementation class name.
@@ -100,12 +95,12 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     private boolean xdonotoverwrite;
 
     /**
-     * Metadata file for wsgen. See <a href="https://jax-ws.java.net/2.2.8/docs/ch03.html#users-guide-external-metadata">the JAX-WS Guide</a>
+     * Metadata file for wsgen. See <a href="https://eclipse-ee4j.github.io/metro-jax-ws/3.0.0/docs/ch03.html#users-guide-external-metadata">the JAX-WS Guide</a>
      * for the description of this feature.
      * Unmatched files will be ignored.
      *
      * @since 2.3
-     * @see <a href="https://jax-ws.java.net/2.2.8/docs/ch03.html#users-guide-external-metadata">External Web Service Metadata</a>
+     * @see <a href="https://eclipse-ee4j.github.io/metro-jax-ws/3.0.0/docs/ch03.html#users-guide-external-metadata">External Web Service Metadata</a>
      */
     @Parameter
     private File metadata;
@@ -113,6 +108,8 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     protected abstract File getResourceDestDir();
 
     protected abstract File getClassesDir();
+
+    protected abstract boolean getGenWSDL();
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -133,7 +130,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
 
     protected void processSei(String sei) throws MojoExecutionException {
         getLog().info("Processing: " + sei);
-        ArrayList<String> args = getWsGenArgs(sei);
+        List<String> args = getWsGenArgs(sei, true);
         getLog().info("jaxws:wsgen args: " + args);
         exec(args);
         if (metadata != null) {
@@ -172,11 +169,11 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
      * @return a list of arguments
      * @throws MojoExecutionException
      */
-    private ArrayList<String> getWsGenArgs(String aSei) throws MojoExecutionException {
-        ArrayList<String> args = new ArrayList<String>();
+    protected List<String> getWsGenArgs(String aSei, boolean attachResources) throws MojoExecutionException {
+        List<String> args = new ArrayList<>();
         args.addAll(getCommonArgs());
 
-        if (this.genWsdl) {
+        if (getGenWSDL()) {
             if (this.protocol != null) {
                 args.add("-wsdl:" + this.protocol);
             } else {
@@ -203,7 +200,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
             }
             args.add("-r");
             args.add("'" + resourceDir.getAbsolutePath() + "'");
-            if (!"war".equals(project.getPackaging())) {
+            if (attachResources && !"war".equals(project.getPackaging())) {
                 Resource r = new Resource();
                 r.setDirectory(getRelativePath(project.getBasedir(), getResourceDestDir()));
                 project.addResource(r);

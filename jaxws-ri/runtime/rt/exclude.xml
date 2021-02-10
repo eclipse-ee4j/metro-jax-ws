@@ -146,7 +146,7 @@
     We don't own asm.
     -->
     <Match>
-        <Package name="~com\.sun\.xml\.ws\.org\.objectweb\.asm\..*"/>
+        <Package name="~com\.sun\.xml\.ws\.org\.objectweb\..*"/>
     </Match>
     <!--
     As designed.
