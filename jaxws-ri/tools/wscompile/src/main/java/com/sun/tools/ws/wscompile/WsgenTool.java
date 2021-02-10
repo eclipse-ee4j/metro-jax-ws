@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -132,25 +132,26 @@ public class WsgenTool {
     public boolean buildModel(String endpoint, Listener listener) throws BadCommandLineException {
         final ErrorReceiverFilter errReceiver = new ErrorReceiverFilter(listener);
 
-        List<String> args = new ArrayList<String>(6 + (options.nocompile ? 1 : 0)
-                + (options.encoding != null ? 2 : 0));
+        if (!options.nosource) {
+            List<String> args = new ArrayList<String>(6 + (options.nocompile ? 1 : 0)
+                    + (options.encoding != null ? 2 : 0));
 
-        args.add("-d");
-        args.add(options.destDir.getAbsolutePath());
-        args.add("-classpath");
-        args.add(options.classpath);
-        args.add("-s");
-        args.add(options.sourceDir.getAbsolutePath());
-        if (options.nocompile) {
-            args.add("-proc:only");
-        }
-        if (options.encoding != null) {
-            args.add("-encoding");
-            args.add(options.encoding);
-        }
-        if (options.javacOptions != null) {
-            args.addAll(options.getJavacOptions(args, listener));
-        }
+            args.add("-d");
+            args.add(options.destDir.getAbsolutePath());
+            args.add("-classpath");
+            args.add(options.classpath);
+            args.add("-s");
+            args.add(options.sourceDir.getAbsolutePath());
+            if (options.nocompile) {
+                args.add("-proc:only");
+            }
+            if (options.encoding != null) {
+                args.add("-encoding");
+                args.add(options.encoding);
+            }
+            if (options.javacOptions != null) {
+                args.addAll(options.getJavacOptions(args, listener));
+            }
 
             JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
             if (compiler == null) {

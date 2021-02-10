@@ -5,7 +5,7 @@
  ------
  2013-06-03
 
-~~ Copyright 2013-2020 Oracle
+~~ Copyright 2013-2021 Oracle
 ~~ Copyright 2006 Codehaus
 ~~
 ~~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,21 +38,24 @@ JAX-WS Maven Plugin
   Instructions on how to use the JAX-WS Maven Plugin can be found {{{./usage.html}here}}.
 
 * Goals Overview
-  
+
   * {{{./wsimport-mojo.html}jaxws:wsimport}}: generates portable artifacts used in
      Jakarta XML Web Services compliant
-     clients and services. The tool reads a WSDL and generates all the required artifacts 
-     for web service development, deployment, and invocation. 
-  
+     clients and services. The tool reads a WSDL and generates all the required artifacts
+     for web service development, deployment, and invocation.
+
   * {{{./wsimport-test-mojo.html}jaxws:wsimport-test}}: same as <<<jaxws:wsimport>>> but for tests.
 
   * {{{./wsgen-mojo.html}jaxws:wsgen}}: reads a service endpoint implementation class
      and generates all of the portable artifacts for a Jakarta XML Web Service.
 
   * {{{./wsgen-test-mojo.html}jaxws:wsgen-test}}: same as <<<jaxws:wsgen>>> but for tests.
-    
+
+  * {{{./wsdlgen-mojo.html}jaxws:wsdlgen}}: reads a service endpoint implementation class
+     and generates WSDL and XML Schema files for a Jakarta XML Web Service.
+
   []
-  
+
 * Examples
 
   * {{{./examples/using-metro.html}Using Metro binaries}}

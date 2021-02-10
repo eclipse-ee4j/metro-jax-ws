@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -237,6 +237,20 @@ class WsGenBase extends WsTask2 {
         this.portName = name;
     }
 
+    /* *********************** -Xnosource option used only with -wsdl option ************************ */
+    /**
+     * do not generate source files *
+     */
+    private boolean xnosource = false;
+
+    public boolean isXnosource() {
+        return xnosource;
+    }
+
+    public void setXnosource(boolean xnocompile) {
+        this.xnosource = xnocompile;
+    }
+
     private String sei;
 
     /**
@@ -286,6 +300,9 @@ class WsGenBase extends WsTask2 {
             }
             if (getInlineSchemas()) {
                 cmd.createArgument().setValue("-inlineSchemas");
+            }
+            if (isXnosource()) {
+                cmd.createArgument().setValue("-Xnosource");
             }
         }
 
