@@ -173,7 +173,11 @@ public class WsgenTool {
                     switch (diagnostic.getKind()) {
                         case ERROR:
                             Locator2Impl l = new Locator2Impl();
-                            l.setSystemId(diagnostic.getSource().getName());
+                            if (fromFile) {
+                                l.setSystemId(diagnostic.getSource().getName());
+                            } else {
+                                l.setSystemId(null);
+                            }
                             l.setLineNumber((int) diagnostic.getLineNumber());
                             l.setColumnNumber((int) diagnostic.getColumnNumber());
                             SAXParseException ex = new SAXParseException(message.toString(), l);
