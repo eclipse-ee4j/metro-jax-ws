@@ -40,7 +40,7 @@ module com.sun.xml.ws.rt {
 
     requires org.jvnet.mimepull;
     requires transitive org.jvnet.staxex;
-    requires transitive com.sun.xml.bind;
+    requires transitive org.glassfish.jaxb.runtime;
     requires transitive com.sun.xml.streambuffer;
     requires transitive com.sun.xml.ws.policy;
     requires transitive gmbal;
