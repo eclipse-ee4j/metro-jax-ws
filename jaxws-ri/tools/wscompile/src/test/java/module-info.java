@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +17,7 @@ module com.sun.tools.ws.wscompile.test {
     requires java.rmi;
     requires java.compiler;
     requires java.logging;
-    requires com.sun.tools.xjc;
+    requires org.glassfish.jaxb.xjc;
 
     uses com.sun.tools.ws.api.WsgenExtension;
     uses com.sun.tools.ws.api.wsdl.TWSDLExtensionHandler;
