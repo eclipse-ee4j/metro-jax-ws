@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -993,6 +993,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
             pw.println(WsservletMessages.MESSAGE_TOO_LONG(HttpAdapter.class.getName() + ".dumpTreshold"));
         } else {
             buf.writeTo(baos);
+            pw.println();
         }
         pw.println("--------------------");
 
@@ -1126,6 +1127,13 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
 
     public static void setDump(boolean dumpMessages) {
         HttpAdapter.dump = dumpMessages;
+    }
+
+    public static void setDumpTreshold(int treshold) {
+        if (treshold < 0) {
+            throw new IllegalArgumentException("Treshold must be positive number");
+        }
+        HttpAdapter.dump_threshold = treshold;
     }
 }
 

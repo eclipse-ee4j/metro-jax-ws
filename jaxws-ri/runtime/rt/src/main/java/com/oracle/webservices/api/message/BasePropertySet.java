@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,17 +12,20 @@ package com.oracle.webservices.api.message;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
+import java.lang.invoke.MethodHandles;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.AccessController;
-import java.security.PrivilegedAction;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -102,52 +105,87 @@ public abstract class BasePropertySet implements PropertySet {
      *   return model;
      * }
      * </pre>
+     * or if the implementation is in different Java module.
+     * <pre>
+     * private static final PropertyMap model;
+     * static {
+     *   model = parse(MyDerivedClass.class, MethodHandles.lookup());
+     * }
+     * protected PropertyMap getPropertyMap() {
+     *   return model;
+     * }
+     * </pre>
+     * @return the map of strongly-typed known properties keyed by property names
      */
     protected abstract PropertyMap getPropertyMap();
 
     /**
      * This method parses a class for fields and methods with {@link PropertySet.Property}.
+     *
+     * @param clazz Class to be parsed
+     * @return the map of strongly-typed known properties keyed by property names
+     * @see #parse(java.lang.Class, java.lang.invoke.MethodHandles.Lookup)
      */
-    protected static PropertyMap parse(final Class clazz) {
-        // make all relevant fields and methods accessible.
-        // this allows runtime to skip the security check, so they runs faster.
-        return AccessController.doPrivileged(new PrivilegedAction<PropertyMap>() {
-            @Override
-            public PropertyMap run() {
+    protected static PropertyMap parse(final Class<?> clazz) {
+        return parse(clazz, MethodHandles.lookup());
+    }
+
+    /**
+     * This method parses a class for fields and methods with {@link PropertySet.Property}.
+     *
+     * @param clazz Class to be parsed
+     * @param caller the caller lookup object
+     * @return the map of strongly-typed known properties keyed by property names
+     * @throws NullPointerException if {@code clazz} or {@code caller} is {@code null}
+     * @throws SecurityException if denied by the security manager
+     * @throws RuntimeException if any of the other access checks specified above fails
+     * @since 3.0.1
+     */
+    protected static PropertyMap parse(final Class<?> clazz, final MethodHandles.Lookup caller) {
+        Class<?> cl = Objects.requireNonNull(clazz, "clazz must not be null");
+        MethodHandles.Lookup lookup = Objects.requireNonNull(caller, "caller must not be null");
+        try {
+            return AccessController.doPrivileged((PrivilegedExceptionAction<PropertyMap>) () -> {
                 PropertyMap props = new PropertyMap();
-                for (Class c=clazz; c!=null; c=c.getSuperclass()) {
+                for (Class<?> c = cl; c != Object.class; c = c.getSuperclass()) {
+                    MethodHandles.Lookup privateLookup = AccessorFactory.createPrivateLookup(c, lookup);
                     for (Field f : c.getDeclaredFields()) {
                         Property cp = f.getAnnotation(Property.class);
-                        if(cp!=null) {
-                            for(String value : cp.value()) {
-                                props.put(value, new FieldAccessor(f, value));
+                        if (cp != null) {
+                            for (String value : cp.value()) {
+                                props.put(value, AccessorFactory.createAccessor(f, value, privateLookup));
                             }
                         }
                     }
                     for (Method m : c.getDeclaredMethods()) {
                         Property cp = m.getAnnotation(Property.class);
-                        if(cp!=null) {
+                        if (cp != null) {
                             String name = m.getName();
                             assert name.startsWith("get") || name.startsWith("is");
 
-                            String setName = name.startsWith("is") ? "set"+name.substring(2) : // isFoo -> setFoo
-                                                                     's'  +name.substring(1);  // getFoo -> setFoo
+                            String setName = name.startsWith("is")
+                                    ? "set" + name.substring(2) // isFoo -> setFoo
+                                    : 's' + name.substring(1);  // getFoo -> setFoo
                             Method setter;
                             try {
-                                setter = clazz.getMethod(setName,m.getReturnType());
+                                setter = cl.getMethod(setName, m.getReturnType());
                             } catch (NoSuchMethodException e) {
                                 setter = null; // no setter
                             }
-                            for(String value : cp.value()) {
-                                props.put(value, new MethodAccessor(m, setter, value));
+                            for (String value : cp.value()) {
+                                props.put(value, AccessorFactory.createAccessor(m, setter, value, privateLookup));
                             }
                         }
                     }
                 }
 
                 return props;
-            }
-        });
+            });
+        } catch (PrivilegedActionException ex) {
+            Throwable t = ex.getCause();
+            // TODO9: use InaccessibleObjectException on JDK 9+ instead
+            throw new RuntimeException(t);
+        }
     }
 
     /**

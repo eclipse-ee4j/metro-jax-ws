@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,7 +36,11 @@ import javax.xml.ws.soap.SOAPBinding;
 import java.io.*;
 import java.net.CookieHandler;
 import java.net.HttpURLConnection;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,13 +69,14 @@ public class HttpTransportPipe extends AbstractTubeImpl {
     private final boolean sticky;
 
     static {
-        boolean b;
         try {
-            b = Boolean.getBoolean(HttpTransportPipe.class.getName()+".dump");
-        } catch( Throwable t ) {
-            b = false;
+            dump = Boolean.getBoolean(HttpTransportPipe.class.getName() + ".dump");
+        } catch (SecurityException se) {
+            if (LOGGER.isLoggable(Level.CONFIG)) {
+                LOGGER.log(Level.CONFIG, "Cannot read ''{0}'' property, using defaults.",
+                        new Object[]{HttpTransportPipe.class.getName() + ".dump"});
+            }
         }
-        dump = b;
     }
 
     public HttpTransportPipe(Codec codec, WSBinding binding) {
@@ -427,6 +432,7 @@ public class HttpTransportPipe extends AbstractTubeImpl {
             pw.println(WsservletMessages.MESSAGE_TOO_LONG(HttpAdapter.class.getName() + ".dumpTreshold"));
         } else {
             buf.writeTo(baos);
+            pw.println();
         }
         pw.println("--------------------");
 
@@ -439,4 +445,7 @@ public class HttpTransportPipe extends AbstractTubeImpl {
         }
     }
 
+    public static void setDump(boolean dumpMessages) {
+        HttpTransportPipe.dump = dumpMessages;
+    }
 }
