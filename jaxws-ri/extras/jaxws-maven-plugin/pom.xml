@@ -165,7 +165,7 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
-        <spotbugs.version>4.1.3</spotbugs.version>
+        <spotbugs.version>4.2.0</spotbugs.version>
 
         <jaxws-tools.version>${project.version}</jaxws-tools.version>
         <!--<jaxws-tools.version>2.3.2</jaxws-tools.version>-->

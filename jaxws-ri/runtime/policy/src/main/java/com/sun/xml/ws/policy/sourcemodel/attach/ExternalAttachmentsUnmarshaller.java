@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -141,27 +141,27 @@ public class ExternalAttachmentsUnmarshaller {
             final QName name = element.getName();
             if (parent == null) {
                 if (!name.equals(POLICIES)) {
-                    throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0089_EXPECTED_ELEMENT("<Policies>", name, element.getLocation())));
+                    throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0089_EXPECTED_ELEMENT("<Policies>", "<" + name + ">", element.getLocation())));
                 }
             } else {
                 final QName parentName = parent.getName();
                 if (parentName.equals(POLICIES)) {
                     if (!name.equals(POLICY_ATTACHMENT)) {
-                        throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0089_EXPECTED_ELEMENT("<PolicyAttachment>", name, element.getLocation())));
+                        throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0089_EXPECTED_ELEMENT("<PolicyAttachment>", "<" + name + ">", element.getLocation())));
                     }
                 } else if (parentName.equals(POLICY_ATTACHMENT)) {
                     if (name.equals(POLICY)) {
                         readPolicy(reader);
                         return;
                     } else if (!name.equals(APPLIES_TO)) {
-                        throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0089_EXPECTED_ELEMENT("<AppliesTo> or <Policy>", name, element.getLocation())));
+                        throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0089_EXPECTED_ELEMENT("<AppliesTo> or <Policy>", "<" + name + ">", element.getLocation())));
                     }
                 } else if (parentName.equals(APPLIES_TO)) {
                     if (!name.equals(URI)) {
-                        throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0089_EXPECTED_ELEMENT("<URI>", name, element.getLocation())));
+                        throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0089_EXPECTED_ELEMENT("<URI>", "<" + name + ">", element.getLocation())));
                     }
                 } else {
-                    throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0090_UNEXPECTED_ELEMENT(name, element.getLocation())));
+                    throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0090_UNEXPECTED_ELEMENT("<" + name + ">", element.getLocation())));
                 }
             }
             reader.nextEvent();
@@ -192,7 +192,7 @@ public class ExternalAttachmentsUnmarshaller {
     private void checkEndTagName(final QName expectedName, final EndElement element) throws PolicyException {
         final QName actualName = element.getName();
         if (!expectedName.equals(actualName)) {
-            throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0091_END_ELEMENT_NO_MATCH(expectedName, element, element.getLocation())));
+            throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0091_END_ELEMENT_NO_MATCH(expectedName, "<" + element + ">", element.getLocation())));
         }
 
     }
