@@ -164,7 +164,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
         try {
             //jaxbContext = JAXBRIContext.newInstance(cls, types, targetNamespace, false);
             // Need to avoid doPriv block once JAXB is fixed. Afterwards, use the above
-            bindingContext = AccessController.doPrivileged(new PrivilegedExceptionAction<>() {
+            bindingContext = AccessController.doPrivileged(new PrivilegedExceptionAction<BindingContext>() {
                 @Override
                 public BindingContext run() throws Exception {
                     if(LOGGER.isLoggable(Level.FINEST)) {
