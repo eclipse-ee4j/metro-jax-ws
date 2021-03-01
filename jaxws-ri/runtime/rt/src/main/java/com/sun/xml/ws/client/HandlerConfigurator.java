@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -101,7 +101,7 @@ abstract class HandlerConfigurator {
      */
     static final class AnnotationConfigurator extends HandlerConfigurator {
         private final HandlerChainsModel handlerModel;
-        private final Map<WSPortInfo,HandlerAnnotationInfo> chainMap = new HashMap<WSPortInfo,HandlerAnnotationInfo>();
+        private final Map<WSPortInfo,HandlerAnnotationInfo> chainMap = new HashMap<>();
         private static final Logger logger = Logger.getLogger(
             com.sun.xml.ws.util.Constants.LoggingDomain + ".handler");
 
@@ -111,6 +111,7 @@ abstract class HandlerConfigurator {
         }
 
 
+        @Override
         void configureHandlers(WSPortInfo port, BindingImpl binding) {
             //Check in cache first
             HandlerAnnotationInfo chain = chainMap.get(port);
@@ -130,41 +131,45 @@ abstract class HandlerConfigurator {
             binding.setHandlerChain(chain.getHandlers());
         }
 
+        @Override
         HandlerResolver getResolver() {
             return new HandlerResolver() {
+                @Override
                 public List<Handler> getHandlerChain(PortInfo portInfo) {
-                    return new ArrayList<Handler>(
+                    return new ArrayList<>(
                         handlerModel.getHandlersForPortInfo(portInfo).getHandlers());
                 }
             };
         }
+
         // logged at finer level
         private void logSetChain(WSPortInfo info, HandlerAnnotationInfo chain) {
-            logger.finer("Setting chain of length " + chain.getHandlers().size() +
-                " for port info");
-            logPortInfo(info, Level.FINER);
+            if (logger.isLoggable(Level.FINER)) {
+                logger.log(Level.FINER, "Setting chain of length {0} for port info", chain.getHandlers().size());
+                logPortInfo(info, Level.FINER);
+            }
         }
 
         // logged at fine level
         private void logGetChain(WSPortInfo info) {
-            logger.fine("No handler chain found for port info:");
-            logPortInfo(info, Level.FINE);
-            logger.fine("Existing handler chains:");
-            if (chainMap.isEmpty()) {
-                logger.fine("none");
-            } else {
-                for (WSPortInfo key : chainMap.keySet()) {
-                    logger.fine(chainMap.get(key).getHandlers().size() +
-                        " handlers for port info ");
-                    logPortInfo(key, Level.FINE);
+            if (logger.isLoggable(Level.FINE)) {
+                logger.fine("No handler chain found for port info:");
+                logPortInfo(info, Level.FINE);
+                logger.fine("Existing handler chains:");
+                if (chainMap.isEmpty()) {
+                    logger.fine("none");
+                } else {
+                    for (Map.Entry<WSPortInfo, HandlerAnnotationInfo> entry : chainMap.entrySet()) {
+                        logger.log(Level.FINE, "{0} handlers for port info ", entry.getValue().getHandlers().size());
+                        logPortInfo(entry.getKey(), Level.FINE);
+                    }
                 }
             }
         }
 
         private void logPortInfo(WSPortInfo info, Level level) {
-            logger.log(level, "binding: " + info.getBindingID() +
-                "\nservice: " + info.getServiceName() +
-                "\nport: " + info.getPortName());
+            logger.log(level, "binding: {0}\nservice: {1}\nport: {2}",
+                    new Object[]{info.getBindingID(), info.getServiceName(), info.getPortName()});
         }
     }
 }

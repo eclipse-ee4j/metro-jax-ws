@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -112,12 +112,12 @@ public class DeploymentDescriptorParser<A> {
      * Endpoint names that are declared.
      * Used to catch double definitions.
      */
-    private final Set<String> names = new HashSet<String>();
+    private final Set<String> names = new HashSet<>();
 
     /**
      * WSDL/schema documents collected from /WEB-INF/wsdl. Keyed by the system ID.
      */
-    private final Map<String, SDDocumentSource> docs = new HashMap<String, SDDocumentSource>();
+    private final Map<String, SDDocumentSource> docs = new HashMap<>();
 
     /**
      * @param cl             Used to load service implementations.
@@ -202,7 +202,7 @@ public class DeploymentDescriptorParser<A> {
             failWithFullName("runtime.parser.invalidElement", reader);
         }
 
-        List<A> adapters = new ArrayList<A>();
+        List<A> adapters = new ArrayList<>();
 
         Attributes attrs = XMLStreamReaderUtil.getAttributes(reader);
         String version = getMandatoryNonEmptyAttribute(reader, attrs, ATTR_VERSION);
@@ -300,7 +300,7 @@ public class DeploymentDescriptorParser<A> {
         if (mtomEnabled != null) {
             if (mtomThreshold != null) {
                 mtomfeature = new MTOMFeature(Boolean.valueOf(mtomEnabled),
-                        Integer.valueOf(mtomThreshold));
+                        Integer.parseInt(mtomThreshold));
             } else {
                 mtomfeature = new MTOMFeature(Boolean.valueOf(mtomEnabled));
             }

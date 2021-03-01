@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -432,7 +432,7 @@ public class SaajStaxWriter implements XMLStreamWriter {
          * @param namespaceUri namespace uri
          */
         public void addNamespaceDeclaration(final String prefix, final String namespaceUri) {
-            if (null == this.namespaceUri && null != namespaceUri && prefix.equals(emptyIfNull(this.prefix))) {
+            if (null == this.namespaceUri && null != namespaceUri && emptyIfNull(this.prefix).equals(prefix)) {
                 this.namespaceUri = namespaceUri;
             }
             this.namespaceDeclarations.add(new NamespaceDeclaration(prefix, namespaceUri));
@@ -447,7 +447,7 @@ public class SaajStaxWriter implements XMLStreamWriter {
          */
         public void addAttribute(final String prefix, final String ns, final String ln, final String value) {
             if (ns == null && prefix == null && xmlns.equals(ln)) {
-                this.addNamespaceDeclaration(prefix, value);
+                this.addNamespaceDeclaration(null, value);
             } else {
                 this.attributeDeclarations.add(new AttributeDeclaration(prefix, ns, ln, value));
             }
