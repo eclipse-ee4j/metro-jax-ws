@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,6 +40,8 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.namespace.QName;
 import jakarta.xml.ws.Holder;
 import jakarta.xml.ws.WebServiceException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Runtime Wrapper and exception bean generator implementation.
@@ -383,12 +385,10 @@ public class WrapperBeanGenerator {
 
     static void write(byte[] b, String className) {
         className = className.substring(className.lastIndexOf(".")+1);
-        try {
-            java.io.FileOutputStream fo = new java.io.FileOutputStream(className + ".class");
+        try (FileOutputStream fo = new FileOutputStream(className + ".class")) {
             fo.write(b);
             fo.flush();
-            fo.close();
-        } catch (java.io.IOException e) {
+        } catch (IOException e) {
             LOGGER.log(Level.INFO, "Error Writing class", e);
         }
     }

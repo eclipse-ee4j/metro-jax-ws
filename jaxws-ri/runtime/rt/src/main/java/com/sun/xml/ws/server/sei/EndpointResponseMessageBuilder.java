@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,6 +46,7 @@ public abstract class EndpointResponseMessageBuilder {
             this.soapVersion = soapVersion;
         }
 
+        @Override
         public Message createMessage(Object[] methodArgs, Object returnValue) {
             return Messages.createEmpty(soapVersion);
         }
@@ -69,6 +70,7 @@ public abstract class EndpointResponseMessageBuilder {
             this.soapVersion = soapVersion;
         }
 
+        @Override
         public final Message createMessage(Object[] methodArgs, Object returnValue) {
             return JAXBMessage.create( bridge, build(methodArgs, returnValue), soapVersion );
         }
@@ -103,6 +105,7 @@ public abstract class EndpointResponseMessageBuilder {
         /**
          * Picks up an object from the method arguments and uses it.
          */
+        @Override
         Object build(Object[] methodArgs, Object returnValue) {
             if (methodPos == -1) {
                 return returnValue;
@@ -221,7 +224,7 @@ public abstract class EndpointResponseMessageBuilder {
                     if (parameterBridges[i] == null) parameterBridges[i] = children.get(i).getXMLBridge();
                 } else {
                     try {
-                        accessors[i] = (dynamicWrapper) ? null :
+                        accessors[i] =
                             p.getOwner().getBindingContext().getElementPropertyAccessor(
                             wrapper, name.getNamespaceURI(), name.getLocalPart() );
                     } catch (JAXBException e) {
@@ -236,6 +239,7 @@ public abstract class EndpointResponseMessageBuilder {
         /**
          * Packs a bunch of arguments into a {@link WrapperComposite}.
          */
+        @Override
         Object build(Object[] methodArgs, Object returnValue) {
             if (dynamicWrapper) return buildWrapperComposite(methodArgs, returnValue);
             try {
@@ -296,6 +300,7 @@ public abstract class EndpointResponseMessageBuilder {
         /**
          * Packs a bunch of arguments intoa {@link WrapperComposite}.
          */
+        @Override
         Object build(Object[] methodArgs, Object returnValue) {
             return buildWrapperComposite(methodArgs, returnValue);
         }

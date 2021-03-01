@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,6 +61,7 @@ public class Headers extends TreeMap<String,List<String>> {
 
     // case-insensitive string comparison of HTTP header names.
     private static final class InsensitiveComparator implements Comparator<String>, Serializable {
+        @Override
         public int compare(String o1, String o2) {
             if (o1 == null && o2 == null)
                 return 0;
@@ -82,7 +83,7 @@ public class Headers extends TreeMap<String,List<String>> {
     public void add (String key, String value) {
         List<String> list = this.get(key);
         if (list == null) {
-            list = new LinkedList<String>();
+            list = new LinkedList<>();
             put(key,list);
         }
         list.add (value);
@@ -108,7 +109,7 @@ public class Headers extends TreeMap<String,List<String>> {
      * @param value the header value to set.
      */
     public void set (String key, String value) {
-        LinkedList<String> l = new LinkedList<String>();
+        LinkedList<String> l = new LinkedList<>();
         l.add (value);
         put(key, l);
     }
@@ -116,11 +117,12 @@ public class Headers extends TreeMap<String,List<String>> {
      * Added to fix issue
      * putAll() is easier to deal with as it doesn't return anything
      */
+    @Override
     public void putAll(Map<? extends String,? extends List<String>> map) {
-        for (String k : map.keySet()) {
-            List<String> list = map.get(k);
+        for (Map.Entry<? extends String, ? extends List<String>> entry : map.entrySet()) {
+            List<String> list = entry.getValue();
             for (String v : list) {
-                add(k,v); 
+                add(entry.getKey(),v);
             }
         }
     }
