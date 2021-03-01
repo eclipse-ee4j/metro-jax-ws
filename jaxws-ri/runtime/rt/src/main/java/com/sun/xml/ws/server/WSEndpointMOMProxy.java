@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,7 +37,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.concurrent.Executor;
 import javax.xml.namespace.QName;
 import javax.xml.ws.EndpointReference;
@@ -313,11 +312,6 @@ public class WSEndpointMOMProxy extends WSEndpoint implements ManagedObjectManag
     @Override
     public ServiceDefinition getServiceDefinition() {
         return this.wsEndpoint.getServiceDefinition();
-    }
-
-    @Override
-    public Set getComponentRegistry() {
-        return this.wsEndpoint.getComponentRegistry();
     }
 
     @Override
