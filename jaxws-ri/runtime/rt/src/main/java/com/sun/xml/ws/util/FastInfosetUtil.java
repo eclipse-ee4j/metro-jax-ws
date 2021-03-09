@@ -27,15 +27,20 @@ public class FastInfosetUtil {
     private static final Logger LOG = Logger.getLogger(FastInfosetUtil.class.getName());
 
     static {
-        FISupport s;
+        FISupport s = null;
         try {
-            s = (FISupport) Class.forName("com.sun.xml.ws.util.FISupportImpl").getDeclaredConstructor().newInstance();
-            LOG.config(StreamingMessages.FASTINFOSET_ENABLED());
+            //check availability of FI codec
+            if (Class.forName("com.sun.xml.ws.encoding.fastinfoset.FastInfosetCodec") != null) {
+                s = (FISupport) Class.forName("com.sun.xml.ws.util.FISupportImpl").getDeclaredConstructor().newInstance();
+                LOG.config(StreamingMessages.FASTINFOSET_ENABLED());
+            }
         } catch (ReflectiveOperationException | SecurityException t) {
-            LOG.config(StreamingMessages.FASTINFOSET_NO_IMPLEMENTATION());
-            if (LOG.isLoggable(Level.FINEST)) {
+            if (!(t instanceof ClassNotFoundException) && LOG.isLoggable(Level.FINEST)) {
                 LOG.log(Level.FINEST, t.getMessage(), t);
             }
+        }
+        if (s == null) {
+            LOG.config(StreamingMessages.FASTINFOSET_NO_IMPLEMENTATION());
             s = new FISupport() {
                 @Override
                 public boolean isFastInfosetSource(Source o) {
