@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,6 @@
 
 package com.sun.xml.ws.encoding;
 
-import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.WSFeatureList;
 import com.sun.xml.ws.api.client.SelectOptimalEncodingFeature;
 import com.sun.xml.ws.api.fastinfoset.FastInfosetFeature;
@@ -26,6 +25,7 @@ import com.sun.xml.ws.protocol.soap.MessageCreationException;
 import com.sun.xml.ws.resources.StreamingMessages;
 import com.sun.xml.ws.server.UnsupportedMediaException;
 import static com.sun.xml.ws.binding.WebServiceFeatureList.getSoapVersion;   
+import com.sun.xml.ws.util.FastInfosetUtil;
 
 import javax.xml.ws.WebServiceException;
 import javax.xml.ws.WebServiceFeature;
@@ -33,7 +33,6 @@ import javax.xml.ws.soap.MTOMFeature;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Method;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 //import java.util.StringTokenizer;
@@ -115,6 +114,7 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
      */
     private final String connegXmlAccept;
     
+    @Override
     public StreamSOAPCodec getXMLCodec() {
         return xmlSoapCodec;
     }
@@ -150,7 +150,7 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
         WebServiceFeature fi = features.get(FastInfosetFeature.class);
         isFastInfosetDisabled = (fi != null && !fi.isEnabled());
         if (!isFastInfosetDisabled) {
-            fiSoapCodec = getFICodec(xmlSoapCodec, version);
+            fiSoapCodec = FastInfosetUtil.getFICodec(xmlSoapCodec, version);
             if (fiSoapCodec != null) {
                 fiMimeType = fiSoapCodec.getMimeType();
                 fiSwaCodec = new SwACodec(version, features, fiSoapCodec);
@@ -198,15 +198,18 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
             throw new WebServiceException("Expecting a SOAP binding but found ");
     }
     
+    @Override
     public String getMimeType() {
         return null;
     }
     
+    @Override
     public ContentType getStaticContentType(Packet packet) {
         ContentType toAdapt = getEncoder(packet).getStaticContentType(packet);
         return setAcceptHeader(packet, (ContentTypeImpl)toAdapt);
     }
     
+    @Override
     public ContentType encode(Packet packet, OutputStream out) throws IOException {
        preEncode(packet);
        ContentType ct = getEncoder(packet).encode(packet, out);
@@ -215,6 +218,7 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
        return ct;
     }
     
+    @Override
     public ContentType encode(Packet packet, WritableByteChannel buffer) {
         preEncode(packet);
         ContentType ct = getEncoder(packet).encode(packet, buffer);
@@ -264,6 +268,7 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
         }
     }
 
+    @Override
     public void decode(InputStream in, String contentType, Packet packet) throws IOException {
         if (contentType == null) {
             contentType = xmlMimeType;
@@ -292,6 +297,7 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
         postDecode(packet);
     }
 
+    @Override
     public void decode(ReadableByteChannel in, String contentType, Packet packet) {
         if (contentType == null) {
             throw new UnsupportedMediaException();
@@ -319,6 +325,7 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
         postDecode(packet);
     }
 
+    @Override
     public SOAPBindingCodec copy() {
         return new SOAPBindingCodec(features, (StreamSOAPCodec)xmlSoapCodec.copy());
     }
@@ -452,18 +459,5 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
     private RuntimeException noFastInfosetForDecoding() {
         return new RuntimeException(StreamingMessages.FASTINFOSET_DECODING_NOT_ACCEPTED());
     }
-    
-    /**
-     * Obtain an FI SOAP codec instance using reflection.
-     */
-    private static Codec getFICodec(StreamSOAPCodec soapCodec, SOAPVersion version) {
-        try {
-            Class c = Class.forName("com.sun.xml.ws.encoding.fastinfoset.FastInfosetStreamSOAPCodec");
-            Method m = c.getMethod("create", StreamSOAPCodec.class, SOAPVersion.class);
-            return (Codec)m.invoke(null, soapCodec, version);
-        } catch (Exception e) {
-            // TODO Log that FI cannot be loaded
-            return null;
-        }
-    }
+
 }

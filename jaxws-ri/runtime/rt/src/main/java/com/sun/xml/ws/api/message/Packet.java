@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -1301,7 +1301,7 @@ public final class Packet
     Boolean checkMtomAcceptable;
     public void checkMtomAcceptable() {
         if (checkMtomAcceptable == null) {
-            if (acceptableMimeTypes == null || isFastInfosetDisabled) {
+            if (acceptableMimeTypes == null) {
                 checkMtomAcceptable = false;
             } else {
                 checkMtomAcceptable = (acceptableMimeTypes.indexOf(MtomCodec.XOP_XML_MIME_TYPE) != -1);

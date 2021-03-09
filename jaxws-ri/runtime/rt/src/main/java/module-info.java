@@ -42,6 +42,9 @@ module com.sun.xml.ws.rt {
     requires transitive com.sun.xml.streambuffer;
     requires transitive com.sun.xml.ws.policy;
 
+    requires static jakarta.servlet;
+    requires static com.sun.xml.fastinfoset;
+
     exports com.oracle.webservices.api;
     exports com.oracle.webservices.api.databinding;
     exports com.oracle.webservices.api.message;

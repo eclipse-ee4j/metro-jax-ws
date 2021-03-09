@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,6 +17,7 @@ import com.sun.xml.ws.api.config.management.policy.ManagedServiceAssertion;
 import com.sun.xml.ws.api.config.management.policy.ManagementAssertion.Setting;
 import com.sun.xml.ws.api.server.Container;
 import com.sun.xml.ws.api.server.WSEndpoint;
+import com.sun.xml.ws.api.server.WebModule;
 import com.sun.xml.ws.client.Stub;
 import org.glassfish.external.amx.AMXGlassfish;
 import org.glassfish.gmbal.Description;
@@ -107,17 +108,14 @@ public abstract class MonitorBase {
     private String getContextPath(final WSEndpoint endpoint) {
         try {
             Container container = endpoint.getContainer();
-            Method getSPI = 
-                container.getClass().getDeclaredMethod("getSPI", Class.class);
-            getSPI.setAccessible(true);
-            Class servletContextClass = 
-                Class.forName("javax.servlet.ServletContext");
-            Object servletContext =
-                getSPI.invoke(container, servletContextClass);
-            if (servletContext != null) {
-                Method getContextPath = servletContextClass.getDeclaredMethod("getContextPath");
-                getContextPath.setAccessible(true);
-                return (String) getContextPath.invoke(servletContext);
+            WebModule wm = container.getSPI(WebModule.class);
+            Class servletContextClass = Class.forName("jakarta.servlet.ServletContext");
+            if (servletContextClass != null) {
+                Object servletContext = container.getSPI(servletContextClass);
+                if (servletContext != null) {
+                    Method getContextPath = servletContextClass.getDeclaredMethod("getContextPath");
+                    return (String) getContextPath.invoke(servletContext);
+                }
             }
             return null;
         } catch (Throwable t) {
