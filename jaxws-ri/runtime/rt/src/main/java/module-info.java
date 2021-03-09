@@ -37,6 +37,7 @@ module com.sun.xml.ws.rt {
     requires transitive jakarta.xml.ws;
 
     requires static jakarta.servlet;
+    requires static com.sun.xml.fastinfoset;
 
     requires org.jvnet.mimepull;
     requires transitive org.jvnet.staxex;
