@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,6 @@
 package com.sun.tools.ws.wscompile;
 
 import com.sun.tools.ws.resources.WscompileMessages;
-import com.sun.tools.ws.Invoker;
 
 import javax.annotation.processing.Filer;
 import java.io.File;
@@ -21,9 +20,13 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import javax.tools.FileObject;
 
@@ -33,6 +36,14 @@ import javax.tools.FileObject;
  * @author Vivek Pandey
  */
 public class Options {
+
+    private static final String JAVAX = "javax.xml.bind";
+    private static final String JAKARTA = "jakarta.xml.bind";
+    private static final String JAXB_CORE = "org.glassfish.jaxb.core";
+    private static final String BIND = "com.sun.xml.bind";
+
+    protected final Map<String, String> classNameReplacer = new HashMap<>();
+
     /**
      * -verbose
      */
@@ -92,7 +103,14 @@ public class Options {
     public boolean disableXmlSecurity;
 
     public enum Target {
-        V2_0, V2_1, V2_2, V3_0;
+
+        V2_0("2.0"), V2_1("2.1"), V2_2("2.2"), V2_3("2.3"), V3_0("3.0");
+
+        private final String version;
+
+        private Target(String version) {
+            this.version = version;
+        }
 
         /**
          * Returns true if this version is equal or later than the given one.
@@ -102,19 +120,16 @@ public class Options {
         }
 
         /**
-         * Parses "2.0" and "2.1" into the {@link Target} object.
+         * Parses token into the {@link Target} object.
          *
          * @return null for parsing failure.
          */
         public static Target parse(String token) {
-            if (token.equals("2.0"))
-                return Target.V2_0;
-            else if (token.equals("2.1"))
-                return Target.V2_1;
-            else if (token.equals("2.2"))
-                return Target.V2_2;
-            else if (token.equals("3.0"))
-                return Target.V3_0;
+            for (Target target : Target.values()) {
+                if (target.getVersion().equals(token)) {
+                    return target;
+                }
+            }
             return null;
         }
 
@@ -122,18 +137,7 @@ public class Options {
          * Gives the String representation of the {@link Target}
          */
         public String getVersion(){
-            switch(this){
-            case V2_0:
-                return "2.0";
-            case V2_1:
-                return "2.1";
-            case V2_2:
-                return "2.2";
-            case V3_0:
-                return "3.0";
-            default:
-                return null;
-            }
+            return version;
         }
 
         public static Target getDefault() {
@@ -316,6 +320,7 @@ public class Options {
             target = Target.parse(token);
             if(target == null)
                 throw new BadCommandLineException(WscompileMessages.WSIMPORT_ILLEGAL_TARGET_VERSION(token));
+            addClassNameReplacers(target);
             return 2;
         } else if (args[i].equals("-classpath") || args[i].equals("-cp")) {
             classpath = requireArgument("-classpath", args, ++i) + File.pathSeparator + System.getProperty("java.class.path");
@@ -365,6 +370,13 @@ public class Options {
             return 1;
         }
         return 0;
+    }
+
+    private void addClassNameReplacers(Target target) {
+        if (target.ordinal() < Target.V3_0.ordinal()) {
+            classNameReplacer.put(JAKARTA, JAVAX);
+            classNameReplacer.put(JAXB_CORE, BIND);
+        }
     }
 
     // protected method to allow overriding
