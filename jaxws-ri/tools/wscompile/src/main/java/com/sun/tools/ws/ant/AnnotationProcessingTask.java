@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -98,12 +98,12 @@ public class AnnotationProcessingTask extends Javac {
         try {
             Matcher matcher = VERSION_PATTERN.matcher(super.getCompilerVersion());
             if (matcher.find()) {
-                float version = Float.valueOf(matcher.group(1));
+                float version = Float.parseFloat(matcher.group(1));
                 if (version < 1.6) {
                     throw new BuildException("Annotation processing task requires Java 1.6+", getLocation());
                 }
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException | NullPointerException e) {
             log("Can't check version for annotation processing task");
         }
     }

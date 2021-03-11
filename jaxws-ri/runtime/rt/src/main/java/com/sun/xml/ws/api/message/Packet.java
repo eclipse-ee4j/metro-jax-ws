@@ -1301,7 +1301,7 @@ public final class Packet
     Boolean checkMtomAcceptable;
     public void checkMtomAcceptable() {
         if (checkMtomAcceptable == null) {
-            if (acceptableMimeTypes == null) {
+            if (acceptableMimeTypes == null || isFastInfosetDisabled) {
                 checkMtomAcceptable = false;
             } else {
                 checkMtomAcceptable = (acceptableMimeTypes.indexOf(MtomCodec.XOP_XML_MIME_TYPE) != -1);

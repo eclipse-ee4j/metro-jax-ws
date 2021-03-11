@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -287,9 +287,10 @@ public class DOMForest {
             // on Windows, filenames are case insensitive.
             // perform case-insensitive search for improved user experience
             String systemPath = getPath(systemId);
-            for (String key : core.keySet()) {
+            for (Map.Entry<String, Document> entry : core.entrySet()) {
+                String key = entry.getKey();
                 if (key.startsWith("file:") && getPath(key).equalsIgnoreCase(systemPath)) {
-                    doc = core.get(key);
+                    doc = entry.getValue();
                     break;
                 }
             }
