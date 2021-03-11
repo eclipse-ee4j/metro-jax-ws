@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,6 +13,7 @@ package com.sun.xml.ws.developer;
 import com.sun.xml.ws.api.message.HeaderList;
 import com.sun.xml.ws.api.server.WSEndpoint;
 import com.sun.xml.ws.api.addressing.WSEndpointReference;
+import com.sun.xml.ws.client.ContentNegotiation;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -24,11 +25,14 @@ import javax.xml.ws.http.HTTPBinding;
 import java.net.HttpURLConnection;
 
 public interface JAXWSProperties {
+
+    /**
+     *
+     * @deprecated use {@link ContentNegotiation#PROPERTY}
+     */
     // Content negotiation property: values "none", "pessimistic" and "optimistic"
-    // It is split into two strings so that package renaming for
-    // Java SE 6 doesn't alter the value. So do not combine them
     @Deprecated
-    public static final String CONTENT_NEGOTIATION_PROPERTY = "com.sun."+"xml.ws.client.ContentNegotiation";
+    public static final String CONTENT_NEGOTIATION_PROPERTY = ContentNegotiation.PROPERTY;
     public static final String MTOM_THRESHOLOD_VALUE =  "com.sun.xml.ws.common.MtomThresholdValue";
     public static final String HTTP_EXCHANGE = "com.sun.xml.ws.http.exchange";
 
@@ -137,7 +141,7 @@ public interface JAXWSProperties {
      *
      * The propery value is available on incoming SOAP message. The type of the value
      * is {@link WSEndpointReference}.
-     * 
+     *
      * Null if the incoming SOAP message didn't have the header.
      *
      * @since 2.1.3
@@ -216,5 +220,12 @@ public interface JAXWSProperties {
      * @since 2.1.4
      */
     public static final String REST_BINDING = "http://jax-ws.dev.java.net/rest";
-    
+
+    /**
+     * Set this property to enable {@link HttpURLConnection#setAuthenticator(Authenticator)}, available in JDK9+.
+     *
+     * @since 2.3.4
+     */
+    public static final String REQUEST_AUTHENTICATOR = "com.sun.xml.ws.request.authenticator";
+
 }

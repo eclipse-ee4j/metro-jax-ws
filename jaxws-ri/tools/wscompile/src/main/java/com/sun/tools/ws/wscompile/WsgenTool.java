@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,10 +30,9 @@ import com.sun.xml.ws.api.wsdl.writer.WSDLGeneratorExtension;
 import com.sun.xml.ws.binding.WebServiceFeatureList;
 import com.sun.xml.ws.model.ExternalMetadataReader;
 import com.sun.xml.ws.model.AbstractSEIModelImpl;
-import com.sun.xml.ws.util.ServiceFinder;
+import com.sun.tools.ws.util.ServiceFinder;
 import org.xml.sax.SAXParseException;
 
-import javax.tools.DiagnosticCollector;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
@@ -54,7 +53,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import javax.tools.Diagnostic;
+import javax.tools.DiagnosticListener;
+import org.xml.sax.ext.Locator2Impl;
 
 /**
  * @author Vivek Pandey
@@ -129,46 +132,84 @@ public class WsgenTool {
     public boolean buildModel(String endpoint, Listener listener) throws BadCommandLineException {
         final ErrorReceiverFilter errReceiver = new ErrorReceiverFilter(listener);
 
-        List<String> args = new ArrayList<String>(6 + (options.nocompile ? 1 : 0)
-                + (options.encoding != null ? 2 : 0));
+        if (!options.nosource) {
+            List<String> args = new ArrayList<String>(6 + (options.nocompile ? 1 : 0)
+                    + (options.encoding != null ? 2 : 0));
 
-        args.add("-d");
-        args.add(options.destDir.getAbsolutePath());
-        args.add("-classpath");
-        args.add(options.classpath);
-        args.add("-s");
-        args.add(options.sourceDir.getAbsolutePath());
-        if (options.nocompile) {
-            args.add("-proc:only");
-        }
-        if (options.encoding != null) {
-            args.add("-encoding");
-            args.add(options.encoding);
-        }
-        if (options.javacOptions != null) {
-            args.addAll(options.getJavacOptions(args, listener));
-        }
+            args.add("-d");
+            args.add(options.destDir.getAbsolutePath());
+            args.add("-classpath");
+            args.add(options.classpath);
+            args.add("-s");
+            args.add(options.sourceDir.getAbsolutePath());
+            if (options.nocompile) {
+                args.add("-proc:only");
+            }
+            if (options.encoding != null) {
+                args.add("-encoding");
+                args.add(options.encoding);
+            }
+            if (options.javacOptions != null) {
+                args.addAll(options.getJavacOptions(args, listener));
+            }
 
-        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-        if (compiler == null) {
-            out.println(WscompileMessages.WSCOMPILE_CANT_GET_COMPILER(property("java.home"), property("java.version"), property("java.vendor")));
-            return false;
-        }
-        DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
-        StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null);
-        JavaCompiler.CompilationTask task = compiler.getTask(
-                null,
-                fileManager,
-                diagnostics,
-                args,
-                Collections.singleton(endpoint.replaceAll("\\$", ".")),
-                null);
-        task.setProcessors(Collections.singleton(new WebServiceAp(options, out)));
-        boolean result = task.call();
+            JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+            if (compiler == null) {
+                out.println(WscompileMessages.WSCOMPILE_CANT_GET_COMPILER(property("java.home"), property("java.version"), property("java.vendor")));
+                return false;
+            }
+            DiagnosticListener<JavaFileObject> diagnostics = new DiagnosticListener<JavaFileObject>() {
+                @Override
+                public void report(Diagnostic<? extends JavaFileObject> diagnostic) {
+                    boolean fromFile = diagnostic.getSource() != null;
+                    StringBuilder message = new StringBuilder();
+                    if (fromFile) {
+                        message.append(diagnostic.getSource().getName());
+                    }
+                    message.append(diagnostic.getMessage(Locale.getDefault()));
+                    if (fromFile) {
+                        message.append("");
+                    }
+                    switch (diagnostic.getKind()) {
+                        case ERROR:
+                            Locator2Impl l = new Locator2Impl();
+                            if (fromFile) {
+                                l.setSystemId(diagnostic.getSource().getName());
+                            } else {
+                                l.setSystemId(null);
+                            }
+                            l.setLineNumber((int) diagnostic.getLineNumber());
+                            l.setColumnNumber((int) diagnostic.getColumnNumber());
+                            SAXParseException ex = new SAXParseException(message.toString(), l);
+                            listener.error(ex);
+                            break;
+                        case MANDATORY_WARNING:
+                        case WARNING:
+                            listener.message(message.toString());
+                            break;
+                        default:
+                            if (options.verbose) {
+                                listener.message(message.toString());
+                            }
+                    }
+                }
+            };
 
-        if (!result) {
-            out.println(WscompileMessages.WSCOMPILE_ERROR(WscompileMessages.WSCOMPILE_COMPILATION_FAILED()));
-            return false;
+            StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null);
+            JavaCompiler.CompilationTask task = compiler.getTask(
+                    null,
+                    fileManager,
+                    diagnostics,
+                    args,
+                    Collections.singleton(endpoint.replaceAll("\\$", ".")),
+                    null);
+            task.setProcessors(Collections.singleton(new WebServiceAp(options, out)));
+            boolean result = task.call();
+
+            if (!result) {
+                out.println(WscompileMessages.WSCOMPILE_ERROR(WscompileMessages.WSCOMPILE_COMPILATION_FAILED()));
+                return false;
+            }
         }
         if (options.genWsdl) {
             DatabindingConfig config = new DatabindingConfig();

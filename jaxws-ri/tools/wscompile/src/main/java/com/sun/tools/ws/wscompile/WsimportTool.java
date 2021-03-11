@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,7 @@ import com.sun.tools.ws.wsdl.parser.MetadataFinder;
 import com.sun.tools.ws.wsdl.parser.WSDLInternalizationLogic;
 import com.sun.tools.xjc.util.NullStream;
 import com.sun.xml.ws.api.server.Container;
-import com.sun.xml.ws.util.ServiceFinder;
+import com.sun.tools.ws.util.ServiceFinder;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.SAXParseException;
 
@@ -216,7 +216,7 @@ public class WsimportTool {
                 System.out.println(e.getMessage());
                 System.out.println();
             }
-            usage(e.getOptions());
+            usage(options);
             return false;
         } finally{
             deleteGeneratedFiles();
@@ -250,7 +250,7 @@ public class WsimportTool {
             //remove empty package dirs
             for(File pkg:trackedRootPackages) {
 
-                while(pkg.list() != null && pkg.list().length ==0 && !pkg.equals(options.destDir)) {
+                while (pkg != null && pkg.list() != null && pkg.list().length == 0 && !pkg.equals(options.destDir)) {
                     File parentPkg = pkg.getParentFile();
                     boolean deleted = pkg.delete();
                     if (options.verbose && !deleted) {
@@ -552,6 +552,17 @@ public class WsimportTool {
     protected void usage(Options options) {
         System.out.println(WscompileMessages.WSIMPORT_HELP(WSIMPORT));
         System.out.println(WscompileMessages.WSIMPORT_USAGE_EXTENSIONS());
+        if (options != null) {
+            WsimportOptions opts = (WsimportOptions) options;
+            List<Plugin> plugins = opts.getAllPlugins();
+            if (!plugins.isEmpty()) {
+                System.out.println(WscompileMessages.WSIMPORT_USAGE_PLUGINS());
+                for (Plugin p : plugins) {
+                    System.out.println(p.getUsage());
+                }
+            }
+        }
         System.out.println(WscompileMessages.WSIMPORT_USAGE_EXAMPLES());
     }
+
 }

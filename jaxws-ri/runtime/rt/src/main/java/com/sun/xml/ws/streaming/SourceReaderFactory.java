@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,6 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.lang.reflect.Method;
 import java.net.URL;
 
 /**
@@ -32,29 +31,6 @@ import java.net.URL;
  */
 public class SourceReaderFactory {
     
-    /**
-     * FI FastInfosetSource class.
-     */
-    static Class fastInfosetSourceClass;
-    
-    /**
-     * FI <code>StAXDocumentSerializer.setEncoding()</code> method via reflection.
-     */
-    static Method fastInfosetSource_getInputStream;
-
-    static {
-        // Use reflection to avoid static dependency with FI jar
-        try {
-            fastInfosetSourceClass =
-                Class.forName("org.jvnet.fastinfoset.FastInfosetSource");
-            fastInfosetSource_getInputStream = 
-                fastInfosetSourceClass.getMethod("getInputStream");
-        } 
-        catch (Exception e) {
-            fastInfosetSourceClass = null;
-        }
-    }
-
     public static XMLStreamReader createSourceReader(Source source, boolean rejectDTDs) {
         return createSourceReader(source, rejectDTDs, null);
     }
@@ -88,9 +64,8 @@ public class SourceReaderFactory {
                     }
                 }
             }
-            else if (source.getClass() == fastInfosetSourceClass) {
-                return FastInfosetUtil.createFIStreamReader((InputStream)
-                    fastInfosetSource_getInputStream.invoke(source));
+            else if (FastInfosetUtil.isFastInfosetSource(source)) {
+                return FastInfosetUtil.createFIStreamReader(source);
             }
             else if (source instanceof DOMSource) {
                 DOMStreamReader dsr =  new DOMStreamReader();

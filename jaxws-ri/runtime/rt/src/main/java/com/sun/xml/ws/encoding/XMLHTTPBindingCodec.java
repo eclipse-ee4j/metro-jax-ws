@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,6 +23,7 @@ import com.sun.xml.ws.encoding.xml.XMLMessage.UnknownContent;
 import com.sun.xml.ws.encoding.xml.XMLMessage.XMLMultiPart;
 import com.sun.xml.ws.resources.StreamingMessages;
 import com.sun.xml.ws.util.ByteArrayBuffer;
+import com.sun.xml.ws.util.FastInfosetUtil;
 
 import javax.activation.DataSource;
 import javax.xml.ws.WebServiceException;
@@ -30,7 +31,6 @@ import javax.xml.ws.WebServiceException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Method;
 import java.nio.channels.WritableByteChannel;
 import java.util.StringTokenizer;
 
@@ -97,7 +97,7 @@ public final class XMLHTTPBindingCodec extends MimeCodec {
         
         xmlCodec = new XMLCodec(f);
         
-        fiCodec = getFICodec();
+        fiCodec = FastInfosetUtil.getFICodec();
     }
     
     @Override
@@ -188,7 +188,7 @@ public final class XMLHTTPBindingCodec extends MimeCodec {
     private boolean isXml(String contentType) {
         return compareStrings(contentType, XMLCodec.XML_APPLICATION_MIME_TYPE)
                 || compareStrings(contentType, XMLCodec.XML_TEXT_MIME_TYPE)
-                || (compareStrings(contentType, "application/")&&(contentType.toLowerCase().indexOf("+xml") != -1));
+                || (compareStrings(contentType, "application/") && contentType.toLowerCase().contains("+xml"));
     }
     
     private boolean isFastInfoset(String contentType) {
@@ -305,17 +305,5 @@ public final class XMLHTTPBindingCodec extends MimeCodec {
         
         return in;
     }
-    
-    /**
-     * Obtain an FI SOAP codec instance using reflection.
-     */
-    private static Codec getFICodec() {
-        try {
-            Class c = Class.forName("com.sun.xml.ws.encoding.fastinfoset.FastInfosetCodec");
-            Method m = c.getMethod("create");
-            return (Codec)m.invoke(null);
-        } catch (Exception e) {
-            return null;
-        }
-    }    
+
 }

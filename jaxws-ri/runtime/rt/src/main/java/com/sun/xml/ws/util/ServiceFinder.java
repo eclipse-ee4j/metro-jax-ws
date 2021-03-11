@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -122,32 +122,32 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class ServiceFinder<T> implements Iterable<T> {
 
-    private static final String prefix = "META-INF/services/";    
+    private static final String prefix = "META-INF/services/";
 
-    private static WeakHashMap<ClassLoader, ConcurrentHashMap<String, ServiceName[]>> serviceNameCache 
+    private static WeakHashMap<ClassLoader, ConcurrentHashMap<String, ServiceName[]>> serviceNameCache
              = new WeakHashMap<ClassLoader, ConcurrentHashMap<String, ServiceName[]>>();
-    
+
     private final Class<T> serviceClass;
     private final @Nullable ClassLoader classLoader;
     private final @Nullable ComponentEx component;
-    
+
     private static class ServiceName {
         final String className;
         final URL config;
         public ServiceName(String className, URL config) {
             this.className = className;
             this.config = config;
-        }        
+        }
     }
 
     public static <T> ServiceFinder<T> find(@NotNull Class<T> service, @Nullable ClassLoader loader, Component component) {
         return new ServiceFinder<T>(service, loader, component);
     }
-    
+
     public static <T> ServiceFinder<T> find(@NotNull Class<T> service, Component component) {
         return find(service,Thread.currentThread().getContextClassLoader(),component);
     }
-    
+
     /**
      * Locates and incrementally instantiates the available providers of a
      * given service using the given class loader.
@@ -219,9 +219,9 @@ public final class ServiceFinder<T> implements Iterable<T> {
      *         be found and instantiated.
      */
     @SuppressWarnings("unchecked")
-	public Iterator<T> iterator() {
-        Iterator<T> it = new LazyIterator<T>(serviceClass,classLoader);
-        return component != null ? 
+    public Iterator<T> iterator() {
+        Iterator<T> it = MrJarUtil.getIterator(serviceClass, classLoader);
+        return component != null ?
         		new CompositeIterator<T>(
         				component.getIterableSPI(serviceClass).iterator(),it) :
         		it;
@@ -334,17 +334,17 @@ public final class ServiceFinder<T> implements Iterable<T> {
         }
         return names.iterator();
     }
-    
+
     private static ComponentEx getComponentEx(Component component) {
     	if (component instanceof ComponentEx)
     		return (ComponentEx) component;
-    	
+
     	return component != null ? new ComponentExWrapper(component) : null;
     }
-    
+
     private static class ComponentExWrapper implements ComponentEx {
     	private final Component component;
-    	
+
     	public ComponentExWrapper(Component component) {
     		this.component = component;
     	}
@@ -366,7 +366,7 @@ public final class ServiceFinder<T> implements Iterable<T> {
     private static class CompositeIterator<T> implements Iterator<T> {
     	private final Iterator<Iterator<T>> it;
     	private Iterator<T> current = null;
-    	
+
     	public CompositeIterator(Iterator<T>... iterators) {
     		it = Arrays.asList(iterators).iterator();
     	}
@@ -374,22 +374,21 @@ public final class ServiceFinder<T> implements Iterable<T> {
 		public boolean hasNext() {
 			if (current != null && current.hasNext())
 				return true;
-			
+
 			while (it.hasNext()) {
 				current = it.next();
 				if (current.hasNext())
 					return true;
-				
+
 			}
-			
+
 			return false;
 		}
 
 		public T next() {
 			if (!hasNext())
 				throw new NoSuchElementException();
-
-			return current.next();
+                        return current.next();
 		}
 
 		public void remove() {
@@ -454,13 +453,13 @@ public final class ServiceFinder<T> implements Iterable<T> {
         }
     }
 
-    private static class LazyIterator<T> implements Iterator<T> {
+    static class LazyIterator<T> implements Iterator<T> {
         Class<T> service;
         @Nullable ClassLoader loader;
         ServiceName[] names;
         int index;
-        
-        private LazyIterator(Class<T> service, ClassLoader loader) {
+
+        LazyIterator(Class<T> service, ClassLoader loader) {
             this.service = service;
             this.loader = loader;
             this.names = null;
@@ -479,7 +478,7 @@ public final class ServiceFinder<T> implements Iterable<T> {
                     nameMap.put(service.getName(), names);
                     synchronized(serviceNameCache){ serviceNameCache.put(loader,nameMap); }
                 }
-            }            
+            }
             return (index < names.length);
         }
 
@@ -501,8 +500,8 @@ public final class ServiceFinder<T> implements Iterable<T> {
 
         @Override
         public void remove() {
-            throw new UnsupportedOperationException();            
+            throw new UnsupportedOperationException();
         }
-        
+
     }
 }

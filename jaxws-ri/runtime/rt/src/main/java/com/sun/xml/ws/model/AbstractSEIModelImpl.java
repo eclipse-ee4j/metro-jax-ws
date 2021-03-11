@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -49,6 +49,7 @@ import java.security.AccessController;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -114,6 +115,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
      * @return the <code>JAXBRIContext</code>
      * @deprecated
      */
+    @Deprecated
     @Override
     public JAXBContext getJAXBContext() {
     	JAXBContext jc = bindingContext.getJAXBContext();
@@ -152,7 +154,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
 
     private void /*JAXBRIContext*/ createJAXBContext() {
         final List<TypeInfo> types = getAllTypeInfos();
-        final List<Class> cls = new ArrayList<Class>(types.size() + additionalClasses.size());
+        final List<Class> cls = new ArrayList<>(types.size() + additionalClasses.size());
 
         cls.addAll(additionalClasses);
         for (TypeInfo type : types) {
@@ -163,6 +165,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
             //jaxbContext = JAXBRIContext.newInstance(cls, types, targetNamespace, false);
             // Need to avoid doPriv block once JAXB is fixed. Afterwards, use the above
             bindingContext = AccessController.doPrivileged(new PrivilegedExceptionAction<BindingContext>() {
+                @Override
                 public BindingContext run() throws Exception {
                     if(LOGGER.isLoggable(Level.FINEST)) {
                         LOGGER.log(Level.FINEST, "Creating JAXBContext with classes={0} and types={1}", new Object[]{cls, types});
@@ -191,9 +194,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
                 	databindingInfo.setDefaultNamespace(AbstractSEIModelImpl.this.getDefaultSchemaNamespace());
                 	BindingContext bc =  BindingContextFactory.create(databindingInfo);
                             if (LOGGER.isLoggable(Level.FINE))
-                                LOGGER.log(Level.FINE,
-                                        "Created binding context: "
-                                                + bc.getClass().getName());
+                                LOGGER.log(Level.FINE, "Created binding context: {0}", bc.getClass().getName());
 //                	System.out.println("---------------------- databinding " + bc);
                 	return bc;
                 }
@@ -203,7 +204,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
         } catch (PrivilegedActionException e) {
             throw new WebServiceException(ModelerMessages.UNABLE_TO_CREATE_JAXB_CONTEXT(), e);
         }
-        knownNamespaceURIs = new ArrayList<String>();
+        knownNamespaceURIs = new ArrayList<>();
         for (String namespace : bindingContext.getKnownNamespaceURIs()) {
             if (namespace.length() > 0) {
                 if (!namespace.equals(SOAPNamespaceConstants.XSD) && !namespace.equals(SOAPNamespaceConstants.XMLNS))
@@ -220,7 +221,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
      * @return returns non-null list of TypeReference
      */
     private List<TypeInfo> getAllTypeInfos() {
-        List<TypeInfo> types = new ArrayList<TypeInfo>();
+        List<TypeInfo> types = new ArrayList<>();
         Collection<JavaMethodImpl> methods = methodToJM.values();
         for (JavaMethodImpl m : methods) {
             m.fillTypes(types);
@@ -271,6 +272,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
     /**
      * @return the <code>JavaMethod</code> representing the <code>method</code>
      */
+    @Override
     public JavaMethodImpl getJavaMethod(Method method) {
         return methodToJM.get(method);
     }
@@ -279,10 +281,12 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
      * @return the <code>JavaMethod</code> associated with the
      * operation named name
      */
+    @Override
     public JavaMethodImpl getJavaMethod(QName name) {
         return nameToJM.get(name);
     }
 
+    @Override
     public JavaMethod getJavaMethodForWsdlOperation(QName operationName) {
         return wsdlOpToJM.get(operationName);
     }
@@ -295,11 +299,12 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
      * @deprecated
      *      Use {@link JavaMethod#getOperationName()}.
      */
+    @Deprecated
     public QName getQNameForJM(JavaMethodImpl jm) {
-        for (QName key : nameToJM.keySet()) {
-            JavaMethodImpl jmethod = nameToJM.get(key);
+        for (Map.Entry<QName, JavaMethodImpl> entry : nameToJM.entrySet()) {
+            JavaMethodImpl jmethod = entry.getValue();
             if (jmethod.getOperationName().equals(jm.getOperationName())){
-               return key;
+               return entry.getKey();
             }
         }
         return null;
@@ -309,6 +314,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
      * @return a <code>Collection</code> of <code>JavaMethods</code>
      * associated with this <code>RuntimeModel</code>
      */
+    @Override
     public final Collection<JavaMethodImpl> getJavaMethods() {
         return Collections.unmodifiableList(javaMethods);
     }
@@ -326,9 +332,9 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
     private List<ParameterImpl> applyRpcLitParamBinding(JavaMethodImpl method, WrapperParameter wrapperParameter, WSDLBoundPortType boundPortType, Mode mode) {
         QName opName = new QName(boundPortType.getPortTypeName().getNamespaceURI(), method.getOperationName());
         WSDLBoundOperation bo = boundPortType.get(opName);
-        Map<Integer, ParameterImpl> bodyParams = new HashMap<Integer, ParameterImpl>();
-        List<ParameterImpl> unboundParams = new ArrayList<ParameterImpl>();
-        List<ParameterImpl> attachParams = new ArrayList<ParameterImpl>();
+        Map<Integer, ParameterImpl> bodyParams = new HashMap<>();
+        List<ParameterImpl> unboundParams = new ArrayList<>();
+        List<ParameterImpl> attachParams = new ArrayList<>();
         for(ParameterImpl param : wrapperParameter.wrapperChildren){
             String partName = param.getPartName();
             if(partName == null)
@@ -385,6 +391,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
     void putOp(QName opName, JavaMethodImpl jm) {
         wsdlOpToJM.put(opName, jm);
     }
+    @Override
     public String getWSDLLocation() {
         return wsdlLocation;
     }
@@ -393,18 +400,22 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
         wsdlLocation = location;
     }
 
+    @Override
     public QName getServiceQName() {
         return serviceName;
     }
 
+    @Override
     public WSDLPort getPort() {
         return port;
     }
 
+    @Override
     public QName getPortName() {
         return portName;
     }
 
+    @Override
     public QName getPortTypeName() {
         return portTypeName;
     }
@@ -433,6 +444,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
      * This is the targetNamespace for the WSDL containing the PortType
      * definition
      */
+    @Override
     public String getTargetNamespace() {
         return targetNamespace;
     }
@@ -447,6 +459,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
     }
 
     @NotNull
+    @Override
     public QName getBoundPortTypeName() {
         assert portName != null;
         return new QName(portName.getNamespaceURI(), portName.getLocalPart()+"Binding");
@@ -457,8 +470,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
      * from wsdl case these classes would most likely be JAXB ObjectFactory that references other classes.
      */
     public void addAdditionalClasses(Class... additionalClasses) {
-        for(Class cls : additionalClasses)
-            this.additionalClasses.add(cls);
+        this.additionalClasses.addAll(Arrays.asList(additionalClasses));
     }
     
     public Databinding getDatabinding() {
@@ -481,7 +493,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
 		return endpointClass;
 	}
 
-	private List<Class> additionalClasses = new ArrayList<Class>();
+	private List<Class> additionalClasses = new ArrayList<>();
 
     private Pool.Marshaller marshallers;
     /**
@@ -493,19 +505,19 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
     private QName serviceName;
     private QName portName;
     private QName portTypeName;
-    private Map<Method,JavaMethodImpl> methodToJM = new HashMap<Method, JavaMethodImpl>();
+    private Map<Method,JavaMethodImpl> methodToJM = new HashMap<>();
     /**
      * Payload QName to the method that handles it.
      */
-    private Map<QName,JavaMethodImpl> nameToJM = new HashMap<QName, JavaMethodImpl>();
+    private Map<QName,JavaMethodImpl> nameToJM = new HashMap<>();
     /**
      * Wsdl Operation QName to the method that handles it.
      */
-    private Map<QName, JavaMethodImpl> wsdlOpToJM = new HashMap<QName, JavaMethodImpl>();
+    private Map<QName, JavaMethodImpl> wsdlOpToJM = new HashMap<>();
 
-    private List<JavaMethodImpl> javaMethods = new ArrayList<JavaMethodImpl>();
-    private final Map<TypeReference, Bridge> bridgeMap = new HashMap<TypeReference, Bridge>();
-    private final Map<TypeInfo, XMLBridge> xmlBridgeMap = new HashMap<TypeInfo, XMLBridge>();
+    private List<JavaMethodImpl> javaMethods = new ArrayList<>();
+    private final Map<TypeReference, Bridge> bridgeMap = new HashMap<>();
+    private final Map<TypeInfo, XMLBridge> xmlBridgeMap = new HashMap<>();
     protected final QName emptyBodyName = new QName("");
     private String targetNamespace = "";
     private List<String> knownNamespaceURIs = null;

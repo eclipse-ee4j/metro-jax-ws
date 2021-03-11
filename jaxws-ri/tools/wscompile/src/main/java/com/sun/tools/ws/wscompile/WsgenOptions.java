@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@ import com.sun.tools.ws.api.WsgenProtocol;
 import com.sun.tools.ws.resources.WscompileMessages;
 import com.sun.xml.ws.api.BindingID;
 import com.sun.xml.ws.binding.SOAPBindingImpl;
-import com.sun.xml.ws.util.ServiceFinder;
+import com.sun.tools.ws.util.ServiceFinder;
 
 import javax.jws.WebService;
 import javax.xml.namespace.QName;
@@ -66,6 +66,11 @@ public class WsgenOptions extends Options {
     public Map<String, String> nonstdProtocols = new LinkedHashMap<String, String>();
 
     /**
+     * -Xnosource
+     */
+    public boolean nosource;
+
+    /**
      * -XwsgenReport
      */
     public File wsgenReport;
@@ -91,6 +96,7 @@ public class WsgenOptions extends Options {
     private static final String HTTP   = "http";
     private static final String SOAP11 = "soap1.1";
     public static final String X_SOAP12 = "Xsoap1.2";
+    private static final String NOSOURCE_OPTION = "-Xnosource";
 
     public WsgenOptions() {
         protocols.add(SOAP11);
@@ -148,6 +154,12 @@ public class WsgenOptions extends Options {
                 }
                 protocolSet = true;
             }
+            return 1;
+        } else if (args[i].equals(NOSOURCE_OPTION)) {
+            // -nosource implies -nocompile and -keep. this is undocumented switch.
+            nosource = true;
+            nocompile = true;
+            keep = true;
             return 1;
         } else if (args[i].equals("-XwsgenReport")) {
             // undocumented switch for the test harness
@@ -256,6 +268,9 @@ public class WsgenOptions extends Options {
             }
             if (portName != null) {
                 throw new BadCommandLineException(WscompileMessages.WSGEN_WSDL_ARG_NO_GENWSDL(PORTNAME_OPTION));
+            }
+            if (nosource) {
+                throw new BadCommandLineException(WscompileMessages.WSGEN_WSDL_ARG_NO_GENWSDL(NOSOURCE_OPTION));
             }
         }
     }

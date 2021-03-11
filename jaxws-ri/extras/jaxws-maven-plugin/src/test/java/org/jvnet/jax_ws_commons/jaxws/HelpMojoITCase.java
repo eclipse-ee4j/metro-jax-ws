@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * Oracle licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -36,8 +36,9 @@ public class HelpMojoITCase {
     public void testHelp() throws IOException {
         project = new File(PROJECTS_DIR, "help");
 
-        assertFileContains(project, "build.log", "This plugin has 5 goals:");
+        assertFileContains(project, "build.log", "This plugin has 6 goals:");
         assertFileContains(project, "build.log", "jaxws:help");
+        assertFileContains(project, "build.log", "jaxws:wsdlgen");
         assertFileContains(project, "build.log", "jaxws:wsgen");
         assertFileContains(project, "build.log", "jaxws:wsimport");
         assertFileContains(project, "build.log", "jaxws:wsgen-test");

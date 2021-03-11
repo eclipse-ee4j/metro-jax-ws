@@ -43,6 +43,7 @@ module com.sun.xml.ws {
     requires com.sun.xml.fastinfoset;
     requires transitive com.sun.xml.streambuffer;
     requires transitive com.sun.xml.ws.policy;
+    requires transitive gmbal;
 
     exports com.oracle.webservices.api;
     exports com.oracle.webservices.api.databinding;
@@ -135,6 +136,7 @@ module com.sun.xml.ws {
     // com.sun.xml.ws.model.ExternalMetadataReader uses JAXBContext.newInstance
     opens com.oracle.xmlns.webservices.jaxws_databinding to java.xml.bind;
 
+    opens com.sun.xml.ws.api.message;
 
     uses javax.xml.ws.spi.Provider;
     uses javax.xml.soap.MessageFactory;
@@ -145,10 +147,40 @@ module com.sun.xml.ws {
     uses com.sun.xml.ws.policy.jaxws.spi.PolicyFeatureConfigurator;
     uses com.sun.xml.ws.policy.jaxws.spi.PolicyMapConfigurator;
 
+    uses com.sun.xml.ws.policy.spi.LoggingProvider;
+    uses com.sun.xml.ws.policy.spi.PolicyAssertionValidator;
+    uses com.sun.xml.ws.policy.spi.PolicyAssertionCreator;
+    uses com.sun.xml.ws.policy.spi.PrefixMapper;
+
+    uses com.sun.xml.ws.api.wsdl.parser.MetadataResolverFactory;
+    uses com.sun.xml.ws.spi.db.DatabindingProvider;
+    uses com.sun.xml.ws.spi.db.BindingContextFactory;
+    uses com.oracle.webservices.impl.internalspi.encoding.StreamDecoder;
+    uses com.sun.xml.ws.api.message.saaj.SAAJFactory;
+    uses com.oracle.webservices.api.message.MessageContextFactory;
+    uses com.sun.xml.ws.api.BindingIDFactory;
+    uses com.sun.xml.ws.api.client.ServiceInterceptorFactory;
+    uses com.sun.xml.ws.api.policy.PolicyResolverFactory;
+    uses com.sun.xml.ws.api.pipe.TransportTubeFactory;
+    uses com.sun.xml.ws.api.pipe.TransportPipeFactory;
+    uses com.sun.xml.ws.api.pipe.TubelineAssemblerFactory;
+    uses com.sun.xml.ws.api.pipe.PipelineAssemblerFactory;
+    uses com.sun.xml.ws.api.server.ProviderInvokerTubeFactory;
+    uses com.sun.xml.ws.api.config.management.ManagedEndpointFactory;
+    uses com.sun.xml.ws.assembler.dev.TubelineAssemblyDecorator;
+    uses com.sun.xml.ws.api.wsdl.parser.WSDLParserExtension;
+    uses com.sun.xml.ws.api.wsdl.writer.WSDLGeneratorExtension;
+    uses com.sun.xml.ws.api.server.EndpointReferenceExtensionContributor;
+
     provides javax.xml.ws.spi.Provider with
             com.sun.xml.ws.spi.ProviderImpl;
 
     provides com.sun.xml.ws.policy.spi.LoggingProvider with
             com.sun.xml.ws.policy.jaxws.XmlWsLoggingProvider;
 
+    provides com.sun.xml.ws.spi.db.DatabindingProvider with
+            com.sun.xml.ws.db.DatabindingProviderImpl;
+
+    provides com.sun.xml.ws.spi.db.BindingContextFactory with
+            com.sun.xml.ws.db.glassfish.JAXBRIContextFactory;
 }

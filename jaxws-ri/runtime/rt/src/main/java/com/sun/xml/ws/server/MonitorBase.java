@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -107,19 +107,19 @@ public abstract class MonitorBase {
     private String getContextPath(final WSEndpoint endpoint) {
         try {
             Container container = endpoint.getContainer();
-            Method getSPI = 
-                container.getClass().getDeclaredMethod("getSPI", Class.class);
-            getSPI.setAccessible(true);
-            Class servletContextClass = 
-                Class.forName("javax.servlet.ServletContext");
-            Object servletContext =
-                getSPI.invoke(container, servletContextClass);
-            if (servletContext != null) {
-                Method getContextPath = servletContextClass.getDeclaredMethod("getContextPath");
-                getContextPath.setAccessible(true);
-                return (String) getContextPath.invoke(servletContext);
+            try {
+                Class servletContextClass = Class.forName("jakarta.servlet.ServletContext");
+                if (servletContextClass != null) {
+                    Object servletContext = container.getSPI(servletContextClass);
+                    if (servletContext != null) {
+                        Method getContextPath = servletContextClass.getDeclaredMethod("getContextPath");
+                        return (String) getContextPath.invoke(servletContext);
+                    }
+                }
+            } catch (ClassNotFoundException cnfe) {
+                logger.log(Level.FINEST, "Class {0} not found", cnfe.getMessage());
+                return null;
             }
-            return null;
         } catch (Throwable t) {
             logger.log(Level.FINEST, "getContextPath", t);
         }

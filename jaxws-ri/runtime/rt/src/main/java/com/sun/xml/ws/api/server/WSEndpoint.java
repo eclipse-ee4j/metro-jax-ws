@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -49,6 +49,7 @@ import javax.xml.ws.WebServiceException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -387,25 +388,54 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
      *
      * @return
      *      always return the same set.
-     * @deprecated
+     * @deprecated Use {@link #getComponents} instead
      */
-    public abstract @NotNull Set<EndpointComponent> getComponentRegistry();
-
-	public @NotNull Set<Component> getComponents() {
-    	return Collections.emptySet();
+    @Deprecated
+    public @NotNull Set<EndpointComponent> getComponentRegistry() {
+        Set<Component> componentRegistry = getComponents();
+        Set<EndpointComponent> sec = new EndpointComponentSet(componentRegistry);
+        for (Component c : getComponents()) {
+            sec.add(c instanceof EndpointComponentWrapper
+                    ? ((EndpointComponentWrapper) c).component
+                    : new ComponentWrapper(c));
+        }
+        return sec;
     }
-    
-	public @Nullable <S> S getSPI(@NotNull Class<S> spiType) {
-		Set<Component> componentRegistry = getComponents();
-		if (componentRegistry != null) {
-			for (Component c : componentRegistry) {
-				S s = c.getSPI(spiType);
-				if (s != null)
-					return s;
-			}
-		}
-		return getContainer().getSPI(spiType);
-	}
+
+    /**
+     * Gets the list of {@link Component}s that are associated
+     * with this endpoint.
+     *
+     * <p>
+     * Components (such as codec, tube, handler, etc) who wish to provide
+     * some service to other components in the endpoint can iterate the
+     * registry and call its {@link Component#getSPI(Class)} to
+     * establish a private contract between components.
+     * <p>
+     * Components who wish to subscribe to such a service can add itself
+     * to this set.
+     *
+     * @return
+     *      always return the same set.
+     */
+    @Override
+    public @NotNull Set<Component> getComponents() {
+        return Collections.emptySet();
+    }
+
+    @Override
+    public @Nullable <S> S getSPI(@NotNull Class<S> spiType) {
+        Set<Component> componentRegistry = getComponents();
+        if (componentRegistry != null) {
+            for (Component c : componentRegistry) {
+                S s = c.getSPI(spiType);
+                if (s != null) {
+                    return s;
+                }
+            }
+        }
+        return getContainer().getSPI(spiType);
+    }
     
     /**
      * Gets the {@link com.sun.xml.ws.api.model.SEIModel} that represents the relationship
@@ -696,4 +726,114 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
                                                              final WSDLPort    wsdlPort,
                                                              final SEIModel    seiModel,
                                                              final WSBinding   binding);
+
+    private class EndpointComponentSet extends HashSet<EndpointComponent> {
+
+        private final Set<Component> componentRegistry;
+
+        public EndpointComponentSet(Set<Component> componentRegistry) {
+            super();
+            this.componentRegistry = componentRegistry;
+        }
+
+        @Override
+        public Iterator<EndpointComponent> iterator() {
+            final Iterator<EndpointComponent> it = super.iterator();
+            return new Iterator<EndpointComponent>() {
+                private EndpointComponent last = null;
+
+                @Override
+                public boolean hasNext() {
+                    return it.hasNext();
+                }
+
+                @Override
+                public EndpointComponent next() {
+                    last = it.next();
+                    return last;
+                }
+
+                @Override
+                public void remove() {
+                    it.remove();
+                    if (last != null) {
+                        componentRegistry.remove(last instanceof ComponentWrapper
+                                ? ((ComponentWrapper) last).component
+                                : new EndpointComponentWrapper(last));
+                    }
+                    last = null;
+                }
+            };
+        }
+
+        @Override
+        public boolean add(EndpointComponent e) {
+            boolean result = super.add(e);
+            if (result) {
+                componentRegistry.add(new EndpointComponentWrapper(e));
+            }
+            return result;
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            boolean result = super.remove(o);
+            if (result) {
+                componentRegistry.remove(o instanceof ComponentWrapper
+                        ? ((ComponentWrapper) o).component
+                        : new EndpointComponentWrapper((EndpointComponent) o));
+            }
+            return result;
+        }
+
+    }
+
+    private static class ComponentWrapper implements EndpointComponent {
+
+        private final Component component;
+
+        public ComponentWrapper(Component component) {
+            this.component = component;
+        }
+
+        @Override
+        public <S> S getSPI(Class<S> spiType) {
+            return component.getSPI(spiType);
+        }
+
+        @Override
+        public int hashCode() {
+            return component.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return component.equals(obj);
+        }
+    }
+
+    private static class EndpointComponentWrapper implements Component {
+
+        private final EndpointComponent component;
+
+        public EndpointComponentWrapper(EndpointComponent component) {
+            this.component = component;
+        }
+
+        @Override
+        public <S> S getSPI(Class<S> spiType) {
+            return component.getSPI(spiType);
+        }
+
+        @Override
+        public int hashCode() {
+            return component.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return component.equals(obj);
+        }
+    }
+
 }
