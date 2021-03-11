@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -49,7 +49,7 @@ import java.net.Authenticator;
 public class HttpClientTransport {
 
     private static final byte[] THROW_AWAY_BUFFER = new byte[8192];
-    
+
     // Need to use JAXB first to register DatatypeConverter
     static {
         try {
@@ -163,7 +163,7 @@ public class HttpClientTransport {
             // So it doesn't read from the closed stream
             boolean closed;
             @Override
-            public void close() throws IOException {                
+            public void close() throws IOException {
                 if (!closed) {
                     closed = true;
                     while(temp.read(THROW_AWAY_BUFFER) != -1);
@@ -187,7 +187,7 @@ public class HttpClientTransport {
     	// default do nothing
     	return null;
     }
-    
+
     protected boolean checkHTTPS(HttpURLConnection connection) {
         if (connection instanceof HttpsURLConnection) {
 
@@ -216,18 +216,18 @@ public class HttpClientTransport {
             if (sslSocketFactory != null) {
                 ((HttpsURLConnection) connection).setSSLSocketFactory(sslSocketFactory);
             }
-            
+
             return true;
         }
         return false;
     }
-    
+
     private void createHttpConnection() throws IOException {
     	httpConnection = openConnection(context);
 
     	if (httpConnection == null)
     		httpConnection = (HttpURLConnection) endpoint.openConnection();
-    	
+
         String scheme = endpoint.getURI().getScheme();
         if (scheme.equals("https")) {
             https = true;
@@ -249,12 +249,12 @@ public class HttpClientTransport {
 
         //this code or something similiar needs t be moved elsewhere for error checking
         /*if (context.invocationProperties.get(BindingProviderProperties.BINDING_ID_PROPERTY).equals(HTTPBinding.HTTP_BINDING)){
-            method = (requestMethod != null)?requestMethod:method;            
+            method = (requestMethod != null)?requestMethod:method;
         } else if
             (context.invocationProperties.get(BindingProviderProperties.BINDING_ID_PROPERTY).equals(SOAPBinding.SOAP12HTTP_BINDING) &&
             "GET".equalsIgnoreCase(requestMethod)) {
         }
-       */     
+       */
 
         Integer reqTimeout = (Integer)context.invocationProperties.get(BindingProviderProperties.REQUEST_TIMEOUT);
         if (reqTimeout != null) {
@@ -288,7 +288,7 @@ public class HttpClientTransport {
     boolean isSecure() {
         return https;
     }
-    
+
     protected void setStatusCode(int statusCode) {
     	this.statusCode = statusCode;
     }
@@ -302,7 +302,7 @@ public class HttpClientTransport {
     @Nullable String getContentType() {
         return httpConnection.getContentType();
     }
-    
+
     public int getContentLength() {
     	return httpConnection.getContentLength();
     }

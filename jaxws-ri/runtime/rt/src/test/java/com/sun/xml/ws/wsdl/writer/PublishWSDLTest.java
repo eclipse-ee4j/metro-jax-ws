@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2020, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,18 +14,17 @@ import java.io.*;
 import java.net.URL;
 import java.util.Properties;
 import javax.xml.parsers.DocumentBuilderFactory;
-import jakarta.xml.ws.Endpoint;
+import javax.xml.ws.Endpoint;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import com.sun.xml.ws.api.BindingID;
 import com.sun.xml.ws.transport.http.server.EndpointImpl;
+import org.junit.Assert;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import java.nio.file.*;
 
 public class PublishWSDLTest extends TestCase {
 

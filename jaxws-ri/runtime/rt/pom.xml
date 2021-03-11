@@ -55,15 +55,7 @@
             </dependency>
         <dependency>
             <groupId>org.glassfish.gmbal</groupId>
-            <artifactId>gmbal</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.pfl</groupId>
-            <artifactId>pfl-tf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.pfl</groupId>
-            <artifactId>pfl-basic</artifactId>
+            <artifactId>gmbal-api-only</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jvnet.staxex</groupId>

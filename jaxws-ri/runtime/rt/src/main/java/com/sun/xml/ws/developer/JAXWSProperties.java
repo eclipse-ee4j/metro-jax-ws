@@ -141,7 +141,7 @@ public interface JAXWSProperties {
      *
      * The propery value is available on incoming SOAP message. The type of the value
      * is {@link WSEndpointReference}.
-     * 
+     *
      * Null if the incoming SOAP message didn't have the header.
      *
      * @since 2.1.3
@@ -220,14 +220,12 @@ public interface JAXWSProperties {
      * @since 2.1.4
      */
     public static final String REST_BINDING = "http://jax-ws.dev.java.net/rest";
-    
-	/**
-	 * Set this property to enable {@link HttpURLConnection#setAuthenticator(Authenticator)}, 
-	 * available in JDK9+.
-	 *
-	 * @since 2.3.4
-	 */
+
+    /**
+     * Set this property to enable {@link HttpURLConnection#setAuthenticator(Authenticator)}, available in JDK9+.
+     *
+     * @since 2.3.4
+     */
     public static final String REQUEST_AUTHENTICATOR = "com.sun.xml.ws.request.authenticator";
 
-    
 }

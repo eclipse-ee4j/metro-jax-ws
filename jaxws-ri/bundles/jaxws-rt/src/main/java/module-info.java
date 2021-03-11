@@ -43,6 +43,7 @@ module com.sun.xml.ws {
     requires com.sun.xml.fastinfoset;
     requires transitive com.sun.xml.streambuffer;
     requires transitive com.sun.xml.ws.policy;
+    requires transitive gmbal;
 
     exports com.oracle.webservices.api;
     exports com.oracle.webservices.api.databinding;

@@ -41,6 +41,7 @@ module com.sun.xml.ws.rt {
     requires transitive com.sun.xml.bind;
     requires transitive com.sun.xml.streambuffer;
     requires transitive com.sun.xml.ws.policy;
+    requires transitive gmbal;
 
     requires static java.servlet;
     requires static com.sun.xml.fastinfoset;
