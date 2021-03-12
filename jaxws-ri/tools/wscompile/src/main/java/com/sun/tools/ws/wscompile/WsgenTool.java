@@ -55,6 +55,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticListener;
 import org.xml.sax.ext.Locator2Impl;
@@ -69,6 +71,11 @@ import org.xml.sax.ext.Locator2Impl;
 public class WsgenTool {
     private final PrintStream out;
     private final WsgenOptions options = new WsgenOptions();
+    private static final String RELEASE_MARK = "releaseMark";
+    private static final String JAVA_VERSION_MARK = "javaVersion";
+    private static final Pattern RELEASE_VERSION_PATTERN =
+            Pattern.compile("(?<" + RELEASE_MARK + ">--release=)(?<" + JAVA_VERSION_MARK + ">[0-9]+)");
+    private static final int JAVA_MODULE_VERSION = 9;
 
 
     public WsgenTool(OutputStream out, Container container) {
@@ -138,8 +145,24 @@ public class WsgenTool {
 
             args.add("-d");
             args.add(options.destDir.getAbsolutePath());
-            args.add("-classpath");
+
+            int javaVersion = 0;
+            if (options.javacOptions != null){
+                for (String option: options.javacOptions){
+                    final Matcher matcher = RELEASE_VERSION_PATTERN.matcher(option);
+                    if (matcher.find()){
+                        javaVersion = Integer.parseInt(matcher.group(JAVA_VERSION_MARK));
+                        break;
+                    }
+                }
+            }
+            if (javaVersion < JAVA_MODULE_VERSION) {
+                args.add("-classpath");
+            } else {
+                args.add("--module-path");
+            }
             args.add(options.classpath);
+
             args.add("-s");
             args.add(options.sourceDir.getAbsolutePath());
             if (options.nocompile) {
