@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,12 +61,14 @@
             <artifactId>FastInfoset</artifactId>
         </dependency>
 
-        <!-- Runtime dependencies -->
+        <!-- we need API for compile and impl for runtime
+             to make usage easy, let's just depend on the impl -->
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
-            <scope>runtime</scope>
         </dependency>
+
+        <!-- Runtime dependencies -->
         <dependency>
             <groupId>com.sun.xml.messaging.saaj</groupId>
             <artifactId>saaj-impl</artifactId>
@@ -287,6 +289,7 @@
                                     javax.xml.catalog;resolution:=optional,
                                     sun.misc;resolution:=optional,
                                     jdk.internal.misc;resolution:=optional,
+                                    com.sun.xml.ws.assembler.metro.jaxws;resolution:=optional,
                                     *
                                 </Import-Package>
                                 <Multi-Release>true</Multi-Release>
