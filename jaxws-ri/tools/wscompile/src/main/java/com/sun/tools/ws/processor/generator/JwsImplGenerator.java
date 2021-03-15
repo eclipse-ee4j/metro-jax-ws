@@ -10,8 +10,21 @@
 
 package com.sun.tools.ws.processor.generator;
 
-import com.sun.codemodel.*;
-import com.sun.tools.ws.processor.model.*;
+import com.sun.codemodel.ClassType;
+import com.sun.codemodel.JAnnotationUse;
+import com.sun.codemodel.JClass;
+import com.sun.codemodel.JClassAlreadyExistsException;
+import com.sun.codemodel.JCommentPart;
+import com.sun.codemodel.JDefinedClass;
+import com.sun.codemodel.JDocComment;
+import com.sun.codemodel.JMethod;
+import com.sun.codemodel.JMod;
+import com.sun.codemodel.JVar;
+import com.sun.tools.ws.processor.model.Fault;
+import com.sun.tools.ws.processor.model.Model;
+import com.sun.tools.ws.processor.model.Operation;
+import com.sun.tools.ws.processor.model.Port;
+import com.sun.tools.ws.processor.model.Service;
 import com.sun.tools.ws.processor.model.java.JavaInterface;
 import com.sun.tools.ws.processor.model.java.JavaMethod;
 import com.sun.tools.ws.processor.model.java.JavaParameter;
@@ -25,10 +38,9 @@ import com.sun.tools.ws.api.wsdl.TWSDLExtension;
 import com.sun.tools.ws.wscompile.ErrorReceiver;
 import com.sun.tools.ws.processor.model.ModelProperties;
 import com.sun.tools.ws.wscompile.WsimportOptions;
-import com.sun.codemodel.JClassAlreadyExistsException;
 import com.sun.xml.ws.api.SOAPVersion;
 
-import com.sun.tools.ws.util.ServiceFinder;
+import com.sun.xml.ws.util.ServiceFinder;
 
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -41,6 +53,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.ServiceLoader;
 
 /**
  * Generator for placeholder JWS implementations
@@ -220,7 +233,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 			writeBindingTypeAnnotation(port, bindingTypeAnn);
 
                         // extra annotation                  
-                        for( GeneratorExtension f : ServiceFinder.find(GeneratorExtension.class) ) {
+                        for( GeneratorExtension f : findService(GeneratorExtension.class)) {
         		    f.writeWebServiceAnnotation(model, cm, cls, port);
         		}
 
@@ -384,7 +397,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 			if(javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING.equals(sb.getTransport()))
 				return javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING;
                         else {
-                            for(GeneratorExtension f : ServiceFinder.find(GeneratorExtension.class) ) {
+                            for(GeneratorExtension f : findService(GeneratorExtension.class) ) {
                                 String bindingValue = f.getBindingValue(sb.getTransport(), SOAPVersion.SOAP_11);
                                 if(bindingValue!=null) {
                                     return bindingValue;
@@ -398,7 +411,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 			if(javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_MTOM_BINDING.equals(sb.getTransport()))
 				return javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_MTOM_BINDING;
 		    else {
-		        for(GeneratorExtension f : ServiceFinder.find(GeneratorExtension.class) ) {
+		        for(GeneratorExtension f : findService(GeneratorExtension.class) ) {
 		            String bindingValue = f.getBindingValue(sb.getTransport(), SOAPVersion.SOAP_12);
 		            if(bindingValue!=null) {
 		                return bindingValue;
@@ -565,4 +578,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 		return reqQN.equals(checkQN);
 	}
 
+        private static <S> ServiceFinder<S> findService(Class<S> type) {
+            return ServiceFinder.find(type, ServiceLoader.load(type));
+        }
 }

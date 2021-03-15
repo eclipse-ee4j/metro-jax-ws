@@ -26,12 +26,13 @@ module com.sun.xml.ws.rt {
     requires java.desktop;
     requires java.logging;
     requires java.management;
+    requires transitive java.xml;
     requires jdk.httpserver;
 
     requires transitive jakarta.activation;
-    requires java.annotation;
+    requires transitive java.annotation;
     requires transitive java.jws;
-    requires transitive java.xml;
+    requires jakarta.mail;
     requires transitive java.xml.bind;
     requires transitive java.xml.soap;
     requires transitive java.xml.ws;
@@ -73,7 +74,7 @@ module com.sun.xml.ws.rt {
     exports com.sun.xml.ws.addressing;
     exports com.sun.xml.ws.addressing.policy; //wsit-impl
     exports com.sun.xml.ws.addressing.v200408;
-    exports com.sun.xml.ws.assembler to org.glassfish.metro.wsit.impl.module; //wsit-api
+    exports com.sun.xml.ws.assembler to org.glassfish.metro.wsit.impl; //wsit-api
     exports com.sun.xml.ws.assembler.dev; //wsit-api
     exports com.sun.xml.ws.binding;
     exports com.sun.xml.ws.client; //async transport
@@ -161,6 +162,7 @@ module com.sun.xml.ws.rt {
     uses com.sun.xml.ws.api.wsdl.parser.WSDLParserExtension;
     uses com.sun.xml.ws.api.wsdl.writer.WSDLGeneratorExtension;
     uses com.sun.xml.ws.api.server.EndpointReferenceExtensionContributor;
+    uses com.sun.xml.ws.api.server.ServerPipelineHook;
 
     provides javax.xml.ws.spi.Provider with
             com.sun.xml.ws.spi.ProviderImpl;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,24 +16,16 @@ import com.sun.xml.ws.api.Component;
 import com.sun.xml.ws.api.ComponentEx;
 import com.sun.xml.ws.api.server.ContainerResolver;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Array;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.WeakHashMap;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Objects;
+import java.util.ServiceLoader;
 
 
 /**
@@ -118,34 +110,28 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author Mark Reinhold
  * @version 1.11, 03/12/19
+ * @param <T> The type of the service to be loaded by this finder
  * @since 1.3
  */
 public final class ServiceFinder<T> implements Iterable<T> {
 
-    private static final String prefix = "META-INF/services/";
-
-    private static WeakHashMap<ClassLoader, ConcurrentHashMap<String, ServiceName[]>> serviceNameCache
-             = new WeakHashMap<ClassLoader, ConcurrentHashMap<String, ServiceName[]>>();
-
-    private final Class<T> serviceClass;
-    private final @Nullable ClassLoader classLoader;
+    private final @NotNull Class<T> serviceClass;
+    private final @NotNull ServiceLoader<T> serviceLoader;
     private final @Nullable ComponentEx component;
 
-    private static class ServiceName {
-        final String className;
-        final URL config;
-        public ServiceName(String className, URL config) {
-            this.className = className;
-            this.config = config;
-        }
+    public static <T> ServiceFinder<T> find(@NotNull Class<T> service, @Nullable ClassLoader loader, Component component) {
+        ClassLoader cl = loader == null ? Thread.currentThread().getContextClassLoader() : loader;
+        return find(service, component, ServiceLoader.load(service, cl));
     }
 
-    public static <T> ServiceFinder<T> find(@NotNull Class<T> service, @Nullable ClassLoader loader, Component component) {
-        return new ServiceFinder<T>(service, loader, component);
+    public static <T> ServiceFinder<T> find(@NotNull Class<T> service, Component component, @NotNull ServiceLoader<T> serviceLoader) {
+        Class<T> svc = Objects.requireNonNull(service);
+        ServiceLoader<T> sl = Objects.requireNonNull(serviceLoader);
+        return new ServiceFinder<>(svc, component, sl);
     }
 
     public static <T> ServiceFinder<T> find(@NotNull Class<T> service, Component component) {
-        return find(service,Thread.currentThread().getContextClassLoader(),component);
+        return find(service, component, ServiceLoader.load(service, Thread.currentThread().getContextClassLoader()));
     }
 
     /**
@@ -164,11 +150,13 @@ public final class ServiceFinder<T> implements Iterable<T> {
      * Java virtual machine, this method may return different results each time
      * it is invoked. <p>
      *
+     * @param <T> The type of the service to be loaded by this finder
      * @param service The service's abstract service class
      * @param loader  The class loader to be used to load provider-configuration files
      *                and instantiate provider classes, or {@code null} if the system
      *                class loader (or, failing that the bootstrap class loader) is to
      *                be used
+     * @return A new service finder
      * @throws ServiceConfigurationError If a provider-configuration file violates the specified format
      *                                   or names a provider class that cannot be found and instantiated
      * @see #find(Class)
@@ -187,26 +175,26 @@ public final class ServiceFinder<T> implements Iterable<T> {
      *   return Service.providers(service, cl);
      * </pre>
      *
+     * @param <T> The type of the service to be loaded by this finder
      * @param service The service's abstract service class
+     * @return A new service finder
      *
      * @throws ServiceConfigurationError If a provider-configuration file violates the specified format
      *                                   or names a provider class that cannot be found and instantiated
      * @see #find(Class, ClassLoader)
      */
-    public static <T> ServiceFinder<T> find(Class<T> service) {
-        return find(service,Thread.currentThread().getContextClassLoader());
+    public static <T> ServiceFinder<T> find(@NotNull Class<T> service) {
+        return find(service, ServiceLoader.load(service, Thread.currentThread().getContextClassLoader()));
     }
 
-    private ServiceFinder(Class<T> service, ClassLoader loader, Component component) {
+    public static <T> ServiceFinder<T> find(@NotNull Class<T> service, @NotNull ServiceLoader<T> serviceLoader) {
+        return find(service, ContainerResolver.getInstance().getContainer(), serviceLoader);
+    }
+
+    private ServiceFinder(Class<T> service, Component component, ServiceLoader<T> serviceLoader) {
         this.serviceClass = service;
-        this.classLoader = loader;
         this.component = getComponentEx(component);
-    }
-
-    private static ServiceName[] serviceClassNames(Class serviceClass, ClassLoader classLoader) {
-        ArrayList<ServiceName> l = new ArrayList<ServiceName>();
-        for (Iterator<ServiceName> it = new ServiceNameIterator(serviceClass,classLoader);it.hasNext();) l.add(it.next());
-        return l.toArray(new ServiceName[l.size()]);
+        this.serviceLoader = serviceLoader;
     }
 
     /**
@@ -218,13 +206,13 @@ public final class ServiceFinder<T> implements Iterable<T> {
      *         file violates the specified format or if a provider class cannot
      *         be found and instantiated.
      */
+    @Override
     @SuppressWarnings("unchecked")
     public Iterator<T> iterator() {
-        Iterator<T> it = MrJarUtil.getIterator(serviceClass, classLoader);
-        return component != null ?
-        		new CompositeIterator<T>(
-        				component.getIterableSPI(serviceClass).iterator(),it) :
-        		it;
+        Iterator<T> it = serviceLoader.iterator();
+        return component != null
+                ? new CompositeIterator<>(component.getIterableSPI(serviceClass).iterator(), it)
+                : it;
     }
 
     /**
@@ -236,272 +224,82 @@ public final class ServiceFinder<T> implements Iterable<T> {
      * @throws ServiceConfigurationError
      */
     public T[] toArray() {
-        List<T> result = new ArrayList<T>();
+        List<T> result = new ArrayList<>();
         for (T t : this) {
             result.add(t);
         }
-        return result.toArray((T[])Array.newInstance(serviceClass,result.size()));
-    }
-
-    private static void fail(Class service, String msg, Throwable cause)
-        throws ServiceConfigurationError {
-        ServiceConfigurationError sce
-            = new ServiceConfigurationError(service.getName() + ": " + msg);
-        sce.initCause(cause);
-        throw sce;
-    }
-
-    private static void fail(Class service, String msg)
-        throws ServiceConfigurationError {
-        throw new ServiceConfigurationError(service.getName() + ": " + msg);
-    }
-
-    private static void fail(Class service, URL u, int line, String msg)
-        throws ServiceConfigurationError {
-        fail(service, u + ":" + line + ": " + msg);
-    }
-
-    /**
-     * Parse a single line from the given configuration file, adding the name
-     * on the line to both the names list and the returned set iff the name is
-     * not already a member of the returned set.
-     */
-    private static int parseLine(Class service, URL u, BufferedReader r, int lc,
-                                 List<String> names, Set<String> returned)
-        throws IOException, ServiceConfigurationError {
-        String ln = r.readLine();
-        if (ln == null) {
-            return -1;
-        }
-        int ci = ln.indexOf('#');
-        if (ci >= 0) ln = ln.substring(0, ci);
-        ln = ln.trim();
-        int n = ln.length();
-        if (n != 0) {
-            if ((ln.indexOf(' ') >= 0) || (ln.indexOf('\t') >= 0))
-                fail(service, u, lc, "Illegal configuration-file syntax");
-            int cp = ln.codePointAt(0);
-            if (!Character.isJavaIdentifierStart(cp))
-                fail(service, u, lc, "Illegal provider-class name: " + ln);
-            for (int i = Character.charCount(cp); i < n; i += Character.charCount(cp)) {
-                cp = ln.codePointAt(i);
-                if (!Character.isJavaIdentifierPart(cp) && (cp != '.'))
-                    fail(service, u, lc, "Illegal provider-class name: " + ln);
-            }
-            if (!returned.contains(ln)) {
-                names.add(ln);
-                returned.add(ln);
-            }
-        }
-        return lc + 1;
-    }
-
-    /**
-     * Parse the content of the given URL as a provider-configuration file.
-     *
-     * @param service  The service class for which providers are being sought;
-     *                 used to construct error detail strings
-     * @param u        The URL naming the configuration file to be parsed
-     * @param returned A Set containing the names of provider classes that have already
-     *                 been returned.  This set will be updated to contain the names
-     *                 that will be yielded from the returned {@code Iterator}.
-     * @return A (possibly empty) {@code Iterator} that will yield the
-     *         provider-class names in the given configuration file that are
-     *         not yet members of the returned set
-     * @throws ServiceConfigurationError If an I/O error occurs while reading from the given URL, or
-     *                                   if a configuration-file format error is detected
-     */
-    @SuppressWarnings({"StatementWithEmptyBody"})
-    private static Iterator<String> parse(Class service, URL u, Set<String> returned)
-        throws ServiceConfigurationError {
-        InputStream in = null;
-        BufferedReader r = null;
-        ArrayList<String> names = new ArrayList<String>();
-        try {
-            in = u.openStream();
-            r = new BufferedReader(new InputStreamReader(in, "utf-8"));
-            int lc = 1;
-            while ((lc = parseLine(service, u, r, lc, names, returned)) >= 0) ;
-        } catch (IOException x) {
-            fail(service, ": " + x +";URL is :"+u.toString());
-        } finally {
-            try {
-                if (r != null) r.close();
-                if (in != null) in.close();
-            } catch (IOException y) {
-                fail(service, ": " + y +";URL is :"+u.toString());
-            }
-        }
-        return names.iterator();
+        return result.toArray((T[]) Array.newInstance(serviceClass, result.size()));
     }
 
     private static ComponentEx getComponentEx(Component component) {
-    	if (component instanceof ComponentEx)
-    		return (ComponentEx) component;
+        if (component instanceof ComponentEx) {
+            return (ComponentEx) component;
+        }
 
-    	return component != null ? new ComponentExWrapper(component) : null;
+        return component != null ? new ComponentExWrapper(component) : null;
     }
 
     private static class ComponentExWrapper implements ComponentEx {
-    	private final Component component;
 
-    	public ComponentExWrapper(Component component) {
-    		this.component = component;
-    	}
+        private final Component component;
 
-		public <S> S getSPI(Class<S> spiType) {
-			return component.getSPI(spiType);
-		}
+        public ComponentExWrapper(Component component) {
+            this.component = component;
+        }
 
-		public <S> Iterable<S> getIterableSPI(Class<S> spiType) {
-	    	S item = getSPI(spiType);
-	    	if (item != null) {
-	    		Collection<S> c = Collections.singletonList(item);
-	    		return c;
-	    	}
-	    	return Collections.emptySet();
-		}
+        @Override
+        public <S> S getSPI(Class<S> spiType) {
+            return component.getSPI(spiType);
+        }
+
+        @Override
+        public <S> Iterable<S> getIterableSPI(Class<S> spiType) {
+            S item = getSPI(spiType);
+            if (item != null) {
+                Collection<S> c = Collections.singletonList(item);
+                return c;
+            }
+            return Collections.emptySet();
+        }
     }
 
     private static class CompositeIterator<T> implements Iterator<T> {
-    	private final Iterator<Iterator<T>> it;
-    	private Iterator<T> current = null;
 
-    	public CompositeIterator(Iterator<T>... iterators) {
-    		it = Arrays.asList(iterators).iterator();
-    	}
+        private final Iterator<Iterator<T>> it;
+        private Iterator<T> current = null;
 
-		public boolean hasNext() {
-			if (current != null && current.hasNext())
-				return true;
-
-			while (it.hasNext()) {
-				current = it.next();
-				if (current.hasNext())
-					return true;
-
-			}
-
-			return false;
-		}
-
-		public T next() {
-			if (!hasNext())
-				throw new NoSuchElementException();
-                        return current.next();
-		}
-
-		public void remove() {
-            throw new UnsupportedOperationException();
-		}
-    }
-
-    /**
-     * Private inner class implementing fully-lazy provider lookup
-     */
-    private static class ServiceNameIterator implements Iterator<ServiceName> {
-        Class service;
-        @Nullable ClassLoader loader;
-        Enumeration<URL> configs = null;
-        Iterator<String> pending = null;
-        Set<String> returned = new TreeSet<String>();
-        String nextName = null;
-        URL currentConfig = null;
-
-        private ServiceNameIterator(Class service, ClassLoader loader) {
-            this.service = service;
-            this.loader = loader;
-        }
-
-        public boolean hasNext() throws ServiceConfigurationError {
-            if (nextName != null) {
-                return true;
-            }
-            if (configs == null) {
-                try {
-                    String fullName = prefix + service.getName();
-                    if (loader == null)
-                        configs = ClassLoader.getSystemResources(fullName);
-                    else
-                        configs = loader.getResources(fullName);
-                } catch (IOException x) {
-                    fail(service, ": " + x);
-                }
-            }
-            while ((pending == null) || !pending.hasNext()) {
-                if (!configs.hasMoreElements()) {
-                    return false;
-                }
-                currentConfig = configs.nextElement();
-                pending = parse(service, currentConfig, returned);
-            }
-            nextName = pending.next();
-            return true;
-        }
-
-        public ServiceName next() throws ServiceConfigurationError {
-            if (!hasNext()) {
-                throw new NoSuchElementException();
-            }
-            String cn = nextName;
-            nextName = null;
-            return new ServiceName(cn, currentConfig);
-        }
-
-        public void remove() {
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    static class LazyIterator<T> implements Iterator<T> {
-        Class<T> service;
-        @Nullable ClassLoader loader;
-        ServiceName[] names;
-        int index;
-
-        LazyIterator(Class<T> service, ClassLoader loader) {
-            this.service = service;
-            this.loader = loader;
-            this.names = null;
-            index = 0;
+        public CompositeIterator(Iterator<T>... iterators) {
+            it = Arrays.asList(iterators).iterator();
         }
 
         @Override
         public boolean hasNext() {
-            if (names == null) {
-                ConcurrentHashMap<String, ServiceName[]> nameMap = null;
-                synchronized(serviceNameCache){ nameMap = serviceNameCache.get(loader); }
-                names = (nameMap != null)? nameMap.get(service.getName()) : null;
-                if (names == null) {
-                    names = serviceClassNames(service, loader);
-                    if (nameMap == null) nameMap = new ConcurrentHashMap<String, ServiceName[]>();
-                    nameMap.put(service.getName(), names);
-                    synchronized(serviceNameCache){ serviceNameCache.put(loader,nameMap); }
-                }
+            if (current != null && current.hasNext()) {
+                return true;
             }
-            return (index < names.length);
+
+            while (it.hasNext()) {
+                current = it.next();
+                if (current.hasNext()) {
+                    return true;
+                }
+
+            }
+
+            return false;
         }
 
         @Override
         public T next() {
-            if (!hasNext()) throw new NoSuchElementException();
-            ServiceName sn = names[index++];
-            String cn = sn.className;
-            URL currentConfig = sn.config;
-            try {
-                return service.cast(Class.forName(cn, true, loader).newInstance());
-            } catch (ClassNotFoundException x) {
-                fail(service, "Provider " + cn + " is specified in "+currentConfig+" but not found");
-            } catch (Exception x) {
-              fail(service, "Provider " + cn + " is specified in "+currentConfig+"but could not be instantiated: " + x, x);
+            if (!hasNext()) {
+                throw new NoSuchElementException();
             }
-            return null;    /* This cannot happen */
+            return current.next();
         }
 
         @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }
-
     }
 }

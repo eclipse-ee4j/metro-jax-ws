@@ -31,7 +31,7 @@ import com.sun.tools.ws.wsdl.parser.MetadataFinder;
 import com.sun.tools.ws.wsdl.parser.WSDLInternalizationLogic;
 import com.sun.tools.xjc.util.NullStream;
 import com.sun.xml.ws.api.server.Container;
-import com.sun.tools.ws.util.ServiceFinder;
+import com.sun.xml.ws.util.ServiceFinder;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.SAXParseException;
 
@@ -432,7 +432,7 @@ public class WsimportTool {
         if( !options.quiet )
             listener.message(WscompileMessages.WSIMPORT_GENERATING_CODE());
 
-        TJavaGeneratorExtension[] genExtn = ServiceFinder.find(TJavaGeneratorExtension.class).toArray();
+        TJavaGeneratorExtension[] genExtn = ServiceFinder.find(TJavaGeneratorExtension.class, ServiceLoader.load(TJavaGeneratorExtension.class)).toArray();
         CustomExceptionGenerator.generate(wsdlModel,  options, receiver);
             SeiGenerator.generate(wsdlModel, options, receiver, genExtn);
         if(receiver.hadError()){
@@ -442,7 +442,7 @@ public class WsimportTool {
         {
             ServiceGenerator.generate(wsdlModel, options, receiver);
         }
-        for (GeneratorBase g : ServiceFinder.find(GeneratorBase.class)) {
+        for (GeneratorBase g : ServiceFinder.find(GeneratorBase.class, ServiceLoader.load(GeneratorBase.class))) {
             g.init(wsdlModel, options, receiver);
             g.doGeneration();
         }

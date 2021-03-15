@@ -45,8 +45,12 @@ module com.sun.tools.ws.wscompile {
     exports com.sun.tools.ws.wsdl.document;
     exports com.sun.tools.ws.wsdl.parser;
 
+    uses com.sun.xml.ws.api.wsdl.parser.MetadataResolverFactory;
+    uses com.sun.xml.ws.api.wsdl.writer.WSDLGeneratorExtension;
+    uses com.sun.tools.ws.api.TJavaGeneratorExtension;
     uses com.sun.tools.ws.api.WsgenExtension;
     uses com.sun.tools.ws.api.wsdl.TWSDLExtensionHandler;
+    uses com.sun.tools.ws.processor.generator.GeneratorExtension;
     uses com.sun.tools.ws.wscompile.Plugin;
 
     provides com.sun.tools.ws.wscompile.Plugin with

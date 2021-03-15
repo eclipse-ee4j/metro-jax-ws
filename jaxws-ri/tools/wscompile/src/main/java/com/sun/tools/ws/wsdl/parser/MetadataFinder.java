@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,7 @@ import com.sun.xml.ws.api.wsdl.parser.MetadataResolverFactory;
 import com.sun.xml.ws.api.wsdl.parser.ServiceDescriptor;
 import com.sun.xml.ws.util.DOMUtil;
 import com.sun.xml.ws.util.JAXWSUtils;
-import com.sun.tools.ws.util.ServiceFinder;
+import com.sun.xml.ws.util.ServiceFinder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -231,16 +231,14 @@ public final class MetadataFinder extends DOMForest{
      * Gives the root wsdl document systemId. A root wsdl document is the one which has wsdl:service.
      * @return null if there is no root wsdl
      */
-    public @Nullable
-    String getRootWSDL(){
+    public @Nullable String getRootWSDL(){
         return rootWSDL;
     }
 
     /**
      * Gives all the WSDL documents.
      */
-    public @NotNull
-    Set<String> getRootWSDLs(){
+    public @NotNull Set<String> getRootWSDLs(){
         return rootWsdls;
     }
 
@@ -290,7 +288,7 @@ public final class MetadataFinder extends DOMForest{
         //try MEX
         MetaDataResolver resolver;
         ServiceDescriptor serviceDescriptor = null;
-        for (MetadataResolverFactory resolverFactory : ServiceFinder.find(MetadataResolverFactory.class)) {
+        for (MetadataResolverFactory resolverFactory : ServiceFinder.find(MetadataResolverFactory.class, ServiceLoader.load(MetadataResolverFactory.class))) {
             resolver = resolverFactory.metadataResolver(options.entityResolver);
             try {
                 serviceDescriptor = resolver.resolve(new URI(systemId));
