@@ -30,7 +30,7 @@ import com.sun.xml.ws.api.wsdl.writer.WSDLGeneratorExtension;
 import com.sun.xml.ws.binding.WebServiceFeatureList;
 import com.sun.xml.ws.model.ExternalMetadataReader;
 import com.sun.xml.ws.model.AbstractSEIModelImpl;
-import com.sun.tools.ws.util.ServiceFinder;
+import com.sun.xml.ws.util.ServiceFinder;
 import org.xml.sax.SAXParseException;
 
 import javax.tools.JavaCompiler;
@@ -55,6 +55,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ServiceLoader;
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticListener;
 import org.xml.sax.ext.Locator2Impl;
@@ -301,7 +302,7 @@ public class WsgenTool {
                     });
 
             wsdlGenInfo.setContainer(container);
-            wsdlGenInfo.setExtensions(ServiceFinder.find(WSDLGeneratorExtension.class).toArray());
+            wsdlGenInfo.setExtensions(ServiceFinder.find(WSDLGeneratorExtension.class, ServiceLoader.load(WSDLGeneratorExtension.class)).toArray());
             wsdlGenInfo.setInlineSchemas(options.inlineSchemas);
             rt.generateWSDL(wsdlGenInfo);
 

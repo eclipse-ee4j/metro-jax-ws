@@ -26,12 +26,13 @@ module com.sun.xml.ws {
     requires java.desktop;
     requires java.logging;
     requires java.management;
+    requires transitive java.xml;
     requires jdk.httpserver;
 
     requires transitive jakarta.activation;
-    requires jakarta.annotation;
+    requires transitive jakarta.annotation;
     requires transitive jakarta.jws;
-    requires transitive java.xml;
+    requires jakarta.mail;
     requires transitive jakarta.xml.bind;
     requires transitive jakarta.xml.soap;
     requires transitive jakarta.xml.ws;
@@ -40,7 +41,7 @@ module com.sun.xml.ws {
     requires org.jvnet.mimepull;
     requires transitive org.jvnet.staxex;
     requires transitive com.sun.xml.bind;
-    requires com.sun.xml.fastinfoset;
+    requires transitive com.sun.xml.fastinfoset;
     requires transitive com.sun.xml.streambuffer;
     requires transitive gmbal;
 
@@ -79,7 +80,7 @@ module com.sun.xml.ws {
     exports com.sun.xml.ws.addressing;
     exports com.sun.xml.ws.addressing.policy; //wsit-impl
     exports com.sun.xml.ws.addressing.v200408;
-    exports com.sun.xml.ws.assembler to org.glassfish.metro.wsit.impl.module; //wsit-api
+    exports com.sun.xml.ws.assembler to org.glassfish.metro.wsit.impl; //wsit-api
     exports com.sun.xml.ws.assembler.dev; //wsit-api
     exports com.sun.xml.ws.binding;
     exports com.sun.xml.ws.client; //async transport
