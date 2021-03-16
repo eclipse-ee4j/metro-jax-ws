@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>1.0.6</version>
+        <version>1.0.7</version>
         <relativePath/>
     </parent>
 
@@ -35,7 +35,7 @@
     <packaging>maven-plugin</packaging>
     <name>Maven JAXWS 3.x Plugin</name>
     <description>Maven plugin for JAX-WS RI</description>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.0.1-b01</version>
 
     <licenses>
         <license>
