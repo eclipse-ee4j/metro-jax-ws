@@ -108,7 +108,7 @@ public abstract class MonitorBase {
         try {
             Container container = endpoint.getContainer();
             try {
-                Class servletContextClass = Class.forName("jakarta.servlet.ServletContext");
+                Class servletContextClass = Class.forName("javax.servlet.ServletContext");
                 if (servletContextClass != null) {
                     Object servletContext = container.getSPI(servletContextClass);
                     if (servletContext != null) {

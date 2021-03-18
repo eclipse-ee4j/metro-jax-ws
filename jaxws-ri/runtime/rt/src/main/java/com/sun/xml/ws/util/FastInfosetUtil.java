@@ -34,9 +34,13 @@ public class FastInfosetUtil {
                 s = (FISupport) Class.forName("com.sun.xml.ws.util.FISupportImpl").getDeclaredConstructor().newInstance();
                 LOG.config(StreamingMessages.FASTINFOSET_ENABLED());
             }
-        } catch (ReflectiveOperationException | SecurityException t) {
-            if (!(t instanceof ClassNotFoundException) && LOG.isLoggable(Level.FINEST)) {
+        } catch (NoClassDefFoundError | ClassNotFoundException t) {
+            if (LOG.isLoggable(Level.FINEST)) {
                 LOG.log(Level.FINEST, t.getMessage(), t);
+            }
+        } catch (ReflectiveOperationException | SecurityException t) {
+            if (LOG.isLoggable(Level.FINER)) {
+                LOG.log(Level.FINER, t.getMessage(), t);
             }
         }
         if (s == null) {

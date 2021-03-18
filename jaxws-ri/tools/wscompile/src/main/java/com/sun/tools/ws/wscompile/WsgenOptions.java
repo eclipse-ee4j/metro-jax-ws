@@ -15,7 +15,7 @@ import com.sun.tools.ws.api.WsgenProtocol;
 import com.sun.tools.ws.resources.WscompileMessages;
 import com.sun.xml.ws.api.BindingID;
 import com.sun.xml.ws.binding.SOAPBindingImpl;
-import com.sun.tools.ws.util.ServiceFinder;
+import com.sun.xml.ws.util.ServiceFinder;
 
 import javax.jws.WebService;
 import javax.xml.namespace.QName;
@@ -25,6 +25,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.Set;
 
 /**
@@ -102,7 +103,7 @@ public class WsgenOptions extends Options {
         protocols.add(SOAP11);
         protocols.add(X_SOAP12);
         nonstdProtocols.put(X_SOAP12, SOAPBindingImpl.X_SOAP12HTTP_BINDING);
-        ServiceFinder<WsgenExtension> extn = ServiceFinder.find(WsgenExtension.class);
+        ServiceFinder<WsgenExtension> extn = ServiceFinder.find(WsgenExtension.class, ServiceLoader.load(WsgenExtension.class));
         for(WsgenExtension ext : extn) {
             Class clazz = ext.getClass();
             WsgenProtocol pro = (WsgenProtocol)clazz.getAnnotation(WsgenProtocol.class);

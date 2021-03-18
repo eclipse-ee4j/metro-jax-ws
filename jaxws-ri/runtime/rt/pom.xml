@@ -84,7 +84,8 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Runtime dependencies -->
+        <!-- we need API for compile and impl for runtime
+             to make usage easy, let's just depend on the impl -->
         <dependency>
             <groupId>com.sun.activation</groupId>
             <artifactId>jakarta.activation</artifactId>
@@ -93,8 +94,9 @@
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
-            <scope>runtime</scope>
         </dependency>
+
+        <!-- Runtime dependencies -->
         <dependency>
             <groupId>com.sun.xml.messaging.saaj</groupId>
             <artifactId>saaj-impl</artifactId>

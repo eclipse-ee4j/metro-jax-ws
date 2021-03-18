@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.util.Iterator;
 
 /**
  * Utility class used as a JEP 238 multi release jar versioned class.
@@ -65,9 +64,4 @@ public class MrJarUtil {
                     clazz.getName(), resource);
         }
     }
-
-    static <S> Iterator<S> getIterator(Class<S> service, ClassLoader loader) {
-        return new ServiceFinder.LazyIterator<>(service, loader);
-    }
-
 }
