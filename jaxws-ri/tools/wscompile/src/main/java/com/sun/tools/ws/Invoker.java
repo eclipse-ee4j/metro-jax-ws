@@ -113,6 +113,11 @@ public final class Invoker {
                 }
 
             }
+            //if loaded by bootstrap, cl can be null, let's use the loader
+            //we have in that case
+            if (cl == null) {
+                cl = oldcc;
+            }
 
             Thread.currentThread().setContextClassLoader(cl);
 

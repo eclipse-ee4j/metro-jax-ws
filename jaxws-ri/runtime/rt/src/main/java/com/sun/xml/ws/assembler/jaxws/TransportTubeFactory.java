@@ -15,7 +15,7 @@ import com.sun.xml.ws.assembler.dev.ClientTubelineAssemblyContext;
 import com.sun.xml.ws.assembler.dev.ServerTubelineAssemblyContext;
 import com.sun.xml.ws.assembler.dev.TubeFactory;
 import com.sun.xml.ws.resources.TubelineassemblyMessages;
-import jakarta.xml.ws.WebServiceException;
+import javax.xml.ws.WebServiceException;
 import java.util.logging.Logger;
 
 /**
