@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,18 +10,18 @@
 
 package com.sun.tools.ws.ant;
 
-import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
 
 /**
  *
  * @author lukas
  */
-@Deprecated
-public class WsGen2 extends WsGen {
+public class WsGen2 extends WsGenBase {
 
     @Override
-    public void execute() throws BuildException {
-        super.execute();
+    public void setXendorsed(boolean xendorsed) {
+        log("xendorsed attribute not supported", Project.MSG_WARN);
+        //no-op
     }
 
 }
