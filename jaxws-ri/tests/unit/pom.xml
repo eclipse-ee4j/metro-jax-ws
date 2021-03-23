@@ -18,14 +18,14 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-ri-tests</artifactId>
-        <version>3.0.1-b02</version>
+        <version>3.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>jaxws-unit</artifactId>
     <packaging>pom</packaging>
-    <version>3.0.1-b02</version>
+    <version>3.0.1-SNAPSHOT</version>
 
     <name>JAX-WS RI Unit Tests</name>
     <description>JAX-WS RI Unit Tests</description>

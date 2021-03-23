@@ -35,7 +35,7 @@
     <packaging>maven-plugin</packaging>
     <name>Maven JAXWS 3.x Plugin</name>
     <description>Maven plugin for JAX-WS RI</description>
-    <version>3.0.1-b02</version>
+    <version>3.0.1-SNAPSHOT</version>
 
     <licenses>
         <license>
