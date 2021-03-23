@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -91,9 +91,10 @@ public final class Invoker {
         ClassLoader oldcc = Thread.currentThread().getContextClassLoader();
         try {
             ClassLoader cl = Invoker.class.getClassLoader();
-            if(Arrays.asList(args).contains("-Xendorsed"))
-                cl = createClassLoader(cl); // perform JDK6 workaround hack
-            else {
+            //XXX - kept here for the future to resurect ability to run with older apis
+//            if(Arrays.asList(args).contains("-Xendorsed"))
+//                cl = createClassLoader(cl); // perform JDK6 workaround hack
+//            else {
                 int targetArgIndex = Arrays.asList(args).indexOf("-target"); 
                 Options.Target targetVersion;
                 if (targetArgIndex != -1) {
@@ -113,6 +114,11 @@ public final class Invoker {
                     return -1;
                 }
 
+//            }
+            //if loaded by bootstrap, cl can be null, let's use the loader
+            //we have in that case
+            if (cl == null) {
+                cl = oldcc;
             }
 
             Thread.currentThread().setContextClassLoader(cl);
