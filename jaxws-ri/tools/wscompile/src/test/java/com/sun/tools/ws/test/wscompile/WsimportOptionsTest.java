@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,9 +15,6 @@ import com.sun.tools.ws.wscompile.WsimportOptions;
 import com.sun.tools.xjc.api.SchemaCompiler;
 import java.util.ArrayList;
 import java.util.List;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNull;
 import junit.framework.TestCase;
 
 /**
@@ -90,6 +87,9 @@ public class WsimportOptionsTest extends TestCase {
 
     private static class L extends WsimportListener {
         int i = 0;
+
+        public L() {
+        }
 
         @Override
         public void message(String msg) {
