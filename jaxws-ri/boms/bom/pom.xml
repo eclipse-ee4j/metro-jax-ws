@@ -36,7 +36,7 @@
         <istack.version>4.0.1</istack.version>
         <gmbal-api.version>4.0.2</gmbal-api.version>
         <ha-api.version>3.1.12</ha-api.version>
-        <jaxb.version>3.0.1-b02</jaxb.version>
+        <jaxb.version>3.0.1</jaxb.version>
         <jaxws-api.version>3.0.1</jaxws-api.version>
         <jakarta.jws-api.version>3.0.0</jakarta.jws-api.version>
         <management-api.version>3.2.3</management-api.version>
