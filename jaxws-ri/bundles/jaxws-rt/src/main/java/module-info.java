@@ -44,6 +44,7 @@ module com.sun.xml.ws {
     requires transitive com.sun.xml.fastinfoset;
     requires transitive com.sun.xml.streambuffer;
     requires transitive gmbal;
+    requires transitive org.glassfish.ha.api;
 
     exports com.sun.xml.ws.policy;
     exports com.sun.xml.ws.policy.sourcemodel;

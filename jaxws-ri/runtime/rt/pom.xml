@@ -168,7 +168,7 @@
                     <execution>
                         <id>default-compile</id>
                         <configuration>
-                            <!-- adds reads for ha-api, xmlresolver -->
+                            <!-- adds reads for xmlresolver -->
                             <compilerArgs>
                                 <arg>--add-reads</arg>
                                 <arg>com.sun.xml.ws.rt=ALL-UNNAMED</arg>
