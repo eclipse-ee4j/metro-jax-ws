@@ -171,7 +171,7 @@
                     <execution>
                         <id>default-compile</id>
                         <configuration>
-                            <!--adds reads for gmbal-->
+                            <!-- adds reads for xmlresolver -->
                             <compilerArgs>
                                 <arg>--add-reads</arg>
                                 <arg>com.sun.xml.ws.rt=ALL-UNNAMED</arg>
