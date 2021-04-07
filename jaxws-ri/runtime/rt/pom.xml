@@ -86,12 +86,14 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Runtime dependencies -->
+        <!-- we need API for compile and impl for runtime
+             to make usage easy, let's just depend on the impl -->
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>jakarta.mail</artifactId>
-            <scope>runtime</scope>
         </dependency>
+
+        <!-- Runtime dependencies -->
         <dependency>
             <groupId>com.sun.xml.messaging.saaj</groupId>
             <artifactId>saaj-impl</artifactId>
@@ -166,7 +168,7 @@
                     <execution>
                         <id>default-compile</id>
                         <configuration>
-                            <!-- adds reads for ha-api, xmlresolver -->
+                            <!-- adds reads for xmlresolver -->
                             <compilerArgs>
                                 <arg>--add-reads</arg>
                                 <arg>com.sun.xml.ws.rt=ALL-UNNAMED</arg>

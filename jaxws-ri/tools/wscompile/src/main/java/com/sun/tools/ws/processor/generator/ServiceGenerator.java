@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -50,8 +50,9 @@ import jakarta.xml.ws.WebServiceException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.sun.tools.ws.util.ServiceFinder;
+import com.sun.xml.ws.util.ServiceFinder;
 import java.util.Locale;
+import java.util.ServiceLoader;
 
 /**
  * @author WS Development Team
@@ -181,7 +182,7 @@ public class ServiceGenerator extends GeneratorBase {
         writeWebServiceClientAnnotation(service, webServiceClientAnn);
 
         // additional annotations
-        for (GeneratorExtension f:ServiceFinder.find(GeneratorExtension.class)) {
+        for (GeneratorExtension f: ServiceFinder.find(GeneratorExtension.class, ServiceLoader.load(GeneratorExtension.class))) {
             f.writeWebServiceClientAnnotation(options, cm, cls);
         }
 

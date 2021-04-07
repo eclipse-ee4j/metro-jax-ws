@@ -35,15 +35,15 @@
 
         <istack.version>4.0.1</istack.version>
         <gmbal-api.version>4.0.2</gmbal-api.version>
-        <ha-api.version>3.1.12</ha-api.version>
-        <jaxb.version>3.0.1-b01</jaxb.version>
+        <ha-api.version>3.1.13</ha-api.version>
+        <jaxb.version>3.0.1</jaxb.version>
         <jaxws-api.version>3.0.1</jaxws-api.version>
         <jakarta.jws-api.version>3.0.0</jakarta.jws-api.version>
         <management-api.version>3.2.3</management-api.version>
         <mimepull.version>1.9.14</mimepull.version>
         <resolver.version>20050927</resolver.version>
         <saaj-api.version>2.0.1</saaj-api.version>
-        <saaj-impl.version>2.0.0</saaj-impl.version>
+        <saaj-impl.version>2.0.1</saaj-impl.version>
         <streambuffer.version>2.0.2</streambuffer.version>
         <woodstox-core.version>6.2.4</woodstox-core.version>
         <stax2-api.version>4.2.1</stax2-api.version>

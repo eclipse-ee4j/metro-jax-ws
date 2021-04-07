@@ -23,8 +23,8 @@ import com.sun.tools.xjc.api.XJC;
 import com.sun.tools.xjc.reader.Util;
 import com.sun.xml.ws.api.streaming.XMLStreamReaderFactory;
 import com.sun.xml.ws.streaming.XMLStreamReaderUtil;
-import com.sun.tools.ws.util.ServiceFinder;
 import com.sun.xml.ws.util.JAXWSUtils;
+import com.sun.xml.ws.util.ServiceFinder;
 import com.sun.xml.ws.util.xml.XmlUtil;
 import org.w3c.dom.Element;
 import org.xml.sax.EntityResolver;
@@ -48,6 +48,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.HashMap;
+import java.util.ServiceLoader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -390,7 +391,7 @@ public class WsimportOptions extends Options {
         }
 
         // handle additional options
-        for (GeneratorExtension f:ServiceFinder.find(GeneratorExtension.class)) {
+        for (GeneratorExtension f: ServiceFinder.find(GeneratorExtension.class, ServiceLoader.load(GeneratorExtension.class))) {
             if (f.validateOption(args[i])) {
                 extensionOptions.put(args[i], requireArgument(args[i], args, ++i));
                 return 2;
@@ -648,8 +649,8 @@ public class WsimportOptions extends Options {
      * create one instance for each class name found inside this file.
      */
     private static <T> T[] findServices(Class<T> clazz, ClassLoader classLoader) {
-        ServiceFinder<T> serviceFinder = ServiceFinder.find(clazz, classLoader);
-        List<T> r = new ArrayList<T>();
+        ServiceFinder<T> serviceFinder = ServiceFinder.find(clazz, ServiceLoader.load(clazz, classLoader));
+        List<T> r = new ArrayList<>();
         for (T t : serviceFinder) {
             r.add(t);
         }
