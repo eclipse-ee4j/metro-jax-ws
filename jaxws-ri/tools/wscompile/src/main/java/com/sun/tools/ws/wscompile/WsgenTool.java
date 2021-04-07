@@ -40,7 +40,9 @@ import javax.tools.ToolProvider;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
+
 import jakarta.xml.ws.Holder;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -50,15 +52,20 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticListener;
+
 import org.xml.sax.ext.Locator2Impl;
 
 /**
@@ -76,6 +83,8 @@ public class WsgenTool {
     private static final Pattern RELEASE_VERSION_PATTERN =
             Pattern.compile("(?<" + RELEASE_MARK + ">--release=)(?<" + JAVA_VERSION_MARK + ">[0-9]+)");
     private static final int JAVA_MODULE_VERSION = 9;
+    private static final String CLASSPATH_KEY = "--class-path";
+    private static final String MODULEPATH_KEY = "--module-path";
 
 
     public WsgenTool(OutputStream out, Container container) {
@@ -130,7 +139,6 @@ public class WsgenTool {
     private final Container container;
 
     /**
-     *
      * @param endpoint
      * @param listener
      * @return
@@ -147,21 +155,21 @@ public class WsgenTool {
             args.add(options.destDir.getAbsolutePath());
 
             int javaVersion = 0;
-            if (options.javacOptions != null){
-                for (String option: options.javacOptions){
+            if (options.javacOptions != null) {
+                for (String option : options.javacOptions) {
                     final Matcher matcher = RELEASE_VERSION_PATTERN.matcher(option);
-                    if (matcher.find()){
+                    if (matcher.find()) {
                         javaVersion = Integer.parseInt(matcher.group(JAVA_VERSION_MARK));
                         break;
                     }
                 }
             }
-            if (javaVersion < JAVA_MODULE_VERSION) {
+            if (javaVersion < JAVA_MODULE_VERSION || options.noModules) {
                 args.add("-classpath");
+                args.add(options.classpath);
             } else {
-                args.add("--module-path");
+                args.addAll(generatePathArgs(args));
             }
-            args.add(options.classpath);
 
             args.add("-s");
             args.add(options.sourceDir.getAbsolutePath());
@@ -335,6 +343,87 @@ public class WsgenTool {
         return true;
     }
 
+    private List<String> generatePathArgs(List<String> args) {
+        List<String> result = new ArrayList<>();
+        Map<String, String> separatedDependencies = new HashMap<>();
+        Map<String, String> separatedWsgenClasspath = splitWsgenClasspath();
+        separatedWsgenClasspath.computeIfPresent(CLASSPATH_KEY, separatedDependencies::put);
+        separatedWsgenClasspath.computeIfPresent(MODULEPATH_KEY, separatedDependencies::put);
+        if (options.modulepath != null) {
+            Map<String, String> separatedExtraClasspath = splitExtraClasspath();
+            separatedExtraClasspath.computeIfPresent(CLASSPATH_KEY, (key, value) ->
+                    separatedDependencies.merge(
+                            CLASSPATH_KEY, value,
+                            (oldValue, newValue) -> oldValue + File.pathSeparator + value
+                    ));
+            separatedExtraClasspath.computeIfPresent(MODULEPATH_KEY, (key, value) ->
+                    separatedDependencies.merge(
+                            MODULEPATH_KEY, value,
+                            (oldValue, newValue) -> oldValue + File.pathSeparator + value
+                    ));
+        }
+        if (separatedDependencies.containsKey(CLASSPATH_KEY)) {
+            result.add(CLASSPATH_KEY);
+            result.add(separatedDependencies.get(CLASSPATH_KEY));
+        }
+        if (separatedDependencies.containsKey(MODULEPATH_KEY)) {
+            result.add(MODULEPATH_KEY);
+            result.add(separatedDependencies.get(MODULEPATH_KEY));
+        }
+        return result;
+    }
+
+    private Map<String, String> splitExtraClasspath() {
+        Map<String, String> result = new HashMap<>();
+        String cp = options.wsgenExtraClasspath;
+        String mp = options.modulepath;
+        if (cp == null || cp.isEmpty()) {
+            if (mp == null || mp.isEmpty()){
+                return result;
+            }
+            result.put(MODULEPATH_KEY, mp);
+            return result;
+        }
+        if (mp == null || mp.isEmpty()){
+            result.put(CLASSPATH_KEY, mp);
+            return result;
+        }
+        Set<String> splitCP = new HashSet(Arrays.asList(cp.split(File.pathSeparator)));
+        Set<String> splitMP = new HashSet(Arrays.asList(mp.split(File.pathSeparator)));
+        Set<String> onlyCP = new HashSet<>(splitCP);
+        onlyCP.removeAll(splitMP);
+        if (!onlyCP.isEmpty()) {
+            result.put(CLASSPATH_KEY, String.join(File.pathSeparator, onlyCP));
+        }
+        if (!splitMP.isEmpty()) {
+            result.put(MODULEPATH_KEY, mp);
+        }
+        return result;
+    }
+
+    private Map<String, String> splitWsgenClasspath() {
+        Map<String, String> result = new HashMap<>();
+        String mp = options.wsgenClasspath;
+        if (mp == null || mp.isEmpty()) {
+            return result;
+        }
+        List<String> classpathJarNames = Arrays.asList("ha-api");
+        Set<String> splitMP = new HashSet(Arrays.asList(mp.split(File.pathSeparator)));
+        Set<String> onlyMP = new HashSet<>(splitMP);
+        Set<String> onlyCP = onlyMP.stream()
+                .filter(name -> classpathJarNames.stream().anyMatch(name::contains))
+                .collect(Collectors.toSet());
+        onlyMP.removeAll(onlyCP);
+        if (!onlyMP.isEmpty()) {
+            result.put(MODULEPATH_KEY, String.join(File.pathSeparator, onlyMP));
+        }
+        if (!onlyCP.isEmpty()) {
+
+            result.put(CLASSPATH_KEY, String.join(File.pathSeparator, onlyCP));
+        }
+        return result;
+    }
+
     private String property(String key) {
         try {
             String property = System.getProperty(key);
@@ -444,8 +533,8 @@ public class WsgenTool {
             options = this.options;
         if (options instanceof WsgenOptions) {
             System.out.println(WscompileMessages.WSGEN_HELP("WSGEN",
-                    ((WsgenOptions)options).protocols,
-                    ((WsgenOptions)options).nonstdProtocols.keySet()));
+                    ((WsgenOptions) options).protocols,
+                    ((WsgenOptions) options).nonstdProtocols.keySet()));
             System.out.println(WscompileMessages.WSGEN_USAGE_EXTENSIONS());
             System.out.println(WscompileMessages.WSGEN_USAGE_EXAMPLES());
         }

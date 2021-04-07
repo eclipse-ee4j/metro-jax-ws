@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -32,6 +33,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.apache.maven.artifact.versioning.OverConstrainedVersionException;
@@ -44,6 +46,7 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.Os;
+import org.codehaus.plexus.util.cli.Arg;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -59,7 +62,6 @@ import org.eclipse.aether.resolution.DependencyResult;
 import org.eclipse.aether.util.graph.visitor.PreorderNodeListGenerator;
 
 /**
- *
  * @author dantran <dantran@apache.org>
  * @version $Id: AbstractJaxwsMojo.java 3240 2007-02-04 07:13:21Z dantran $ *
  */
@@ -246,7 +248,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
             commonArgs.add("-extension");
         }
 
-        if(getXnocompile()){
+        if (getXnocompile()) {
             commonArgs.add("-Xnocompile");
         }
 
@@ -319,7 +321,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
             if (executable != null) {
                 if (executable.isFile() && executable.canExecute()) {
                     cmd.setExecutable(executable.getAbsolutePath());
-                    if (getExtraClasspath() !=  null) {
+                    if (getExtraClasspath() != null) {
                         cmd.createArg().setLine("-cp");
                         cmd.createArg().setValue(getExtraClasspath());
                     }
@@ -343,7 +345,13 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
                 String cp = extraCp != null ? extraCp + File.pathSeparator : "";
                 cp += classpath[0];
                 try {
-                    File pathFile = createPathFile(cp);
+                    Map<String, String> cpMap = new HashMap<>();
+                    cpMap.put("cp", cp);
+                    cpMap.put("wsgen.classpath", classpath[0]);
+                    if (extraCp != null) {
+                        cpMap.put("wsgen.extra.classpath", extraCp);
+                    }
+                    File pathFile = createPathFile(cpMap);
                     cmd.createArg().setLine("-pathfile " + pathFile.getAbsolutePath());
                 } catch (IOException ioe) {
                     //creation of temporary file can fail, in such case just put everything on cp
@@ -445,7 +453,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
         return isWindows() ? "java.exe" : "java";
     }
 
-    private File createPathFile(String cp) throws IOException {
+    private File createPathFile(Map<String, String> cpMap) throws IOException {
         File f = File.createTempFile("jax-ws-mvn-plugin-cp", ".txt");
         if (f.exists() && f.isFile()) {
             if (!f.delete()) {
@@ -454,8 +462,14 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
             }
         }
         Properties p = new Properties();
-        p.put("cp", cp.replace(File.separatorChar, '/'));
-        getLog().debug("stored classpath: " + cp.replace(File.separatorChar, '/'));
+        cpMap.forEach((key, value) -> {
+            p.put(key, value.replace(File.separatorChar, '/'));
+            getLog().debug(String.format(
+                    "stored classpath: %s - %s\n",
+                    key,
+                    value.replace(File.separatorChar, '/')
+            ));
+        });
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(f);
@@ -497,7 +511,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
     }
 
     private boolean containsTools(Set<String> cp) {
-        return  cp.contains("com.sun.xml.ws:jaxws-tools")
+        return cp.contains("com.sun.xml.ws:jaxws-tools")
                 || cp.contains("org.glassfish.metro:webservices-tools")
                 || cp.contains("com.oracle.weblogic:weblogic-server-pom");
     }

@@ -81,6 +81,10 @@ public class Options {
 
     public String classpath = System.getProperty("java.class.path");
 
+    public String wsgenExtraClasspath = System.getProperty("wsgen.extra.classpath");
+
+    public String wsgenClasspath = System.getProperty("wsgen.classpath");
+
     /**
      * -javacOptions
      *
@@ -101,6 +105,17 @@ public class Options {
      * @since 2.2.9
      */
     public boolean disableXmlSecurity;
+
+    /**
+     * -Xno-modules
+     * If it is true, java compiler will not use modules during the compilation. All dependencies will be put to the classpath.
+     */
+    public boolean noModules;
+
+    /**
+     * -modulepath
+     */
+    public String modulepath;
 
     public enum Target {
 
@@ -368,6 +383,12 @@ public class Options {
             }
             javacOptions.add(args[i].substring(2));
             return 1;
+        } else if (args[i].equals("-Xno-modules")) {
+            noModules = true;
+            return 1;
+        } else if (args[i].equals("-modulepath")) {
+                modulepath = requireArgument("-modulepath", args, ++i);
+            return 2;
         }
         return 0;
     }
