@@ -38,7 +38,7 @@
         <eclipselink.version>2.7.8</eclipselink.version>
         <javax.persistance.version>2.2.3</javax.persistance.version>
         <junit.version>4.13.2</junit.version>
-        <mail.version>1.6.6</mail.version>
+        <mail.version>1.6.7</mail.version>
         <servlet-api.version>4.0.3</servlet-api.version>
     </properties>
             
