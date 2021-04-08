@@ -90,10 +90,9 @@ public final class Invoker {
         ClassLoader oldcc = Thread.currentThread().getContextClassLoader();
         try {
             ClassLoader cl = Invoker.class.getClassLoader();
-            //XXX - kept here for the future to resurect ability to run with older apis
-//            if(Arrays.asList(args).contains("-Xendorsed"))
-//                cl = createClassLoader(cl); // perform JDK6 workaround hack
-//            else {
+            if(Arrays.asList(args).contains("-Xendorsed"))
+                cl = createClassLoader(cl); // perform JDK6 workaround hack
+            else {
                 int targetArgIndex = Arrays.asList(args).indexOf("-target"); 
                 Options.Target targetVersion;
                 if (targetArgIndex != -1) {
@@ -113,11 +112,6 @@ public final class Invoker {
                     return -1;
                 }
 
-//            }
-            //if loaded by bootstrap, cl can be null, let's use the loader
-            //we have in that case
-            if (cl == null) {
-                cl = oldcc;
             }
             //if loaded by bootstrap, cl can be null, let's use the loader
             //we have in that case
