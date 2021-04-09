@@ -45,6 +45,7 @@ module com.sun.xml.ws {
     requires transitive com.sun.xml.streambuffer;
     requires transitive com.sun.xml.ws.policy;
     requires transitive gmbal;
+    requires transitive org.glassfish.ha.api;
 
     exports com.oracle.webservices.api;
     exports com.oracle.webservices.api.databinding;

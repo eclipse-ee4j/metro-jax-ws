@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -563,13 +563,48 @@ abstract class WsTask2 extends MatchingTask {
         if (toolsJar.exists()) {
             antcp += File.pathSeparatorChar + toolsJar.getAbsolutePath();
         }
+
+        Path cp = getCommandline().createClasspath(getProject());
+
         if (System.getProperty("jdk.module.path") != null) {
-            // this should not happen as a class from META-INF/versions/9
-            // is supposed to be used. If it happens, warn and fall back
             log("Changing original module path to classpath.", Project.MSG_WARN);
             antcp += File.pathSeparatorChar + System.getProperty("jdk.module.path");
         }
-        getCommandline().createClasspath(getProject()).append(new Path(getProject(), antcp));
+
+        cp.append(new Path(getProject(), antcp));
+
+        Path mvn = getProject().getReference("maven.plugin.classpath");
+        if (mvn != null) {
+            // fork in ant called from maven,
+            // likely through maven-antrun-plugin:run
+            cp.append(mvn);
+        }
+
+        if (getModulepath() != null && getModulepath().size() > 0) {
+            getCommandline().createModulepath(getProject()).add(getModulepath());
+        }
+
+        if (getUpgrademodulepath() != null && getUpgrademodulepath().size() > 0) {
+            getCommandline().createUpgrademodulepath(getProject()).add(getUpgrademodulepath());
+        }
+        if (getAddmodules() != null && getAddmodules().length() > 0) {
+            getCommandline().createVmArgument().setLine("--add-modules " + getAddmodules());
+        }
+        if (getAddreads() != null && getAddreads().length() > 0) {
+            getCommandline().createVmArgument().setLine("--add-reads " + getAddreads());
+        }
+        if (getAddexports() != null && getAddexports().length() > 0) {
+            getCommandline().createVmArgument().setLine("--add-exports " + getAddexports());
+        }
+        if (getAddopens() != null && getAddopens().length() > 0) {
+            getCommandline().createVmArgument().setLine("--add-opens " + getAddopens());
+        }
+        if (getPatchmodule() != null && getPatchmodule().length() > 0) {
+            getCommandline().createVmArgument().setLine("--patch-module " + getPatchmodule());
+        }
+        if (getLimitmodules() != null && getLimitmodules().length() > 0) {
+            getCommandline().createVmArgument().setLine("--limit-modules " + getLimitmodules());
+        }
 
         String apiCp = getApiClassPath(this.getClass().getClassLoader());
         if (apiCp != null && !isModular()) {
