@@ -915,7 +915,7 @@ public class WSDLModeler extends WSDLModelerBase {
                 }
                 // Custom name should be a valid variable name
                 if (!param.getCustomName().matches("^[_$a-zA-Z][_$\\w]*$")) {
-                    error(param.getEntity(), "Invalid operation \"" + info.operation.getName() + "\", can't generate java method. Parameter,customized name \"" + param.getCustomName() + "\" is not a valid java variable name.");
+                    error(param.getEntity(), ModelerMessages.WSDLMODELER_INVALID_OPERATION_INVALID_JAVA_VARIABLE_NAME_CUSTOM_NAME(info.operation.getName(), param.getCustomName()));
                     return false;
                 }
                 return true;
@@ -928,7 +928,7 @@ public class WSDLModeler extends WSDLModelerBase {
                 }
                 // Custom name should be a valid variable name
                 if (!param.getCustomName().matches("^[_$a-zA-Z][_$\\w]*$")) {
-                    error(param.getEntity(), "Invalid operation \"" + info.operation.getName() + "\", can't generate java method. Local name of the wrapper child \"" + param.getName() + "\" in the global element \"" + param.getBlock().getName() + "\" is not a valid java variable name. Use customization to change the parameter name.");
+                    error(param.getEntity(), ModelerMessages.WSDLMODELER_INVALID_OPERATION_INVALID_JAVA_VARIABLE_NAME_WRAPPER_STYLE(info.operation.getName(), param.getName(), param.getBlock().getName()));
                     return false;
                 }
             } else {
@@ -939,7 +939,7 @@ public class WSDLModeler extends WSDLModelerBase {
                 }
                 // Custom name should be a valid variable name
                 if (!param.getCustomName().matches("^[_$a-zA-Z][_$\\w]*$")) {
-                    error(param.getEntity(), "Invalid operation \"" + info.operation.getName() + "\", can't generate java method. Parameter: part \"" + param.getName() + "\" in wsdl:message \"" + msg.getName() + "\" is not a valid java variable name. Use customization to change the parameter name.");
+                    error(param.getEntity(), ModelerMessages.WSDLMODELER_INVALID_OPERATION_INVALID_JAVA_VARIABLE_NAME_NON_WRAPPER_STYLE(info.operation.getName(), msg.getName(), param.getName()));
                     return false;
                 }
             }
