@@ -926,20 +926,10 @@ public class WSDLModeler extends WSDLModelerBase {
                     error(param.getEntity(), ModelerMessages.WSDLMODELER_INVALID_OPERATION_JAVA_RESERVED_WORD_NOT_ALLOWED_WRAPPER_STYLE(info.operation.getName(), param.getName(), param.getBlock().getName()));
                     return false;
                 }
-                // Custom name should be a valid variable name
-                if (!param.getCustomName().matches("^[_$a-zA-Z][_$\\w]*$")) {
-                    error(param.getEntity(), ModelerMessages.WSDLMODELER_INVALID_OPERATION_INVALID_JAVA_VARIABLE_NAME_WRAPPER_STYLE(info.operation.getName(), param.getName(), param.getBlock().getName()));
-                    return false;
-                }
             } else {
                 //non-wrapper style and rpclit
                 if (Names.isJavaReservedWord(param.getName())) {
                     error(param.getEntity(), ModelerMessages.WSDLMODELER_INVALID_OPERATION_JAVA_RESERVED_WORD_NOT_ALLOWED_NON_WRAPPER_STYLE(info.operation.getName(), msg.getName(), param.getName()));
-                    return false;
-                }
-                // Custom name should be a valid variable name
-                if (!param.getCustomName().matches("^[_$a-zA-Z][_$\\w]*$")) {
-                    error(param.getEntity(), ModelerMessages.WSDLMODELER_INVALID_OPERATION_INVALID_JAVA_VARIABLE_NAME_NON_WRAPPER_STYLE(info.operation.getName(), msg.getName(), param.getName()));
                     return false;
                 }
             }
