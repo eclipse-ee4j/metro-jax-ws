@@ -913,6 +913,11 @@ public class WSDLModeler extends WSDLModelerBase {
                     error(param.getEntity(), ModelerMessages.WSDLMODELER_INVALID_OPERATION_JAVA_RESERVED_WORD_NOT_ALLOWED_CUSTOM_NAME(info.operation.getName(), param.getCustomName()));
                     return false;
                 }
+                // Custom name should be a valid variable name
+                if (!param.getCustomName().matches("^[_$a-zA-Z][_$\\w]*$")) {
+                    error(param.getEntity(), ModelerMessages.WSDLMODELER_INVALID_OPERATION_INVALID_JAVA_VARIABLE_NAME_CUSTOM_NAME(info.operation.getName(), param.getCustomName()));
+                    return false;
+                }
                 return true;
             }
             //process doclit wrapper style
