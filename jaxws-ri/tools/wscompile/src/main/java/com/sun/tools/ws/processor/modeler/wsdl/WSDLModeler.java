@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -911,6 +911,11 @@ public class WSDLModeler extends WSDLModelerBase {
             if (param.getCustomName() != null) {
                 if (Names.isJavaReservedWord(param.getCustomName())) {
                     error(param.getEntity(), ModelerMessages.WSDLMODELER_INVALID_OPERATION_JAVA_RESERVED_WORD_NOT_ALLOWED_CUSTOM_NAME(info.operation.getName(), param.getCustomName()));
+                    return false;
+                }
+                // Custom name should be a valid variable name
+                if (!param.getCustomName().matches("^[_$a-zA-Z][_$\\w]*$")) {
+                    error(param.getEntity(), ModelerMessages.WSDLMODELER_INVALID_OPERATION_INVALID_JAVA_VARIABLE_NAME_CUSTOM_NAME(info.operation.getName(), param.getCustomName()));
                     return false;
                 }
                 return true;
