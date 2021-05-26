@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2021 Oracle and/or its affiliates.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+
+<endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime' version='2.0'>
+  <endpoint
+      name="SoapWs"
+      implementation="org.eclipse.metro.helidon.example.ws.SoapWs"
+      url-pattern="/SoapWsService">
+  </endpoint>
+  <endpoint
+      name="wsaddressing"
+      implementation="org.eclipse.metro.helidon.example.addressing.AddressingWS"
+      url-pattern="/AddressingWSService">
+  </endpoint>
+  <endpoint
+      name="fromwsdl"
+      interface="org.example.duke.AddNumbersPortType"
+      implementation="org.eclipse.metro.helidon.example.fromwsdl.AddNumbersImpl"
+      wsdl="WEB-INF/wsdl/AddNumbers.wsdl"
+      service="{http://duke.example.org}AddNumbersService"
+      port="{http://duke.example.org}AddNumbersPort"
+      url-pattern="/addnumbers">
+  </endpoint>
+</endpoints>
