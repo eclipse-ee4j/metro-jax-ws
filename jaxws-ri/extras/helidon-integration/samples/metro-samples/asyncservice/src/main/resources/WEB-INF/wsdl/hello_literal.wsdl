@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2021 Oracle and/or its affiliates.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+
+<definitions
+  name="HelloTest"
+  targetNamespace="urn:test"
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:types="urn:test:types"
+  xmlns:tns="urn:test">
+
+  <types>
+    <xsd:schema
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      xmlns:types="urn:test:types"
+      targetNamespace="urn:test:types">
+
+      <xsd:element name="Hello">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="argument" type="xsd:string"/>
+            <xsd:element name="extra" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+      <xsd:element name="HelloResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="argument" type="xsd:string"/>
+            <xsd:element name="extra" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+
+    </xsd:schema>
+  </types>
+
+  <message name="HelloRequest">
+    <part name="parameters" element="types:Hello"/>
+    <part name="header" element="types:Hello"/>
+  </message>
+
+  <message name="HelloResponse">
+    <part name="parameters" element="types:HelloResponse"/>
+  </message>
+
+  <portType name="Hello">
+    <operation name="hello">
+      <input message="tns:HelloRequest"/>
+      <output message="tns:HelloResponse"/>
+    </operation>
+  </portType>
+
+  <binding name="HelloBinding" type="tns:Hello">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="hello">
+      <soap:operation soapAction="urn:test:hello"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+        <soap:header message="tns:HelloRequest" part="header" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="Hello">
+    <port name="HelloAsyncPort" binding="tns:HelloBinding">
+      <!--<soap:address location="http://test.org/hello"/>-->
+      <soap:address location="http://localhost:8080/metro/hello" />
+    </port>
+  </service>
+
+</definitions>
