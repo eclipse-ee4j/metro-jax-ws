@@ -126,6 +126,22 @@
         <module>bom</module>
         <module>helidon-soap</module>
         <module>helidon-soap-mp</module>
-        <module>samples</module>
     </modules>
+
+    <profiles>
+        <profile>
+            <id>samples</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>samples</module>
+            </modules>
+        </profile>
+        <profile>
+            <!-- to make sure that release profile deactivates building samples -->
+            <id>oss-release</id>
+        </profile>
+      </profiles>
+
 </project>
