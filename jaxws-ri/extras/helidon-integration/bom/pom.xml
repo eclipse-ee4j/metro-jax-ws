@@ -33,6 +33,38 @@
     <packaging>pom</packaging>
     <name>Metro - Helidon BOM</name>
 
+    <inceptionYear>2021</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/eclipse-ee4j/metro-jax-ws/issues</url>
+    </issueManagement>
+
+    <mailingLists>
+        <mailingList>
+            <name>Eclipse Metro mailing list</name>
+            <post>metro-dev@eclipse.org</post>
+            <subscribe>https://accounts.eclipse.org/mailing-list/metro-dev</subscribe>
+            <unsubscribe>https://accounts.eclipse.org/mailing-list/metro-dev</unsubscribe>
+            <archive>https://dev.eclipse.org/mhonarc/lists/metro-dev</archive>
+        </mailingList>
+    </mailingLists>
+
+    <scm>
+        <connection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</connection>
+        <developerConnection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</developerConnection>
+        <url>https://github.com/eclipse-ee4j/metro-jax-ws</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
         <helidon.version>2.3.0</helidon.version>
 
@@ -56,6 +88,17 @@
         <ri.version>3.0.1</ri.version>
         <metro.version>3.0.1</metro.version>
         <metro.plugin.version>3.0.1</metro.plugin.version>
+
+        <sonatypeOssDistMgmtNexusUrl>https://jakarta.oss.sonatype.org/</sonatypeOssDistMgmtNexusUrl>
+        <sonatypeOssDistMgmtSnapshotsUrl>${sonatypeOssDistMgmtNexusUrl}content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
+        <sonatypeOssDistMgmtStagingUrl>${sonatypeOssDistMgmtNexusUrl}content/repositories/staging/</sonatypeOssDistMgmtStagingUrl>
+        <sonatypeOssDistMgmtReleasesUrl>${sonatypeOssDistMgmtNexusUrl}service/local/staging/deploy/maven2/</sonatypeOssDistMgmtReleasesUrl>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--
+          Initialize release.arguments to empty, otherwise if not defined
+          it can fail the release plugin.
+        -->
+        <release.arguments></release.arguments>
     </properties>
 
     <dependencyManagement>
@@ -121,7 +164,7 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-                    
+
             <dependency>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>rt</artifactId>
@@ -192,55 +235,209 @@
         </dependencies>
     </dependencyManagement>
 
-    <!-- we need dependency on dev version of jaxws-ri and jasws-maven-plugin -->
-    <repositories>
-        <repository>
-            <id>sonatype-nexus-staging</id>
-            <name>Sonatype Nexus Staging</name>
-            <url>https://jakarta.oss.sonatype.org/content/repositories/staging/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>sonatype-nexus-snapshots</id>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
             <name>Sonatype Nexus Snapshots</name>
-            <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
+            <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <name>Sonatype Nexus Releases</name>
+            <url>${sonatypeOssDistMgmtReleasesUrl}</url>
         </repository>
-    </repositories>
+    </distributionManagement>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>sonatype-nexus-staging</id>
-            <name>Sonatype Nexus Staging</name>
-            <url>https://jakarta.oss.sonatype.org/content/repositories/staging/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Nexus Snapshots</name>
-            <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>3.0.0-M4</version>
+                    <configuration>
+                        <mavenExecutorId>forked-path</mavenExecutorId>
+                        <useReleaseProfile>false</useReleaseProfile>
+                        <arguments>-Poss-release ${release.arguments}</arguments>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>1.6.8</version>
+                    <configuration>
+                        <serverId>ossrh</serverId>
+                        <nexusUrl>${sonatypeOssDistMgmtNexusUrl}</nexusUrl>
+                        <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                        <!-- Skip based on the maven.deploy.skip property -->
+                        <skipNexusStagingDeployMojo>${maven.deploy.skip}</skipNexusStagingDeployMojo>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <profiles>
+        <!--
+            This profile provides configuration for the plugins that are required are in
+            order to deploy non SNAPSHOT artifacts.
+            SNAPSHOT artifacts can be deployed without using any profile.
+        -->
+        <profile>
+            <id>oss-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <version>3.0.0-M3</version>
+                        <executions>
+                            <execution>
+                                <id>enforce-maven</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <requireMavenVersion>
+                                            <version>[3.0.4,)</version>
+                                            <message>Maven 3.0 through 3.0.3 inclusive does not pass
+                                                correct settings.xml to Maven Release Plugin.</message>
+                                        </requireMavenVersion>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.3.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <!-- Older versions have issues with the gpg passphrase -->
+                        <version>3.0.1</version>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!--
+            This profile enables consuming snapshot artifacts from the ossrh
+            snapshots repository.
+        -->
+        <profile>
+            <id>snapshots</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>sonatype-nexus-snapshots</id>
+                    <name>Sonatype Nexus Snapshots</name>
+                    <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>sonatype-nexus-snapshots</id>
+                    <name>Sonatype Nexus Snapshots</name>
+                    <url>${sonatypeOssDistMgmtSnapshotsUrl}</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
+        <!--
+            This profile enables consuming artifacts from the ossrh staging
+            repository group.
+        -->
+        <profile>
+            <id>staging</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>sonatype-nexus-staging</id>
+                    <name>Sonatype Nexus Staging</name>
+                    <url>${sonatypeOssDistMgmtStagingUrl}</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>sonatype-nexus-staging</id>
+                    <name>Sonatype Nexus Staging</name>
+                    <url>${sonatypeOssDistMgmtStagingUrl}</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
 
 </project>
