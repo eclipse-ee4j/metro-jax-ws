@@ -22,7 +22,7 @@
     <parent>
         <groupId>io.helidon</groupId>
         <artifactId>helidon-dependencies</artifactId>
-        <version>2.2.1</version>
+        <version>2.3.0</version>
         <relativePath/>
     </parent>
 
@@ -34,7 +34,7 @@
     <name>Metro - Helidon BOM</name>
 
     <properties>
-        <helidon.version>2.2.1</helidon.version>
+        <helidon.version>2.3.0</helidon.version>
         <!-- force helidon to use following latest javax versions -->
         <version.lib.jaxb-api>2.3.3</version.lib.jaxb-api>
         <version.lib.jaxb-core>2.3.4</version.lib.jaxb-core>
