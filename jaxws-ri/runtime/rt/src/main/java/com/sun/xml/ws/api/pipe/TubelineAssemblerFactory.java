@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -116,7 +116,7 @@ public abstract class TubelineAssemblerFactory {
         @Override
         public @NotNull Tube createServer(@NotNull ServerTubeAssemblerContext context) {
             if (!(context instanceof ServerPipeAssemblerContext)) {
-                throw new IllegalArgumentException("{0} is not instance of ServerPipeAssemblerContext");
+                throw new IllegalArgumentException(context + " is not instance of ServerPipeAssemblerContext");
             }
             return PipeAdapter.adapt(assembler.createServer((ServerPipeAssemblerContext) context));
         }
