@@ -21,31 +21,21 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.eclipse.metro</groupId>
+        <groupId>org.glassfish.metro</groupId>
         <artifactId>helidon.samples</artifactId>
         <version>2.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.eclipse.metro</groupId>
-    <artifactId>helidon-soap-demo-mp</artifactId>
-    <name>Metro - Helidon Demo - MP</name>
+    <artifactId>helidon-se-demo</artifactId>
+    <name>Metro - Helidon Demo</name>
 
     <properties>
-        <mainClass>io.helidon.microprofile.cdi.Main</mainClass>
+        <mainClass>org.eclipse.metro.helidon.example.Main</mainClass>
+        <test.args>--add-reads com.sun.xml.ws.rt=ALL-UNNAMED</test.args>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>io.helidon.microprofile.bundles</groupId>
-            <artifactId>helidon-microprofile</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jandex</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
         <dependency>
             <groupId>jakarta.xml.ws</groupId>
             <artifactId>jakarta.xml.ws-api</artifactId>
@@ -55,8 +45,16 @@
             <artifactId>jakarta.jws-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.metro</groupId>
-            <artifactId>helidon-soap-mp</artifactId>
+            <groupId>io.helidon.config</groupId>
+            <artifactId>helidon-config-yaml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.webserver</groupId>
+            <artifactId>helidon-webserver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.metro</groupId>
+            <artifactId>helidon-se</artifactId>
         </dependency>
 
         <dependency>
@@ -71,18 +69,25 @@
             <plugin>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
+                <configuration>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>create-wrapperbeans</id>
+                        <id>create-wrapperbeans-SoapWs</id>
                         <goals>
                             <goal>wsgen</goal>
                         </goals>
                         <configuration>
-                            <!-- 3.0.0 does not allow this -->
-                            <seis>
-                                <sei>org.eclipse.metro.helidon.example.addressing.AddressingWS</sei>
-                                <sei>org.eclipse.metro.helidon.example.ws.SoapWs</sei>
-                            </seis>
+                            <sei>org.eclipse.metro.helidon.example.ws.SoapWs</sei>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>create-wrapperbeans-AddressingWS</id>
+                        <goals>
+                            <goal>wsgen</goal>
+                        </goals>
+                        <configuration>
+                            <sei>org.eclipse.metro.helidon.example.addressing.AddressingWS</sei>
                         </configuration>
                     </execution>
                     <execution>
@@ -115,6 +120,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <!--<debugForkedProcess>true</debugForkedProcess>-->
+                    <argLine>${test.args}</argLine>
                     <systemPropertyVariables>
                         <java.util.logging.config.file>${project.build.outputDirectory}/logging.properties</java.util.logging.config.file>
                     </systemPropertyVariables>
@@ -130,15 +136,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.jboss.jandex</groupId>
-                <artifactId>jandex-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>make-index</id>
-                    </execution>
-                </executions>
-            </plugin>
-<!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
@@ -148,15 +145,6 @@
                         </manifestEntries>
                     </archive>
                 </configuration>
-            </plugin>-->
-            <plugin>
-                <groupId>io.helidon.build-tools</groupId>
-                <artifactId>helidon-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>third-party-license-report</id>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
