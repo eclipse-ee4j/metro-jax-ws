@@ -209,7 +209,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
 
   protected ServerTubeAssemblerContext createServerTubeAssemblerContext(
             EndpointAwareTube terminalTube, boolean isSynchronous) {
-    ServerTubeAssemblerContext ctx = new ServerTubeAssemblerContext(
+    ServerTubeAssemblerContext ctx = new ServerPipeAssemblerContext(
         seiModel, port, this, terminalTube, isSynchronous);
     return ctx;
   }
@@ -234,7 +234,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
         initManagedObjectManager();
 
         this.operationDispatcher = (port == null) ? null : new OperationDispatcher(port, binding, seiModel);
-            this.context = new ServerTubeAssemblerContext(
+            this.context = new ServerPipeAssemblerContext(
                 seiModel, port, this, null /* not known */, false);
 
                 tubePool = new TubePool(masterTubeline);
