@@ -33,7 +33,7 @@
     <dependencies>
         <dependency>
             <groupId>org.glassfish.metro</groupId>
-            <artifactId>helidon-java.activation</artifactId>
+            <artifactId>helidon-activation</artifactId>
         </dependency>
 
         <dependency>
