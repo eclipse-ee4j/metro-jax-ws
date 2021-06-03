@@ -20,15 +20,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
-        <groupId>org.eclipse.metro</groupId>
-        <artifactId>soap-bom</artifactId>
+        <groupId>org.glassfish.metro</groupId>
+        <artifactId>helidon-bom</artifactId>
         <version>2.0.0-SNAPSHOT</version>
         <relativePath>bom/pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.eclipse.metro</groupId>
-    <artifactId>helidon</artifactId>
+    <artifactId>helidon-integration</artifactId>
     <packaging>pom</packaging>
     <name>Metro - Helidon</name>
 
@@ -125,8 +124,8 @@
     <modules>
         <module>bom</module>
         <module>java.activation</module>
-        <module>helidon-soap</module>
-        <module>helidon-soap-mp</module>
+        <module>se</module>
+        <module>mp</module>
     </modules>
 
     <profiles>
