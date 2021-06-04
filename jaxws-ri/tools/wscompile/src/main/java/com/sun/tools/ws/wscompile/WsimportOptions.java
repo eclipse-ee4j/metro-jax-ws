@@ -603,6 +603,14 @@ public class WsimportOptions extends Options {
                 locator.setColumnNumber(reader.getLocation().getColumnNumber());
                 receiver.warning(locator, ConfigurationMessages.CONFIGURATION_NOT_BINDING_FILE(is.getSystemId()));
             }
+            if (is.getByteStream() != null) {
+                try {
+                    is.getByteStream().close();
+                    is.setByteStream(null);
+                } catch (IOException ex) {
+                    Logger.getLogger(WsimportOptions.class.getName()).log(Level.FINEST, null, ex);
+                }
+            }
         }
     }
  
