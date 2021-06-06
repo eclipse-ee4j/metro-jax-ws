@@ -262,7 +262,7 @@
                         <target>${upper.java.level}</target>
                         <compilerArgument>-Xlint:all</compilerArgument>
                     </configuration>
-<!--                    <executions>
+                    <executions>
                         <execution>
                             <id>base-compile</id>
                             <goals>
@@ -275,7 +275,7 @@
                                 </excludes>
                             </configuration>
                         </execution>
-                    </executions>-->
+                    </executions>
                 </plugin>
 
                 <plugin>
