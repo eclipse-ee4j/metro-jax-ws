@@ -14,23 +14,10 @@
  * limitations under the License.
  */
 
-module org.glassfish.metro.helidon {
+module org.glassfish.metro.helidon.mp {
 
-    exports org.eclipse.metro.helidon;
-
-    // TODO: required in jaxws-ri 3.0.0 
-//    opens org.eclipse.metro.helidon to com.sun.xml.ws.rt;
-
-    requires java.logging;
-    requires transitive java.activation;
-    requires transitive com.sun.xml.ws.rt;
-    requires transitive org.glassfish.metro.wsit.impl;
-    requires io.helidon.webserver;
-    requires io.helidon.common.serviceloader;
-
-    uses org.eclipse.metro.helidon.APISupportImpl;
-
-    provides com.sun.xml.ws.api.pipe.TransportTubeFactory
-            with org.eclipse.metro.helidon.HelidonTransportFactory;
-    
+    requires java.annotation;
+    requires org.glassfish.metro.helidon;
+    requires io.helidon.microprofile.server;
+    requires io.helidon.config.mp;
 }
