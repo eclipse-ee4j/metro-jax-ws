@@ -42,7 +42,7 @@ module org.eclipse.metro.helidon.example {
     
     requires io.helidon.config;
     requires io.helidon.webserver;
-    requires org.eclipse.metro.helidon;
-
+    requires org.glassfish.metro.helidon;
+//    requires org.glassfish.metro.wsit.impl;
 //    requires com.sun.xml.ws.rt;
 }
