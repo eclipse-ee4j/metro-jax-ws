@@ -38,7 +38,6 @@
         <ws.test>${project.basedir}/testcases</ws.test>
         <!-- extra JVM options for JVM forked by test harness, ie proxy, tests' debugging-->
         <ws.jvmOpts></ws.jvmOpts>
-        <ws.permGenJvmOpts>-XX:PermSize=128m -XX:MaxPermSize=256m</ws.permGenJvmOpts>
     </properties>
 
     <build>
@@ -64,8 +63,14 @@
                     <transport>${ws.transport}</transport>
                     <extraVmArgs>${ws.jvmOpts}</extraVmArgs>
                     <vmArgs>
-                        <!-- ensure that you are specifying PermGen jvm options only for jdk < 8 -->
-                        <vmArg>-Xms256m -Xmx512m ${ws.permGenJvmOpts}</vmArg>
+                        <vmArg>-Xms256m -Xmx512m</vmArg>
+                        <vmArg>--add-opens java.base/java.lang=ALL-UNNAMED</vmArg>
+                        <vmArg>--add-opens java.base/jdk.internal.misc=ALL-UNNAMED</vmArg>
+                        <vmArg>--add-opens java.base/java.util=ALL-UNNAMED</vmArg>
+                        <vmArg>--add-opens java.xml/com.sun.org.apache.xalan.internal.xsltc.trax=ALL-UNNAMED</vmArg>
+                        <vmArg>--add-opens java.xml/com.sun.org.apache.xerces.internal.jaxp=ALL-UNNAMED</vmArg>
+                        <vmArg>--add-opens java.xml/com.sun.org.apache.xerces.internal.dom=ALL-UNNAMED</vmArg>
+                        <vmArg>--add-opens java.xml/com.sun.org.apache.xerces.internal.jaxp.datatype=ALL-UNNAMED</vmArg>
                     </vmArgs>
                 </configuration>
             </plugin>
