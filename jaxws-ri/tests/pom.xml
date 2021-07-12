@@ -38,6 +38,7 @@
         <ws.test>${project.basedir}/testcases</ws.test>
         <!-- extra JVM options for JVM forked by test harness, ie proxy, tests' debugging-->
         <ws.jvmOpts></ws.jvmOpts>
+        <ws.permGenJvmOpts></ws.permGenJvmOpts>
     </properties>
 
     <build>
@@ -63,9 +64,7 @@
                     <transport>${ws.transport}</transport>
                     <extraVmArgs>${ws.jvmOpts}</extraVmArgs>
                     <vmArgs>
-                        <vmArg>-Xms256m -Xmx512m</vmArg>
-                        <vmArg>--add-opens java.base/java.lang=ALL-UNNAMED</vmArg>
-                        <vmArg>--add-opens java.base/jdk.internal.misc=ALL-UNNAMED</vmArg>
+                        <vmArg>-Xms256m -Xmx512m ${ws.permGenJvmOpts}</vmArg>
                         <vmArg>--add-opens java.base/java.util=ALL-UNNAMED</vmArg>
                         <vmArg>--add-opens java.xml/com.sun.org.apache.xalan.internal.xsltc.trax=ALL-UNNAMED</vmArg>
                         <vmArg>--add-opens java.xml/com.sun.org.apache.xerces.internal.jaxp=ALL-UNNAMED</vmArg>

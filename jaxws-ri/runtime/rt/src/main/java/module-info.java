@@ -28,6 +28,7 @@ module com.sun.xml.ws.rt {
     requires java.management;
     requires transitive java.xml;
     requires jdk.httpserver;
+    requires jdk.unsupported;
 
     requires transitive jakarta.activation;
     requires transitive jakarta.annotation;
