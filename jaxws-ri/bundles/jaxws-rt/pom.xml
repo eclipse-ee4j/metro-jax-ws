@@ -288,7 +288,6 @@
                                 <Import-Package>
                                     javax.xml.catalog;resolution:=optional,
                                     sun.misc;resolution:=optional,
-                                    jdk.internal.misc;resolution:=optional,
                                     com.sun.xml.ws.assembler.metro.jaxws;resolution:=optional,
                                     *
                                 </Import-Package>
