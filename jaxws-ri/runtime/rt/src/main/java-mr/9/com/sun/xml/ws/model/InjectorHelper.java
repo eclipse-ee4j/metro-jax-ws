@@ -86,16 +86,19 @@ final class InjectorHelper {
                     try {
                         return Unsafe.class.getDeclaredField("theUnsafe");
                     } catch (NoSuchFieldException | SecurityException ex) {
-                        Logger.getLogger(InjectorHelper.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(InjectorHelper.class.getName()).log(Level.WARNING, null, ex);
                         return null;
                     }
                 }
             });
             if (f != null) {
-                f.setAccessible(true);
+                if (!f.trySetAccessible()) {
+                    setAccessible(f);
+                }
                 return (Unsafe) f.get(null);
             }
         } catch (Throwable t) {
+            Logger.getLogger(InjectorHelper.class.getName()).log(Level.WARNING, null, t);
         }
         return null;
     }
