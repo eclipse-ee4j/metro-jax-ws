@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,13 +13,13 @@ package com.sun.xml.ws.streaming;
 import com.sun.istack.Nullable;
 import com.sun.xml.ws.api.streaming.XMLStreamWriterFactory;
 import com.sun.xml.ws.encoding.HasEncoding;
-import com.sun.xml.ws.encoding.SOAPBindingCodec;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.stream.XMLStreamException;
 import java.util.Map;
 import java.io.OutputStream;
+import java.util.Objects;
 
 /**
  * <p>XMLStreamWriterUtil provides some utility methods intended to be used
@@ -41,12 +41,13 @@ public class XMLStreamWriterUtil {
      * @throws XMLStreamException if any of writer operations throw the exception
      */
     public static @Nullable OutputStream getOutputStream(XMLStreamWriter writer) throws XMLStreamException {
+        XMLStreamWriter w = Objects.requireNonNull(writer);
         Object obj = null;
 
         XMLStreamWriter xmlStreamWriter =
-                writer instanceof XMLStreamWriterFactory.HasEncodingWriter ?
-                        ((XMLStreamWriterFactory.HasEncodingWriter) writer).getWriter()
-                        : writer;
+                w instanceof XMLStreamWriterFactory.HasEncodingWriter ?
+                        ((XMLStreamWriterFactory.HasEncodingWriter) w).getWriter()
+                        : w;
 
         // Hack for JDK6's SJSXP
         if (xmlStreamWriter instanceof Map) {
@@ -56,7 +57,7 @@ public class XMLStreamWriterUtil {
         // woodstox
         if (obj == null) {
             try {
-                obj = writer.getProperty("com.ctc.wstx.outputUnderlyingStream");
+                obj = w.getProperty("com.ctc.wstx.outputUnderlyingStream");
             } catch(Exception ie) {
                 // Catch all exceptions. SJSXP in JDK throws NPE
                 // nothing to do here
@@ -66,7 +67,7 @@ public class XMLStreamWriterUtil {
         // SJSXP
         if (obj == null) {
             try {
-                obj = writer.getProperty("http://java.sun.com/xml/stream/properties/outputstream");
+                obj = w.getProperty("http://java.sun.com/xml/stream/properties/outputstream");
             } catch(Exception ie) {
                 // Catch all exceptions. SJSXP in JDK throws NPE
                 // nothing to do here
@@ -75,8 +76,8 @@ public class XMLStreamWriterUtil {
 
 
         if (obj != null) {
-            writer.writeCharacters("");  // Force completion of open elems
-            writer.flush();
+            w.writeCharacters("");  // Force completion of open elems
+            w.flush();
             return (OutputStream)obj;
         }
         return null;

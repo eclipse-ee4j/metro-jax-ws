@@ -10,7 +10,6 @@
 
 package com.sun.xml.ws.developer;
 
-import com.sun.xml.ws.api.BindingID;
 
 import javax.xml.ws.WebServiceFeature;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2006, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,7 +30,7 @@ import java.util.Map.Entry;
  *
  * <p> The HTTP cookie management in java.net package looks like:
  * <blockquote>
- * <pre>
+ * <pre>{@code
  *                  use
  * CookieHandler <------- HttpURLConnection
  *       ^
@@ -47,7 +47,7 @@ import java.util.Map.Entry;
  *                            | impl
  *                            |
  *                  Internal in-memory implementation
- * </pre>
+ * }</pre>
  * <ul>
  *   <li>
  *     CookieHandler is at the core of cookie management. User can call

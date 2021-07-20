@@ -326,8 +326,17 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <doclint>none</doclint>
                     <additionalOptions>--add-reads com.sun.xml.ws.rt=ALL-UNNAMED</additionalOptions>
+                    <tags>
+                        <tag>
+                            <name>exclude</name>
+                            <placement>X</placement>
+                        </tag>
+                        <tag>
+                            <name>BP</name>
+                            <placement>X</placement>
+                        </tag>
+                    </tags>
                 </configuration>
             </plugin>
             <!--

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -110,7 +110,7 @@ public class RuntimeModeler {
         this(portClass, serviceName, null, bindingId, features);
     }*/
 
-    /**
+    /*
      *
      * creates an instance of RunTimeModeler given a <code>sei</code> and <code>binding</code>
      * @param portClass The SEI class to be modeled.

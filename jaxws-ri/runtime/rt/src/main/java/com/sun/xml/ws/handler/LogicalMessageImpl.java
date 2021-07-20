@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -66,6 +66,7 @@ class LogicalMessageImpl implements LogicalMessage {
         this.defaultJaxbContext = defaultJaxbContext;
     }
 
+    @Override
     public Source getPayload() {
         if (lm == null) {
             Source payload = packet.getMessage().copy().readPayloadAsSource();
@@ -78,6 +79,7 @@ class LogicalMessageImpl implements LogicalMessage {
         }
     }
 
+    @Override
     public void setPayload(Source payload) {
         lm = createLogicalMessageImpl(payload);
     }
@@ -114,6 +116,7 @@ class LogicalMessageImpl implements LogicalMessage {
         return o;    	
     }
 
+    @Override
     public Object getPayload(JAXBContext context) {
         if (context == null) {
             return getPayload(defaultJaxbContext);
@@ -146,6 +149,7 @@ class LogicalMessageImpl implements LogicalMessage {
         }
     }
 
+    @Override
     public void setPayload(Object payload, JAXBContext context) {
         if (context == null) {
         	setPayload(payload, defaultJaxbContext);
@@ -201,6 +205,7 @@ class LogicalMessageImpl implements LogicalMessage {
             return dom;
         }
 
+        @Override
         public Message getMessage(MessageHeaders headers, AttachmentSet attachments, WSBinding binding) {
             Node n = dom.getNode();
             if(n.getNodeType()== Node.DOCUMENT_NODE) {
@@ -230,6 +235,7 @@ class LogicalMessageImpl implements LogicalMessage {
             return null;
         }
 
+        @Override
         public Message getMessage(MessageHeaders headers, AttachmentSet attachments, WSBinding binding) {
             return new EmptyMessageImpl(headers,attachments,binding.getSOAPVersion());
         }
@@ -273,6 +279,7 @@ class LogicalMessageImpl implements LogicalMessage {
                 throw new WebServiceException(e);
             }
         }
+        @Override
         public Object getPayload(BindingContext context) {
 //          if(context == ctxt) {
 //              return o;
@@ -288,6 +295,7 @@ class LogicalMessageImpl implements LogicalMessage {
           }
       }
 
+        @Override
         public Message getMessage(MessageHeaders headers, AttachmentSet attachments, WSBinding binding) {
             return JAXBMessage.create(BindingContextFactory.create(ctxt), o,binding.getSOAPVersion(), headers,attachments);
         }
@@ -300,6 +308,7 @@ class LogicalMessageImpl implements LogicalMessage {
             this.payloadSrc = source;
         }
 
+        @Override
         public Source getPayload() {
             assert (!(payloadSrc instanceof DOMSource));
             try {
@@ -315,6 +324,7 @@ class LogicalMessageImpl implements LogicalMessage {
             }
         }
 
+        @Override
         public Object getPayload(JAXBContext context) {
             try {
                 Source payloadSrc = getPayload();
@@ -328,6 +338,7 @@ class LogicalMessageImpl implements LogicalMessage {
 
         }
 
+        @Override
         public Object getPayload(BindingContext context) {
             try {
                 Source payloadSrc = getPayload();
@@ -341,6 +352,7 @@ class LogicalMessageImpl implements LogicalMessage {
 
         }
 
+        @Override
         public Message getMessage(MessageHeaders headers, AttachmentSet attachments, WSBinding binding) {
             assert (payloadSrc!=null);
             return new PayloadSourceMessage(headers, payloadSrc, attachments,binding.getSOAPVersion());

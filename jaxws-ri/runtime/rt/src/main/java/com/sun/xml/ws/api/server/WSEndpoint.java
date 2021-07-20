@@ -90,7 +90,7 @@ import java.util.concurrent.Executor;
  *
  *
  *
- * <h3>Objects Exposed From Endpoint</h3>
+ * <h2>Objects Exposed From Endpoint</h2>
  * <p>
  * {@link WSEndpoint} exposes a series of information that represents
  * how an endpoint is configured to host a service. See the getXXX methods
@@ -98,7 +98,7 @@ import java.util.concurrent.Executor;
  *
  *
  *
- * <h3>Implementation Notes</h3>
+ * <h2>Implementation Notes</h2>
  * <p>
  * {@link WSEndpoint} owns a {@link WSWebServiceContext} implementation.
  * But a bulk of the work is delegated to {@link WebServiceContextDelegate},

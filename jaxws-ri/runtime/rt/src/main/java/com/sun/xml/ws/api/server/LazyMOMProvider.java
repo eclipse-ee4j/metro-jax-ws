@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,6 @@ import java.util.HashSet;
 import java.util.Set;
 import org.glassfish.external.amx.AMXGlassfish;
 import org.glassfish.external.amx.MBeanListener;
-import org.glassfish.gmbal.ManagedObjectManager;
 
 /**
  * The lazy provider is intended to defer Gmbal API calls until there is a JMX connection. The provider is scope
@@ -28,7 +27,7 @@ import org.glassfish.gmbal.ManagedObjectManager;
  * be registered after all the endpoints are processed so no inconsistency is present.
  *
  * Glassfish:
- * {@link WebServicesContainer} is one of two classes for which a {@link ManagedObjectManager} instance (see Gmbal API)
+ * {@code WebServicesContainer} is one of two classes for which a {@code ManagedObjectManager} instance (see Gmbal API)
  * is created when a webservice application is deployed into the Glassfish. For the purpose of postponing Gmbal API calls
  * the {@code WebServicesContainer} extends {@link MBeanListener.CallbackImpl} so it can register itself as a listener of
  * {@link AMXGlassfish} and receive a notification about a connection of a JMX client to the Glassfish server (see
@@ -58,11 +57,11 @@ import org.glassfish.gmbal.ManagedObjectManager;
  * of {@code LazyMOMProvider}. Other classes should implement the latter mentioned interface and register themselves as
  * a non-endpoint listener. The differences between these two kind of listeners are described in {@code LazyMOMProvider}
  * class comment. An implementation of {@code LazyMOMProvider.DefaultScopeChangeListener} is provided in Metro
- * ({@link WSEndpointCollectionBasedMOMListener}). As mentioned above this listener register itself as a non-endpoint
+ * ({@code WSEndpointCollectionBasedMOMListener}). As mentioned above this listener register itself as a non-endpoint
  * listener of {@code LazyMOMProvider} ({@code WSEndpointCollectionBasedMOMListener.init}). An instance of this class is
- * used in these factories: {@link SessionManager}, {@link NonceManager} and {@link SequenceManagerFactory}.
+ * used in these factories: {@code SessionManager}, {@code NonceManager} and {@code SequenceManagerFactory}.
  * {@code SessionManager}, {@code NonceManager}, {@code PersistentSequenceManager} and {@code InVmSequenceManager} also
- * (indirectly) implement {@link MOMRegistrationAware} for providing information whether a manager is registered at
+ * (indirectly) implement {@code MOMRegistrationAware} for providing information whether a manager is registered at
  * {@code ManagedObjectManager} or not. Registration of a manager at {@code ManagedObjectManager} can be processed directly
  * (if {@code WSEndpointCollectionBasedMOMListener.canRegisterAtMOM} returns {@code true}) via
  * {@code WSEndpointCollectionBasedMOMListener.registerAtMOM} or is deferred by putting the manager into
@@ -78,7 +77,7 @@ public enum LazyMOMProvider {
     /**
      * Possible scopes (environments) in which the provider (and object associated with it) could be in.
      * Default scope is STANDALONE - applied during initialization of classes. For now, only possible scope change for a
-     * object can be in this direction: STANDALONE -> GLASSFISH_NO_JMX -> GLASSFISH_JMX.
+     * object can be in this direction: STANDALONE -&gt; GLASSFISH_NO_JMX -&gt; GLASSFISH_JMX.
      */
     public static enum Scope {
 

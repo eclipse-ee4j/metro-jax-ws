@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,14 +10,8 @@
 
 package com.sun.xml.ws.api.pipe;
 
-import com.sun.xml.ws.api.WSBinding;
-import com.sun.xml.ws.api.server.WSEndpoint;
-import com.sun.xml.ws.api.WSService;
-import com.sun.xml.ws.api.EndpointAddress;
 import com.sun.xml.ws.api.model.SEIModel;
-import com.sun.xml.ws.api.model.wsdl.WSDLPort;
 import com.sun.istack.NotNull;
-import com.sun.istack.Nullable;
 
 import javax.xml.ws.Dispatch;
 import javax.xml.ws.Provider;

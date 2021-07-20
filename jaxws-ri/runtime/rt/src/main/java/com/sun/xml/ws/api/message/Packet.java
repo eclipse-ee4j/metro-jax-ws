@@ -89,7 +89,7 @@ import java.nio.channels.WritableByteChannel;
  * float around without a {@link Message} in it.
  *
  *
- * <a name="properties"></a>
+ * <a id="properties"></a>
  * <h2>Properties</h2>
  * <p>
  * Information frequently used inside the JAX-WS RI
@@ -130,7 +130,7 @@ import java.nio.channels.WritableByteChannel;
  *
  * <h3>TODO</h3>
  * <ol>
- *  <li>this class needs to be cloneable since Message is copiable.
+ *  <li>this class needs to be cloneable since Message is copyable.
  *  <li>The three live views aren't implemented correctly. It will be
  *      more work to do so, although I'm sure it's possible.
  *  <li>{@link PropertySet.Property} annotation is to make it easy
@@ -166,7 +166,7 @@ public final class Packet
      * Creates an empty {@link Packet} that doesn't have any {@link Message}.
      */
     public Packet() {
-        this.invocationProperties = new HashMap<String, Object>();
+        this.invocationProperties = new HashMap<>();
     }
     
     /**
@@ -448,11 +448,9 @@ public final class Packet
      *<p>
      */
     @Property(MessageContext.REFERENCE_PARAMETERS)
-    public
-    @NotNull
-    List<Element> getReferenceParameters() {
+    public @NotNull List<Element> getReferenceParameters() {
         Message msg = getMessage();
-        List<Element> refParams = new ArrayList<Element>();
+        List<Element> refParams = new ArrayList<>();
         if (msg == null) {
             return refParams;
         }
@@ -589,7 +587,7 @@ public final class Packet
      * transport and SOAP version.
      * <br>
      * For HTTP transport and SOAP 1.1, BP requires that SOAPAction
-     * header is present (See {@BP R2744} and {@BP R2745}.) For SOAP 1.2,
+     * header is present (See BP R2744 and BP R2745.) For SOAP 1.2,
      * this is moved to the parameter of the "application/soap+xml".
      */
     @Property(BindingProvider.SOAPACTION_URI_PROPERTY)
@@ -749,7 +747,7 @@ public final class Packet
             if (readOnly) {
                 return Collections.emptySet();
             }
-            o = new HashSet<String>();
+            o = new HashSet<>();
             this.handlerScopePropertyNames = o;
         }
         return o;
@@ -764,7 +762,7 @@ public final class Packet
      */
     public final Set<String> getApplicationScopePropertyNames(boolean readOnly) {
         assert false;
-        return new HashSet<String>();
+        return new HashSet<>();
     }
 
     /**

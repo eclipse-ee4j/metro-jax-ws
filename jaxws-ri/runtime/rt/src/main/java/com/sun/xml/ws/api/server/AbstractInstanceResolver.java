@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,10 +11,6 @@
 package com.sun.xml.ws.api.server;
 
 import com.sun.istack.Nullable;
-import com.sun.istack.localization.Localizable;
-import com.sun.xml.ws.api.server.InstanceResolver;
-import com.sun.xml.ws.api.server.ResourceInjector;
-import com.sun.xml.ws.api.server.WSEndpoint;
 import com.sun.xml.ws.resources.ServerMessages;
 import com.sun.xml.ws.server.ServerRtException;
 

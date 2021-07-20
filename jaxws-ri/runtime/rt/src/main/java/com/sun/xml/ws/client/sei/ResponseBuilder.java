@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -107,7 +107,7 @@ public abstract class ResponseBuilder {
         }
     }
     /**
-     * {@link ResponseBuilder.PartBuilder} keyed by the element name (inside the wrapper element.)
+     * {@code ResponseBuilder.PartBuilder} keyed by the element name (inside the wrapper element.)
      */
     protected Map<QName,WrappedPartBuilder> wrappedParts = null;
     protected QName wrapperName;
@@ -438,7 +438,7 @@ public abstract class ResponseBuilder {
      * </PRE>
      *
      * So a wsdl:part fooPart will be encoded as:
-     *      <fooPart=somereallybignumberlikeauuid@example.com>
+     *      {@code <fooPart=somereallybignumberlikeauuid@example.com>}
      *
      * @return null
      *      if the parsing fails.

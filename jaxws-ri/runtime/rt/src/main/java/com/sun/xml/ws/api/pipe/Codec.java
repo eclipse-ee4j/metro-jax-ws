@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -92,7 +92,7 @@ public interface Codec {
 
     /**
      * Encodes an XML infoset portion of the {@link Message}
-     * (from &lt;soap:Envelope> to &lt;/soap:Envelope>).
+     * (from &lt;soap:Envelope&gt; to &lt;/soap:Envelope&gt;).
      *
      * <p>
      * Internally, this method is most likely invoke {@link Message#writeTo(XMLStreamWriter)}
@@ -141,7 +141,8 @@ public interface Codec {
      * want to have two {@link Codec} instances. That's what this
      * method produces.
      *
-     * <h3>Implentation Note</h3>
+     * <p>
+     * <strong>Implentation Note</strong>
      * <p>
      * Note that this method might be invoked by one thread while
      * another thread is executing one of the {@link #encode} methods.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,11 +10,7 @@
 
 package com.sun.xml.ws.api.addressing;
 
-import com.sun.xml.ws.api.message.Packet;
 import com.oracle.webservices.api.message.BasePropertySet;
-import javax.xml.ws.handler.MessageContext;
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>This property set exists so the upper stack can SET addressing info
