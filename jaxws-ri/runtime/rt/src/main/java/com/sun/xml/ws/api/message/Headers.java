@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -146,7 +146,7 @@ public abstract class Headers {
 
     /**
      * Creates a new {@link Header} that that has a single text value in it
-     * (IOW, of the form &lt;foo>text&lt;/foo>.)
+     * (IOW, of the form &lt;foo&gt;text&lt;/foo&gt;.)
      *
      * @param name QName of the header element
      * @param value text value of the header
@@ -157,7 +157,7 @@ public abstract class Headers {
 
     /**
      * Creates a new {@link Header} that that has a single text value in it
-     * (IOW, of the form &lt;foo>text&lt;/foo>.)
+     * (IOW, of the form &lt;foo&gt;text&lt;/foo&gt;.)
      *
      * @param name QName of the header element
      * @param value text value of the header

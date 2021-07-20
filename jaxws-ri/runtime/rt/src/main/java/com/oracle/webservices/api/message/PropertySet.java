@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,7 +68,8 @@ public interface PropertySet {
     /**
      * Sets a property.
      *
-     * <h3>Implementation Note</h3>
+     * <p>
+     * <strong>Implementation Note</strong>
      * This method is slow. Code inside JAX-WS should define strongly-typed
      * fields in this class and access them directly, instead of using this.
      *

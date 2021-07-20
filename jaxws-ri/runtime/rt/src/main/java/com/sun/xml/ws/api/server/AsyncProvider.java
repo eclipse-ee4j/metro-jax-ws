@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,10 +44,10 @@ import java.util.concurrent.Executor;
  *
  * <pre>
  * &#64;WebService
- * class MyAsyncEchoService implements AsyncProvider&lt;Source> {
+ * class MyAsyncEchoService implements AsyncProvider&lt;Source&gt; {
  *     private static final {@link Executor} exec = ...;
  *
- *     public void invoke( final Source request, final AsyncProviderCallback&lt;Source> callback, final WebServiceContext context) {
+ *     public void invoke( final Source request, final AsyncProviderCallback&lt;Source&gt; callback, final WebServiceContext context) {
  *         exec.execute(new {@link Runnable}() {
  *             public void run() {
  *                 Thread.sleep(1000);     // kill time.

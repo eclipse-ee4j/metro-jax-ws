@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -60,7 +60,7 @@ import java.util.Map;
  * instances do not necessarily have singleton semantics. Use {@link #equals(Object)}
  * for the comparison.
  *
- * <h3>{@link BindingID} and {@link WSBinding}</h3>
+ * <h2>{@link BindingID} and {@link WSBinding}</h2>
  * <p>
  * {@link WSBinding} is mutable and represents a particular "use" of a {@link BindingID}.
  * As such, it has state like a list of {@link Handler}s, which are inherently local

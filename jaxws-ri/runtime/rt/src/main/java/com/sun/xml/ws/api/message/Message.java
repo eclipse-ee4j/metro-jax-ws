@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -198,7 +198,8 @@ public abstract class Message {
     /**
      * Gets all the headers of this message.
      *
-     * <h3>Implementation Note</h3>
+     * <p>
+     * <strong>Implementation Note</strong>
      * <p>
      * {@link Message} implementation is allowed to defer
      * the construction of {@link MessageHeaders} object. So
@@ -699,13 +700,12 @@ public abstract class Message {
      * (This experimental design is to allow message objects to be reused
      * --- feedback appreciated.)
      *
-     *
-     *
-     * <h3>Design Rationale</h3>
+     * <p>
+     * <strong>Design Rationale</strong>
      * <p>
      * Since a {@link Message} body is read-once, sometimes
      * (such as when you do fail-over, or WS-RM) you need to
-     * create an idential copy of a {@link Message}.
+     * create an identical copy of a {@link Message}.
      *
      * <p>
      * The actual copy operation depends on the layout
@@ -716,8 +716,9 @@ public abstract class Message {
      * The restrictions placed on the use of copied {@link Message} can be
      * relaxed if necessary, but it will make the copy method more expensive.
      *
-     * <h3>IMPORTANT</h3>
-     * <p> WHEN YOU IMPLEMENT OR CHANGE A {@link .copy()} METHOD, YOU MUST
+     * <p>
+     * <strong>IMPORTANT</strong>
+     * <p> WHEN YOU IMPLEMENT OR CHANGE A {@link #copy()} METHOD, YOU MUST
      * USE THE {@link copyFrom(Message)} METHOD IN THE IMPLEMENTATION.
      */
     // TODO: update the class javadoc with 'lifescope'
@@ -747,15 +748,15 @@ public abstract class Message {
      * like debug assistance, logging, and MIME encoding(say for boundary).
      *
      * <p>
-     * This method will check the existence of the addressing <MessageID> header,
+     * This method will check the existence of the addressing {@code <MessageID>} header,
      * and if present uses that value. Otherwise it generates one from UUID.random(),
-     * and return it without adding a new header. But it doesn't add a <MessageID>
+     * and return it without adding a new header. But it doesn't add a {@code <MessageID>}
      * to the header list since we expect them to be added before calling this
      * method.
      *
      * <p>
      * Addressing tube will go do a separate verification on inbound
-     * headers to make sure that <MessageID> header is present when it's
+     * headers to make sure that {@code <MessageID>} header is present when it's
      * supposed to be.
      *
      * @param binding object created by {@link BindingID#createBinding()}
@@ -763,6 +764,7 @@ public abstract class Message {
      * @return unique id for the message
      * @deprecated
      */
+    @Deprecated
     public @NotNull String getID(@NotNull WSBinding binding) {
         return getID(binding.getAddressingVersion(), binding.getSOAPVersion());
     }
@@ -770,12 +772,13 @@ public abstract class Message {
     /**
      * Retuns a unique id for the message.
      * <p><p>
-     * @see {@link #getID(com.sun.xml.ws.api.WSBinding)} for detailed description.
+     * @see #getID(com.sun.xml.ws.api.WSBinding) for detailed description.
      * @param av WS-Addressing version
      * @param sv SOAP version
      * @return unique id for the message
      * @deprecated
      */
+    @Deprecated
     public @NotNull String getID(AddressingVersion av, SOAPVersion sv) {
     	String uuid = null;
         if (av != null) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,7 +22,6 @@ import com.sun.xml.ws.message.jaxb.JAXBMessage;
 import com.sun.xml.ws.message.FaultMessage;
 import com.sun.xml.ws.model.CheckedExceptionImpl;
 import com.sun.xml.ws.model.JavaMethodImpl;
-import com.sun.xml.ws.spi.db.WrapperComposite;
 import com.sun.xml.ws.spi.db.XMLBridge;
 import com.sun.xml.ws.util.DOMUtil;
 import com.sun.xml.ws.util.StringUtils;
@@ -44,8 +43,6 @@ import jakarta.xml.ws.soap.SOAPFaultException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
@@ -247,8 +244,9 @@ public abstract class SOAPFaultBuilder {
             ExceptionBean.marshal(t,d);
 
             DetailType detail = getDetail();
-            if(detail==null)
-            setDetail(detail=new DetailType());
+            if (detail == null) {
+                setDetail(detail = new DetailType());
+            }
 
             detail.getDetails().add(d.getDocumentElement());
         } catch (JAXBException e) {
@@ -549,31 +547,10 @@ public abstract class SOAPFaultBuilder {
     }
 
     private static JAXBContext createJAXBContext() {
-
-        // in jdk runtime doPrivileged is necessary since JAX-WS internal classes are in restricted packages
-        if (isJDKRuntime()) {
-            return AccessController.doPrivileged(
-                    new PrivilegedAction<JAXBContext>() {
-                        @Override
-                        public JAXBContext run() {
-                            try {
-                                return JAXBContext.newInstance(SOAP11Fault.class, SOAP12Fault.class);
-                            } catch (JAXBException e) {
-                                throw new Error(e);
-                            }
-                        }
-                    });
-
-        } else {
-            try {
-                return JAXBContext.newInstance(SOAP11Fault.class, SOAP12Fault.class);
-            } catch (JAXBException e) {
-                throw new Error(e);
-            }
+        try {
+            return JAXBContext.newInstance(SOAP11Fault.class, SOAP12Fault.class);
+        } catch (JAXBException e) {
+            throw new Error(e);
         }
-    }
-
-    private static boolean isJDKRuntime() {
-        return SOAPFaultBuilder.class.getName().contains("internal");
     }
 }

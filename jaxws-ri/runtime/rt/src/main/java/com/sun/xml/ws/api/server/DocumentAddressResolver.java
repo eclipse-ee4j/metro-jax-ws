@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -56,7 +56,7 @@ public interface DocumentAddressResolver {
      *      The reference to be put inside {@code current} to refer to
      *      {@code referenced}. This can be a relative URL as well as
      *      an absolute. If null is returned, then the {@link SDDocument}
-     *      will produce a "implicit reference" (for example, &lt;xs:import>
+     *      will produce a "implicit reference" (for example, &lt;xs:import&gt;
      *      without the @schemaLocation attribute, etc).
      */
     @Nullable String getRelativeAddressFor(@NotNull SDDocument current, @NotNull SDDocument referenced);

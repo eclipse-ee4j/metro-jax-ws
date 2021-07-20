@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -7,7 +7,6 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
-
 package com.sun.xml.ws.message.saaj;
 
 import com.sun.istack.FragmentContentHandler;
@@ -59,6 +58,7 @@ import java.util.Map;
  * @author Rama Pulavarthi
  */
 public class SAAJMessage extends Message {
+
     // flag to switch between representations
     private boolean parsedMessage;
     // flag to check if Message API is exercised;
@@ -90,8 +90,9 @@ public class SAAJMessage extends Message {
     private SAAJMessage(MessageHeaders headers, AttachmentSet as, SOAPMessage sm, SOAPVersion version) {
         this.sm = sm;
         this.parse();
-        if(headers == null)
+        if (headers == null) {
             headers = new HeaderList(version);
+        }
         this.headers = headers;
         this.attachmentSet = as;
     }
@@ -100,8 +101,9 @@ public class SAAJMessage extends Message {
         if (!parsedMessage) {
             try {
                 access();
-                if (headers == null)
+                if (headers == null) {
                     headers = new HeaderList(getSOAPVersion());
+                }
                 SOAPHeader header = sm.getSOAPHeader();
                 if (header != null) {
                     headerAttrs = header.getAttributes();
@@ -118,7 +120,7 @@ public class SAAJMessage extends Message {
             }
         }
     }
-    
+
     protected void access() {
         if (!accessedMessage) {
             try {
@@ -149,31 +151,36 @@ public class SAAJMessage extends Message {
         return headers.hasHeaders();
     }
 
-    public @NotNull MessageHeaders getHeaders() {
+    public @NotNull
+    MessageHeaders getHeaders() {
         parse();
         return headers;
     }
 
     /**
-     * Gets the attachments of this message
-     * (attachments live outside a message.)
+     * Gets the attachments of this message (attachments live outside a
+     * message.)
      */
     @Override
-    public @NotNull AttachmentSet getAttachments() {
-        if (attachmentSet == null) attachmentSet = new SAAJAttachmentSet(sm);
+    public @NotNull
+    AttachmentSet getAttachments() {
+        if (attachmentSet == null) {
+            attachmentSet = new SAAJAttachmentSet(sm);
+        }
         return attachmentSet;
     }
 
     /**
-     * Optimization hint for the derived class to check
-     * if we may have some attachments.
+     * Optimization hint for the derived class to check if we may have some
+     * attachments.
      */
     @Override
     protected boolean hasAttachments() {
         return !getAttachments().isEmpty();
     }
-        
-    public @Nullable String getPayloadLocalPart() {
+
+    public @Nullable
+    String getPayloadLocalPart() {
         soapBodyFirstChild();
         return payloadLocalName;
     }
@@ -188,24 +195,25 @@ public class SAAJMessage extends Message {
     }
 
     private void addAttributes(Element e, NamedNodeMap attrs) {
-        if(attrs == null)
+        if (attrs == null) {
             return;
+        }
         String elPrefix = e.getPrefix();
-        for(int i=0; i < attrs.getLength();i++) {
-            Attr a = (Attr)attrs.item(i);
+        for (int i = 0; i < attrs.getLength(); i++) {
+            Attr a = (Attr) attrs.item(i);
             //check if attr is ns declaration
-            if("xmlns".equals(a.getPrefix()) || "xmlns".equals(a.getLocalName())) {
-                if(elPrefix == null && a.getLocalName().equals("xmlns")) {
+            if ("xmlns".equals(a.getPrefix()) || "xmlns".equals(a.getLocalName())) {
+                if (elPrefix == null && a.getLocalName().equals("xmlns")) {
                     // the target element has already default ns declaration, dont' override it
                     continue;
-                } else if(elPrefix != null && "xmlns".equals(a.getPrefix()) && elPrefix.equals(a.getLocalName())) {
+                } else if (elPrefix != null && "xmlns".equals(a.getPrefix()) && elPrefix.equals(a.getLocalName())) {
                     //dont bind the prefix to ns again, its already in the target element.
                     continue;
                 }
-                e.setAttributeNS(a.getNamespaceURI(),a.getName(),a.getValue());
+                e.setAttributeNS(a.getNamespaceURI(), a.getName(), a.getValue());
                 continue;
             }
-            e.setAttributeNS(a.getNamespaceURI(),a.getName(),a.getValue());
+            e.setAttributeNS(a.getNamespaceURI(), a.getName(), a.getValue());
         }
     }
 
@@ -216,8 +224,8 @@ public class SAAJMessage extends Message {
                 return new DOMSource(se);
 
             } else {
-				SOAPMessage msg = soapVersion.getMessageFactory().createMessage();
-                addAttributes(msg.getSOAPPart().getEnvelope(),envelopeAttrs);
+                SOAPMessage msg = soapVersion.getMessageFactory().createMessage();
+                addAttributes(msg.getSOAPPart().getEnvelope(), envelopeAttrs);
 
                 SOAPBody newBody = msg.getSOAPPart().getEnvelope().getBody();
                 addAttributes(newBody, bodyAttrs);
@@ -225,7 +233,7 @@ public class SAAJMessage extends Message {
                     Node n = newBody.getOwnerDocument().importNode(part, true);
                     newBody.appendChild(n);
                 }
-                addAttributes(msg.getSOAPHeader(),headerAttrs);
+                addAttributes(msg.getSOAPHeader(), headerAttrs);
                 for (Header header : headers.asList()) {
                     header.writeTo(msg);
                 }
@@ -235,49 +243,49 @@ public class SAAJMessage extends Message {
         } catch (SOAPException e) {
             throw new WebServiceException(e);
         }
-    } 
+    }
 
     public SOAPMessage readAsSOAPMessage() throws SOAPException {
         if (!parsedMessage) {
             return sm;
         } else {
             SOAPMessage msg = soapVersion.getMessageFactory().createMessage();
-            addAttributes(msg.getSOAPPart().getEnvelope(),envelopeAttrs);
+            addAttributes(msg.getSOAPPart().getEnvelope(), envelopeAttrs);
             SOAPBody newBody = msg.getSOAPPart().getEnvelope().getBody();
             addAttributes(newBody, bodyAttrs);
             for (Element part : bodyParts) {
                 Node n = newBody.getOwnerDocument().importNode(part, true);
                 newBody.appendChild(n);
             }
-            addAttributes(msg.getSOAPHeader(),headerAttrs);
+            addAttributes(msg.getSOAPHeader(), headerAttrs);
             for (Header header : headers.asList()) {
-              header.writeTo(msg);
+                header.writeTo(msg);
             }
             for (Attachment att : getAttachments()) {
-              AttachmentPart part = msg.createAttachmentPart();
-              part.setDataHandler(att.asDataHandler());
-              part.setContentId('<' + att.getContentId() + '>');
-              addCustomMimeHeaders(att, part);
-              msg.addAttachmentPart(part);
+                AttachmentPart part = msg.createAttachmentPart();
+                part.setDataHandler(att.asDataHandler());
+                part.setContentId('<' + att.getContentId() + '>');
+                addCustomMimeHeaders(att, part);
+                msg.addAttachmentPart(part);
             }
             msg.saveChanges();
             return msg;
         }
     }
 
-	private void addCustomMimeHeaders(Attachment att, AttachmentPart part) {
-		if (att instanceof AttachmentEx) {
-			Iterator<AttachmentEx.MimeHeader> allMimeHeaders = ((AttachmentEx) att).getMimeHeaders();
-			while (allMimeHeaders.hasNext()) {
-				AttachmentEx.MimeHeader mh = allMimeHeaders.next();
-				String name = mh.getName();
-				if (!"Content-Type".equalsIgnoreCase(name)
-						&& !"Content-Id".equalsIgnoreCase(name)) {
-					part.addMimeHeader(name, mh.getValue());
-				}
-			}
-		}
-	}
+    private void addCustomMimeHeaders(Attachment att, AttachmentPart part) {
+        if (att instanceof AttachmentEx) {
+            Iterator<AttachmentEx.MimeHeader> allMimeHeaders = ((AttachmentEx) att).getMimeHeaders();
+            while (allMimeHeaders.hasNext()) {
+                AttachmentEx.MimeHeader mh = allMimeHeaders.next();
+                String name = mh.getName();
+                if (!"Content-Type".equalsIgnoreCase(name)
+                        && !"Content-Id".equalsIgnoreCase(name)) {
+                    part.addMimeHeader(name, mh.getValue());
+                }
+            }
+        }
+    }
 
     public Source readPayloadAsSource() {
         access();
@@ -287,25 +295,31 @@ public class SAAJMessage extends Message {
     public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         access();
         if (payload != null) {
-            if(hasAttachments())
+            if (hasAttachments()) {
                 unmarshaller.setAttachmentUnmarshaller(new AttachmentUnmarshallerImpl(getAttachments()));
+            }
             return (T) unmarshaller.unmarshal(payload);
 
         }
         return null;
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
         access();
-        if (payload != null)
-            return bridge.unmarshal(payload,hasAttachments()? new AttachmentUnmarshallerImpl(getAttachments()) : null);
+        if (payload != null) {
+            return bridge.unmarshal(payload, hasAttachments() ? new AttachmentUnmarshallerImpl(getAttachments()) : null);
+        }
         return null;
     }
+
     public <T> T readPayloadAsJAXB(XMLBridge<T> bridge) throws JAXBException {
         access();
-        if (payload != null)
-            return bridge.unmarshal(payload,hasAttachments()? new AttachmentUnmarshallerImpl(getAttachments()) : null);
+        if (payload != null) {
+            return bridge.unmarshal(payload, hasAttachments() ? new AttachmentUnmarshallerImpl(getAttachments()) : null);
+        }
         return null;
     }
 
@@ -316,8 +330,9 @@ public class SAAJMessage extends Message {
     public void writePayloadTo(XMLStreamWriter sw) throws XMLStreamException {
         access();
         try {
-            for (Element part : bodyParts)
+            for (Element part : bodyParts) {
                 DOMUtil.serializeNode(part, sw);
+            }
         } catch (XMLStreamException e) {
             throw new WebServiceException(e);
         }
@@ -332,7 +347,7 @@ public class SAAJMessage extends Message {
                 SOAPEnvelope env = sm.getSOAPPart().getEnvelope();
                 DOMUtil.writeTagWithAttributes(env, writer);
                 if (hasHeaders()) {
-                    if(env.getHeader() != null) {
+                    if (env.getHeader() != null) {
                         DOMUtil.writeTagWithAttributes(env.getHeader(), writer);
                     } else {
                         writer.writeStartElement(env.getPrefix(), "Header", env.getNamespaceURI());
@@ -364,64 +379,71 @@ public class SAAJMessage extends Message {
             contentHandler.setDocumentLocator(NULL_LOCATOR);
             contentHandler.startDocument();
             contentHandler.startPrefixMapping("S", soapNsUri);
-            startPrefixMapping(contentHandler, envelopeAttrs,"S");
+            startPrefixMapping(contentHandler, envelopeAttrs, "S");
             contentHandler.startElement(soapNsUri, "Envelope", "S:Envelope", getAttributes(envelopeAttrs));
             if (hasHeaders()) {
-                startPrefixMapping(contentHandler, headerAttrs,"S");
+                startPrefixMapping(contentHandler, headerAttrs, "S");
                 contentHandler.startElement(soapNsUri, "Header", "S:Header", getAttributes(headerAttrs));
                 MessageHeaders headers = getHeaders();
                 for (Header h : headers.asList()) {
                     h.writeTo(contentHandler, errorHandler);
                 }
-                endPrefixMapping(contentHandler, headerAttrs,"S");
+                endPrefixMapping(contentHandler, headerAttrs, "S");
                 contentHandler.endElement(soapNsUri, "Header", "S:Header");
 
             }
-            startPrefixMapping(contentHandler, bodyAttrs,"S");
+            startPrefixMapping(contentHandler, bodyAttrs, "S");
             // write the body
             contentHandler.startElement(soapNsUri, "Body", "S:Body", getAttributes(bodyAttrs));
             writePayloadTo(contentHandler, errorHandler, true);
-            endPrefixMapping(contentHandler, bodyAttrs,"S");
+            endPrefixMapping(contentHandler, bodyAttrs, "S");
             contentHandler.endElement(soapNsUri, "Body", "S:Body");
-            endPrefixMapping(contentHandler, envelopeAttrs,"S");
+            endPrefixMapping(contentHandler, envelopeAttrs, "S");
             contentHandler.endElement(soapNsUri, "Envelope", "S:Envelope");
         }
     }
+
     /**
      * Gets the Attributes that are not namesapce declarations
+     *
      * @param attrs
      * @return
      */
     private AttributesImpl getAttributes(NamedNodeMap attrs) {
         AttributesImpl atts = new AttributesImpl();
-        if(attrs == null)
+        if (attrs == null) {
             return EMPTY_ATTS;
-        for(int i=0; i < attrs.getLength();i++) {
-            Attr a = (Attr)attrs.item(i);
+        }
+        for (int i = 0; i < attrs.getLength(); i++) {
+            Attr a = (Attr) attrs.item(i);
             //check if attr is ns declaration
-            if("xmlns".equals(a.getPrefix()) || "xmlns".equals(a.getLocalName())) {
-              continue;
+            if ("xmlns".equals(a.getPrefix()) || "xmlns".equals(a.getLocalName())) {
+                continue;
             }
-            atts.addAttribute(fixNull(a.getNamespaceURI()),a.getLocalName(),a.getName(),a.getSchemaTypeInfo().getTypeName(),a.getValue());
+            atts.addAttribute(fixNull(a.getNamespaceURI()), a.getLocalName(), a.getName(), a.getSchemaTypeInfo().getTypeName(), a.getValue());
         }
         return atts;
     }
 
     /**
-     * Collects the ns declarations and starts the prefix mapping, consequently the associated endPrefixMapping needs to be called.
+     * Collects the ns declarations and starts the prefix mapping, consequently
+     * the associated endPrefixMapping needs to be called.
+     *
      * @param contentHandler
      * @param attrs
-     * @param excludePrefix , this is to excldue the global prefix mapping "S" used at the start
+     * @param excludePrefix , this is to excldue the global prefix mapping "S"
+     * used at the start
      * @throws SAXException
      */
     private void startPrefixMapping(ContentHandler contentHandler, NamedNodeMap attrs, String excludePrefix) throws SAXException {
-        if(attrs == null)
+        if (attrs == null) {
             return;
-        for(int i=0; i < attrs.getLength();i++) {
-            Attr a = (Attr)attrs.item(i);
+        }
+        for (int i = 0; i < attrs.getLength(); i++) {
+            Attr a = (Attr) attrs.item(i);
             //check if attr is ns declaration
-            if("xmlns".equals(a.getPrefix()) || "xmlns".equals(a.getLocalName())) {
-                if(!fixNull(a.getPrefix()).equals(excludePrefix)) {
+            if ("xmlns".equals(a.getPrefix()) || "xmlns".equals(a.getLocalName())) {
+                if (!fixNull(a.getPrefix()).equals(excludePrefix)) {
                     contentHandler.startPrefixMapping(fixNull(a.getPrefix()), a.getNamespaceURI());
                 }
             }
@@ -429,13 +451,14 @@ public class SAAJMessage extends Message {
     }
 
     private void endPrefixMapping(ContentHandler contentHandler, NamedNodeMap attrs, String excludePrefix) throws SAXException {
-        if(attrs == null)
+        if (attrs == null) {
             return;
-        for(int i=0; i < attrs.getLength();i++) {
-            Attr a = (Attr)attrs.item(i);
+        }
+        for (int i = 0; i < attrs.getLength(); i++) {
+            Attr a = (Attr) attrs.item(i);
             //check if attr is ns declaration
-            if("xmlns".equals(a.getPrefix()) || "xmlns".equals(a.getLocalName())) {
-                if(!fixNull(a.getPrefix()).equals(excludePrefix)) {
+            if ("xmlns".equals(a.getPrefix()) || "xmlns".equals(a.getLocalName())) {
+                if (!fixNull(a.getPrefix()).equals(excludePrefix)) {
                     contentHandler.endPrefixMapping(fixNull(a.getPrefix()));
                 }
             }
@@ -443,13 +466,17 @@ public class SAAJMessage extends Message {
     }
 
     private static String fixNull(String s) {
-        if(s==null) return "";
-        else        return s;
+        if (s == null) {
+            return "";
+        } else {
+            return s;
+        }
     }
-    
+
     private void writePayloadTo(ContentHandler contentHandler, ErrorHandler errorHandler, boolean fragment) throws SAXException {
-        if(fragment)
+        if (fragment) {
             contentHandler = new FragmentContentHandler(contentHandler);
+        }
         DOMScanner ds = new DOMScanner();
         ds.setContentHandler(contentHandler);
         ds.scan(payload);
@@ -459,22 +486,25 @@ public class SAAJMessage extends Message {
      * Creates a copy of a {@link com.sun.xml.ws.api.message.Message}.
      * <br>
      * <br>
-     * This method creates a new {@link com.sun.xml.ws.api.message.Message} whose header/payload/attachments/properties
-     * are identical to this {@link com.sun.xml.ws.api.message.Message}. Once created, the created {@link com.sun.xml.ws.api.message.Message}
-     * and the original {@link com.sun.xml.ws.api.message.Message} behaves independently --- adding header/
-     * attachment to one {@link com.sun.xml.ws.api.message.Message} doesn't affect another {@link com.sun.xml.ws.api.message.Message}
-     * at all.
+     * This method creates a new {@link com.sun.xml.ws.api.message.Message}
+     * whose header/payload/attachments/properties are identical to this
+     * {@link com.sun.xml.ws.api.message.Message}. Once created, the created
+     * {@link com.sun.xml.ws.api.message.Message} and the original
+     * {@link com.sun.xml.ws.api.message.Message} behaves independently ---
+     * adding header/ attachment to one
+     * {@link com.sun.xml.ws.api.message.Message} doesn't affect another
+     * {@link com.sun.xml.ws.api.message.Message} at all.
+     * <p>
+     * <strong>Design Rationale</strong>
+     * <p>
+     * Since a {@link com.sun.xml.ws.api.message.Message} body is read-once,
+     * sometimes (such as when you do fail-over, or WS-RM) you need to create an
+     * idential copy of a {@link com.sun.xml.ws.api.message.Message}.
      * <br>
-     * <h3>Design Rationale</h3>
      * <br>
-     * Since a {@link com.sun.xml.ws.api.message.Message} body is read-once, sometimes
-     * (such as when you do fail-over, or WS-RM) you need to
-     * create an idential copy of a {@link com.sun.xml.ws.api.message.Message}.
-     * <br>
-     * <br>
-     * The actual copy operation depends on the layout
-     * of the data in memory, hence it's best to be done by
-     * the {@link com.sun.xml.ws.api.message.Message} implementation itself.
+     * The actual copy operation depends on the layout of the data in memory,
+     * hence it's best to be done by the
+     * {@link com.sun.xml.ws.api.message.Message} implementation itself.
      */
     public Message copy() {
         Message result = null;
@@ -503,7 +533,7 @@ public class SAAJMessage extends Message {
     protected static class SAAJAttachment implements AttachmentEx {
 
         final AttachmentPart ap;
-        
+
         String contentIdNoAngleBracket;
 
         public SAAJAttachment(AttachmentPart part) {
@@ -516,8 +546,9 @@ public class SAAJMessage extends Message {
         public String getContentId() {
             if (contentIdNoAngleBracket == null) {
                 contentIdNoAngleBracket = ap.getContentId();
-                if (contentIdNoAngleBracket != null && contentIdNoAngleBracket.charAt(0) == '<') 
-                    contentIdNoAngleBracket = contentIdNoAngleBracket.substring(1, contentIdNoAngleBracket.length()-1);
+                if (contentIdNoAngleBracket != null && contentIdNoAngleBracket.charAt(0) == '<') {
+                    contentIdNoAngleBracket = contentIdNoAngleBracket.substring(1, contentIdNoAngleBracket.length() - 1);
+                }
             }
             return contentIdNoAngleBracket;
         }
@@ -552,8 +583,8 @@ public class SAAJMessage extends Message {
         }
 
         /**
-         * Gets the attachment as a {@link javax.xml.transform.Source}.
-         * Note that there's no guarantee that the attachment is actually an XML.
+         * Gets the attachment as a {@link javax.xml.transform.Source}. Note
+         * that there's no guarantee that the attachment is actually an XML.
          */
         public Source asSource() {
             try {
@@ -586,48 +617,50 @@ public class SAAJMessage extends Message {
         }
 
         /**
-         * Writes this attachment to the given {@link jakarta.xml.soap.SOAPMessage}.
+         * Writes this attachment to the given
+         * {@link jakarta.xml.soap.SOAPMessage}.
          */
         public void writeTo(SOAPMessage saaj) {
             saaj.addAttachmentPart(ap);
         }
 
-        AttachmentPart asAttachmentPart(){
+        AttachmentPart asAttachmentPart() {
             return ap;
         }
 
-		public Iterator<MimeHeader> getMimeHeaders() {
-			final Iterator it = ap.getAllMimeHeaders();
-			return new Iterator<MimeHeader>() {
-				public boolean hasNext() {
-					return it.hasNext();
-				}
+        public Iterator<MimeHeader> getMimeHeaders() {
+            final Iterator it = ap.getAllMimeHeaders();
+            return new Iterator<MimeHeader>() {
+                public boolean hasNext() {
+                    return it.hasNext();
+                }
 
-				public MimeHeader next() {
-					final jakarta.xml.soap.MimeHeader mh = (jakarta.xml.soap.MimeHeader) it.next();
-					return new MimeHeader() {
-						public String getName() {
-							return mh.getName();
-						}
+                public MimeHeader next() {
+                    final jakarta.xml.soap.MimeHeader mh = (jakarta.xml.soap.MimeHeader) it.next();
+                    return new MimeHeader() {
+                        public String getName() {
+                            return mh.getName();
+                        }
 
-						public String getValue() {
-							return mh.getValue();
-						}
-					};
-				}
+                        public String getValue() {
+                            return mh.getValue();
+                        }
+                    };
+                }
 
-				public void remove() {
-					throw new UnsupportedOperationException();
-				}
-			};
-		}
+                public void remove() {
+                    throw new UnsupportedOperationException();
+                }
+            };
+        }
     }
 
     /**
      * {@link AttachmentSet} for SAAJ.
      *
-     * SAAJ wants '&lt;' and '>' for the content ID, but {@link AttachmentSet}
-     * doesn't. S this class also does the conversion between them.
+     * SAAJ wants '&lt;' and '&gt;' for the content ID, but
+     * {@link AttachmentSet} doesn't. S this class also does the conversion
+     * between them.
      */
     protected static class SAAJAttachmentSet implements AttachmentSet {
 
@@ -641,27 +674,28 @@ public class SAAJMessage extends Message {
         /**
          * Gets the attachment by the content ID.
          *
-         * @return null
-         *         if no such attachment exist.
+         * @return null if no such attachment exist.
          */
         public Attachment get(String contentId) {
             // if this is the first time then create the attachment Map
             if (attMap == null) {
-                if (!attIter.hasNext())
+                if (!attIter.hasNext()) {
                     return null;
+                }
                 attMap = createAttachmentMap();
             }
-            if(contentId.charAt(0) != '<'){
-                return attMap.get('<'+contentId+'>');
+            if (contentId.charAt(0) != '<') {
+                return attMap.get('<' + contentId + '>');
             }
             return attMap.get(contentId);
         }
 
         public boolean isEmpty() {
-            if(attMap!=null)
+            if (attMap != null) {
                 return attMap.isEmpty();
-            else
+            } else {
                 return !attIter.hasNext();
+            }
         }
 
         /**
@@ -686,7 +720,7 @@ public class SAAJMessage extends Message {
         }
 
         public void add(Attachment att) {
-            attMap.put('<'+att.getContentId()+'>', att);
+            attMap.put('<' + att.getContentId() + '>', att);
         }
     }
 
@@ -695,31 +729,36 @@ public class SAAJMessage extends Message {
     }
 
     private XMLStreamReader soapBodyFirstChildReader;
-    
+
     /**
      * This allow the subclass to retain the XMLStreamReader.
      */
     protected XMLStreamReader getXMLStreamReader(SOAPElement soapElement) {
         return null;
     }
-    
+
     protected XMLStreamReader createXMLStreamReader(SOAPElement soapElement) {
         DOMStreamReader dss = new DOMStreamReader();
         dss.setCurrentNode(soapElement);
         return dss;
     }
-    
+
     protected XMLStreamReader soapBodyFirstChildReader() {
-        if (soapBodyFirstChildReader != null) return soapBodyFirstChildReader;
+        if (soapBodyFirstChildReader != null) {
+            return soapBodyFirstChildReader;
+        }
         soapBodyFirstChild();
         if (soapBodyFirstChild != null) {
             soapBodyFirstChildReader = getXMLStreamReader(soapBodyFirstChild);
-            if (soapBodyFirstChildReader == null) soapBodyFirstChildReader = 
-                createXMLStreamReader(soapBodyFirstChild);
+            if (soapBodyFirstChildReader == null) {
+                soapBodyFirstChildReader
+                        = createXMLStreamReader(soapBodyFirstChild);
+            }
             if (soapBodyFirstChildReader.getEventType() == XMLStreamReader.START_DOCUMENT) {
                 try {
-                    while(soapBodyFirstChildReader.getEventType() != XMLStreamReader.START_ELEMENT) 
+                    while (soapBodyFirstChildReader.getEventType() != XMLStreamReader.START_ELEMENT) {
                         soapBodyFirstChildReader.next();
+                    }
                 } catch (XMLStreamException e) {
                     throw new RuntimeException(e);
                 }
@@ -728,14 +767,16 @@ public class SAAJMessage extends Message {
         } else {
             payloadLocalName = null;
             payloadNamespace = null;
-            return null; 
-        }       
+            return null;
+        }
     }
-    
+
     private SOAPElement soapBodyFirstChild;
-    
+
     SOAPElement soapBodyFirstChild() {
-        if (soapBodyFirstChild != null) return soapBodyFirstChild;
+        if (soapBodyFirstChild != null) {
+            return soapBodyFirstChild;
+        }
         try {
             boolean foundElement = false;
             for (Node n = sm.getSOAPBody().getFirstChild(); n != null && !foundElement; n = n.getNextSibling()) {
@@ -749,13 +790,15 @@ public class SAAJMessage extends Message {
                     }
                 }
             }
-            if(foundElement) for(Iterator i = sm.getSOAPBody().getChildElements(); i.hasNext();){
-                Object o = i.next();
-                if (o instanceof SOAPElement) {
-                    soapBodyFirstChild = (SOAPElement)o; 
-                    payloadLocalName = soapBodyFirstChild.getLocalName();
-                    payloadNamespace = soapBodyFirstChild.getNamespaceURI();
-                    return soapBodyFirstChild;
+            if (foundElement) {
+                for (Iterator i = sm.getSOAPBody().getChildElements(); i.hasNext();) {
+                    Object o = i.next();
+                    if (o instanceof SOAPElement) {
+                        soapBodyFirstChild = (SOAPElement) o;
+                        payloadLocalName = soapBodyFirstChild.getLocalName();
+                        payloadNamespace = soapBodyFirstChild.getNamespaceURI();
+                        return soapBodyFirstChild;
+                    }
                 }
             }
         } catch (SOAPException e) {

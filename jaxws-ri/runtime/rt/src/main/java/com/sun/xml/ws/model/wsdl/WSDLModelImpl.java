@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,6 @@ package com.sun.xml.ws.model.wsdl;
 import com.sun.istack.NotNull;
 import com.sun.xml.ws.api.model.ParameterBinding;
 import com.sun.xml.ws.api.model.wsdl.WSDLMessage;
-import com.sun.xml.ws.api.model.wsdl.WSDLModel;
 import com.sun.xml.ws.api.model.wsdl.WSDLOperation;
 import com.sun.xml.ws.api.model.wsdl.WSDLPortType;
 import com.sun.xml.ws.api.model.wsdl.editable.EditableWSDLBoundOperation;
@@ -35,7 +34,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Implementation of {@link WSDLModel}
+ * Implementation of WSDLModel
  *
  * @author Vivek Pandey
  */
@@ -55,7 +54,7 @@ public final class WSDLModelImpl extends AbstractExtensibleImpl implements Edita
     }
 
     /**
-     * To create {@link WSDLModelImpl} from WSDL that doesn't have a system ID.
+     * To create WSDLModelImpl from WSDL that doesn't have a system ID.
      */
     public WSDLModelImpl() {
         super(null,-1);
