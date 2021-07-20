@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,12 +38,12 @@ public interface Attachment {
      * A "cid" URL is converted to the corresponding Content-ID message header [MIME] by 
      * removing the "cid:" prefix, converting the % encoded character to their equivalent 
      * US-ASCII characters, and enclosing the remaining parts with an angle bracket pair, 
-     * "<" and ">".  For  example, "cid:foo4%25foo1@bar.net" corresponds to
-     *      Content-ID: <foo4%25foo1@bar.net>
+     * "{@literal <}" and "{@literal >}".  For  example, "cid:foo4%25foo1@bar.net" corresponds to
+     *      Content-ID: {@literal <}foo4%25foo1@bar.net{@literal >}
      *
      * @return
      *      The content ID like "foo-bar-zot@abc.com", without
-     *      surrounding '&lt;' and '>' used as the transfer syntax.
+     *      surrounding '&lt;' and '&gt;' used as the transfer syntax.
      */
     @NotNull String getContentId();
 

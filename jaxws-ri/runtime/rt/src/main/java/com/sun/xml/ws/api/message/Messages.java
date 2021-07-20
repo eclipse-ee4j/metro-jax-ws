@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -98,15 +98,17 @@ public abstract class Messages {
      * For use when creating a Dispatch object with an unknown JAXB implementation
      * for he JAXBContext parameter.
      * 
-     */ 
+     */
+    @Deprecated
     public static Message createRaw(JAXBContext context, Object jaxbObject, SOAPVersion soapVersion) {
         return JAXBMessage.createRaw(context,jaxbObject,soapVersion);
     }
 
     /**
      * @deprecated
-     *      Use {@link #create(JAXBRIContext, Object, SOAPVersion)}
+     *      Use {@link #create(jakarta.xml.bind.JAXBContext, java.lang.Object, com.sun.xml.ws.api.SOAPVersion)}
      */
+    @Deprecated
     public static Message create(Marshaller marshaller, Object jaxbObject, SOAPVersion soapVersion) {
         return create(BindingContextFactory.getBindingContext(marshaller).getJAXBContext(),jaxbObject,soapVersion);
     }
@@ -252,7 +254,7 @@ public abstract class Messages {
      * the start of the envelope.
      *
      * @param reader
-     *      can point to the start document or the start element (of &lt;s:Envelope>)
+     *      can point to the start document or the start element (of &lt;s:Envelope&gt;)
      */
     public static @NotNull Message create(@NotNull XMLStreamReader reader) {
         // skip until the root element

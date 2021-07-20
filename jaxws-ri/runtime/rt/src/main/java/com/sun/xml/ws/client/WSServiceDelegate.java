@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,6 +43,7 @@ import com.sun.xml.ws.developer.UsesJAXBContextFeature;
 import com.sun.xml.ws.developer.WSBindingProvider;
 import com.sun.xml.ws.model.RuntimeModeler;
 import com.sun.xml.ws.model.SOAPSEIModel;
+import com.sun.xml.ws.model.wsdl.WSDLPortImpl;
 import com.sun.xml.ws.resources.ClientMessages;
 import com.sun.xml.ws.resources.DispatchMessages;
 import com.sun.xml.ws.resources.ProviderApiMessages;
@@ -85,7 +86,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executor;
-import java.util.concurrent.ThreadFactory;
 
 import static com.sun.xml.ws.util.xml.XmlUtil.createDefaultCatalogResolver;
 
@@ -99,6 +99,7 @@ import static com.sun.xml.ws.util.xml.XmlUtil.createDefaultCatalogResolver;
  * dynamic message-oriented invocation of a remote
  * operation.
  * </li>
+ * </ul>
  *
  * <p>The ports available on a service can be enumerated using the
  * <code>getPorts</code> method. Alternatively, you can pass a

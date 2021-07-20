@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -121,8 +121,8 @@ public interface Parameter {
      * If true, this parameter maps to the return value of a method invocation.
      *
      * <p>
-     * {@link JavaMethod#getResponseParameters()} is guaranteed to have
-     * at most one such {@link Parameter}. Note that there coule be none,
+     * {@link JavaMethod#getResponseMessageName()} is guaranteed to have
+     * at most one such {@link Parameter}. Note that there could be none,
      * in which case the method returns {@code void}.
      *
      * <p>

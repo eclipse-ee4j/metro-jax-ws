@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -159,12 +159,12 @@ public interface BindingContext {
      * add element declarations to the generate schema.
      * For example, if the JAX-RPC passes in the following entry:
      *
-     * {foo}bar -> DeclaredType for java.lang.String
+     * {foo}bar -{@literal >} DeclaredType for java.lang.String
      *
      * then JAXB generates the following element declaration (in the schema
      * document for the namespace "foo")"
      *
-     * &lt;xs:element name="bar" type="xs:string" />
+     * &lt;xs:element name="bar" type="xs:string" /&gt;
      *
      * This can be used for generating schema components necessary for WSDL.
      *
@@ -183,7 +183,7 @@ public interface BindingContext {
      *
      * @param tr
      *      must not be null. This must be one of the {@link TypeInfo}s specified
-     *      in the {@link BindingContext#newInstance} method.
+     *      in the {@link BindingContext#newWrapperInstace(java.lang.Class)} method.
      *
      * @throws IllegalArgumentException
      *      if the parameter is null or not a part of the {@link TypeInfo}s specified
@@ -220,7 +220,7 @@ public interface BindingContext {
      * to put additional JAXB type references into the {@link JAXBContext}.
      *
      * <p>
-     * The value of the property is {@link Collection}&lt;{@link TypeInfo}>.
+     * The value of the property is {@link Collection}&lt;{@link TypeInfo}&gt;.
      * Those {@link TypeInfo}s can then be used to create {@link XMLBridge}s.
      *
      * <p>

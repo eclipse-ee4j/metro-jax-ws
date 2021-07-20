@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,8 +36,7 @@ public class ComponentsFeature extends WebServiceFeature implements ServiceShare
 
     /**
      * Constructs ComponentFeature with indicated component and target
-     * @param component component
-     * @param target target
+     * @param componentFeatures components
      */
     public ComponentsFeature(List<ComponentFeature> componentFeatures) {
         this.enabled = true;

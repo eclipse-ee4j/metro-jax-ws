@@ -158,7 +158,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
     /**
      * Fill in WSDL map.
      *
-     * @param sdef service definition
+     * @param serviceDefinition service definition
      */
     public final void initWSDLMap(final ServiceDefinition serviceDefinition) {
         this.serviceDefinition = serviceDefinition;

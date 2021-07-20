@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,8 +51,8 @@ import java.util.Arrays;
  * message as much as possible.
  *
  *
- * <a name="MU"></a>
- * <h3>MustUnderstand Processing</h3>
+ * <a id="MU"></a>
+ * <h2>MustUnderstand Processing</h2>
  * <p>
  * To perform SOAP mustUnderstang processing correctly, we need to keep
  * track of headers that are understood and headers that are not.
@@ -64,9 +64,9 @@ import java.util.Arrays;
  * (that is, if it did enough computing with the header to claim that
  * the header is understood), then it should mark the corresponding
  * header as "understood". For example, when a pipe that handles JAX-WSA
- * examins the &lt;wsa:To> header, it can claim that it understood the header.
+ * examins the &lt;wsa:To&gt; header, it can claim that it understood the header.
  * But for example, if a pipe that does the signature verification checks
- * &lt;wsa:To> for a signature, that would not be considered as "understood".
+ * &lt;wsa:To&gt; for a signature, that would not be considered as "understood".
  *
  * <p>
  * There are two ways to mark a header as understood:
@@ -77,7 +77,7 @@ import java.util.Arrays;
  *      Most often, a {@link Pipe} knows it's going to understand a header
  *      as long as it's present, so this is the easiest and thus the preferred way.
  *
- *      For example, if JAX-WSA looks for &lt;wsa:To>, then it can set
+ *      For example, if JAX-WSA looks for &lt;wsa:To&gt;, then it can set
  *      {@code markAsUnderstand} to true, to do the obtaining of a header
  *      and marking at the same time.
  *

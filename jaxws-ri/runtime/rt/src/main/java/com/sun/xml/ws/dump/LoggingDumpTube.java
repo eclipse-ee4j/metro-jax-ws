@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,6 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Marek Potociar <marek.potociar at sun.com>
  */
 public class LoggingDumpTube extends AbstractFilterTubeImpl {
     public static enum Position {
@@ -75,6 +74,7 @@ public class LoggingDumpTube extends AbstractFilterTubeImpl {
         this.tubeId = ID_GENERATOR.incrementAndGet();
     }
 
+    @Override
     public LoggingDumpTube copy(TubeCloner cloner) {
         return new LoggingDumpTube(this, cloner);
     }

@@ -477,7 +477,7 @@ public class DeploymentDescriptorParser<A> {
      * Parses the handler and role information and sets it
      * on the {@link WSBinding}.
      *
-     * @return true if <handler-chains> element present in DD
+     * @return true if &lt;handler-chains&gt; element present in DD
      *         false otherwise.
      */
     protected boolean setHandlersAndRoles(WSBinding binding, XMLStreamReader reader, QName serviceName, QName portName) {

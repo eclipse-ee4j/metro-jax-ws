@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,13 +26,13 @@ import com.sun.xml.ws.api.server.SDDocument;
  * <p>
  * Say: http://localhost/hello?wsdl has reference to
  * <p>
- *   &lt;xsd:import namespace="urn:test:types" schemaLocation="http://localhost/hello?xsd=1"/>
+ *   &lt;xsd:import namespace="urn:test:types" schemaLocation="http://localhost/hello?xsd=1"/&gt;
  *
  * <p>
  * Using this class, it is possible to write A.wsdl to a local filesystem with
  * a local file schema import.
  * <p>
- *   &lt;xsd:import namespace="urn:test:types" schemaLocation="hello.xsd"/>
+ *   &lt;xsd:import namespace="urn:test:types" schemaLocation="hello.xsd"/&gt;
  *
  * @author Jitendra Kotamraju
  */
@@ -50,7 +50,7 @@ public interface DocumentLocationResolver {
      *      The reference to be put inside {@code current} to refer to
      *      {@code referenced}. This can be a relative URL as well as
      *      an absolute. If null is returned, then the document
-     *      will produce a "implicit reference" (for example, &lt;xs:import>
+     *      will produce a "implicit reference" (for example, &lt;xs:import&gt;
      *      without the @schemaLocation attribute, etc).
      */
     @Nullable String getLocationFor(String namespaceURI, String systemId);

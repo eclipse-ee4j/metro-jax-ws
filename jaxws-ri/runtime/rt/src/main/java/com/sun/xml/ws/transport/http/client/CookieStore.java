@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2006, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,6 @@ package com.sun.xml.ws.transport.http.client;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A CookieStore object represents a storage for cookie. Can store and retrieve

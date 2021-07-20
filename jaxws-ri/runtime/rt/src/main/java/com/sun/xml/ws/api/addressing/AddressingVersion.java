@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -366,7 +366,7 @@ public enum AddressingVersion {
     public static final String UNSET_INPUT_ACTION = "http://jax-ws.dev.java.net/addressing/input-action-not-set";
 
     /**
-     * Fault sub-sub-code that represents duplicate &lt;Address> element in EPR.
+     * Fault sub-sub-code that represents duplicate &lt;Address&gt; element in EPR.
      * This is a fault code not defined in the spec.
      */
     public static final QName fault_duplicateAddressInEpr = new QName(
@@ -566,7 +566,7 @@ public enum AddressingVersion {
     public abstract String getMapRequiredText();
 
     /**
-         * Gets the local name of the fault when a header representing anaddress is invalid.
+         * Gets the local name of the fault when a header representing an address is invalid.
          * @return local name
          */
     /* package */ abstract String getInvalidAddressLocalName();
@@ -574,7 +574,7 @@ public enum AddressingVersion {
 
     /**
      * Gets the local name of the fault when a header representing a WS-Addressing Message
-     * Addresing Property is invalid and cannot be processed.
+     * Addressing Property is invalid and cannot be processed.
      *
      * @return local name
      */

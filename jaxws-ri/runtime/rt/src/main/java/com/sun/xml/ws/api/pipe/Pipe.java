@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -295,7 +295,8 @@ public interface Pipe {
      * is multi-threaded and need concurrent use of the same pipeline,
      * it can do so by creating copies through this method.
      *
-     * <h3>Implementation Note</h3>
+     * <p>
+     * <strong>Implementation Note</strong>
      * <p>
      * It is the implementation's responsibility to call
      * {@link PipeCloner#add(Pipe,Pipe)} to register the copied pipe

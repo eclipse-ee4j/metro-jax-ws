@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,9 +37,9 @@ public class SafePolicyReader {
    private static final PolicyLogger LOGGER = PolicyLogger.getLogger(SafePolicyReader.class);
 
    // urls of xml docs policies were read from
-   private final Set<String> urlsRead = new HashSet<String>();
+   private final Set<String> urlsRead = new HashSet<>();
 
-   private final Set<String> qualifiedPolicyUris = new HashSet<String>();
+   private final Set<String> qualifiedPolicyUris = new HashSet<>();
 
 
    public final class PolicyRecord {
@@ -146,7 +146,7 @@ public class SafePolicyReader {
                            depth++;                        // we are then deeper
                        }
                        final StringBuffer xmlnsCode = new StringBuffer();    // take care about namespaces as well
-                       final Set<String> tmpNsSet = new HashSet<String>();
+                       final Set<String> tmpNsSet = new HashSet<>();
                        if ((null == curName.getPrefix()) || ("".equals(curName.getPrefix()))) {           // no prefix
                            elementCode
                                    .append('<')                     // start tag
@@ -178,7 +178,7 @@ public class SafePolicyReader {
                                    reader.getAttributeName(i).getLocalPart())) { // PolicyReference found
                                uriAttrFlg = true;
                                if (null == policyRec.unresolvedURIs) { // first such URI found
-                                   policyRec.unresolvedURIs = new HashSet<String>(); // initialize URIs set
+                                   policyRec.unresolvedURIs = new HashSet<>(); // initialize URIs set
                                }
                                policyRec.unresolvedURIs.add(  // add the URI
                                        relativeToAbsoluteUrl(reader.getAttributeValue(i), baseUrl));
@@ -272,7 +272,7 @@ public class SafePolicyReader {
 
 
    /**
-    * Reads policy reference element <wsp:PolicyReference/> and returns referenced policy URI as String
+    * Reads policy reference element &lt;wsp:PolicyReference/&gt; and returns referenced policy URI as String
     *
     * @param reader The XMLStreamReader should be in START_ELEMENT state and point to the PolicyReference element.
     * @return The URI contained in the PolicyReference

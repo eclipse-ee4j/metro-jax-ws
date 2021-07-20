@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,6 @@ package com.sun.xml.ws.model.wsdl;
 import java.util.List;
 
 import com.sun.xml.ws.api.EndpointAddress;
-import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.addressing.WSEndpointReference;
 import com.sun.xml.ws.api.model.wsdl.WSDLPort;
 import com.sun.xml.ws.api.model.wsdl.editable.EditableWSDLBoundPortType;
@@ -54,6 +53,7 @@ public final class WSDLPortImpl extends AbstractFeaturedObjectImpl implements Ed
         this.bindingName = binding;
     }
 
+    @Override
     public QName getName() {
         return name;
     }
@@ -62,10 +62,12 @@ public final class WSDLPortImpl extends AbstractFeaturedObjectImpl implements Ed
         return bindingName;
     }
 
+    @Override
     public EndpointAddress getAddress() {
         return address;
     }
 
+    @Override
     public EditableWSDLService getOwner() {
         return owner;
     }
@@ -73,6 +75,7 @@ public final class WSDLPortImpl extends AbstractFeaturedObjectImpl implements Ed
     /**
      * Only meant for {@link RuntimeWSDLParser} to call.
      */
+    @Override
     public void setAddress(EndpointAddress address) {
         assert address!=null;
         this.address = address;
@@ -81,21 +84,25 @@ public final class WSDLPortImpl extends AbstractFeaturedObjectImpl implements Ed
     /**
      * Only meant for {@link RuntimeWSDLParser} to call.
      */
+    @Override
     public void setEPR(@NotNull WSEndpointReference epr) {
         assert epr!=null;
         this.addExtension(epr);
         this.epr = epr;
     }
 
+    @Override
     public @Nullable WSEndpointReference getEPR() {
         return epr;
     }
     
+    @Override
     public EditableWSDLBoundPortType getBinding() {
         return boundPortType;
     }
 
     @SuppressWarnings("unchecked")
+    @Override
     public void freeze(EditableWSDLModel root) {
         boundPortType = root.getBinding(bindingName);
         if(boundPortType==null) {
