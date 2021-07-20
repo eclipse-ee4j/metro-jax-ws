@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -7,7 +7,6 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
-
 package com.sun.xml.ws.client.dispatch;
 
 import com.sun.xml.ws.api.addressing.WSEndpointReference;
@@ -17,10 +16,8 @@ import com.sun.xml.ws.api.pipe.Tube;
 import com.sun.xml.ws.api.client.WSPortInfo;
 import com.sun.xml.ws.binding.BindingImpl;
 import com.sun.xml.ws.client.WSServiceDelegate;
-import com.sun.xml.ws.client.PortInfo;
 import com.sun.xml.ws.encoding.xml.XMLMessage;
 import com.sun.xml.ws.encoding.xml.XMLMessage.MessageDataSource;
-import com.sun.xml.ws.message.source.PayloadSourceMessage;
 
 import javax.activation.DataSource;
 import javax.xml.namespace.QName;
@@ -33,18 +30,20 @@ import javax.xml.ws.WebServiceException;
  * @version 1.0
  */
 public class DataSourceDispatch extends DispatchImpl<DataSource> {
+
     @Deprecated
     public DataSourceDispatch(QName port, Service.Mode mode, WSServiceDelegate service, Tube pipe, BindingImpl binding, WSEndpointReference epr) {
-       super(port, mode, service, pipe, binding, epr );
+        super(port, mode, service, pipe, binding, epr);
     }
 
-    public DataSourceDispatch(WSPortInfo portInfo, Service.Mode mode,BindingImpl binding, WSEndpointReference epr) {
-       super(portInfo, mode, binding, epr );
+    public DataSourceDispatch(WSPortInfo portInfo, Service.Mode mode, BindingImpl binding, WSEndpointReference epr) {
+        super(portInfo, mode, binding, epr);
     }
 
+    @Override
     Packet createPacket(DataSource arg) {
 
-         switch (mode) {
+        switch (mode) {
             case PAYLOAD:
                 throw new IllegalArgumentException("DataSource use is not allowed in Service.Mode.PAYLOAD\n");
             case MESSAGE:
@@ -54,10 +53,11 @@ public class DataSourceDispatch extends DispatchImpl<DataSource> {
         }
     }
 
+    @Override
     DataSource toReturnValue(Packet response) {
         Message message = response.getInternalMessage();
         return (message instanceof MessageDataSource)
-                ? ((MessageDataSource)message).getDataSource()
+                ? ((MessageDataSource) message).getDataSource()
                 : XMLMessage.getDataSource(message, binding.getFeatures());
     }
 }

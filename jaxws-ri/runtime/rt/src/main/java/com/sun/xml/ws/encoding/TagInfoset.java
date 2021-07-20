@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,7 +21,6 @@ import javax.xml.stream.XMLStreamWriter;
 import javax.xml.stream.XMLStreamException;
 
 import com.sun.xml.ws.message.stream.StreamMessage;
-import com.sun.xml.ws.encoding.StreamSOAPCodec;
 import com.sun.istack.Nullable;
 import com.sun.istack.NotNull;
 
@@ -33,7 +32,7 @@ import com.sun.istack.NotNull;
  * to capture the infoset of the s:Envelope, s:Header, and s:Body elements.
  *
  *
- * <h3>Design Note</h3>
+ * <h2>Design Note</h2>
  * <p>
  * Since StAX and SAX uses different null vs empty string convention, one has
  * to choose which format we store things. It can go either way, but I'm assuming

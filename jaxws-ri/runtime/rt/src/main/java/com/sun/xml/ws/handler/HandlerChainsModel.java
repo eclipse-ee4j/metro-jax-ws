@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -60,7 +60,7 @@ public class HandlerChainsModel {
         this.id = value;
     }
     /**
-     * reader should be on <handler-chains> element
+     * reader should be on &lt;handler-chains&gt; element
      */
     public static HandlerChainsModel parseHandlerConfigFile(Class annotatedClass, XMLStreamReader reader) {
         ensureProperName(reader,QNAME_HANDLER_CHAINS);
@@ -149,13 +149,10 @@ public class HandlerChainsModel {
      * {@link com.sun.xml.ws.transport.http.DeploymentDescriptorParser}
      * directly when it reaches the handler chains element in the
      * descriptor file it is parsing.
-     * @param reader should be on <handler-chains> element
+     * @param reader should be on &lt;handler-chains&gt; element
      * @return A HandlerAnnotationInfo object that stores the
      * handlers and roles.
      */
-
-
-
     public static HandlerAnnotationInfo parseHandlerFile(XMLStreamReader reader,
             ClassLoader classLoader, QName serviceName, QName portName,
             WSBinding wsbinding) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -64,7 +64,8 @@ public abstract class TubeCloner {
      * step ensures that a graph is cloned isomorphically correctly.
      *
      * <p>
-     * (Think about what happens when a graph is A->B, A->C, B->D, and C->D
+     * (Think about what happens when a graph is A-{@literal >}B, A-{@literal >}C,
+     * B-{@literal >}D, and C-{@literal >}D
      * if you don't have this step.)
      *
      * @param t

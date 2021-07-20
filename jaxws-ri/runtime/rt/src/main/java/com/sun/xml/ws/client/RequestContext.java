@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -60,7 +60,7 @@ import static javax.xml.ws.handler.MessageContext.HTTP_REQUEST_HEADERS;
  * Using {@link com.oracle.webservices.api.message.BasePropertySet.MapView} implementation allows client to use {@link Map} interface
  * in a way that all the strongly typed properties are reflected to the fields
  * right away. Any additional (extending) properties can be added by client as well;
- * those would be processed using iterating the {@link MapView} and their processing,
+ * those would be processed using iterating the {@link com.oracle.webservices.api.message.BasePropertySet.MapView} and their processing,
  * of course, would be slower.
  * <p>
  * The previous implementation with fallback mode has been removed to simplify

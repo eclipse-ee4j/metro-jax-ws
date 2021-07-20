@@ -438,7 +438,9 @@ public abstract class BasePropertySet implements PropertySet {
     /**
      * Sets a property.
      *
-     * <h3>Implementation Note</h3>
+     * <p>
+     * <strong>Implementation Note</strong>
+     * <p>
      * This method is slow. Code inside JAX-WS should define strongly-typed
      * fields in this class and access them directly, instead of using this.
      *

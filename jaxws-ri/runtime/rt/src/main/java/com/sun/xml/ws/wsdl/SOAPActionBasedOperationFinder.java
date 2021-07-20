@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2007, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,6 @@ package com.sun.xml.ws.wsdl;
 
 import com.sun.istack.Nullable;
 import com.sun.xml.ws.api.WSBinding;
-import com.sun.xml.ws.api.model.JavaMethod;
 import com.sun.xml.ws.api.model.SEIModel;
 import com.sun.xml.ws.api.model.WSDLOperationMapping;
 import com.sun.xml.ws.api.model.wsdl.WSDLPort;
@@ -21,7 +20,6 @@ import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.model.AbstractSEIModelImpl;
 import com.sun.xml.ws.model.JavaMethodImpl;
 
-import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,10 +37,10 @@ final class SOAPActionBasedOperationFinder extends WSDLOperationFinder {
 
     public SOAPActionBasedOperationFinder(WSDLPort wsdlModel, WSBinding binding, @Nullable SEIModel seiModel) {
         super(wsdlModel,binding,seiModel);
-        methodHandlers = new HashMap<String, WSDLOperationMapping>();
+        methodHandlers = new HashMap<>();
 
         // Find if any SOAPAction repeat for operations
-        Map<String, Integer> unique = new HashMap<String, Integer>();
+        Map<String, Integer> unique = new HashMap<>();
         if (seiModel != null) {
             for (JavaMethodImpl m : ((AbstractSEIModelImpl) seiModel).getJavaMethods()) {
                 String soapAction = m.getSOAPAction();
@@ -71,6 +69,7 @@ final class SOAPActionBasedOperationFinder extends WSDLOperationFinder {
     }
 
 //  public QName getWSDLOperationQName(Packet request) {
+    @Override
     public WSDLOperationMapping getWSDLOperationMapping(Packet request) throws DispatchException {
         return request.soapAction == null ? null : methodHandlers.get(request.soapAction);
     }

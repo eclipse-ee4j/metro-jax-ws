@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,14 +12,12 @@ package com.sun.xml.ws.api.addressing;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.Writer;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 import com.sun.xml.ws.message.AbstractHeaderImpl;
 import com.sun.xml.ws.util.xml.XmlUtil;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.ErrorHandler;
@@ -36,11 +34,10 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.dom.DOMResult;
 
 /**
  * Used to represent outbound endpoint reference header,
- * such as &lt;ReplyTo> and &lt;FaultTo>.
+ * such as &lt;ReplyTo&gt; and &lt;FaultTo&gt;.
  * Used from {@link WSEndpointReference}.
  *
  * @author Kohsuke Kawaguchi
@@ -57,20 +54,24 @@ final class EPRHeader extends AbstractHeaderImpl {
         this.epr = epr;
     }
 
+    @Override
     public @NotNull String getNamespaceURI() {
         return nsUri;
     }
 
+    @Override
     public @NotNull String getLocalPart() {
         return localName;
     }
 
     @Nullable
+    @Override
     public String getAttribute(@NotNull String nsUri, @NotNull String localName) {
         try {
             XMLStreamReader sr = epr.read("EndpointReference"/*doesn't matter*/);
-            while(sr.getEventType()!= XMLStreamConstants.START_ELEMENT)
+            while (sr.getEventType() != XMLStreamConstants.START_ELEMENT) {
                 sr.next();
+            }
 
             return sr.getAttributeValue(nsUri,localName);
         } catch (XMLStreamException e) {
@@ -79,25 +80,28 @@ final class EPRHeader extends AbstractHeaderImpl {
         }
     }
 
+    @Override
     public XMLStreamReader readHeader() throws XMLStreamException {
         return epr.read(localName);
     }
 
+    @Override
     public void writeTo(XMLStreamWriter w) throws XMLStreamException {
         epr.writeTo(localName, w);
     }
 
+    @Override
     public void writeTo(SOAPMessage saaj) throws SOAPException {
         try {
             // TODO what about in-scope namespaces
             // Not very efficient consider implementing a stream buffer
-            // processor that produces a DOM node from the buffer. 
-            Transformer t = XmlUtil.newTransformer();                                   
+            // processor that produces a DOM node from the buffer.
+            Transformer t = XmlUtil.newTransformer();
             SOAPHeader header = saaj.getSOAPHeader();
             if (header == null)
                 header = saaj.getSOAPPart().getEnvelope().addHeader();
-// TODO workaround for oracle xdk bug 16555545, when this bug is fixed the line below can be 
-// uncommented and all lines below, except the catch block, can be removed.            
+// TODO workaround for oracle xdk bug 16555545, when this bug is fixed the line below can be
+// uncommented and all lines below, except the catch block, can be removed.
 //            t.transform(epr.asSource(localName), new DOMResult(header));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             XMLStreamWriter w = XMLOutputFactory.newFactory().createXMLStreamWriter(baos);
@@ -108,12 +112,13 @@ final class EPRHeader extends AbstractHeaderImpl {
             fac.setNamespaceAware(true);
             Node eprNode = fac.newDocumentBuilder().parse(bais).getDocumentElement();
             Node eprNodeToAdd = header.getOwnerDocument().importNode(eprNode, true);
-            header.appendChild(eprNodeToAdd);             
+            header.appendChild(eprNodeToAdd);
         } catch (Exception e) {
             throw new SOAPException(e);
         }
     }
 
+    @Override
     public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException {
         epr.writeTo(localName,contentHandler,errorHandler,true);
     }

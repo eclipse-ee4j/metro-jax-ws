@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,9 +9,6 @@
  */
 
 package com.sun.xml.ws.api.model.wsdl;
-
-import com.sun.xml.ws.api.model.wsdl.WSDLExtensible;
-import com.sun.xml.ws.api.model.wsdl.WSDLOperation;
 
 import javax.xml.namespace.QName;
 
@@ -36,7 +33,7 @@ public interface WSDLPortType extends WSDLObject, WSDLExtensible {
     public WSDLOperation get(String operationName);
 
     /**
-     * Gets {@link Iterable}<{@link WSDLOperation}>
+     * Gets {@link Iterable}7lt;{@link WSDLOperation}&gt;
      */
     public Iterable<? extends WSDLOperation> getOperations();
 }

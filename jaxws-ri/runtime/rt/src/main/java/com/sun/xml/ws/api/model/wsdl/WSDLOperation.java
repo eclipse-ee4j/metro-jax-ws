@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,6 @@
 
 package com.sun.xml.ws.api.model.wsdl;
 
-import com.sun.xml.ws.api.model.wsdl.WSDLExtensible;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 
@@ -58,26 +57,26 @@ public interface WSDLOperation extends WSDLObject, WSDLExtensible {
      *
      * Given a wsdl fault:
      *
-     * &lt;wsdl:message nae="faultMessage">
-     *  &lt;wsdl:part name="fault" element="<b>ns:myException</b>/>
-     * &lt;/wsdl:message>
+     * &lt;wsdl:message nae="faultMessage"&gt;
+     *  &lt;wsdl:part name="fault" element="<b>ns:myException</b>/&gt;
+     * &lt;/wsdl:message&gt;
      *
-     * &lt;wsdl:portType>
-     *  &lt;wsdl:operation ...>
-     *      &lt;wsdl:fault name="aFault" message="faultMessage"/>
-     *  &lt;/wsdl:operation>
-     * &lt;wsdl:portType>
+     * &lt;wsdl:portType&gt;
+     *  &lt;wsdl:operation ...&gt;
+     *      &lt;wsdl:fault name="aFault" message="faultMessage"/&gt;
+     *  &lt;/wsdl:operation&gt;
+     * &lt;wsdl:portType&gt;
      *
      *
      * For example given a soap 11 soap message:
      *
-     * &lt;soapenv:Fault>
+     * &lt;soapenv:Fault&gt;
      *      ...
-     *      &lt;soapenv:detail>
-     *          &lt;<b>ns:myException</b>>
+     *      &lt;soapenv:detail&gt;
+     *          &lt;<b>ns:myException</b>&gt;
      *              ...
-     *          &lt;/ns:myException>
-     *      &lt;/soapenv:detail>
+     *          &lt;/ns:myException&gt;
+     *      &lt;/soapenv:detail&gt;
      *
      * QName faultQName = new QName(ns, "myException");
      * WSDLFault wsdlFault  = getFault(faultQName);

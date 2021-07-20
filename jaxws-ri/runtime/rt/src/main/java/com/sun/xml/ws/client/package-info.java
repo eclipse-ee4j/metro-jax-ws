@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,50 +9,49 @@
  */
 
 /**
- *  <h1>JAX-WS 2.0.1 Client Runtime</h1>
  * <P>This document describes the architecture of client side 
  * JAX-WS 2.0.1 runtime. 
  *
- * <h3>JAX-WS 2.0.1 Client Sequence Diagram</h3>
- * <img src='../../../../../jaxws/basic-client.seq.png'>
-  * <h3>JAX-WS 2.0.1 Asynchronous Invocation Sequence Diagram</h3>
- * <img src='../../../../../jaxws/client-async.seq.png'>
-  * <h3>JAX-WS 2.0.1 Dispatch Invocation Sequence Diagram</h3>
- * <img src='../../../../../jaxws/dispatch.seq.png'>
+ * <h2>JAX-WS 2.0.1 Client Sequence Diagram</h2>
+ * <img alt="Client Sequence Diagram" src='../../../../../jaxws/basic-client.seq.png'>
+  * <h2>JAX-WS 2.0.1 Asynchronous Invocation Sequence Diagram</h2>
+ * <img alt="Asynchronous Invocation Sequence Diagram" src='../../../../../jaxws/client-async.seq.png'>
+  * <h2>JAX-WS 2.0.1 Dispatch Invocation Sequence Diagram</h2>
+ * <img alt="Dispatch Invocation Sequence Diagram" src='../../../../../jaxws/dispatch.seq.png'>
 
  * <H3>Message Flow</H3>
- * {@link com.sun.xml.ws.client.WebService} provides client view of a Web service.
- * WebService.getPort returns an instance of {@link com.sun.xml.ws.client.EndpointIFInvocationHandler}
- * with {@link com.sun.pept.ept.ContactInfoList} and {@link com.sun.pept.Delegate} 
+ * {@link WSServiceDelegate} provides client view of a Web service.
+ * WSServiceDelegate.getPort returns an instance of {@code com.sun.xml.ws.client.EndpointIFInvocationHandler}
+ * with {@code com.sun.pept.ept.ContactInfoList} and {@code com.sun.pept.Delegate} 
  * initialized. A method invocation on the port, obtained from WebService, invokes
- * {@link com.sun.xml.ws.client.EndpointIFInvocationHandler#invoke}. This method 
- * then creates a {@link com.sun.pept.ept.MessageInfo} and populates the data 
+ * {@code com.sun.xml.ws.client.EndpointIFInvocationHandler#invoke}. This method 
+ * then creates a {@code com.sun.pept.ept.MessageInfo} and populates the data 
  * (parameters specified by the user) and metadata such as RuntimeContext, RequestContext, 
  * Message Exchange Pattern into this MessageInfo. This method then invokes 
- * {@link com.sun.pept.Delegate#send} and returns the response.
+ * {@code com.sun.pept.Delegate#send} and returns the response.
  * <P></P>
  * The Delegate.send method iterates through the ContactInfoList and picks up the 
- * correct {@link com.sun.pept.ept.ContactInfo} based upon the binding id of 
- * {@link javax.xml.ws.BindingProvider} and sets it on the MessageInfo. After the 
+ * correct {@code com.sun.pept.ept.ContactInfo} based upon the binding id of 
+ * {@link javax.xml.ws.BindingProvider} and sets it on the MessageInfo. After the
  * Delegate obtains a specific ContactInfo it uses that ContactInfo to obtain a 
- * protocol-specific {@link com.sun.pept.protocol.MessageDispatcher}. There will be 
+ * protocol-specific {@code com.sun.pept.protocol.MessageDispatcher}. There will be 
  * two types of client-side MessageDispatchers for JAX-WS 2.0.1, 
- * {@link com.sun.xml.ws.protocol.soap.client.SOAPMessageDispatcher} and 
- * {@link com.sun.xml.ws.protocol.xml.client.XMLMessageDispatcher}. The Delegate 
- * then invokes {@link com.sun.pept.protocol.MessageDispatcher#send}. The 
+ * {@code com.sun.xml.ws.protocol.soap.client.SOAPMessageDispatcher} and 
+ * {@code com.sun.xml.ws.protocol.xml.client.XMLMessageDispatcher}. The Delegate 
+ * then invokes {@code com.sun.pept.protocol.MessageDispatcher#send}. The 
  * MessageDispatcher.send method makes a decision about the synchronous and 
  * asynchronous nature of the message exchange pattern and invokes separate methods
  * accordingly.
  * <p></P>
  * The MessageDispatcher uses ContactInfo to obtain
- * a {@link com.sun.xml.ws.encoding.soap.client.SOAPXMLEncoder} which converts 
- * the MessageInfo to {@link com.sun.xml.ws.encoding.soap.internal.InternalMessage}. 
+ * a {@code com.sun.xml.ws.encoding.soap.client.SOAPXMLEncoder} which converts 
+ * the MessageInfo to {@code com.sun.xml.ws.encoding.soap.internal.InternalMessage}. 
  * There will be two types of client-side SOAPXMLEncoder for JAX-WS 2.0.1, 
- * SOAPXMEncoder for SOAP 1.1 and {@link com.sun.xml.ws.encoding.soap.client.SOAP12XMLEncoder}
+ * SOAPXMEncoder for SOAP 1.1 and {@code com.sun.xml.ws.encoding.soap.client.SOAP12XMLEncoder}
  * for SOAP 1.2. The MessageDispatcher invokes configured handlers and use the 
  * codec to convert the InternalMessage to a {@link javax.xml.soap.SOAPMessage}.
- * The metadata from the MessageInfo is classified into {@link javax.xml.soap.MimeHeaders} 
- * of this SOAPMessage and context information for {@link com.sun.xml.ws.api.server.WSConnection}.
+ * The metadata from the MessageInfo is classified into {@link javax.xml.soap.MimeHeaders}
+ * of this SOAPMessage and context information for {@code com.sun.xml.ws.api.server.WSConnection}.
  * The SOAPMessge is then written to the output stream of the WSConnection
  * obtained from MessageInfo.
  *<P></P>
@@ -60,10 +59,10 @@
  * SOAPMessageDispatcher extracts the SOAPMessage from the input stream of 
  * WSConnection and performs the mustUnderstand processing followed by invocation 
  * of any handlers. The MessageDispatcher uses ContactInfo to obtain a 
- * {@link com.sun.xml.ws.encoding.soap.client.SOAPXMLDecoder} which converts the SOAPMessage 
+ * {@code com.sun.xml.ws.encoding.soap.client.SOAPXMLDecoder} which converts the SOAPMessage 
  * to InternalMessage and then InternalMessage to MessageInfo. There will be two types of 
  * client-side SOAPXMLDecoder for JAX-WS 2.0.1, SOAPXMLDencoder for SOAP 1.1 and 
- * {@link com.sun.xml.ws.encoding.soap.client.SOAP12XMLDecoder} for SOAP 1.2. The 
+ * {@code com.sun.xml.ws.encoding.soap.client.SOAP12XMLDecoder} for SOAP 1.2. The 
  * response is returned back to the client code via Delegate.
  *
  * <H3>External Interactions</H3>
@@ -105,7 +104,7 @@
  * <P>JAX-WS RI uses the JAXB API to marshall/unmarshall user created
  * JAXB objects with user created {@link javax.xml.bind.JAXBContext JAXBContext}. 
  * Handler, Dispatch in JAX-WS API provide ways for the user to specify his/her own
- * JAXBContext. {@link com.sun.xml.ws.encoding.jaxb.JAXBTypeSerializer JAXBTypeSerializer} class uses all these methods.</P>
+ * JAXBContext. {@code com.sun.xml.ws.encoding.jaxb.JAXBTypeSerializer JAXBTypeSerializer} class uses all these methods.</P>
  * <UL>
  * 	<LI><p>{@link javax.xml.bind.Marshaller#marshal(Object,XMLStreamWriter) Marshaller.marshal(Object,XMLStreamWriter)}</p>
  * 	<LI><P>{@link javax.xml.bind.Marshaller#marshal(Object,Result) Marshaller.marshal(Object, DomResult)}</P>

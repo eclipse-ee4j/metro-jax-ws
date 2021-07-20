@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2006, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +17,7 @@ import java.net.URI;
  * and which should be rejected. Three pre-defined policy implementations
  * are provided, namely ACCEPT_ALL, ACCEPT_NONE and ACCEPT_ORIGINAL_SERVER.
  *
- * <p>See RFC 2965 sec. 3.3 & 7 for more detail.
+ * <p>See RFC 2965 sec. 3.3 &amp; 7 for more detail.
  *
  * @version %I%, %E%
  * @author Edward Wang

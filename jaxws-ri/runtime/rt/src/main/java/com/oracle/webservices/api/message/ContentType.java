@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +14,7 @@ package com.oracle.webservices.api.message;
 import com.sun.xml.ws.encoding.ContentTypeImpl;
 
 /**
- * A Content-Type transport header that will be returned by {@link MessageContext#write(java.io.OutputStream)}.
+ * A Content-Type transport header that will be returned by {@link MessageContext#writeTo(java.io.OutputStream)}.
  * It will provide the Content-Type header and also take care of SOAP 1.1 SOAPAction header.
  *
  * @author Vivek Pandey

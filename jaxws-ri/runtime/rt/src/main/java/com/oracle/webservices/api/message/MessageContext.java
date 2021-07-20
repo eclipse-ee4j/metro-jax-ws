@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,8 +12,6 @@ package com.oracle.webservices.api.message;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.ByteBuffer;
-import java.nio.channels.WritableByteChannel;
 
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
@@ -50,7 +48,7 @@ public interface MessageContext extends DistributedPropertySet {
 
     /**
      * Writes the XML infoset portion of this MessageContext
-     * (from &lt;soap:Envelope> to &lt;/soap:Envelope>).
+     * (from &lt;soap:Envelope&gt; to &lt;/soap:Envelope&gt;).
      *
      * @param out
      *      Must not be null. The caller is responsible for closing the stream,

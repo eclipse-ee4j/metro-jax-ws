@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -145,7 +145,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
      *      if null, it means no headers. if non-null,
      *      it will be owned by this message.
      * @param reader
-     *      points at the start element/document of the payload (or the end element of the &lt;s:Body>
+     *      points at the start element/document of the payload (or the end element of the &lt;s:Body&gt;
      *      if there's no payload)
      */
     public StreamMessage(@Nullable MessageHeaders headers, @NotNull AttachmentSet attachmentSet, @NotNull XMLStreamReader reader, @NotNull SOAPVersion soapVersion) {

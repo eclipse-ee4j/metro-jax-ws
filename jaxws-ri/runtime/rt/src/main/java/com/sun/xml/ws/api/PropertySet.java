@@ -51,6 +51,7 @@ public abstract class PropertySet extends com.oracle.webservices.api.message.Bas
      *      convention, but if anything but {@link String} is passed, this method
      *      just returns null.
      */
+    @Override
     public Object get(Object key) {
         Accessor sp = getPropertyMap().get(key);
         if(sp!=null)
@@ -60,8 +61,9 @@ public abstract class PropertySet extends com.oracle.webservices.api.message.Bas
 
     /**
      * Sets a property.
-     *
-     * <h3>Implementation Note</h3>
+     * <p>
+     * <strong>Implementation Note</strong>
+     * <p>
      * This method is slow. Code inside JAX-WS should define strongly-typed
      * fields in this class and access them directly, instead of using this.
      *
@@ -71,6 +73,7 @@ public abstract class PropertySet extends com.oracle.webservices.api.message.Bas
      *
      * @see Property
      */
+    @Override
     public Object put(String key, Object value) {
         Accessor sp = getPropertyMap().get(key);
         if(sp!=null) {
@@ -82,10 +85,12 @@ public abstract class PropertySet extends com.oracle.webservices.api.message.Bas
         }
     }
 
+    @Override
     public boolean supports(Object key) {
         return getPropertyMap().containsKey(key);
     }
     
+    @Override
     public Object remove(Object key) {
         Accessor sp = getPropertyMap().get(key);
         if(sp!=null) {
@@ -97,17 +102,21 @@ public abstract class PropertySet extends com.oracle.webservices.api.message.Bas
         }
     }
 
+    @Override
     protected void createEntrySet(Set<Entry<String,Object>> core) {
         for (final Entry<String, Accessor> e : getPropertyMap().entrySet()) {
             core.add(new Entry<String, Object>() {
+                @Override
                 public String getKey() {
                     return e.getKey();
                 }
 
+                @Override
                 public Object getValue() {
                     return e.getValue().get(PropertySet.this);
                 }
 
+                @Override
                 public Object setValue(Object value) {
                     Accessor acc = e.getValue();
                     Object old = acc.get(PropertySet.this);
@@ -118,5 +127,6 @@ public abstract class PropertySet extends com.oracle.webservices.api.message.Bas
         }
     }
 
+    @Override
     protected abstract BasePropertySet.PropertyMap getPropertyMap();
 }

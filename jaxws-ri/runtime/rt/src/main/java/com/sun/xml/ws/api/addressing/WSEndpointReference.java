@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -545,8 +545,7 @@ public final class WSEndpointReference  implements WSDLExtension {
      * Call {@link #WSEndpointReference(EndpointReference)} directly
      * if you know it's not null.
      */
-    public static @Nullable
-    WSEndpointReference create(@Nullable EndpointReference epr) {
+    public static @Nullable WSEndpointReference create(@Nullable EndpointReference epr) {
         if (epr != null) {
             return new WSEndpointReference(epr);
         } else {
@@ -581,7 +580,7 @@ public final class WSEndpointReference  implements WSDLExtension {
      * </pre>
      *
      * @param newAddress
-     *      This is a complete URL to be written inside &lt;Adress> element of the EPR,
+     *      This is a complete URL to be written inside &lt;Address&gt; element of the EPR,
      *      such as "http://foo.bar/abc/def"
      */
     public @NotNull WSEndpointReference createWithAddress(@NotNull final String newAddress) {
@@ -707,7 +706,7 @@ public final class WSEndpointReference  implements WSDLExtension {
     }
 
     /**
-     * The value of the &lt;wsa:address> header.
+     * The value of the &lt;wsa:address&gt; header.
      */
     public @NotNull String getAddress() {
         return address;
@@ -907,7 +906,7 @@ public final class WSEndpointReference  implements WSDLExtension {
      * many {@link Message}s.
      *
      * @param rootTagName
-     *      The header tag name to be used, such as &lt;ReplyTo> or &lt;FaultTo>.
+     *      The header tag name to be used, such as &lt;ReplyTo&gt; or &lt;FaultTo&gt;.
      *      (It's bit ugly that this method takes {@link QName} and not just local name,
      *      unlike other methods. If it's making the caller's life miserable, then
      *      we can talk.)
