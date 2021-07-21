@@ -635,7 +635,7 @@ public class SAAJMessage extends Message {
                 }
 
                 public MimeHeader next() {
-                    final jakarta.xml.soap.MimeHeader mh = (jakarta.xml.soap.MimeHeader) it.next();
+                    final javax.xml.soap.MimeHeader mh = (javax.xml.soap.MimeHeader) it.next();
                     return new MimeHeader() {
                         public String getName() {
                             return mh.getName();
