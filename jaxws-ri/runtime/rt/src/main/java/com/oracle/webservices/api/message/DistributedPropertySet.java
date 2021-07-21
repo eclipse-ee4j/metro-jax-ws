@@ -16,7 +16,7 @@ import com.sun.istack.Nullable;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.client.RequestContext;
 import com.sun.xml.ws.client.ResponseContext;
-import jakarta.xml.ws.WebServiceContext;
+import javax.xml.ws.WebServiceContext;
 
 /**
  * {@link PropertySet} that combines properties exposed from multiple
