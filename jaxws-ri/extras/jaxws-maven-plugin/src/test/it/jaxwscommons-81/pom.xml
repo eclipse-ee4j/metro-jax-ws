@@ -140,7 +140,7 @@
                             <xadditionalHeaders>true</xadditionalHeaders>
                             <destDir>${project.build.directory}/custom/classes</destDir>
                             <sourceDestDir>${project.build.directory}/custom/sources</sourceDestDir>
-                            <target>2.0</target>
+                            <target>3.0</target>
                             <xnocompile>false</xnocompile>
                             <xdebug>true</xdebug>
                             <bindingFiles>
