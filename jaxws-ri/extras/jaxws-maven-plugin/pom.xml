@@ -587,7 +587,7 @@
                                     <cloneProjectsTo>${project.build.directory}/it-samples</cloneProjectsTo>
                                     <pomIncludes>
                                         <pomInclude>*/pom.xml</pomInclude>
-                                        <pomInclude>*/*/pom.xml</pomInclude>
+                                        <pomInclude>*/url/pom.xml</pomInclude>
                                     </pomIncludes>
                                     <pomExcludes>
                                         <pomExclude>jaxws-ri-samples/*/pom.xml</pomExclude>
