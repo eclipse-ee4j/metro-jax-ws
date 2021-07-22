@@ -149,6 +149,11 @@
                                     <type>jar</type>
                                 </artifactItem>
                                 <artifactItem>
+                                    <groupId>jakarta.activation</groupId>
+                                    <artifactId>jakarta.activation-api</artifactId>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
                                     <groupId>jakarta.annotation</groupId>
                                     <artifactId>jakarta.annotation-api</artifactId>
                                     <type>jar</type>

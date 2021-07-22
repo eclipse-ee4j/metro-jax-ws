@@ -61,6 +61,15 @@
             <artifactId>FastInfoset</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>sun-activation-registry</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <!-- we need API for compile and impl for runtime
              to make usage easy, let's just depend on the impl -->
         <dependency>
