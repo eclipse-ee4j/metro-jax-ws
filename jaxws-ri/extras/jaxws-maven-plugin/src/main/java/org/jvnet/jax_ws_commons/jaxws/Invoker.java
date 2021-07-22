@@ -42,12 +42,16 @@ public final class Invoker {
     public static void main(String... args) throws Exception {
         int idx = 1;
         String c = args[2];
+        String wsgenClasspath = null;
+        String wsgenExtraClasspath = null;
         if ("-pathfile".equals(args[1])) {
             Properties p = new Properties();
             File pathFile = new File(args[2]);
             pathFile.deleteOnExit();
             p.load(new FileInputStream(pathFile));
             c = p.getProperty("cp");
+            wsgenClasspath = p.getProperty("wsgen.classpath");
+            wsgenExtraClasspath =  p.getProperty("wsgen.extra.classpath");
             idx = 3;
         }
         List<URL> cp = new ArrayList<URL>();
@@ -66,6 +70,10 @@ public final class Invoker {
         String origJcp = System.getProperty("java.class.path");
         Thread.currentThread().setContextClassLoader(cl);
         System.setProperty("java.class.path", c);
+        System.setProperty("wsgen.classpath", wsgenClasspath);
+        if (wsgenExtraClasspath != null) {
+            System.setProperty("wsgen.extra.classpath", wsgenExtraClasspath);
+        }
         try {
             Class<?> compileTool = cl.loadClass(args[0]);
             Constructor<?> ctor = compileTool.getConstructor(OutputStream.class);
