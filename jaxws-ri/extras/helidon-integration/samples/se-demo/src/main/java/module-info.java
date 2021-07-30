@@ -22,14 +22,10 @@ module org.eclipse.metro.helidon.example {
 
     // opened for WebServiceContext to be set
     opens org.eclipse.metro.helidon.example.fromwsdl;
+
     // jaxws needs request/response wrapper beans
     // created either dynamically or manually using annotation processor
     // opened to at least JAXB
-    // note: dynamic creation requires extra cmd line option:
-    // --add-opens java.base/jdk.internal.misc=com.sun.xml.ws.rt
-    opens org.eclipse.metro.helidon.example.addressing.jaxws;
-    opens org.eclipse.metro.helidon.example.ws.jaxws;
-
     opens com.dataaccess.webservicesserver;
     opens org.example.duke;
 

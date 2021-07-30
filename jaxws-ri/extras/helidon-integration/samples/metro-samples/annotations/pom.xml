@@ -41,18 +41,20 @@
                 <artifactId>jaxws-maven-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>prepare-wsdl</id>
+                        <phase>generate-test-sources</phase>
                         <goals>
-                            <goal>wsgen</goal>
+                            <goal>wsdlgen</goal>
                         </goals>
                         <configuration>
                             <sei>annotations.server.AddNumbersImpl</sei>
                             <resourceDestDir>${project.build.directory}/wsdls</resourceDestDir>
                             <inlineSchemas>true</inlineSchemas>
-                            <genWsdl>true</genWsdl>
                         </configuration>
                     </execution>
                     <execution>
                         <id>create-client</id>
+                        <phase>generate-test-sources</phase>
                         <goals>
                             <goal>wsimport-test</goal>
                         </goals>
