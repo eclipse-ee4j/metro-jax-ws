@@ -66,21 +66,21 @@
     </scm>
 
     <properties>
-        <helidon.version>2.3.0</helidon.version>
+        <helidon.version>2.3.2</helidon.version>
         <!-- force helidon to use following latest javax versions -->
         <version.lib.jaxb-api>2.3.3</version.lib.jaxb-api>
-        <version.lib.jaxb-core>2.3.4</version.lib.jaxb-core>
-        <version.lib.jaxb-impl>2.3.4</version.lib.jaxb-impl>
+        <version.lib.jaxb-core>2.3.5</version.lib.jaxb-core>
+        <version.lib.jaxb-impl>2.3.5</version.lib.jaxb-impl>
         <version.lib.activation-api>1.2.2</version.lib.activation-api>
-        
+
         <lib.activation-api>1.2.2</lib.activation-api>
         <lib.jws-api>2.1.0</lib.jws-api>
         <lib.xml.soap-api>1.4.2</lib.xml.soap-api>
         <lib.xml.ws-api>2.3.3</lib.xml.ws-api>
 
-        <ri.version>2.3.4</ri.version>
-        <metro.version>2.4.5</metro.version>
-        <metro.plugin.version>2.3.4</metro.plugin.version>
+        <ri.version>2.3.5</ri.version>
+        <metro.version>2.4.6</metro.version>
+        <metro.plugin.version>2.3.5</metro.plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -118,6 +118,7 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+
             <dependency>
                 <groupId>jakarta.xml.ws</groupId>
                 <artifactId>jakarta.xml.ws-api</artifactId>
