@@ -73,24 +73,6 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>create-wrapperbeans-SoapWs</id>
-                        <goals>
-                            <goal>wsgen</goal>
-                        </goals>
-                        <configuration>
-                            <sei>org.eclipse.metro.helidon.example.ws.SoapWs</sei>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>create-wrapperbeans-AddressingWS</id>
-                        <goals>
-                            <goal>wsgen</goal>
-                        </goals>
-                        <configuration>
-                            <sei>org.eclipse.metro.helidon.example.addressing.AddressingWS</sei>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>create-client</id>
                         <goals>
                             <goal>wsimport</goal>
@@ -119,7 +101,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <!--<debugForkedProcess>true</debugForkedProcess>-->
                     <argLine>${test.args}</argLine>
                     <systemPropertyVariables>
                         <java.util.logging.config.file>${project.build.outputDirectory}/logging.properties</java.util.logging.config.file>
