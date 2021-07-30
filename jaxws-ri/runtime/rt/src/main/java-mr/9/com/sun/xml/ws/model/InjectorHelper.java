@@ -53,9 +53,7 @@ final class InjectorHelper {
     static Method getMethod(final Class<?> c, final String methodname, final Class<?>... params) {
         try {
             Method m = c.getDeclaredMethod(methodname, params);
-            if (!m.trySetAccessible()) {
-                setAccessible(m);
-            }
+            setAccessible(m);
             return m;
         } catch (NoSuchMethodException e) {
             // impossible
@@ -92,9 +90,7 @@ final class InjectorHelper {
                 }
             });
             if (f != null) {
-                if (!f.trySetAccessible()) {
-                    setAccessible(f);
-                }
+                setAccessible(f);
                 return (Unsafe) f.get(null);
             }
         } catch (Throwable t) {
