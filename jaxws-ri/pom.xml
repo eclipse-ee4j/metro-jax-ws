@@ -736,8 +736,14 @@
     <dependencies>
         <!-- Make sure new apis are used across the project -->
         <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-activation</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -753,11 +759,6 @@
         <dependency>
             <groupId>jakarta.xml.soap</groupId>
             <artifactId>jakarta.xml.soap-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.jws</groupId>
-            <artifactId>jakarta.jws-api</artifactId>
         </dependency>
 
         <dependency>

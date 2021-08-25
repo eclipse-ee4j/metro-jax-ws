@@ -37,7 +37,8 @@
         <commonj.sdo.version>2.1.1</commonj.sdo.version>
         <eclipselink.version>3.0.2</eclipselink.version>
         <junit.version>4.13.2</junit.version>
-        <mail.version>2.0.1</mail.version>
+        <mail-api.version>2.1.0-SNAPSHOT</mail-api.version>
+        <angus-mail.version>1.0.0-SNAPSHOT</angus-mail.version>
         <servlet-api.version>5.0.0</servlet-api.version>
     </properties>
             
@@ -55,12 +56,12 @@
             <dependency>
                 <groupId>jakarta.mail</groupId>
                 <artifactId>jakarta.mail-api</artifactId>
-                <version>${mail.version}</version>
+                <version>${mail-api.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.sun.mail</groupId>
-                <artifactId>jakarta.mail</artifactId>
-                <version>${mail.version}</version>
+                <groupId>org.eclipse.angus</groupId>
+                <artifactId>angus-mail</artifactId>
+                <version>${angus-mail.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>

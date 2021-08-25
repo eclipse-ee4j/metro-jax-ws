@@ -32,7 +32,7 @@ module com.sun.xml.ws.rt {
 
     requires transitive jakarta.activation;
     requires transitive jakarta.annotation;
-    requires transitive jakarta.jws;
+//    requires transitive jakarta.jws;
     requires transitive jakarta.mail;
     requires transitive jakarta.xml.bind;
     requires transitive jakarta.xml.soap;

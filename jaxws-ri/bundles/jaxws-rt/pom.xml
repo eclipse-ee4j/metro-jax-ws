@@ -28,57 +28,71 @@
     <description>JAX-WS Runtime with module descriptor</description>
 
     <dependencies>
+
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.glassfish.ha</groupId>
             <artifactId>ha-api</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.glassfish.external</groupId>
             <artifactId>management-api</artifactId>
-            </dependency>
+        </dependency>
+
         <dependency>
             <groupId>org.glassfish.gmbal</groupId>
             <artifactId>gmbal-api-only</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.jvnet.staxex</groupId>
             <artifactId>stax-ex</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.sun.xml.stream.buffer</groupId>
             <artifactId>streambuffer</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.jvnet.mimepull</groupId>
             <artifactId>mimepull</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.sun.xml.fastinfoset</groupId>
             <artifactId>FastInfoset</artifactId>
         </dependency>
 
-        <!-- we need API for compile and impl for runtime
-             to make usage easy, let's just depend on the impl -->
         <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
         </dependency>
 
         <!-- Runtime dependencies -->
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-mail</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.sun.xml.messaging.saaj</groupId>
             <artifactId>saaj-impl</artifactId>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <artifactId>woodstox-core</artifactId>
             <groupId>com.fasterxml.woodstox</groupId>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <groupId>org.codehaus.woodstox</groupId>
             <artifactId>stax2-api</artifactId>
