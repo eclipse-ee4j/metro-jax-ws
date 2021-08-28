@@ -404,7 +404,6 @@
                     <configuration>
                         <skip>${spotbugs.skip}</skip>
                         <threshold>${spotbugs.threshold}</threshold>
-                        <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
                         <excludeFilterFile>
                             ${spotbugs.common},${spotbugs.exclude}
                         </excludeFilterFile>
