@@ -72,6 +72,8 @@
         <spotbugs.skip>true</spotbugs.skip>
         <dep.sources>${project.build.directory}/generated-sources/dependencies</dep.sources>
         <dep.sources.mr>${project.build.directory}/generated-sources/dependencies-mr</dep.sources.mr>
+        <!-- too many to fix -->
+        <jdoc.doclint>-missing</jdoc.doclint>
     </properties>
 
     <build>
