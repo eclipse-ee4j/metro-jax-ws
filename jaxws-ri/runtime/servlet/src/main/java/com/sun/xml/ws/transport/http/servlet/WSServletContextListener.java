@@ -162,6 +162,8 @@ public final class WSServletContextListener
 
     /**
      * Creates {@link Container} implementation that hosts the JAX-WS endpoint.
+     * @param context the Servlet context object
+     * @return {@link Container} implementation that hosts the JAX-WS endpoint
      */
     protected @NotNull Container createContainer(ServletContext context) {
         return new ServletContainer(context);
@@ -169,6 +171,9 @@ public final class WSServletContextListener
 
     /**
      * Creates {@link WSServletDelegate} that does the real work.
+     * @param adapters adapters
+     * @param context the Servlet context object
+     * @return {@link WSServletDelegate} that does the real work
      */
     protected @NotNull WSServletDelegate createDelegate(List<ServletAdapter> adapters, ServletContext context) {
         return new WSServletDelegate(adapters,context);

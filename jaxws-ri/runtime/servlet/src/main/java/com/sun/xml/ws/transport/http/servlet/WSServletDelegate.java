@@ -162,6 +162,7 @@ public class WSServletDelegate {
      *
      * @param request the HTTP request object
      * @param response the HTTP response object
+     * @param context the Servlet context object
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException {
         doGet(request, response,context);
@@ -169,6 +170,9 @@ public class WSServletDelegate {
 
     /**
      * Handles HTTP PUT for XML/HTTP binding based endpoints
+     * @param request the HTTP request object
+     * @param response the HTTP response object
+     * @param context the Servlet context object
      */
     public void doPut(HttpServletRequest request, HttpServletResponse response, ServletContext context)
         throws ServletException {
@@ -210,6 +214,9 @@ public class WSServletDelegate {
     
     /**
      * Handles HTTP DELETE for XML/HTTP binding based endpoints
+     * @param request the HTTP request object
+     * @param response the HTTP response object
+     * @param context the Servlet context object
      */
     public void doDelete(HttpServletRequest request, HttpServletResponse response, ServletContext context)
         throws ServletException {
@@ -257,6 +264,8 @@ public class WSServletDelegate {
 
     /**
      * Determines which {@link ServletAdapter} serves the given request.
+     * @param request request
+     * @return the adapter
      */
     protected ServletAdapter getTarget(HttpServletRequest request) {
 

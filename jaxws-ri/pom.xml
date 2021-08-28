@@ -677,16 +677,21 @@
                                 <!-- configuration should be removed once this bug https://github.com/jacoco/jacoco/issues/407 is fixed -->
                                 <configuration>
                                     <excludes>
-                                        <exclude>com/sun/tools/ws/ant/WsGen2.class</exclude>
-                                        <exclude>com/sun/tools/ws/ant/WsImport2.class</exclude>
-                                        <exclude>com/sun/tools/ws/ant/WsImport.class</exclude>
-                                        <exclude>com/sun/tools/ws/ant/WsGen.class</exclude>
-                                        <exclude>com/sun/xml/ws/util/xml/XmlCatalogUtil.class</exclude>
-                                        <exclude>com/sun/xml/ws/util/MrJarUtil.class</exclude>
-                                        <exclude>com/sun/xml/ws/util/MrJarUtil$1.class</exclude>
+                                        <exclude>com/oracle/webservices/api/message/AccessorFactory.class</exclude>
+                                        <exclude>com/oracle/webservices/api/message/AccessorFactory$MethodHandleAccessor.class</exclude>
+                                        <exclude>com/oracle/webservices/api/message/AccessorFactory$VarHandleAccessor.class</exclude>
                                         <exclude>com/sun/xml/ws/api/server/SDDocumentSource.class</exclude>
                                         <exclude>com/sun/xml/ws/api/server/SDDocumentSource$1.class</exclude>
                                         <exclude>com/sun/xml/ws/api/server/SDDocumentSource$2.class</exclude>
+                                        <exclude>com/sun/xml/ws/api/server/SDDocumentSource$3.class</exclude>
+                                        <exclude>com/sun/xml/ws/model/InjectorHelper.class</exclude>
+                                        <exclude>com/sun/xml/ws/model/InjectorHelper$dummy.class</exclude>
+                                        <exclude>com/sun/xml/ws/util/AuthUtil.class</exclude>
+                                        <exclude>com/sun/xml/ws/util/MrJarUtil.class</exclude>
+                                        <exclude>com/sun/xml/ws/util/MrJarUtil$1.class</exclude>
+                                        <exclude>com/sun/xml/ws/util/xml/XmlCatalogUtil.class</exclude>
+                                        <exclude>com/sun/tools/ws/ant/WsGen2.class</exclude>
+                                        <exclude>com/sun/tools/ws/ant/WsImport2.class</exclude>
                                     </excludes>
                                 </configuration>
                             </execution>

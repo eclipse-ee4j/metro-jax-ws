@@ -72,6 +72,7 @@ public final class InVmServer {
      * @param explodedWarDir
      *      The exploded war file image in the file system,
      *      where services are loaded from.
+     * @throws IOException for errors
      */
     public InVmServer(@NotNull String id, File explodedWarDir) throws IOException {
         this(id,LocalTransportFactory.parseEndpoints(explodedWarDir.getPath()));
@@ -138,6 +139,8 @@ public final class InVmServer {
     /**
      * Obtains the running instance from the ID, or returns null
      * if not found.
+     * @param id ID
+     * @return running instance
      */
     public static @Nullable InVmServer get(String id) {
         synchronized(servers) {

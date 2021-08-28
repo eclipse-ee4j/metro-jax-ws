@@ -38,6 +38,7 @@ public class WSServlet extends HttpServlet {
     /**
      * Gets the {@link WSServletDelegate} that we will be forwarding the requests to.
      *
+     * @param servletConfig the ServletConfig object
      * @return
      *      null if the deployment have failed and we don't have the delegate.
      */

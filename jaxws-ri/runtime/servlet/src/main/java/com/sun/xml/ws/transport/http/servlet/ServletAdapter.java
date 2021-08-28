@@ -82,6 +82,7 @@ public class ServletAdapter extends HttpAdapter implements BoundEndpoint {
     /**
      * Gets the name of the endpoint as given in the <code>sun-jaxws.xml</code>
      * deployment descriptor.
+     * @return the name
      */
     public String getName() {
         return name;

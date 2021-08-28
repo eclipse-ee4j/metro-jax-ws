@@ -132,6 +132,7 @@ public abstract class FastInfosetStreamSOAPCodec implements Codec {
     /**
      * Creates a new {@link FastInfosetStreamSOAPCodec} instance.
      *
+     * @param soapCodec codec
      * @param version the SOAP version of the codec.
      * @return a new {@link FastInfosetStreamSOAPCodec} instance.
      */
@@ -142,6 +143,7 @@ public abstract class FastInfosetStreamSOAPCodec implements Codec {
     /**
      * Creates a new {@link FastInfosetStreamSOAPCodec} instance.
      *
+     * @param soapCodec codec
      * @param version the SOAP version of the codec.
      * @param retainState if true the Codec should retain the state of
      *        vocabulary tables for multiple encode/decode invocations.

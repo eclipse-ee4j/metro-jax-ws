@@ -56,6 +56,8 @@ public final class LocalTransportFactory extends TransportTubeFactory {
      * a file system.
      * TODO: Currently it expects the PortName to be appended to the endpoint address
      *       This needs to be expanded to take Service and Port QName as well.
+     * @param adrs URI
+     * @return deployed WSEndpoint
      */
     protected static WSEndpoint createServerService(URI adrs) {
         try {
