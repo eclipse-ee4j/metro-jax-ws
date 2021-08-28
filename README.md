@@ -31,6 +31,7 @@ the terms of [Eclipse Contributor Agreement](http://www.eclipse.org/legal/ECA.ph
 
 * [Home page](https://eclipse-ee4j.github.io/metro-jax-ws)
 * [Mailing list](https://accounts.eclipse.org/mailing-list/metro-dev)
+* [Nightly build job](https://ci.eclipse.org/metro/job/jax-ws-master-build/)
 * [Jakarta SOAP with Attachments Specification](https://jakarta.ee/specifications/soap-attachments)
 * [Jakarta SOAP with Attachments Specification project](https://github.com/eclipse-ee4j/saaj-api)
 * [Jakarta Web Services Metadata Specification](https://jakarta.ee/specifications/web-services-metadata/)

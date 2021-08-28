@@ -37,6 +37,8 @@ public abstract class ServletModule extends WebModule {
      *
      * TODO should we generify WebModule so that we could use
      * TODO WebModule&lt;HttpServletRequest&gt; ??
+     * @param req the HTTP request object
+     * @return the host, port, and context path
      */
     public @NotNull String getContextPath(HttpServletRequest req) {
         return ServletConnectionImpl.getBaseAddress(req);

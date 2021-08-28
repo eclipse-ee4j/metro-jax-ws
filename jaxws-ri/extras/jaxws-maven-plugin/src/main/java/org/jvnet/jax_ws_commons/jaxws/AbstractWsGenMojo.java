@@ -176,8 +176,10 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
 
     /**
      * Construct wsgen arguments
+     * @param aSei web service
+     * @param attachResources true to attach resources to the project
      * @return a list of arguments
-     * @throws MojoExecutionException
+     * @throws MojoExecutionException for errors
      */
     protected List<String> getWsGenArgs(String aSei, boolean attachResources) throws MojoExecutionException {
         List<String> args = new ArrayList<>();

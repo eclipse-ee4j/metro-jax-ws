@@ -184,6 +184,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
 
     /**
      * Either ${build.outputDirectory} or ${build.testOutputDirectory}.
+     * @return destination directory
      */
     protected abstract File getDestDir();
 
