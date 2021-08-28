@@ -100,6 +100,7 @@
         <oss.disallow.snapshots>true</oss.disallow.snapshots>
         <vendor.name>Eclipse Foundation</vendor.name>
         <vendor.id>org.eclipse</vendor.id>
+        <jdoc.doclint>all</jdoc.doclint>
     </properties>
 
     <modules>
@@ -363,7 +364,7 @@
                             </manifest>
                         </archive>
                         <release>11</release>
-                        <aggregate>false</aggregate>
+                        <doclint>${jdoc.doclint}</doclint>
                         <dependencySourceExcludes>
                             <dependencySourceExclude>com.sun.xml.ws:*</dependencySourceExclude>
                         </dependencySourceExcludes>

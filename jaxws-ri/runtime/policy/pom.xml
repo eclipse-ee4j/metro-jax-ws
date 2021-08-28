@@ -396,6 +396,8 @@
                     </archive>
                     <release>11</release>
                     <notimestamp>true</notimestamp>
+                    <!-- too many to fix -->
+                    <doclint>-missing</doclint>
                 </configuration>
             </plugin>
         </plugins>

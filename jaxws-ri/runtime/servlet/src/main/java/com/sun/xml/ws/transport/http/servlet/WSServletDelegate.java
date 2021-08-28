@@ -163,6 +163,7 @@ public class WSServletDelegate {
      * @param request the HTTP request object
      * @param response the HTTP response object
      * @param context the Servlet context object
+     * @throws ServletException for errors
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response, ServletContext context) throws ServletException {
         doGet(request, response,context);
@@ -173,6 +174,7 @@ public class WSServletDelegate {
      * @param request the HTTP request object
      * @param response the HTTP response object
      * @param context the Servlet context object
+     * @throws ServletException for errors
      */
     public void doPut(HttpServletRequest request, HttpServletResponse response, ServletContext context)
         throws ServletException {
@@ -217,6 +219,7 @@ public class WSServletDelegate {
      * @param request the HTTP request object
      * @param response the HTTP response object
      * @param context the Servlet context object
+     * @throws ServletException for errors
      */
     public void doDelete(HttpServletRequest request, HttpServletResponse response, ServletContext context)
         throws ServletException {
