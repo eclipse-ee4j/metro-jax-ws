@@ -95,7 +95,7 @@
             </modules>
         </profile>
         <profile>
-            <id>coverage</id>
+            <id>coverage-to-update</id>
             <activation>
                 <!--<activeByDefault>true</activeByDefault>-->
                 <property>
