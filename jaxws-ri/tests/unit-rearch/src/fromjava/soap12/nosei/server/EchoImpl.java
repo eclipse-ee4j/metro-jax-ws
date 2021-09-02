@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -159,20 +159,20 @@ System.out.println("name: "+name);
 
 //    @WebMethod
 //    public String echoOutHeader(int age, @WebParam(name="num", mode=WebParam.Mode.OUT, header=true, targetNamespace="foo/bar")LongHolder num, String str) {
-//        num.value = new Long(age);;
+//        num.value = Long.valueOf(age);;
 //        return str+num.value;
 //    }
     
     @WebMethod
     public String echoOutHeader(int age, @WebParam(name="num", mode=WebParam.Mode.OUT, header=true, targetNamespace="foo/bar")Holder<Long> num, String str) {
-        num.value = new Long(age);;
+        num.value = Long.valueOf(age);;
         return str+num.value;
     }
 
 //    @WebMethod
 //    public String echoOut2Header(int age, @WebParam(name="num", mode=WebParam.Mode.OUT, header=true, targetNamespace="foo/bar")LongHolder num, 
 //					   @WebParam(name="name", header=true, mode=WebParam.Mode.OUT)Holder<String> name, String str) {
-//        num.value = new Long(age);;
+//        num.value = Long.valueOf(age);;
 //        name.value = "Fred";
 //        return str+num.value;
 //    }
@@ -180,7 +180,7 @@ System.out.println("name: "+name);
     @WebMethod
     public String echoOut2Header(int age, @WebParam(name="num", mode=WebParam.Mode.OUT, header=true, targetNamespace="foo/bar")Holder<Long> num,
                        @WebParam(name="name", header=true, mode=WebParam.Mode.OUT)Holder<String> name, String str) {
-        num.value = new Long(age);;
+        num.value = Long.valueOf(age);;
         name.value = "Fred";
         return str+num.value;
     }

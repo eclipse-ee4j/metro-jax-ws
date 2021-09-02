@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -224,7 +224,7 @@ public class EchoImpl {
 //    public String echoOutHeader(@WebParam(name="age")int age,
 //                                @WebParam(name="num", mode=WebParam.Mode.OUT, header=true)LongHolder num,
 //                                @WebParam(name="str")String str) {
-//        num.value = new Long(age);;
+//        num.value = Long.valueOf(age);;
 //        return str+num.value;
 //    }
 
@@ -232,7 +232,7 @@ public class EchoImpl {
     public String echoOutHeader(@WebParam(name="age")int age,
                                 @WebParam(name="num", mode=WebParam.Mode.OUT, header=true)Holder<Long> num,
                                 @WebParam(name="str")String str) {
-        num.value = new Long(age);;
+        num.value = Long.valueOf(age);;
         return str+num.value;
     }
 

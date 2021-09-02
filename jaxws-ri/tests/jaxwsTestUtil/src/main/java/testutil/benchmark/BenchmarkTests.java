@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -234,7 +234,7 @@ public class BenchmarkTests {
         if (System.getProperty(key) == null) {
             return defaultValue;
         } else
-            return new Integer(System.getProperty(key));
+            return Integer.valueOf(System.getProperty(key));
     }
 
 }

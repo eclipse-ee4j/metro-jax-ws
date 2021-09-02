@@ -166,6 +166,11 @@
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
         <spotbugs.version>4.3.0</spotbugs.version>
+        <!-- exclude big groups from the Xlint -->
+        <comp.xlint>-Xlint:all,-rawtypes,-unchecked,-serial</comp.xlint>
+        <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
+        <comp.xdoclint>-Xdoclint:none</comp.xdoclint>
+        <warn.limit>150</warn.limit>
 
         <jaxws-tools.version>${project.version}</jaxws-tools.version>
         <!--<jaxws-tools.version>2.3.2</jaxws-tools.version>-->
@@ -258,6 +263,14 @@
                 <configuration>
                     <release>8</release>
                     <testRelease>8</testRelease>
+                    <compilerArgs combine.children="append">
+                        <arg>${comp.xlint}</arg>
+                        <arg>${comp.xdoclint}</arg>
+                        <arg>-Xmaxwarns</arg>
+                        <arg>${warn.limit}</arg>
+                        <arg>-Xmaxerrs</arg>
+                        <arg>${warn.limit}</arg>
+                    </compilerArgs>
                 </configuration>
                 <executions>
                     <execution>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -154,7 +154,7 @@ public class SDORuntimeBasicTest extends SDODatabindingTestBase {
         Object obj = proxy.addNumbers(4, -83);
         assertTrue(obj instanceof Integer);
         Integer resp = (Integer) obj;
-        assertEquals(new Integer(-79), resp);
+        assertEquals(Integer.valueOf(-79), resp);
     }
 
 

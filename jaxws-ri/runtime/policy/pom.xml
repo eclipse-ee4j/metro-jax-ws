@@ -80,6 +80,11 @@
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Low</spotbugs.threshold>
         <spotbugs.version>4.3.0</spotbugs.version>
+        <!-- exclude big groups from the Xlint -->
+        <comp.xlint>-Xlint:all,-rawtypes,-unchecked,-serial</comp.xlint>
+        <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
+        <comp.xdoclint>-Xdoclint:none</comp.xdoclint>
+        <warn.limit>150</warn.limit>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <base.java.level>8</base.java.level>
@@ -229,7 +234,14 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <release>${upper.java.level}</release>
-                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <compilerArgs combine.children="append">
+                        <arg>${comp.xlint}</arg>
+                        <arg>${comp.xdoclint}</arg>
+                        <arg>-Xmaxwarns</arg>
+                        <arg>${warn.limit}</arg>
+                        <arg>-Xmaxerrs</arg>
+                        <arg>${warn.limit}</arg>
+                    </compilerArgs>
                 </configuration>
                 <executions>
                     <execution>
@@ -333,7 +345,6 @@
                 <configuration>
                     <skip>${spotbugs.skip}</skip>
                     <threshold>${spotbugs.threshold}</threshold>
-                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
                     <excludeFilterFile>
                         ${spotbugs.exclude}
                     </excludeFilterFile>
