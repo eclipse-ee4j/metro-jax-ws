@@ -94,58 +94,5 @@
                 <!--<module>unit-rearch</module>-->
             </modules>
         </profile>
-        <profile>
-            <id>coverage-to-update</id>
-            <activation>
-                <!--<activeByDefault>true</activeByDefault>-->
-                <property>
-                    <name>jacoco-build</name>
-                </property>
-            </activation>
-            <modules>
-                <module>coverage</module>
-            </modules>
-
-            <properties>
-                <jaxwsri.dep.classifier>instrumented</jaxwsri.dep.classifier>
-                <ws.jvmOpts>-Djacoco-agent.destfile=${project.build.directory}/jacoco.exec</ws.jvmOpts>
-            </properties>
-
-            <dependencies>
-                <!-- sources -->
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>jaxws-rt</artifactId>
-                    <version>${project.version}</version>
-                    <classifier>sources</classifier>
-                    <type>jar</type>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>jaxws-tools</artifactId>
-                    <version>${project.version}</version>
-                    <classifier>sources</classifier>
-                    <type>jar</type>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>jaxws-eclipselink-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <classifier>sources</classifier>
-                    <type>jar</type>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>sdo-eclipselink-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <classifier>sources</classifier>
-                    <type>jar</type>
-                    <scope>compile</scope>
-                </dependency>
-            </dependencies>
-        </profile>
     </profiles>
 </project>

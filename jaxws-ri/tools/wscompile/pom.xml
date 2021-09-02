@@ -240,7 +240,7 @@
                         <jakarta.jws-api.version>${jakarta.jws-api.version}</jakarta.jws-api.version>
                         <jakarta.annotation-api.version>${jakarta.annotation-api.version}</jakarta.annotation-api.version>
                         <jaxws-api.version>${jaxws-api.version}</jaxws-api.version>
-                        <jacoco-agent.destfile>${project.build.directory}</jacoco-agent.destfile>
+                        <coverage>${coverage}</coverage>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>
@@ -374,5 +374,48 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>coverage</id>
+            <activation>
+                <property>
+                    <name>jacoco-build</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-prepare-agent-for-ant</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                                <configuration>
+                                    <propertyName>coverage</propertyName>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>default-report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <!-- configuration should be removed once this bug https://github.com/jacoco/jacoco/issues/407 is fixed -->
+                                <configuration>
+                                    <excludes>
+                                        <exclude>com/sun/tools/ws/ant/WsGen2.class</exclude>
+                                        <exclude>com/sun/tools/ws/ant/WsImport2.class</exclude>
+                                    </excludes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
