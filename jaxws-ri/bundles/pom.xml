@@ -30,7 +30,7 @@
     <name>JAX-WS RI Bundles</name>
 
     <properties>
-        <findbugs.skip>true</findbugs.skip>
+        <spotbugs.skip>true</spotbugs.skip>
         <jacoco.skip>true</jacoco.skip>
     </properties>
 

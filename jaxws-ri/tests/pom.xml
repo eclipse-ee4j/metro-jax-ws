@@ -39,6 +39,7 @@
         <!-- extra JVM options for JVM forked by test harness, ie proxy, tests' debugging-->
         <ws.jvmOpts></ws.jvmOpts>
         <ws.permGenJvmOpts></ws.permGenJvmOpts>
+        <spotbugs.skip>true</spotbugs.skip>
     </properties>
 
     <build>
