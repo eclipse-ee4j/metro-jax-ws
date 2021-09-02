@@ -181,28 +181,6 @@
         </profile>
 
         <profile>
-            <id>jaxwsInJDK6</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <ws.all-args>-jaxwsInJDK -version 2.1.6 -lwhs ${ws.args}</ws.all-args>
-                <maven.endorsed.skip>true</maven.endorsed.skip>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>jaxwsInJDK7</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <ws.all-args>-jaxwsInJDK -version 2.2.4 -lwhs ${ws.args}</ws.all-args>
-                <maven.endorsed.skip>true</maven.endorsed.skip>
-            </properties>
-        </profile>
-
-        <profile>
             <id>jaxwsInJDK8</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
