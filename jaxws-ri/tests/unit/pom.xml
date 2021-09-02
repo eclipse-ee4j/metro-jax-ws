@@ -484,30 +484,8 @@
                     <name>jacoco-build</name>
                 </property>
             </activation>
-            <properties>
-                <ws.jvmOpts>-Djacoco-agent.destfile=${basedir}/target/jacoco.exec</ws.jvmOpts>
-            </properties>
             <build>
                 <plugins>
-                    <!--plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy-exec-file</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <copy todir="target/jacoco" file="${basedir}/target/jacoco.exec"
-                                              verbose="true" failonerror="true"/>
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin-->
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
@@ -518,13 +496,67 @@
                                 <goals>
                                     <goal>prepare-agent</goal>
                                 </goals>
+                                <configuration>
+                                    <propertyName>ws.jvmOpts</propertyName>
+                                    <classDumpDir>${project.build.outputDirectory}</classDumpDir>
+                                </configuration>
                             </execution>
                             <execution>
                                 <id>default-report</id>
-                                <phase>package</phase>
+                                <phase>verify</phase>
                                 <goals>
                                     <goal>report</goal>
                                 </goals>
+                                <configuration>
+                                    <excludes>
+                                        <!-- JDK -->
+                                        <exclude>javax/annotation/**</exclude>
+                                        <exclude>javax/lang/**</exclude>
+                                        <exclude>javax/tools/**</exclude>
+                                        <exclude>jdk/javadoc/**</exclude>
+                                        <exclude>jdk/nio/**</exclude>
+                                        <exclude>com/sun/net/**</exclude>
+                                        <exclude>com/sun/source/**</exclude>
+                                        <exclude>com/sun/tools/doclint/**</exclude>
+                                        <exclude>com/sun/tools/javac/**</exclude>
+                                        <exclude>sun/net/**</exclude>
+                                        <exclude>sun/nio/**</exclude>
+                                        <exclude>sun/util/**</exclude>
+                                        <!-- test runtime & dependencies -->
+                                        <exclude>bsh/**</exclude>
+                                        <exclude>junit/**</exclude>
+                                        <exclude>org/junit/**</exclude>
+                                        <exclude>org/apache/**</exclude>
+                                        <exclude>freemarker/**</exclude>
+                                        <exclude>org/ctc/**</exclude>
+                                        <!-- -tests -->
+                                        <exclude>async/**</exclude>
+                                        <exclude>bugs/**</exclude>
+                                        <exclude>customization/**</exclude>
+                                        <exclude>epr/**</exclude>
+                                        <exclude>fromjava/**</exclude>
+                                        <exclude>handler/**</exclude>
+                                        <exclude>provider/**</exclude>
+                                        <exclude>server/**</exclude>
+                                        <exclude>wsa/**</exclude>
+                                        <exclude>xop/**</exclude>
+                                        <exclude>benchmark/**</exclude>
+                                        <exclude>client/**</exclude>
+                                        <exclude>deployment/**</exclude>
+                                        <exclude>externalmetadata/**</exclude>
+                                        <exclude>fromwsdl/**</exclude>
+                                        <exclude>mtom/**</exclude>
+                                        <exclude>rt_wsdl_parser/**</exclude>
+                                        <exclude>whitebox/**</exclude>
+                                        <exclude>wsimport/**</exclude>
+                                        <exclude>custom/**</exclude>
+                                        <exclude>default/**</exclude>
+                                        <exclude>dispatch/**</exclude>
+                                        <exclude>jaxws/**</exclude>
+                                        <exclude>testcases/**</exclude>
+                                        <exclude>testutil/**</exclude>
+                                    </excludes>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
