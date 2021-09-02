@@ -90,6 +90,11 @@
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
         <spotbugs.version>4.3.0</spotbugs.version>
+        <!-- exclude big groups from the Xlint -->
+        <comp.xlint>-Xlint:all,-rawtypes,-unchecked,-serial</comp.xlint>
+        <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
+        <comp.xdoclint>-Xdoclint:none</comp.xdoclint>
+        <warn.limit>150</warn.limit>
 
         <ignore.failing.tests>true</ignore.failing.tests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -259,9 +264,14 @@
                     <version>3.8.1</version>
                     <configuration>
                         <release>${upper.java.level}</release>
-                        <source>${upper.java.level}</source>
-                        <target>${upper.java.level}</target>
-                        <compilerArgument>-Xlint:all</compilerArgument>
+                        <compilerArgs combine.children="append">
+                            <arg>${comp.xlint}</arg>
+                            <arg>${comp.xdoclint}</arg>
+                            <arg>-Xmaxwarns</arg>
+                            <arg>${warn.limit}</arg>
+                            <arg>-Xmaxerrs</arg>
+                            <arg>${warn.limit}</arg>
+                        </compilerArgs>
                     </configuration>
                     <executions>
                         <execution>
