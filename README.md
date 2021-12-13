@@ -6,6 +6,9 @@
 [//]: # "  "
 [//]: # " SPDX-License-Identifier: BSD-3-Clause "
 
+[![Build Status](https://github.com/eclipse-ee4j/metro-jax-ws/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/eclipse-ee4j/metro-jax-ws/actions/workflows/maven.yml?branch=master)
+[![Jakarta Staging (Snapshots)](https://img.shields.io/nexus/s/https/jakarta.oss.sonatype.org/com.sun.xml.ws/jaxws-ri.svg)](https://jakarta.oss.sonatype.org/content/repositories/staging/com/sun/xml/ws/jaxws-ri/)
+
 # Eclipse Implementation of Jakarta XML Web Services
 
 This project contains Jakarta XML Web Services implementation,
