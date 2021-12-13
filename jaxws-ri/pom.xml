@@ -424,6 +424,50 @@
 
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>common-resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/resources.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.sun.xml.ws</groupId>
+                                    <artifactId>project</artifactId>
+                                    <version>${project.version}</version>
+                                    <classifier>resources</classifier>
+                                    <type>zip</type>
+                                    <outputDirectory>${project.build.commonResourcesDirectory}</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>com.sun.istack</groupId>
                 <artifactId>import-properties-plugin</artifactId>
             </plugin>
@@ -463,10 +507,6 @@
                             <resources>
                                 <resource>
                                     <directory>${legal.doc.source}</directory>
-                                    <includes>
-                                        <include>NOTICE.md</include>
-                                        <include>LICENSE.md</include>
-                                    </includes>
                                     <targetPath>META-INF</targetPath>
                                 </resource>
                             </resources>
