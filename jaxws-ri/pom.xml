@@ -79,13 +79,15 @@
     </mailingLists>
 
     <properties>
-        <copyright.alternatetemplate>src/main/resources/copyright-apache2.txt</copyright.alternatetemplate>
-        <copyright.exclude>src/main/resources/copyright-exclude</copyright.exclude>
+        <project.build.commonResourcesDirectory>${project.build.directory}/common-resources</project.build.commonResourcesDirectory>
+        <legal.doc.source>${project.build.commonResourcesDirectory}/legal</legal.doc.source>
+        <copyright.alternatetemplate>${project.build.commonResourcesDirectory}/config/copyright-apache2.txt</copyright.alternatetemplate>
+        <copyright.exclude>${project.build.commonResourcesDirectory}/config/copyright-exclude</copyright.exclude>
         <copyright.ignoreyear>false</copyright.ignoreyear>
         <copyright.scmonly>true</copyright.scmonly>
-        <copyright.template>src/main/resources/copyright.txt</copyright.template>
+        <copyright.template>${project.build.commonResourcesDirectory}/config/copyright.txt</copyright.template>
         <copyright.update>false</copyright.update>
-        <spotbugs.common>src/main/resources/exclude-common.xml</spotbugs.common>
+        <spotbugs.common>${project.build.commonResourcesDirectory}/config/exclude-common.xml</spotbugs.common>
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
@@ -96,7 +98,6 @@
         <mrjar.sourceDirectory>${project.basedir}/src/main/java-mr</mrjar.sourceDirectory>
         <base.java.level>8</base.java.level>
         <upper.java.level>9</upper.java.level>
-        <legal.doc.source>${maven.multiModuleProjectDirectory}/..</legal.doc.source>
         <oss.disallow.snapshots>true</oss.disallow.snapshots>
         <vendor.name>Eclipse Foundation</vendor.name>
         <vendor.id>org.eclipse</vendor.id>
