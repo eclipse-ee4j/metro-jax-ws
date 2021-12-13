@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,15 +11,17 @@
 package com.sun.xml.ws.api.server;
 
 import com.sun.xml.stream.buffer.XMLStreamBuffer;
-import com.sun.xml.ws.streaming.TidyXMLStreamReader;
 import com.sun.xml.ws.api.streaming.XMLStreamReaderFactory;
 import com.sun.xml.ws.server.ServerRtException;
+import com.sun.xml.ws.streaming.TidyXMLStreamReader;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -73,13 +75,14 @@ public abstract class SDDocumentSource {
      */
     public abstract URL getSystemId();
 
-    public static SDDocumentSource create(final Class implClass, final String wsdlLocation) {
+    public static SDDocumentSource create(final Class<?> implClass, final String wsdlLocation) {
         ClassLoader cl = implClass.getClassLoader();
-            URL url = cl.getResource(wsdlLocation);
-            if (url != null) {
-                return create(url);
-            }
-            throw new ServerRtException("cannot.load.wsdl", wsdlLocation);
+        URL url = cl.getResource(wsdlLocation);
+        if (url != null) {
+            return create(url);
+        } else {
+            return create(wsdlLocation, implClass);
+        }
     }
 
     /**
@@ -95,20 +98,63 @@ public abstract class SDDocumentSource {
             public XMLStreamReader read(XMLInputFactory xif) throws IOException, XMLStreamException {
                 InputStream is = url.openStream();
                 return new TidyXMLStreamReader(
-                    xif.createXMLStreamReader(systemId.toExternalForm(),is), is);
+                        xif.createXMLStreamReader(systemId.toExternalForm(),is), is);
             }
 
             @Override
             public XMLStreamReader read() throws IOException, XMLStreamException {
                 InputStream is = url.openStream();
                 return new TidyXMLStreamReader(
-                   XMLStreamReaderFactory.create(systemId.toExternalForm(),is,false), is);
+                        XMLStreamReaderFactory.create(systemId.toExternalForm(),is,false), is);
             }
 
             @Override
             public URL getSystemId() {
                 return systemId;
             }
+        };
+    }
+
+    /**
+     * Creates {@link SDDocumentSource} from resource path using resolvingClass to read the resource.
+     * Required for Jigsaw runtime.
+     *
+     * @param resolvingClass class used to read resource
+     * @param path resource path
+     */
+    private static SDDocumentSource create(final String path, final Class<?> resolvingClass) {
+        return new SDDocumentSource() {
+
+            @Override
+            public XMLStreamReader read(XMLInputFactory xif) throws IOException, XMLStreamException {
+                InputStream is = inputStream();
+                return new TidyXMLStreamReader(xif.createXMLStreamReader(path,is), is);
+            }
+
+            @Override
+            public XMLStreamReader read() throws IOException, XMLStreamException {
+                InputStream is = inputStream();
+                return new TidyXMLStreamReader(XMLStreamReaderFactory.create(path,is,false), is);
+            }
+
+            @Override
+            public URL getSystemId() {
+                try {
+                    return new URL("file://" + path);
+                } catch (MalformedURLException e) {
+                    return null;
+                }
+            }
+
+            private InputStream inputStream() throws IOException {
+                java.lang.Module module = resolvingClass.getModule();
+                InputStream stream = module.getResourceAsStream(path);
+                if (stream != null) {
+                    return stream;
+                }
+                throw new ServerRtException("cannot.load.wsdl", path);
+            }
+
         };
     }
 

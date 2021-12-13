@@ -18,24 +18,19 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>bundles</artifactId>
-        <version>3.0.3-SNAPSHOT</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-ri</artifactId>
-    <version>3.0.3-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     <name>JAX-WS RI Standalone Zipped Bundle</name>
     <description>Open source Compatible Implementation of Jakarta XML Web Services Distribution</description>
 
     <dependencies>
-        <dependency>
-            <groupId>com.sun.org.apache.xml.internal</groupId>
-            <artifactId>resolver</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jaxws-rt</artifactId>
