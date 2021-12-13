@@ -79,13 +79,15 @@
     </mailingLists>
 
     <properties>
-        <copyright.alternatetemplate>src/main/resources/copyright-apache2.txt</copyright.alternatetemplate>
-        <copyright.exclude>src/main/resources/copyright-exclude</copyright.exclude>
+        <project.build.commonResourcesDirectory>${project.build.directory}/common-resources</project.build.commonResourcesDirectory>
+        <legal.doc.source>${project.build.commonResourcesDirectory}/legal</legal.doc.source>
+        <copyright.alternatetemplate>${project.build.commonResourcesDirectory}/config/copyright-apache2.txt</copyright.alternatetemplate>
+        <copyright.exclude>${project.build.commonResourcesDirectory}/config/copyright-exclude</copyright.exclude>
         <copyright.ignoreyear>false</copyright.ignoreyear>
         <copyright.scmonly>true</copyright.scmonly>
-        <copyright.template>src/main/resources/copyright.txt</copyright.template>
+        <copyright.template>${project.build.commonResourcesDirectory}/config/copyright.txt</copyright.template>
         <copyright.update>false</copyright.update>
-        <spotbugs.common>src/main/resources/exclude-common.xml</spotbugs.common>
+        <spotbugs.common>${project.build.commonResourcesDirectory}/config/exclude-common.xml</spotbugs.common>
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
@@ -98,7 +100,6 @@
 
         <ignore.failing.tests>true</ignore.failing.tests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <legal.doc.source>${maven.multiModuleProjectDirectory}/..</legal.doc.source>
         <oss.disallow.snapshots>true</oss.disallow.snapshots>
         <vendor.name>Eclipse Foundation</vendor.name>
         <vendor.id>org.eclipse</vendor.id>
@@ -452,6 +453,50 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>common-resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/resources.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.sun.xml.ws</groupId>
+                                    <artifactId>project</artifactId>
+                                    <version>${project.version}</version>
+                                    <classifier>resources</classifier>
+                                    <type>zip</type>
+                                    <outputDirectory>${project.build.commonResourcesDirectory}</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <executions>
@@ -465,10 +510,6 @@
                             <resources>
                                 <resource>
                                     <directory>${legal.doc.source}</directory>
-                                    <includes>
-                                        <include>NOTICE.md</include>
-                                        <include>LICENSE.md</include>
-                                    </includes>
                                     <targetPath>META-INF</targetPath>
                                 </resource>
                             </resources>
