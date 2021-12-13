@@ -198,6 +198,7 @@
                 <executions>
                     <execution>
                         <id>repackage-asm</id>
+                        <phase>generate-sources</phase>
                         <goals>
                             <goal>rename</goal>
                         </goals>
