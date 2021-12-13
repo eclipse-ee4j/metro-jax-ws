@@ -18,13 +18,13 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-ri-bom-ext</artifactId>
-        <version>3.0.3-SNAPSHOT</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath>boms/bom-ext/pom.xml</relativePath>
     </parent>
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>project</artifactId>
-    <version>3.0.3-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Jakarta XML Web Services Implementation</name>
     <description>Open source Implementation of Jakarta XML Web Services (formerly JSR-224: Java API for XML Web Services)</description>
@@ -89,7 +89,7 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
-        <spotbugs.version>4.3.0</spotbugs.version>
+        <spotbugs.version>4.5.0.0</spotbugs.version>
         <!-- exclude big groups from the Xlint -->
         <comp.xlint>-Xlint:all,-rawtypes,-unchecked,-serial</comp.xlint>
         <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
@@ -98,9 +98,6 @@
 
         <ignore.failing.tests>true</ignore.failing.tests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mrjar.sourceDirectory>${project.basedir}/src/main/java-mr</mrjar.sourceDirectory>
-        <base.java.level>8</base.java.level>
-        <upper.java.level>9</upper.java.level>
         <legal.doc.source>${maven.multiModuleProjectDirectory}/..</legal.doc.source>
         <oss.disallow.snapshots>true</oss.disallow.snapshots>
         <vendor.name>Eclipse Foundation</vendor.name>
@@ -263,7 +260,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.1</version>
                     <configuration>
-                        <release>${upper.java.level}</release>
+                        <release>11</release>
                         <compilerArgs combine.children="append">
                             <arg>${comp.xlint}</arg>
                             <arg>${comp.xdoclint}</arg>
@@ -273,20 +270,6 @@
                             <arg>${warn.limit}</arg>
                         </compilerArgs>
                     </configuration>
-                    <executions>
-                        <execution>
-                            <id>base-compile</id>
-                            <goals>
-                                <goal>compile</goal>
-                            </goals>
-                            <configuration>
-                                <release>${base.java.level}</release>
-                                <excludes>
-                                    <exclude>module-info.java</exclude>
-                                </excludes>
-                            </configuration>
-                        </execution>
-                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -687,26 +670,6 @@
                                 <goals>
                                     <goal>report</goal>
                                 </goals>
-                                <!-- configuration should be removed once this bug https://github.com/jacoco/jacoco/issues/407 is fixed -->
-                                <configuration>
-                                    <excludes>
-                                        <exclude>com/oracle/webservices/api/message/AccessorFactory.class</exclude>
-                                        <exclude>com/oracle/webservices/api/message/AccessorFactory$MethodHandleAccessor.class</exclude>
-                                        <exclude>com/oracle/webservices/api/message/AccessorFactory$VarHandleAccessor.class</exclude>
-                                        <exclude>com/sun/xml/ws/api/server/SDDocumentSource.class</exclude>
-                                        <exclude>com/sun/xml/ws/api/server/SDDocumentSource$1.class</exclude>
-                                        <exclude>com/sun/xml/ws/api/server/SDDocumentSource$2.class</exclude>
-                                        <exclude>com/sun/xml/ws/api/server/SDDocumentSource$3.class</exclude>
-                                        <exclude>com/sun/xml/ws/model/InjectorHelper.class</exclude>
-                                        <exclude>com/sun/xml/ws/model/InjectorHelper$dummy.class</exclude>
-                                        <exclude>com/sun/xml/ws/util/AuthUtil.class</exclude>
-                                        <exclude>com/sun/xml/ws/util/MrJarUtil.class</exclude>
-                                        <exclude>com/sun/xml/ws/util/MrJarUtil$1.class</exclude>
-                                        <exclude>com/sun/xml/ws/util/xml/XmlCatalogUtil.class</exclude>
-                                        <exclude>com/sun/tools/ws/ant/WsGen2.class</exclude>
-                                        <exclude>com/sun/tools/ws/ant/WsImport2.class</exclude>
-                                    </excludes>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

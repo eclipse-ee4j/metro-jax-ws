@@ -17,7 +17,7 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>bundles</artifactId>
-        <version>3.0.3-SNAPSHOT</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -92,14 +92,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- To be removed after end of support for JDK 8 -->
-        <dependency>
-            <groupId>com.sun.org.apache.xml.internal</groupId>
-            <artifactId>resolver</artifactId>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
         <!-- provided -->
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -141,7 +133,6 @@
 
     <properties>
         <dep.sources>${project.build.directory}/generated-sources/dependencies</dep.sources>
-        <dep.sources.mr>${project.build.directory}/generated-sources/dependencies-mr</dep.sources.mr>
         <!-- too many to fix -->
         <jdoc.doclint>-missing</jdoc.doclint>
     </properties>
@@ -165,22 +156,6 @@
                             <excludeTransitive>true</excludeTransitive>
                             <excludes>module-info.*,META-INF/versions/**, META-INF/MANIFEST.MF</excludes>
                             <outputDirectory>${dep.sources}</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unpack-sources-mr</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeGroupIds>${project.groupId}</includeGroupIds>
-                            <includeArtifactIds>rt</includeArtifactIds>
-                            <includeScope>provided</includeScope>
-                            <classifier>sources</classifier>
-                            <excludeTransitive>true</excludeTransitive>
-                            <includes>META-INF/versions/9/**</includes>
-                            <outputDirectory>${dep.sources.mr}</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -226,48 +201,6 @@
                             </sources>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>add-mr-resource</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>add-resource</goal>
-                        </goals>
-                        <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>${dep.sources.mr}</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-compile</id>
-                        <configuration>
-                            <!-- adds reads for ha-api, xmlresolver -->
-                            <compilerArgs>
-                                <arg>--add-reads</arg>
-                                <arg>com.sun.xml.ws=ALL-UNNAMED</arg>
-                            </compilerArgs>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-compile-mr</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <compileSourceRoots>
-                                <compileSourceRoot>${dep.sources.mr}/META-INF/versions/9</compileSourceRoot>
-                            </compileSourceRoots>
-                            <outputDirectory>${project.build.outputDirectory}/META-INF/versions/9</outputDirectory>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -282,17 +215,11 @@
                         </goals>
                         <configuration>
                             <instructions>
-                                <Export-Package>
-                                    !META-INF.*,
-                                    *
-                                </Export-Package>
                                 <Import-Package>
-                                    javax.xml.catalog;resolution:=optional,
                                     sun.misc;resolution:=optional,
                                     com.sun.xml.ws.assembler.metro.jaxws;resolution:=optional,
                                     *
                                 </Import-Package>
-                                <Multi-Release>true</Multi-Release>
                                 <probe-provider-class-names>com.sun.xml.ws.transport.http.servlet.JAXWSRIDeploymentProbeProvider</probe-provider-class-names>
                                 <Class-Path>jakarta.annotation-api.jar jakarta.activation.jar jakarta.mail.jar jakarta.jws-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar FastInfoset.jar gmbal-api-only.jar ha-api.jar jaxb-core.jar jaxb-impl.jar management-api.jar mimepull.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar woodstox-core.jar</Class-Path>
                                 <Extension-Name>com.sun.xml.ws</Extension-Name>
@@ -312,21 +239,9 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Multi-Release>true</Multi-Release>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <includeDependencySources>false</includeDependencySources>
-                    <additionalOptions>--add-reads com.sun.xml.ws=ALL-UNNAMED</additionalOptions>
                     <tags>
                         <tag>
                             <name>exclude</name>

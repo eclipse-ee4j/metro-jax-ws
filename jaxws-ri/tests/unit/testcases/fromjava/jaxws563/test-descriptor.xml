@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,8 +11,8 @@
 
 -->
 
-<!--TODO: nbug not fixed yet, see https://java.net/jira/browse/JAX_WS-563 -->
-<descriptor since="4.0">
+<!--TODO: bug not fixed yet, see https://java.net/jira/browse/JAX_WS-563 -->
+<descriptor since="5.0">
   <description>This is a JAXWS 563 test</description>
   <service basedir="./server">
   </service>

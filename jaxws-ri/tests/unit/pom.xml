@@ -18,14 +18,14 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-ri-tests</artifactId>
-        <version>3.0.3-SNAPSHOT</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>jaxws-unit</artifactId>
     <packaging>pom</packaging>
-    <version>3.0.3-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
 
     <name>JAX-WS RI Unit Tests</name>
     <description>JAX-WS RI Unit Tests</description>
@@ -388,12 +388,6 @@
                     </exclusions>
                 </dependency>
                 -->
-
-                <!-- To be removed after end of support for JDK 8 -->
-<!--                <dependency>
-                    <groupId>com.sun.org.apache.xml.internal</groupId>
-                    <artifactId>resolver</artifactId>
-                </dependency>-->
 
                 <!-- Plugin dependencies -->
                 <dependency>

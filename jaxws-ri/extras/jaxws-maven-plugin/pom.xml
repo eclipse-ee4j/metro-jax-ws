@@ -35,7 +35,7 @@
     <packaging>maven-plugin</packaging>
     <name>Maven JAXWS 3.x Plugin</name>
     <description>Maven plugin for JAX-WS RI</description>
-    <version>3.0.3-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
 
     <licenses>
         <license>
@@ -165,15 +165,15 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
-        <spotbugs.version>4.3.0</spotbugs.version>
+        <spotbugs.version>4.5.0.0</spotbugs.version>
         <!-- exclude big groups from the Xlint -->
         <comp.xlint>-Xlint:all,-rawtypes,-unchecked,-serial</comp.xlint>
         <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
         <comp.xdoclint>-Xdoclint:none</comp.xdoclint>
         <warn.limit>150</warn.limit>
 
-        <jaxws-tools.version>${project.version}</jaxws-tools.version>
-        <!--<jaxws-tools.version>2.3.2</jaxws-tools.version>-->
+<!--        <jaxws-tools.version>${project.version}</jaxws-tools.version>-->
+        <jaxws-tools.version>3.0.2</jaxws-tools.version>
     </properties>
 
     <build>
@@ -415,7 +415,7 @@
                         <configuration>
                             <debug>${ittest.debug}</debug>
                             <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
-                            <!--<streamLogs>true</streamLogs>-->
+<!--                            <streamLogs>true</streamLogs>-->
                             <addTestClassPath>true</addTestClassPath>
                             <settingsFile>${project.build.directory}/it-settings.xml</settingsFile>
                             <mavenOpts>${ittest-proxy} -Djavax.xml.accessExternalSchema=all</mavenOpts>

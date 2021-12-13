@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -156,17 +156,6 @@
                 </tbody>
             </tgroup>
         </table>
-
-        <para>If you run &ws.impl.name.full; with IBM JDK, there are two options:
-            <itemizedlist>
-                <listitem><para>to add Oracles's JAXP implementation jars along</para></listitem>
-                <listitem><para>to remove the saaj-impl.jar from the libraries in order IBM SAAJ implementation to be used</para></listitem>
-            </itemizedlist>
-            &ws.impl.name; also depends on resolver implementation form JDK, which is not found on AIX. The repackaged resolver.jar can be found in the distribution, or <link
-        xlink:href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.sun.org.apache.xml.internal%22">Maven</link> though.
-            
-            First approach is recommended.
-        </para>
 
     </section>
 

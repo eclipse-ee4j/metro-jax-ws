@@ -24,7 +24,7 @@
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-ri-bom</artifactId>
 
-    <version>3.0.3-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>JAX-WS RI Bill-of-Materials (BOM)</name>
@@ -41,7 +41,6 @@
         <jakarta.jws-api.version>3.0.0</jakarta.jws-api.version>
         <management-api.version>3.2.3</management-api.version>
         <mimepull.version>1.9.15</mimepull.version>
-        <resolver.version>20050927</resolver.version>
         <saaj-api.version>2.0.1</saaj-api.version>
         <saaj-impl.version>2.0.1</saaj-impl.version>
         <streambuffer.version>2.0.2</streambuffer.version>
@@ -176,12 +175,6 @@
                 <groupId>jakarta.xml.ws</groupId>
                 <artifactId>jakarta.xml.ws-api</artifactId>
                 <version>${jaxws-api.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.sun.org.apache.xml.internal</groupId>
-                <artifactId>resolver</artifactId>
-                <version>${resolver.version}</version>
             </dependency>
 
             <dependency>
