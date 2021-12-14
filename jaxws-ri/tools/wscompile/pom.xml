@@ -155,11 +155,6 @@
                                     <artifactId>jakarta.annotation-api</artifactId>
                                     <type>jar</type>
                                 </artifactItem>
-                                <artifactItem>
-                                    <groupId>jakarta.jws</groupId>
-                                    <artifactId>jakarta.jws-api</artifactId>
-                                    <type>jar</type>
-                                </artifactItem>
                             </artifactItems>
                         </configuration>
                     </execution>
@@ -171,7 +166,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <excludeArtifactIds>jakarta.activation-api,ant-launcher,ant-nodeps</excludeArtifactIds>
+                            <excludeArtifactIds>ant-launcher,ant-nodeps</excludeArtifactIds>
                             <excludeScope>system</excludeScope>
                         </configuration>
                     </execution>
@@ -225,7 +220,6 @@
                         <java.io.tmpdir>${project.build.directory}/test-antprojects</java.io.tmpdir>
                         <bin.folder>${project.build.directory}</bin.folder>
                         <xml.bind-api.version>${xml.bind-api.version}</xml.bind-api.version>
-                        <jakarta.jws-api.version>${jakarta.jws-api.version}</jakarta.jws-api.version>
                         <jakarta.annotation-api.version>${jakarta.annotation-api.version}</jakarta.annotation-api.version>
                         <jaxws-api.version>${jaxws-api.version}</jaxws-api.version>
                         <coverage>${coverage}</coverage>

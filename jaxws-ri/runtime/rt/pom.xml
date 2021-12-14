@@ -86,24 +86,30 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- we need API for compile and impl for runtime
-             to make usage easy, let's just depend on the impl -->
         <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
         </dependency>
 
         <!-- Runtime dependencies -->
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-mail</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.sun.xml.messaging.saaj</groupId>
             <artifactId>saaj-impl</artifactId>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <artifactId>woodstox-core</artifactId>
             <groupId>com.fasterxml.woodstox</groupId>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <groupId>org.codehaus.woodstox</groupId>
             <artifactId>stax2-api</artifactId>
@@ -210,7 +216,7 @@
                         <include>**/*Test.java</include>
                     </includes>
                     <!-- exclude APIs as implementations are needed on the path -->
-                    <classpathDependencyExcludes>jakarta.mail:jakarta.mail-api</classpathDependencyExcludes>
+                    <!--classpathDependencyExcludes>jakarta.mail:jakarta.mail-api</classpathDependencyExcludes-->
                     <systemProperties>
                         <jakarta.xml.ws.spi.Provider>com.sun.xml.ws.spi.ProviderImpl</jakarta.xml.ws.spi.Provider>
                     </systemProperties>

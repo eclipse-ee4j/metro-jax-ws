@@ -11,7 +11,6 @@
 module com.sun.tools.ws.wscompile.test {
     requires java.xml;
     requires transitive com.sun.tools.ws.wscompile;
-    requires jakarta.jws;
     requires jakarta.xml.bind;
     requires jakarta.xml.ws;
     requires java.rmi;

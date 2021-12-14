@@ -91,7 +91,7 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
-        <spotbugs.version>4.5.0.0</spotbugs.version>
+        <spotbugs.version>4.5.2</spotbugs.version>
         <!-- exclude big groups from the Xlint -->
         <comp.xlint>-Xlint:all,-rawtypes,-unchecked,-serial</comp.xlint>
         <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
@@ -736,8 +736,14 @@
     <dependencies>
         <!-- Make sure new apis are used across the project -->
         <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-activation</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -753,11 +759,6 @@
         <dependency>
             <groupId>jakarta.xml.soap</groupId>
             <artifactId>jakarta.xml.soap-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.jws</groupId>
-            <artifactId>jakarta.jws-api</artifactId>
         </dependency>
 
         <dependency>
