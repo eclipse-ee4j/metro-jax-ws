@@ -37,8 +37,8 @@
         <commonj.sdo.version>2.1.1</commonj.sdo.version>
         <eclipselink.version>3.1.0-M1</eclipselink.version>
         <junit.version>4.13.2</junit.version>
-        <mail-api.version>2.1.0-SNAPSHOT</mail-api.version>
-        <angus-mail.version>1.0.0-SNAPSHOT</angus-mail.version>
+        <mail-api.version>2.1.0</mail-api.version>
+        <angus-mail.version>1.0.0-M2</angus-mail.version>
         <servlet-api.version>6.0.0</servlet-api.version>
     </properties>
             
