@@ -79,7 +79,7 @@
         <spotbugs.exclude>${project.basedir}/exclude.xml</spotbugs.exclude>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Low</spotbugs.threshold>
-        <spotbugs.version>4.3.0</spotbugs.version>
+        <spotbugs.version>4.5.0.0</spotbugs.version>
         <!-- exclude big groups from the Xlint -->
         <comp.xlint>-Xlint:all,-rawtypes,-unchecked,-serial</comp.xlint>
         <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
@@ -89,9 +89,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <legal.doc.source>${project.basedir}/../../..</legal.doc.source>
 
-        <jaxb.version>3.0.2</jaxb.version>
+        <jaxb.version>4.0.0-M2</jaxb.version>
         <junit.version>4.13.2</junit.version>
-        <istack.version>4.0.1</istack.version>
+        <istack.version>4.1.0-M1</istack.version>
     </properties>
 
     <dependencyManagement>
