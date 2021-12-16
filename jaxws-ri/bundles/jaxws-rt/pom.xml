@@ -77,6 +77,12 @@
         <!-- Runtime dependencies -->
         <dependency>
             <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-activation</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
             <artifactId>angus-mail</artifactId>
             <scope>runtime</scope>
         </dependency>
@@ -235,7 +241,7 @@
                                     *
                                 </Import-Package>
                                 <probe-provider-class-names>com.sun.xml.ws.transport.http.servlet.JAXWSRIDeploymentProbeProvider</probe-provider-class-names>
-                                <Class-Path>jakarta.annotation-api.jar jakarta.activation.jar jakarta.mail.jar jakarta.jws-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar FastInfoset.jar gmbal-api-only.jar ha-api.jar jaxb-core.jar jaxb-impl.jar management-api.jar mimepull.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar woodstox-core.jar</Class-Path>
+                                <Class-Path>jakarta.annotation-api.jar jakarta.activation-api.jar jakarta.mail-api.jar jakarta.jws-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar angus-activation.jar angus-mail.jar FastInfoset.jar gmbal-api-only.jar ha-api.jar jaxb-core.jar jaxb-impl.jar management-api.jar mimepull.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar woodstox-core.jar</Class-Path>
                                 <Extension-Name>com.sun.xml.ws</Extension-Name>
                             </instructions>
                         </configuration>
