@@ -94,6 +94,11 @@
         <!-- Runtime dependencies -->
         <dependency>
             <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-activation</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
             <artifactId>angus-mail</artifactId>
             <scope>runtime</scope>
         </dependency>
