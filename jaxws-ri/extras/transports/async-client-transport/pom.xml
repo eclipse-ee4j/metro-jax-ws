@@ -18,14 +18,14 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0-M1</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-async-client-transport</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0-M1</version>
 
     <name>JAX-WS RI Async-Client-Transport Implementation</name>
     <description>Implementation of Async-Client-Transport for JAX-WS RI</description>
