@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -55,7 +55,7 @@ public interface XMLBridge<T> {
      */
     public @NotNull BindingContext context();
 
-    /**
+    /*
      *
      * @throws JAXBException
      *      if there was an error while marshalling.
@@ -66,11 +66,11 @@ public interface XMLBridge<T> {
     
     public void marshal(T object,XMLStreamWriter output, AttachmentMarshaller am) throws JAXBException;
 
-    /**
-     * Marshals the specified type object with the implicit element name
-     * associated with this instance of {@link Bond}.
-     *
-     * @param nsContext
+    /*
+      Marshals the specified type object with the implicit element name
+      associated with this instance of {@link Bond}.
+
+      @param nsContext
      *      if this marshalling is done to marshal a subelement, this {@link NamespaceContext}
      *      represents in-scope namespace bindings available for that element. Can be null,
      *      in which case JAXB assumes no in-scope namespaces.
@@ -98,8 +98,8 @@ public interface XMLBridge<T> {
 //    public void marshal(@NotNull Marshaller m,T object,Node output) throws JAXBException;
 
 
-    /**
-     * @since 2.0 EA4
+    /*
+      @since 2.0 EA4
      */
 //    public void marshal(T object, ContentHandler contentHandler) throws JAXBException;
     /**
@@ -121,10 +121,10 @@ public interface XMLBridge<T> {
 
 
 
-    /**
-     * Unmarshals the specified type object.
-     *
-     * @param in
+    /*
+      Unmarshals the specified type object.
+
+      @param in
      *      the parser must be pointing at a start tag
      *      that encloses the XML type that this {@link Bond} is
      *      instanciated for.
@@ -145,10 +145,10 @@ public interface XMLBridge<T> {
 //    public @NotNull T unmarshal(@NotNull BridgeContext context, @NotNull XMLStreamReader in) throws JAXBException ;
 //    public @NotNull T unmarshal(@NotNull Unmarshaller u, @NotNull XMLStreamReader in) throws JAXBException;
 
-    /**
-     * Unmarshals the specified type object.
-     *
-     * @param in
+    /*
+      Unmarshals the specified type object.
+
+      @param in
      *      the parser must be pointing at a start tag
      *      that encloses the XML type that this {@link Bond} is
      *      instanciated for.
@@ -191,10 +191,10 @@ public interface XMLBridge<T> {
     
 //    public @NotNull T unmarshal(@NotNull Unmarshaller u, @NotNull InputStream in) throws JAXBException;
 
-    /**
-     * Unmarshals the specified type object.
-     *
-     * @param n
+    /*
+      Unmarshals the specified type object.
+
+      @param n
      *      Node to be unmarshalled.
      *
      * @return

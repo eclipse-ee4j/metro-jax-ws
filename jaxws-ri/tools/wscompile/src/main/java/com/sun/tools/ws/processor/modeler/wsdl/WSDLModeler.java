@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -332,9 +332,9 @@ public class WSDLModeler extends WSDLModelerBase {
 
                 }
 
-                /**
-                 * validate wsdl:binding uniqueness in style, e.g. rpclit or doclit
-                 * ref: WSI BP 1.1 R 2705
+                /*
+                  validate wsdl:binding uniqueness in style, e.g. rpclit or doclit
+                  ref: WSI BP 1.1 R 2705
                  */
                 if (soapBinding != null && !validateWSDLBindingStyle(binding)) {
                     if (options.isExtensionMode()) {
@@ -1036,7 +1036,6 @@ public class WSDLModeler extends WSDLModelerBase {
     }
 
     /**
-     * @param styleAndUse
      */
     private void addAsyncOperations(Operation syncOperation, StyleAndUse styleAndUse) {
         Operation operation = createAsyncOperation(syncOperation, styleAndUse, AsyncOperationType.POLLING);
@@ -1625,7 +1624,6 @@ public class WSDLModeler extends WSDLModelerBase {
     }
 
     /**
-     * @param part
      * @return Returns a JAXBType object
      */
     private JAXBType getJAXBType(MessagePart part) {
@@ -1991,8 +1989,6 @@ public class WSDLModeler extends WSDLModelerBase {
     }
 
     /**
-     * @param part
-     * @param param
      * @param wrapperStyle TODO
      */
     private void setCustomizedParameterName(TWSDLExtensible extension, Message msg, MessagePart part, Parameter param, boolean wrapperStyle) {
@@ -2698,8 +2694,6 @@ public class WSDLModeler extends WSDLModelerBase {
     }
 
     /**
-     * @param port
-     * @param suffix
      * @return the Java ClassName for a port
      */
     protected String getClassName(Port port, String suffix) {
@@ -2772,7 +2766,6 @@ public class WSDLModeler extends WSDLModelerBase {
     }
 
     /**
-     * @param port
      */
     private void applyWrapperStyleCustomization(Port port, PortType portType) {
         JAXWSBinding jaxwsBinding = (JAXWSBinding) getExtensionOfType(portType, JAXWSBinding.class);

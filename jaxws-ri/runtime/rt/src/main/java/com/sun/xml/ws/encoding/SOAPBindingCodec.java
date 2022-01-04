@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -156,11 +156,11 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
                 fiSwaCodec = new SwACodec(version, features, fiSoapCodec);
                 connegXmlAccept = fiMimeType + ", " + clientAcceptedContentTypes;
                 
-                /**
-                 * This feature will only be present on the client side.
-                 *
-                 * Fast Infoset is enabled on the client if the service
-                 * explicitly supports Fast Infoset.
+                /*
+                  This feature will only be present on the client side.
+
+                  Fast Infoset is enabled on the client if the service
+                  explicitly supports Fast Infoset.
                  */
                 WebServiceFeature select = features.get(SelectOptimalEncodingFeature.class);
                 if (select != null) { // if the client FI feature is set - ignore negotiation property
@@ -411,10 +411,10 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
      * Determines the encoding codec.
      */
     private Codec getEncoder(Packet p) {
-        /**
-         * The following logic is only for outbound packets
-         * to be encoded by a client.
-         * For a server the p.contentNegotiation == null.
+        /*
+          The following logic is only for outbound packets
+          to be encoded by a client.
+          For a server the p.contentNegotiation == null.
          */
         if (!ignoreContentNegotiationProperty) {
             if (p.contentNegotiation == ContentNegotiation.none) {

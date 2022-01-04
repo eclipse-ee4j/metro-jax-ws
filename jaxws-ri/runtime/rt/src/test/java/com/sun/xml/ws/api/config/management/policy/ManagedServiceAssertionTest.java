@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -73,7 +73,6 @@ public class ManagedServiceAssertionTest extends TestCase {
 
     /**
      * Test of getId method, of class ManagedServiceAssertion.
-     * @throws AssertionCreationException
      */
     public void testGetId() throws AssertionCreationException {
         final HashMap<QName, String> attributes = new HashMap<QName, String>();
@@ -103,7 +102,6 @@ public class ManagedServiceAssertionTest extends TestCase {
 
     /**
      * Test of getId method, of class ManagedServiceAssertion.
-     * @throws AssertionCreationException
      */
     public void testNoIdManagementDisabled() throws AssertionCreationException {
         final HashMap<QName, String> attributes = new HashMap<QName, String>();
@@ -117,7 +115,6 @@ public class ManagedServiceAssertionTest extends TestCase {
 
     /**
      * Test of getStart method, of class ManagedServiceAssertion.
-     * @throws AssertionCreationException
      */
     public void testGetStart() throws AssertionCreationException {
         final HashMap<QName, String> attributes = new HashMap<QName, String>();
@@ -277,7 +274,6 @@ public class ManagedServiceAssertionTest extends TestCase {
 
     /**
      * Test of getCommunicationServerImplementations method, of class ManagedServiceAssertion.
-     * @throws AssertionCreationException
      */
     public void testGetCommunicationServerImplementations() throws AssertionCreationException {
         final HashMap<QName, String> implementationAttributes = new HashMap<QName, String>();
@@ -311,7 +307,6 @@ public class ManagedServiceAssertionTest extends TestCase {
 
     /**
      * Test of getConfiguratorImplementation method, of class ManagedServiceAssertion.
-     * @throws AssertionCreationException
      */
     public void testGetConfiguratorImplementation() throws AssertionCreationException {
         final HashMap<QName, String> configuratorAttributes = new HashMap<QName, String>();
@@ -337,7 +332,6 @@ public class ManagedServiceAssertionTest extends TestCase {
 
     /**
      * Test of getConfigSaverImplementation method, of class ManagedServiceAssertion.
-     * @throws AssertionCreationException
      */
     public void testGetConfigSaverImplementation() throws AssertionCreationException {
         final HashMap<QName, String> configSaverAttributes = new HashMap<QName, String>();
@@ -363,7 +357,6 @@ public class ManagedServiceAssertionTest extends TestCase {
 
     /**
      * Test of getConfigReaderImplementation method, of class ManagedServiceAssertion.
-     * @throws AssertionCreationException
      */
     public void testGetConfigReaderImplementation() throws AssertionCreationException {
         final HashMap<QName, String> configReaderAttributes = new HashMap<QName, String>();

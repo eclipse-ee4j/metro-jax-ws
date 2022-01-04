@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,8 +62,6 @@ public abstract class WSDLModelerBase implements Modeler {
 
     /**
      *
-     * @param port
-     * @param wsdlPort
      */
     protected void applyPortMethodCustomization(Port port, com.sun.tools.ws.wsdl.document.Port wsdlPort) {
         if (isProvider(wsdlPort)) {
@@ -205,7 +203,6 @@ public abstract class WSDLModelerBase implements Modeler {
     }
 
     /**
-     * @param message
      * @return MessageParts referenced by the mime:content
      */
     protected List<MessagePart> getMimeContentParts(Message message, TWSDLExtensible ext) {
@@ -221,7 +218,6 @@ public abstract class WSDLModelerBase implements Modeler {
     }
 
     /**
-     * @param mimeParts
      */
     protected boolean validateMimeParts(Iterable<MIMEPart> mimeParts) {
         boolean gotRootPart = false;
@@ -417,7 +413,6 @@ public abstract class WSDLModelerBase implements Modeler {
     }
 
     /**
-     * @param part
      * @return true if part is the Root part
      */
     private boolean isRootPart(MIMEPart part) {
@@ -489,7 +484,6 @@ public abstract class WSDLModelerBase implements Modeler {
 
 
     /**
-     * @param operation
      * @return true if operation has valid body parts
      */
     protected boolean validateBodyParts(BindingOperation operation) {
@@ -511,7 +505,6 @@ public abstract class WSDLModelerBase implements Modeler {
     }
 
     /**
-     * @param operation
      * @return true if operation has valid style and part
      */
     private boolean validateStyleAndPart(BindingOperation operation, List<MessagePart> parts) {
@@ -539,9 +532,6 @@ public abstract class WSDLModelerBase implements Modeler {
     }
 
     /**
-     * @param ext
-     * @param message
-     * @param name
      * @return List of MimeContents from ext
      */
     protected List<MIMEContent> getMimeContents(TWSDLExtensible ext, Message message, String name) {

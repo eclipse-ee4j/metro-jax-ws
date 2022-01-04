@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,8 +37,6 @@ public class XmlCatalogUtil {
     /**
      * Gets an EntityResolver using XML catalog
      *
-     * @param catalogUrl
-     * @return
      */
     public static EntityResolver createEntityResolver(@Nullable URL catalogUrl) {
         ArrayList<URL> urlsArray = new ArrayList<>();
@@ -57,13 +55,12 @@ public class XmlCatalogUtil {
     /**
      * Gets a default EntityResolver for catalog at META-INF/jaxws-catalog.xml
      *
-     * @return
      */
     public static EntityResolver createDefaultCatalogResolver() {
         EntityResolver er;
         try {
-            /**
-             * Gets a URLs for catalog defined at META-INF/jaxws-catalog.xml
+            /*
+              Gets a URLs for catalog defined at META-INF/jaxws-catalog.xml
              */
             ClassLoader cl = Thread.currentThread().getContextClassLoader();
             Enumeration<URL> catalogEnum;

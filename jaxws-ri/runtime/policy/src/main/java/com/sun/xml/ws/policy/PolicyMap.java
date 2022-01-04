@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -344,7 +344,7 @@ public final class PolicyMap implements Iterable<Policy> {
      * @param key a policy map key to be used to store the subject
      * @param subject actual policy subject to be stored in the policy map
      *
-     * @throw IllegalArgumentException in case the scope type is not recognized.
+     * @throws IllegalArgumentException in case the scope type is not recognized.
      */
     void putSubject(final ScopeType scopeType, final PolicyMapKey key, final PolicySubject subject) {
         switch (scopeType) {
@@ -380,7 +380,7 @@ public final class PolicyMap implements Iterable<Policy> {
      * @param key identifier of the scope the effective policy should be replaced with the new one. Must not be {@code null}.
      * @param newEffectivePolicy the new policy to replace the old effective policy of the scope. Must not be {@code null}.
      *
-     * @throw IllegalArgumentException in case any of the input parameters is {@code null} 
+     * @throws IllegalArgumentException in case any of the input parameters is {@code null}
      *        or in case the scope type is not recognized.
      */
     void setNewEffectivePolicyForScope(final ScopeType scopeType, final PolicyMapKey key, final Policy newEffectivePolicy) throws IllegalArgumentException {

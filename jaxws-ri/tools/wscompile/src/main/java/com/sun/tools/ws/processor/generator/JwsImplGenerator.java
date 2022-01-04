@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -320,11 +320,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 	}
 
 	/**
-	 * 
-	 * @param service
-	 * @param port
-	 * @param webServiceAnn
-	 * @param options
+	 *
 	 */
 	private void writeWebServiceAnnotation(Service service, Port port,
 	    JAnnotationUse webServiceAnn) {
@@ -370,9 +366,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 
 	/**
 	 * TODO
-	 * 
-	 * @param port
-	 * @param bindingTypeAnn
+	 *
 	 */
 	private void writeBindingTypeAnnotation(Port port,
 	    JAnnotationUse bindingTypeAnn) {
@@ -470,14 +464,14 @@ public final class JwsImplGenerator extends GeneratorBase {
 		return value;
 	}
 	
-  /**
-   * Since the SOAP 1.1 binding transport URI defined in WSDL 1.1 specification
-   * is different with the SOAPBinding URI defined by JAX-WS 2.0 specification.
-   * We must translate the wsdl version into JAX-WS version. If the given
-   * transport URI is NOT one of the predefined transport URIs, it is returned
-   * as is.
-   *
-   * @param transportURI
+  /*
+    Since the SOAP 1.1 binding transport URI defined in WSDL 1.1 specification
+    is different with the SOAPBinding URI defined by JAX-WS 2.0 specification.
+    We must translate the wsdl version into JAX-WS version. If the given
+    transport URI is NOT one of the predefined transport URIs, it is returned
+    as is.
+
+    @param transportURI
    *          retrieved from WSDL
    * @return Standard BindingType URI defined by JAX-WS 2.0 specification.
    */

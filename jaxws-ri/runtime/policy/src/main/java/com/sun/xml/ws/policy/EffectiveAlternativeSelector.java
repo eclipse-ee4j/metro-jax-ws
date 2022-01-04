@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -142,9 +142,6 @@ public class EffectiveAlternativeSelector {
      * This method is intended to be called by extension classes that need to
      * override the behavior of {@link #doSelection}.
      *
-     * @param modifier
-     * @param validationProcessor
-     * @throws PolicyException
      */
     protected static void selectAlternatives(final EffectivePolicyModifier modifier,
             final AssertionValidationProcessor validationProcessor)

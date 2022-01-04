@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -84,7 +84,6 @@ abstract class MUTube extends AbstractFilterTubeImpl {
     }
 
     /**
-     * @param notUnderstoodHeaders
      * @return SOAPfaultException with SOAPFault representing the MustUnderstand SOAP Fault.
      *         notUnderstoodHeaders are added in the fault detail.
      */
@@ -104,7 +103,6 @@ abstract class MUTube extends AbstractFilterTubeImpl {
     /**
      * This should be used only in ServerMUPipe
      *
-     * @param notUnderstoodHeaders
      * @return Message representing a SOAPFault
      *         In SOAP 1.1, notUnderstoodHeaders are added in the fault Detail
      *         in SOAP 1.2, notUnderstoodHeaders are added as the SOAP Headers

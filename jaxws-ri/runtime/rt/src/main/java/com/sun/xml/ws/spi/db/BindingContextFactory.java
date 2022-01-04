@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -99,8 +99,7 @@ abstract public class BindingContextFactory {
 	 * Check to see if the BindingContextFactory is for the databinding mode/flavor. The
 	 * String parameter can be the package name of the JAXBContext implementation as well.
 	 * @param databinding mode/flavor or the package name of the JAXBContext implementation.
-	 * @return
-	 */
+     */
 	abstract protected boolean isFor(String databinding);		
 
 	/**

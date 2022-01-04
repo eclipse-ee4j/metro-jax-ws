@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,7 +51,6 @@ public class ManagedClientAssertionTest extends TestCase {
 
     /**
      * Test of getId method, of class ManagedClientAssertion.
-     * @throws AssertionCreationException
      */
     public void testGetId() throws AssertionCreationException {
         final HashMap<QName, String> attributes = new HashMap<QName, String>();
@@ -66,7 +65,6 @@ public class ManagedClientAssertionTest extends TestCase {
 
     /**
      * Test of getId method, of class ManagedClientAssertion.
-     * @throws AssertionCreationException 
      */
     public void testNoId() throws AssertionCreationException {
         final HashMap<QName, String> attributes = new HashMap<QName, String>();
@@ -79,7 +77,6 @@ public class ManagedClientAssertionTest extends TestCase {
 
     /**
      * Test of getId method, of class ManagedClientAssertion.
-     * @throws AssertionCreationException
      */
     public void testNoIdManagementDisabled() throws AssertionCreationException {
         final HashMap<QName, String> attributes = new HashMap<QName, String>();
@@ -93,7 +90,6 @@ public class ManagedClientAssertionTest extends TestCase {
 
     /**
      * Test of getStart method, of class ManagedClientAssertion.
-     * @throws AssertionCreationException
      */
     public void testGetStart() throws AssertionCreationException {
         final HashMap<QName, String> attributes = new HashMap<QName, String>();

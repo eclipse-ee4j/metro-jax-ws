@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -112,7 +112,6 @@ public class SAAJMessageHeadersTest extends TestCase {
     
     /**
      * Tests mustUnderstand using the getHeaders call with boolean rather than the "understood(..)" call
-     * @throws Exception
      */
     public void testMustUnderstand2() throws Exception {
         SOAPMessage sm = makeSOAPMessage(MESSAGE);

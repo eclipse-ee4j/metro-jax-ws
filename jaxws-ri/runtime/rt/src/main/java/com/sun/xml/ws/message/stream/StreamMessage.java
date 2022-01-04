@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -424,7 +424,6 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
 
     /**
      * This method should be called when the StreamMessage is created with a payload
-     * @param writer
      */
     private void writeEnvelope(XMLStreamWriter writer) throws XMLStreamException {
         writeToBodyStart(writer);

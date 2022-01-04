@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -851,7 +851,6 @@ public final class Packet
     /**
      * A common method to make members related between input packet and this packet
      * 
-     * @param packet
      * @param isCopy 'true' means copying all properties from input packet;
      *               'false' means copying all properties from this packet to input packet. 
      */

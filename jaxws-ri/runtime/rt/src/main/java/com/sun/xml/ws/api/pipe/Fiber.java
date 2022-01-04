@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -194,7 +194,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
      * </ol>
      * <br>
      * <br>
-     * Using int, this will work OK because {@link #suspendedCount} becomes -1 when
+     * Using int, this will work OK because {@code suspendedCount} becomes -1 when
      * {@link #resume(Packet)} occurs before {@link #suspend()}.
      * <br>
      * <br>

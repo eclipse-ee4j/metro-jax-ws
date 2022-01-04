@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -229,7 +229,6 @@ public class XmlUtil {
 
     /**
      * Creates a new identity transformer.
-     * @return
      */
     public static Transformer newTransformer() {
         try {
@@ -241,14 +240,6 @@ public class XmlUtil {
 
     /**
      * Performs identity transformation.
-     * @param <T>
-     * @param src
-     * @param result
-     * @return
-     * @throws javax.xml.transform.TransformerException
-     * @throws java.io.IOException
-     * @throws org.xml.sax.SAXException
-     * @throws javax.xml.parsers.ParserConfigurationException
      */
     public static <T extends Result> T identityTransform(Source src, T result)
             throws TransformerException, SAXException, ParserConfigurationException, IOException {
@@ -280,8 +271,6 @@ public class XmlUtil {
     /**
      * Gets an EntityResolver using XML catalog
      *
-     * @param catalogUrl
-     * @return
      */
     public static EntityResolver createEntityResolver(@Nullable URL catalogUrl) {
         return XmlCatalogUtil.createEntityResolver(catalogUrl);
@@ -290,7 +279,6 @@ public class XmlUtil {
     /**
      * Gets a default EntityResolver for catalog at META-INF/jaxws-catalog.xml
      *
-     * @return
      */
     public static EntityResolver createDefaultCatalogResolver() {
         return XmlCatalogUtil.createDefaultCatalogResolver();

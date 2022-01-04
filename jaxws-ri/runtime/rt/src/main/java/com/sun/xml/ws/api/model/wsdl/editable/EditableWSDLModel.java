@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -80,7 +80,6 @@ public interface EditableWSDLModel extends WSDLModel {
     public EditableWSDLMessage getMessage(QName name);
 
     /**
-     * @param policyMap
      * @deprecated
      */
     public void setPolicyMap(PolicyMap policyMap);

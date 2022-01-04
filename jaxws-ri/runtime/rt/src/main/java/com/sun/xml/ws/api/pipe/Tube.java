@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -289,7 +289,7 @@ public interface Tube {
      *
      * <p>
      * If a {@link #processRequest(Packet)}, {@link #processResponse(Packet)},
-     * {@link #processException(Throwable)} throws an exception, this method
+     * {@code #processException(Throwable)} throws an exception, this method
      * will be always invoked on all the {@link Tube}s in the remaining
      * {@link NextAction}s.
      *
@@ -307,8 +307,6 @@ public interface Tube {
      * applications. (The consequence of that is that if you are
      * a filtering {@link Tube} like {@link AbstractTubeImpl}, you don't have to
      * override the implementation)
-     *
-     * @param t
      *
      * @return
      *      A {@link NextAction} object that represents the next action

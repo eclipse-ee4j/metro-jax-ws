@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -93,8 +93,6 @@ public class XMLStreamReaderUtil {
     /**
      * Moves next and read spaces from the reader as long as to the next element.
      * Comments are ignored
-     * @param reader
-     * @return
      */
     public static String nextWhiteSpaceContent(XMLStreamReader reader) {
         next(reader);
@@ -104,8 +102,6 @@ public class XMLStreamReaderUtil {
     /**
      * Read spaces from the reader as long as to the next element, starting from
      * current position. Comments are ignored.
-     * @param reader
-     * @return
      */
     public static String currentWhiteSpaceContent(XMLStreamReader reader) {
 

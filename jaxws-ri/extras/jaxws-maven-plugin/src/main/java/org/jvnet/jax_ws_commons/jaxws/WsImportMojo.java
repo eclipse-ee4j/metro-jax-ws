@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  * Copyright 2006 Guillaume Nodet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -280,9 +280,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
     }
 
     /**
-     * 
-     * @throws MojoExecutionException
-     * @throws IOException
+     *
      */
     private void processLocalWsdlFiles(URL[] wsdls)
             throws MojoExecutionException, IOException {
@@ -309,7 +307,6 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
 
     /**
      * process external wsdl
-     * @throws MojoExecutionException
      */
     private void processWsdlViaUrls()
             throws MojoExecutionException, IOException {
@@ -331,7 +328,6 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
     /**
      * 
      * @return wsimport's command arguments
-     * @throws MojoExecutionException
      */
     private ArrayList<String> getWsImportArgs(String relativePath)
             throws MojoExecutionException {
@@ -409,8 +405,8 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
             args.add("-Xdebug");
         }
 
-        /**
-         * -Xno-addressing-databinding enable binding of W3C EndpointReferenceType to Java
+        /*
+          -Xno-addressing-databinding enable binding of W3C EndpointReferenceType to Java
          */
         if(xnoAddressingDataBinding){
             args.add("-Xno-addressing-databinding");

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -71,20 +71,20 @@ public @interface SchemaValidation {
      */
     boolean outbound() default true;
 
-    /**
-     * Does validation for bound headers in a SOAP message.
-     *
+    /*
+      Does validation for bound headers in a SOAP message.
+
     boolean headers() default false;
      */
 
-    /**
-     * Additional schema documents that are used to create {@link Schema} object. Useful
-     * when the application adds additional SOAP headers to the message. This is a list
-     * of system-ids, that are used to create {@link Source} objects and used in creation
-     * of {@link Schema} object
-     *
-     * for e.g.:
-     * @SchemaValidation(schemaLocations={"http://bar.foo/b.xsd", "http://foo.bar/a.xsd"}
+    /*
+      Additional schema documents that are used to create {@link Schema} object. Useful
+      when the application adds additional SOAP headers to the message. This is a list
+      of system-ids, that are used to create {@link Source} objects and used in creation
+      of {@link Schema} object
+
+      for e.g.:
+      @SchemaValidation(schemaLocations={"http://bar.foo/b.xsd", "http://foo.bar/a.xsd"}
      *
     String[] schemaLocations() default {};
      */

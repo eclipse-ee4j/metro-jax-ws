@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,9 +30,6 @@ public interface MessageHeaders {
     public Iterator<Header> getHeaders(String nsUri, String localName, final boolean markAsUnderstood);
     /**
      * Get all headers in specified namespace
-     * @param nsUri
-     * @param markAsUnderstood
-     * @return
      */
     public Iterator<Header> getHeaders(String nsUri, final boolean markAsUnderstood);
     public Iterator<Header> getHeaders(QName headerName, final boolean markAsUnderstood);
@@ -71,32 +68,22 @@ public interface MessageHeaders {
      * for the roles argument and SOAP version  
      * (d) If non-null binding is passed in, are NOT understood by the binding
      * (e) If (d) is met, the header is NOT in the knownHeaders list passed in
-     * 
-     * @param roles
-     * @param knownHeaders
-     * @param binding
-     * @return
+     *
      */
     public Set<QName> getNotUnderstoodHeaders(Set<String> roles, Set<QName> knownHeaders, WSBinding binding);
     
     /**
      * True if the header has been explicitly marked understood, false otherwise
-     * @param header
-     * @return
      */
     public boolean isUnderstood(Header header);
     
     /**
      * True if the header has been explicitly marked understood, false otherwise
-     * @param header
-     * @return
      */
     public boolean isUnderstood(QName header);
     
     /**
      * True if the header has been explicitly marked understood, false otherwise
-     * @param header
-     * @return
      */
     public boolean isUnderstood(String nsUri, String header);
     

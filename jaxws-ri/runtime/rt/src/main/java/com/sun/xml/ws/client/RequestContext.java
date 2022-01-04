@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -170,7 +170,7 @@ public final class RequestContext extends BaseDistributedPropertySet {
      * transport and SOAP version.
      *
      * For HTTP transport and SOAP 1.1, BP requires that SOAPAction
-     * header is present (See {@BP R2744} and {@BP R2745}.) For SOAP 1.2,
+     * header is present (See {@code BP R2744} and {@code BP R2745}.) For SOAP 1.2,
      * this is moved to the parameter of the "application/soap+xml".
      */
 

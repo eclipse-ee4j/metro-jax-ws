@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -212,13 +212,13 @@ public final class PolicyUtils {
             if (initialBase != null && !initialBase.isEmpty()) {
                 base.addAll(initialBase);
             }
-            /**
-             * now we iterate over all options and build up an option processing queue:
-             *   1. if ignoreEmptyOption flag is not set and we found an empty option, we are going to stop processing and return null. Otherwise we
-             *      ignore the empty option.
-             *   2. if the option has one child only, we add the child directly to the base.
-             *   3. if there are more children in examined node, we add it to the queue for further processing and precoumpute the final size of
-             *      resulting collection of combinations.
+            /*
+              now we iterate over all options and build up an option processing queue:
+                1. if ignoreEmptyOption flag is not set and we found an empty option, we are going to stop processing and return null. Otherwise we
+                   ignore the empty option.
+                2. if the option has one child only, we add the child directly to the base.
+                3. if there are more children in examined node, we add it to the queue for further processing and precoumpute the final size of
+                   resulting collection of combinations.
              */
             int finalCombinationsSize = 1;
             final Queue<T> optionProcessingQueue = new LinkedList<T>();

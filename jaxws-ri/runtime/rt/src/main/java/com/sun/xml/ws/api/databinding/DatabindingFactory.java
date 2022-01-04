@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,10 +43,10 @@ import java.util.Map;
  */
 public abstract class DatabindingFactory extends com.oracle.webservices.api.databinding.DatabindingFactory {
 
-  /**
-   * Creates a new instance of a <code>WsTool</code>. 
-   * 
-   * @return New instance of a <code>WsTool</code>
+  /*
+    Creates a new instance of a <code>WsTool</code>.
+
+    @return New instance of a <code>WsTool</code>
    */
 //	abstract public WsTool createTool();
 
@@ -60,17 +60,17 @@ public abstract class DatabindingFactory extends com.oracle.webservices.api.data
    */
   abstract public com.oracle.webservices.api.databinding.Databinding createRuntime(DatabindingConfig config);
 	
-  /**
-   * Creates a new instance of a <code>XsTool</code>. 
-   * 
-   * @return New instance of a <code>XsTool</code>
+  /*
+    Creates a new instance of a <code>XsTool</code>.
+
+    @return New instance of a <code>XsTool</code>
    */
 //	abstract public XsTool createXsTool(String mode);
 
-  /**
-   * Creates a new instance of a <code>XsRuntime</code>. 
-   * 
-   * @return New instance of a <code>XsRuntime</code>
+  /*
+    Creates a new instance of a <code>XsRuntime</code>.
+
+    @return New instance of a <code>XsRuntime</code>
    */
 //	abstract public XsRuntime createXsRuntime(String mode);
 

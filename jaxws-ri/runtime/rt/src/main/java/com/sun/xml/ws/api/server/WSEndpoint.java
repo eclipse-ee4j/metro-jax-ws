@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -677,7 +677,6 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
 
     /**
      * Return EndpointReference instance, based on passed parameters and spec version represented by clazz
-     * @param <T>
      * @param clazz represents spec version
      * @param address   endpoint address
      * @param wsdlAddress   wsdl address
@@ -688,12 +687,6 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
 
     /**
      * 
-     * @param <T>
-     * @param clazz
-     * @param address
-     * @param wsdlAddress
-     * @param metadata
-     * @param referenceParameters
      * @return EndpointReference instance based on passed parameters and values obtained from current instance
      */
     public abstract <T extends EndpointReference> T getEndpointReference(Class<T> clazz,
@@ -702,7 +695,6 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
     
     /**
      * Used for managed endpoints infrastructure to compare equality of proxies vs proxied endpoints.
-     * @param endpoint
      * @return true if the proxied endpoint instance held by this instance equals to 'endpoint', otherwise return false.
      */
     public boolean equalsProxiedInstance(WSEndpoint endpoint) {
@@ -712,7 +704,6 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
 
     /**
      * Nullable when there is no associated WSDL Model
-     * @return
      */
     public abstract @Nullable OperationDispatcher getOperationDispatcher();
 
