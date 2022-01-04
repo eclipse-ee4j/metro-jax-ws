@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -98,7 +98,7 @@
         <comp.xdoclint>-Xdoclint:none</comp.xdoclint>
         <warn.limit>150</warn.limit>
 
-        <ignore.failing.tests>true</ignore.failing.tests>
+        <ignore.failing.tests>false</ignore.failing.tests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <oss.disallow.snapshots>true</oss.disallow.snapshots>
         <vendor.name>Eclipse Foundation</vendor.name>
@@ -350,7 +350,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>3.3.1</version>
                     <configuration>
                         <archive>
                             <manifest>

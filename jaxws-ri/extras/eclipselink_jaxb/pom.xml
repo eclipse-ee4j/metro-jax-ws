@@ -75,22 +75,6 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-compile</id>
-                        <configuration>
-                            <!--adds reads for gmbal-->
-                            <compilerArgs>
-                                <arg>--add-reads</arg>
-                                <arg>com.sun.xml.ws.eclipselink=ALL-UNNAMED</arg>
-                            </compilerArgs>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <!-- to make sure that plugin's classes are at the end of the cp
@@ -102,16 +86,6 @@
                     </additionalClasspathElements>
                     <forkCount>1</forkCount>
                     <testFailureIgnore>${ignore.failing.tests}</testFailureIgnore>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <additionalJOptions>
-                        <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.xml.ws.eclipselink=ALL-UNNAMED</additionalJOption>
-                    </additionalJOptions>
                 </configuration>
             </plugin>
         </plugins>
