@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,11 +35,11 @@
         <!-- CQ 21208 -->
         <asm.version>9.2</asm.version>
         <commonj.sdo.version>2.1.1</commonj.sdo.version>
-        <eclipselink.version>3.1.0-M1</eclipselink.version>
+        <eclipselink.version>4.0.0-M1</eclipselink.version>
         <junit.version>4.13.2</junit.version>
         <mail-api.version>2.1.0</mail-api.version>
         <angus-mail.version>1.0.0-M2</angus-mail.version>
-        <servlet-api.version>5.0.0</servlet-api.version>
+        <servlet-api.version>6.0.0</servlet-api.version>
     </properties>
             
     <dependencyManagement>
