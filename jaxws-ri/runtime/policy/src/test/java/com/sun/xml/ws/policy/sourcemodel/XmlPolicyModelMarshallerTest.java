@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -49,7 +49,6 @@ public class XmlPolicyModelMarshallerTest extends TestCase {
 
     /**
      * Test of marshal method, of class com.sun.xml.ws.policy.sourcemodel.XmlPolicyModelMarshaller.
-     * @throws Exception
      */
     public void testMarshal() throws Exception {
         PolicySourceModel model = null;

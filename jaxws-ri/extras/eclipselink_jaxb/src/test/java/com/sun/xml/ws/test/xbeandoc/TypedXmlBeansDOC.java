@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,8 +35,6 @@ public interface TypedXmlBeansDOC {
 
     /**
      *
-     * @param param1
-     * @param countries
      * @return
      *     returns java.lang.String
      */
@@ -52,8 +50,6 @@ public interface TypedXmlBeansDOC {
 
     /**
      *
-     * @param param0
-     * @param param1
      * @return
      *     returns com.sun.xml.ws.test.xbeandoc.CountryInfoType
      */
@@ -69,8 +65,6 @@ public interface TypedXmlBeansDOC {
 
     /**
      *
-     * @param param1
-     * @param countries
      */
     @WebMethod(action = "http://www.openuri.org/addCountry")
     @RequestWrapper(localName = "addCountry", targetNamespace = "http://www.openuri.org/", className = "com.sun.xml.ws.test.xbeandoc.AddCountry")
@@ -83,8 +77,6 @@ public interface TypedXmlBeansDOC {
 
     /**
      *
-     * @param param1
-     * @param countries
      * @return
      *     returns java.lang.String
      */

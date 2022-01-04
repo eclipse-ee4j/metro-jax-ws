@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -69,8 +69,6 @@ public interface PolicyResolver {
          *
          * @param policyMap
          *      PolicyMap created from PolicyAttachments in WSDL or Feature annotations on endpoint implementation class.
-         * @param container
-         * @param endpointClass
          * @param mutators
          *      List of PolicyMapMutators that are run eventually when a PolicyMap is created
          */
@@ -92,8 +90,6 @@ public interface PolicyResolver {
          *
          * @param policyMap
          *      PolicyMap created from PolicyAttachments in WSDL or Feature annotations on endpoint implementation class.
-         * @param container
-         * @param endpointClass
          * @param hasWsdl Set to true, if this service is bundled with WSDL, false otherwise
          * @param mutators
          *      List of PolicyMapMutators that are run eventually when a PolicyMap is created
@@ -121,7 +117,6 @@ public interface PolicyResolver {
 
         /**
          * Return true, if this service is bundled with WSDL, false otherwise
-         * @return
          */
         public boolean hasWsdl() {
             return hasWsdl;
@@ -143,7 +138,6 @@ public interface PolicyResolver {
          * In presence of WSDL, JAX-WS by default creates PolicyMap from Policy Attachemnts in WSDL.
          *
          * @param policyMap PolicyMap created from PolicyAttachemnts in WSDL
-         * @param container 
          */
         public ClientContext(@Nullable PolicyMap policyMap, Container container) {
             this.policyMap = policyMap;

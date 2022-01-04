@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,8 +29,6 @@ public class MimeTypeTest extends TestCase {
 
     /**
      * Test mail message MIME type processing with lower case mime type.
-     * @throws MessagingException
-     * @throws IOException
      */
     public void testApplicationXMLMimeLowerCase() throws MessagingException, IOException {
         checkApplicationXMLMime("application/xml");
@@ -38,8 +36,6 @@ public class MimeTypeTest extends TestCase {
 
     /**
      * Test mail message MIME type processing with upper case mime type.
-     * @throws MessagingException
-     * @throws IOException
      */
     public void testApplicationXMLMimeUpperCase() throws MessagingException, IOException {
         checkApplicationXMLMime("APPLICATION/XML");
@@ -47,8 +43,6 @@ public class MimeTypeTest extends TestCase {
 
     /**
      * Test mail message MIME type processing with mixed case mime type.
-     * @throws MessagingException
-     * @throws IOException
      */
     public void testApplicationXMLMimeMixedCase() throws MessagingException, IOException {
         checkApplicationXMLMime("application/XML");
@@ -59,7 +53,6 @@ public class MimeTypeTest extends TestCase {
      * @param mimeType MIME type to be tested.
      * @throws IOException {@code Cannot convert DataSource with content type "application/XML" to object in XmlDataContentHandler}
      *         when MIME type is not recognized.
-     * @throws MessagingException
      */
     private void checkApplicationXMLMime(final String mimeType) throws MessagingException, IOException {
         MailcapCommandMap mailcapCommandMap = (MailcapCommandMap) CommandMap.getDefaultCommandMap();

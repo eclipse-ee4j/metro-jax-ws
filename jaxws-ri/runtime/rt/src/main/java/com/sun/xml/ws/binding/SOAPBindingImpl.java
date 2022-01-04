@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -93,9 +93,7 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
     }
 
     /**
-     * TODO A feature should be created to configure processing of MU headers. 
-     * @param header
-     * @return
+     * TODO A feature should be created to configure processing of MU headers.
      */
     public boolean understandsHeader(QName header) {
         return serviceMode == jakarta.xml.ws.Service.Mode.MESSAGE

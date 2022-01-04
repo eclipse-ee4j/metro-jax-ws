@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -209,7 +209,6 @@ public class LocalCustomizationFileTransformer {
      *
      * @param dirName path to /x/y/z/WEB-INF/wsdl
      * @return Map is query-->path e.g: wsdl=sub/a.wsdl --> /WEB-INF/wsdl/sub/a.wsdl
-     * @throws Exception
      */
     private static Map<String, String> buildMap(String dirName, String primaryWsdl)
     throws Exception {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -76,10 +76,6 @@ class SOAP11Fault extends SOAPFaultBuilder {
      * This constructor takes soap fault detail among other things. The detail could represent {@link jakarta.xml.soap.Detail}
      * or a java object that can be marshalled/unmarshalled by JAXB.
      *
-     * @param code
-     * @param reason
-     * @param actor
-     * @param detailObject
      */
     SOAP11Fault(QName code, String reason, String actor, Element detailObject) {
         this.faultcode = code;

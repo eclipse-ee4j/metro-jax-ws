@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -508,7 +508,6 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
     /**
      * This method is added for the case of the sub-class wants to override the method to
      * print details. E.g. convert soapfault as HTML msg for 403 error connstatus.
-     * @param os
      */
     protected void writeClientError(int connStatus, @NotNull OutputStream os, @NotNull Packet packet) throws IOException {
     	//do nothing

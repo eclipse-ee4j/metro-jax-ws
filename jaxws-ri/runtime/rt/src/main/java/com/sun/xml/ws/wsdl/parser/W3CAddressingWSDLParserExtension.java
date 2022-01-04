@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -119,7 +119,6 @@ public class W3CAddressingWSDLParserExtension extends WSDLParserExtension {
      * <li>Populate actions for the messages that do not have an explicit wsaw:Action</li>
      * <li>Patch the default value of wsaw:Anonymous=optional if none is specified</li>
      * </ul>
-     * @param context
      */
     @Override
     public void finished(WSDLParserExtensionContext context) {

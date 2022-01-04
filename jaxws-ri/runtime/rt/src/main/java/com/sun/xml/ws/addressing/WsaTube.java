@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -165,8 +165,7 @@ abstract class WsaTube extends AbstractFilterTubeImpl {
      * For ex: On server-side, check Anonymous and Non-Anonymous semantics in addition to checking cardinality.
      * 
      * Override checkMandatoryHeaders(Packet p) to have different validation rules for different versions
-     * 
-     * @param packet
+     *
      */
     protected void checkMessageAddressingProperties(Packet packet) {
         checkCardinality(packet);
@@ -369,14 +368,7 @@ abstract class WsaTube extends AbstractFilterTubeImpl {
      * Checks only for presence of wsa:Action and validates that wsa:Action
      * equals SOAPAction header when non-empty
      * Should be overridden if other wsa headers need to be checked based on version.
-     * 
-     * @param packet
-     * @param foundAction
-     * @param foundTo
-     * @param foundReplyTo
-     * @param foundFaultTo
-     * @param foundMessageId
-     * @param foundRelatesTo
+     *
      */
     protected void checkMandatoryHeaders(
         Packet packet, boolean foundAction, boolean foundTo, boolean foundReplyTo,

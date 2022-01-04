@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,7 +32,6 @@ public class XmlPolicyModelUnmarshallerTest extends TestCase {
 
     /**
      * Test of unmarshalModel method, of class XmlPolicyModelUnmarshaller.
-     * @throws PolicyException
      */
     public void testUnmarshalModel() throws PolicyException {
         final String policy = "<wsp:Policy " +
@@ -210,7 +209,6 @@ public class XmlPolicyModelUnmarshallerTest extends TestCase {
 
     /**
      * Testcase for https://wsit.dev.java.net/issues/show_bug.cgi?id=1305
-     * @throws Exception
      */
     public void testPolicyAssertionOptionalFalse() throws Exception {
         PolicySourceModel model = unmarshalModel("bug_reproduction/assertion_optional_false_unmarshalling.xml");

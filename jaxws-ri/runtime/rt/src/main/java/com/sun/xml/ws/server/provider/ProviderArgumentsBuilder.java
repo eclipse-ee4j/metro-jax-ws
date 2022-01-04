@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,7 +43,6 @@ abstract class ProviderArgumentsBuilder<T> {
 
     /**
      * Binds {@link com.sun.xml.ws.api.message.Message} to method invocation parameter
-     * @param packet
      */
     /*protected*/ public abstract T getParameter(Packet packet); // TODO public for DISI pluggable Provider
 

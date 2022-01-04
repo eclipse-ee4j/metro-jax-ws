@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -134,7 +134,6 @@ public interface Parameter {
      * Gets the holder value if applicable. To be called for inbound client side
      * message.
      *
-     * @param obj
      * @return the holder value if applicable.
      */
     Object getHolderValue(Object obj);

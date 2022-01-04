@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -177,9 +177,6 @@ public class PseudoSchemaBuilder {
     }
 
     /**
-     * @param portType
-     * @param operation
-     * @param bindingOperation
      */
     private void buildAsync(PortType portType, Operation operation, BindingOperation bindingOperation) {
         String operationName = getCustomizedOperationName(operation);//operation.getName();

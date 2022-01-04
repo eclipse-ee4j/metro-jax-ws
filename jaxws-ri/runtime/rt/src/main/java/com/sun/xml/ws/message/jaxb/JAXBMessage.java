@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -172,7 +172,6 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
      *
      * @param bridge
      *      Specify the payload tag name and how {@code jaxbObject} is bound.
-     * @param jaxbObject
      */
     public static Message create(XMLBridge bridge, Object jaxbObject, SOAPVersion soapVer) {
         if(!bridge.context().hasSwaRef()) {

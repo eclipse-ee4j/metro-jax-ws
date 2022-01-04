@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -84,8 +84,6 @@ public class SAAJMessage extends Message {
     /**
      * This constructor is a convenience and called by the {@link #copy}
      *
-     * @param headers
-     * @param sm
      */
     private SAAJMessage(MessageHeaders headers, AttachmentSet as, SOAPMessage sm, SOAPVersion version) {
         this.sm = sm;
@@ -406,8 +404,6 @@ public class SAAJMessage extends Message {
     /**
      * Gets the Attributes that are not namesapce declarations
      *
-     * @param attrs
-     * @return
      */
     private AttributesImpl getAttributes(NamedNodeMap attrs) {
         AttributesImpl atts = new AttributesImpl();
@@ -429,11 +425,8 @@ public class SAAJMessage extends Message {
      * Collects the ns declarations and starts the prefix mapping, consequently
      * the associated endPrefixMapping needs to be called.
      *
-     * @param contentHandler
-     * @param attrs
      * @param excludePrefix , this is to excldue the global prefix mapping "S"
      * used at the start
-     * @throws SAXException
      */
     private void startPrefixMapping(ContentHandler contentHandler, NamedNodeMap attrs, String excludePrefix) throws SAXException {
         if (attrs == null) {

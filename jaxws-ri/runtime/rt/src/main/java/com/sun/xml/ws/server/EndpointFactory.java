@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -501,9 +501,9 @@ public class EndpointFactory {
         return null;
     }
 
-    /**
-     *Set the mtom enable setting from wsdl model (mtom policy assertion) on to @link WSBinding} if DD has
-     * not already set it on BindingID. Also check conflicts.
+    /*
+     Set the mtom enable setting from wsdl model (mtom policy assertion) on to @link WSBinding} if DD has
+      not already set it on BindingID. Also check conflicts.
      */
     /*
     private static void applyEffectiveMtomSetting(WSDLBoundPortType wsdlBinding, WSBinding binding){

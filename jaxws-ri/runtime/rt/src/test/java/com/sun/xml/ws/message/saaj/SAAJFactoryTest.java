@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -84,7 +84,6 @@ public class SAAJFactoryTest extends TestCase {
     /**
      * Test whether SAAJFactory.readAsSOAPMessage can handle null namespace prefixes if the 
      * appropriate flag is set on Woodstox
-     * @throws Exception
      */
     public void testNullNamespacePrefix() throws Exception {
     	XMLInputFactory infact = XMLInputFactory.newFactory();
@@ -129,7 +128,6 @@ public class SAAJFactoryTest extends TestCase {
      * This test operates against JDK XMLInputFactory.
      * </p>
      *
-     * @throws Exception
      */
     public void testResetDefaultNamespaceToGlobalWithJDK() throws Exception {
         XMLInputFactory inputFactory = getBuiltInJdkXmlInputFactory();
@@ -183,7 +181,6 @@ public class SAAJFactoryTest extends TestCase {
      * This test operates against woodstax.
      * </p>
      *
-     * @throws Exception
      */
     public void testResetDefaultNamespaceToGlobalWithWoodstax() throws Exception {
         XMLInputFactory inputFactory = XMLInputFactory.newFactory();

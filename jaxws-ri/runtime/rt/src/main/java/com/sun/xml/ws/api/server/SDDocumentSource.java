@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -71,7 +71,6 @@ public abstract class SDDocumentSource {
 
     /**
      * System ID of this document.
-     * @return
      */
     public abstract URL getSystemId();
 
@@ -87,8 +86,6 @@ public abstract class SDDocumentSource {
 
     /**
      * Creates {@link SDDocumentSource} from an URL.
-     * @param url
-     * @return
      */
     public static SDDocumentSource create(final URL url) {
         return new SDDocumentSource() {
@@ -160,9 +157,6 @@ public abstract class SDDocumentSource {
 
     /**
      * Creates a {@link SDDocumentSource} from {@link XMLStreamBuffer}.
-     * @param systemId
-     * @param xsb
-     * @return
      */
     public static SDDocumentSource create(final URL systemId, final XMLStreamBuffer xsb) {
         return new SDDocumentSource() {

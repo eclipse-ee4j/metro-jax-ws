@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -59,7 +59,6 @@ public final class JavaMethodImpl implements JavaMethod {
     private String soapAction;
     
     /**
-     * @param owner
      * @param method : Implementation class method
      * @param seiMethod : corresponding SEI Method.
      *                  Is there is no SEI, it should be Implementation class method
@@ -149,7 +148,6 @@ public final class JavaMethodImpl implements JavaMethod {
     }
 
     /**
-     * @param binding
      */
     void setBinding(SOAPBinding binding) {
         this.binding = binding;
@@ -281,7 +279,6 @@ public final class JavaMethodImpl implements JavaMethod {
     }
 
     /**
-     * @param ce
      */
     void addException(CheckedExceptionImpl ce) {
         if (!exceptions.contains(ce))
@@ -289,7 +286,6 @@ public final class JavaMethodImpl implements JavaMethod {
     }
 
     /**
-     * @param exceptionClass
      * @return CheckedException corresponding to the exceptionClass. Returns
      *         null if not found.
      */
@@ -321,7 +317,6 @@ public final class JavaMethodImpl implements JavaMethod {
 
     /**
      * @deprecated
-     * @param detailType
      * @return Gets the CheckedException corresponding to detailType. Returns
      *         null if no CheckedExcpetion with the detailType found.
      */

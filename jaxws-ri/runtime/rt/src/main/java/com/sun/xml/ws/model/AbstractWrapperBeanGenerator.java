@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -303,7 +303,6 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
      * propOrder properties are considered. The returned collection is sorted
      * as per the given propOrder.
      *
-     * @param exception
      * @return list of properties in the correct order for an exception bean
      */
     public Collection<A> collectExceptionBeanMembers(C exception) {
@@ -322,7 +321,6 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
      * propOrder properties are considered. The returned collection is sorted
      * as per the given propOrder.
      *
-     * @param exception
      * @param decapitalize if true, all the property names are decapitalized
      * 
      * @return list of properties in the correct order for an exception bean

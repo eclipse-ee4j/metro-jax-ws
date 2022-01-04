@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -147,13 +147,6 @@ public class SDOUtils {
     /**
      * Serialize a DataObject to the specified xml element in text xml
      *
-     * @param hc
-     * @param obj
-     * @param targetNamespace
-     * @param localName
-     * @return
-     * @throws ParserConfigurationException
-     * @throws IOException
      */
     public static Source sdoToXML(HelperContext hc, DataObject obj, String targetNamespace, String localName)
             throws ParserConfigurationException, IOException {
@@ -178,8 +171,6 @@ public class SDOUtils {
     /**
      * Register the types defined in the given schema with the given sdo helper context
      *
-     * @param context
-     * @param schemas
      */
     public static void registerSDOContext(HelperContext context, List<Source> schemas) {
         SDOXSDHelper xsdHelper = (SDOXSDHelper) context.getXSDHelper();
@@ -412,9 +403,6 @@ public class SDOUtils {
 
     /**
      * get the element name represented by this property
-     * @param context
-     * @param p
-     * @return
      */
     public static QName getPropertyElementName(HelperContext context, Property p) {
         XSDHelper helper = context.getXSDHelper();
@@ -451,9 +439,6 @@ public class SDOUtils {
     /**
      * Check whether a java class is supported
      * The builtin type includes all the default type mappings specified in the SDO Spec
-     * @param javaType
-     * @param qname
-     * @return
      */
     public static boolean validateBuiltinType(String javaType, QName qname) {
         return validateSupportedType(HelperProvider.getDefaultContext(), javaType, qname);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,17 +9,6 @@
  */
 
 package com.sun.xml.ws.api.message;
-
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
-
-import javax.xml.namespace.QName;
-import jakarta.xml.ws.WebServiceException;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
@@ -33,7 +22,17 @@ import com.sun.xml.ws.api.pipe.Pipe;
 import com.sun.xml.ws.binding.SOAPBindingImpl;
 import com.sun.xml.ws.protocol.soap.ClientMUTube;
 import com.sun.xml.ws.protocol.soap.ServerMUTube;
+import jakarta.xml.ws.WebServiceException;
+
+import javax.xml.namespace.QName;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.BitSet;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 /**
  * A list of {@link Header}s on a {@link Message}.
@@ -127,7 +126,6 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
 
     /**
      * Creates an empty {@link HeaderList} with the given soap version
-     * @param soapVersion
      */
     public HeaderList(SOAPVersion soapVersion) {
         this.soapVersion = soapVersion;
@@ -310,11 +308,10 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
 
     /**
      * @deprecated
-     *      Use {@link #get(QName)}
+     *      Use {@link #get(QName, boolean)}
      */
-    public
-    @Nullable
-    Header get(@NotNull QName name) {
+    @Deprecated
+    public @Nullable Header get(@NotNull QName name) {
         return get(name, true);
     }
 
@@ -322,6 +319,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
      * @deprecated
      *      Use {@link #getHeaders(String, String, boolean)}
      */
+    @Deprecated
     public Iterator<Header> getHeaders(final String nsUri, final String localName) {
         return getHeaders(nsUri, localName, true);
     }
@@ -336,10 +334,8 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
      *      from {@link Iterator#next()}.
      * @return empty iterator if not found.
      */
-    public
-    @NotNull
     @Override
-    Iterator<Header> getHeaders(@NotNull final String nsUri, @NotNull final String localName, final boolean markAsUnderstood) {
+    public @NotNull Iterator<Header> getHeaders(@NotNull final String nsUri, @NotNull final String localName, final boolean markAsUnderstood) {
         return new Iterator<Header>() {
 
             int idx = 0;
@@ -737,23 +733,23 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
         assert index < size();
 
         if (index < 32) {
-            /**
-             * Let
-             *   R be the bit to be removed
-             *   M be a more significant "upper" bit than bit R
-             *   L be a less significant "lower" bit than bit R
-             *
-             * Then following 3 lines of code produce these results:
-             *
-             *   old understoodBits = MMMMMMMMMMMMRLLLLLLLLLLLLLLLLLLL
-             *
-             *   shiftedUpperBits   = 0MMMMMMMMMMMM0000000000000000000
-             *
-             *   lowerBits          = 0000000000000LLLLLLLLLLLLLLLLLLL
-             *
-             *   new understoodBits = 0MMMMMMMMMMMMLLLLLLLLLLLLLLLLLLL
-             *
-             * The R bit is removed and all the upper bits are shifted right (unsigned)
+            /*
+              Let
+                R be the bit to be removed
+                M be a more significant "upper" bit than bit R
+                L be a less significant "lower" bit than bit R
+
+              Then following 3 lines of code produce these results:
+
+                old understoodBits = MMMMMMMMMMMMRLLLLLLLLLLLLLLLLLLL
+
+                shiftedUpperBits   = 0MMMMMMMMMMMM0000000000000000000
+
+                lowerBits          = 0000000000000LLLLLLLLLLLLLLLLLLL
+
+                new understoodBits = 0MMMMMMMMMMMMLLLLLLLLLLLLLLLLLLL
+
+              The R bit is removed and all the upper bits are shifted right (unsigned)
              */
             int shiftedUpperBits = understoodBits >>> -31 + index << index;
             int lowerBits = understoodBits << -index >>> 31 - index >>> 1;

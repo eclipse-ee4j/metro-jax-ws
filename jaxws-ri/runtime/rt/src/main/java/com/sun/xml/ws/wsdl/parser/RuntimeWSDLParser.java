@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -515,10 +515,10 @@ public class RuntimeWSDLParser {
                     WSEndpointReference wsepr = new WSEndpointReference(eprbuffer, AddressingVersion.W3C);
                     //wsepr.toSpec().writeTo(new StreamResult(System.out));
                     port.setEPR(wsepr);
-                    /** XMLStreamBuffer.createNewBufferFromXMLStreamReader(reader) called from inside WSEndpointReference()
-                     *  consumes the complete EPR infoset and moves to the next element. This breaks the normal wsdl parser
-                     *  processing where it expects anyone reading the infoset to move to the end of the element that its reading
-                     *  and not to the next element.
+                    /* XMLStreamBuffer.createNewBufferFromXMLStreamReader(reader) called from inside WSEndpointReference()
+                       consumes the complete EPR infoset and moves to the next element. This breaks the normal wsdl parser
+                       processing where it expects anyone reading the infoset to move to the end of the element that its reading
+                       and not to the next element.
                      */
                     if(reader.getEventType() == XMLStreamConstants.END_ELEMENT && reader.getName().equals(WSDLConstants.QNAME_PORT))
                         break;
@@ -637,9 +637,9 @@ public class RuntimeWSDLParser {
             } else {
                 extensionFacade.bindingOperationElements(bindingOp, reader);
             }
-            /**
-             *  If style attribute is present set it otherwise set the style as defined
-             *  on the <soap:binding> element
+            /*
+               If style attribute is present set it otherwise set the style as defined
+               on the <soap:binding> element
              */
             if (style != null) {
                 if (style.equals("rpc"))
@@ -1017,8 +1017,6 @@ public class RuntimeWSDLParser {
      * Reads the namespace declarations from the reader's current position in to the map. The reader is expected to be
      * on the start element.
      *
-     * @param ns_map
-     * @param reader
      */
     private static void readNSDecl(Map<String, String> ns_map, XMLStreamReader reader) {
         if (reader.getNamespaceCount() > 0) {

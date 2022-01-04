@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,7 +51,6 @@ public class PolicyModelTranslatorTest extends TestCase {
 
     /**
      * Test of getTranslator method, of class PolicyModelTranslator.
-     * @throws Exception
      */
     public void testGetTranslator() throws Exception {
         PolicyModelTranslator result = PolicyModelTranslator.getTranslator();
@@ -60,7 +59,6 @@ public class PolicyModelTranslatorTest extends TestCase {
 
     /**
      * Test of translate method, of class PolicyModelTranslator.
-     * @throws Exception
      */
     public void testTranslateEmpty() throws Exception {
         PolicySourceModel model = PolicySourceModel.createPolicySourceModel(NamespaceVersion.v1_5, "id", null);
@@ -72,7 +70,6 @@ public class PolicyModelTranslatorTest extends TestCase {
 
     /**
      * Test of translate method, of class com.sun.xml.ws.policy.PolicyModelTranslator.
-     * @throws Exception
      */
     public void testTranslateComplexPoliciesWithMultipleNestedPolicyAlternatives() throws Exception {
         int index = 0;

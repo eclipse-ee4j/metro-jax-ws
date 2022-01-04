@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -147,7 +147,6 @@ public class OneWayFeature extends WebServiceFeature {
     /**
      * Setter for wsa:ReplyTo header {@link WSEndpointReference}.
      *
-     * @param address
      */
     public void setReplyTo(WSEndpointReference address) {
         this.replyTo = address;
@@ -193,7 +192,6 @@ public class OneWayFeature extends WebServiceFeature {
     /**
      * Setter for MessageID for wsa:RelatesTo header.
      *
-     * @param id
      */
     public void setRelatesToID(String id) {
         this.relatesToID = id;
@@ -254,7 +252,6 @@ public class OneWayFeature extends WebServiceFeature {
      *        version
      * @param sslHost New SSL host or null if the existing host should be used
      * @param sslPort New SSL port or -1 if the existing port should be used
-     * @return
      */
     public static WSEndpointReference
     enableSslForEpr(@NotNull WSEndpointReference epr,

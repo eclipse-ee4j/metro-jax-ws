@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -71,7 +71,6 @@ public class AlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class AlternativeSelector.
-     * @throws PolicyException
      */
     public void testDoSelectionNull() throws PolicyException {
         final EffectivePolicyModifier modifier = null;
@@ -85,7 +84,6 @@ public class AlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class AlternativeSelector.
-     * @throws PolicyException
      */
     public void testDoSelectionUnconnected() throws PolicyException {
         final EffectivePolicyModifier modifier = EffectivePolicyModifier.createEffectivePolicyModifier();
@@ -99,7 +97,6 @@ public class AlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class AlternativeSelector.
-     * @throws PolicyException
      */
     public void testDoSelectionEmpty() throws PolicyException {
         final EffectivePolicyModifier modifier = EffectivePolicyModifier.createEffectivePolicyModifier();
@@ -111,7 +108,6 @@ public class AlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class AlternativeSelector.
-     * @throws PolicyException
      */
     public void testDoSelectionAlternativesService() throws PolicyException {
 
@@ -141,7 +137,6 @@ public class AlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class AlternativeSelector.
-     * @throws PolicyException
      */
     public void testDoSelectionAlternativesEndpoint() throws PolicyException {
 
@@ -171,7 +166,6 @@ public class AlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class AlternativeSelector.
-     * @throws PolicyException
      */
     public void testDoSelectionAlternativesOperation() throws PolicyException {
 
@@ -202,7 +196,6 @@ public class AlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class AlternativeSelector.
-     * @throws PolicyException
      */
     public void testDoSelectionAlternativesInput() throws PolicyException {
 

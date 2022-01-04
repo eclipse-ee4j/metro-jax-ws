@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -74,9 +74,6 @@ public interface BindingContext {
 
     /**
      * Allows to retrieve the element name based on Class.
-     * @param o
-     * @return
-     * @throws jakarta.xml.bind.JAXBException
      * @since 2.1.10
      */
     public abstract @Nullable QName getElementName(@NotNull Class o) throws JAXBException;
@@ -92,10 +89,10 @@ public interface BindingContext {
     public abstract XMLBridge createBridge(@NotNull TypeInfo ref);
     public abstract XMLBridge createFragmentBridge();
 
-    /**
-     * Creates a new {@link BridgeContext} instance.
-     *
-     * @return
+    /*
+      Creates a new {@link BridgeContext} instance.
+
+      @return
      *      always a valid non-null instance.
      *
      * @since 2.0 EA1
@@ -249,11 +246,11 @@ public interface BindingContext {
      */
     public static final String TREAT_EVERYTHING_NILLABLE = JAXBRIContext.TREAT_EVERYTHING_NILLABLE;
 
-    /**
-     * The property that you can specify to {@link JAXBContext#newInstance}
-     * to use alternative {@link RuntimeAnnotationReader} implementation.
-     *
-     * @since 2.1 EA2
+    /*
+      The property that you can specify to {@link JAXBContext#newInstance}
+      to use alternative {@link RuntimeAnnotationReader} implementation.
+
+      @since 2.1 EA2
      */
 //    public static final String ANNOTATION_READER = RuntimeAnnotationReader.class.getName();
 
