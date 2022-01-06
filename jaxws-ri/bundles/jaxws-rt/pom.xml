@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -241,7 +241,7 @@
                                     *
                                 </Import-Package>
                                 <probe-provider-class-names>com.sun.xml.ws.transport.http.servlet.JAXWSRIDeploymentProbeProvider</probe-provider-class-names>
-                                <Class-Path>jakarta.annotation-api.jar jakarta.activation-api.jar jakarta.mail-api.jar jakarta.jws-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar angus-activation.jar angus-mail.jar FastInfoset.jar gmbal-api-only.jar ha-api.jar jaxb-core.jar jaxb-impl.jar management-api.jar mimepull.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar woodstox-core.jar</Class-Path>
+                                <Class-Path>jakarta.annotation-api.jar jakarta.activation-api.jar jakarta.mail-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar angus-activation.jar angus-mail.jar FastInfoset.jar gmbal-api-only.jar ha-api.jar jaxb-core.jar jaxb-impl.jar management-api.jar mimepull.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar woodstox-core.jar</Class-Path>
                                 <Extension-Name>com.sun.xml.ws</Extension-Name>
                             </instructions>
                         </configuration>
