@@ -19,13 +19,13 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0-M2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>jaxws-ri-tests</artifactId>
     <packaging>pom</packaging>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0-M2</version>
     <name>JAX-WS RI Tests</name>
 
     <properties>
