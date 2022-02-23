@@ -5,6 +5,27 @@ As required by the
 [Eclipse Foundation Technology Compatibility Kit License](https://www.eclipse.org/legal/tck.php),
 following is a summary of the TCK results for releases of Eclipse Implementation of Jakarta XML Web Services.
 
+# 4.0.0-M3 Certification Request
+
+- [x] Organization Name ("Organization") and, if applicable, URL:
+  [Eclipse Foundation](https://www.eclipse.org/)
+- [x] Product Name, Version and download URL (if applicable):
+  [Eclipse Implementation of Jakarta XML Web Services 4.0.0-M3](https://github.com/eclipse-ee4j/metro-jax-ws/releases/tag/4.0.0-M3)
+- [x] Specification Name, Version and download URL:
+   [Jakarta XML Web Services 4.0](https://jakarta.ee/specifications/xml-web-services/4.0/)
+- [x] TCK Version, digital SHA-256 fingerprint and download URL:
+  [Jakarta XML Web Services TCK 4.0.0](https://download.eclipse.org/jakartaee/xml-web-services/4.0/jakarta-xml-ws-tck-4.0.0.zip), SHA-256: TBD
+- [x] Public URL of TCK Results Summary:
+  [TCK results summary](https://eclipse-ee4j.github.io/metro-jax-ws/TCK-Results.html)
+- [x] Any Additional Specification Certification Requirements:
+  None
+- [x] Java runtime used to run the implementation:
+  OpenJDK 11.0.2+9
+- [x] Summary of the information for the certification environment, operating system, cloud, ...:
+  Linux
+- [x] By checking this box I acknowledge that the Organization I represent accepts the terms of the [EFTL](https://www.eclipse.org/legal/tck.php).
+- [x] By checking this box I attest that all TCK requirements have been met, including any compatibility rules.
+
 # 3.0.1 Certification Request
 
 - [x] Organization Name ("Organization") and, if applicable, URL:<br/>
