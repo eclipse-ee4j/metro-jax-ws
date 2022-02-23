@@ -67,6 +67,7 @@
                     <vmArgs>
                         <vmArg>-Xms256m -Xmx512m ${ws.permGenJvmOpts}</vmArg>
                         <vmArg>--add-opens java.base/java.util=ALL-UNNAMED</vmArg>
+                        <vmArg>--add-opens java.base/sun.net.www.protocol.http=ALL-UNNAMED</vmArg>
                         <vmArg>--add-opens java.xml/com.sun.org.apache.xalan.internal.xsltc.trax=ALL-UNNAMED</vmArg>
                         <vmArg>--add-opens java.xml/com.sun.org.apache.xerces.internal.jaxp=ALL-UNNAMED</vmArg>
                         <vmArg>--add-opens java.xml/com.sun.org.apache.xerces.internal.dom=ALL-UNNAMED</vmArg>
