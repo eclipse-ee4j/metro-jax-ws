@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.logging.Level;
 import javax.xml.namespace.QName;
@@ -48,16 +49,11 @@ public final class PolicyUtils {
          *         position in the call stack of the current {@link Thread}.
          */
         public static String getStackMethodName(final int methodIndexInStack) {
-            final String methodName;
-
-            final StackTraceElement[] stack = Thread.currentThread().getStackTrace();
-            if (stack.length > methodIndexInStack + 1) {
-                methodName = stack[methodIndexInStack].getMethodName();
-            } else {
-                methodName = "UNKNOWN METHOD";
-            }
-
-            return methodName;
+            final Optional<String> method = StackWalker.getInstance().walk(frames ->
+                            frames.map(StackWalker.StackFrame::getMethodName)
+                                  .skip(methodIndexInStack)
+                                  .findFirst());
+            return method.orElse("UNKNOWN METHOD");
         }
 
         /**
@@ -67,11 +63,7 @@ public final class PolicyUtils {
          * @return caller method name from the call stack of the current {@link Thread}.
          */
         public static String getCallerMethodName() {
-            String result = getStackMethodName(5);
-            if (result.equals("invoke0")) {
-                // We are likely running on Mac OS X, which returns a shorter stack trace
-                result = getStackMethodName(4);
-            }
+            String result = getStackMethodName(3);
             return result;
         }
     }

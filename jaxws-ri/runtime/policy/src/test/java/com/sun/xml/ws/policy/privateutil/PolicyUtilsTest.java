@@ -47,20 +47,6 @@ public class PolicyUtilsTest extends TestCase {
         String expResult, result;
 
         index = 0;
-        result = PolicyUtils.Commons.getStackMethodName(index);
-        // On Mac OS X, getStackMethodName returns getStackTrace. On other systems,
-        // this method first returns dumpThreads and then getStackTrace.
-        if (result.equals("dumpThreads")) {
-            index++;
-            expResult = "getStackTrace";
-            result = PolicyUtils.Commons.getStackMethodName(index);
-            assertEquals(expResult, result);
-        }
-        else if (!result.equals("getStackTrace")) {
-            fail("Expected \"dumpThreads\" or \"getStackTrace\", but got instead \"" + result + "\"");
-        }
-
-        index++;
         expResult = "getStackMethodName";
         result = PolicyUtils.Commons.getStackMethodName(index);
         assertEquals(expResult, result);
