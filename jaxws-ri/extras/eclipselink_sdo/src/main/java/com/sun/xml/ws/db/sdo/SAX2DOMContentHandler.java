@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,20 +44,20 @@ public class SAX2DOMContentHandler implements ContentHandler {
         try {
             DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
             doc = documentBuilder.newDocument();
-            stack = new Stack<Node>();
+            stack = new Stack<>();
             stack.push(doc);
         }
         catch (Exception e) {
             throw new RuntimeException(e);
         }
-        prefixMappings = new HashMap<String, String>();
+        prefixMappings = new HashMap<>();
     }
 
     public SAX2DOMContentHandler(Document d) {
         doc = d;
-        stack = new Stack<Node>();
+        stack = new Stack<>();
         stack.push(d);
-        prefixMappings = new HashMap<String, String>();
+        prefixMappings = new HashMap<>();
     }
 
     public void setDocumentLocator(Locator locator) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,26 +10,19 @@
 
 package com.sun.xml.ws.encoding;
 
-import static com.sun.xml.ws.binding.WebServiceFeatureList.getSoapVersion;
-
 import com.oracle.webservices.impl.encoding.StreamDecoderImpl;
 import com.oracle.webservices.impl.internalspi.encoding.StreamDecoder;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import com.sun.xml.stream.buffer.MutableXMLStreamBuffer;
-import com.sun.xml.stream.buffer.XMLStreamBuffer;
-import com.sun.xml.stream.buffer.XMLStreamBufferMark;
-import com.sun.xml.stream.buffer.stax.StreamReaderBufferCreator;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.WSBinding;
 import com.sun.xml.ws.api.WSFeatureList;
 import com.sun.xml.ws.api.message.AttachmentSet;
-import com.sun.xml.ws.api.message.Header;
-import com.sun.xml.ws.api.message.HeaderList;
 import com.sun.xml.ws.api.message.Message;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.api.pipe.ContentType;
 import com.sun.xml.ws.api.streaming.XMLStreamWriterFactory;
+import com.sun.xml.ws.binding.WebServiceFeatureList;
 import com.sun.xml.ws.developer.SerializationFeature;
 import com.sun.xml.ws.message.AttachmentSetImpl;
 import com.sun.xml.ws.message.stream.StreamMessage;
@@ -49,9 +42,7 @@ import java.io.OutputStream;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A stream SOAP codec.
@@ -84,7 +75,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
     }
     
     StreamSOAPCodec(WSFeatureList features) {
-        this(getSoapVersion(features), features.get(SerializationFeature.class));
+        this(WebServiceFeatureList.getSoapVersion(features), features.get(SerializationFeature.class));
     }
 
     private StreamSOAPCodec(SOAPVersion soapVersion, @Nullable SerializationFeature sf) {
@@ -205,7 +196,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
             throw new UnsupportedMediaException(contentType, expectedContentTypes);
         }
         com.oracle.webservices.api.message.ContentType pct = packet.getInternalContentType();
-        ContentTypeImpl cti = (pct != null && pct instanceof ContentTypeImpl) ?
+        ContentTypeImpl cti = (pct instanceof ContentTypeImpl) ?
                 (ContentTypeImpl)pct : new ContentTypeImpl(contentType);
         String charset = cti.getCharSet();
         if (charset != null && !Charset.isSupported(charset)) {
@@ -244,7 +235,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
      * Creates a new {@link StreamSOAPCodec} instance using binding
      */
     public static StreamSOAPCodec create(WSFeatureList features) {
-        SOAPVersion version = getSoapVersion(features);
+        SOAPVersion version = WebServiceFeatureList.getSoapVersion(features);
         if(version==null)
             // this decoder is for SOAP, not for XML/HTTP
             throw new IllegalArgumentException();

@@ -311,7 +311,7 @@ class LogicalMessageImpl implements LogicalMessage {
                 DOMResult domResult = new DOMResult();
                 transformer.transform(payloadSrc, domResult);
                 DOMSource dom = new DOMSource(domResult.getNode());
-                lm = new DOMLogicalMessageImpl((DOMSource) dom);
+                lm = new DOMLogicalMessageImpl(dom);
                 payloadSrc = null;
                 return dom;
             } catch (TransformerException te) {

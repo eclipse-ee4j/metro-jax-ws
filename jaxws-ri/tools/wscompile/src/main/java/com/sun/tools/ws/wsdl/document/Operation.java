@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,7 @@ public class Operation extends Entity implements TWSDLOperation {
 
     public Operation(Locator locator) {
         super(locator);
-        _faults = new ArrayList<Fault>();
+        _faults = new ArrayList<>();
         _helper = new ExtensibilityHelper();
     }
 
@@ -45,7 +45,7 @@ public class Operation extends Entity implements TWSDLOperation {
 
     public String getUniqueKey() {
         if (_uniqueKey == null) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             sb.append(_name);
             sb.append(' ');
             if (_input != null) {
@@ -235,6 +235,6 @@ public class Operation extends Entity implements TWSDLOperation {
     private String _parameterOrder;
     private String _uniqueKey;
     private ExtensibilityHelper _helper;
-    private final Map<String, JClass> faultClassMap = new HashMap<String, JClass>();
+    private final Map<String, JClass> faultClassMap = new HashMap<>();
     private final Map<String, JClass> unmodifiableFaultClassMap = Collections.unmodifiableMap(faultClassMap);
 }

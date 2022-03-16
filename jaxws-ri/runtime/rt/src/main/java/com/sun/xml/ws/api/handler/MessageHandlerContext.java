@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,18 +37,18 @@ public interface MessageHandlerContext extends MessageContext {
      * @return The contained message; returns <code>null</code> if no
      *         message is present in this message context
      */
-    public Message getMessage();
+    Message getMessage();
 
     
     /**
      * Sets the message in this message context
      */
-    public void setMessage(Message message);
+    void setMessage(Message message);
 
     /**
      * @see jakarta.xml.ws.handler.soap.SOAPMessageContext#getRoles()
      */
-     public Set<String> getRoles();
+    Set<String> getRoles();
 
 
     /**
@@ -56,12 +56,12 @@ public interface MessageHandlerContext extends MessageContext {
      * for example: <code>WSBinding#getSOAPVersion</code> to get SOAP version of the binding.
      *              <code>WSBinding#isFeatureEnabled(AddressingFeature)</code> to check if addressing is enabled
      */
-    public WSBinding getWSBinding();
+    WSBinding getWSBinding();
 
     /**
      * Provides access to <code>SEIModel</code>.
      */
-    public @Nullable SEIModel getSEIModel();
+    @Nullable SEIModel getSEIModel();
 
     /**
      * Gets the {@link WSDLPort} that represents the port.
@@ -69,6 +69,6 @@ public interface MessageHandlerContext extends MessageContext {
      *      returns the WSDLModel of the port that the client/endpoint binds to.
      *      null when the Service is not configured with WSDL information.
      */
-    public @Nullable WSDLPort getPort();
+    @Nullable WSDLPort getPort();
    
 }

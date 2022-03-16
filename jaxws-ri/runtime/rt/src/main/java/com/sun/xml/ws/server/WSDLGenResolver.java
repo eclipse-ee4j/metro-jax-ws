@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,7 +38,7 @@ import java.util.Map;
 final class WSDLGenResolver implements com.oracle.webservices.api.databinding.WSDLResolver {
     
     private final Collection<SDDocumentImpl> docs;
-    private final List<SDDocumentSource> newDocs = new ArrayList<SDDocumentSource>();
+    private final List<SDDocumentSource> newDocs = new ArrayList<>();
     private SDDocumentSource concreteWsdlSource;
     
     private SDDocumentImpl abstractWsdl;
@@ -47,7 +47,7 @@ final class WSDLGenResolver implements com.oracle.webservices.api.databinding.WS
     /**
      * targetNS -> schema documents.
      */
-    private final Map<String, List<SDDocumentImpl>> nsMapping = new HashMap<String,List<SDDocumentImpl>>();
+    private final Map<String, List<SDDocumentImpl>> nsMapping = new HashMap<>();
 
     private final QName serviceName;
     private final QName portTypeName;
@@ -65,11 +65,7 @@ final class WSDLGenResolver implements com.oracle.webservices.api.databinding.WS
             }
             if(doc.isSchema()) {
                 SDDocument.Schema schema = (SDDocument.Schema) doc;
-                List<SDDocumentImpl> sysIds = nsMapping.get(schema.getTargetNamespace());
-                if (sysIds == null) {
-                    sysIds = new ArrayList<SDDocumentImpl>();
-                    nsMapping.put(schema.getTargetNamespace(), sysIds);
-                }
+                List<SDDocumentImpl> sysIds = nsMapping.computeIfAbsent(schema.getTargetNamespace(), k -> new ArrayList<>());
                 sysIds.add(doc);
             }
         }

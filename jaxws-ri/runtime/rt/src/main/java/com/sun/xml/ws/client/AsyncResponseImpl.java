@@ -98,7 +98,7 @@ public final class AsyncResponseImpl<T> extends FutureTask<T> implements Respons
                         return AsyncResponseImpl.this.getContext();
                     }
                 }
-                handler.handleResponse(new CallbackFuture<T>(v, t));
+                handler.handleResponse(new CallbackFuture<>(v, t));
             } catch (Throwable e) {
                 super.setException(e);
                 return;

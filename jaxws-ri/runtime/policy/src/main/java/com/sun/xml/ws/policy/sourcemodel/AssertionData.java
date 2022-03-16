@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -130,7 +130,7 @@ public final class AssertionData implements Cloneable, Serializable {
         this.optional = optional;
         this.ignorable = ignorable;
 
-        this.attributes = new HashMap<QName, String>();
+        this.attributes = new HashMap<>();
         if (attributes != null && !attributes.isEmpty()) {
             this.attributes.putAll(attributes);
         }
@@ -154,7 +154,7 @@ public final class AssertionData implements Cloneable, Serializable {
     AssertionData(final AssertionData data) {
         this.name = data.name;
         this.value = data.value;
-        this.attributes = new HashMap<QName, String>();
+        this.attributes = new HashMap<>();
         if (!data.attributes.isEmpty()) {
             this.attributes.putAll(data.attributes);
         }
@@ -228,7 +228,7 @@ public final class AssertionData implements Cloneable, Serializable {
      */
     public Map<QName, String> getAttributes() {
         synchronized (attributes) {
-            return new HashMap<QName, String>(attributes);
+            return new HashMap<>(attributes);
         }
     }
 
@@ -245,7 +245,7 @@ public final class AssertionData implements Cloneable, Serializable {
      */
     public Set<Map.Entry<QName, String>> getAttributesSet() {
         synchronized (attributes) {
-            return new HashSet<Map.Entry<QName, String>>(attributes.entrySet());
+            return new HashSet<>(attributes.entrySet());
         }
     }
 

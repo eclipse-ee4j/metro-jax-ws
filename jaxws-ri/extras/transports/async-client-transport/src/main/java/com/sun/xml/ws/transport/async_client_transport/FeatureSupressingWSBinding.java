@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,13 +36,13 @@ public class FeatureSupressingWSBinding implements WSBinding {
     public FeatureSupressingWSBinding(Class<? extends WebServiceFeature> supressedftr, WSBinding binding) {
         this.original = binding;
         WebServiceFeature[] origFtrs= original.getFeatures().toArray();
-        List<WebServiceFeature> newFtrList =  new ArrayList<WebServiceFeature>();
+        List<WebServiceFeature> newFtrList = new ArrayList<>();
         for(WebServiceFeature ftr: origFtrs) {
             if(!ftr.getClass().equals(supressedftr)) {
                 newFtrList.add(ftr);
             }
         }
-        newFtrs = new WebServiceFeatureList(newFtrList.toArray(new WebServiceFeature[newFtrList.size()]));
+        newFtrs = new WebServiceFeatureList(newFtrList.toArray(new WebServiceFeature[0]));
     }
 
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,7 +22,7 @@ public interface WSDLPortType extends WSDLObject, WSDLExtensible {
      * Gets the name of the wsdl:portType@name attribute value as local name and wsdl:definitions@targetNamespace
      * as the namespace uri.
      */
-    public QName getName();
+    QName getName();
 
     /**
      * Gets the {@link WSDLOperation} for a given operation name
@@ -30,10 +30,10 @@ public interface WSDLPortType extends WSDLObject, WSDLExtensible {
      * @param operationName non-null operationName
      * @return null if a {@link WSDLOperation} is not found
      */
-    public WSDLOperation get(String operationName);
+    WSDLOperation get(String operationName);
 
     /**
      * Gets {@link Iterable}7lt;{@link WSDLOperation}&gt;
      */
-    public Iterable<? extends WSDLOperation> getOperations();
+    Iterable<? extends WSDLOperation> getOperations();
 }

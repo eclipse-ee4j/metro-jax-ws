@@ -69,7 +69,7 @@ public final class VersionUtil {
 
         // resolve the minor version
         token = tokenizer.nextToken();
-        if (token.indexOf(DASH_DELIM) == -1) {
+        if (!token.contains(DASH_DELIM)) {
             // a.b
             canonicalVersion[1] = Integer.parseInt(token);
         } else {
@@ -85,7 +85,7 @@ public final class VersionUtil {
         // resolve the minorMinor and patch version, if any
         if (tokenizer.hasMoreTokens()) {
             token = tokenizer.nextToken();
-            if (token.indexOf(DASH_DELIM) == -1) {
+            if (!token.contains(DASH_DELIM)) {
                 // minorMinor
                 canonicalVersion[2] = Integer.parseInt(token);
 

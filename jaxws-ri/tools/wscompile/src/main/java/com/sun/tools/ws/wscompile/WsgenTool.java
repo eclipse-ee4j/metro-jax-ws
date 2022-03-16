@@ -130,7 +130,7 @@ public class WsgenTool {
         final ErrorReceiverFilter errReceiver = new ErrorReceiverFilter(listener);
 
         if (!options.nosource) {
-            List<String> args = new ArrayList<String>(6 + (options.nocompile ? 1 : 0)
+            List<String> args = new ArrayList<>(6 + (options.nocompile ? 1 : 0)
                     + (options.encoding != null ? 2 : 0));
 
             args.add("-d");
@@ -155,7 +155,7 @@ public class WsgenTool {
                 out.println(WscompileMessages.WSCOMPILE_CANT_GET_COMPILER(property("java.home"), property("java.version"), property("java.vendor")));
                 return false;
             }
-            DiagnosticListener<JavaFileObject> diagnostics = new DiagnosticListener<JavaFileObject>() {
+            DiagnosticListener<JavaFileObject> diagnostics = new DiagnosticListener<>() {
                 @Override
                 public void report(Diagnostic<? extends JavaFileObject> diagnostic) {
                     boolean fromFile = diagnostic.getSource() != null;
@@ -247,7 +247,7 @@ public class WsgenTool {
             com.sun.xml.ws.db.DatabindingImpl rt = (com.sun.xml.ws.db.DatabindingImpl) fac.createRuntime(config);
 
             final File[] wsdlFileName = new File[1]; // used to capture the generated WSDL file.
-            final Map<String, File> schemaFiles = new HashMap<String, File>();
+            final Map<String, File> schemaFiles = new HashMap<>();
 
             WSDLGenInfo wsdlGenInfo = new WSDLGenInfo();
             wsdlGenInfo.setSecureXmlProcessingDisabled(disableXmlSecurity);
@@ -319,7 +319,7 @@ public class WsgenTool {
     }
 
     private List<File> getExternalFiles(List<String> exts) {
-        List<File> files = new ArrayList<File>();
+        List<File> files = new ArrayList<>();
         for (String ext : exts) {
             // first try absolute path ...
             File file = new File(ext);

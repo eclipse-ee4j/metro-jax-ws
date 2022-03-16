@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -135,7 +135,7 @@ final class LocalConnectionImpl extends WSHTTPConnection implements WebServiceCo
     @Property({MessageContext.HTTP_RESPONSE_HEADERS, Packet.OUTBOUND_TRANSPORT_HEADERS})
     public @Nullable Map<String, List<String>> getResponseHeaders() {
         if(rspHeaders==null)
-            rspHeaders = new HashMap<String,List<String>>();
+            rspHeaders = new HashMap<>();
 
         return rspHeaders;
     }
@@ -156,7 +156,7 @@ final class LocalConnectionImpl extends WSHTTPConnection implements WebServiceCo
     @Override
 	public void setResponseHeader(String key, List<String> value) {
         if(rspHeaders==null)
-            rspHeaders = new HashMap<String,List<String>>();
+            rspHeaders = new HashMap<>();
 
         rspHeaders.put(key, value);
 	}
@@ -174,21 +174,17 @@ final class LocalConnectionImpl extends WSHTTPConnection implements WebServiceCo
     public void setResponseHeaders(Map<String,List<String>> headers) {
         if(headers==null)
             // be defensive
-            this.rspHeaders = new HashMap<String,List<String>>();
+            this.rspHeaders = new HashMap<>();
         else {
-            this.rspHeaders = new HashMap<String, List<String>>(headers);
+            this.rspHeaders = new HashMap<>(headers);
 
-            for (Iterator<String> itr = rspHeaders.keySet().iterator(); itr.hasNext();) {
-                String key = itr.next();
-                if(key.equalsIgnoreCase("Content-Type") || key.equalsIgnoreCase("Content-Length"))
-                    itr.remove();
-            }
+            rspHeaders.keySet().removeIf(key -> key.equalsIgnoreCase("Content-Type") || key.equalsIgnoreCase("Content-Length"));
         }
     }
 
     public void setContentTypeResponseHeader(@NotNull String value) {
         if(rspHeaders==null)
-            rspHeaders = new HashMap<String,List<String>>();
+            rspHeaders = new HashMap<>();
 
         rspHeaders.put("Content-Type", Collections.singletonList(value));
     }

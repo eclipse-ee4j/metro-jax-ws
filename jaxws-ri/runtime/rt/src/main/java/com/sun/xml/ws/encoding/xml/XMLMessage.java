@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -172,7 +172,7 @@ public final class XMLMessage {
         String lowerType = type.toLowerCase();
         return lowerType.startsWith("text/xml")
                 || lowerType.startsWith("application/xml")
-                || (lowerType.startsWith("application/") && (lowerType.indexOf("+xml") != -1));
+                || (lowerType.startsWith("application/") && (lowerType.contains("+xml")));
     }
 
     protected static boolean isFastInfosetType(String primary, String sub) {
@@ -192,7 +192,7 @@ public final class XMLMessage {
      * <p>
      * TODO: consider putting as part of the API.
      */
-    public static interface MessageDataSource {
+    public interface MessageDataSource {
         /**
          * Check if the data source has been consumed.
          * @return true of the data source has been consumed, otherwise false.
@@ -286,7 +286,7 @@ public final class XMLMessage {
         }
 
         public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
-            return (T)getMessage().readPayloadAsJAXB(unmarshaller);
+            return getMessage().readPayloadAsJAXB(unmarshaller);
         }
         /** @deprecated */
         public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
@@ -410,7 +410,7 @@ public final class XMLMessage {
         }
 
         public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
-            return (T)getMessage().readPayloadAsJAXB(unmarshaller);
+            return getMessage().readPayloadAsJAXB(unmarshaller);
         }
 
         public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {

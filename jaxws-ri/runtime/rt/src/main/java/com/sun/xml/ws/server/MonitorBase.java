@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,7 +33,6 @@ import java.util.logging.Logger;
 
 // BEGIN IMPORTS FOR RewritingMOM
 import java.util.ResourceBundle ;
-import java.lang.reflect.AnnotatedElement ;
 import java.lang.annotation.Annotation ;
 import javax.management.ObjectName ;
 import javax.management.MBeanServer ;
@@ -247,7 +246,7 @@ public abstract class MonitorBase {
     }
 
     private ManagedObjectManager createRoot(final ManagedObjectManager mom, final String rootName, int unique) {
-        final String name = rootName + (unique == 0 ? "" : "-" + String.valueOf(unique));
+        final String name = rootName + (unique == 0 ? "" : "-" + unique);
         try {
             final Object ignored = mom.createRoot(this, name);
             if (ignored != null) {
@@ -317,7 +316,7 @@ public abstract class MonitorBase {
             }
 
             s = System.getProperty(monitorProperty + "runtimeDebug");
-            if (s != null && s.toLowerCase().equals("true")) {
+            if (s != null && s.equalsIgnoreCase("true")) {
                 runtimeDebug = true;
             }
 

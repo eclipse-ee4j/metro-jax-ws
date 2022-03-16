@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -65,7 +65,7 @@ abstract class SEIMethodHandler extends MethodHandler {
         super(owner, null);
 
         //keep all the CheckedException model for the detail qname
-        this.checkedExceptions = new HashMap<QName, CheckedExceptionImpl>();
+        this.checkedExceptions = new HashMap<>();
         for(CheckedExceptionImpl ce : method.getCheckedExceptions()){
             checkedExceptions.put(ce.getBond().getTypeInfo().tagName, ce);
         }
@@ -81,7 +81,7 @@ abstract class SEIMethodHandler extends MethodHandler {
             List<ParameterImpl> rp = method.getRequestParameters();
 
             BodyBuilder tmpBodyBuilder = null;
-            List<MessageFiller> fillers = new ArrayList<MessageFiller>();
+            List<MessageFiller> fillers = new ArrayList<>();
 
             for (ParameterImpl param : rp) {
                 ValueGetter getter = getValueGetterFactory().get(param);
@@ -128,7 +128,7 @@ abstract class SEIMethodHandler extends MethodHandler {
             }
 
             this.bodyBuilder = tmpBodyBuilder;
-            this.inFillers = fillers.toArray(new MessageFiller[fillers.size()]);
+            this.inFillers = fillers.toArray(new MessageFiller[0]);
         }
 
         this.isOneWay = method.getMEP().isOneWay();
@@ -137,7 +137,7 @@ abstract class SEIMethodHandler extends MethodHandler {
     ResponseBuilder buildResponseBuilder(JavaMethodImpl method, ValueSetterFactory setterFactory) {
         // prepare objects for processing response
         List<ParameterImpl> rp = method.getResponseParameters();
-        List<ResponseBuilder> builders = new ArrayList<ResponseBuilder>();
+        List<ResponseBuilder> builders = new ArrayList<>();
 
         for( ParameterImpl param : rp ) {
             ValueSetter setter;

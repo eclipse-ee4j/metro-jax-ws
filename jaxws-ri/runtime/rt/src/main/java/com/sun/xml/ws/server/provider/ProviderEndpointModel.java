@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -67,7 +67,7 @@ final class ProviderEndpointModel<T> {
         isAsync = AsyncProvider.class.isAssignableFrom(implementorClass);
 
 
-        Class<? extends Object> baseType = isAsync ? AsyncProvider.class : Provider.class;
+        Class<?> baseType = isAsync ? AsyncProvider.class : Provider.class;
         Type baseParam = BindingHelper.getBaseType(implementorClass, baseType);
         if (baseParam==null)
             throw new WebServiceException(ServerMessages.NOT_IMPLEMENT_PROVIDER(implementorClass.getName()));

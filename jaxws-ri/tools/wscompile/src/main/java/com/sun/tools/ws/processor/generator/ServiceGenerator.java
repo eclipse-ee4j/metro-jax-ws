@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -122,9 +122,7 @@ public class ServiceGenerator extends GeneratorBase {
             comment.add("\n\n");
         }
 
-        for (String doc : getJAXWSClassComment()) {
-            comment.add(doc);
-        }
+        comment.addAll(getJAXWSClassComment());
 
         // Generating constructor
         // for e.g:  public ExampleService()

@@ -114,7 +114,7 @@ public class WSDLFetcher {
 
     }
     private Map<String,String> createDocumentMap(MetadataFinder forest, File baseDir, final String rootWsdl, Set<String> externalReferences) {
-        Map<String,String> map = new HashMap<String,String>();
+        Map<String,String> map = new HashMap<>();
         String rootWsdlFileName = rootWsdl;
         String rootWsdlName;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,5 +24,5 @@ public interface EndpointAwareTube extends Tube {
 	 * Setter for WSEndpoint holding this tube
 	 * @param endpoint WSEndpoint holding this tube
 	 */
-	public void setEndpoint(WSEndpoint<?> endpoint);
+    void setEndpoint(WSEndpoint<?> endpoint);
 }

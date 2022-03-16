@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,22 +22,22 @@ public interface AttachmentEx extends Attachment {
 	/**
 	 * MIME header
 	 */
-	public interface MimeHeader {
+    interface MimeHeader {
 		/**
 		 * MIME header name
 		 * @return name
 		 */
-		public String getName();
+        String getName();
 		/**
 		 * MIME header value
 		 * @return value
 		 */
-		public String getValue();
+        String getValue();
 	}
 
 	/**
 	 * Iterator of custom MIME headers associated with this attachment
 	 * @return MIME header iterator
 	 */
-	public @NotNull Iterator<MimeHeader> getMimeHeaders();
+	@NotNull Iterator<MimeHeader> getMimeHeaders();
 }

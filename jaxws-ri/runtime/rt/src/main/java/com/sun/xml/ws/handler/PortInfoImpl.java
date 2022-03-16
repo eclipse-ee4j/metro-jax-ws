@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -88,11 +88,9 @@ public class PortInfoImpl implements PortInfo {
     public boolean equals(Object obj) {
         if (obj instanceof PortInfo) {
             PortInfo info = (PortInfo) obj;
-            if (bindingId.toString().equals(info.getBindingID()) &&
-                portName.equals(info.getPortName()) &&
-                serviceName.equals(info.getServiceName())) {
-                return true;
-            }
+            return bindingId.toString().equals(info.getBindingID()) &&
+                    portName.equals(info.getPortName()) &&
+                    serviceName.equals(info.getServiceName());
         }
         return false;
     }

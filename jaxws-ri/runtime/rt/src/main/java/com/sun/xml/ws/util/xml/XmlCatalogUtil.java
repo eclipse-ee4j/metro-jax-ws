@@ -89,7 +89,7 @@ public class XmlCatalogUtil {
                 .toArray(URI[]::new);
 
         //Create CatalogResolver with new JDK9+ API
-        return (EntityResolver) CatalogManager.catalogResolver(CATALOG_FEATURES, uris);
+        return CatalogManager.catalogResolver(CATALOG_FEATURES, uris);
     }
 
 }

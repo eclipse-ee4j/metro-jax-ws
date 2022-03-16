@@ -43,10 +43,10 @@ public final class JavaMethodImpl implements JavaMethod {
 
     private String inputAction = "";
     private String outputAction = "";
-    private final List<CheckedExceptionImpl> exceptions = new ArrayList<CheckedExceptionImpl>();
+    private final List<CheckedExceptionImpl> exceptions = new ArrayList<>();
     private final Method method;
-    /*package*/ final List<ParameterImpl> requestParams = new ArrayList<ParameterImpl>();
-    /*package*/ final List<ParameterImpl> responseParams = new ArrayList<ParameterImpl>();
+    /*package*/ final List<ParameterImpl> requestParams = new ArrayList<>();
+    /*package*/ final List<ParameterImpl> responseParams = new ArrayList<>();
     private final List<ParameterImpl> unmReqParams = Collections.unmodifiableList(requestParams);
     private final List<ParameterImpl> unmResParams = Collections.unmodifiableList(responseParams);
     private SOAPBinding binding;
@@ -376,7 +376,7 @@ public final class JavaMethodImpl implements JavaMethod {
         }
     }
 
-    final void fillTypes(List<TypeInfo> types) {
+    void fillTypes(List<TypeInfo> types) {
         fillTypes(requestParams, types);
         fillTypes(responseParams, types);
 

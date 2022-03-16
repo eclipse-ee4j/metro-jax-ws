@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,6 @@
 
 package com.sun.xml.ws.encoding.policy;
 
-import static com.sun.xml.ws.encoding.policy.EncodingConstants.OPTIMIZED_MIME_SERIALIZATION_ASSERTION;
 import com.sun.xml.ws.api.WSBinding;
 import com.sun.xml.ws.api.model.SEIModel;
 import com.sun.xml.ws.policy.AssertionSet;
@@ -44,7 +43,7 @@ public class MtomPolicyMapConfigurator implements PolicyMapConfigurator {
 
         private static final AssertionData mtomData;
         static {
-            mtomData= AssertionData.createAssertionData(OPTIMIZED_MIME_SERIALIZATION_ASSERTION);
+            mtomData= AssertionData.createAssertionData(EncodingConstants.OPTIMIZED_MIME_SERIALIZATION_ASSERTION);
             //JAX-WS MTOMFeature does n't currently capture if MTOM is required/optional.
             //JAX-WS accepts both normal messages and XOP encoded messages. Using wsp:Optional=true represents that behavior.
             //Moreover, this allows interoperability with non-MTOM aware clients.
@@ -74,7 +73,7 @@ public class MtomPolicyMapConfigurator implements PolicyMapConfigurator {
     public Collection<PolicySubject> update(PolicyMap policyMap, SEIModel model, WSBinding wsBinding) throws PolicyException {
         LOGGER.entering(policyMap, model, wsBinding);
 
-        Collection<PolicySubject> subjects = new ArrayList<PolicySubject>();
+        Collection<PolicySubject> subjects = new ArrayList<>();
         if (policyMap != null) {
             final MTOMFeature mtomFeature = wsBinding.getFeature(MTOMFeature.class);
             if (LOGGER.isLoggable(Level.FINEST)) {
@@ -104,8 +103,8 @@ public class MtomPolicyMapConfigurator implements PolicyMapConfigurator {
      * @return The policy.
      */
     private Policy createMtomPolicy(final QName bindingName) {
-        ArrayList<AssertionSet> assertionSets = new ArrayList<AssertionSet>(1);
-        ArrayList<PolicyAssertion> assertions = new ArrayList<PolicyAssertion>(1);
+        ArrayList<AssertionSet> assertionSets = new ArrayList<>(1);
+        ArrayList<PolicyAssertion> assertions = new ArrayList<>(1);
         assertions.add(new MtomAssertion());
         assertionSets.add(AssertionSet.createAssertionSet(assertions));
         return Policy.createPolicy(null, bindingName.getLocalPart() + "_MTOM_Policy", assertionSets);

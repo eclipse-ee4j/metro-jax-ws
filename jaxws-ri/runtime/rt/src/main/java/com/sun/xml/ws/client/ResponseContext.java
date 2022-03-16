@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -92,7 +92,7 @@ public class ResponseContext extends AbstractMap<String,Object> {
         if(key.equals(MessageContext.INBOUND_MESSAGE_ATTACHMENTS)){
             Map<String, DataHandler> atts = (Map<String, DataHandler>) value;
             if(atts == null)
-                atts = new HashMap<String, DataHandler>();
+                atts = new HashMap<>();
             AttachmentSet attSet = packet.getMessage().getAttachments();
             for(Attachment att : attSet){
                 atts.put(att.getContentId(), att.asDataHandler());
@@ -112,7 +112,7 @@ public class ResponseContext extends AbstractMap<String,Object> {
         throw new UnsupportedOperationException();
     }
 
-    public void putAll(Map<? extends String, ? extends Object> t) {
+    public void putAll(Map<? extends String, ?> t) {
         // response context is read-only
         throw new UnsupportedOperationException();
     }
@@ -128,10 +128,9 @@ public class ResponseContext extends AbstractMap<String,Object> {
             // to get this view.
 
             // use TreeSet so that toString() sort them nicely. It's easier for apps.
-            Map<String,Object> r = new HashMap<String,Object>();
 
             // export application-scope properties
-            r.putAll(packet.invocationProperties);
+            Map<String, Object> r = new HashMap<String, Object>(packet.invocationProperties);
 
             // hide handler-scope properties
             r.keySet().removeAll(packet.getHandlerScopePropertyNames(true));

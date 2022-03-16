@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,7 +48,7 @@ public class WSDLDocument extends AbstractDocument{
             QName serviceQName = new QName(targetNamespace, localName);
             serviceQNames.add(serviceQName);
         }
-        return (QName[]) serviceQNames.toArray(new QName[serviceQNames.size()]);
+        return (QName[]) serviceQNames.toArray(new QName[0]);
     }
 
     public QName[] getAllPortQNames() {
@@ -67,7 +67,7 @@ public class WSDLDocument extends AbstractDocument{
                 portQNames.add(portQName);
             }
         }
-        return (QName[]) portQNames.toArray(new QName[portQNames.size()]);
+        return (QName[]) portQNames.toArray(new QName[0]);
     }
 
     public QName[] getPortQNames(String serviceNameLocalPart) {
@@ -87,7 +87,7 @@ public class WSDLDocument extends AbstractDocument{
                 }
             }
         }
-        return (QName[]) portQNames.toArray(new QName[portQNames.size()]);
+        return (QName[]) portQNames.toArray(new QName[0]);
     }
 
     public void accept(WSDLDocumentVisitor visitor) throws Exception {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -99,7 +99,7 @@ public class SAAJMessageHeaders implements MessageHeaders {
         }
         
         if (understoodHeaders == null) {
-            understoodHeaders = new HashSet<QName>();
+            understoodHeaders = new HashSet<>();
         }
         //also add it to the understood headers list (optimization for getUnderstoodHeaders)
         understoodHeaders.add(qName);
@@ -276,12 +276,7 @@ public class SAAJMessageHeaders implements MessageHeaders {
         if (notUnderstoodCount == null) {
             notUnderstoodCount = new HashMap<>();
         }
-        Integer count = notUnderstoodCount.get(qName);
-        if (count == null) {
-            notUnderstoodCount.put(qName, 1);
-        } else {
-            notUnderstoodCount.put(qName, count + 1);
-        }
+        notUnderstoodCount.merge(qName, 1, Integer::sum);
         
         //if for some strange reason it was previously understood and now is not,
         //remove it from understoodHeaders if it exists there
@@ -372,7 +367,7 @@ public class SAAJMessageHeaders implements MessageHeaders {
             }
             //if it must be understood see if it is understood by the binding
             //or is in knownheaders
-            if (binding != null && binding instanceof SOAPBindingImpl) {
+            if (binding instanceof SOAPBindingImpl) {
                 understood = ((SOAPBindingImpl) binding).understandsHeader(headerName);
                 if (!understood) {
                     if (knownHeaders != null && knownHeaders.contains(headerName)) {

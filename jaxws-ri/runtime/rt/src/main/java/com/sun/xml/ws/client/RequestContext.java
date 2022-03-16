@@ -17,6 +17,8 @@ import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.transport.Headers;
 
 import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.handler.MessageContext;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,10 +26,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Logger;
-
-
-import static jakarta.xml.ws.BindingProvider.*;
-import static jakarta.xml.ws.handler.MessageContext.HTTP_REQUEST_HEADERS;
 
 /**
  * Request context implementation.
@@ -104,7 +102,7 @@ public final class RequestContext extends BaseDistributedPropertySet {
      * @deprecated
      *      always access {@link #endpointAddress}.
      */
-    @Property(ENDPOINT_ADDRESS_PROPERTY)
+    @Property(BindingProvider.ENDPOINT_ADDRESS_PROPERTY)
     public String getEndPointAddressString() {
         return endpointAddress != null ? endpointAddress.toString() : null;
     }
@@ -176,7 +174,7 @@ public final class RequestContext extends BaseDistributedPropertySet {
 
     private String soapAction;
 
-    @Property(SOAPACTION_URI_PROPERTY)
+    @Property(BindingProvider.SOAPACTION_URI_PROPERTY)
     public String getSoapAction() {
         return soapAction;
     }
@@ -194,7 +192,7 @@ public final class RequestContext extends BaseDistributedPropertySet {
      */
     private Boolean soapActionUse;
 
-    @Property(SOAPACTION_USE_PROPERTY)
+    @Property(BindingProvider.SOAPACTION_USE_PROPERTY)
     public Boolean getSoapActionUse() {
         return soapActionUse;
     }
@@ -270,7 +268,7 @@ public final class RequestContext extends BaseDistributedPropertySet {
         fillSOAPAction(packet, isAddressingEnabled);
         mergeRequestHeaders(packet);
 
-        Set<String> handlerScopeNames = new HashSet<String>();
+        Set<String> handlerScopeNames = new HashSet<>();
 
         copySatelliteInto(packet);
         
@@ -304,9 +302,9 @@ public final class RequestContext extends BaseDistributedPropertySet {
     private void mergeRequestHeaders(Packet packet) {
         //for bug 12883765
         //retrieve headers which is set in soap message
-        Headers packetHeaders = (Headers) packet.invocationProperties.get(HTTP_REQUEST_HEADERS);
+        Headers packetHeaders = (Headers) packet.invocationProperties.get(MessageContext.HTTP_REQUEST_HEADERS);
         //retrieve headers from request context
-        Map<String, List<String>> myHeaders = (Map<String, List<String>>) asMap().get(HTTP_REQUEST_HEADERS);
+        Map<String, List<String>> myHeaders = (Map<String, List<String>>) asMap().get(MessageContext.HTTP_REQUEST_HEADERS);
         if ((packetHeaders != null) && (myHeaders != null)) {
             //update the headers set in soap message with those in request context
             for (Entry<String, List<String>> entry : myHeaders.entrySet()) {
@@ -323,7 +321,7 @@ public final class RequestContext extends BaseDistributedPropertySet {
                 }
             }
             // update headers in request context with those set in soap message since it may contain other properties..
-            asMap().put(HTTP_REQUEST_HEADERS, packetHeaders);
+            asMap().put(MessageContext.HTTP_REQUEST_HEADERS, packetHeaders);
         }
     }
 

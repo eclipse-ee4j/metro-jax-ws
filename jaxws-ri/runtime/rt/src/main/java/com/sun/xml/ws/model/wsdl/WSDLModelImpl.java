@@ -39,10 +39,10 @@ import java.util.Map;
  * @author Vivek Pandey
  */
 public final class WSDLModelImpl extends AbstractExtensibleImpl implements EditableWSDLModel {
-    private final Map<QName, EditableWSDLMessage> messages = new HashMap<QName, EditableWSDLMessage>();
-    private final Map<QName, EditableWSDLPortType> portTypes = new HashMap<QName, EditableWSDLPortType>();
-    private final Map<QName, EditableWSDLBoundPortType> bindings = new HashMap<QName, EditableWSDLBoundPortType>();
-    private final Map<QName, EditableWSDLService> services = new LinkedHashMap<QName, EditableWSDLService>();
+    private final Map<QName, EditableWSDLMessage> messages = new HashMap<>();
+    private final Map<QName, EditableWSDLPortType> portTypes = new HashMap<>();
+    private final Map<QName, EditableWSDLBoundPortType> bindings = new HashMap<>();
+    private final Map<QName, EditableWSDLService> services = new LinkedHashMap<>();
 
     private PolicyMap policyMap;
     private final Map<QName, EditableWSDLBoundPortType> unmBindings

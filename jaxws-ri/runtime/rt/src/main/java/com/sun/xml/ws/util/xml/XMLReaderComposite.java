@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -314,7 +314,7 @@ public class XMLReaderComposite implements XMLStreamReaderEx {
     public boolean isAttributeSpecified(int index) {
         switch (state) {
         case StartTag: 
-        case EndTag: return (index < tagInfo.atts.getLength()) ? tagInfo.atts.getLocalName(index) != null : false;
+        case EndTag: return index < tagInfo.atts.getLength() && tagInfo.atts.getLocalName(index) != null;
         case Payload:
         default:
             return payloadReader.isAttributeSpecified(index);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -357,7 +357,7 @@ public abstract class SOAPFaultBuilder {
         Throwable cause = e.getCause();
         if (e instanceof SOAPFaultException) {
             soapFaultException = (SOAPFaultException) e;
-        } else if (cause != null && cause instanceof SOAPFaultException) {
+        } else if (cause instanceof SOAPFaultException) {
             soapFaultException = (SOAPFaultException) e.getCause();
         }
         if (soapFaultException != null) {
@@ -430,7 +430,7 @@ public abstract class SOAPFaultBuilder {
         Throwable cause = e.getCause();
         if (e instanceof SOAPFaultException) {
             soapFaultException = (SOAPFaultException) e;
-        } else if (cause != null && cause instanceof SOAPFaultException) {
+        } else if (cause instanceof SOAPFaultException) {
             soapFaultException = (SOAPFaultException) e.getCause();
         }
         if (soapFaultException != null) {

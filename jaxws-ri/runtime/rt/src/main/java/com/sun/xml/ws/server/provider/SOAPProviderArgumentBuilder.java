@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -121,7 +121,7 @@ abstract class SOAPProviderArgumentBuilder<T> extends ProviderArgumentsBuilder<T
             // Populate SOAPMessage's transport headers
             if (returnValue != null && response.supports(Packet.OUTBOUND_TRANSPORT_HEADERS)) {
                 MimeHeaders hdrs = returnValue.getMimeHeaders();
-                Map<String, List<String>> headers = new HashMap<String, List<String>>();
+                Map<String, List<String>> headers = new HashMap<>();
                 Iterator i = hdrs.getAllHeaders();
                 while(i.hasNext()) {
                     MimeHeader header = (MimeHeader)i.next();
@@ -130,11 +130,7 @@ abstract class SOAPProviderArgumentBuilder<T> extends ProviderArgumentsBuilder<T
                         // so ignore this header.
                         continue;
 
-                    List<String> list = headers.get(header.getName());
-                    if (list == null) {
-                        list = new ArrayList<String>();
-                        headers.put(header.getName(), list);
-                    }
+                    List<String> list = headers.computeIfAbsent(header.getName(), k -> new ArrayList<>());
                     list.add(header.getValue());
                 }
                 response.put(Packet.OUTBOUND_TRANSPORT_HEADERS, headers);

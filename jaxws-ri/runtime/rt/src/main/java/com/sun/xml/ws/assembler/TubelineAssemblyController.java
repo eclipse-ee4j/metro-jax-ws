@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -98,7 +98,7 @@ final class TubelineAssemblyController {
         ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         ClassLoader classLoader = tccl != null ? tccl : TubelineAssemblyController.class.getClassLoader();
 
-        LinkedList<TubeCreator> tubeCreators = new LinkedList<TubeCreator>();
+        LinkedList<TubeCreator> tubeCreators = new LinkedList<>();
         for (TubeFactoryConfig tubeFactoryConfig : tfl.getTubeFactoryConfigs()) {
             tubeCreators.addFirst(new TubeCreator(tubeFactoryConfig, classLoader));
         }

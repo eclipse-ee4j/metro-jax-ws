@@ -212,7 +212,7 @@ public class DOMUtil {
 
     public static @NotNull
     List<Element> getChildElements(Node parent){
-        List<Element> elements = new ArrayList<Element>();
+        List<Element> elements = new ArrayList<>();
         for (Node n = parent.getFirstChild(); n != null; n = n.getNextSibling()) {
             if (n.getNodeType() == Node.ELEMENT_NODE) {
                 elements.add((Element)n);

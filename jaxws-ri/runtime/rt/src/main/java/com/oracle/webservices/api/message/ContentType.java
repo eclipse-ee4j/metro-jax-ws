@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,7 @@ public interface ContentType {
     /**
      * Gives non-null Content-Type header value.
      */
-    public String getContentType();
+    String getContentType();
 
     /**
      * Gives SOAPAction transport header value. It will be non-null only for SOAP 1.1 messages. In other cases
@@ -32,7 +32,7 @@ public interface ContentType {
      *
      * @return It can be null, in that case SOAPAction header should be written.
      */
-    public String getSOAPActionHeader();
+    String getSOAPActionHeader();
 
     /**
      * Controls the Accept transport header, if the transport supports it.
@@ -43,9 +43,9 @@ public interface ContentType {
      * this would do for now. If another person comes and asks for
      * a similar functionality, we'll define a real abstraction.
      */
-    public String getAcceptHeader();
+    String getAcceptHeader();
     
-    static public class Builder {
+    class Builder {
         private String contentType;
         private String soapAction;
         private String accept;

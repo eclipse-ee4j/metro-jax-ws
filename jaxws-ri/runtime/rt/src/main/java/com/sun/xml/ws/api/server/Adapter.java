@@ -87,7 +87,7 @@ public abstract class Adapter<TK extends Adapter.Toolkit>
      * an object out of the pool, you must make sure that it is recycled by the
      * same instance of the pool.
      */
-    protected volatile Pool<TK> pool = new Pool<TK>() {
+    protected volatile Pool<TK> pool = new Pool<>() {
         protected TK create() {
             return createToolkit();
         }
@@ -119,7 +119,7 @@ public abstract class Adapter<TK extends Adapter.Toolkit>
      * The pool instance needs to be recreated to prevent reuse of old Toolkit instances.
      */
     public void reconfigure() {
-        this.pool = new Pool<TK>() {
+        this.pool = new Pool<>() {
             protected TK create() {
                 return createToolkit();
             }

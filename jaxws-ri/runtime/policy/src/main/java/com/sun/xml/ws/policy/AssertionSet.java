@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,40 +42,40 @@ public final class AssertionSet implements Iterable<PolicyAssertion>, Comparable
      * 5. has nested policy (boolean): false < true
      * 6. hashCode comparison
      */
-    private static final Comparator<PolicyAssertion> ASSERTION_COMPARATOR = new Comparator<PolicyAssertion>() {
+    private static final Comparator<PolicyAssertion> ASSERTION_COMPARATOR = new Comparator<>() {
         public int compare(final PolicyAssertion pa1, final PolicyAssertion pa2) {
             if (pa1.equals(pa2)) {
                 return 0;
             }
-            
+
             int result;
-            
+
             result = PolicyUtils.Comparison.QNAME_COMPARATOR.compare(pa1.getName(), pa2.getName());
             if (result != 0) {
                 return result;
             }
-            
+
             result = PolicyUtils.Comparison.compareNullableStrings(pa1.getValue(), pa2.getValue());
             if (result != 0) {
                 return result;
             }
-            
+
             result = PolicyUtils.Comparison.compareBoolean(pa1.hasNestedAssertions(), pa2.hasNestedAssertions());
             if (result != 0) {
                 return result;
             }
-            
+
             result = PolicyUtils.Comparison.compareBoolean(pa1.hasNestedPolicy(), pa2.hasNestedPolicy());
             if (result != 0) {
                 return result;
             }
-            
+
             return Math.round(Math.signum(pa1.hashCode() - pa2.hashCode()));
         }
     };
     
     private final List<PolicyAssertion> assertions;
-    private final Set<QName> vocabulary = new TreeSet<QName>(PolicyUtils.Comparison.QNAME_COMPARATOR);
+    private final Set<QName> vocabulary = new TreeSet<>(PolicyUtils.Comparison.QNAME_COMPARATOR);
     private final Collection<QName> immutableVocabulary = Collections.unmodifiableCollection(vocabulary);
     
     private AssertionSet(List<PolicyAssertion> list) {
@@ -84,7 +84,7 @@ public final class AssertionSet implements Iterable<PolicyAssertion>, Comparable
     }
     
     private AssertionSet(final Collection<AssertionSet> alternatives) {
-        this.assertions = new LinkedList<PolicyAssertion>();
+        this.assertions = new LinkedList<>();
         for (AssertionSet alternative : alternatives) {
             addAll(alternative.assertions);
         }
@@ -226,7 +226,7 @@ public final class AssertionSet implements Iterable<PolicyAssertion>, Comparable
      * (i.e. {@code null} value is never returned).
      */
     public Collection<PolicyAssertion> get(final QName name) {
-        final List<PolicyAssertion> matched = new LinkedList<PolicyAssertion>();
+        final List<PolicyAssertion> matched = new LinkedList<>();
         
         if (vocabulary.contains(name)) {
             // we iterate the assertion set only if we are sure we contain such assertion name in our vocabulary

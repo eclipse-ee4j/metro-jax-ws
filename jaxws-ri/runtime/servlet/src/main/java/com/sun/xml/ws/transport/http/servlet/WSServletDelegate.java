@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,9 +51,9 @@ public class WSServletDelegate {
      */
     public final List<ServletAdapter> adapters;
 
-    private final Map<String, ServletAdapter> fixedUrlPatternEndpoints = new HashMap<String, ServletAdapter>();
-    private final List<ServletAdapter> pathUrlPatternEndpoints = new ArrayList<ServletAdapter>();
-    private final Map<Locale,Localizer> localizerMap = new HashMap<Locale,Localizer>();
+    private final Map<String, ServletAdapter> fixedUrlPatternEndpoints = new HashMap<>();
+    private final List<ServletAdapter> pathUrlPatternEndpoints = new ArrayList<>();
+    private final Map<Locale,Localizer> localizerMap = new HashMap<>();
     private final JAXWSRIServletProbeProvider probe = new JAXWSRIServletProbeProvider();
 
     public WSServletDelegate(List<ServletAdapter> adapters, ServletContext context) {
@@ -249,7 +249,7 @@ public class WSServletDelegate {
 
     private void registerEndpointUrlPattern(ServletAdapter a) {
         String urlPattern = a.urlPattern;
-        if (urlPattern.indexOf("*.") != -1) {
+        if (urlPattern.contains("*.")) {
             // cannot deal with implicit mapping right now
             logger.warning(
                 WsservletMessages.SERVLET_WARNING_IGNORING_IMPLICIT_URL_PATTERN(a.name));

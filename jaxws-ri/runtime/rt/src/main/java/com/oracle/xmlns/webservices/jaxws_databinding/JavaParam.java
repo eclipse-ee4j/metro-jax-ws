@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,7 +61,7 @@ public class JavaParam {
     @XmlAttribute(name = "java-type")
     protected String javaType;
     @XmlAnyAttribute
-    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+    private Map<QName, String> otherAttributes = new HashMap<>();
 
     /**
      * Gets the value of the paramAnnotation property.
@@ -88,7 +88,7 @@ public class JavaParam {
      */
     public List<Object> getParamAnnotation() {
         if (paramAnnotation == null) {
-            paramAnnotation = new ArrayList<Object>();
+            paramAnnotation = new ArrayList<>();
         }
         return this.paramAnnotation;
     }

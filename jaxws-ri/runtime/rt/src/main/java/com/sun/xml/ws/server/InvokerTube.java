@@ -92,7 +92,7 @@ public abstract class InvokerTube<T> extends com.sun.xml.ws.server.sei.InvokerTu
      * Heart of {@link WebServiceContext}.
      * Remembers which thread is serving which packet.
      */
-    private static final ThreadLocal<Packet> packets = new ThreadLocal<Packet>();
+    private static final ThreadLocal<Packet> packets = new ThreadLocal<>();
 
     /**
      * This method can be called while the user service is servicing the request

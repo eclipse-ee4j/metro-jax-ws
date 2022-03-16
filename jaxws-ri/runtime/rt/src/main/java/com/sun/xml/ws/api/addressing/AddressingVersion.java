@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,6 +33,7 @@ import jakarta.xml.ws.soap.AddressingFeature;
 import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 'Traits' object that absorbs differences of WS-Addressing versions.
@@ -410,11 +411,9 @@ public enum AddressingVersion {
 
         // create stock anonymous EPR
         try {
-            this.anonymousEpr = new WSEndpointReference(new ByteArrayInputStream(anonymousEprString.getBytes("UTF-8")),this);
+            this.anonymousEpr = new WSEndpointReference(new ByteArrayInputStream(anonymousEprString.getBytes(StandardCharsets.UTF_8)),this);
         } catch (XMLStreamException e) {
             throw new Error(e); // bug in our code as EPR should parse.
-        } catch (UnsupportedEncodingException e) {
-            throw new Error(e);
         }
         this.eprType = eprType;
     }

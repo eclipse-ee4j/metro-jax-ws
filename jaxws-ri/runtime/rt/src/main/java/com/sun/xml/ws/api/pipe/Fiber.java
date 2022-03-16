@@ -107,13 +107,13 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
          * Fiber has been suspended.  Implementations of this callback may resume the Fiber.
          * @param fiber Fiber
          */
-        public void fiberSuspended(Fiber fiber);
+        void fiberSuspended(Fiber fiber);
         
         /**
          * Fiber has been resumed.  Behavior is undefined if implementations of this callback attempt to suspend the Fiber.
          * @param fiber Fiber
          */
-        public void fiberResumed(Fiber fiber);
+        void fiberResumed(Fiber fiber);
     }
 
     private final List<Listener> _listeners = new ArrayList<>();
@@ -340,7 +340,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
             String tubeDesc;
             if (next != null) {
-                tubeDesc = next.toString() + ".processRequest()";
+                tubeDesc = next + ".processRequest()";
             } else {
                 tubeDesc = peekCont() + ".processResponse()";
             }
@@ -706,8 +706,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
         if (interceptors == null) {
             interceptors = new ArrayList<>();
         } else {
-            List<FiberContextSwitchInterceptor> l = new ArrayList<>();
-            l.addAll(interceptors);
+            List<FiberContextSwitchInterceptor> l = new ArrayList<>(interceptors);
             interceptors = l;
         }
         interceptors.add(interceptor);
@@ -742,8 +741,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
             if (interceptors.isEmpty())
                 interceptors = null;
             else {
-                List<FiberContextSwitchInterceptor> l = new ArrayList<>();
-                l.addAll(interceptors);
+                List<FiberContextSwitchInterceptor> l = new ArrayList<>(interceptors);
                 interceptors = l;
             }
             return result;
@@ -1166,11 +1164,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
                     default:
                         throw new AssertionError();
                     }
-                } catch (RuntimeException t) {
-                    if (traceEnabled)
-                        LOGGER.log(Level.FINER, getName() + " Caught " + t + ". Start stack unwinding", t);
-                    throwable = t;
-                } catch (Error t) {
+                } catch (RuntimeException | Error t) {
                     if (traceEnabled)
                         LOGGER.log(Level.FINER, getName() + " Caught " + t + ". Start stack unwinding", t);
                     throwable = t;
@@ -1356,7 +1350,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
         return CURRENT_FIBER.get();
     }
 
-    private static final ThreadLocal<Fiber> CURRENT_FIBER = new ThreadLocal<Fiber>();
+    private static final ThreadLocal<Fiber> CURRENT_FIBER = new ThreadLocal<>();
 
     /**
      * Used to allocate unique number for each fiber.

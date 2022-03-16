@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,23 +30,23 @@ public class ReflectAnnotationReader implements MetadataReader {
 	}
 
 	public Annotation[][] getParameterAnnotations(final Method method) {
-        return AccessController.doPrivileged(new PrivilegedAction<Annotation[][]>() {
-           public Annotation[][] run() {
-               return method.getParameterAnnotations();
-           }
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
+            public Annotation[][] run() {
+                return method.getParameterAnnotations();
+            }
         });
     }
 	
 	public <A extends Annotation> A getAnnotation(final Class<A> annType, final Method m) {
-        return AccessController.doPrivileged(new PrivilegedAction<A>() {
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
             public A run() {
                 return m.getAnnotation(annType);
             }
-         });
+        });
 	}
 	
 	public <A extends Annotation> A getAnnotation(final Class<A> annType, final Class<?> cls) {
-        return AccessController.doPrivileged(new PrivilegedAction<A>() {
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
             public A run() {
                 return cls.getAnnotation(annType);
             }
@@ -54,7 +54,7 @@ public class ReflectAnnotationReader implements MetadataReader {
 	}
 
     public Annotation[] getAnnotations(final Class<?> cls) {
-        return AccessController.doPrivileged(new PrivilegedAction<Annotation[]>() {
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
             public Annotation[] run() {
                 return cls.getAnnotations();
             }

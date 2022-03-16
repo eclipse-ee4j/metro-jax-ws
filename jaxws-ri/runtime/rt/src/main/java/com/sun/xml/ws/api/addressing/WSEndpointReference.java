@@ -596,7 +596,7 @@ public final class WSEndpointReference  implements WSDLExtension {
             }
 
             @Override
-            public void characters(char ch[], int start, int length) throws SAXException {
+            public void characters(char[] ch, int start, int length) throws SAXException {
                 if (!inAddress) {
                     super.characters(ch, start, length);
                 }
@@ -759,7 +759,7 @@ public final class WSEndpointReference  implements WSDLExtension {
                 XMLStreamBuffer mark;
                 while((mark = xsr.nextTagAndMark())!=null) {
                     if (marks==null) {
-                        marks = new ArrayList<Header>();
+                        marks = new ArrayList<>();
                     }
 
                     // TODO: need a different header for member submission version
@@ -783,7 +783,7 @@ public final class WSEndpointReference  implements WSDLExtension {
         if (marks==null) {
             this.referenceParameters = EMPTY_ARRAY;
         } else {
-            this.referenceParameters = marks.toArray(new Header[marks.size()]);
+            this.referenceParameters = marks.toArray(new Header[0]);
         }
 
         if (address==null) {
@@ -1025,7 +1025,7 @@ public final class WSEndpointReference  implements WSDLExtension {
 
     private void parseEPRExtensions() throws XMLStreamException {
 
-        rootEprExtensions = new HashMap<QName, EPRExtension>();
+        rootEprExtensions = new HashMap<>();
 
 
         StreamReaderBufferProcessor xsr = infoset.readAsXMLStreamReader();

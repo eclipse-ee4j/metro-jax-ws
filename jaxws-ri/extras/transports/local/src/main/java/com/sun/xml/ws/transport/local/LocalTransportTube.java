@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,6 @@
 package com.sun.xml.ws.transport.local;
 
 import com.sun.istack.NotNull;
-import com.sun.xml.ws.api.WSBinding;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.api.pipe.Codec;
 import com.sun.xml.ws.api.pipe.ContentType;
@@ -26,7 +25,6 @@ import com.sun.xml.ws.transport.http.HttpAdapter;
 import com.sun.xml.ws.transport.http.WSHTTPConnection;
 
 import jakarta.xml.ws.WebServiceException;
-import jakarta.xml.ws.BindingProvider;
 import jakarta.xml.ws.handler.MessageContext;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -67,7 +65,7 @@ final class LocalTransportTube extends AbstractTubeImpl {
     // per-pipe reusable resources.
     // we don't really have to reuse anything since this isn't designed for performance,
     // but nevertheless we do it as an experiement.
-    private final Map<String, List<String>> reqHeaders = new HashMap<String, List<String>>();
+    private final Map<String, List<String>> reqHeaders = new HashMap<>();
 
     public LocalTransportTube(URI baseURI, WSEndpoint endpoint, Codec codec) {
         this(baseURI,HttpAdapter.createAlone(endpoint),codec);
@@ -151,8 +149,6 @@ final class LocalTransportTube extends AbstractTubeImpl {
             Packet reply = request.createClientResponse(null);
             codec.decode(con.getInput(), responseContentType, reply);
             return reply;
-        } catch (WebServiceException wex) {
-            throw wex;
         } catch (IOException ex) {
             throw new WebServiceException(ex);
         }

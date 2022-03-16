@@ -34,11 +34,11 @@ import org.xml.sax.Locator;
  * @author Kohsuke Kawaguchi
  */
 abstract class AbstractExtensibleImpl extends AbstractObjectImpl implements WSDLExtensible {
-    protected final Set<WSDLExtension> extensions = new HashSet<WSDLExtension>();
+    protected final Set<WSDLExtension> extensions = new HashSet<>();
     // this captures any wsdl extensions that are not understood by WSDLExtensionParsers
     // and have wsdl:required=true
     protected List<UnknownWSDLExtension> notUnderstoodExtensions =
-            new ArrayList<UnknownWSDLExtension>();
+            new ArrayList<>();
 
     protected AbstractExtensibleImpl(XMLStreamReader xsr) {
         super(xsr);
@@ -54,7 +54,7 @@ abstract class AbstractExtensibleImpl extends AbstractObjectImpl implements WSDL
 
     public final <T extends WSDLExtension> Iterable<T> getExtensions(Class<T> type) {
         // TODO: this is a rather stupid implementation
-        List<T> r = new ArrayList<T>(extensions.size());
+        List<T> r = new ArrayList<>(extensions.size());
         for (WSDLExtension e : extensions) {
             if(type.isInstance(e))
                 r.add(type.cast(e));

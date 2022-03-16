@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -346,11 +346,11 @@ public class HttpTransportPipe extends AbstractTubeImpl {
             return rememberedCookies;
         }
 
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         cookieListToMap(rememberedCookies, map);
         cookieListToMap(userCookies, map);
 
-        return new ArrayList<String>(map.values());
+        return new ArrayList<>(map.values());
     }
 
     private void cookieListToMap(List<String> cookieList, Map<String, String> targetMap) {

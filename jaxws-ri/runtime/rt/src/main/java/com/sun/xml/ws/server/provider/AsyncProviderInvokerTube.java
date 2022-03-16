@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -80,7 +80,7 @@ class AsyncProviderInvokerTube<T> extends ProviderInvokerTube<T> {
     }
     
     private interface Resumer {
-    	public void onResume(Packet response);
+    	void onResume(Packet response);
     }
     
     /*private*/ public class FiberResumer implements Resumer { // TODO public for DISI

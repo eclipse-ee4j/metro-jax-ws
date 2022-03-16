@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,9 +22,9 @@ import com.sun.xml.ws.wsdl.writer.document.Documented;
 public interface Import extends TypedXmlWriter, Documented {
 
     @XmlAttribute
-    public com.sun.xml.ws.wsdl.writer.document.xsd.Import schemaLocation(String value);
+    com.sun.xml.ws.wsdl.writer.document.xsd.Import schemaLocation(String value);
 
     @XmlAttribute
-    public com.sun.xml.ws.wsdl.writer.document.xsd.Import namespace(String value);
+    com.sun.xml.ws.wsdl.writer.document.xsd.Import namespace(String value);
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,7 +40,7 @@ public class PolicyUtil {
 
     private static final PolicyLogger LOGGER = PolicyLogger.getLogger(PolicyUtil.class);
     private static final Collection<PolicyFeatureConfigurator> CONFIGURATORS =
-            new LinkedList<PolicyFeatureConfigurator>();
+            new LinkedList<>();
 
     static {
         // Add feature configurators that are already built into JAX-WS
@@ -102,7 +102,7 @@ public class PolicyUtil {
      */
     public static Collection<WebServiceFeature> getPortScopedFeatures(PolicyMap policyMap, QName serviceName, QName portName) {
         LOGGER.entering(policyMap, serviceName, portName);
-        Collection<WebServiceFeature> features = new ArrayList<WebServiceFeature>();
+        Collection<WebServiceFeature> features = new ArrayList<>();
         try {
             final PolicyMapKey key = PolicyMap.createWsdlEndpointScopeKey(serviceName, portName);
             for (PolicyFeatureConfigurator configurator : CONFIGURATORS) {

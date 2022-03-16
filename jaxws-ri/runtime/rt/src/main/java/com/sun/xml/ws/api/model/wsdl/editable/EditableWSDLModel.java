@@ -48,7 +48,7 @@ public interface EditableWSDLModel extends WSDLModel {
      *
      * @param msg Message
      */
-    public void addMessage(EditableWSDLMessage msg);
+    void addMessage(EditableWSDLMessage msg);
 
     @Override
     @NotNull
@@ -59,7 +59,7 @@ public interface EditableWSDLModel extends WSDLModel {
      *
      * @param pt Port type
      */
-    public void addPortType(EditableWSDLPortType pt);
+    void addPortType(EditableWSDLPortType pt);
 
     @Override
     @NotNull
@@ -74,26 +74,26 @@ public interface EditableWSDLModel extends WSDLModel {
      *
      * @param svc Service
      */
-    public void addService(EditableWSDLService svc);
+    void addService(EditableWSDLService svc);
 
     @Override
-    public EditableWSDLMessage getMessage(QName name);
+    EditableWSDLMessage getMessage(QName name);
 
     /**
      * @deprecated
      */
-    public void setPolicyMap(PolicyMap policyMap);
+    void setPolicyMap(PolicyMap policyMap);
 
     /**
      * Finalize rpc-lit binding
      *
      * @param portType Binding
      */
-    public void finalizeRpcLitBinding(EditableWSDLBoundPortType portType);
+    void finalizeRpcLitBinding(EditableWSDLBoundPortType portType);
 
     /**
      * Freezes WSDL model to prevent further modification
      */
-    public void freeze();
+    void freeze();
 
 }

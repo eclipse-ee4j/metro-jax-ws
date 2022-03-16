@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,8 +15,6 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.lang.annotation.Annotation;
-
-import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 
 
 /**
@@ -137,17 +135,17 @@ public class XmlSOAPBinding implements jakarta.jws.soap.SOAPBinding {
 
     @Override
     public Style style() {
-        return nullSafe(style, Style.DOCUMENT);
+        return Util.nullSafe(style, Style.DOCUMENT);
     }
 
     @Override
     public Use use() {
-        return nullSafe(use, Use.LITERAL);
+        return Util.nullSafe(use, Use.LITERAL);
     }
 
     @Override
     public ParameterStyle parameterStyle() {
-        return nullSafe(parameterStyle, ParameterStyle.WRAPPED);
+        return Util.nullSafe(parameterStyle, ParameterStyle.WRAPPED);
     }
 
     @Override

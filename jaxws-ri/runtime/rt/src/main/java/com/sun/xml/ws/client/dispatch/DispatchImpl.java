@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -166,7 +166,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
               dumpParam(param, "invokeAsync(T)");
             }
             AsyncInvoker invoker = new DispatchAsyncInvoker(param);
-            AsyncResponseImpl<T> ft = new AsyncResponseImpl<T>(invoker,null);
+            AsyncResponseImpl<T> ft = new AsyncResponseImpl<>(invoker, null);
             invoker.setReceiver(ft);
             ft.run();
             return ft;
@@ -205,7 +205,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
               dumpParam(param, "invokeAsync(T, AsyncHandler<T>)");
             }
             AsyncInvoker invoker = new DispatchAsyncInvoker(param);
-            AsyncResponseImpl<T> ft = new AsyncResponseImpl<T>(invoker,asyncHandler);
+            AsyncResponseImpl<T> ft = new AsyncResponseImpl<>(invoker, asyncHandler);
             invoker.setReceiver(ft);
             invoker.setNonNullAsyncHandlerGiven(asyncHandler != null);
     

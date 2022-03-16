@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,8 +26,8 @@ public class JavaMethod {
 
     private final ErrorReceiver errorReceiver;
     private final String name;
-    private final List<JavaParameter> parameters = new ArrayList<JavaParameter>();
-    private final List<String> exceptions = new ArrayList<String>();
+    private final List<JavaParameter> parameters = new ArrayList<>();
+    private final List<String> exceptions = new ArrayList<>();
     private final WsimportOptions options;
     private JavaType returnType;
 
@@ -107,7 +107,7 @@ public class JavaMethod {
     private String getUniqueName(String param){
         int parmNum = 0;
         while (hasParameter(param)) {
-            param = param + Integer.toString(parmNum++);
+            param = param + parmNum++;
         }
         return param;
     }

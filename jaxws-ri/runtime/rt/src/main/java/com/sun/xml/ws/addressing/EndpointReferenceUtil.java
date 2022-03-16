@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -223,7 +223,7 @@ public class EndpointReferenceUtil {
                         if (refParams.item(j).getNodeType() == Node.ELEMENT_NODE) {
                             if (msEpr.referenceParameters == null) {
                                 msEpr.referenceParameters = new MemberSubmissionEndpointReference.Elements();
-                                msEpr.referenceParameters.elements = new ArrayList<Element>();
+                                msEpr.referenceParameters.elements = new ArrayList<>();
                             }
                             msEpr.referenceParameters.elements.add((Element) refParams.item(j));
                         }
@@ -295,7 +295,7 @@ public class EndpointReferenceUtil {
                             //TODO : Revisit this
                             //its extensions in META-DATA and should be copied to extensions in MS EPR
                             if (msEpr.elements == null) {
-                                msEpr.elements = new ArrayList<Element>();
+                                msEpr.elements = new ArrayList<>();
                             }
                             msEpr.elements.add(elm);
                         }
@@ -331,7 +331,7 @@ public class EndpointReferenceUtil {
                     mexEl.appendChild(metadataEl);
 
                     if (msEpr.elements == null) {
-                        msEpr.elements = new ArrayList<Element>();
+                        msEpr.elements = new ArrayList<>();
                     }
                     msEpr.elements.add(mexEl);
 
@@ -339,15 +339,15 @@ public class EndpointReferenceUtil {
                 } else {
                     //its extensions
                     if (msEpr.elements == null) {
-                        msEpr.elements = new ArrayList<Element>();
+                        msEpr.elements = new ArrayList<>();
                     }
-                    msEpr.elements.add((Element) child);
+                    msEpr.elements.add(child);
 
                 }
             } else if (nodes.item(i).getNodeType() == Node.ATTRIBUTE_NODE) {
                 Node n = nodes.item(i);
                 if (msEpr.attributes == null) {
-                    msEpr.attributes = new HashMap<QName, String>();
+                    msEpr.attributes = new HashMap<>();
                     String prefix = fixNull(n.getPrefix());
                     String ns = fixNull(n.getNamespaceURI());
                     String localName = n.getLocalName();
@@ -365,7 +365,7 @@ public class EndpointReferenceUtil {
         NamedNodeMap nm = node.getAttributes();
         for (int i = 0; i < nm.getLength(); i++) {
             if (attribs == null) {
-                attribs = new HashMap<QName, String>();
+                attribs = new HashMap<>();
             }
             Node n = nm.item(i);
             String prefix = fixNull(n.getPrefix());

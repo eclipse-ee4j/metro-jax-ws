@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -81,7 +81,7 @@ public class PolicyWSDLGeneratorExtension extends WSDLGeneratorExtension {
     private final static PolicyLogger LOGGER = PolicyLogger.getLogger(PolicyWSDLGeneratorExtension.class);
     private PolicyMap policyMap;
     private SEIModel seiModel;
-    private final Collection<PolicySubject> subjects = new LinkedList<PolicySubject>();
+    private final Collection<PolicySubject> subjects = new LinkedList<>();
     private final PolicyModelMarshaller marshaller = PolicyModelMarshaller.getXmlMarshaller(true);
     private final PolicyMerger merger = PolicyMerger.getMerger();
 
@@ -107,7 +107,7 @@ public class PolicyWSDLGeneratorExtension extends WSDLGeneratorExtension {
 
             final WSBinding binding = context.getBinding();
             try {
-                final Collection<PolicySubject> policySubjects = new LinkedList<PolicySubject>();
+                final Collection<PolicySubject> policySubjects = new LinkedList<>();
                 for (int i = 0; i < policyMapConfigurators.length; i++) {
                     policySubjects.addAll(policyMapConfigurators[i].update(policyMap, seiModel, binding));
                     extenders[i].disconnect();
@@ -135,7 +135,7 @@ public class PolicyWSDLGeneratorExtension extends WSDLGeneratorExtension {
             } else {
                 subjects.addAll(policyMap.getPolicySubjects());
                 final PolicyModelGenerator generator = ModelGenerator.getGenerator();
-                Set<String> policyIDsOrNamesWritten = new HashSet<String>();
+                Set<String> policyIDsOrNamesWritten = new HashSet<>();
                 for (PolicySubject subject : subjects) {
                     if (subject.getSubject() == null) {
                         LOGGER.fine(PolicyMessages.WSP_1008_NOT_MARSHALLING_WSDL_SUBJ_NULL(subject));
@@ -360,7 +360,7 @@ public class PolicyWSDLGeneratorExtension extends WSDLGeneratorExtension {
             for (PolicySubject subject : subjects) { // iterate over all subjects in policy map
                 if (isCorrectType(policyMap, subject, scopeType)) {
                     final Object concreteSubject = subject.getSubject();
-                    if (concreteSubject != null && clazz.isInstance(concreteSubject)) { // is it our class?
+                    if (clazz.isInstance(concreteSubject)) { // is it our class?
                         if (null == wsdlName) { // no name provided to check
                             writePolicyOrReferenceIt(subject, xmlWriter);
                         } else {
@@ -436,7 +436,7 @@ public class PolicyWSDLGeneratorExtension extends WSDLGeneratorExtension {
     }
 
     private PolicyMapConfigurator[] loadConfigurators() {
-        final Collection<PolicyMapConfigurator> configurators = new LinkedList<PolicyMapConfigurator>();
+        final Collection<PolicyMapConfigurator> configurators = new LinkedList<>();
 
         // Add map configurators that are already built into JAX-WS
         configurators.add(new AddressingPolicyMapConfigurator());
@@ -445,7 +445,7 @@ public class PolicyWSDLGeneratorExtension extends WSDLGeneratorExtension {
         // Dynamically discover remaining map configurators
         PolicyUtil.addServiceProviders(configurators, PolicyMapConfigurator.class);
         
-        return configurators.toArray(new PolicyMapConfigurator[configurators.size()]);
+        return configurators.toArray(new PolicyMapConfigurator[0]);
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,8 +41,8 @@ public class Operation extends ModelObject {
         super(entity);
         _name = name;
         _uniqueName = name.getLocalPart();
-        _faultNames = new HashSet<String>();
-        _faults = new HashSet<Fault>();
+        _faultNames = new HashSet<>();
+        _faults = new HashSet<>();
     }
 
     public QName getName() {
@@ -104,7 +104,7 @@ public class Operation extends ModelObject {
     }
 
     private void initializeFaultNames() {
-        _faultNames = new HashSet<String>();
+        _faultNames = new HashSet<>();
         if (_faults != null) {
             for (Iterator iter = _faults.iterator(); iter.hasNext();) {
                 Fault f = (Fault) iter.next();
@@ -122,8 +122,7 @@ public class Operation extends ModelObject {
     }
 
     public Set<Fault> getAllFaultsSet() {
-        Set transSet = new HashSet();
-        transSet.addAll(_faults);
+        Set transSet = new HashSet(_faults);
         Iterator iter = _faults.iterator();
         Fault fault;
         Set tmpSet;
@@ -139,7 +138,7 @@ public class Operation extends ModelObject {
     }
 
     public Set<Block> getAllFaultBlocks(){
-        Set<Block> blocks = new HashSet<Block>();
+        Set<Block> blocks = new HashSet<>();
         Iterator faults = _faults.iterator();
         while(faults.hasNext()){
             Fault f = (Fault)faults.next();

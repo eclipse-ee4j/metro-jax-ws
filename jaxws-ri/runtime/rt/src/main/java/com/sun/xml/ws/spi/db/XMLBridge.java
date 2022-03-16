@@ -53,7 +53,7 @@ public interface XMLBridge<T> {
      *
      * @since 2.1
      */
-    public @NotNull BindingContext context();
+    @NotNull BindingContext context();
 
     /*
      *
@@ -64,7 +64,7 @@ public interface XMLBridge<T> {
      */
 //    public void marshal(T object,XMLStreamWriter output) throws JAXBException;
     
-    public void marshal(T object,XMLStreamWriter output, AttachmentMarshaller am) throws JAXBException;
+    void marshal(T object, XMLStreamWriter output, AttachmentMarshaller am) throws JAXBException;
 
     /*
       Marshals the specified type object with the implicit element name
@@ -84,14 +84,14 @@ public interface XMLBridge<T> {
     /**
      * @since 2.0.2
      */
-    public void marshal(T object,OutputStream output, NamespaceContext nsContext, AttachmentMarshaller am) throws JAXBException ;
+    void marshal(T object, OutputStream output, NamespaceContext nsContext, AttachmentMarshaller am) throws JAXBException ;
 //
 ////    public void marshal(@NotNull BridgeContext context,T object,OutputStream output, NamespaceContext nsContext) throws JAXBException;
 //
 //    public void marshal(@NotNull Marshaller m,T object,OutputStream output, NamespaceContext nsContext) throws JAXBException;
 
 
-    public void marshal(T object,Node output) throws JAXBException ;
+    void marshal(T object, Node output) throws JAXBException ;
 //
 ////    public void marshal(@NotNull BridgeContext context,T object,Node output) throws JAXBException ;
 //
@@ -105,7 +105,7 @@ public interface XMLBridge<T> {
     /**
      * @since 2.0.2
      */
-    public void marshal(T object, ContentHandler contentHandler, AttachmentMarshaller am) throws JAXBException ;
+    void marshal(T object, ContentHandler contentHandler, AttachmentMarshaller am) throws JAXBException ;
     
 ////    public void marshal(@NotNull BridgeContext context,T object, ContentHandler contentHandler) throws JAXBException;
 //    
@@ -114,7 +114,7 @@ public interface XMLBridge<T> {
     /**
      * @since 2.0 EA4
      */
-    public void marshal(T object, Result result) throws JAXBException;
+    void marshal(T object, Result result) throws JAXBException;
     
 ////    public void marshal(@NotNull BridgeContext context,T object, Result result) throws JAXBException;
 //    public void marshal(@NotNull Marshaller m,T object, Result result) throws JAXBException;
@@ -141,7 +141,7 @@ public interface XMLBridge<T> {
     /**
      * @since 2.0.3
      */
-    public @NotNull T unmarshal(@NotNull XMLStreamReader in, @Nullable AttachmentUnmarshaller au) throws JAXBException;
+    @NotNull T unmarshal(@NotNull XMLStreamReader in, @Nullable AttachmentUnmarshaller au) throws JAXBException;
 //    public @NotNull T unmarshal(@NotNull BridgeContext context, @NotNull XMLStreamReader in) throws JAXBException ;
 //    public @NotNull T unmarshal(@NotNull Unmarshaller u, @NotNull XMLStreamReader in) throws JAXBException;
 
@@ -165,7 +165,7 @@ public interface XMLBridge<T> {
     /**
      * @since 2.0.3
      */
-    public @NotNull T unmarshal(@NotNull Source in, @Nullable AttachmentUnmarshaller au) throws JAXBException;
+    @NotNull T unmarshal(@NotNull Source in, @Nullable AttachmentUnmarshaller au) throws JAXBException;
 //    public @NotNull T unmarshal(@NotNull BridgeContext context, @NotNull Source in) throws JAXBException;
 //    public @NotNull T unmarshal(@NotNull Unmarshaller u, @NotNull Source in) throws JAXBException;
 
@@ -185,7 +185,7 @@ public interface XMLBridge<T> {
      *
      * @since 2.0 EA1
      */
-    public @NotNull T unmarshal(@NotNull InputStream in) throws JAXBException ;
+    @NotNull T unmarshal(@NotNull InputStream in) throws JAXBException ;
     
 //    public @NotNull T unmarshal(@NotNull BridgeContext context, @NotNull InputStream in) throws JAXBException ;
     
@@ -209,14 +209,14 @@ public interface XMLBridge<T> {
     /**
      * @since 2.0.3
      */
-    public @NotNull T unmarshal(@NotNull Node n, @Nullable AttachmentUnmarshaller au) throws JAXBException;
+    @NotNull T unmarshal(@NotNull Node n, @Nullable AttachmentUnmarshaller au) throws JAXBException;
 //    public @NotNull T unmarshal(@NotNull BridgeContext context, @NotNull Node n) throws JAXBException;
 //    public @NotNull T unmarshal(@NotNull Unmarshaller context, @NotNull Node n) throws JAXBException;
 
     /**
      * Gets the {@link TypeInfo} from which this bridge was created.
      */
-    public TypeInfo getTypeInfo();
+    TypeInfo getTypeInfo();
 
     /**
      * This can be used to determine whether XMLStreamWriter or OutputStream is
@@ -225,5 +225,5 @@ public interface XMLBridge<T> {
      * @return true if marshall to OutputStream is supported in the 
      * implementation.
      */
-    public boolean supportOutputStream();
+    boolean supportOutputStream();
 }

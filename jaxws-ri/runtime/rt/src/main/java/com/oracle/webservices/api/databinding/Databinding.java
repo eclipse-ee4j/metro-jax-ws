@@ -121,7 +121,7 @@ public interface Databinding {
      * @see com.oracle.webservices.api.databinding.DatabindingFactory
 	 * @author shih-chang.chen@oracle.com
 	 */
-	public interface Builder {
+    interface Builder {
 		
 		/**
 		 * Sets the targetNamespace of the WSDL

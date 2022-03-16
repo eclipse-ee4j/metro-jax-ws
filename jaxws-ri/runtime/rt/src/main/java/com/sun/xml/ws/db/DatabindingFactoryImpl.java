@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,12 +46,12 @@ public class DatabindingFactoryImpl extends DatabindingFactory {
 
 	static final String WsRuntimeFactoryDefaultImpl = "com.sun.xml.ws.db.DatabindingProviderImpl";
 
-	protected Map<String, Object> properties = new HashMap<String, Object>();
+	protected Map<String, Object> properties = new HashMap<>();
 	protected DatabindingProvider defaultRuntimeFactory;
 	protected List<DatabindingProvider> providers;
 
     static private List<DatabindingProvider> providers() {
-        List<DatabindingProvider> factories = new java.util.ArrayList<DatabindingProvider>();
+        List<DatabindingProvider> factories = new java.util.ArrayList<>();
         for (DatabindingProvider p : ServiceFinder.find(DatabindingProvider.class)) {
             factories.add(p);
         }

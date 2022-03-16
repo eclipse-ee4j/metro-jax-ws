@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -63,8 +63,8 @@ public class WsgenOptions extends Options {
      */
     public String protocol = "soap1.1";
 
-    public Set<String> protocols = new LinkedHashSet<String>();
-    public Map<String, String> nonstdProtocols = new LinkedHashMap<String, String>();
+    public Set<String> protocols = new LinkedHashSet<>();
+    public Map<String, String> nonstdProtocols = new LinkedHashMap<>();
 
     /**
      * -Xnosource
@@ -90,7 +90,7 @@ public class WsgenOptions extends Options {
      * <code>-x file1 -x file2 ...</code><br>
      * Files to be parsed to get classes' metadata in addition/instead of using annotations and reflection API
      */
-    public List<String> externalMetadataFiles = new ArrayList<String>();
+    public List<String> externalMetadataFiles = new ArrayList<>();
 
     private static final String SERVICENAME_OPTION = "-servicename";
     private static final String PORTNAME_OPTION = "-portname";
@@ -186,7 +186,7 @@ public class WsgenOptions extends Options {
         endpoints.add(arg);
     }
 
-    List<String> endpoints = new ArrayList<String>();
+    List<String> endpoints = new ArrayList<>();
 
     public Class endpoint;
 

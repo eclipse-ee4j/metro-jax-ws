@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -111,8 +111,8 @@ public abstract class MessageContextFactory
     }
 
     @Deprecated
-    private static interface Creator {
-        public MessageContext create(MessageContextFactory f);
+    private interface Creator {
+        MessageContext create(MessageContextFactory f);
     }
     
     public void setSAAJFactory(com.sun.xml.ws.api.message.saaj.SAAJFactory saajFactory) {

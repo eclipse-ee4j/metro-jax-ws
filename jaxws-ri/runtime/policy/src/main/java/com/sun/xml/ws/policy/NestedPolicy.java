@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,11 +22,11 @@ public final class NestedPolicy extends Policy {
     private static final String NESTED_POLICY_TOSTRING_NAME = "nested policy";
         
     private NestedPolicy(final AssertionSet set) {
-        super(NESTED_POLICY_TOSTRING_NAME, Arrays.asList(new AssertionSet[] { set }));
+        super(NESTED_POLICY_TOSTRING_NAME, Arrays.asList(set));
     }
     
     private NestedPolicy(final String name, final String policyId, final AssertionSet set) {
-        super(NESTED_POLICY_TOSTRING_NAME, name, policyId, Arrays.asList(new AssertionSet[] { set }));
+        super(NESTED_POLICY_TOSTRING_NAME, name, policyId, Arrays.asList(set));
     }
 
     static NestedPolicy createNestedPolicy(final AssertionSet set) {

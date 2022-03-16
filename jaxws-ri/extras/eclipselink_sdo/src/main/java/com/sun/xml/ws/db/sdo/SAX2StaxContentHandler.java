@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -49,13 +49,13 @@ public class SAX2StaxContentHandler implements ContentHandler {
 
     public SAX2StaxContentHandler(XMLStreamWriter writer, boolean writeDoc) {
         xwriter = writer;
-        prefixMappings = new ArrayList<PrefixMapping>();
+        prefixMappings = new ArrayList<>();
         writeDocument = writeDoc;
     }
 
     public SAX2StaxContentHandler(XMLStreamWriter writer) {
         xwriter = writer;
-        prefixMappings = new ArrayList<PrefixMapping>();
+        prefixMappings = new ArrayList<>();
         writeDocument = false;
     }
 

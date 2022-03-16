@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -90,7 +90,7 @@ public abstract class ServiceInterceptor {
             return interceptors[0];
         return new ServiceInterceptor() {
             public List<WebServiceFeature> preCreateBinding(@NotNull WSPortInfo port, @Nullable Class<?> portInterface, @NotNull WSFeatureList defaultFeatures) {
-                List<WebServiceFeature> r = new ArrayList<WebServiceFeature>();
+                List<WebServiceFeature> r = new ArrayList<>();
                 for (ServiceInterceptor si : interceptors)
                     r.addAll(si.preCreateBinding(port,portInterface,defaultFeatures));
                 return r;

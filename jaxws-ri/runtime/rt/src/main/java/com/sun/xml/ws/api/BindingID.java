@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,6 +34,7 @@ import jakarta.xml.ws.soap.SOAPBinding;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -267,20 +268,16 @@ public abstract class BindingID {
         // complicated handling (such as %HH or non-ASCII char), so this parser
         // is quite simple-minded.
         SOAPHTTPImpl r = new SOAPHTTPImpl(base.getSOAPVersion(), lexical, base.canGenerateWSDL());
-        try {
-            // With X_SOAP12_HTTP, base != lexical and lexical does n't have any query string
-            if(lexical.indexOf('?') == -1) {
-                return r;
-            }
-            String query = URLDecoder.decode(lexical.substring(lexical.indexOf('?')+1),"UTF-8");
-            for( String token : query.split("&") ) {
-                int idx = token.indexOf('=');
-                if(idx<0)
-                    throw new WebServiceException("Malformed binding ID (no '=' in "+token+")");
-                r.parameters.put(token.substring(0,idx),token.substring(idx+1));
-            }
-        } catch (UnsupportedEncodingException e) {
-            throw new AssertionError(e);    // UTF-8 is supported everywhere
+        // With X_SOAP12_HTTP, base != lexical and lexical does n't have any query string
+        if(lexical.indexOf('?') == -1) {
+            return r;
+        }
+        String query = URLDecoder.decode(lexical.substring(lexical.indexOf('?')+1), StandardCharsets.UTF_8);
+        for( String token : query.split("&") ) {
+            int idx = token.indexOf('=');
+            if(idx<0)
+                throw new WebServiceException("Malformed binding ID (no '=' in "+token+")");
+            r.parameters.put(token.substring(0,idx),token.substring(idx+1));
         }
 
         return r;
@@ -387,7 +384,7 @@ public abstract class BindingID {
      * Internal implementation for SOAP/HTTP.
      */
     private static final class SOAPHTTPImpl extends Impl implements Cloneable {
-        /*final*/ Map<String,String> parameters = new HashMap<String,String>();
+        /*final*/ Map<String,String> parameters = new HashMap<>();
 
         static final String MTOM_PARAM = "mtom";
 

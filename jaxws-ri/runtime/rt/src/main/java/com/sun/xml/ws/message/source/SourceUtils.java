@@ -230,10 +230,7 @@ final class SourceUtils {
      * check if we need to declare
      */
     private static boolean declarePrefix(String rPrefix, String rUri, String wPrefix, String wUri){
-        if (wUri == null ||((wPrefix != null) && !rPrefix.equals(wPrefix))||
-                (rUri != null && !wUri.equals(rUri))) {
-            return true;
-        }
-        return false;
+        return wUri == null || ((wPrefix != null) && !rPrefix.equals(wPrefix)) ||
+                (rUri != null && !wUri.equals(rUri));
     }
 }

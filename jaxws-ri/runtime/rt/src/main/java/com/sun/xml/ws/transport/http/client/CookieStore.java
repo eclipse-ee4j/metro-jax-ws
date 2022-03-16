@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2006, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -50,7 +50,7 @@ interface CookieStore {
      * @see #get
      *
      */
-    public void add(URI uri, HttpCookie cookie);
+    void add(URI uri, HttpCookie cookie);
 
 
     /**
@@ -66,7 +66,7 @@ interface CookieStore {
      * @see #add
      *
      */
-    public List<HttpCookie> get(URI uri);
+    List<HttpCookie> get(URI uri);
 
 
     /**
@@ -75,7 +75,7 @@ interface CookieStore {
      * @return          an immutable list of http cookies;
      *                  return empty list if there's no http cookie in store
      */
-    public List<HttpCookie> getCookies();
+    List<HttpCookie> getCookies();
 
 
     /**
@@ -85,7 +85,7 @@ interface CookieStore {
      *                  return empty list if no cookie in this cookie store
      *                  is associated with an URI
      */
-    public List<URI> getURIs();
+    List<URI> getURIs();
     
     
     /**
@@ -101,7 +101,7 @@ interface CookieStore {
      *
      * @throws NullPointerException if <code>cookie</code> is <code>null</code>
      */
-    public boolean remove(URI uri, HttpCookie cookie);
+    boolean remove(URI uri, HttpCookie cookie);
     
     
     /**
@@ -109,6 +109,6 @@ interface CookieStore {
      *
      * @return          <code>true</code> if this store changed as a result of the call
      */
-    public boolean removeAll();
+    boolean removeAll();
 }
 

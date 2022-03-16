@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -168,11 +168,8 @@ public class DeploymentDescriptorParser<A> {
      * a set of {@link HttpAdapter}s.
      */
     public @NotNull List<A> parse(File f) throws IOException {
-        FileInputStream in = new FileInputStream(f);
-        try {
+        try (FileInputStream in = new FileInputStream(f)) {
             return parse(f.getPath(), in);
-        } finally {
-            in.close();
         }
     }
 
@@ -370,7 +367,7 @@ public class DeploymentDescriptorParser<A> {
      * Normally 'A' would be {@link HttpAdapter} or some derived class.
      * But the parser doesn't require that to be of any particular type.
      */
-    public static interface AdapterFactory<A> {
+    public interface AdapterFactory<A> {
         A createAdapter(String name, String urlPattern, WSEndpoint<?> endpoint);
     }
 

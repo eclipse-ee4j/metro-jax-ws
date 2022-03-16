@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -79,7 +79,7 @@ final class ServerConnectionImpl extends WSHTTPConnection implements WebServiceC
             List<String> values = entry.getValue();
             // ignore headers that interfere with our correct operations
             if (!"Content-Length".equalsIgnoreCase(name) && !"Content-Type".equalsIgnoreCase(name)) {
-                r.put(name,new ArrayList<String>(values));
+                r.put(name, new ArrayList<>(values));
             }
         }
     }
@@ -244,9 +244,7 @@ final class ServerConnectionImpl extends WSHTTPConnection implements WebServiceC
     public String getQueryString() {
         URI requestUri = httpExchange.getRequestURI();
         String query = requestUri.getQuery();
-        if (query != null)
-            return query;
-        return null;
+        return query;
     }
 
     @Override

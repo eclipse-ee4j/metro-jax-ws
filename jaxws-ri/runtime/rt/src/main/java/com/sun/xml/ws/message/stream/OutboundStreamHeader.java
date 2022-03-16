@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -83,7 +83,7 @@ public final class OutboundStreamHeader extends AbstractHeaderImpl {
         try {
             XMLStreamReader reader = readHeader();
 
-            attributes = new FinalArrayList<Attribute>();
+            attributes = new FinalArrayList<>();
 
             for (int i = 0; i < reader.getAttributeCount(); i++) {
                 final String localName = reader.getAttributeLocalName(i);

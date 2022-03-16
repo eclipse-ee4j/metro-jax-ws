@@ -53,7 +53,7 @@ public interface PolicyResolver {
      */
     PolicyMap resolve(ClientContext context) throws WebServiceException;
 
-   public class ServerContext {
+   class ServerContext {
        private final PolicyMap policyMap;
        private final Class endpointClass;
        private final Container container;
@@ -127,7 +127,7 @@ public interface PolicyResolver {
         }
     }
 
-    public class ClientContext {
+    class ClientContext {
         private PolicyMap policyMap;
         private Container container;
 

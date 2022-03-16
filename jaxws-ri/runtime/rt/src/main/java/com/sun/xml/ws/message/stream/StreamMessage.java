@@ -49,9 +49,6 @@ import jakarta.xml.bind.Unmarshaller;
 import javax.xml.namespace.QName;
 import javax.xml.stream.*;
 
-import static javax.xml.stream.XMLStreamConstants.START_DOCUMENT;
-import static javax.xml.stream.XMLStreamConstants.START_ELEMENT;
-import static javax.xml.stream.XMLStreamConstants.END_ELEMENT;
 import javax.xml.transform.Source;
 import jakarta.xml.ws.WebServiceException;
 import java.util.ArrayList;
@@ -114,7 +111,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
     
     public XMLStreamReader readEnvelope() {
         if (envelopeReader == null) {
-            List<XMLStreamReader> hReaders = new java.util.ArrayList<XMLStreamReader>();
+            List<XMLStreamReader> hReaders = new java.util.ArrayList<>();
             ElemInfo envElem =  new ElemInfo(envelopeTag, null);
             ElemInfo hdrElem =  (headerTag != null) ? new ElemInfo(headerTag, envElem) : null;
             ElemInfo bdyElem =  new ElemInfo(bodyTag,   envElem);
@@ -125,7 +122,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
                     throw new RuntimeException(e);
                 }
             }
-            XMLStreamReader soapHeader = (hdrElem != null) ? new XMLReaderComposite(hdrElem, hReaders.toArray(new XMLStreamReader[hReaders.size()])) : null;        
+            XMLStreamReader soapHeader = (hdrElem != null) ? new XMLReaderComposite(hdrElem, hReaders.toArray(new XMLStreamReader[0])) : null;
             XMLStreamReader[] payload = {readPayload()};
             XMLStreamReader soapBody = new XMLReaderComposite(bdyElem, payload); 
             XMLStreamReader[] soapContent = (soapHeader != null) ? new XMLStreamReader[]{soapHeader, soapBody} : new XMLStreamReader[]{soapBody};
@@ -158,7 +155,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         this.attachmentSet = attachmentSet;
         this.reader = reader;
 
-        if(reader.getEventType()== START_DOCUMENT)
+        if(reader.getEventType()== XMLStreamConstants.START_DOCUMENT)
             XMLStreamReaderUtil.nextElementContent(reader);
 
         //if the reader is pointing to the end element </soapenv:Body> then its empty message
@@ -279,13 +276,13 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
             nss.declarePrefix(bodyTag.ns[i], bodyTag.ns[i+1]);
         }
 
-        List<String> inscope = new ArrayList<String>();
+        List<String> inscope = new ArrayList<>();
         for( Enumeration en = nss.getPrefixes(); en.hasMoreElements(); ) {
             String prefix = (String)en.nextElement();
             inscope.add(prefix);
             inscope.add(nss.getURI(prefix));
         }
-        return inscope.toArray(new String[inscope.size()]);
+        return inscope.toArray(new String[0]);
     }
 
     public Object readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
@@ -547,11 +544,11 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
     }
 
     private void proceedToRootElement(XMLStreamReader xsr) throws XMLStreamException {
-        assert xsr.getEventType()==START_DOCUMENT;
+        assert xsr.getEventType()== XMLStreamConstants.START_DOCUMENT;
         xsr.nextTag();
         xsr.nextTag();
         xsr.nextTag();
-        assert xsr.getEventType()==START_ELEMENT || xsr.getEventType()==END_ELEMENT;
+        assert xsr.getEventType()== XMLStreamConstants.START_ELEMENT || xsr.getEventType()== XMLStreamConstants.END_ELEMENT;
     }
 
     public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler ) throws SAXException {
@@ -620,7 +617,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
     private static final String SOAP_BODY = "Body";
 
     protected interface StreamHeaderDecoder {
-        public Header decodeHeader(XMLStreamReader reader, XMLStreamBuffer mark);
+        Header decodeHeader(XMLStreamReader reader, XMLStreamBuffer mark);
     }
     
     static final StreamHeaderDecoder SOAP12StreamHeaderDecoder = new StreamHeaderDecoder() {
@@ -654,7 +651,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         TagInfoset envelopeTag = new TagInfoset(reader);
 
         // Collect namespaces on soap:Envelope
-        Map<String,String> namespaces = new HashMap<String,String>();
+        Map<String,String> namespaces = new HashMap<>();
         for(int i=0; i< reader.getNamespaceCount();i++){
                 namespaces.put(reader.getNamespacePrefix(i), reader.getNamespaceURI(i));
         }
@@ -721,7 +718,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
 
             // Collect namespaces on SOAP header block
             if (reader.getNamespaceCount() > 0) {
-                headerBlockNamespaces = new HashMap<String,String>(namespaces);
+                headerBlockNamespaces = new HashMap<>(namespaces);
                 for (int i = 0; i < reader.getNamespaceCount(); i++) {
                     headerBlockNamespaces.put(reader.getNamespacePrefix(i), reader.getNamespaceURI(i));
                 }
@@ -762,7 +759,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
     
     public XMLStreamReader readToBodyStarTag() {
         if ( envelopeReader != null ) readEnvelope(this);
-        List<XMLStreamReader> hReaders = new java.util.ArrayList<XMLStreamReader>();
+        List<XMLStreamReader> hReaders = new java.util.ArrayList<>();
         ElemInfo envElem =  new ElemInfo(envelopeTag, null);
         ElemInfo hdrElem =  (headerTag != null) ? new ElemInfo(headerTag, envElem) : null;
         ElemInfo bdyElem =  new ElemInfo(bodyTag, envElem);
@@ -773,7 +770,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
                 throw new RuntimeException(e);
             }
         }
-        XMLStreamReader soapHeader = (hdrElem != null) ? new XMLReaderComposite(hdrElem, hReaders.toArray(new XMLStreamReader[hReaders.size()])) : null;        
+        XMLStreamReader soapHeader = (hdrElem != null) ? new XMLReaderComposite(hdrElem, hReaders.toArray(new XMLStreamReader[0])) : null;
         XMLStreamReader[] payload = {};
         XMLStreamReader soapBody = new XMLReaderComposite(bdyElem, payload); 
         XMLStreamReader[] soapContent = (soapHeader != null) ? new XMLStreamReader[]{soapHeader, soapBody} : new XMLStreamReader[]{soapBody};

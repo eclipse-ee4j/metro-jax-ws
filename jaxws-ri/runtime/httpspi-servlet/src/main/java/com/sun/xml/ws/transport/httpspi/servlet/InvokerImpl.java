@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +14,6 @@ import jakarta.xml.ws.spi.Invoker;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.WebServiceException;
 import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 
 import com.sun.xml.ws.util.InjectionPlan;
 
@@ -39,9 +38,7 @@ class InvokerImpl extends Invoker {
 //        preDestroyMethod = findAnnotatedMethod(implType, PreDestroy.class);
         try {
             impl = implType.newInstance();
-        } catch (InstantiationException e) {
-            throw new WebServiceException(e);
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             throw new WebServiceException(e);
         }
     }
@@ -58,9 +55,7 @@ class InvokerImpl extends Invoker {
                         method.setAccessible(true);
                     }
                     method.invoke(instance,args);
-                } catch (IllegalAccessException e) {
-                    throw new WebServiceException(e);
-                } catch (InvocationTargetException e) {
+                } catch (IllegalAccessException | InvocationTargetException e) {
                     throw new WebServiceException(e);
                 }
                 return null;

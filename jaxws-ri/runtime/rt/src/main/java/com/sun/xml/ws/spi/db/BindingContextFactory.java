@@ -41,7 +41,7 @@ abstract public class BindingContextFactory {
                 .find(BindingContextFactory.class);
         final Iterator<BindingContextFactory> ibcf = sf.iterator();
 
-        return new Iterator<BindingContextFactory>() {
+        return new Iterator<>() {
             private BindingContextFactory bcf;
 
             public boolean hasNext() {
@@ -76,7 +76,7 @@ abstract public class BindingContextFactory {
     }
 
     static private List<BindingContextFactory> factories() {
-        List<BindingContextFactory> factories = new java.util.ArrayList<BindingContextFactory>();
+        List<BindingContextFactory> factories = new java.util.ArrayList<>();
         Iterator<BindingContextFactory> ibcf = serviceIterator();
         while (ibcf.hasNext())
             factories.add(ibcf.next());
@@ -166,7 +166,7 @@ abstract public class BindingContextFactory {
      * @return Created context or null. Null will be returned if we were not able to create context with any given factory.
      */
     private static BindingContext getBindingContextFromSpi(List<BindingContextFactory> factories, BindingInfo bindingInfo) {
-        List<BindingContextFactory> fallback = new ArrayList<BindingContextFactory>();
+        List<BindingContextFactory> fallback = new ArrayList<>();
         BindingContext result;
         for (BindingContextFactory factory : factories) {
             if (LOGGER.isLoggable(Level.FINE)) {

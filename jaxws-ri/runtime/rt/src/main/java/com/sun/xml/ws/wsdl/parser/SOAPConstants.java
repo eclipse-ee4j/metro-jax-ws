@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,40 +18,40 @@ import javax.xml.namespace.QName;
 public interface SOAPConstants {
 
     // namespace URIs
-    public static final String URI_ENVELOPE = SOAPNamespaceConstants.ENVELOPE;
-    public static final String URI_ENVELOPE12 = SOAP12NamespaceConstants.ENVELOPE;
+    String URI_ENVELOPE = SOAPNamespaceConstants.ENVELOPE;
+    String URI_ENVELOPE12 = SOAP12NamespaceConstants.ENVELOPE;
 
-    public static final String NS_WSDL_SOAP =
+    String NS_WSDL_SOAP =
         "http://schemas.xmlsoap.org/wsdl/soap/";
 
-    public static final String NS_WSDL_SOAP12 =
+    String NS_WSDL_SOAP12 =
         "http://schemas.xmlsoap.org/wsdl/soap12/";
 
-    public static final String NS_SOAP_ENCODING = "http://schemas.xmlsoap.org/soap/encoding/";
+    String NS_SOAP_ENCODING = "http://schemas.xmlsoap.org/soap/encoding/";
 
     // other URIs
-    public final String URI_SOAP_TRANSPORT_HTTP =
+    String URI_SOAP_TRANSPORT_HTTP =
         "http://schemas.xmlsoap.org/soap/http";
 
     // QNames
-    public static final QName QNAME_ADDRESS =
+    QName QNAME_ADDRESS =
         new QName(NS_WSDL_SOAP, "address");
-    public static final QName QNAME_SOAP12ADDRESS =
+    QName QNAME_SOAP12ADDRESS =
         new QName(NS_WSDL_SOAP12, "address");
-    public static final QName QNAME_BINDING =
+    QName QNAME_BINDING =
         new QName(NS_WSDL_SOAP, "binding");
-    public static final QName QNAME_BODY = new QName(NS_WSDL_SOAP, "body");
-    public static final QName QNAME_SOAP12BODY = new QName(NS_WSDL_SOAP12, "body");
-    public static final QName QNAME_FAULT = new QName(NS_WSDL_SOAP, "fault");
-    public static final QName QNAME_HEADER = new QName(NS_WSDL_SOAP, "header");
-    public static final QName QNAME_SOAP12HEADER = new QName(NS_WSDL_SOAP12, "header");
-    public static final QName QNAME_HEADERFAULT =
+    QName QNAME_BODY = new QName(NS_WSDL_SOAP, "body");
+    QName QNAME_SOAP12BODY = new QName(NS_WSDL_SOAP12, "body");
+    QName QNAME_FAULT = new QName(NS_WSDL_SOAP, "fault");
+    QName QNAME_HEADER = new QName(NS_WSDL_SOAP, "header");
+    QName QNAME_SOAP12HEADER = new QName(NS_WSDL_SOAP12, "header");
+    QName QNAME_HEADERFAULT =
         new QName(NS_WSDL_SOAP, "headerfault");
-    public static final QName QNAME_OPERATION =
+    QName QNAME_OPERATION =
         new QName(NS_WSDL_SOAP, "operation");
-    public static final QName QNAME_SOAP12OPERATION =
+    QName QNAME_SOAP12OPERATION =
         new QName(NS_WSDL_SOAP12, "operation"); 
-    public static final QName QNAME_MUSTUNDERSTAND =
+    QName QNAME_MUSTUNDERSTAND =
         new QName(URI_ENVELOPE, "mustUnderstand");
 
 

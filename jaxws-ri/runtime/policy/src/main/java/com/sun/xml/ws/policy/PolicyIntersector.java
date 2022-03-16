@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -109,9 +109,9 @@ public final class PolicyIntersector {
         }
         
         // simple tests didn't lead to final answer => let's performe some intersecting ;)       
-        final List<AssertionSet> finalAlternatives = new LinkedList<AssertionSet>(policies[0].getContent());
-        final Queue<AssertionSet> testedAlternatives = new LinkedList<AssertionSet>();
-        final List<AssertionSet> alternativesToMerge = new ArrayList<AssertionSet>(2);
+        final List<AssertionSet> finalAlternatives = new LinkedList<>(policies[0].getContent());
+        final Queue<AssertionSet> testedAlternatives = new LinkedList<>();
+        final List<AssertionSet> alternativesToMerge = new ArrayList<>(2);
         for (int i = 1; i < policies.length; i++) {
             final Collection<AssertionSet> currentAlternatives = policies[i].getContent();
 

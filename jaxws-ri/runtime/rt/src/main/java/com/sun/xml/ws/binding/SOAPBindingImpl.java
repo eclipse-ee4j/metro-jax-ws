@@ -43,7 +43,7 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
     protected final SOAPVersion soapVersion;
 
     private Set<QName> portKnownHeaders = Collections.emptySet();
-    private Set<QName> bindingUnderstoodHeaders = new HashSet<QName>();
+    private Set<QName> bindingUnderstoodHeaders = new HashSet<>();
     private final Lock lock = new ReentrantLock();
 
     /**
@@ -68,7 +68,7 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
         super(bindingId, features);
         this.soapVersion = bindingId.getSOAPVersion();
         //populates with required roles and updates handlerConfig
-        setRoles(new HashSet<String>());
+        setRoles(new HashSet<>());
         //Is this still required? comment out for now
         //setupSystemHandlerDelegate(serviceName);
 
@@ -126,7 +126,7 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
      */
     public void setRoles(Set<String> roles) {
         if (roles == null) {
-            roles = new HashSet<String>();
+            roles = new HashSet<>();
         }
         if (roles.contains(ROLE_NONE)) {
             throw new WebServiceException(ClientMessages.INVALID_SOAP_ROLE_NONE());

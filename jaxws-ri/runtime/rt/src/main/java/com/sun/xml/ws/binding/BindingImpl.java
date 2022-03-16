@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -59,20 +59,20 @@ public abstract class BindingImpl implements WSBinding {
 
     //This is reset when ever Binding.setHandlerChain() or SOAPBinding.setRoles() is called.
     private HandlerConfiguration handlerConfig;
-    private final Set<QName> addedHeaders = new HashSet<QName>();
-    private final Set<QName> knownHeaders = Collections.synchronizedSet(new HashSet<QName>());
+    private final Set<QName> addedHeaders = new HashSet<>();
+    private final Set<QName> knownHeaders = Collections.synchronizedSet(new HashSet<>());
     private final Set<QName> unmodKnownHeaders = Collections.unmodifiableSet(knownHeaders);
     private final BindingID bindingId;
     // Features that are set(enabled/disabled) on the binding
     protected final WebServiceFeatureList features;
     // Features that are set(enabled/disabled) on the binding or an operation
-    protected final Map<QName, WebServiceFeatureList> operationFeatures = new HashMap<QName, WebServiceFeatureList>();
+    protected final Map<QName, WebServiceFeatureList> operationFeatures = new HashMap<>();
     // Features that are set(enabled/disabled) on the binding, an operation or an input message
-    protected final Map<QName, WebServiceFeatureList> inputMessageFeatures = new HashMap<QName, WebServiceFeatureList>();
+    protected final Map<QName, WebServiceFeatureList> inputMessageFeatures = new HashMap<>();
     // Features that are set(enabled/disabled) on the binding, an operation or an output message
-    protected final Map<QName, WebServiceFeatureList> outputMessageFeatures = new HashMap<QName, WebServiceFeatureList>();
+    protected final Map<QName, WebServiceFeatureList> outputMessageFeatures = new HashMap<>();
     // Features that are set(enabled/disabled) on the binding, an operation or a fault message
-    protected final Map<MessageKey, WebServiceFeatureList> faultMessageFeatures = new HashMap<MessageKey, WebServiceFeatureList>();
+    protected final Map<MessageKey, WebServiceFeatureList> faultMessageFeatures = new HashMap<>();
 
     protected jakarta.xml.ws.Service.Mode serviceMode = jakarta.xml.ws.Service.Mode.PAYLOAD;
 
@@ -373,10 +373,7 @@ public abstract class BindingImpl implements WSBinding {
             if (this.operationName != other.operationName && (this.operationName == null || !this.operationName.equals(other.operationName))) {
                 return false;
             }
-            if (this.messageName != other.messageName && (this.messageName == null || !this.messageName.equals(other.messageName))) {
-                return false;
-            }
-            return true;
+            return this.messageName == other.messageName || (this.messageName != null && this.messageName.equals(other.messageName));
         }
         
         @Override

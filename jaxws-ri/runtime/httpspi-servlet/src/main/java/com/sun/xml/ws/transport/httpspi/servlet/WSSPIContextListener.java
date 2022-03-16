@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,8 +68,8 @@ public final class WSSPIContextListener
         }
         try {
             // Parse the descriptor file and build endpoint infos
-            DeploymentDescriptorParser<EndpointAdapter> parser = new DeploymentDescriptorParser<EndpointAdapter>(
-                classLoader, (ResourceLoader) new ServletResourceLoader(context), new EndpointAdapterFactory() );
+            DeploymentDescriptorParser<EndpointAdapter> parser = new DeploymentDescriptorParser<>(
+                    classLoader, new ServletResourceLoader(context), new EndpointAdapterFactory());
             URL sunJaxWsXml = context.getResource(JAXWS_RI_RUNTIME);
             if(sunJaxWsXml==null)
                 throw new WebServiceException("Runtime descriptor "+JAXWS_RI_RUNTIME+" is mising");

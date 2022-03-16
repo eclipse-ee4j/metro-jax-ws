@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2006, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -192,13 +192,13 @@ public class CookieManager extends CookieHandler
         }
 
         Map<String, List<String>> cookieMap =
-                        new java.util.HashMap<String, List<String>>();
+                new java.util.HashMap<>();
         // if there's no default CookieStore, no way for us to get any cookie
         if (cookieJar == null)
             return Collections.unmodifiableMap(cookieMap);
 
         boolean secureLink = "https".equalsIgnoreCase(uri.getScheme());
-        List<HttpCookie> cookies = new java.util.ArrayList<HttpCookie>();
+        List<HttpCookie> cookies = new java.util.ArrayList<>();
         String path = uri.getPath();
         if (path == null || path.length() == 0) {
             path = "/";
@@ -376,10 +376,7 @@ public class CookieManager extends CookieHandler
             return true;
         if (path == null || pathToMatchWith == null)
             return false;
-        if (path.startsWith(pathToMatchWith))
-            return true;
-
-        return false;
+        return path.startsWith(pathToMatchWith);
     }
 
 
@@ -390,7 +387,7 @@ public class CookieManager extends CookieHandler
     private List<String> sortByPath(List<HttpCookie> cookies) {
         Collections.sort(cookies, new CookiePathComparator());
 
-        List<String> cookieHeader = new java.util.ArrayList<String>();
+        List<String> cookieHeader = new java.util.ArrayList<>();
         for (HttpCookie cookie : cookies) {
             // Netscape cookie spec and RFC 2965 have different format of Cookie
             // header; RFC 2965 requires a leading $Version="1" string while Netscape

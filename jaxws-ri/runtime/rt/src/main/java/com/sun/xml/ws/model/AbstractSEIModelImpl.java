@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -164,17 +164,17 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
         try {
             //jaxbContext = JAXBRIContext.newInstance(cls, types, targetNamespace, false);
             // Need to avoid doPriv block once JAXB is fixed. Afterwards, use the above
-            bindingContext = AccessController.doPrivileged(new PrivilegedExceptionAction<BindingContext>() {
+            bindingContext = AccessController.doPrivileged(new PrivilegedExceptionAction<>() {
                 @Override
                 public BindingContext run() throws Exception {
-                    if(LOGGER.isLoggable(Level.FINEST)) {
+                    if (LOGGER.isLoggable(Level.FINEST)) {
                         LOGGER.log(Level.FINEST, "Creating JAXBContext with classes={0} and types={1}", new Object[]{cls, types});
                     }
                     UsesJAXBContextFeature f = features.get(UsesJAXBContextFeature.class);
                     com.oracle.webservices.api.databinding.DatabindingModeFeature dmf =
                             features.get(com.oracle.webservices.api.databinding.DatabindingModeFeature.class);
-                    JAXBContextFactory factory = f!=null ? f.getFactory() : null;
-                    if(factory==null)   factory=JAXBContextFactory.DEFAULT;
+                    JAXBContextFactory factory = f != null ? f.getFactory() : null;
+                    if (factory == null) factory = JAXBContextFactory.DEFAULT;
 
 //                    return factory.createJAXBContext(AbstractSEIModelImpl.this,cls,types);
 
@@ -186,17 +186,17 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
                                 .getMode());
                     }
 
-                	if (f!=null) databindingInfo.setDatabindingMode(BindingContextFactory.DefaultDatabindingMode);
-                	databindingInfo.setClassLoader(classLoader);
-                	databindingInfo.contentClasses().addAll(cls);
-                	databindingInfo.typeInfos().addAll(types);
-                	databindingInfo.properties().put("c14nSupport", Boolean.FALSE);
-                	databindingInfo.setDefaultNamespace(AbstractSEIModelImpl.this.getDefaultSchemaNamespace());
-                	BindingContext bc =  BindingContextFactory.create(databindingInfo);
-                            if (LOGGER.isLoggable(Level.FINE))
-                                LOGGER.log(Level.FINE, "Created binding context: {0}", bc.getClass().getName());
+                    if (f != null) databindingInfo.setDatabindingMode(BindingContextFactory.DefaultDatabindingMode);
+                    databindingInfo.setClassLoader(classLoader);
+                    databindingInfo.contentClasses().addAll(cls);
+                    databindingInfo.typeInfos().addAll(types);
+                    databindingInfo.properties().put("c14nSupport", Boolean.FALSE);
+                    databindingInfo.setDefaultNamespace(AbstractSEIModelImpl.this.getDefaultSchemaNamespace());
+                    BindingContext bc = BindingContextFactory.create(databindingInfo);
+                    if (LOGGER.isLoggable(Level.FINE))
+                        LOGGER.log(Level.FINE, "Created binding context: {0}", bc.getClass().getName());
 //                	System.out.println("---------------------- databinding " + bc);
-                	return bc;
+                    return bc;
                 }
             });
 //          createBridgeMap(types);

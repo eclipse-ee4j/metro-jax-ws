@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -106,11 +107,11 @@ public abstract class EndpointArgumentsBuilder {
         return primitiveUninitializedValues.get(type);
     }
 
-    private static final Map<Class,Object> primitiveUninitializedValues = new HashMap<Class, Object>();
+    private static final Map<Class,Object> primitiveUninitializedValues = new HashMap<>();
 
     static {
         Map<Class, Object> m = primitiveUninitializedValues;
-        m.put(int.class,(int)0);
+        m.put(int.class, 0);
         m.put(char.class,(char)0);
         m.put(byte.class,(byte)0);
         m.put(short.class,(short)0);
@@ -224,7 +225,7 @@ public abstract class EndpointArgumentsBuilder {
         }
 
         public Composite(Collection<? extends EndpointArgumentsBuilder> builders) {
-            this(builders.toArray(new EndpointArgumentsBuilder[builders.size()]));
+            this(builders.toArray(new EndpointArgumentsBuilder[0]));
         }
 
         @Override
@@ -434,20 +435,16 @@ public abstract class EndpointArgumentsBuilder {
     public static final String getWSDLPartName(com.sun.xml.ws.api.message.Attachment att){
         String cId = att.getContentId();
 
-        int index = cId.lastIndexOf('@', cId.length());
+        int index = cId.lastIndexOf('@');
         if(index == -1){
             return null;
         }
         String localPart = cId.substring(0, index);
-        index = localPart.lastIndexOf('=', localPart.length());
+        index = localPart.lastIndexOf('=');
         if(index == -1){
             return null;
         }
-        try {
-            return java.net.URLDecoder.decode(localPart.substring(0, index), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new WebServiceException(e);
-        }
+        return java.net.URLDecoder.decode(localPart.substring(0, index), StandardCharsets.UTF_8);
     }
 
     
@@ -559,7 +556,7 @@ public abstract class EndpointArgumentsBuilder {
             wrapper = wp.getXMLBridge();
             Class wrapperType = (Class) wrapper.getTypeInfo().type;            
             dynamicWrapper = WrapperComposite.class.equals(wrapperType);
-            List<PartBuilder> parts = new ArrayList<PartBuilder>();
+            List<PartBuilder> parts = new ArrayList<>();
             List<ParameterImpl> children = wp.getWrapperChildren();
             for (ParameterImpl p : children) {
                 if (p.getMode() == skipMode) {
@@ -572,7 +569,7 @@ public abstract class EndpointArgumentsBuilder {
                 QName name = p.getName();
                 try {
                     if (dynamicWrapper) {
-                        if (wrappedParts == null) wrappedParts = new HashMap<QName,WrappedPartBuilder>();
+                        if (wrappedParts == null) wrappedParts = new HashMap<>();
                         XMLBridge xmlBridge = p.getInlinedRepeatedElementBridge();
                         if (xmlBridge == null) xmlBridge = p.getXMLBridge();
                         wrappedParts.put( p.getName(), new WrappedPartBuilder(xmlBridge, EndpointValueSetter.get(p)));
@@ -594,7 +591,7 @@ public abstract class EndpointArgumentsBuilder {
                 }
             }
 
-            this.parts = parts.toArray(new PartBuilder[parts.size()]);
+            this.parts = parts.toArray(new PartBuilder[0]);
         }
 
         @Override
@@ -649,7 +646,7 @@ public abstract class EndpointArgumentsBuilder {
                 assert accessor!=null && setter!=null;
             }
 
-            final void readRequest( Object[] args, Object wrapperBean ) {
+            void readRequest( Object[] args, Object wrapperBean ) {
                 Object obj = accessor.get(wrapperBean);
                 setter.put(obj,args);
             }
@@ -667,7 +664,7 @@ public abstract class EndpointArgumentsBuilder {
             assert wp.getTypeInfo().type== WrapperComposite.class;
 
             wrapperName = wp.getName();
-            wrappedParts = new HashMap<QName,WrappedPartBuilder>();
+            wrappedParts = new HashMap<>();
             List<ParameterImpl> children = wp.getWrapperChildren();
             for (ParameterImpl p : children) {
                 wrappedParts.put( p.getName(), new WrappedPartBuilder(

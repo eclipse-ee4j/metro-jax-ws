@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,114 +17,114 @@ package com.sun.tools.ws.wsdl.parser;
  */
 public interface Constants {
     // WSDL element tags
-    static final String TAG_BINDING = "binding";
-    static final String TAG_DEFINITIONS = "definitions";
-    static final String TAG_DOCUMENTATION = "documentation";
-    static final String TAG_MESSAGE = "message";
-    static final String TAG_PART = "part";
-    static final String TAG_PORT_TYPE = "portType";
-    static final String TAG_TYPES = "types";
-    static final String TAG_OPERATION = "operation";
-    static final String TAG_INPUT = "input";
-    static final String TAG_OUTPUT = "output";
-    static final String TAG_FAULT = "fault";
-    static final String TAG_SERVICE = "service";
-    static final String TAG_PORT = "port";
-    static final String TAG_ = "";
+    String TAG_BINDING = "binding";
+    String TAG_DEFINITIONS = "definitions";
+    String TAG_DOCUMENTATION = "documentation";
+    String TAG_MESSAGE = "message";
+    String TAG_PART = "part";
+    String TAG_PORT_TYPE = "portType";
+    String TAG_TYPES = "types";
+    String TAG_OPERATION = "operation";
+    String TAG_INPUT = "input";
+    String TAG_OUTPUT = "output";
+    String TAG_FAULT = "fault";
+    String TAG_SERVICE = "service";
+    String TAG_PORT = "port";
+    String TAG_ = "";
 
     // WSDL attribute names
-    static final String ATTR_ELEMENT = "element";
-    static final String ATTR_NAME = "name";
-    static final String ATTR_REQUIRED = "required";
-    static final String ATTR_TARGET_NAMESPACE = "targetNamespace";
-    static final String ATTR_TYPE = "type";
-    static final String ATTR_MESSAGE = "message";
-    static final String ATTR_BINDING = "binding";
-    static final String ATTR_LOCATION = "location";
-    static final String ATTR_TRANSPORT = "transport";
-    static final String ATTR_STYLE = "style";
-    static final String ATTR_USE = "use";
-    static final String ATTR_NAMESPACE = "namespace";
-    static final String ATTR_ENCODING_STYLE = "encodingStyle";
-    static final String ATTR_PART = "part";
-    static final String ATTR_PARTS = "parts";
-    static final String ATTR_SOAP_ACTION = "soapAction";
-    static final String ATTR_PARAMETER_ORDER = "parameterOrder";
-    static final String ATTR_VERB = "verb";
+    String ATTR_ELEMENT = "element";
+    String ATTR_NAME = "name";
+    String ATTR_REQUIRED = "required";
+    String ATTR_TARGET_NAMESPACE = "targetNamespace";
+    String ATTR_TYPE = "type";
+    String ATTR_MESSAGE = "message";
+    String ATTR_BINDING = "binding";
+    String ATTR_LOCATION = "location";
+    String ATTR_TRANSPORT = "transport";
+    String ATTR_STYLE = "style";
+    String ATTR_USE = "use";
+    String ATTR_NAMESPACE = "namespace";
+    String ATTR_ENCODING_STYLE = "encodingStyle";
+    String ATTR_PART = "part";
+    String ATTR_PARTS = "parts";
+    String ATTR_SOAP_ACTION = "soapAction";
+    String ATTR_PARAMETER_ORDER = "parameterOrder";
+    String ATTR_VERB = "verb";
 
     // schema attribute names
-    static final String ATTR_ID = "id";
-    static final String ATTR_VERSION = "version";
-    static final String ATTR_ATTRIBUTE_FORM_DEFAULT = "attributeFormDefault";
-    static final String ATTR_BLOCK_DEFAULT = "blockDefault";
-    static final String ATTR_ELEMENT_FORM_DEFAULT = "elementFormDefault";
-    static final String ATTR_FINAL_DEFAULT = "finalDefault";
-    static final String ATTR_ABSTRACT = "abstract";
-    static final String ATTR_NILLABLE = "nillable";
-    static final String ATTR_DEFAULT = "default";
-    static final String ATTR_FIXED = "fixed";
-    static final String ATTR_FORM = "form";
-    static final String ATTR_BLOCK = "block";
-    static final String ATTR_FINAL = "final";
-    static final String ATTR_REF = "ref";
-    static final String ATTR_SUBSTITUTION_GROUP = "substitutionGroup";
-    static final String ATTR_MIN_OCCURS = "minOccurs";
-    static final String ATTR_MAX_OCCURS = "maxOccurs";
-    static final String ATTR_PROCESS_CONTENTS = "processContents";
-    static final String ATTR_MIXED = "mixed";
-    static final String ATTR_BASE = "base";
-    static final String ATTR_VALUE = "value";
-    static final String ATTR_XPATH = "xpath";
-    static final String ATTR_SCHEMA_LOCATION = "schemaLocation";
-    static final String ATTR_REFER = "refer";
-    static final String ATTR_ITEM_TYPE = "itemType";
-    static final String ATTR_PUBLIC = "public";
-    static final String ATTR_SYSTEM = "system";
-    static final String ATTR_MEMBER_TYPES = "memberTypes";
-    static final String ATTR_ = "";
+    String ATTR_ID = "id";
+    String ATTR_VERSION = "version";
+    String ATTR_ATTRIBUTE_FORM_DEFAULT = "attributeFormDefault";
+    String ATTR_BLOCK_DEFAULT = "blockDefault";
+    String ATTR_ELEMENT_FORM_DEFAULT = "elementFormDefault";
+    String ATTR_FINAL_DEFAULT = "finalDefault";
+    String ATTR_ABSTRACT = "abstract";
+    String ATTR_NILLABLE = "nillable";
+    String ATTR_DEFAULT = "default";
+    String ATTR_FIXED = "fixed";
+    String ATTR_FORM = "form";
+    String ATTR_BLOCK = "block";
+    String ATTR_FINAL = "final";
+    String ATTR_REF = "ref";
+    String ATTR_SUBSTITUTION_GROUP = "substitutionGroup";
+    String ATTR_MIN_OCCURS = "minOccurs";
+    String ATTR_MAX_OCCURS = "maxOccurs";
+    String ATTR_PROCESS_CONTENTS = "processContents";
+    String ATTR_MIXED = "mixed";
+    String ATTR_BASE = "base";
+    String ATTR_VALUE = "value";
+    String ATTR_XPATH = "xpath";
+    String ATTR_SCHEMA_LOCATION = "schemaLocation";
+    String ATTR_REFER = "refer";
+    String ATTR_ITEM_TYPE = "itemType";
+    String ATTR_PUBLIC = "public";
+    String ATTR_SYSTEM = "system";
+    String ATTR_MEMBER_TYPES = "memberTypes";
+    String ATTR_ = "";
 
     // WSDL attribute values
-    static final String ATTRVALUE_RPC = "rpc";
-    static final String ATTRVALUE_DOCUMENT = "document";
-    static final String ATTRVALUE_LITERAL = "literal";
-    static final String ATTRVALUE_ENCODED = "encoded";
+    String ATTRVALUE_RPC = "rpc";
+    String ATTRVALUE_DOCUMENT = "document";
+    String ATTRVALUE_LITERAL = "literal";
+    String ATTRVALUE_ENCODED = "encoded";
 
     // schema attribute values
-    static final String ATTRVALUE_QUALIFIED = "qualified";
-    static final String ATTRVALUE_UNQUALIFIED = "unqualified";
-    static final String ATTRVALUE_ALL = "#all";
-    static final String ATTRVALUE_SUBSTITUTION = "substitution";
-    static final String ATTRVALUE_EXTENSION = "extension";
-    static final String ATTRVALUE_RESTRICTION = "restriction";
-    static final String ATTRVALUE_LIST = "list";
-    static final String ATTRVALUE_UNION = "union";
-    static final String ATTRVALUE_UNBOUNDED = "unbounded";
-    static final String ATTRVALUE_PROHIBITED = "prohibited";
-    static final String ATTRVALUE_OPTIONAL = "optional";
-    static final String ATTRVALUE_REQUIRED = "required";
-    static final String ATTRVALUE_LAX = "lax";
-    static final String ATTRVALUE_SKIP = "skip";
-    static final String ATTRVALUE_STRICT = "strict";
-    static final String ATTRVALUE_ANY = "##any";
-    static final String ATTRVALUE_LOCAL = "##local";
-    static final String ATTRVALUE_OTHER = "##other";
-    static final String ATTRVALUE_TARGET_NAMESPACE = "##targetNamespace";
-    static final String ATTRVALUE_ = "";
+    String ATTRVALUE_QUALIFIED = "qualified";
+    String ATTRVALUE_UNQUALIFIED = "unqualified";
+    String ATTRVALUE_ALL = "#all";
+    String ATTRVALUE_SUBSTITUTION = "substitution";
+    String ATTRVALUE_EXTENSION = "extension";
+    String ATTRVALUE_RESTRICTION = "restriction";
+    String ATTRVALUE_LIST = "list";
+    String ATTRVALUE_UNION = "union";
+    String ATTRVALUE_UNBOUNDED = "unbounded";
+    String ATTRVALUE_PROHIBITED = "prohibited";
+    String ATTRVALUE_OPTIONAL = "optional";
+    String ATTRVALUE_REQUIRED = "required";
+    String ATTRVALUE_LAX = "lax";
+    String ATTRVALUE_SKIP = "skip";
+    String ATTRVALUE_STRICT = "strict";
+    String ATTRVALUE_ANY = "##any";
+    String ATTRVALUE_LOCAL = "##local";
+    String ATTRVALUE_OTHER = "##other";
+    String ATTRVALUE_TARGET_NAMESPACE = "##targetNamespace";
+    String ATTRVALUE_ = "";
 
     // namespace URIs
-    static final String NS_XML = "http://www.w3.org/XML/1998/namespace";
-    static final String NS_XMLNS = "http://www.w3.org/2000/xmlns/";
-    static final String NS_WSDL = "http://schemas.xmlsoap.org/wsdl/";
-    static final String NS_WSDL_SOAP = "http://schemas.xmlsoap.org/wsdl/soap/";
-    static final String NS_WSDL_SOAP12 = "http://schemas.xmlsoap.org/wsdl/soap12/";
-    static final String NS_WSDL_HTTP = "http://schemas.xmlsoap.org/wsdl/http/";
-    static final String NS_WSDL_MIME = "http://schemas.xmlsoap.org/wsdl/mime/";
-    static final String NS_XSD = "http://www.w3.org/2001/XMLSchema";
-    static final String NS_XSI = "http://www.w3.org/2001/XMLSchema-instance";
-    static final String NS_ = "";
+    String NS_XML = "http://www.w3.org/XML/1998/namespace";
+    String NS_XMLNS = "http://www.w3.org/2000/xmlns/";
+    String NS_WSDL = "http://schemas.xmlsoap.org/wsdl/";
+    String NS_WSDL_SOAP = "http://schemas.xmlsoap.org/wsdl/soap/";
+    String NS_WSDL_SOAP12 = "http://schemas.xmlsoap.org/wsdl/soap12/";
+    String NS_WSDL_HTTP = "http://schemas.xmlsoap.org/wsdl/http/";
+    String NS_WSDL_MIME = "http://schemas.xmlsoap.org/wsdl/mime/";
+    String NS_XSD = "http://www.w3.org/2001/XMLSchema";
+    String NS_XSI = "http://www.w3.org/2001/XMLSchema-instance";
+    String NS_ = "";
 
     // other constants
-    static final String XMLNS = "xmlns";
-    static final String TRUE = "true";
-    static final String FALSE = "false";
+    String XMLNS = "xmlns";
+    String TRUE = "true";
+    String FALSE = "false";
 }

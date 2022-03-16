@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2008, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,13 +33,13 @@ final class Injector {
     static {
         try {
             defineClass = AccessController.doPrivileged(
-                    new PrivilegedAction<Method>() {
-                @Override
-                public Method run() {
-                    return InjectorHelper.getMethod(ClassLoader.class, "defineClass",
-                            String.class, byte[].class, Integer.TYPE, Integer.TYPE, ProtectionDomain.class);
-                }
-            });
+                    new PrivilegedAction<>() {
+                        @Override
+                        public Method run() {
+                            return InjectorHelper.getMethod(ClassLoader.class, "defineClass",
+                                    String.class, byte[].class, Integer.TYPE, Integer.TYPE, ProtectionDomain.class);
+                        }
+                    });
 
         } catch (Throwable t) {
             Logger.getLogger(Injector.class.getName()).log(Level.SEVERE, null, t);

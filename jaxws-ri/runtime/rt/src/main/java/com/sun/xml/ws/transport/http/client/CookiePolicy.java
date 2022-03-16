@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2006, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@ public interface CookiePolicy {
     /**
      * One pre-defined policy which accepts all cookies.
      */
-    public static final CookiePolicy ACCEPT_ALL = new CookiePolicy(){
+    CookiePolicy ACCEPT_ALL = new CookiePolicy(){
         public boolean shouldAccept(URI uri, HttpCookie cookie) {
             return true;
         }
@@ -36,7 +36,7 @@ public interface CookiePolicy {
     /**
      * One pre-defined policy which accepts no cookies.
      */
-    public static final CookiePolicy ACCEPT_NONE = new CookiePolicy(){
+    CookiePolicy ACCEPT_NONE = new CookiePolicy(){
         public boolean shouldAccept(URI uri, HttpCookie cookie) {
             return false;
         }
@@ -45,7 +45,7 @@ public interface CookiePolicy {
     /**
      * One pre-defined policy which only accepts cookies from original server.
      */
-    public static final CookiePolicy ACCEPT_ORIGINAL_SERVER  = new CookiePolicy(){
+    CookiePolicy ACCEPT_ORIGINAL_SERVER  = new CookiePolicy(){
         public boolean shouldAccept(URI uri, HttpCookie cookie) {
             return HttpCookie.domainMatches(cookie.getDomain(), uri.getHost());
         }
@@ -60,6 +60,6 @@ public interface CookiePolicy {
      * @return          <code>true</code> if this cookie should be accepted;
      *                  otherwise, <code>false</code>
      */
-    public boolean shouldAccept(URI uri, HttpCookie cookie);
+    boolean shouldAccept(URI uri, HttpCookie cookie);
 }
 

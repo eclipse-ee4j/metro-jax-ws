@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  * Copyright 2006 Guillaume Nodet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -162,7 +162,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     protected String getExtraClasspath() {
         StringBuilder buf = new StringBuilder();
         buf.append(getClassesDir().getAbsolutePath());
-        for (Artifact a : (Set<Artifact>)project.getArtifacts()) {
+        for (Artifact a : project.getArtifacts()) {
             buf.append(File.pathSeparatorChar);
             buf.append(a.getFile().getAbsolutePath());
         }
@@ -182,8 +182,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
      * @throws MojoExecutionException for errors
      */
     protected List<String> getWsGenArgs(String aSei, boolean attachResources) throws MojoExecutionException {
-        List<String> args = new ArrayList<>();
-        args.addAll(getCommonArgs());
+        List<String> args = new ArrayList<>(getCommonArgs());
 
         if (getGenWSDL()) {
             if (this.protocol != null) {
@@ -239,7 +238,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     }
 
     private Set<String> getSEIs(File directory) throws MojoExecutionException {
-        Set<String> seis = new HashSet<String>();
+        Set<String> seis = new HashSet<>();
         if (!directory.exists() || directory.isFile()) {
             return seis;
         }
@@ -261,7 +260,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
         } catch (IOException ex) {
             throw new MojoExecutionException(ex.getMessage(), ex);
         } finally {
-            if (cl != null && cl instanceof Closeable) {
+            if (cl instanceof Closeable) {
                 try {
                     ((Closeable) cl).close();
                 } catch (IOException ex) {

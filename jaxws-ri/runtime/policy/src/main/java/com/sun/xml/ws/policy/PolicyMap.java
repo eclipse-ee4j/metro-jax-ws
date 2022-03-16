@@ -130,7 +130,7 @@ public final class PolicyMap implements Iterable<Policy> {
     }
 
     private static final class ScopeMap implements Iterable<Policy> {
-        private final Map<PolicyMapKey, PolicyScope> internalMap = new HashMap<PolicyMapKey, PolicyScope>();
+        private final Map<PolicyMapKey, PolicyScope> internalMap = new HashMap<>();
         private final PolicyMapKeyHandler scopeKeyHandler;
         private final PolicyMerger merger;
         
@@ -148,7 +148,7 @@ public final class PolicyMap implements Iterable<Policy> {
             final PolicyMapKey localKey = createLocalCopy(key);
             final PolicyScope scope = internalMap.get(localKey);
             if (scope == null) {
-                final List<PolicySubject> list = new LinkedList<PolicySubject>();
+                final List<PolicySubject> list = new LinkedList<>();
                 list.add(subject);
                 internalMap.put(localKey, new PolicyScope(list));
             } else {
@@ -164,7 +164,7 @@ public final class PolicyMap implements Iterable<Policy> {
             final PolicyMapKey localKey = createLocalCopy(key);
             final PolicyScope scope = internalMap.get(localKey);
             if (scope == null) {
-                final List<PolicySubject> list = new LinkedList<PolicySubject>();
+                final List<PolicySubject> list = new LinkedList<>();
                 list.add(subject);
                 internalMap.put(localKey, new PolicyScope(list));
             } else {
@@ -193,13 +193,13 @@ public final class PolicyMap implements Iterable<Policy> {
         }
         
         public Iterator<Policy> iterator() {
-            return new Iterator<Policy> () {
+            return new Iterator<>() {
                 private final Iterator<PolicyMapKey> keysIterator = internalMap.keySet().iterator();
-                
+
                 public boolean hasNext() {
                     return keysIterator.hasNext();
                 }
-                
+
                 public Policy next() {
                     final PolicyMapKey key = keysIterator.next();
                     try {
@@ -208,7 +208,7 @@ public final class PolicyMap implements Iterable<Policy> {
                         throw LOGGER.logSevereException(new IllegalStateException(LocalizationMessages.WSP_0069_EXCEPTION_WHILE_RETRIEVING_EFFECTIVE_POLICY_FOR_KEY(key), e));
                     }
                 }
-                
+
                 public void remove() {
                     throw LOGGER.logSevereException(new UnsupportedOperationException(LocalizationMessages.WSP_0034_REMOVE_OPERATION_NOT_SUPPORTED()));
                 }
@@ -418,7 +418,7 @@ public final class PolicyMap implements Iterable<Policy> {
      * @return All policy subjects contained by this map
      */
     public Collection<PolicySubject> getPolicySubjects() {
-        final List<PolicySubject> subjects = new LinkedList<PolicySubject>();
+        final List<PolicySubject> subjects = new LinkedList<>();
         addSubjects(subjects, serviceMap);
         addSubjects(subjects, endpointMap);
         addSubjects(subjects, operationMap);
@@ -588,7 +588,7 @@ public final class PolicyMap implements Iterable<Policy> {
     @Override
     public String toString(){
         // TODO
-        final StringBuffer result = new StringBuffer();
+        final StringBuilder result = new StringBuilder();
         if(null!=this.serviceMap) {
             result.append("\nServiceMap=").append(this.serviceMap);
         }
@@ -611,23 +611,23 @@ public final class PolicyMap implements Iterable<Policy> {
     }
     
     public Iterator<Policy> iterator() {
-        return new Iterator<Policy> () {
+        return new Iterator<>() {
             private final Iterator<Iterator<Policy>> mainIterator;
             private Iterator<Policy> currentScopeIterator;
-            
+
             { // instance initialization
-                final Collection<Iterator<Policy>> scopeIterators = new ArrayList<Iterator<Policy>>(6);
+                final Collection<Iterator<Policy>> scopeIterators = new ArrayList<>(6);
                 scopeIterators.add(serviceMap.iterator());
                 scopeIterators.add(endpointMap.iterator());
                 scopeIterators.add(operationMap.iterator());
                 scopeIterators.add(inputMessageMap.iterator());
                 scopeIterators.add(outputMessageMap.iterator());
                 scopeIterators.add(faultMessageMap.iterator());
-                
+
                 mainIterator = scopeIterators.iterator();
                 currentScopeIterator = mainIterator.next();
             }
-            
+
             public boolean hasNext() {
                 while (!currentScopeIterator.hasNext()) {
                     if (mainIterator.hasNext()) {
@@ -636,17 +636,17 @@ public final class PolicyMap implements Iterable<Policy> {
                         return false;
                     }
                 }
-                
+
                 return true;
             }
-            
+
             public Policy next() {
                 if (hasNext()) {
                     return currentScopeIterator.next();
                 }
                 throw LOGGER.logSevereException(new NoSuchElementException(LocalizationMessages.WSP_0054_NO_MORE_ELEMS_IN_POLICY_MAP()));
             }
-            
+
             public void remove() {
                 throw LOGGER.logSevereException(new UnsupportedOperationException(LocalizationMessages.WSP_0034_REMOVE_OPERATION_NOT_SUPPORTED()));
             }

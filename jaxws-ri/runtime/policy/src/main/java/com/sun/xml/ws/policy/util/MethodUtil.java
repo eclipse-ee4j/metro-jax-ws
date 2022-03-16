@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -98,7 +98,7 @@ public final class MethodUtil extends SecureClassLoader {
     private static Method getTrampoline() {
         try {
             return AccessController.doPrivileged(
-                    new PrivilegedExceptionAction<Method>() {
+                    new PrivilegedExceptionAction<>() {
                         public Method run() throws Exception {
                             Class<?> t = getTrampolineClass();
                             Method b = t.getDeclaredMethod("invoke",

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -69,7 +69,7 @@ public class JavaInterface {
 
     public boolean hasMethod(JavaMethod method) {
         for (int i=0; i<methods.size();i++) {
-            if (method.equals(((JavaMethod)methods.get(i)))) {
+            if (method.equals(methods.get(i))) {
                 return true;
             }
         }
@@ -96,7 +96,7 @@ public class JavaInterface {
 
     public boolean hasInterface(String interfaceName) {
         for (int i=0; i<interfaces.size();i++) {
-            if (interfaceName.equals((String)interfaces.get(i))) {
+            if (interfaceName.equals(interfaces.get(i))) {
                 return true;
             }
         }

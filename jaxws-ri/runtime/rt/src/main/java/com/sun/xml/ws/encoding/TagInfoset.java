@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -230,7 +230,7 @@ public final class TagInfoset {
     //Who wants this?
     public List<String> allPrefixes(String namespaceURI) {
         int size = ns.length/2;
-        List<String> l = new java.util.ArrayList<String>();
+        List<String> l = new java.util.ArrayList<>();
         for(int i=0; i<size; i++){
             String p = ns[i*2  ];
             String n = ns[i*2+1];

@@ -11,7 +11,6 @@
 package com.sun.tools.ws.processor.modeler.wsdl;
 
 import com.sun.tools.ws.processor.generator.Names;
-import static com.sun.tools.ws.processor.modeler.wsdl.WSDLModelerBase.getExtensionOfType;
 import com.sun.tools.ws.wscompile.ErrorReceiver;
 import com.sun.tools.ws.wscompile.WsimportOptions;
 import com.sun.tools.ws.wscompile.Options;
@@ -27,6 +26,7 @@ import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.*;
 
@@ -41,8 +41,8 @@ public class PseudoSchemaBuilder {
     private final StringWriter buf = new StringWriter();
     private final WSDLDocument wsdlDocument;
     private WSDLModeler wsdlModeler;
-    private final List<InputSource> schemas = new ArrayList<InputSource>();
-    private final HashMap<QName, Port> bindingNameToPortMap = new HashMap<QName, Port>();
+    private final List<InputSource> schemas = new ArrayList<>();
+    private final HashMap<QName, Port> bindingNameToPortMap = new HashMap<>();
     private static final String w3ceprSchemaBinding = "<bindings\n" +
             "  xmlns=\"https://jakarta.ee/xml/ns/jaxb\"\n" +
             "  xmlns:wsa=\"http://www.w3.org/2005/08/addressing\"\n" +
@@ -109,12 +109,7 @@ public class PseudoSchemaBuilder {
     }
 
     private static byte[] getUTF8Bytes(String w3ceprSchemaBinding1) {
-        try {
-            return w3ceprSchemaBinding1.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException unexpected) {
-            // should never happen
-            throw new IllegalStateException(unexpected);
-        }
+        return w3ceprSchemaBinding1.getBytes(StandardCharsets.UTF_8);
     }
 
 
@@ -140,12 +135,12 @@ public class PseudoSchemaBuilder {
         Binding binding = port.resolveBinding(wsdlDocument);
 
         SOAPBinding soapBinding =
-                    (SOAPBinding)getExtensionOfType(binding, SOAPBinding.class);
+                    (SOAPBinding) WSDLModelerBase.getExtensionOfType(binding, SOAPBinding.class);
         //lets try and see if its SOAP 1.2. dont worry about extension flag, its
         // handled much earlier
         if (soapBinding == null) {
                     soapBinding =
-                            (SOAPBinding)getExtensionOfType(binding, SOAP12Binding.class);
+                            (SOAPBinding) WSDLModelerBase.getExtensionOfType(binding, SOAP12Binding.class);
         }
         if(soapBinding == null)
             return;
@@ -186,7 +181,7 @@ public class PseudoSchemaBuilder {
         if(operation.getOutput() != null)
             outputMessage = operation.getOutput().resolveMessage(wsdlDocument);
         if(outputMessage != null){
-            List<MessagePart> allParts = new ArrayList<MessagePart>(outputMessage.getParts());
+            List<MessagePart> allParts = new ArrayList<>(outputMessage.getParts());
             if(options != null && options.additionalHeaders) {
                 List<MessagePart> addtionalHeaderParts = wsdlModeler.getAdditionHeaderParts(bindingOperation, outputMessage, false);
                 allParts.addAll(addtionalHeaderParts);
@@ -198,7 +193,7 @@ public class PseudoSchemaBuilder {
     }
 
     private String getCustomizedOperationName(Operation operation) {
-        JAXWSBinding jaxwsCustomization = (JAXWSBinding)getExtensionOfType(operation, JAXWSBinding.class);
+        JAXWSBinding jaxwsCustomization = (JAXWSBinding) WSDLModelerBase.getExtensionOfType(operation, JAXWSBinding.class);
         String operationName = (jaxwsCustomization != null)?((jaxwsCustomization.getMethodName() != null)?jaxwsCustomization.getMethodName().getName():null):null;
         if(operationName != null){
             if(Names.isJavaReservedWord(operationName)){
@@ -211,7 +206,7 @@ public class PseudoSchemaBuilder {
     }
 
     private void writeImports(QName elementName, List<MessagePart> parts){
-        Set<String> uris = new HashSet<String>();
+        Set<String> uris = new HashSet<>();
         for(MessagePart p:parts){
             String ns = p.getDescriptor().getNamespaceURI();
             if(!uris.contains(ns) && !ns.equals("http://www.w3.org/2001/XMLSchema") && !ns.equals(elementName.getNamespaceURI())){

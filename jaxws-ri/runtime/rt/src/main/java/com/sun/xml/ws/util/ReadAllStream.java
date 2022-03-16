@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -74,7 +74,7 @@ public class ReadAllStream extends InputStream {
     }
     
     @Override
-    public int read(byte b[], int off, int sz) throws IOException {
+    public int read(byte[] b, int off, int sz) throws IOException {
         int len = memStream.read(b, off, sz);
         if (len == -1) {
             len = fileStream.read(b, off, sz);
@@ -117,7 +117,7 @@ public class ReadAllStream extends InputStream {
         }
 
         @Override
-        public int read(byte b[], int off, int sz) throws IOException {
+        public int read(byte[] b, int off, int sz) throws IOException {
             return (fin != null) ? fin.read(b, off, sz) : -1;
         }
 
@@ -193,7 +193,7 @@ public class ReadAllStream extends InputStream {
         }
 
         @Override
-        public int read(byte b[], int off, int sz) throws IOException {
+        public int read(byte[] b, int off, int sz) throws IOException {
             if (!fetch()) {
                 return -1;
             }

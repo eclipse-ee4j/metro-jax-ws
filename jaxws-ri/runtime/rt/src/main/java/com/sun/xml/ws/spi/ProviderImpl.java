@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -65,7 +65,7 @@ import java.util.Map;
  */
 public class ProviderImpl extends Provider {
 
-    private final static ContextClassloaderLocal<JAXBContext> eprjc = new ContextClassloaderLocal<JAXBContext>() {
+    private final static ContextClassloaderLocal<JAXBContext> eprjc = new ContextClassloaderLocal<>() {
         @Override
         protected JAXBContext initialValue() throws Exception {
             return getEPRJaxbContext();
@@ -240,7 +240,7 @@ public class ProviderImpl extends Provider {
         // EPRs have package and private fields, so we need privilege escalation.
         // this access only fixed, known set of classes, so doing that
         // shouldn't introduce security vulnerability.
-        return AccessController.doPrivileged(new PrivilegedAction<JAXBContext>() {
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
             public JAXBContext run() {
                 try {
                     return JAXBContext.newInstance(MemberSubmissionEndpointReference.class, W3CEndpointReference.class);

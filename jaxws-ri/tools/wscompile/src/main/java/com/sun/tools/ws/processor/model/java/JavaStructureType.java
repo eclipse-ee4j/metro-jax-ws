@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,7 +30,7 @@ public class JavaStructureType extends JavaType {
     public void add(JavaStructureMember m) {
         if (membersByName.containsKey(m.getName())) {
             throw new ModelException("model.uniqueness.javastructuretype",
-                new Object[] {m.getName(), getRealName()});
+                    m.getName(), getRealName());
         }
         members.add(m);
         membersByName.put(m.getName(), m);
@@ -63,7 +63,7 @@ public class JavaStructureType extends JavaType {
     }
 
     private void initializeMembersByName() {
-        membersByName = new HashMap<String, JavaStructureMember>();
+        membersByName = new HashMap<>();
         if (members != null) {
             for (JavaStructureMember m : members) {
                 if (m.getName() != null &&

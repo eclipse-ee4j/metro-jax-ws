@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  * Copyright 2006 Codehaus
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,7 +33,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.apache.maven.artifact.versioning.OverConstrainedVersionException;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Plugin;
@@ -167,7 +166,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
     protected PluginDescriptor pluginDescriptor;
 
     private static final Logger logger = Logger.getLogger(AbstractJaxwsMojo.class.getName());
-    private static final List<String> METRO_30 = new ArrayList<String>();
+    private static final List<String> METRO_30 = new ArrayList<>();
 
     static {
         METRO_30.add("-encoding");
@@ -212,7 +211,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
     }
 
     protected List<String> getCommonArgs() throws MojoExecutionException {
-        List<String> commonArgs = new ArrayList<String>();
+        List<String> commonArgs = new ArrayList<>();
 
         if (!isDefaultSrc(getSourceDestDir()) || keep) {
             commonArgs.add("-keep");
@@ -253,9 +252,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
 
         // add additional command line options
         if (args != null) {
-            for (String arg : args) {
-                commonArgs.add(arg);
-            }
+            commonArgs.addAll(args);
         }
         return commonArgs;
     }
@@ -393,7 +390,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
     }
 
     private String[] getCP() throws DependencyResolutionException {
-        Map<String, org.eclipse.aether.artifact.Artifact> cp = new HashMap<String, org.eclipse.aether.artifact.Artifact>();
+        Map<String, org.eclipse.aether.artifact.Artifact> cp = new HashMap<>();
         Plugin p = pluginDescriptor.getPlugin();
         boolean toolsFound = false;
         for (Dependency d : p.getDependencies()) {
@@ -505,7 +502,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
 
     private static class DepFilter implements DependencyFilter {
 
-        private final Set<Dep> toExclude = new HashSet<Dep>();
+        private final Set<Dep> toExclude = new HashSet<>();
 
         public DepFilter(String[] artifacts) {
             if (artifacts != null) {

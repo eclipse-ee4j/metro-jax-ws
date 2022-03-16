@@ -35,7 +35,7 @@ class WsGenBase extends WsTask2 {
      * List of external metadata files; those are necessary if it's impossible to use/modify
      * annotations in ws implementation (for example only binaries are available)
      */
-    private final List<ExternalMetadata> externalMetadataFiles = new ArrayList<ExternalMetadata>();
+    private final List<ExternalMetadata> externalMetadataFiles = new ArrayList<>();
 
     /**
      * Gets the classpath.

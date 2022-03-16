@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,10 +15,10 @@ import com.sun.xml.ws.api.model.wsdl.WSDLPortType;
 public interface EditableWSDLPortType extends WSDLPortType {
 
     @Override
-    public EditableWSDLOperation get(String operationName);
+    EditableWSDLOperation get(String operationName);
 
     @Override
-    public Iterable<? extends EditableWSDLOperation> getOperations();
+    Iterable<? extends EditableWSDLOperation> getOperations();
 
     /**
      * Associate WSDL operation with operation name
@@ -26,10 +26,10 @@ public interface EditableWSDLPortType extends WSDLPortType {
      * @param opName Operation name
      * @param ptOp   Operation
      */
-    public void put(String opName, EditableWSDLOperation ptOp);
+    void put(String opName, EditableWSDLOperation ptOp);
 
     /**
      * Freezes WSDL model to prevent further modification
      */
-    public void freeze();
+    void freeze();
 }

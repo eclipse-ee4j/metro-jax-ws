@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -55,28 +55,28 @@ public abstract class XMLStreamReaderFactory {
      * Singleton instance.
      */
     private static volatile ContextClassloaderLocal<XMLStreamReaderFactory> streamReader =
-            new ContextClassloaderLocal<XMLStreamReaderFactory>() {
+            new ContextClassloaderLocal<>() {
 
                 @Override
                 protected XMLStreamReaderFactory initialValue() {
-    
+
                     XMLInputFactory xif = getXMLInputFactory();
-                    XMLStreamReaderFactory f=null;
+                    XMLStreamReaderFactory f = null;
 
                     // this system property can be used to disable the pooling altogether,
                     // in case someone hits an issue with pooling in the production system.
-                    if(!MrJarUtil.getNoPoolProperty(XMLStreamReaderFactory.class.getName())) {
+                    if (!MrJarUtil.getNoPoolProperty(XMLStreamReaderFactory.class.getName())) {
                         f = Zephyr.newInstance(xif);
                     }
 
-                    if(f==null) {
+                    if (f == null) {
                         // is this Woodstox?
                         if (xif.getClass().getName().equals(CLASS_NAME_OF_WSTXINPUTFACTORY)) {
                             f = new Woodstox(xif);
                         }
                     }
 
-                    if (f==null) {
+                    if (f == null) {
                         f = new Default();
                     }
 
@@ -225,7 +225,7 @@ public abstract class XMLStreamReaderFactory {
     private static final class Zephyr extends XMLStreamReaderFactory {
         private final XMLInputFactory xif;
 
-        private final ThreadLocal<XMLStreamReader> pool = new ThreadLocal<XMLStreamReader>();
+        private final ThreadLocal<XMLStreamReader> pool = new ThreadLocal<>();
 
         /**
          * Sun StAX impl <code>XMLReaderImpl.setInputSource()</code> method via reflection.
@@ -256,11 +256,10 @@ public abstract class XMLStreamReaderFactory {
                 if(!(clazz.getName().startsWith("com.sun.xml.stream.")) )
                     return null;    // nope
                 return new Zephyr(xif,clazz);
-            } catch (NoSuchMethodException e) {
+            } catch (NoSuchMethodException | XMLStreamException e) {
                 return null;    // this factory is not for zephyr
-            } catch (XMLStreamException e) {
-                return null;    // impossible to fail to parse <foo/>, but anyway
-            }
+            } // impossible to fail to parse <foo/>, but anyway
+
         }
 
         public Zephyr(XMLInputFactory xif, Class clazz) throws NoSuchMethodException {
@@ -306,11 +305,7 @@ public abstract class XMLStreamReaderFactory {
                 is.setByteStream(in);
                 reuse(xsr,is);
                 return xsr;
-            } catch (IllegalAccessException e) {
-                throw new XMLReaderException("stax.cantCreate",e);
-            } catch (InvocationTargetException e) {
-                throw new XMLReaderException("stax.cantCreate",e);
-            } catch (XMLStreamException e) {
+            } catch (IllegalAccessException | XMLStreamException | InvocationTargetException e) {
                 throw new XMLReaderException("stax.cantCreate",e);
             }
         }
@@ -327,7 +322,7 @@ public abstract class XMLStreamReaderFactory {
                 is.setCharacterStream(in);
                 reuse(xsr,is);
                 return xsr;
-            } catch (IllegalAccessException e) {
+            } catch (IllegalAccessException | XMLStreamException e) {
                 throw new XMLReaderException("stax.cantCreate",e);
             } catch (InvocationTargetException e) {
                 Throwable cause = e.getCause();
@@ -335,8 +330,6 @@ public abstract class XMLStreamReaderFactory {
                     cause = e;
                 }
                 throw new XMLReaderException("stax.cantCreate", cause);
-            } catch (XMLStreamException e) {
-                throw new XMLReaderException("stax.cantCreate",e);
             }
         }
 
@@ -358,7 +351,7 @@ public abstract class XMLStreamReaderFactory {
      */
     public static final class Default extends XMLStreamReaderFactory {
 
-        private final ThreadLocal<XMLInputFactory> xif = new ThreadLocal<XMLInputFactory>() {
+        private final ThreadLocal<XMLInputFactory> xif = new ThreadLocal<>() {
             @Override
             public XMLInputFactory initialValue() {
                 return getXMLInputFactory();
@@ -484,9 +477,8 @@ public abstract class XMLStreamReaderFactory {
             }
 
             if (xif.isPropertySupported(P_MAX_ATTRIBUTES_PER_ELEMENT)) {
-                maxAttributesPerElement = Integer.valueOf(buildIntegerValue(
-                    PROPERTY_MAX_ATTRIBUTES_PER_ELEMENT, DEFAULT_MAX_ATTRIBUTES_PER_ELEMENT)
-                );
+                maxAttributesPerElement = buildIntegerValue(
+                        PROPERTY_MAX_ATTRIBUTES_PER_ELEMENT, DEFAULT_MAX_ATTRIBUTES_PER_ELEMENT);
                 xif.setProperty(P_MAX_ATTRIBUTES_PER_ELEMENT, maxAttributesPerElement);
                 if (LOGGER.isLoggable(Level.FINE)) {
                     LOGGER.log(Level.FINE, P_MAX_ATTRIBUTES_PER_ELEMENT + " is {0}", maxAttributesPerElement);
@@ -494,9 +486,8 @@ public abstract class XMLStreamReaderFactory {
             }
 
             if (xif.isPropertySupported(P_MAX_ATTRIBUTE_SIZE)) {
-                maxAttributeSize = Integer.valueOf(buildIntegerValue(
-                    PROPERTY_MAX_ATTRIBUTE_SIZE, DEFAULT_MAX_ATTRIBUTE_SIZE)
-                );
+                maxAttributeSize = buildIntegerValue(
+                        PROPERTY_MAX_ATTRIBUTE_SIZE, DEFAULT_MAX_ATTRIBUTE_SIZE);
                 xif.setProperty(P_MAX_ATTRIBUTE_SIZE, maxAttributeSize);
                 if (LOGGER.isLoggable(Level.FINE)) {
                     LOGGER.log(Level.FINE, P_MAX_ATTRIBUTE_SIZE + " is {0}", maxAttributeSize);
@@ -504,9 +495,8 @@ public abstract class XMLStreamReaderFactory {
             }
 
             if (xif.isPropertySupported(P_MAX_CHILDREN_PER_ELEMENT)) {
-                maxChildrenPerElement = Integer.valueOf(buildIntegerValue(
-                    PROPERTY_MAX_CHILDREN_PER_ELEMENT, DEFAULT_MAX_CHILDREN_PER_ELEMENT)
-                );
+                maxChildrenPerElement = buildIntegerValue(
+                        PROPERTY_MAX_CHILDREN_PER_ELEMENT, DEFAULT_MAX_CHILDREN_PER_ELEMENT);
                 xif.setProperty(P_MAX_CHILDREN_PER_ELEMENT, maxChildrenPerElement);
                 if (LOGGER.isLoggable(Level.FINE)) {
                     LOGGER.log(Level.FINE, P_MAX_CHILDREN_PER_ELEMENT + " is {0}", maxChildrenPerElement);
@@ -514,9 +504,8 @@ public abstract class XMLStreamReaderFactory {
             }
 
             if (xif.isPropertySupported(P_MAX_ELEMENT_DEPTH)) {
-                maxElementDepth = Integer.valueOf(buildIntegerValue(
-                    PROPERTY_MAX_ELEMENT_DEPTH, DEFAULT_MAX_ELEMENT_DEPTH)
-                );
+                maxElementDepth = buildIntegerValue(
+                        PROPERTY_MAX_ELEMENT_DEPTH, DEFAULT_MAX_ELEMENT_DEPTH);
                 xif.setProperty(P_MAX_ELEMENT_DEPTH, maxElementDepth);
                 if (LOGGER.isLoggable(Level.FINE)) {
                     LOGGER.log(Level.FINE, P_MAX_ELEMENT_DEPTH + " is {0}", maxElementDepth);
@@ -524,9 +513,8 @@ public abstract class XMLStreamReaderFactory {
             }
 
             if (xif.isPropertySupported(P_MAX_ELEMENT_COUNT)) {
-                maxElementCount = Long.valueOf(buildLongValue(
-                    PROPERTY_MAX_ELEMENT_COUNT, DEFAULT_MAX_ELEMENT_COUNT)
-                );
+                maxElementCount = buildLongValue(
+                        PROPERTY_MAX_ELEMENT_COUNT, DEFAULT_MAX_ELEMENT_COUNT);
                 xif.setProperty(P_MAX_ELEMENT_COUNT, maxElementCount);
                 if (LOGGER.isLoggable(Level.FINE)) {
                     LOGGER.log(Level.FINE, P_MAX_ELEMENT_COUNT + " is {0}", maxElementCount);
@@ -534,9 +522,8 @@ public abstract class XMLStreamReaderFactory {
             }
 
             if (xif.isPropertySupported(P_MAX_CHARACTERS)) {
-                maxCharacters = Long.valueOf(buildLongValue(
-                    PROPERTY_MAX_CHARACTERS, DEFAULT_MAX_CHARACTERS)
-                );
+                maxCharacters = buildLongValue(
+                        PROPERTY_MAX_CHARACTERS, DEFAULT_MAX_CHARACTERS);
                 xif.setProperty(P_MAX_CHARACTERS, maxCharacters);
                 if (LOGGER.isLoggable(Level.FINE)) {
                     LOGGER.log(Level.FINE, P_MAX_CHARACTERS + " is {0}", maxCharacters);
@@ -572,7 +559,7 @@ public abstract class XMLStreamReaderFactory {
         String propVal = System.getProperty(propertyName);
         if (propVal != null && propVal.length() > 0) {
             try {
-                Integer value = Integer.parseInt(propVal);
+                int value = Integer.parseInt(propVal);
                 if (value > 0) {
                     // return with the value in System property
                     return value;
@@ -609,13 +596,13 @@ public abstract class XMLStreamReaderFactory {
     
     private static Boolean getProperty(final String prop) {
         return AccessController.doPrivileged(
-            new java.security.PrivilegedAction<Boolean>() {
-                @Override
-                public Boolean run() {
-                    String value = System.getProperty(prop);
-                    return value != null ? Boolean.valueOf(value) : Boolean.FALSE;
+                new java.security.PrivilegedAction<>() {
+                    @Override
+                    public Boolean run() {
+                        String value = System.getProperty(prop);
+                        return value != null ? Boolean.valueOf(value) : Boolean.FALSE;
+                    }
                 }
-            }
         );        
     }
 

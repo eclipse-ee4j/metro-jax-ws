@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,7 +44,7 @@ public class ExternalMetadataFeature extends WebServiceFeature {
 
     public void addResources(String... resourceNames) {
         if (this.resourceNames == null) {
-            this.resourceNames = new ArrayList<String>();
+            this.resourceNames = new ArrayList<>();
         }
         Collections.addAll(this.resourceNames, resourceNames);
     }
@@ -53,7 +53,7 @@ public class ExternalMetadataFeature extends WebServiceFeature {
 
     public void addFiles(File... files) {
         if (this.files == null) {
-            this.files = new ArrayList<File>();
+            this.files = new ArrayList<>();
         }
         Collections.addAll(this.files, files);
     }
@@ -87,10 +87,7 @@ public class ExternalMetadataFeature extends WebServiceFeature {
 
         if (enabled != that.enabled) return false;
         if (files != null ? !files.equals(that.files) : that.files != null) return false;
-        if (resourceNames != null ? !resourceNames.equals(that.resourceNames) : that.resourceNames != null)
-            return false;
-
-        return true;
+        return resourceNames != null ? resourceNames.equals(that.resourceNames) : that.resourceNames == null;
     }
 
     @Override

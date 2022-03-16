@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -90,7 +90,7 @@ public class ServerLogicalHandlerTube extends HandlerTube {
     }
 
     private void setUpHandlersOnce() {
-        handlers = new ArrayList<Handler>();
+        handlers = new ArrayList<>();
         List<LogicalHandler> logicalSnapShot= ((BindingImpl) getBinding()).getHandlerConfig().getLogicalHandlers();
         if (!logicalSnapShot.isEmpty()) {
             handlers.addAll(logicalSnapShot);
@@ -152,11 +152,9 @@ public class ServerLogicalHandlerTube extends HandlerTube {
             //SERVER-SIDE
             processor.callHandlersResponse(HandlerProcessor.Direction.OUTBOUND, context, handleFault);
 
-        } catch (WebServiceException wse) {
+        } catch (RuntimeException wse) {
             //no rewrapping
             throw wse;
-        } catch (RuntimeException re) {
-            throw re;
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -98,7 +98,7 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
                 QName rootName = reader.getName();
                 if(rootName.equals(WSDLConstants.QNAME_SCHEMA)) {
                     String tns = ParserUtil.getMandatoryNonEmptyAttribute(reader, WSDLConstants.ATTR_TNS);
-                    Set<String> importedDocs = new HashSet<String>();
+                    Set<String> importedDocs = new HashSet<>();
                     while (XMLStreamReaderUtil.nextContent(reader) != XMLStreamConstants.END_DOCUMENT) {
                          if (reader.getEventType() != XMLStreamConstants.START_ELEMENT)
                             continue;
@@ -117,8 +117,8 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
 
                     boolean hasPortType = false;
                     boolean hasService = false;
-                    Set<String> importedDocs = new HashSet<String>();
-                    Set<QName> allServices = new HashSet<QName>();
+                    Set<String> importedDocs = new HashSet<>();
+                    Set<QName> allServices = new HashSet<>();
 
                     // if WSDL, parse more
                     while (XMLStreamReaderUtil.nextContent(reader) != XMLStreamConstants.END_DOCUMENT) {
@@ -161,17 +161,13 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
             } finally {
                 reader.close();
             }
-        } catch (WebServiceException e) {
-            throw new ServerRtException("runtime.parser.wsdl", systemId,e);
-        } catch (IOException e) {
-            throw new ServerRtException("runtime.parser.wsdl", systemId,e);
-        } catch (XMLStreamException e) {
+        } catch (WebServiceException | XMLStreamException | IOException e) {
             throw new ServerRtException("runtime.parser.wsdl", systemId,e);
         }
     }
 
     protected SDDocumentImpl(QName rootName, URL url, SDDocumentSource source) {
-        this(rootName, url, source, new HashSet<String>());
+        this(rootName, url, source, new HashSet<>());
     }
 
     protected SDDocumentImpl(QName rootName, URL url, SDDocumentSource source, Set<String> imports) {

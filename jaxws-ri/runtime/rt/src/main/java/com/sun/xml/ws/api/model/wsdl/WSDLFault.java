@@ -65,5 +65,5 @@ public interface WSDLFault extends WSDLObject, WSDLExtensible {
     /**
      * True if this is the default action
      */
-    public boolean isDefaultAction();
+    boolean isDefaultAction();
 }

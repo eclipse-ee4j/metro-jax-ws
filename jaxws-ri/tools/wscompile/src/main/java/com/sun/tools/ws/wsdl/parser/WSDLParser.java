@@ -117,7 +117,7 @@ public class WSDLParser {
 
     public void addParserListener(ParserListener l) {
         if (listeners == null) {
-            listeners = new ArrayList<ParserListener>();
+            listeners = new ArrayList<>();
         }
         listeners.add(l);
     }

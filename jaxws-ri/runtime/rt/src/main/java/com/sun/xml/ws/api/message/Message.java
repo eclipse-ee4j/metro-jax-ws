@@ -796,7 +796,7 @@ public abstract class Message {
      * @return generated UUID
      */
     public static String generateMessageID() {
-    	return "uuid:" + UUID.randomUUID().toString();
+    	return "uuid:" + UUID.randomUUID();
     }
 
     public SOAPVersion getSOAPVersion() {

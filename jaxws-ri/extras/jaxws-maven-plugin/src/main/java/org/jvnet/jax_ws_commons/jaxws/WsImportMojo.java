@@ -25,6 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -262,8 +263,6 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
             }
             this.processWsdlViaUrls();
             this.processLocalWsdlFiles(wsdls);
-        } catch (MojoExecutionException e) {
-            throw e;
         } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
@@ -331,8 +330,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
      */
     private ArrayList<String> getWsImportArgs(String relativePath)
             throws MojoExecutionException {
-        ArrayList<String> args = new ArrayList<String>();
-        args.addAll(getCommonArgs());
+        ArrayList<String> args = new ArrayList<String>(getCommonArgs());
 
         if ( httpproxy != null )
         {
@@ -500,10 +498,10 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
      * @return An array of schema files to be parsed by the schema compiler.
      */
     private URL[] getWSDLFiles() throws MojoExecutionException {
-        List<URL> files = new ArrayList<URL>();
+        List<URL> files = new ArrayList<>();
         @SuppressWarnings("unchecked")
         Set<Artifact> dependencyArtifacts = project.getDependencyArtifacts();
-        List<URL> urlCpath = new ArrayList<URL>(dependencyArtifacts.size());
+        List<URL> urlCpath = new ArrayList<>(dependencyArtifacts.size());
         for (Artifact a: dependencyArtifacts) {
             try {
                 if (a.getFile() != null) {
@@ -519,7 +517,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
         }
         ClassLoader loader = urlCpath.isEmpty()
                 ? Thread.currentThread().getContextClassLoader()
-                : new URLClassLoader(urlCpath.toArray(new URL[urlCpath.size()]));
+                : new URLClassLoader(urlCpath.toArray(new URL[0]));
         if (wsdlFiles != null) {
             for (String wsdlFileName : wsdlFiles) {
                 File wsdl = new File(wsdlFileName);
@@ -585,7 +583,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
                 }
             }
         }
-        return files.toArray(new URL[files.size()]);
+        return files.toArray(new URL[0]);
     }
 
     /**
@@ -700,12 +698,10 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
         try {
             MessageDigest md = MessageDigest.getInstance("SHA");
             Formatter formatter = new Formatter();
-            for (byte b : md.digest(s.getBytes("UTF-8"))) {
+            for (byte b : md.digest(s.getBytes(StandardCharsets.UTF_8))) {
                 formatter.format("%02x", b);
             }
             return formatter.toString();
-        } catch (UnsupportedEncodingException ex) {
-            getLog().debug(ex.getMessage(), ex);
         } catch (NoSuchAlgorithmException ex) {
             getLog().debug(ex.getMessage(), ex);
         }

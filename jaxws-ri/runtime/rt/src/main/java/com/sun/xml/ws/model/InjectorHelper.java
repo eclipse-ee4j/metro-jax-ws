@@ -26,7 +26,7 @@ final class InjectorHelper {
     static {
         UNSAFE = getUnsafe();
         if (UNSAFE != null) {
-            Field f = AccessController.doPrivileged(new PrivilegedAction<Field>() {
+            Field f = AccessController.doPrivileged(new PrivilegedAction<>() {
                 @Override
                 public Field run() {
                     try {
@@ -78,7 +78,7 @@ final class InjectorHelper {
 
     private static Unsafe getUnsafe() {
         try {
-            Field f = AccessController.doPrivileged(new PrivilegedAction<Field>() {
+            Field f = AccessController.doPrivileged(new PrivilegedAction<>() {
                 @Override
                 public Field run() {
                     try {
