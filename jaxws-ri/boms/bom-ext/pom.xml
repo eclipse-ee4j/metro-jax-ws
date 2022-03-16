@@ -35,7 +35,7 @@
         <!-- CQ 21208 -->
         <asm.version>9.2</asm.version>
         <commonj.sdo.version>2.1.1</commonj.sdo.version>
-        <eclipselink.version>4.0.0-M1</eclipselink.version>
+        <eclipselink.version>4.0.0-M3</eclipselink.version>
         <junit.version>4.13.2</junit.version>
         <mail-api.version>2.1.0</mail-api.version>
         <angus-mail.version>1.0.0</angus-mail.version>
