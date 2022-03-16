@@ -99,13 +99,13 @@ public interface SEIModel {
      * @return the <code>JavaMethod</code> associated with the
      *         operation named name
      */
-    public JavaMethod getJavaMethod(QName name);
+    JavaMethod getJavaMethod(QName name);
 
     /**
      * Gives the JavaMethod associated with the wsdl operation
      * @param operationName QName of the wsdl operation
      */
-    public JavaMethod getJavaMethodForWsdlOperation(QName operationName);
+    JavaMethod getJavaMethodForWsdlOperation(QName operationName);
 
 
     /**

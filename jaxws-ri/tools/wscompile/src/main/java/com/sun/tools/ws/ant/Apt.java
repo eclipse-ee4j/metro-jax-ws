@@ -527,7 +527,7 @@ public class Apt extends Task {
             Commandline cmd = fork ? setupAptForkCommand() : setupAptCommand();
 
             if (verbose) {
-                log("command line: apt " + cmd.toString());
+                log("command line: apt " + cmd);
             }
             int status = 0;
             if (fork)
@@ -557,7 +557,7 @@ public class Apt extends Task {
             }
             if (status != 0) {
                 if (!verbose) {
-                    log("Command invoked: apt " + cmd.toString());
+                    log("Command invoked: apt " + cmd);
                 }
                 throw new BuildException("apt failed", location);
             }

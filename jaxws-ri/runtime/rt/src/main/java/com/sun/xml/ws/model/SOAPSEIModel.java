@@ -60,7 +60,7 @@ public class SOAPSEIModel extends AbstractSEIModelImpl {
     }
 
     public Set<QName> getKnownHeaders() {
-        Set<QName> headers = new HashSet<QName>();
+        Set<QName> headers = new HashSet<>();
         
         try{
         	lock.lock();

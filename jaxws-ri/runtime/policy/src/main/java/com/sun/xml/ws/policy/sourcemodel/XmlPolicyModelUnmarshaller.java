@@ -181,7 +181,7 @@ public class XmlPolicyModelUnmarshaller extends PolicyModelUnmarshaller {
 
     private void parseAssertionData(NamespaceVersion nsVersion, String value, ModelNode childNode, final StartElement childElement) throws IllegalArgumentException, PolicyException {
         // finish assertion node processing: create and set assertion data...
-        final Map<QName, String> attributeMap = new HashMap<QName, String>();
+        final Map<QName, String> attributeMap = new HashMap<>();
         boolean optional = false;
         boolean ignorable = false;
         

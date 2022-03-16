@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -363,9 +363,9 @@ public abstract class BasePropertySet implements PropertySet {
 
         @Override
         public Set<Entry<String, Object>> entrySet() {
-            Set<Entry<String, Object>> entries = new HashSet<Entry<String, Object>>();
+            Set<Entry<String, Object>> entries = new HashSet<>();
             for (String key : keySet()) {
-                entries.add(new SimpleImmutableEntry<String, Object>(key, get(key)));
+                entries.add(new SimpleImmutableEntry<>(key, get(key)));
             }
             return entries;
         }
@@ -374,7 +374,7 @@ public abstract class BasePropertySet implements PropertySet {
         public Object put(String key, Object value) {
 
             Object o = super.get(key);
-            if (o != null && o instanceof Accessor) {
+            if (o instanceof Accessor) {
 
                 Object oldValue = ((Accessor) o).get(BasePropertySet.this);
                 ((Accessor) o).set(BasePropertySet.this, value);
@@ -502,12 +502,12 @@ public abstract class BasePropertySet implements PropertySet {
     @Deprecated
     @Override
     public final Map<String,Object> createMapView() {
-        final Set<Entry<String,Object>> core = new HashSet<Entry<String,Object>>();
+        final Set<Entry<String,Object>> core = new HashSet<>();
         createEntrySet(core);
 
-        return new AbstractMap<String, Object>() {
+        return new AbstractMap<>() {
             @Override
-            public Set<Entry<String,Object>> entrySet() {
+            public Set<Entry<String, Object>> entrySet() {
                 return core;
             }
         };
@@ -549,7 +549,7 @@ public abstract class BasePropertySet implements PropertySet {
 
     protected void createEntrySet(Set<Entry<String,Object>> core) {
         for (final Entry<String, Accessor> e : getPropertyMap().entrySet()) {
-            core.add(new Entry<String, Object>() {
+            core.add(new Entry<>() {
                 @Override
                 public String getKey() {
                     return e.getKey();
@@ -564,7 +564,7 @@ public abstract class BasePropertySet implements PropertySet {
                 public Object setValue(Object value) {
                     Accessor acc = e.getValue();
                     Object old = acc.get(BasePropertySet.this);
-                    acc.set(BasePropertySet.this,value);
+                    acc.set(BasePropertySet.this, value);
                     return old;
                 }
             });

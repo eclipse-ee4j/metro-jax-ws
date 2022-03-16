@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,7 +41,7 @@ public interface EditableWSDLService extends WSDLService {
      * @param portName Port QName
      * @param port     Port
      */
-    public void put(QName portName, EditableWSDLPort port);
+    void put(QName portName, EditableWSDLPort port);
 
     /**
      * Freezes WSDL model to prevent further modification

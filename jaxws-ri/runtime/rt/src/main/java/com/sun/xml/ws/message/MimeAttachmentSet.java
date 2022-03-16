@@ -29,7 +29,7 @@ import java.io.IOException;
  */
 public final class MimeAttachmentSet implements AttachmentSet {
     private final MimeMultipartParser mpp;
-    private Map<String, Attachment> atts = new HashMap<String, Attachment>();
+    private Map<String, Attachment> atts = new HashMap<>();
 
 
     public MimeAttachmentSet(MimeMultipartParser mpp) {
@@ -83,9 +83,7 @@ public final class MimeAttachmentSet implements AttachmentSet {
          */
         Map<String, Attachment> attachments = mpp.getAttachmentParts();
         for(Map.Entry<String, Attachment> att : attachments.entrySet()) {
-            if(atts.get(att.getKey()) == null){
-                atts.put(att.getKey(), att.getValue());
-            }
+            atts.computeIfAbsent(att.getKey(), k -> att.getValue());
         }
 
         return atts.values().iterator();

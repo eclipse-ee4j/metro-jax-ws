@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,7 @@ public class DatabindingProviderImpl implements DatabindingProvider {
 	
 	DatabindingImpl getCachedDatabindingImpl(DatabindingConfig config) {
 	    Object object = config.properties().get(CachedDatabinding);
-	    return (object != null && object instanceof DatabindingImpl)? (DatabindingImpl)object : null;
+	    return (object instanceof DatabindingImpl)? (DatabindingImpl)object : null;
 	}
 
 	public Databinding create(DatabindingConfig config) {

@@ -95,7 +95,7 @@ public class RuntimeWSDLParser {
     /**
      * System IDs of WSDLs that are already read.
      */
-    private final Set<String> importedWSDLs = new HashSet<String>();
+    private final Set<String> importedWSDLs = new HashSet<>();
     /**
      * Must not be null.
      */
@@ -114,9 +114,9 @@ public class RuntimeWSDLParser {
 
     //Capture namespaces declared on the ancestors of wsa:EndpointReference, so that valid XmlStreamBuffer is created
     // from the EndpointReference fragment.
-    Map<String, String> wsdldef_nsdecl = new HashMap<String, String>();
-    Map<String, String> service_nsdecl = new HashMap<String, String>();
-    Map<String, String> port_nsdecl = new HashMap<String, String>();
+    Map<String, String> wsdldef_nsdecl = new HashMap<>();
+    Map<String, String> service_nsdecl = new HashMap<>();
+    Map<String, String> port_nsdecl = new HashMap<>();
 
     /**
      * Parses the WSDL and gives WSDLModel. If wsdl parameter is null, then wsdlLoc is used to get the WSDL. If the WSDL
@@ -228,17 +228,14 @@ public class RuntimeWSDLParser {
     }
     
     private static WSDLModel tryWithMex(@NotNull RuntimeWSDLParser wsdlParser, @NotNull URL wsdlLoc, @NotNull EntityResolver resolver, boolean isClientSide, Container container, Throwable e, Class serviceClass, PolicyResolver policyResolver, WSDLParserExtension... extensions) throws SAXException, XMLStreamException {
-        ArrayList<Throwable> exceptions = new ArrayList<Throwable>();
+        ArrayList<Throwable> exceptions = new ArrayList<>();
         try {
             WSDLModel wsdlModel = wsdlParser.parseUsingMex(wsdlLoc, resolver, isClientSide, container, serviceClass, policyResolver,extensions);
             if(wsdlModel == null){
                 throw new WebServiceException(ClientMessages.FAILED_TO_PARSE(wsdlLoc.toExternalForm(), e.getMessage()), e);
             }
             return wsdlModel;
-        } catch (URISyntaxException e1) {
-            exceptions.add(e);
-            exceptions.add(e1);
-        } catch(IOException e1){
+        } catch (URISyntaxException | IOException e1) {
             exceptions.add(e);
             exceptions.add(e1);
         }
@@ -322,7 +319,7 @@ public class RuntimeWSDLParser {
         this.wsdlDoc = sourceLocation!=null ? new WSDLModelImpl(sourceLocation) : new WSDLModelImpl();
         this.resolver = resolver;
         this.policyResolver = policyResolver;
-        this.extensions = new ArrayList<WSDLParserExtension>();
+        this.extensions = new ArrayList<>();
         this.context = new WSDLParserExtensionContextImpl(wsdlDoc, isClientSide, container, policyResolver);
 
         boolean isPolicyExtensionFound = false;
@@ -451,7 +448,7 @@ public class RuntimeWSDLParser {
             }
             targetNamespace = oldTargetNamespace;
         } finally {
-            this.wsdldef_nsdecl = new HashMap<String,String>();
+            this.wsdldef_nsdecl = new HashMap<>();
             reader.close();
         }
     }
@@ -475,7 +472,7 @@ public class RuntimeWSDLParser {
             }
         }
         wsdlDoc.addService(service);
-        service_nsdecl =  new HashMap<String, String>();
+        service_nsdecl = new HashMap<>();
     }
 
     private void parsePort(XMLStreamReader reader, EditableWSDLService service) {
@@ -539,7 +536,7 @@ public class RuntimeWSDLParser {
             }
         }
         service.put(portQName, port);
-        port_nsdecl =new HashMap<String, String>();                        
+        port_nsdecl = new HashMap<>();
     }
 
     private void parseBinding(XMLStreamReader reader) {

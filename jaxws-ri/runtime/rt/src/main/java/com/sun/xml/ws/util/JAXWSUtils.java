@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,9 +53,7 @@ public final class JAXWSUtils {
           if (scheme.equals("http") || scheme.equals("https"))
             return new URL(url.toURI().toASCIIString());
           return url;
-        } catch (URISyntaxException e) {
-            return new File(fileOrURL).toURL();
-        } catch (MalformedURLException e) {
+        } catch (URISyntaxException | MalformedURLException e) {
             return new File(fileOrURL).toURL();
         }
     }

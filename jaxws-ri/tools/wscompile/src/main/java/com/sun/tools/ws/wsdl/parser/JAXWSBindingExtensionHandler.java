@@ -39,7 +39,7 @@ import java.util.Map;
 public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
 
     // xml security enabled always, xpath used for parsing "part" attribute
-    private static final ContextClassloaderLocal<XPathFactory> xpf = new ContextClassloaderLocal<XPathFactory>() {
+    private static final ContextClassloaderLocal<XPathFactory> xpf = new ContextClassloaderLocal<>() {
         @Override
         protected XPathFactory initialValue() throws Exception {
             return XmlUtil.newXPathFactory(false);
@@ -139,9 +139,9 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
             return;
         }
         if (val.equals("false") || val.equals("0")) {
-            ((JAXWSBinding)parent).setProvider(Boolean.FALSE);
+            parent.setProvider(Boolean.FALSE);
         } else if(val.equals("true") || val.equals("1")) {
-            ((JAXWSBinding)parent).setProvider(Boolean.TRUE);
+            parent.setProvider(Boolean.TRUE);
         }
 
     }
@@ -151,7 +151,7 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
     private void parsePackage(com.sun.tools.ws.api.wsdl.TWSDLParserContext context, JAXWSBinding parent, Element e) {
         //System.out.println("In handlePackageExtension: " + e.getNodeName());
         String packageName = XmlUtil.getAttributeOrNull(e, JAXWSBindingsConstants.NAME_ATTR);
-        JAXWSBinding binding = (JAXWSBinding)parent;
+        JAXWSBinding binding = parent;
         binding.setJaxwsPackage(new CustomName(packageName, getJavaDoc(e)));
     }
 
@@ -164,9 +164,9 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
             return;
         }
         if (val.equals("false") || val.equals("0")) {
-            ((JAXWSBinding) parent).setEnableWrapperStyle(Boolean.FALSE);
+            parent.setEnableWrapperStyle(Boolean.FALSE);
         } else if (val.equals("true") || val.equals("1")) {
-            ((JAXWSBinding) parent).setEnableWrapperStyle(Boolean.TRUE);
+            parent.setEnableWrapperStyle(Boolean.TRUE);
         }
     }
 
@@ -196,9 +196,9 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
             return;
         }
         if (val.equals("false") || val.equals("0")) {
-            ((JAXWSBinding) parent).setEnableAsyncMapping(Boolean.FALSE);
+            parent.setEnableAsyncMapping(Boolean.FALSE);
         } else if (val.equals("true") || val.equals("1")) {
-            ((JAXWSBinding) parent).setEnableAsyncMapping(Boolean.TRUE);
+            parent.setEnableAsyncMapping(Boolean.TRUE);
         }
     }
 
@@ -211,9 +211,9 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
             return;
         }
         if (val.equals("false") || val.equals("0")) {
-            ((JAXWSBinding) parent).setEnableMimeContentMapping(Boolean.FALSE);
+            parent.setEnableMimeContentMapping(Boolean.FALSE);
         } else if (val.equals("true") || val.equals("1")) {
-            ((JAXWSBinding) parent).setEnableMimeContentMapping(Boolean.TRUE);
+            parent.setEnableMimeContentMapping(Boolean.TRUE);
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,10 +38,10 @@ public class ClassNameCollector extends ExtendedModelVisitor
             _exceptions = new HashSet();
             _wsdlBindingNames = new HashSet();
             _conflictingClassNames = new HashSet();
-            _seiClassNames = new HashSet<String>();
-            _jaxbGeneratedClassNames = new HashSet<String>();
-            _exceptionClassNames = new HashSet<String>();
-            _portTypeNames = new HashSet<QName>();
+            _seiClassNames = new HashSet<>();
+            _jaxbGeneratedClassNames = new HashSet<>();
+            _exceptionClassNames = new HashSet<>();
+            _portTypeNames = new HashSet<>();
             visit(model);
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,7 +64,7 @@ public class ClassNameCollector extends ExtendedModelVisitor
 
     protected void preVisit(Service service) throws Exception {
         registerClassName(
-            ((JavaInterface)service.getJavaInterface()).getName());
+            service.getJavaInterface().getName());
         // We don't generate Impl classes, commenting it out.
         // Otherwise, it would cause naming conflicts
         //registerClassName(

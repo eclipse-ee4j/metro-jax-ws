@@ -26,5 +26,5 @@ public interface Modeler {
      * @return Model - the root Node of the model of the Web Service
      *
      */
-    public Model buildModel();
+    Model buildModel();
 }

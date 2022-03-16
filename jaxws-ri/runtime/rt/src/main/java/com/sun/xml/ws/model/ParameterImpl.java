@@ -221,7 +221,7 @@ public class ParameterImpl implements Parameter {
      * @return the holder value if applicable.
      */
     public Object getHolderValue(Object obj) {
-        if (obj != null && obj instanceof Holder)
+        if (obj instanceof Holder)
             return ((Holder) obj).value;
         return obj;
     }

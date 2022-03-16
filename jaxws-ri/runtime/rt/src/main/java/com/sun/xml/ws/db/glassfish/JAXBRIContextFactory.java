@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,7 +47,7 @@ public class JAXBRIContextFactory extends BindingContextFactory {
 
     @Override
     public BindingContext newContext(BindingInfo bi) {
-        Class[] classes = bi.contentClasses().toArray(new Class[bi.contentClasses().size()]);
+        Class[] classes = bi.contentClasses().toArray(new Class[0]);
         for (int i = 0; i < classes.length; i++) {
             if (WrapperComposite.class.equals(classes[i])) {
                 classes[i] = CompositeStructure.class;
@@ -77,8 +77,7 @@ public class JAXBRIContextFactory extends BindingContextFactory {
     }
 
     private <T> List<T> toList(T[] a) {
-        List<T> l = new ArrayList<T>();
-        l.addAll(Arrays.asList(a));
+        List<T> l = new ArrayList<T>(Arrays.asList(a));
         return l;
     }
 
@@ -86,13 +85,12 @@ public class JAXBRIContextFactory extends BindingContextFactory {
         if (col instanceof List) {
             return (List<T>) col;
         }
-        List<T> l = new ArrayList<T>();
-        l.addAll(col);
+        List<T> l = new ArrayList<T>(col);
         return l;
     }
 
     private Map<TypeInfo, TypeReference> typeInfoMappings(Collection<TypeInfo> typeInfos) {
-        Map<TypeInfo, TypeReference> map = new java.util.HashMap<TypeInfo, TypeReference>();
+        Map<TypeInfo, TypeReference> map = new java.util.HashMap<>();
         for (TypeInfo ti : typeInfos) {
             Type type = WrapperComposite.class.equals(ti.type) ? CompositeStructure.class : ti.type;
             TypeReference tr = new TypeReference(ti.tagName, type, ti.annotations);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,6 @@ import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
@@ -221,7 +220,7 @@ public class SDOBond<T> implements XMLBridge<T> {
             //sdoXMLHelper.setTimeZone(TimeZone.getTimeZone("GMT"));
             sdoXMLHelper.setTimeZoneQualified(true);
 
-            XMLDocument xmlDoc = sdoXMLHelper.createDocument((DataObject) java, xmlTag.getNamespaceURI(), xmlTag.getLocalPart());
+            XMLDocument xmlDoc = sdoXMLHelper.createDocument(java, xmlTag.getNamespaceURI(), xmlTag.getLocalPart());
             if (xmlDoc == null) {
                 return;
             }

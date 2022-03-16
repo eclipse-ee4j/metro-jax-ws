@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,8 +33,8 @@ public class JAXBModel {
     private List<JAXBMapping> mappings;   
 
     // index for faster access.
-    private final Map<QName,JAXBMapping> byQName = new HashMap<QName,JAXBMapping>();
-    private final Map<String,JAXBMapping> byClassName = new HashMap<String,JAXBMapping>();
+    private final Map<QName,JAXBMapping> byQName = new HashMap<>();
+    private final Map<String,JAXBMapping> byClassName = new HashMap<>();
 
     private com.sun.tools.xjc.api.JAXBModel rawJAXBModel;
 
@@ -73,7 +73,7 @@ public class JAXBModel {
         this.rawJAXBModel = rawModel;
         if(rawModel instanceof S2JJAXBModel){
             S2JJAXBModel model = (S2JJAXBModel)rawModel;
-            List<JAXBMapping> ms = new ArrayList<JAXBMapping>(model.getMappings().size());
+            List<JAXBMapping> ms = new ArrayList<>(model.getMappings().size());
             for( Mapping m : model.getMappings())
                 ms.add(new JAXBMapping(m));
             setMappings(ms);

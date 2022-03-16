@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -78,18 +78,18 @@ public interface WSDLExtensible extends WSDLObject {
      * True if all required WSDL extensions on Port and Binding are understood
      * @return true if all wsdl required extensions on Port and Binding are understood
      */
-    public boolean areRequiredExtensionsUnderstood();
+    boolean areRequiredExtensionsUnderstood();
     
     /**
      * Marks extension as not understood
      * @param extnEl QName of extension
      * @param locator Locator
      */
-    public void addNotUnderstoodExtension(QName extnEl, Locator locator);
+    void addNotUnderstoodExtension(QName extnEl, Locator locator);
     
     /**
      * Lists extensions marked as not understood
      * @return List of not understood extensions
      */
-    public List<? extends WSDLExtension> getNotUnderstoodExtensions();
+    List<? extends WSDLExtension> getNotUnderstoodExtensions();
 }

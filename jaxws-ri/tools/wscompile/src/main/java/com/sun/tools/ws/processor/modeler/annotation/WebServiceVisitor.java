@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -78,8 +78,8 @@ public abstract class WebServiceVisitor extends SimpleElementVisitor6<Void, Obje
     public WebServiceVisitor(ModelBuilder builder, AnnotationProcessorContext context) {
         this.builder = builder;
         this.context = context;
-        soapBindingStack = new Stack<SOAPBinding>();
-        processedMethods = new HashSet<String>();
+        soapBindingStack = new Stack<>();
+        processedMethods = new HashSet<>();
     }
 
     @Override
@@ -175,7 +175,7 @@ public abstract class WebServiceVisitor extends SimpleElementVisitor6<Void, Obje
     }
 
     protected void preProcessWebService(WebService webService, TypeElement element) {
-        processedMethods = new HashSet<String>();
+        processedMethods = new HashSet<>();
         seiContext = context.getSeiContext(element);
         String targetNamespace = null;
         if (webService != null)
@@ -516,15 +516,11 @@ public abstract class WebServiceVisitor extends SimpleElementVisitor6<Void, Obje
             return false;
         }
         if (webService.endpointInterface().isEmpty()) {
-            if (!methodsAreLegal(classElement))
-                return false;
+            return methodsAreLegal(classElement);
         } else {
             TypeElement interfaceElement = getEndpointInterfaceElement(webService.endpointInterface(), classElement);
-            if (!classImplementsSei(classElement, interfaceElement))
-                return false;
+            return classImplementsSei(classElement, interfaceElement);
         }
-
-        return true;
     }
 
     private boolean isStateful(TypeElement classElement) {
@@ -715,7 +711,7 @@ public abstract class WebServiceVisitor extends SimpleElementVisitor6<Void, Obje
             mode = webParam.mode();
 
         if (holderType != null) {
-            if (mode != null && mode == WebParam.Mode.IN)
+            if (mode == WebParam.Mode.IN)
                 builder.processError(WebserviceapMessages.WEBSERVICEAP_HOLDER_PARAMETERS_MUST_NOT_BE_IN_ONLY(typeElement.getQualifiedName(), method.toString(), paramIndex), param);
         } else if (mode != null && mode != WebParam.Mode.IN) {
             builder.processError(WebserviceapMessages.WEBSERVICEAP_NON_IN_PARAMETERS_MUST_BE_HOLDER(typeElement.getQualifiedName(), method.toString(), paramIndex), param);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,7 @@ public interface Attributes {
      * Return the number of attributes in the list.
      *
      */
-    public int getLength();
+    int getLength();
 
     /**
      * Return true if the attribute at the given index is a namespace
@@ -45,72 +45,72 @@ public interface Attributes {
      * account their internal representations of attributes. </p>
      *
      */
-    public boolean isNamespaceDeclaration(int index);
+    boolean isNamespaceDeclaration(int index);
 
     /**
      * Look up an attribute's QName by index.
      *
      */
-    public QName getName(int index);
+    QName getName(int index);
 
     /**
      * Look up an attribute's URI by index.
      *
      */
-    public String getURI(int index);
+    String getURI(int index);
 
     /**
      * Look up an attribute's local name by index.
      * If attribute is a namespace declaration, result
      * is expected including "xmlns:".
      */
-    public String getLocalName(int index);
+    String getLocalName(int index);
 
     /**
      * Look up an attribute's prefix by index.
      *
      */
-    public String getPrefix(int index);
+    String getPrefix(int index);
 
     /**
      * Look up an attribute's value by index.
      *
      */
-    public String getValue(int index);
+    String getValue(int index);
 
     /**
      * Look up the index of an attribute by QName.
      *
      */
-    public int getIndex(QName name);
+    int getIndex(QName name);
 
     /**
      * Look up the index of an attribute by URI and local name.
      *
      */
-    public int getIndex(String uri, String localName);
+    int getIndex(String uri, String localName);
 
     /**
      * Look up the index of an attribute by local name.
      *
      */
-    public int getIndex(String localName);
+    int getIndex(String localName);
 
     /**
      * Look up the value of an attribute by QName.
      *
      */
-    public String getValue(QName name);
+    String getValue(QName name);
 
     /**
      * Look up the value of an attribute by URI and local name.
      *
      */
-    public String getValue(String uri, String localName);
+    String getValue(String uri, String localName);
 
     /**
      * Look up the value of an attribute by local name.
      *
      */
-    public String getValue(String localName);
+    String getValue(String localName);
 }

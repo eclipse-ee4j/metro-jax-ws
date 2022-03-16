@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -109,7 +109,7 @@ public class SafePolicyReader {
        public String toString() {
            String result = uri;
            if (null!=next) {
-               result += "->" + next.toString();
+               result += "->" + next;
            }
            return result;
        }
@@ -131,7 +131,7 @@ public class SafePolicyReader {
        if ((null == reader) || (!reader.isStartElement())) {
            return null;
        }
-       final StringBuffer elementCode = new StringBuffer();
+       final StringBuilder elementCode = new StringBuilder();
        final PolicyRecord policyRec = new PolicyRecord();
        final QName elementName = reader.getName();
        boolean insidePolicyReferenceAttr;
@@ -145,7 +145,7 @@ public class SafePolicyReader {
                        if (elementName.equals(curName)) {  // it is our element !
                            depth++;                        // we are then deeper
                        }
-                       final StringBuffer xmlnsCode = new StringBuffer();    // take care about namespaces as well
+                       final StringBuilder xmlnsCode = new StringBuilder();    // take care about namespaces as well
                        final Set<String> tmpNsSet = new HashSet<>();
                        if ((null == curName.getPrefix()) || ("".equals(curName.getPrefix()))) {           // no prefix
                            elementCode
@@ -171,7 +171,7 @@ public class SafePolicyReader {
                            tmpNsSet.add(curName.getPrefix());
                        }
                        final int attrCount = reader.getAttributeCount();     // process element attributes
-                       final StringBuffer attrCode = new StringBuffer();
+                       final StringBuilder attrCode = new StringBuilder();
                        for (int i=0; i < attrCount; i++) {
                            boolean uriAttrFlg = false;
                            if (insidePolicyReferenceAttr && "URI".equals(

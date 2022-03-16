@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,8 +17,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.ws.soap.AddressingFeature;
 import java.lang.annotation.Annotation;
-
-import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 
 
 /**
@@ -67,12 +65,12 @@ public class XmlAddressing implements jakarta.xml.ws.soap.Addressing {
 
     @Override
     public boolean enabled() {
-        return nullSafe(enabled, true);
+        return Util.nullSafe(enabled, true);
     }
 
     @Override
     public boolean required() {
-        return nullSafe(required, false);
+        return Util.nullSafe(required, false);
     }
 
     @Override

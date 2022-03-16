@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2006, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -105,7 +105,7 @@ class InMemoryCookieStore implements CookieStore {
             throw new NullPointerException("uri is null");
         }
 
-        List<HttpCookie> cookies = new ArrayList<HttpCookie>();
+        List<HttpCookie> cookies = new ArrayList<>();
         boolean secureLink = "https".equalsIgnoreCase(uri.getScheme());
         lock.lock();
         try {
@@ -129,12 +129,7 @@ class InMemoryCookieStore implements CookieStore {
 
         lock.lock();
         try {
-            Iterator<HttpCookie> it = cookieJar.iterator();
-            while (it.hasNext()) {
-                if (it.next().hasExpired()) {
-                    it.remove();
-                }
-            }
+            cookieJar.removeIf(HttpCookie::hasExpired);
             rt = Collections.unmodifiableList(cookieJar);
         } catch (Exception e) {
             rt = Collections.unmodifiableList(cookieJar);
@@ -285,7 +280,7 @@ class InMemoryCookieStore implements CookieStore {
             for (HttpCookie c : lst) {
                 if ((c.getVersion() == 0 && netscapeDomainMatches(domain, host)) ||
                         (c.getVersion() == 1 && HttpCookie.domainMatches(domain, host))) {
-                    if ((cookieJar.indexOf(c) != -1)) {
+                    if ((cookieJar.contains(c))) {
                         // the cookie still in main cookie store
                         if (!c.hasExpired()) {
                             // don't add twice and make sure it's the proper
@@ -331,7 +326,7 @@ class InMemoryCookieStore implements CookieStore {
                     Iterator<HttpCookie> it = indexedCookies.iterator();
                     while (it.hasNext()) {
                         HttpCookie ck = it.next();
-                        if (cookieJar.indexOf(ck) != -1) {
+                        if (cookieJar.contains(ck)) {
                             // the cookie still in main cookie store
                             if (!ck.hasExpired()) {
                                 // don't add twice

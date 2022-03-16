@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -95,7 +95,7 @@ public enum LazyMOMProvider {
     /**
      * Interface for all object that want to be notified about scope change, introducing required methods.
      */
-    public static interface ScopeChangeListener {
+    public interface ScopeChangeListener {
 
         void scopeChanged(Scope scope);
 
@@ -105,7 +105,7 @@ public enum LazyMOMProvider {
      * Default interface for all object that want to be notified about scope change. This interface should not be
      * implemented directly.
      */
-    public static interface DefaultScopeChangeListener extends ScopeChangeListener {
+    public interface DefaultScopeChangeListener extends ScopeChangeListener {
     }
 
     /**
@@ -113,11 +113,11 @@ public enum LazyMOMProvider {
      * Webservice Endpoints should get a notification about scope change sooner than the rest of the registered listeners
      * (there is a possibility that other listeners are dependant on Webservice Endpoints).
      */
-    public static interface WSEndpointScopeChangeListener extends ScopeChangeListener {
+    public interface WSEndpointScopeChangeListener extends ScopeChangeListener {
     }
 
-    private final Set<WSEndpointScopeChangeListener> endpointsWaitingForMOM = new HashSet<WSEndpointScopeChangeListener>();
-    private final Set<DefaultScopeChangeListener> listeners = new HashSet<DefaultScopeChangeListener>();
+    private final Set<WSEndpointScopeChangeListener> endpointsWaitingForMOM = new HashSet<>();
+    private final Set<DefaultScopeChangeListener> listeners = new HashSet<>();
 
     private volatile Scope scope = Scope.STANDALONE;
 

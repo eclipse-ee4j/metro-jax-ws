@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.sun.xml.ws.transport.http.HttpAdapter;
 import jakarta.xml.soap.MimeHeader;
 import jakarta.xml.soap.MimeHeaders;
 import jakarta.xml.soap.SOAPMessage;
@@ -32,7 +33,6 @@ import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.WSFeatureList;
 import com.sun.xml.ws.api.pipe.Codec;
 import com.sun.xml.ws.api.pipe.Codecs;
-import static com.sun.xml.ws.transport.http.HttpAdapter.fixQuotesAroundSoapAction;
 
 /**
  * The MessageContextFactory implements com.oracle.webservices.api.message.MessageContextFactory as
@@ -56,7 +56,7 @@ public class MessageContextFactory extends com.oracle.webservices.api.message.Me
         features = wsf;
         envelopeStyle = features.get(EnvelopeStyleFeature.class);
         if (envelopeStyle == null) {//Default to SOAP11
-            envelopeStyle = new EnvelopeStyleFeature(new EnvelopeStyle.Style[]{EnvelopeStyle.Style.SOAP11});
+            envelopeStyle = new EnvelopeStyleFeature(EnvelopeStyle.Style.SOAP11);
             features.mergeFeatures(new WebServiceFeature[]{envelopeStyle}, false);
         }
         for (EnvelopeStyle.Style s : envelopeStyle.getStyles()) {
@@ -110,7 +110,7 @@ public class MessageContextFactory extends com.oracle.webservices.api.message.Me
         String contentType = getHeader(headers, "Content-Type");
         Packet packet = (Packet) createContext(in, contentType);
         packet.acceptableMimeTypes = getHeader(headers, "Accept");
-        packet.soapAction = fixQuotesAroundSoapAction(getHeader(headers, "SOAPAction"));
+        packet.soapAction = HttpAdapter.fixQuotesAroundSoapAction(getHeader(headers, "SOAPAction"));
 //      packet.put(Packet.INBOUND_TRANSPORT_HEADERS, toMap(headers));
         return packet;
     }
@@ -121,14 +121,10 @@ public class MessageContextFactory extends com.oracle.webservices.api.message.Me
     }
    
     static Map<String, List<String>> toMap(MimeHeaders headers) {
-        HashMap<String, List<String>> map = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> map = new HashMap<>();
         for (Iterator<MimeHeader> i = headers.getAllHeaders(); i.hasNext();) {
             MimeHeader mh = i.next();
-            List<String> values = map.get(mh.getName());
-            if (values == null) {
-                values = new ArrayList<String>();
-                map.put(mh.getName(), values);
-            }
+            List<String> values = map.computeIfAbsent(mh.getName(), k -> new ArrayList<>());
             values.add(mh.getValue());
         }       
         return map;

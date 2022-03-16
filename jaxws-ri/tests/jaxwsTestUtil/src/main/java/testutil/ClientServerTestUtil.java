@@ -120,7 +120,7 @@ public class ClientServerTestUtil {
             if (istream != null) {
                 BufferedReader reader =
                     new BufferedReader(new InputStreamReader(istream));
-                StringBuffer sBuffer = new StringBuffer();
+                StringBuilder sBuffer = new StringBuilder();
                 String line = reader.readLine();
                 while (line != null) {
                     sBuffer.append(line);
@@ -240,7 +240,7 @@ public class ClientServerTestUtil {
      */
     public static void clearHandlers(BindingProvider provider) {
         Binding binding = provider.getBinding();
-        binding.setHandlerChain(new ArrayList<Handler>());
+        binding.setHandlerChain(new ArrayList<>());
     }
 
     public static String getLocalAddress(QName port) {

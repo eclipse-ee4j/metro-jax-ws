@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,7 +53,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author Kohsuke Kawaguchi
  */
 public abstract class WSService extends ServiceDelegate implements ComponentRegistry {
-	private final Set<Component> components = new CopyOnWriteArraySet<Component>();
+	private final Set<Component> components = new CopyOnWriteArraySet<>();
 	
 	protected WSService() {
     }
@@ -161,7 +161,7 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
      * To create a {@link Service}, we need to go through the API that doesn't let us
      * pass parameters, so as a hack we use thread local.
      */
-    protected static final ThreadLocal<InitParams> INIT_PARAMS = new ThreadLocal<InitParams>();
+    protected static final ThreadLocal<InitParams> INIT_PARAMS = new ThreadLocal<>();
 
     /**
      * Used as a immutable constant so that we can avoid null check. 
@@ -207,13 +207,13 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
      *      if the given service object is not from the JAX-WS RI.
      */
     public static WSService unwrap(final Service svc) {
-        return AccessController.doPrivileged(new PrivilegedAction<WSService>() {
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
             public WSService run() {
                 try {
                     Field f = svc.getClass().getField("delegate");
                     f.setAccessible(true);
                     Object delegate = f.get(svc);
-                    if(!(delegate instanceof WSService))
+                    if (!(delegate instanceof WSService))
                         throw new IllegalArgumentException();
                     return (WSService) delegate;
                 } catch (NoSuchFieldException e) {

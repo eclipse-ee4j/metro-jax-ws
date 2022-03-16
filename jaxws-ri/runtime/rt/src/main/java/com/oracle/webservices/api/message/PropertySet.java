@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,14 +46,14 @@ public interface PropertySet {
     @Inherited
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.FIELD,ElementType.METHOD})
-    public @interface Property {
+    @interface Property {
         /**
          * Name of the property.
          */
         String[] value();
     }
 
-    public boolean containsKey(Object key);
+    boolean containsKey(Object key);
 
     /**
      * Gets the name of the property.
@@ -63,7 +63,7 @@ public interface PropertySet {
      *      convention, but if anything but {@link String} is passed, this method
      *      just returns null.
      */
-    public Object get(Object key);
+    Object get(Object key);
 
     /**
      * Sets a property.
@@ -75,14 +75,14 @@ public interface PropertySet {
      *
      * @see Property
      */
-    public Object put(String key, Object value);
+    Object put(String key, Object value);
 
     /**
      * Checks if this {@link PropertySet} supports a property of the given name.
      */
-    public boolean supports(Object key);
+    boolean supports(Object key);
 
-    public Object remove(Object key);
+    Object remove(Object key);
 
     /**
      * Creates a {@link Map} view of this {@link PropertySet}.
@@ -102,7 +102,7 @@ public interface PropertySet {
      *      always non-null valid instance.
      */
     @Deprecated
-    public Map<String,Object> createMapView();
+    Map<String,Object> createMapView();
     
     /**
      * Creates a modifiable {@link Map} view of this {@link PropertySet}.
@@ -116,5 +116,5 @@ public interface PropertySet {
      *
      * @return always non-null valid instance.
      */
-    public Map<String, Object> asMap();
+    Map<String, Object> asMap();
 }

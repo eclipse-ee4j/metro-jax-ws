@@ -15,9 +15,8 @@ import com.sun.xml.ws.server.DraconianValidationErrorHandler;
 import jakarta.jws.WebService;
 import jakarta.xml.ws.spi.WebServiceFeatureAnnotation;
 import java.lang.annotation.Documented;
-import static java.lang.annotation.ElementType.TYPE;
 import java.lang.annotation.Retention;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 
@@ -42,8 +41,8 @@ import java.lang.annotation.ElementType;
  * @author Jitendra Kotamraju
  * @see SchemaValidationFeature
  */
-@Retention(RUNTIME)
-@Target({TYPE, ElementType.METHOD, ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
 @Documented
 @WebServiceFeatureAnnotation(id = SchemaValidationFeature.ID, bean = SchemaValidationFeature.class)
 public @interface SchemaValidation {

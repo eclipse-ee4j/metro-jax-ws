@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,7 +37,7 @@ public interface JavaCallInfo {
 	 * 
 	 * @return the method
 	 */
-	public Method getMethod();
+    Method getMethod();
 
 //	/**
 //	 * Sets the method of this JavaCallInfo
@@ -51,7 +51,7 @@ public interface JavaCallInfo {
 	 * 
 	 * @return The parameters
 	 */
-	public Object[] getParameters();
+    Object[] getParameters();
 
 //	/**
 //	 * Sets the parameters of this JavaCallInfo
@@ -66,7 +66,7 @@ public interface JavaCallInfo {
 	 * 
 	 * @return the returnValue
 	 */
-	public Object getReturnValue();
+    Object getReturnValue();
 
 	/**
 	 * Sets the returnValue of this JavaCallInfo
@@ -74,14 +74,14 @@ public interface JavaCallInfo {
 	 * @param returnValue
 	 *            the returnValue to set
 	 */
-	public void setReturnValue(Object returnValue);
+    void setReturnValue(Object returnValue);
 
 	/**
 	 * Gets the exception of this JavaCallInfo
 	 * 
 	 * @return the exception
 	 */
-	public Throwable getException();
+    Throwable getException();
 
 	/**
 	 * Sets the exception of this JavaCallInfo
@@ -89,5 +89,5 @@ public interface JavaCallInfo {
 	 * @param exception
 	 *            the exception to set
 	 */
-	public void setException(Throwable exception);
+    void setException(Throwable exception);
 }

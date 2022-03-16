@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,7 +62,7 @@ abstract class BuilderHandler{
             throw LOGGER.logSevereException(new PolicyException(PolicyMessages.WSP_1010_NO_POLICIES_DEFINED()));
         }
         
-        final Collection<Policy> result = new ArrayList<Policy>(policyURIs.size());
+        final Collection<Policy> result = new ArrayList<>(policyURIs.size());
         
         for (String policyURI : policyURIs) {
             final PolicySourceModel sourceModel = policyStore.get(policyURI);
@@ -78,7 +78,7 @@ abstract class BuilderHandler{
     
     final Collection<PolicySubject> getPolicySubjects() throws PolicyException {
         final Collection<Policy> policies = getPolicies();
-        final Collection<PolicySubject> result =  new ArrayList<PolicySubject>(policies.size());
+        final Collection<PolicySubject> result = new ArrayList<>(policies.size());
         for (Policy policy : policies) {
             result.add(new PolicySubject(policySubject, policy));
         }

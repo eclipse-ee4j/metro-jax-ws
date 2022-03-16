@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,7 +40,7 @@ public final class MessageDumpingFeature extends WebServiceFeature {
     }
 
     public MessageDumpingFeature(String msgLogRoot, Level msgLogLevel, boolean storeMessages) {
-        this.messageQueue =  (storeMessages) ? new java.util.concurrent.ConcurrentLinkedQueue<String>() : null;
+        this.messageQueue =  (storeMessages) ? new java.util.concurrent.ConcurrentLinkedQueue<>() : null;
         this.messageLoggingStatus = new AtomicBoolean(true);
         this.messageLoggingRoot = (msgLogRoot != null && msgLogRoot.length() > 0) ? msgLogRoot : MessageDumpingTube.DEFAULT_MSGDUMP_LOGGING_ROOT;
         this.messageLoggingLevel = (msgLogLevel != null) ? msgLogLevel : DEFAULT_MSG_LOG_LEVEL;
@@ -96,6 +96,6 @@ public final class MessageDumpingFeature extends WebServiceFeature {
     }
 
     boolean offerMessage(String message) {
-        return (messageQueue != null) ? messageQueue.offer(message) : false;
+        return messageQueue != null && messageQueue.offer(message);
     }
 }

@@ -31,7 +31,7 @@ import java.util.Map;
  */
 public class AnnotationProcessorContext {
 
-    private Map<Name, SeiContext> seiContextMap = new HashMap<Name, SeiContext>();
+    private Map<Name, SeiContext> seiContextMap = new HashMap<>();
     private int round = 1;
     private boolean modelCompleted = false;
 
@@ -88,20 +88,20 @@ public class AnnotationProcessorContext {
 
     public static class SeiContext {
 
-        private Map<String, WrapperInfo> reqOperationWrapperMap = new HashMap<String, WrapperInfo>();
-        private Map<String, WrapperInfo> resOperationWrapperMap = new HashMap<String, WrapperInfo>();
-        private Map<Name, FaultInfo> exceptionBeanMap = new HashMap<Name, FaultInfo>();
+        private Map<String, WrapperInfo> reqOperationWrapperMap = new HashMap<>();
+        private Map<String, WrapperInfo> resOperationWrapperMap = new HashMap<>();
+        private Map<Name, FaultInfo> exceptionBeanMap = new HashMap<>();
 
         private Name seiImplName;
         private boolean implementsSei;
         private String namespaceUri;
 
-        public SeiContext() {};
-        
+        public SeiContext() {}
+
         /**
          * @deprecated use empty constructor, seiName value is ignored
          */
-        public SeiContext(Name seiName) {};
+        public SeiContext(Name seiName) {}
 
         public void setImplementsSei(boolean implementsSei) {
             this.implementsSei = implementsSei;

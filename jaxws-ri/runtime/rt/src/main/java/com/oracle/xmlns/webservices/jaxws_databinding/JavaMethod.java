@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -84,7 +84,7 @@ public class JavaMethod {
     @XmlAttribute(name = "name", required = true)
     protected String name;
     @XmlAnyAttribute
-    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+    private Map<QName, String> otherAttributes = new HashMap<>();
 
     /**
      * Gets the value of the methodAnnotation property.
@@ -116,7 +116,7 @@ public class JavaMethod {
      */
     public List<Object> getMethodAnnotation() {
         if (methodAnnotation == null) {
-            methodAnnotation = new ArrayList<Object>();
+            methodAnnotation = new ArrayList<>();
         }
         return this.methodAnnotation;
     }
@@ -240,7 +240,7 @@ public class JavaMethod {
          */
         public List<JavaParam> getJavaParam() {
             if (javaParam == null) {
-                javaParam = new ArrayList<JavaParam>();
+                javaParam = new ArrayList<>();
             }
             return this.javaParam;
         }

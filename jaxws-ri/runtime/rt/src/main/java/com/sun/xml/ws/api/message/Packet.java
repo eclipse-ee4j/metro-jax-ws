@@ -66,6 +66,7 @@ import jakarta.xml.ws.handler.MessageContext;
 import jakarta.xml.ws.handler.soap.SOAPMessageContext;
 import jakarta.xml.ws.soap.MTOMFeature;
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Logger;
 import java.io.ByteArrayOutputStream;
@@ -267,7 +268,7 @@ public final class Packet
      *         runtime cannot uniquely identify the wsdl operation from the information in the packet.
      */
     @Property(MessageContext.WSDL_OPERATION)
-    public final
+    public
     @Nullable
     QName getWSDLOperation() {
         if (wsdlOperation != null) return wsdlOperation;
@@ -741,7 +742,7 @@ public final class Packet
      * @return
      *      always non-null, possibly empty set that stores property names.
      */
-    public final Set<String> getHandlerScopePropertyNames(boolean readOnly) {
+    public Set<String> getHandlerScopePropertyNames(boolean readOnly) {
         Set<String> o = this.handlerScopePropertyNames;
         if (o == null) {
             if (readOnly) {
@@ -760,7 +761,7 @@ public final class Packet
      *      Use {@link #getHandlerScopePropertyNames(boolean)}.
      *      To be removed once Tango components are updated.
      */
-    public final Set<String> getApplicationScopePropertyNames(boolean readOnly) {
+    public Set<String> getApplicationScopePropertyNames(boolean readOnly) {
         assert false;
         return new HashSet<>();
     }
@@ -1101,7 +1102,7 @@ public final class Packet
 		        
 		        byte[] bytes = baos.toByteArray();
 		        //message = Messages.create(XMLStreamReaderFactory.create(null, new ByteArrayInputStream(bytes), "UTF-8", true));
-		        content = new String(bytes, "UTF-8");
+		        content = new String(bytes, StandardCharsets.UTF_8);
     		} else {
     		    content = "<none>";
         }
@@ -1126,16 +1127,16 @@ public final class Packet
     
     public Map<String, Object> asMapIncludingInvocationProperties() {
         final Map<String, Object> asMap = asMap();
-        return new AbstractMap<String, Object>() {
+        return new AbstractMap<>() {
             @Override
             public Object get(Object key) {
                 Object o = asMap.get(key);
                 if (o != null)
                     return o;
-                
+
                 return invocationProperties.get(key);
             }
-            
+
             @Override
             public int size() {
                 return asMap.size() + invocationProperties.size();
@@ -1147,19 +1148,19 @@ public final class Packet
                     return true;
                 return invocationProperties.containsKey(key);
             }
-            
+
             @Override
             public Set<Entry<String, Object>> entrySet() {
                 final Set<Entry<String, Object>> asMapEntries = asMap.entrySet();
                 final Set<Entry<String, Object>> ipEntries = invocationProperties.entrySet();
-                
-                return new AbstractSet<Entry<String, Object>>() {
+
+                return new AbstractSet<>() {
                     @Override
                     public Iterator<Entry<String, Object>> iterator() {
                         final Iterator<Entry<String, Object>> asMapIt = asMapEntries.iterator();
                         final Iterator<Entry<String, Object>> ipIt = ipEntries.iterator();
-                        
-                        return new Iterator<Entry<String, Object>>() {
+
+                        return new Iterator<>() {
                             @Override
                             public boolean hasNext() {
                                 return asMapIt.hasNext() || ipIt.hasNext();
@@ -1190,7 +1191,7 @@ public final class Packet
             public Object put(String key, Object value) {
                 if (supports(key))
                     return asMap.put(key, value);
-                
+
                 return invocationProperties.put(key, value);
             }
 
@@ -1204,7 +1205,7 @@ public final class Packet
             public Object remove(Object key) {
                 if (supports(key))
                     return asMap.remove(key);
-                
+
                 return invocationProperties.remove(key);
             }
         };
@@ -1301,7 +1302,7 @@ public final class Packet
             if (acceptableMimeTypes == null || isFastInfosetDisabled) {
                 checkMtomAcceptable = false;
             } else {
-                checkMtomAcceptable = (acceptableMimeTypes.indexOf(MtomCodec.XOP_XML_MIME_TYPE) != -1);
+                checkMtomAcceptable = (acceptableMimeTypes.contains(MtomCodec.XOP_XML_MIME_TYPE));
 //                StringTokenizer st = new StringTokenizer(acceptableMimeTypes, ",");
 //                while (st.hasMoreTokens()) {
 //                    final String token = st.nextToken().trim();
@@ -1322,7 +1323,7 @@ public final class Packet
             if (acceptableMimeTypes == null || isFastInfosetDisabled) {
                 fastInfosetAcceptable = false;
             } else {
-                fastInfosetAcceptable = (acceptableMimeTypes.indexOf(fiMimeType) != -1);
+                fastInfosetAcceptable = (acceptableMimeTypes.contains(fiMimeType));
             }
 //        if (accept == null || isFastInfosetDisabled) return false;
 //        
@@ -1444,9 +1445,7 @@ public final class Packet
                 if (getMtomRequest() != null && getMtomRequest() && getState().equals(State.ServerResponse)) {
                     return true;
                 }
-                if (getMtomRequest() != null && getMtomRequest() && getState().equals(State.ClientRequest)) {
-                    return true;
-                }
+                return getMtomRequest() != null && getMtomRequest() && getState().equals(State.ClientRequest);
             }
         }
         return false;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,7 @@ import java.util.Set;
 public class ClassNameAllocatorImpl implements ClassNameAllocator {
     public ClassNameAllocatorImpl(ClassNameCollector classNameCollector) {
         this.classNameCollector = classNameCollector;
-        this.jaxbClasses = new HashSet<String>();
+        this.jaxbClasses = new HashSet<>();
     }
 
     public String assignClassName(String packageName, String className) {

@@ -301,7 +301,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
      */
     @Override
     public @NotNull Iterator<Header> getHeaders(@NotNull final String nsUri, @NotNull final String localName, final boolean markAsUnderstood) {
-        return new Iterator<Header>() {
+        return new Iterator<>() {
 
             int idx = 0;
             Header next;
@@ -375,7 +375,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     @NotNull
     @Override
     Iterator<Header> getHeaders(@NotNull final String nsUri, final boolean markAsUnderstood) {
-        return new Iterator<Header>() {
+        return new Iterator<>() {
 
             int idx = 0;
             Header next;
@@ -818,7 +818,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     
     @Override
     public Set<QName> getUnderstoodHeaders() {
-        Set<QName> understoodHdrs = new HashSet<QName>();
+        Set<QName> understoodHdrs = new HashSet<>();
         for (int i = 0; i < size(); i++) {
             if (isUnderstood(i)) {
                 Header header = get(i);
@@ -854,7 +854,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     public Set<QName> getNotUnderstoodHeaders(Set<String> roles, Set<QName> knownHeaders, WSBinding binding) {
         Set<QName> notUnderstoodHeaders = null;
         if (roles == null) {
-            roles = new HashSet<String>();
+            roles = new HashSet<>();
         }
         SOAPVersion effectiveSoapVersion = getEffectiveSOAPVersion(binding);
         roles.add(effectiveSoapVersion.implicitRole);
@@ -868,7 +868,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
                         //know this header is not understood from the isUnderstood
                         //check above
                         if (notUnderstoodHeaders == null) {
-                            notUnderstoodHeaders = new HashSet<QName>();
+                            notUnderstoodHeaders = new HashSet<>();
                         }
                         notUnderstoodHeaders.add(qName);
                     } else {
@@ -877,7 +877,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
                             if (!knownHeaders.contains(qName)) {
                                 //logger.info("Element not understood=" + qName);
                                 if (notUnderstoodHeaders == null) {
-                                    notUnderstoodHeaders = new HashSet<QName>();
+                                    notUnderstoodHeaders = new HashSet<>();
                                 }
                                 notUnderstoodHeaders.add(qName);
                             }

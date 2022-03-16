@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -105,7 +105,7 @@ public abstract class PropertySet extends com.oracle.webservices.api.message.Bas
     @Override
     protected void createEntrySet(Set<Entry<String,Object>> core) {
         for (final Entry<String, Accessor> e : getPropertyMap().entrySet()) {
-            core.add(new Entry<String, Object>() {
+            core.add(new Entry<>() {
                 @Override
                 public String getKey() {
                     return e.getKey();
@@ -120,7 +120,7 @@ public abstract class PropertySet extends com.oracle.webservices.api.message.Bas
                 public Object setValue(Object value) {
                     Accessor acc = e.getValue();
                     Object old = acc.get(PropertySet.this);
-                    acc.set(PropertySet.this,value);
+                    acc.set(PropertySet.this, value);
                     return old;
                 }
             });

@@ -64,7 +64,7 @@ public abstract class InjectionPlan<T, R> {
         }
 
         public void inject(final T instance, final R resource) {
-            AccessController.doPrivileged(new PrivilegedAction<Object>() {
+            AccessController.doPrivileged(new PrivilegedAction<>() {
                 public Object run() {
                     try {
                         if (!field.isAccessible()) {
@@ -108,9 +108,7 @@ public abstract class InjectionPlan<T, R> {
                         method.setAccessible(true);
                     }
                     method.invoke(instance,args);
-                } catch (IllegalAccessException e) {
-                    throw new WebServiceException(e);
-                } catch (InvocationTargetException e) {
+                } catch (IllegalAccessException | InvocationTargetException e) {
                     throw new WebServiceException(e);
                 }
                 return null;
@@ -149,7 +147,7 @@ public abstract class InjectionPlan<T, R> {
      */
     public static <T,R>
     InjectionPlan<T,R> buildInjectionPlan(Class<? extends T> clazz, Class<R> resourceType, boolean isStatic) {
-        List<InjectionPlan<T,R>> plan = new ArrayList<InjectionPlan<T,R>>();
+        List<InjectionPlan<T,R>> plan = new ArrayList<>();
 
         Class<?> cl = clazz;
         while(cl != Object.class) {
@@ -163,7 +161,7 @@ public abstract class InjectionPlan<T, R> {
                         if(isStatic && !Modifier.isStatic(field.getModifiers()))
                             throw new WebServiceException("Static resource "+resourceType+" cannot be injected to non-static "+field);
 
-                        plan.add(new FieldInjectionPlan<T,R>(field));
+                        plan.add(new FieldInjectionPlan<>(field));
                     }
                 }
             }
@@ -185,14 +183,14 @@ public abstract class InjectionPlan<T, R> {
                         if(isStatic && !Modifier.isStatic(method.getModifiers()))
                             throw new WebServiceException("Static resource "+resourceType+" cannot be injected to non-static "+method);
 
-                        plan.add(new MethodInjectionPlan<T,R>(method));
+                        plan.add(new MethodInjectionPlan<>(method));
                     }
                 }
             }
             cl = cl.getSuperclass();
         }
 
-        return new Compositor<T,R>(plan);
+        return new Compositor<>(plan);
     }
 
     /*

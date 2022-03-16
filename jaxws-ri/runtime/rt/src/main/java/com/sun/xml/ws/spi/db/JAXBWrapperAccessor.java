@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,6 @@ import jakarta.xml.bind.annotation.XmlElementRef;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.namespace.QName;
 import jakarta.xml.ws.WebServiceException;
-import static com.sun.xml.ws.spi.db.PropertyGetterBase.verifyWrapperType;
 
 /**
  * JAXBWrapperAccessor
@@ -45,24 +44,24 @@ public class JAXBWrapperAccessor extends WrapperAccessor {
     protected HashMap<Object, Class> elementDeclaredTypes;
 
     public JAXBWrapperAccessor(Class<?> wrapperBean) {
-        verifyWrapperType(wrapperBean);   
-        contentClass = (Class<?>) wrapperBean;
+        PropertyGetterBase.verifyWrapperType(wrapperBean);
+        contentClass = wrapperBean;
 
-        HashMap<Object, PropertySetter> setByQName = new HashMap<Object, PropertySetter>();
-        HashMap<Object, PropertySetter> setByLocalpart = new HashMap<Object, PropertySetter>();
-        HashMap<String, Method> publicSetters = new HashMap<String, Method>();
+        HashMap<Object, PropertySetter> setByQName = new HashMap<>();
+        HashMap<Object, PropertySetter> setByLocalpart = new HashMap<>();
+        HashMap<String, Method> publicSetters = new HashMap<>();
 
-        HashMap<Object, PropertyGetter> getByQName = new HashMap<Object, PropertyGetter>();
-        HashMap<Object, PropertyGetter> getByLocalpart = new HashMap<Object, PropertyGetter>();
-        HashMap<String, Method> publicGetters = new HashMap<String, Method>();
+        HashMap<Object, PropertyGetter> getByQName = new HashMap<>();
+        HashMap<Object, PropertyGetter> getByLocalpart = new HashMap<>();
+        HashMap<String, Method> publicGetters = new HashMap<>();
 
-        HashMap<Object, Class> elementDeclaredTypesByQName = new HashMap<Object, Class>();
-        HashMap<Object, Class> elementDeclaredTypesByLocalpart = new HashMap<Object, Class>();
+        HashMap<Object, Class> elementDeclaredTypesByQName = new HashMap<>();
+        HashMap<Object, Class> elementDeclaredTypesByLocalpart = new HashMap<>();
 
         for (Method method : contentClass.getMethods()) {
             if (PropertySetterBase.setterPattern(method)) {
                 String key = method.getName()
-                        .substring(3, method.getName().length()).toLowerCase();
+                        .substring(3).toLowerCase();
                 publicSetters.put(key, method);
             }
             if (PropertyGetterBase.getterPattern(method)) {
@@ -74,7 +73,7 @@ public class JAXBWrapperAccessor extends WrapperAccessor {
                 publicGetters.put(key, method);
             }
         }
-        HashSet<String> elementLocalNames = new HashSet<String>();
+        HashSet<String> elementLocalNames = new HashSet<>();
         for (Field field : getAllFields(contentClass)) {
             XmlElementWrapper xmlElemWrapper = field.getAnnotation(XmlElementWrapper.class);
             XmlElement xmlElem = field.getAnnotation(XmlElement.class);
@@ -171,7 +170,7 @@ public class JAXBWrapperAccessor extends WrapperAccessor {
     }
 
     static private List<Field> getAllFields(Class<?> clz) {
-        List<Field> list = new ArrayList<Field>();
+        List<Field> list = new ArrayList<>();
         while (!Object.class.equals(clz)) {
             list.addAll(Arrays.asList(getDeclaredFields(clz)));
             clz = clz.getSuperclass();
@@ -181,12 +180,12 @@ public class JAXBWrapperAccessor extends WrapperAccessor {
     
     static private Field[] getDeclaredFields(final Class<?> clz) {
         try {
-            return AccessController.doPrivileged(new PrivilegedExceptionAction<Field[]>() {
-                        @Override
-                        public Field[] run() throws IllegalAccessException {
-                            return clz.getDeclaredFields();
-                        }
-                    });
+            return AccessController.doPrivileged(new PrivilegedExceptionAction<>() {
+                @Override
+                public Field[] run() throws IllegalAccessException {
+                    return clz.getDeclaredFields();
+                }
+            });
         } catch (PrivilegedActionException e) {
             throw new WebServiceException(e);
         }
@@ -292,7 +291,7 @@ public class JAXBWrapperAccessor extends WrapperAccessor {
                 }
             } else {
                 try {
-                    AccessController.doPrivileged(new PrivilegedExceptionAction<Object>() {
+                    AccessController.doPrivileged(new PrivilegedExceptionAction<>() {
                         public Object run() throws IllegalAccessException {
                             if (!field.isAccessible()) {
                                 field.setAccessible(true);

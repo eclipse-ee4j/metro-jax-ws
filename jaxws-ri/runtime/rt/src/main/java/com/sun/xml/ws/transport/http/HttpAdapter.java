@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.Collections;
@@ -166,17 +167,17 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
             wsdls = Collections.emptyMap();
             revWsdls = Collections.emptyMap();
         } else {
-            wsdls = new AbstractMap<String, SDDocument>() {
+            wsdls = new AbstractMap<>() {
                 private Map<String, SDDocument> delegate = null;
-                
+
                 private synchronized Map<String, SDDocument> delegate() {
                     if (delegate != null)
                         return delegate;
-                    
-                    delegate = new HashMap<String, SDDocument>();  // wsdl=1 --> Doc
+
+                    delegate = new HashMap<>();  // wsdl=1 --> Doc
                     // Sort WSDL, Schema documents based on SystemId so that the same
                     // document gets wsdl=x mapping
-                    Map<String, SDDocument> systemIds = new TreeMap<String, SDDocument>();
+                    Map<String, SDDocument> systemIds = new TreeMap<>();
                     for (SDDocument sdd : serviceDefinition) {
                         if (sdd == serviceDefinition.getPrimary()) { // No sorting for Primary WSDL
                             delegate.put("wsdl", sdd);
@@ -191,10 +192,10 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
                     for (Entry<String, SDDocument> e : systemIds.entrySet()) {
                         SDDocument sdd = e.getValue();
                         if (sdd.isWSDL()) {
-                            delegate.put("wsdl="+(wsdlnum++),sdd);
+                            delegate.put("wsdl=" + (wsdlnum++), sdd);
                         }
                         if (sdd.isSchema()) {
-                            delegate.put("xsd="+(xsdnum++),sdd);
+                            delegate.put("xsd=" + (xsdnum++), sdd);
                         }
                     }
 
@@ -263,20 +264,20 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
                 }
             };
             
-            revWsdls = new AbstractMap<SDDocument, String>() {
+            revWsdls = new AbstractMap<>() {
                 private Map<SDDocument, String> delegate = null;
 
                 private synchronized Map<SDDocument, String> delegate() {
                     if (delegate != null)
                         return delegate;
-                    
-                    delegate = new HashMap<SDDocument,String>();    // Doc --> wsdl=1
-                    for (Entry<String,SDDocument> e : wsdls.entrySet()) {
+
+                    delegate = new HashMap<>();    // Doc --> wsdl=1
+                    for (Entry<String, SDDocument> e : wsdls.entrySet()) {
                         if (!e.getKey().equals("WSDL")) {           // map Doc --> wsdl, not WSDL
-                            delegate.put(e.getValue(),e.getKey());
+                            delegate.put(e.getValue(), e.getKey());
                         }
                     }
-                    
+
                     return delegate;
                 }
 
@@ -944,7 +945,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
         con.setStatus(HttpURLConnection.HTTP_NOT_FOUND);
         con.setContentTypeResponseHeader("text/html; charset=utf-8");
 
-        PrintWriter out = new PrintWriter(new OutputStreamWriter(con.getOutput(),"UTF-8"));
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(con.getOutput(), StandardCharsets.UTF_8));
         out.println("<html>");
         out.println("<head><title>");
         out.println(WsservletMessages.SERVLET_HTML_TITLE());
@@ -1021,7 +1022,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
         con.setStatus(WSHTTPConnection.OK);
         con.setContentTypeResponseHeader("text/html; charset=utf-8");
 
-        PrintWriter out = new PrintWriter(new OutputStreamWriter(con.getOutput(),"UTF-8"));
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(con.getOutput(), StandardCharsets.UTF_8));
         out.println("<html>");
         out.println("<head><title>");
         // out.println("Web Services");

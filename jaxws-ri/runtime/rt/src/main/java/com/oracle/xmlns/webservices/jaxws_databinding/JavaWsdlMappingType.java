@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -109,7 +109,7 @@ public class JavaWsdlMappingType {
     @XmlAttribute(name = "databinding")
     protected String databinding;
     @XmlAnyAttribute
-    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+    private Map<QName, String> otherAttributes = new HashMap<>();
 
     /**
      * Gets the value of the xmlSchemaMapping property.
@@ -171,7 +171,7 @@ public class JavaWsdlMappingType {
      */
     public List<Object> getClassAnnotation() {
         if (classAnnotation == null) {
-            classAnnotation = new ArrayList<Object>();
+            classAnnotation = new ArrayList<>();
         }
         return this.classAnnotation;
     }
@@ -367,7 +367,7 @@ public class JavaWsdlMappingType {
          */
         public List<JavaMethod> getJavaMethod() {
             if (javaMethod == null) {
-                javaMethod = new ArrayList<JavaMethod>();
+                javaMethod = new ArrayList<>();
             }
             return this.javaMethod;
         }
@@ -427,7 +427,7 @@ public class JavaWsdlMappingType {
          */
         public List<Object> getAny() {
             if (any == null) {
-                any = new ArrayList<Object>();
+                any = new ArrayList<>();
             }
             return this.any;
         }

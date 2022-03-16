@@ -37,7 +37,7 @@ import java.util.List;
  * @author Vivek Pandey
  */
 public class WrapperParameter extends ParameterImpl {
-    protected final List<ParameterImpl> wrapperChildren = new ArrayList<ParameterImpl>();
+    protected final List<ParameterImpl> wrapperChildren = new ArrayList<>();
 
     // TODO: wrapper parameter doesn't use 'typeRef' --- it only uses tag name.
     public WrapperParameter(JavaMethodImpl parent, TypeInfo typeRef, Mode mode, int index) {

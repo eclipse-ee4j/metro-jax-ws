@@ -66,7 +66,7 @@ class ModelerUtils {
      */
     public static List<Parameter> createUnwrappedParameters(JAXBType jaxbType,
             Block block) {
-        List<Parameter> paramList = new ArrayList<Parameter>();
+        List<Parameter> paramList = new ArrayList<>();
         JAXBStructuredType type = null;
         if (!(jaxbType instanceof JAXBStructuredType))
             type = createJAXBStructureType(jaxbType);
@@ -114,7 +114,7 @@ class ModelerUtils {
     public static List<Parameter> createRpcLitParameters(Message message, Block block, S2JJAXBModel jaxbModel, ErrorReceiverFilter errReceiver){
         RpcLitStructure rpcStruct = (RpcLitStructure)block.getType();
 
-        List<Parameter> parameters = new ArrayList<Parameter>();
+        List<Parameter> parameters = new ArrayList<>();
         for(MessagePart part : message.getParts()){
             if(!ModelerUtils.isBoundToSOAPBody(part))
                 continue;
@@ -225,32 +225,24 @@ class ModelerUtils {
      * @return true if part is bound to Mime content
      */
     public static boolean isBoundToMimeContent(MessagePart part) {
-        if((part != null) && part.getBindingExtensibilityElementKind() == MessagePart.WSDL_MIME_BINDING)
-            return true;
-        return false;
+        return (part != null) && part.getBindingExtensibilityElementKind() == MessagePart.WSDL_MIME_BINDING;
     }
 
     /**
      * @return true if part is bound to SOAPBody
      */
     public static boolean isBoundToSOAPBody(MessagePart part) {
-        if((part != null) && part.getBindingExtensibilityElementKind() == MessagePart.SOAP_BODY_BINDING)
-            return true;
-        return false;
+        return (part != null) && part.getBindingExtensibilityElementKind() == MessagePart.SOAP_BODY_BINDING;
     }
 
     /**
      * @return true if part is bound to SOAPHeader
      */
     public static boolean isBoundToSOAPHeader(MessagePart part) {
-        if((part != null) && part.getBindingExtensibilityElementKind() == MessagePart.SOAP_HEADER_BINDING)
-            return true;
-        return false;
+        return (part != null) && part.getBindingExtensibilityElementKind() == MessagePart.SOAP_HEADER_BINDING;
     }
 
     public static boolean isUnbound(MessagePart part) {
-        if((part != null) && part.getBindingExtensibilityElementKind() == MessagePart.PART_NOT_BOUNDED)
-            return true;
-        return false;
+        return (part != null) && part.getBindingExtensibilityElementKind() == MessagePart.PART_NOT_BOUNDED;
     }
 }

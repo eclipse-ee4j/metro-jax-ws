@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,18 +27,18 @@ public interface Binding
 
 
     @XmlAttribute
-    public com.sun.xml.ws.wsdl.writer.document.Binding type(QName value);
+    com.sun.xml.ws.wsdl.writer.document.Binding type(QName value);
 
     @XmlAttribute
-    public com.sun.xml.ws.wsdl.writer.document.Binding name(String value);
+    com.sun.xml.ws.wsdl.writer.document.Binding name(String value);
 
     @XmlElement
-    public BindingOperationType operation();
+    BindingOperationType operation();
 
     @XmlElement(value="binding",ns="http://schemas.xmlsoap.org/wsdl/soap/")
-    public SOAPBinding soapBinding();
+    SOAPBinding soapBinding();
 
     @XmlElement(value="binding",ns="http://schemas.xmlsoap.org/wsdl/soap12/")
-    public com.sun.xml.ws.wsdl.writer.document.soap12.SOAPBinding soap12Binding();
+    com.sun.xml.ws.wsdl.writer.document.soap12.SOAPBinding soap12Binding();
 
 }

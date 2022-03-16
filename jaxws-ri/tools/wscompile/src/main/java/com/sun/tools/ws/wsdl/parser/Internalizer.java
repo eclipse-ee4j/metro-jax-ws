@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -60,7 +60,7 @@ public class Internalizer {
         }
     }
 
-    private static final ContextClassloaderLocal<XPathFactory> xpf = new ContextClassloaderLocal<XPathFactory>() {
+    private static final ContextClassloaderLocal<XPathFactory> xpf = new ContextClassloaderLocal<>() {
         @Override
         protected XPathFactory initialValue() throws Exception {
             return XmlUtil.newXPathFactory(true);
@@ -259,7 +259,7 @@ public class Internalizer {
     }
 
     private static Element[] getChildElements(Element parent) {
-        ArrayList<Element> a = new ArrayList<Element>();
+        ArrayList<Element> a = new ArrayList<>();
         NodeList children = parent.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
             Node item = children.item(i);
@@ -271,7 +271,7 @@ public class Internalizer {
                 a.add((Element) item);
             }
         }
-        return a.toArray(new Element[a.size()]);
+        return a.toArray(new Element[0]);
     }
 
     private NodeList evaluateXPathMultiNode(Node bindings, Node target, String expression, NamespaceContext namespaceContext) {
@@ -368,7 +368,7 @@ public class Internalizer {
      */
     private void copyInscopeNSAttributes(Element e) {
         Element p = e;
-        Set<String> inscopes = new HashSet<String>();
+        Set<String> inscopes = new HashSet<>();
         while (true) {
             NamedNodeMap atts = p.getAttributes();
             for (int i = 0; i < atts.getLength(); i++) {

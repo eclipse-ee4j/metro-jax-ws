@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,8 +17,6 @@ import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.ws.Service;
 
 import java.lang.annotation.Annotation;
-
-import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 
 
 /**
@@ -79,7 +77,7 @@ public class XmlServiceMode implements jakarta.xml.ws.ServiceMode {
 
     @Override
     public Service.Mode value() {
-        return Service.Mode.valueOf(nullSafe(value, "PAYLOAD"));
+        return Service.Mode.valueOf(Util.nullSafe(value, "PAYLOAD"));
     }
 
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -49,7 +49,7 @@ public class SeiGenerator extends GeneratorBase {
 
     public void init(Model model, WsimportOptions options, ErrorReceiver receiver, TJavaGeneratorExtension... extensions) {
         init(model, options, receiver);
-        extensionHandlers = new ArrayList<TJavaGeneratorExtension>();
+        extensionHandlers = new ArrayList<>();
 
         // register handlers for default extensions
 
@@ -62,7 +62,7 @@ public class SeiGenerator extends GeneratorBase {
             register(j);
         }
 
-        this.extension = new JavaGeneratorExtensionFacade(extensionHandlers.toArray(new TJavaGeneratorExtension[extensionHandlers.size()]));
+        this.extension = new JavaGeneratorExtensionFacade(extensionHandlers.toArray(new TJavaGeneratorExtension[0]));
     }
 
     private void write(Port port) {
@@ -107,9 +107,7 @@ public class SeiGenerator extends GeneratorBase {
             comment.add("\n\n");
         }
 
-        for(String doc:getJAXWSClassComment()){
-                comment.add(doc);
-        }
+        comment.addAll(getJAXWSClassComment());
 
 
         //@WebService

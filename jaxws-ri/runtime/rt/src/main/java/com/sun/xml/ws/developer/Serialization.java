@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,10 +14,8 @@ import jakarta.xml.ws.spi.WebServiceFeatureAnnotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Configures various aspects of serialization like encoding
@@ -37,8 +35,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @author Jitendra Kotamraju
  * @see com.sun.xml.ws.developer.SerializationFeature
  */
-@Retention(RUNTIME)
-@Target({TYPE, ElementType.METHOD, ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
 @Documented
 @WebServiceFeatureAnnotation(id = SerializationFeature.ID, bean = SerializationFeature.class)
 public @interface Serialization {

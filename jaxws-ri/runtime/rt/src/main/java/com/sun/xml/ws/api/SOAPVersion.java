@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -76,7 +76,7 @@ public enum SOAPVersion {
             new QName(com.sun.xml.ws.encoding.soap.SOAP12Constants.URI_ENVELOPE, "MustUnderstand"),
             "Sender",
             "Receiver",
-            new HashSet<String>(Arrays.asList(SOAPConstants.URI_SOAP_1_2_ROLE_NEXT,SOAPConstants.URI_SOAP_1_2_ROLE_ULTIMATE_RECEIVER)));
+            new HashSet<>(Arrays.asList(SOAPConstants.URI_SOAP_1_2_ROLE_NEXT, SOAPConstants.URI_SOAP_1_2_ROLE_ULTIMATE_RECEIVER)));
 
     /**
      * Binding ID for SOAP/HTTP binding of this SOAP version.
@@ -235,7 +235,7 @@ public enum SOAPVersion {
 
     public EnvelopeStyleFeature toFeature() {
         return SOAP_11.equals(this) ?
-            new EnvelopeStyleFeature(new EnvelopeStyle.Style[]{EnvelopeStyle.Style.SOAP11}) :
-            new EnvelopeStyleFeature(new EnvelopeStyle.Style[]{EnvelopeStyle.Style.SOAP12});
+            new EnvelopeStyleFeature(EnvelopeStyle.Style.SOAP11) :
+            new EnvelopeStyleFeature(EnvelopeStyle.Style.SOAP12);
     }
 }

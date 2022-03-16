@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -153,7 +153,7 @@ public class WsimportOptions extends Options {
     /**
      * Additional arguments
      */
-    public HashMap<String, String> extensionOptions = new HashMap<String, String>();
+    public HashMap<String, String> extensionOptions = new HashMap<>();
 
     /**
      * All discovered {@link Plugin}s.
@@ -166,7 +166,7 @@ public class WsimportOptions extends Options {
     /**
      * {@link Plugin}s that are enabled in this compilation.
      */
-    public final List<Plugin> activePlugins = new ArrayList<Plugin>();
+    public final List<Plugin> activePlugins = new ArrayList<>();
 
     public JCodeModel getCodeModel() {
         if(codeModel == null)
@@ -197,7 +197,7 @@ public class WsimportOptions extends Options {
     /**
      * This captures jars passed on the commandline and passes them to XJC and puts them in the classpath for compilation
      */
-    public List<String> cmdlineJars = new ArrayList<String>();
+    public List<String> cmdlineJars = new ArrayList<>();
 
     /**
      * Gets all the {@link Plugin}s discovered so far.
@@ -209,7 +209,7 @@ public class WsimportOptions extends Options {
      */
     public List<Plugin> getAllPlugins() {
         if(allPlugins==null) {
-            allPlugins = new ArrayList<Plugin>();
+            allPlugins = new ArrayList<>();
             allPlugins.addAll(Arrays.asList(findServices(Plugin.class, getClassLoader())));
         }
         return allPlugins;
@@ -438,12 +438,12 @@ public class WsimportOptions extends Options {
         addFile(arg, wsdls, ".wsdl");
     }
 
-    private final List<InputSource> wsdls = new ArrayList<InputSource>();
-    private final List<InputSource> schemas = new ArrayList<InputSource>();
-    private final List<InputSource> bindingFiles = new ArrayList<InputSource>();
-    private final List<InputSource> jaxwsCustomBindings = new ArrayList<InputSource>();
-    private final List<InputSource> jaxbCustomBindings = new ArrayList<InputSource>();
-    private final List<Element> handlerConfigs = new ArrayList<Element>();
+    private final List<InputSource> wsdls = new ArrayList<>();
+    private final List<InputSource> schemas = new ArrayList<>();
+    private final List<InputSource> bindingFiles = new ArrayList<>();
+    private final List<InputSource> jaxwsCustomBindings = new ArrayList<>();
+    private final List<InputSource> jaxbCustomBindings = new ArrayList<>();
+    private final List<Element> handlerConfigs = new ArrayList<>();
 
     /**
      * There is supposed to be one handler chain per generated SEI.
@@ -462,19 +462,19 @@ public class WsimportOptions extends Options {
     }
 
     public InputSource[] getWSDLs() {
-        return wsdls.toArray(new InputSource[wsdls.size()]);
+        return wsdls.toArray(new InputSource[0]);
     }
 
     public InputSource[] getSchemas() {
-        return schemas.toArray(new InputSource[schemas.size()]);
+        return schemas.toArray(new InputSource[0]);
     }
 
     public InputSource[] getWSDLBindings() {
-        return jaxwsCustomBindings.toArray(new InputSource[jaxwsCustomBindings.size()]);
+        return jaxwsCustomBindings.toArray(new InputSource[0]);
     }
 
     public InputSource[] getSchemaBindings() {
-        return jaxbCustomBindings.toArray(new InputSource[jaxbCustomBindings.size()]);
+        return jaxbCustomBindings.toArray(new InputSource[0]);
     }
 
     public void addWSDL(File source) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -57,12 +57,10 @@ public class SEIInvokerTube extends InvokerTube {
 	        		}
 	        		Object ret = getInvoker(req).invoke(req, call.getMethod(), call.getParameters());
 	        		call.setReturnValue(ret);
-				} catch (InvocationTargetException e) {
-					call.setException(e);
 				} catch (Exception e) {
 					call.setException(e);
 				}
-			} else if (call.getException() instanceof DispatchException) {
+            } else if (call.getException() instanceof DispatchException) {
 			    DispatchException e = (DispatchException)call.getException();
 			    return doReturnWith(req.createServerResponse(e.fault, model.getPort(), null, binding));
 			}

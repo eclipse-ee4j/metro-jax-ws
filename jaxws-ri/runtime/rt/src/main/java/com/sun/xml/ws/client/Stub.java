@@ -161,7 +161,7 @@ public abstract class Stub implements WSBindingProvider, ResponseContextReceiver
     ManagedObjectManager managedObjectManager;
     private boolean managedObjectManagerClosed = false;
 
-    private final Set<Component> components = new CopyOnWriteArraySet<Component>();
+    private final Set<Component> components = new CopyOnWriteArraySet<>();
 
     /**
      * @param master                 The created stub will send messages to this pipe.
@@ -624,7 +624,7 @@ public abstract class Stub implements WSBindingProvider, ResponseContextReceiver
         String eprAddress = requestContext.getEndpointAddress().toString();
         QName portTypeName = null;
         String wsdlAddress = null;
-        List<WSEndpointReference.EPRExtension> wsdlEPRExtensions = new ArrayList<WSEndpointReference.EPRExtension>();
+        List<WSEndpointReference.EPRExtension> wsdlEPRExtensions = new ArrayList<>();
         if (wsdlPort != null) {
             portTypeName = wsdlPort.getBinding().getPortTypeName();
             wsdlAddress = eprAddress + "?wsdl";
@@ -687,7 +687,7 @@ public abstract class Stub implements WSBindingProvider, ResponseContextReceiver
                     throw new IllegalArgumentException();
                 }
             }
-            userOutboundHeaders = headers.toArray(new Header[headers.size()]);
+            userOutboundHeaders = headers.toArray(new Header[0]);
         }
     }
 

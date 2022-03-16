@@ -623,7 +623,7 @@ public class SAAJMessage extends Message {
 
         public Iterator<MimeHeader> getMimeHeaders() {
             final Iterator it = ap.getAllMimeHeaders();
-            return new Iterator<MimeHeader>() {
+            return new Iterator<>() {
                 public boolean hasNext() {
                     return it.hasNext();
                 }
@@ -704,7 +704,7 @@ public class SAAJMessage extends Message {
         }
 
         private Map<String, Attachment> createAttachmentMap() {
-            HashMap<String, Attachment> map = new HashMap<String, Attachment>();
+            HashMap<String, Attachment> map = new HashMap<>();
             while (attIter.hasNext()) {
                 AttachmentPart ap = (AttachmentPart) attIter.next();
                 map.put(ap.getContentId(), new SAAJAttachment(ap));

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -50,6 +50,7 @@ import com.sun.xml.ws.resources.ProviderApiMessages;
 import com.sun.xml.ws.util.JAXWSUtils;
 import com.sun.xml.ws.util.ServiceConfigurationError;
 import com.sun.xml.ws.util.ServiceFinder;
+import com.sun.xml.ws.util.xml.XmlUtil;
 import com.sun.xml.ws.wsdl.parser.RuntimeWSDLParser;
 
 import org.xml.sax.EntityResolver;
@@ -86,8 +87,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executor;
-
-import static com.sun.xml.ws.util.xml.XmlUtil.createDefaultCatalogResolver;
 
 /**
  * <code>Service</code> objects provide the client view of a Web service.
@@ -130,7 +129,7 @@ public class WSServiceDelegate extends WSService {
      * For statically known ports we'll have {@link SEIPortInfo}.
      * For dynamically added ones we'll have {@link PortInfo}.
      */
-    private final Map<QName, PortInfo> ports = new HashMap<QName, PortInfo>();
+    private final Map<QName, PortInfo> ports = new HashMap<>();
     // For monitoring
     protected Map<QName, PortInfo> getQNameToPortInfoMap() { return ports; }
 
@@ -152,7 +151,7 @@ public class WSServiceDelegate extends WSService {
      * Information about SEI, keyed by their interface type.
      */
    // private final Map<Class,SEIPortInfo> seiContext = new HashMap<Class,SEIPortInfo>();
-   private final Map<QName,SEIPortInfo> seiContext = new HashMap<QName,SEIPortInfo>();
+   private final Map<QName,SEIPortInfo> seiContext = new HashMap<>();
 
     // This executor is used for all the async invocations for all proxies
     // created from this service. But once the proxy is created, then changing
@@ -277,11 +276,11 @@ public class WSServiceDelegate extends WSService {
 	        //if wsdl is null, try and get it from the WebServiceClient.wsdlLocation
 	        if(wsdl == null){
 	            if(serviceClass != Service.class){
-	                WebServiceClient wsClient = AccessController.doPrivileged(new PrivilegedAction<WebServiceClient>() {
-	                        public WebServiceClient run() {
-	                            return serviceClass.getAnnotation(WebServiceClient.class);
-	                        }
-	                    });
+	                WebServiceClient wsClient = AccessController.doPrivileged(new PrivilegedAction<>() {
+                        public WebServiceClient run() {
+                            return serviceClass.getAnnotation(WebServiceClient.class);
+                        }
+                    });
 	                String wsdlLocation = wsClient.wsdlLocation();
 	                wsdlLocation = JAXWSUtils.absolutize(JAXWSUtils.getFileOrURLName(wsdlLocation));
 	                wsdl = new StreamSource(wsdlLocation);
@@ -313,7 +312,7 @@ public class WSServiceDelegate extends WSService {
         if (serviceClass != Service.class) {
             //if @HandlerChain present, set HandlerResolver on service context
             HandlerChain handlerChain =
-                    AccessController.doPrivileged(new PrivilegedAction<HandlerChain>() {
+                    AccessController.doPrivileged(new PrivilegedAction<>() {
                         public HandlerChain run() {
                             return serviceClass.getAnnotation(HandlerChain.class);
                         }
@@ -334,19 +333,13 @@ public class WSServiceDelegate extends WSService {
         try {
             return RuntimeWSDLParser.parse(wsdlDocumentLocation, wsdlSource, createCatalogResolver(),
                 true, getContainer(), serviceClass, ServiceFinder.find(WSDLParserExtension.class).toArray());
-        } catch (IOException e) {
-            throw new WebServiceException(e);
-        } catch (XMLStreamException e) {
-            throw new WebServiceException(e);
-        } catch (SAXException e) {
-            throw new WebServiceException(e);
-        } catch (ServiceConfigurationError e) {
+        } catch (IOException | ServiceConfigurationError | SAXException | XMLStreamException e) {
             throw new WebServiceException(e);
         }
     }
 
     protected EntityResolver createCatalogResolver() {
-    	return createDefaultCatalogResolver();
+    	return XmlUtil.createDefaultCatalogResolver();
     }
 
     public Executor getExecutor() {
@@ -703,7 +696,7 @@ public class WSServiceDelegate extends WSService {
                 WSServiceDelegate.class.getClassLoader());
 
         return AccessController.doPrivileged(
-                new PrivilegedAction<T>() {
+                new PrivilegedAction<>() {
                     @Override
                     public T run() {
                         Object proxy = Proxy.newProxyInstance(loader,
@@ -715,7 +708,7 @@ public class WSServiceDelegate extends WSService {
     }
 
     private WSDLService getWSDLModelfromSEI(final Class sei) {
-        WebService ws = AccessController.doPrivileged(new PrivilegedAction<WebService>() {
+        WebService ws = AccessController.doPrivileged(new PrivilegedAction<>() {
             public WebService run() {
                 return (WebService) sei.getAnnotation(WebService.class);
             }
@@ -796,7 +789,7 @@ public class WSServiceDelegate extends WSService {
      * Lists up the port names in WSDL. For error diagnostics.
      */
     private StringBuilder buildWsdlPortNames() {
-        Set<QName> wsdlPortNames = new HashSet<QName>();
+        Set<QName> wsdlPortNames = new HashSet<>();
         for (WSDLPort port : wsdlService.getPorts()) {
             wsdlPortNames.add(port.getName());
         }
@@ -927,11 +920,8 @@ public class WSServiceDelegate extends WSService {
             } else if (!loader.equals(other.loader))
                 return false;
             if (getParent() == null) {
-                if (other.getParent() != null)
-                    return false;
-            } else if (!getParent().equals(other.getParent()))
-                return false;
-            return true;
+                return other.getParent() == null;
+            } else return getParent().equals(other.getParent());
         }
 
         DelegatingLoader(ClassLoader loader1, ClassLoader loader2) {

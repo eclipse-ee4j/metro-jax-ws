@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,10 +32,7 @@ class JavaCompilerHelper{
         try {
             url = ParallelWorldClassLoader.toJarUrl(clazz.getResource('/'+clazz.getName().replace('.','/')+".class"));
             return new File(url.toURI());
-        } catch (ClassNotFoundException e) {
-            // if we can't figure out where JAXB/JAX-WS API are, we couldn't have been executing this code.
-            throw new Error(e);
-        } catch (MalformedURLException e) {
+        } catch (ClassNotFoundException | MalformedURLException e) {
             // if we can't figure out where JAXB/JAX-WS API are, we couldn't have been executing this code.
             throw new Error(e);
         } catch (URISyntaxException e) {

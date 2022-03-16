@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,7 +47,7 @@ public abstract class ServiceInterceptorFactory {
      * Loads all {@link ServiceInterceptor}s and return aggregated one.
      */
     public static @NotNull ServiceInterceptor load(@NotNull WSService service, @Nullable ClassLoader cl) {
-        List<ServiceInterceptor> l = new ArrayList<ServiceInterceptor>();
+        List<ServiceInterceptor> l = new ArrayList<>();
 
         // first service look-up
         for( ServiceInterceptorFactory f : ServiceFinder.find(ServiceInterceptorFactory.class))
@@ -57,13 +57,13 @@ public abstract class ServiceInterceptorFactory {
         for( ServiceInterceptorFactory f : threadLocalFactories.get())
             l.add(f.create(service));
 
-        return ServiceInterceptor.aggregate(l.toArray(new ServiceInterceptor[l.size()]));
+        return ServiceInterceptor.aggregate(l.toArray(new ServiceInterceptor[0]));
     }
 
-    private static ThreadLocal<Set<ServiceInterceptorFactory>> threadLocalFactories = new ThreadLocal<Set<ServiceInterceptorFactory>>() {
+    private static ThreadLocal<Set<ServiceInterceptorFactory>> threadLocalFactories = new ThreadLocal<>() {
         @Override
         protected Set<ServiceInterceptorFactory> initialValue() {
-            return new HashSet<ServiceInterceptorFactory>();
+            return new HashSet<>();
         }
     };
 

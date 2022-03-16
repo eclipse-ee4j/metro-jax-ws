@@ -48,10 +48,10 @@ public class HandlerConfiguration {
     public HandlerConfiguration(Set<String> roles, List<Handler> handlerChain) {
         this.roles = roles;
         this.handlerChain = handlerChain;
-        logicalHandlers = new ArrayList<LogicalHandler>();
-        soapHandlers = new ArrayList<SOAPHandler>();
-        messageHandlers = new ArrayList<MessageHandler>();
-        Set<QName> modHandlerKnownHeaders = new HashSet<QName>();
+        logicalHandlers = new ArrayList<>();
+        soapHandlers = new ArrayList<>();
+        messageHandlers = new ArrayList<>();
+        Set<QName> modHandlerKnownHeaders = new HashSet<>();
 
         for (Handler handler : handlerChain) {
             if (handler instanceof LogicalHandler) {
@@ -100,7 +100,7 @@ public class HandlerConfiguration {
     public List<Handler> getHandlerChain() {
         if(handlerChain == null)
             return Collections.emptyList();
-        return new ArrayList<Handler>(handlerChain);
+        return new ArrayList<>(handlerChain);
 
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -83,15 +83,15 @@ public final class LocalTransportFactory extends TransportTubeFactory {
 
     protected static List<WSEndpoint> parseEndpoints(String outputDir) throws IOException {
         String riFile = outputDir+"/WEB-INF/sun-jaxws.xml";
-        DeploymentDescriptorParser<WSEndpoint> parser = new DeploymentDescriptorParser<WSEndpoint>(
-            Thread.currentThread().getContextClassLoader(),
-            new FileSystemResourceLoader(new File(outputDir)), null,
-            new AdapterFactory<WSEndpoint>() {
-                @Override
-                public WSEndpoint createAdapter(String name, String urlPattern, WSEndpoint<?> endpoint) {
-                    return endpoint;
-                }
-            });
+        DeploymentDescriptorParser<WSEndpoint> parser = new DeploymentDescriptorParser<>(
+                Thread.currentThread().getContextClassLoader(),
+                new FileSystemResourceLoader(new File(outputDir)), null,
+                new AdapterFactory<>() {
+                    @Override
+                    public WSEndpoint createAdapter(String name, String urlPattern, WSEndpoint<?> endpoint) {
+                        return endpoint;
+                    }
+                });
 
         return parser.parse(new File(riFile));
     }

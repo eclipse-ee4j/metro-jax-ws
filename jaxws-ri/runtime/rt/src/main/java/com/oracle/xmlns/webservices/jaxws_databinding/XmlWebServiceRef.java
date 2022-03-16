@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,9 +16,6 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.ws.Service;
 import java.lang.annotation.Annotation;
-
-import static com.oracle.xmlns.webservices.jaxws_databinding.Util.findClass;
-import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 
 
 /**
@@ -191,7 +188,7 @@ public class XmlWebServiceRef implements jakarta.xml.ws.WebServiceRef {
 
     @Override
     public String name() {
-        return nullSafe(name);
+        return Util.nullSafe(name);
     }
 
     @Override
@@ -199,12 +196,12 @@ public class XmlWebServiceRef implements jakarta.xml.ws.WebServiceRef {
         if (type == null) {
             return Object.class;
         }
-        return findClass(type);
+        return Util.findClass(type);
     }
 
     @Override
     public String mappedName() {
-        return nullSafe(mappedName);
+        return Util.nullSafe(mappedName);
     }
 
     @Override
@@ -213,17 +210,17 @@ public class XmlWebServiceRef implements jakarta.xml.ws.WebServiceRef {
         if (value == null) {
             return Service.class;
         }
-        return (Class<Service>) findClass(value);
+        return (Class<Service>) Util.findClass(value);
     }
 
     @Override
     public String wsdlLocation() {
-        return nullSafe(wsdlLocation);
+        return Util.nullSafe(wsdlLocation);
     }
 
     @Override
     public String lookup() {
-        return nullSafe(lookup);
+        return Util.nullSafe(lookup);
     }
 
     @Override

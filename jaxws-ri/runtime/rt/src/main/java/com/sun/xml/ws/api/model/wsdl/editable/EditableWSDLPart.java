@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,13 +20,13 @@ public interface EditableWSDLPart extends WSDLPart {
      *
      * @param binding Binding
      */
-    public void setBinding(ParameterBinding binding);
+    void setBinding(ParameterBinding binding);
 
     /**
      * Sets index
      *
      * @param index Index
      */
-    public void setIndex(int index);
+    void setIndex(int index);
 
 }

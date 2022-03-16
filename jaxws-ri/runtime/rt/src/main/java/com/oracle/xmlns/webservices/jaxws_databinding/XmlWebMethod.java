@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,8 +15,6 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.lang.annotation.Annotation;
-
-import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 
 
 /**
@@ -137,17 +135,17 @@ public class XmlWebMethod implements jakarta.jws.WebMethod {
 
     @Override
     public String operationName() {
-        return nullSafe(operationName);
+        return Util.nullSafe(operationName);
     }
 
     @Override
     public String action() {
-        return nullSafe(action);
+        return Util.nullSafe(action);
     }
 
     @Override
     public boolean exclude() {
-        return nullSafe(exclude, false);
+        return Util.nullSafe(exclude, false);
     }
 
     @Override

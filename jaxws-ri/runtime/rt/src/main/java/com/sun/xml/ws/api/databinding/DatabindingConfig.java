@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,7 +36,7 @@ public class DatabindingConfig {
 
     protected Class contractClass;
     protected Class endpointClass;
-    protected Set<Class> additionalValueTypes = new HashSet<Class>();
+    protected Set<Class> additionalValueTypes = new HashSet<>();
     protected MappingInfo mappingInfo = new MappingInfo();
     protected URL wsdlURL;
     protected ClassLoader classLoader;
@@ -44,7 +44,7 @@ public class DatabindingConfig {
     protected WSBinding wsBinding;
     protected WSDLPort wsdlPort;
     protected MetadataReader metadataReader;
-    protected Map<String, Object> properties = new HashMap<String, Object>();
+    protected Map<String, Object> properties = new HashMap<>();
     protected Source wsdlSource;
     protected EntityResolver entityResolver;
 

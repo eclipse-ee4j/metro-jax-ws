@@ -37,7 +37,7 @@ public final class Converter {
         // prevents instantiation
     }
     private static final Logger LOGGER = Logger.getLogger(Converter.class);
-    private static final ContextClassloaderLocal<XMLOutputFactory> xmlOutputFactory = new ContextClassloaderLocal<XMLOutputFactory>() {
+    private static final ContextClassloaderLocal<XMLOutputFactory> xmlOutputFactory = new ContextClassloaderLocal<>() {
         @Override
         protected XMLOutputFactory initialValue() throws Exception {
             return XMLOutputFactory.newInstance();

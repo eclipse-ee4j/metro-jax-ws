@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -71,7 +71,7 @@ public interface WSDLBoundOperation extends WSDLObject, WSDLExtensible {
      * @param part Name of wsdl:part, must be non-null
      * @return null if the part is not found.
      */
-    public ParameterBinding getInputBinding(String part);
+    ParameterBinding getInputBinding(String part);
     
     /**
      * Gets {@link ParameterBinding} for a given wsdl part in wsdl:output
@@ -79,7 +79,7 @@ public interface WSDLBoundOperation extends WSDLObject, WSDLExtensible {
      * @param part Name of wsdl:part, must be non-null
      * @return null if the part is not found.
      */
-    public ParameterBinding getOutputBinding(String part);
+    ParameterBinding getOutputBinding(String part);
     
     /**
      * Gets {@link ParameterBinding} for a given wsdl part in wsdl:fault
@@ -87,7 +87,7 @@ public interface WSDLBoundOperation extends WSDLObject, WSDLExtensible {
      * @param part Name of wsdl:part, must be non-null
      * @return null if the part is not found.
      */
-    public ParameterBinding getFaultBinding(String part);
+    ParameterBinding getFaultBinding(String part);
     
     /**
      * Gets the MIME type for a given wsdl part in wsdl:input
@@ -95,7 +95,7 @@ public interface WSDLBoundOperation extends WSDLObject, WSDLExtensible {
      * @param part Name of wsdl:part, must be non-null
      * @return null if the part is not found.
      */
-    public String getMimeTypeForInputPart(String part);
+    String getMimeTypeForInputPart(String part);
     
     /**
      * Gets the MIME type for a given wsdl part in wsdl:output
@@ -103,7 +103,7 @@ public interface WSDLBoundOperation extends WSDLObject, WSDLExtensible {
      * @param part Name of wsdl:part, must be non-null
      * @return null if the part is not found.
      */
-    public String getMimeTypeForOutputPart(String part);
+    String getMimeTypeForOutputPart(String part);
     
     /**
      * Gets the MIME type for a given wsdl part in wsdl:fault
@@ -111,7 +111,7 @@ public interface WSDLBoundOperation extends WSDLObject, WSDLExtensible {
      * @param part Name of wsdl:part, must be non-null
      * @return null if the part is not found.
      */
-    public String getMimeTypeForFaultPart(String part);
+    String getMimeTypeForFaultPart(String part);
     
     /**
      * Gets all inbound {@link WSDLPart} by its {@link WSDLPart#getName() name}.
@@ -133,21 +133,21 @@ public interface WSDLBoundOperation extends WSDLObject, WSDLExtensible {
      *
      * @return empty Map if there is no parts
      */
-    public Map<String, ParameterBinding> getInputParts();
+    Map<String, ParameterBinding> getInputParts();
     
     /**
      * Map of wsdl:output part name and the binding as {@link ParameterBinding}
      *
      * @return empty Map if there is no parts
      */
-    public Map<String, ParameterBinding> getOutputParts();
+    Map<String, ParameterBinding> getOutputParts();
     
     /**
      * Map of wsdl:fault part name and the binding as {@link ParameterBinding}
      *
      * @return empty Map if there is no parts
      */
-    public Map<String, ParameterBinding> getFaultParts();
+    Map<String, ParameterBinding> getFaultParts();
     
     /**
      * Gets the payload QName of the request message.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,7 +32,7 @@ public class MrJarUtil {
      * @return true if *.noPool system property is not set or is set to true.
      */
     public static boolean getNoPoolProperty(String baseName) {
-        return AccessController.doPrivileged(new PrivilegedAction<Boolean>() {
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
             @Override
             public Boolean run() {
                 String noPool = System.getProperty(baseName + ".noPool");

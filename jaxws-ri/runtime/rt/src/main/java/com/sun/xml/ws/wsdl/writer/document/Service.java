@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,9 +25,9 @@ public interface Service
 
 
     @XmlAttribute
-    public com.sun.xml.ws.wsdl.writer.document.Service name(String value);
+    com.sun.xml.ws.wsdl.writer.document.Service name(String value);
 
     @XmlElement
-    public Port port();
+    Port port();
 
 }

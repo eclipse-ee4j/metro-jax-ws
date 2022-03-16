@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -330,7 +330,7 @@ public abstract class PolicyAssertion {
 
         result = result && this.data.equals(that.data);
         result = result && this.parameters.equals(that.parameters);
-        result = result && ((this.getNestedPolicy() == null) ? ((that.getNestedPolicy() == null) ? true : false) : this.getNestedPolicy().equals(that.getNestedPolicy()));
+        result = result && ((this.getNestedPolicy() == null) ? (that.getNestedPolicy() == null) : this.getNestedPolicy().equals(that.getNestedPolicy()));
 
         return result;
     }

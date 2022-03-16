@@ -53,7 +53,7 @@ public class Xsd2JavaSDOModel {
      */
     public List<String> getClassList() {
         // the model only needs to know the interface class???
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         for (SDOType type : types) {
             list.add(type.getInstanceClassName());
         }
@@ -67,7 +67,7 @@ public class Xsd2JavaSDOModel {
     public QName getXsdTypeName(String javaClass) {
         for (SDOType type : types) {
             if (type.getInstanceClassName().equals(javaClass)) {
-                return ((SDOType) type).getQName();
+                return type.getQName();
             }
         }
         return null;

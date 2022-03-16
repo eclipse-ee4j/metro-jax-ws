@@ -61,7 +61,7 @@ public class Model extends ModelObject {
         if (servicesByName.size() != services.size()) {
             initializeServicesByName();
         }
-        return (Service)servicesByName.get(name);
+        return servicesByName.get(name);
     }
 
     /* serialization */
@@ -134,9 +134,9 @@ public class Model extends ModelObject {
 
     private QName name;
     private String targetNamespace;
-    private List<Service> services = new ArrayList<Service>();
-    private Map<QName, Service> servicesByName = new HashMap<QName, Service>();
-    private Set<AbstractType> extraTypes = new HashSet<AbstractType>();
+    private List<Service> services = new ArrayList<>();
+    private Map<QName, Service> servicesByName = new HashMap<>();
+    private Set<AbstractType> extraTypes = new HashSet<>();
     private String source;
     private JAXBModel jaxBModel = null;
 }

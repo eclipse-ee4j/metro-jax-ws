@@ -67,7 +67,7 @@ public class AddressingPolicyMapConfigurator implements PolicyMapConfigurator {
             throws PolicyException {
         LOGGER.entering(policyMap, model, wsBinding);
 
-        Collection<PolicySubject> subjects = new ArrayList<PolicySubject>();
+        Collection<PolicySubject> subjects = new ArrayList<>();
         if (policyMap != null) {
             final AddressingFeature addressingFeature = wsBinding.getFeature(AddressingFeature.class);
             if (LOGGER.isLoggable(Level.FINEST)) {
@@ -98,8 +98,8 @@ public class AddressingPolicyMapConfigurator implements PolicyMapConfigurator {
      * Create a policy with an WSAM Addressing assertion.
      */
     private Policy createWsamAddressingPolicy(final QName bindingName, AddressingFeature af) {
-        final ArrayList<AssertionSet> assertionSets = new ArrayList<AssertionSet>(1);
-        final ArrayList<PolicyAssertion> assertions = new ArrayList<PolicyAssertion>(1);
+        final ArrayList<AssertionSet> assertionSets = new ArrayList<>(1);
+        final ArrayList<PolicyAssertion> assertions = new ArrayList<>(1);
         final AssertionData addressingData =
                 AssertionData.createAssertionData(W3CAddressingMetadataConstants.WSAM_ADDRESSING_ASSERTION);
         if (!af.isRequired()) {

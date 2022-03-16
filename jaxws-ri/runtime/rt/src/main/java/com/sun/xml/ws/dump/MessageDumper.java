@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -64,15 +64,15 @@ final class MessageDumper {
         this.loggingLevel = loggingLevel;
     }
 
-    final boolean isLoggable() {
+    boolean isLoggable() {
         return logger.isLoggable(loggingLevel);
     }
 
-    final void setLoggingLevel(Level level) {
+    void setLoggingLevel(Level level) {
         this.loggingLevel = level;
     }
 
-    final String createLogMessage(MessageType messageType, ProcessingState processingState, int tubeId, String engineId, String message) {
+    String createLogMessage(MessageType messageType, ProcessingState processingState, int tubeId, String engineId, String message) {
         return String.format("%s %s in Tube [ %s ] Instance [ %d ] Engine [ %s ] Thread [ %s ]:%n%s",
                 messageType,
                 processingState,
@@ -83,7 +83,7 @@ final class MessageDumper {
                 message);
     }
 
-    final String dump(MessageType messageType, ProcessingState processingState, String message, int tubeId, String engineId) {
+    String dump(MessageType messageType, ProcessingState processingState, String message, int tubeId, String engineId) {
         String logMessage = createLogMessage(messageType, processingState, tubeId, engineId, message);
         logger.log(loggingLevel, logMessage);
 

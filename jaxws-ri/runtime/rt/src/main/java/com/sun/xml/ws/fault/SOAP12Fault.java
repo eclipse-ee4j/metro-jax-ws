@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -171,7 +171,7 @@ class SOAP12Fault extends SOAPFaultBuilder {
 
      protected Throwable getProtocolException() {
         try {
-            SOAPFault fault = SOAPVersion.SOAP_12.getSOAPFactory().createFault();;
+            SOAPFault fault = SOAPVersion.SOAP_12.getSOAPFactory().createFault();
             if(reason != null){
                 for(TextType tt : reason.texts()){
                     fault.setFaultString(tt.getText());

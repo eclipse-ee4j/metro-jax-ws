@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -56,7 +56,7 @@ class MetroConfigLoader {
 
     private MetroConfigName defaultTubesConfigNames;
 
-    private static interface TubeFactoryListResolver {
+    private interface TubeFactoryListResolver {
 
         TubeFactoryList getFactories(TubelineDefinition td);
     }
@@ -257,7 +257,7 @@ class MetroConfigLoader {
         if (isJDKInternal()) {
             // since jdk classes are repackaged, extra privilege is necessary to create JAXBContext
             return AccessController.doPrivileged(
-                    new PrivilegedExceptionAction<JAXBContext>() {
+                    new PrivilegedExceptionAction<>() {
                         @Override
                         public JAXBContext run() throws Exception {
                             return JAXBContext.newInstance(MetroConfig.class.getPackage().getName());

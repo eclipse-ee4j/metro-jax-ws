@@ -20,11 +20,11 @@ import com.sun.xml.ws.api.pipe.Codec;
 import com.sun.xml.ws.api.pipe.Codecs;
 import com.sun.xml.ws.api.pipe.ContentType;
 import com.sun.xml.ws.api.pipe.StreamSOAPCodec;
+import com.sun.xml.ws.binding.WebServiceFeatureList;
 import com.sun.xml.ws.client.ContentNegotiation;
 import com.sun.xml.ws.protocol.soap.MessageCreationException;
 import com.sun.xml.ws.resources.StreamingMessages;
 import com.sun.xml.ws.server.UnsupportedMediaException;
-import static com.sun.xml.ws.binding.WebServiceFeatureList.getSoapVersion;   
 import com.sun.xml.ws.util.FastInfosetUtil;
 
 import jakarta.xml.ws.WebServiceException;
@@ -135,7 +135,7 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
     }
     
     public SOAPBindingCodec(WSFeatureList features, StreamSOAPCodec xmlSoapCodec) {
-        super(getSoapVersion(features), features);
+        super(WebServiceFeatureList.getSoapVersion(features), features);
         
         this.xmlSoapCodec = xmlSoapCodec;
         xmlMimeType = xmlSoapCodec.getMimeType();
@@ -194,7 +194,7 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
         
         xmlAccept = clientAcceptedContentTypes;
 
-        if(getSoapVersion(features) == null)
+        if(WebServiceFeatureList.getSoapVersion(features) == null)
             throw new WebServiceException("Expecting a SOAP binding but found ");
     }
     

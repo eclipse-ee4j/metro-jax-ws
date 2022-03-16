@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -56,7 +56,7 @@ final class SOAPHandlerProcessor<C extends MessageUpdatableContext> extends Hand
      * something else will need to be passed to the method
      * to determine whether the fault code is client or server.
      */
-    final void insertFaultMessage(C context,
+    void insertFaultMessage(C context,
         ProtocolException exception) {
         try {
             if(!context.getPacketMessage().isFault()) {

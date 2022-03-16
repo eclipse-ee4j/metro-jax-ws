@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -113,7 +113,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
                         marshaller.marshal(jte, output, mappingInfo);
                     }
                 } else {
-                    JAXBElement<T> elt = new JAXBElement<T>(
+                    JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) typeInfo.type, object);
                     if (isEx) {
@@ -159,7 +159,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
                     marshaller.marshal(jte, new StreamResult(output),
                             mappingInfo);
                 } else {
-                    JAXBElement<T> elt = new JAXBElement<T>(
+                    JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) mappingInfo.getType(), object);
                     // marshaller.marshal(elt, output);
@@ -193,7 +193,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
                             (ParameterizedType) mappingInfo.getType());
                     marshaller.marshal(jte, new DOMResult(output), mappingInfo);
                 } else {
-                    JAXBElement<T> elt = new JAXBElement<T>(
+                    JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) mappingInfo.getType(), object);
                     // marshaller.marshal(elt, output);
@@ -227,7 +227,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
                     marshaller.marshal(jte, new SAXResult(contentHandler),
                             mappingInfo);
                 } else {
-                    JAXBElement<T> elt = new JAXBElement<T>(
+                    JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) mappingInfo.getType(), object);
                     // marshaller.marshal(elt, contentHandler);
@@ -264,7 +264,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
                             (ParameterizedType) mappingInfo.getType());
                     marshaller.marshal(jte, result, mappingInfo);
                 } else {
-                    JAXBElement<T> elt = new JAXBElement<T>(
+                    JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) mappingInfo.getType(), object);
                     // marshaller.marshal(elt, result);

@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class XmlUtil {
     private static final String DISABLE_XML_SECURITY = "com.sun.xml.ws.disableXmlSecurity";
 
     private static boolean XML_SECURITY_DISABLED = AccessController.doPrivileged(
-            new PrivilegedAction<Boolean>() {
+            new PrivilegedAction<>() {
                 @Override
                 public Boolean run() {
                     return Boolean.getBoolean(DISABLE_XML_SECURITY);
@@ -202,7 +203,7 @@ public class XmlUtil {
     public static InputStream getUTF8Stream(String s) {
         try {
             ByteArrayBuffer bab = new ByteArrayBuffer();
-            Writer w = new OutputStreamWriter(bab, "utf-8");
+            Writer w = new OutputStreamWriter(bab, StandardCharsets.UTF_8);
             w.write(s);
             w.close();
             return bab.newInputStream();
@@ -211,14 +212,14 @@ public class XmlUtil {
         }
     }
 
-    static final ContextClassloaderLocal<TransformerFactory> transformerFactory = new ContextClassloaderLocal<TransformerFactory>() {
+    static final ContextClassloaderLocal<TransformerFactory> transformerFactory = new ContextClassloaderLocal<>() {
         @Override
         protected TransformerFactory initialValue() throws Exception {
             return TransformerFactory.newInstance();
         }
     };
 
-    static final ContextClassloaderLocal<SAXParserFactory> saxParserFactory = new ContextClassloaderLocal<SAXParserFactory>() {
+    static final ContextClassloaderLocal<SAXParserFactory> saxParserFactory = new ContextClassloaderLocal<>() {
         @Override
         protected SAXParserFactory initialValue() throws Exception {
             SAXParserFactory factory = newSAXParserFactory(true);

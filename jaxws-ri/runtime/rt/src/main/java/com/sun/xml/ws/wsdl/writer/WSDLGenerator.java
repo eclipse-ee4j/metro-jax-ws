@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,8 +10,6 @@
 
 package com.sun.xml.ws.wsdl.writer;
 
-
-import static org.glassfish.jaxb.runtime.v2.schemagen.Util.*;
 
 import com.oracle.webservices.api.databinding.WSDLResolver;
 
@@ -77,6 +75,7 @@ import javax.xml.transform.sax.SAXResult;
 import jakarta.xml.ws.Holder;
 import jakarta.xml.ws.WebServiceException;
 
+import org.glassfish.jaxb.runtime.v2.schemagen.Util;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
@@ -161,7 +160,7 @@ public class WSDLGenerator {
     
     static public final String XsdNs = "http://www.w3.org/2001/XMLSchema";
     
-    private Set<QName> processedExceptions = new HashSet<QName>();
+    private Set<QName> processedExceptions = new HashSet<>();
     private WSBinding binding;
     private String wsdlLocation;
     private String portWSDLID;
@@ -208,7 +207,7 @@ public class WSDLGenerator {
         this.binding = binding;
         this.container = container;
         this.implType = implType;
-        extensionHandlers = new ArrayList<WSDLGeneratorExtension>();
+        extensionHandlers = new ArrayList<>();
         this.inlineSchemas = inlineSchemas;
         this.disableXmlSecurity = disableXmlSecurity;
 
@@ -263,7 +262,7 @@ public class WSDLGenerator {
             String wsdlName = mangleName(model.getPortTypeName().getLocalPart());
             if (wsdlName.equals(fileName))
                 wsdlName += "PortType";
-            Holder<String> absWSDLName = new Holder<String>();
+            Holder<String> absWSDLName = new Holder<>();
             absWSDLName.value = wsdlName + DOT_WSDL;
             result = wsdlResolver.getAbstractWSDL(absWSDLName);
 
@@ -417,8 +416,8 @@ public class WSDLGenerator {
     protected void generateTypes() {
         types = portDefinitions.types();
         if (model.getBindingContext() != null) {
-            if (inlineSchemas && model.getBindingContext().getClass().getName().indexOf("glassfish") == -1) {
-                resolver.nonGlassfishSchemas = new ArrayList<DOMResult>();
+            if (inlineSchemas && !model.getBindingContext().getClass().getName().contains("glassfish")) {
+                resolver.nonGlassfishSchemas = new ArrayList<>();
             }
             try {
                 model.getBindingContext().generateSchema(resolver);
@@ -443,8 +442,6 @@ public class WSDLGenerator {
                     SAXResult sax = new SAXResult(new TXWContentHandler(types));
                     t.transform(new DOMSource(doc.getDocumentElement()), sax);
                 }
-            } catch (TransformerConfigurationException e) {
-                throw new WebServiceException(e.getMessage(), e);
             } catch (TransformerException e) {
                 throw new WebServiceException(e.getMessage(), e);
             }
@@ -606,7 +603,7 @@ public class WSDLGenerator {
     protected void generateRpcParameterOrder(Operation operation, JavaMethodImpl method) {
         String partName;
         StringBuilder paramOrder = new StringBuilder();
-        Set<String> partNames = new HashSet<String>();
+        Set<String> partNames = new HashSet<>();
         List<ParameterImpl> sortedParams = sortMethodParameters(method);
         int i = 0;
         for (ParameterImpl parameter : sortedParams) {
@@ -634,7 +631,7 @@ public class WSDLGenerator {
     protected void generateDocumentParameterOrder(Operation operation, JavaMethodImpl method) {
         String partName;
         StringBuilder paramOrder = new StringBuilder();
-        Set<String> partNames = new HashSet<String>();
+        Set<String> partNames = new HashSet<>();
         List<ParameterImpl> sortedParams = sortMethodParameters(method);
 //        boolean isWrapperStyle = isWrapperStyle(method);
         int i = 0;
@@ -679,8 +676,8 @@ public class WSDLGenerator {
      * @return the sorted {@link List} of parameters
      */
     protected List<ParameterImpl> sortMethodParameters(JavaMethodImpl method) {
-        Set<ParameterImpl> paramSet = new HashSet<ParameterImpl>();
-        List<ParameterImpl> sortedParams = new ArrayList<ParameterImpl>();
+        Set<ParameterImpl> paramSet = new HashSet<>();
+        List<ParameterImpl> sortedParams = new ArrayList<>();
         if (isRpcLit(method)) {
             for (ParameterImpl param : method.getRequestParameters()) {
                 if (param instanceof WrapperParameter) {
@@ -785,8 +782,8 @@ public class WSDLGenerator {
         extension.addBindingOperationExtension(operation, method);
         String targetNamespace = model.getTargetNamespace();
         QName requestMessage = new QName(targetNamespace, method.getOperationName());
-        List<ParameterImpl> bodyParams = new ArrayList<ParameterImpl>();
-        List<ParameterImpl> headerParams = new ArrayList<ParameterImpl>();
+        List<ParameterImpl> bodyParams = new ArrayList<>();
+        List<ParameterImpl> headerParams = new ArrayList<>();
         splitParameters(bodyParams, headerParams, method.getRequestParameters());
         SOAPBinding soapBinding = method.getBinding();
         operation.soapOperation().soapAction(soapBinding.getSOAPAction());
@@ -874,8 +871,8 @@ public class WSDLGenerator {
         extension.addBindingOperationExtension(operation, method);
         String targetNamespace = model.getTargetNamespace();
         QName requestMessage = new QName(targetNamespace, method.getOperationName());
-        ArrayList<ParameterImpl> bodyParams = new ArrayList<ParameterImpl>();
-        ArrayList<ParameterImpl> headerParams = new ArrayList<ParameterImpl>();
+        ArrayList<ParameterImpl> bodyParams = new ArrayList<>();
+        ArrayList<ParameterImpl> headerParams = new ArrayList<>();
         splitParameters(bodyParams, headerParams, method.getRequestParameters());
         SOAPBinding soapBinding = method.getBinding();
 
@@ -1045,7 +1042,7 @@ public class WSDLGenerator {
             return null;
         }
 
-        Holder<String> fileNameHolder = new Holder<String>();
+        Holder<String> fileNameHolder = new Holder<>();
         fileNameHolder.value = schemaPrefix + suggestedFileName;
         result = wsdlResolver.getSchemaOutput(namespaceUri, fileNameHolder);
 //        System.out.println("schema file: "+fileNameHolder.value);
@@ -1110,14 +1107,14 @@ public class WSDLGenerator {
 
             if (baseUri == null) return uri;
 
-            URI theUri = new URI(escapeURI(uri));
-            URI theBaseUri = new URI(escapeURI(baseUri));
+            URI theUri = new URI(Util.escapeURI(uri));
+            URI theBaseUri = new URI(Util.escapeURI(baseUri));
 
             if (theUri.isOpaque() || theBaseUri.isOpaque())
                 return uri;
 
-            if (!equalsIgnoreCase(theUri.getScheme(), theBaseUri.getScheme()) ||
-                    !equal(theUri.getAuthority(), theBaseUri.getAuthority()))
+            if (!Util.equalsIgnoreCase(theUri.getScheme(), theBaseUri.getScheme()) ||
+                    !Util.equal(theUri.getAuthority(), theBaseUri.getAuthority()))
                 return uri;
 
             String uriPath = theUri.getPath();
@@ -1125,7 +1122,7 @@ public class WSDLGenerator {
 
             // normalize base path
             if (!basePath.endsWith("/")) {
-                basePath = normalizeUriPath(basePath);
+                basePath = Util.normalizeUriPath(basePath);
             }
 
             if (uriPath.equals(basePath))
@@ -1155,7 +1152,7 @@ public class WSDLGenerator {
         if (uri.startsWith(base)) {
             return uri.substring(base.length());
         } else {
-            return "../" + calculateRelativePath(uri, getParentUriPath(base));
+            return "../" + calculateRelativePath(uri, Util.getParentUriPath(base));
         }
     }
 

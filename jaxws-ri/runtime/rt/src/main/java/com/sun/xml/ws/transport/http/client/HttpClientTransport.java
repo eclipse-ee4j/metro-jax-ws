@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,6 @@ package com.sun.xml.ws.transport.http.client;
 import com.sun.xml.ws.api.EndpointAddress;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.client.BindingProviderProperties;
-import static com.sun.xml.ws.client.BindingProviderProperties.*;
 import com.sun.xml.ws.client.ClientTransportException;
 import com.sun.xml.ws.resources.ClientMessages;
 import com.sun.xml.ws.transport.Headers;
@@ -196,7 +195,7 @@ public class HttpClientTransport {
 
             // does the client want client hostname verification by the service
             String verificationProperty =
-                (String) context.invocationProperties.get(HOSTNAME_VERIFICATION_PROPERTY);
+                (String) context.invocationProperties.get(BindingProviderProperties.HOSTNAME_VERIFICATION_PROPERTY);
             if (verificationProperty != null) {
                 if (verificationProperty.equalsIgnoreCase("true")) {
                     ((HttpsURLConnection) connection).setHostnameVerifier(new HttpClientVerifier());
@@ -336,9 +335,9 @@ public class HttpClientTransport {
         }
 
         @Override
-        public void write(byte b[], int off, int len) throws IOException {
+        public void write(byte[] b, int off, int len) throws IOException {
             while(len > 0) {
-                int sent = (len > chunkSize) ? chunkSize : len;
+                int sent = Math.min(len, chunkSize);
                 out.write(b, off, sent);        // don't use super.write() as it writes byte-by-byte
                 len -= sent;
                 off += sent;

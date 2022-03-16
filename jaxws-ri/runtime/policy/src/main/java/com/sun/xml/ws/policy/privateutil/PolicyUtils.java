@@ -17,6 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -138,7 +139,7 @@ public final class PolicyUtils {
          * 1. namespace (not null String)
          * 2. local name (not null String)
          */
-        public static final Comparator<QName> QNAME_COMPARATOR = new Comparator<QName>() {
+        public static final Comparator<QName> QNAME_COMPARATOR = new Comparator<>() {
             public int compare(final QName qn1, final QName qn2) {
                 if (qn1 == qn2 || qn1.equals(qn2)) {
                     return 0;
@@ -193,14 +194,14 @@ public final class PolicyUtils {
             if (options == null || options.isEmpty()) {
                 // no combination creation needed
                 if (initialBase != null) {
-                    combinations = new ArrayList<Collection<E>>(1);
-                    combinations.add(new ArrayList<E>(initialBase));
+                    combinations = new ArrayList<>(1);
+                    combinations.add(new ArrayList<>(initialBase));
                 }
                 return combinations;
             }
 
             // creating defensive and modifiable copy of the base
-            final Collection<E> base = new LinkedList<E>();
+            final Collection<E> base = new LinkedList<>();
             if (initialBase != null && !initialBase.isEmpty()) {
                 base.addAll(initialBase);
             }
@@ -213,7 +214,7 @@ public final class PolicyUtils {
                    resulting collection of combinations.
              */
             int finalCombinationsSize = 1;
-            final Queue<T> optionProcessingQueue = new LinkedList<T>();
+            final Queue<T> optionProcessingQueue = new LinkedList<>();
             for (T option : options) {
                 final int optionSize =  option.size();
 
@@ -233,7 +234,7 @@ public final class PolicyUtils {
             }
 
             // creating final combinations
-            combinations = new ArrayList<Collection<E>>(finalCombinationsSize);
+            combinations = new ArrayList<>(finalCombinationsSize);
             combinations.add(base);
             if (finalCombinationsSize > 1) {
                 T processedOption;
@@ -248,7 +249,7 @@ public final class PolicyUtils {
 
                             if (semiCombinationIndex + actualSemiCombinationCollectionSize < newSemiCombinationCollectionSize) {
                                 // this is not the last optionElement => we create a new combination copy for the next child
-                                combinations.add(new LinkedList<E>(semiCombination));
+                                combinations.add(new LinkedList<>(semiCombination));
                             }
 
                             semiCombination.add(optionElement);
@@ -296,16 +297,10 @@ public final class PolicyUtils {
                 final Object result = MethodUtil.invoke(target, method,parameters);
 
                 return resultClass.cast(result);
-            } catch (IllegalArgumentException e) {
-                throw LOGGER.logSevereException(new RuntimePolicyUtilsException(createExceptionMessage(target, parameters, methodName), e));
-            } catch (InvocationTargetException e) {
+            } catch (IllegalArgumentException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
                 throw LOGGER.logSevereException(new RuntimePolicyUtilsException(createExceptionMessage(target, parameters, methodName), e));
             } catch (IllegalAccessException e) {
                 throw LOGGER.logSevereException(new RuntimePolicyUtilsException(createExceptionMessage(target, parameters, methodName), e.getCause()));
-            } catch (SecurityException e) {
-                throw LOGGER.logSevereException(new RuntimePolicyUtilsException(createExceptionMessage(target, parameters, methodName), e));
-            } catch (NoSuchMethodException e) {
-                throw LOGGER.logSevereException(new RuntimePolicyUtilsException(createExceptionMessage(target, parameters, methodName), e));
             }
         }
 
@@ -329,7 +324,7 @@ public final class PolicyUtils {
          */
         public static String generateFullName(final String configFileIdentifier) throws PolicyException {
             if (configFileIdentifier != null) {
-                final StringBuffer buffer = new StringBuffer("wsit-");
+                final StringBuilder buffer = new StringBuilder("wsit-");
                 buffer.append(configFileIdentifier).append(".xml");
                 return buffer.toString();
             } else {
@@ -397,11 +392,7 @@ public final class PolicyUtils {
                     unquoted[newLength++] = (byte) c;
                 }
             }
-            try {
-                return new String(unquoted, 0, newLength, "utf-8");
-            } catch (UnsupportedEncodingException uee) {
-                throw LOGGER.logSevereException(new RuntimePolicyUtilsException(LocalizationMessages.WSP_0079_ERROR_WHILE_RFC_2396_UNESCAPING(quoted), uee));
-            }
+            return new String(unquoted, 0, newLength, StandardCharsets.UTF_8);
         }
     }
 }

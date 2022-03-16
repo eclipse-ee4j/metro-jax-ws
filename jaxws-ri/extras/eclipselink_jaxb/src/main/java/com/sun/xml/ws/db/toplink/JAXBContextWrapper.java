@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -56,27 +56,27 @@ public class JAXBContextWrapper implements BindingContext {
 	JAXBContextWrapper(jakarta.xml.bind.JAXBContext cxt, Map<TypeInfo, TypeMappingInfo> map, SEIModel model) {
 		jaxbContext = (org.eclipse.persistence.jaxb.JAXBContext) cxt;
 		infoMap = map;
-	    mpool = new ObjectPool<JAXBMarshaller>() {
+	    mpool = new ObjectPool<>() {
 			protected JAXBMarshaller newInstance() {
 				try {
-                    return (JAXBMarshaller) jaxbContext.createMarshaller();
-                } catch (JAXBException e) {
-                    e.printStackTrace();
-                    throw new DatabindingException(e);
-                }
+					return jaxbContext.createMarshaller();
+				} catch (JAXBException e) {
+					e.printStackTrace();
+					throw new DatabindingException(e);
+				}
 			}
 		};
-	    upool = new ObjectPool<JAXBUnmarshaller>() {
+	    upool = new ObjectPool<>() {
 			protected JAXBUnmarshaller newInstance() {
-                try {
-				    return (JAXBUnmarshaller) jaxbContext.createUnmarshaller();
-                } catch (JAXBException e) {
-                    e.printStackTrace();
-                    throw new DatabindingException(e);
-                }
+				try {
+					return jaxbContext.createUnmarshaller();
+				} catch (JAXBException e) {
+					e.printStackTrace();
+					throw new DatabindingException(e);
+				}
 			}
 		};
-		wrapperAccessors = new HashMap<Class<?>, JAXBWrapperAccessor>();
+		wrapperAccessors = new HashMap<>();
 		hasSwaRef = jaxbContext.hasSwaRef();
         seiModel = model;
 	}
@@ -86,7 +86,7 @@ public class JAXBContextWrapper implements BindingContext {
 	}
 
 	public XMLBridge createBridge(TypeInfo ref) {
-		return (XMLBridge) (WrapperComposite.class.equals(ref.type) ? new com.sun.xml.ws.spi.db.WrapperBridge(this, ref) : new JAXBBond(this, ref));
+		return WrapperComposite.class.equals(ref.type) ? new com.sun.xml.ws.spi.db.WrapperBridge(this, ref) : new JAXBBond(this, ref);
 	}
 
 	public XMLBridge createFragmentBridge() {
@@ -146,7 +146,7 @@ public class JAXBContextWrapper implements BindingContext {
 
 	public List<String> getKnownNamespaceURIs() {
 		// TODO
-		return new ArrayList<String>();
+		return new ArrayList<>();
 	}
 
 	public QName getTypeName(TypeInfo tr) {

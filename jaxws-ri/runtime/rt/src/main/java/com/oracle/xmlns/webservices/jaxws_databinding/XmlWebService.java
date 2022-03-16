@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,8 +15,6 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.lang.annotation.Annotation;
-
-import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 
 
 /**
@@ -232,32 +230,32 @@ public class XmlWebService implements jakarta.jws.WebService {
 
     @Override
     public String name() {
-        return nullSafe(name);
+        return Util.nullSafe(name);
     }
 
     @Override
     public String targetNamespace() {
-        return nullSafe(targetNamespace);
+        return Util.nullSafe(targetNamespace);
     }
 
     @Override
     public String serviceName() {
-        return nullSafe(serviceName);
+        return Util.nullSafe(serviceName);
     }
 
     @Override
     public String portName() {
-        return nullSafe(portName);
+        return Util.nullSafe(portName);
     }
 
     @Override
     public String wsdlLocation() {
-        return nullSafe(wsdlLocation);
+        return Util.nullSafe(wsdlLocation);
     }
 
     @Override
     public String endpointInterface() {
-        return nullSafe(endpointInterface);
+        return Util.nullSafe(endpointInterface);
     }
 
     @Override

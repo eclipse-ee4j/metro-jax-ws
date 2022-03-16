@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,14 +20,13 @@ import com.sun.tools.ws.wsdl.document.Fault;
 import com.sun.tools.ws.wsdl.document.Input;
 import com.sun.tools.ws.wsdl.document.Output;
 import com.sun.xml.ws.addressing.W3CAddressingMetadataConstants;
+import com.sun.xml.ws.addressing.v200408.MemberSubmissionAddressingConstants;
 import com.sun.xml.ws.api.addressing.AddressingVersion;
 import org.w3c.dom.Element;
 import org.xml.sax.Locator;
 
 import javax.xml.namespace.QName;
 import java.util.Map;
-
-import static com.sun.xml.ws.addressing.v200408.MemberSubmissionAddressingConstants.WSA_ACTION_QNAME;
 
 /**
  * @author Arun Gupta
@@ -62,7 +61,7 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
     public boolean handleInputExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         if (extensionModeOn) {
             warn(context.getLocation(e));
-            String actionValue = XmlUtil.getAttributeNSOrNull(e, WSA_ACTION_QNAME);
+            String actionValue = XmlUtil.getAttributeNSOrNull(e, MemberSubmissionAddressingConstants.WSA_ACTION_QNAME);
             if (actionValue == null || actionValue.equals("")) {
                 return warnEmptyAction(parent, context.getLocation(e));
             }
@@ -90,7 +89,7 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
     public boolean handleOutputExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         if (extensionModeOn) {
             warn(context.getLocation(e));
-            String actionValue = XmlUtil.getAttributeNSOrNull(e, WSA_ACTION_QNAME);
+            String actionValue = XmlUtil.getAttributeNSOrNull(e, MemberSubmissionAddressingConstants.WSA_ACTION_QNAME);
             if (actionValue == null || actionValue.equals("")) {
                 return warnEmptyAction(parent, context.getLocation(e));
             }
@@ -105,7 +104,7 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
     public boolean handleFaultExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         if (extensionModeOn) {
             warn(context.getLocation(e));
-            String actionValue = XmlUtil.getAttributeNSOrNull(e, WSA_ACTION_QNAME);
+            String actionValue = XmlUtil.getAttributeNSOrNull(e, MemberSubmissionAddressingConstants.WSA_ACTION_QNAME);
             if (actionValue == null || actionValue.equals("")) {
                 errReceiver.warning(context.getLocation(e), WsdlMessages.WARNING_FAULT_EMPTY_ACTION(parent.getNameValue(), parent.getWSDLElementName().getLocalPart(), parent.getParent().getNameValue()));
                 return false; // keep compiler happy

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,8 +15,6 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import java.lang.annotation.Annotation;
-
-import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 
 
 /**
@@ -199,27 +197,27 @@ public class XmlWebParam implements jakarta.jws.WebParam {
 
     @Override
     public String name() {
-        return nullSafe(name);
+        return Util.nullSafe(name);
     }
 
     @Override
     public String partName() {
-        return nullSafe(partName);
+        return Util.nullSafe(partName);
     }
 
     @Override
     public String targetNamespace() {
-        return nullSafe(targetNamespace);
+        return Util.nullSafe(targetNamespace);
     }
 
     @Override
     public Mode mode() {
-        return nullSafe(mode, Mode.IN);
+        return Util.nullSafe(mode, Mode.IN);
     }
 
     @Override
     public boolean header() {
-        return nullSafe(header, false);
+        return Util.nullSafe(header, false);
     }
 
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -73,12 +73,12 @@ public class PolicyMapUtil {
             throws PolicyException {
         LOGGER.entering(policyMap, policySubjects, serviceName, portName);
 
-        final HashMap<WsdlBindingSubject, Collection<Policy>> subjectToPolicies = new HashMap<WsdlBindingSubject, Collection<Policy>>();
+        final HashMap<WsdlBindingSubject, Collection<Policy>> subjectToPolicies = new HashMap<>();
         for (PolicySubject subject: policySubjects) {
             final Object actualSubject = subject.getSubject();
             if (actualSubject instanceof WsdlBindingSubject) {
                 final WsdlBindingSubject wsdlSubject = (WsdlBindingSubject) actualSubject;
-                final Collection<Policy> subjectPolicies = new LinkedList<Policy>();
+                final Collection<Policy> subjectPolicies = new LinkedList<>();
                 subjectPolicies.add(subject.getEffectivePolicy(MERGER));
                 final Collection<Policy> existingPolicies = subjectToPolicies.put(wsdlSubject, subjectPolicies);
                 if (existingPolicies != null) {

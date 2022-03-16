@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,8 +47,8 @@ final class PayloadQNameBasedOperationFinder extends WSDLOperationFinder {
     public static final String EMPTY_PAYLOAD_NSURI = "";
     public static final QName EMPTY_PAYLOAD = new QName(EMPTY_PAYLOAD_NSURI, EMPTY_PAYLOAD_LOCAL);
 
-    private final QNameMap<WSDLOperationMapping> methodHandlers = new QNameMap<WSDLOperationMapping>();
-    private final QNameMap<List<String>> unique = new QNameMap<List<String>>();
+    private final QNameMap<WSDLOperationMapping> methodHandlers = new QNameMap<>();
+    private final QNameMap<List<String>> unique = new QNameMap<>();
 
 
     public PayloadQNameBasedOperationFinder(WSDLPort wsdlModel, WSBinding binding, @Nullable SEIModel seiModel) {
@@ -63,7 +63,7 @@ final class PayloadQNameBasedOperationFinder extends WSDLOperationFinder {
                     name = EMPTY_PAYLOAD;
                 List<String> methods = unique.get(name);
                 if (methods == null) {
-                    methods = new ArrayList<String>();
+                    methods = new ArrayList<>();
                     unique.put(name, methods);
                 }
                 methods.add(m.getMethod().getName());

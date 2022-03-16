@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -59,7 +59,7 @@ public final class PolicyMerger {
             return policies.iterator().next();
         }
         
-        final Collection<Collection<AssertionSet>> alternativeSets = new LinkedList<Collection<AssertionSet>>();
+        final Collection<Collection<AssertionSet>> alternativeSets = new LinkedList<>();
         final StringBuilder id = new StringBuilder();
         NamespaceVersion mergedVersion = policies.iterator().next().getNamespaceVersion();
         for (Policy policy : policies) {
@@ -81,7 +81,7 @@ public final class PolicyMerger {
         if (combinedAlternatives == null || combinedAlternatives.isEmpty()) {
             return Policy.createNullPolicy(mergedVersion, null, id.length() == 0 ? null : id.toString());
         } else {
-            final Collection<AssertionSet> mergedSetList = new ArrayList<AssertionSet>(combinedAlternatives.size());
+            final Collection<AssertionSet> mergedSetList = new ArrayList<>(combinedAlternatives.size());
             for (Collection<AssertionSet> toBeMerged : combinedAlternatives) {
                 mergedSetList.add(AssertionSet.createMergedAssertionSet(toBeMerged));
             }

@@ -212,11 +212,11 @@ public class LocalCustomizationFileTransformer {
      */
     private static Map<String, String> buildMap(String dirName, String primaryWsdl)
     throws Exception {
-        Map<String, String> map = new HashMap<String, String>();
-        List<String> schemaIds = new ArrayList<String>();
-        List<String> wsdlIds = new ArrayList<String>();
+        Map<String, String> map = new HashMap<>();
+        List<String> schemaIds = new ArrayList<>();
+        List<String> wsdlIds = new ArrayList<>();
         File dir = new File(dirName);
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         buildDocList(dir, list);
         for(String file : list) {
             // Use this logic for now for identifying wsdl or schema

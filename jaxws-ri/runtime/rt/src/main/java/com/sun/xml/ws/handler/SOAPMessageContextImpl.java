@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -87,7 +87,7 @@ public class SOAPMessageContextImpl extends MessageUpdatableContext implements S
     public Object[] getHeaders(QName header, JAXBContext jaxbContext, boolean allRoles) {
         SOAPVersion soapVersion = binding.getSOAPVersion();
 
-        List<Object> beanList = new ArrayList<Object>();
+        List<Object> beanList = new ArrayList<>();
         try {
             Iterator<Header> itr = packet.getMessage().getHeaders().getHeaders(header,false);
             if(allRoles) {

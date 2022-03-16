@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,7 +62,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         return w;
     }
 
-    private Map<Class<? extends WebServiceFeature>, WebServiceFeature> wsfeatures = new HashMap<Class<? extends WebServiceFeature>, WebServiceFeature>();
+    private Map<Class<? extends WebServiceFeature>, WebServiceFeature> wsfeatures = new HashMap<>();
     private boolean isValidating = false;
 
     public WebServiceFeatureList() {
@@ -101,9 +101,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
             try {
                 FeatureListValidator validator = beanClass.newInstance();
                 validator.validate(this);
-            } catch (InstantiationException e) {
-                throw new WebServiceException(e);
-            } catch (IllegalAccessException e) {
+            } catch (InstantiationException | IllegalAccessException e) {
                 throw new WebServiceException(e);
             }
         }
@@ -279,9 +277,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         } catch (final NoSuchMethodException e) {
             LOGGER.log(Level.INFO, "Unable to find builder method on webservice feature: " + beanClass.getName(), e);
             return null;
-        } catch (final IllegalAccessException e) {
-            throw new WebServiceException(e);
-        } catch (final InvocationTargetException e) {
+        } catch (final IllegalAccessException | InvocationTargetException e) {
             throw new WebServiceException(e);
         }
     }
@@ -460,9 +456,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
                         boolean required = (Boolean) m.invoke(wsdlFtr);
                         if (required)
                             add(wsdlFtr);
-                    } catch (IllegalAccessException e) {
-                        throw new WebServiceException(e);
-                    } catch (InvocationTargetException e) {
+                    } catch (IllegalAccessException | InvocationTargetException e) {
                         throw new WebServiceException(e);
                     }
                 } catch (NoSuchMethodException e) {
@@ -500,7 +494,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
      * A Union of this WebServiceFeatureList and the parent.
      */
     private final class MergedFeatures implements Iterator<WebServiceFeature> {
-        private final Stack<WebServiceFeature> features = new Stack<WebServiceFeature>();
+        private final Stack<WebServiceFeature> features = new Stack<>();
 
         public MergedFeatures(@NotNull WSFeatureList parent) {
 

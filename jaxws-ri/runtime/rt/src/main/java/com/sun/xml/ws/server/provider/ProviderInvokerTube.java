@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,7 +38,7 @@ public abstract class ProviderInvokerTube<T> extends InvokerTube<Provider<T>> {
     public static <T> ProviderInvokerTube<T>
     create(final Class<T> implType, final WSBinding binding, final Invoker invoker, final Container container) {
 
-        final ProviderEndpointModel<T> model = new ProviderEndpointModel<T>(implType, binding);
+        final ProviderEndpointModel<T> model = new ProviderEndpointModel<>(implType, binding);
         final ProviderArgumentsBuilder<?> argsBuilder = ProviderArgumentsBuilder.create(model, binding);
         if (binding instanceof SOAPBindingImpl) {
             //set portKnownHeaders on Binding, so that they can be used for MU processing

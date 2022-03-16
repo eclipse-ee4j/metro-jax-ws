@@ -61,15 +61,15 @@ import java.util.ServiceLoader;
  * @since 2.2.6
  */
 public final class JwsImplGenerator extends GeneratorBase {
-	private static final Map<String, String> TRANSLATION_MAP = new HashMap<String, String>(
-      1);
+	private static final Map<String, String> TRANSLATION_MAP = new HashMap<>(
+			1);
 	static
   {
     TRANSLATION_MAP.put(SOAPConstants.URI_SOAP_TRANSPORT_HTTP,
     		jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING);
   }
 	// save the generated impl files' info
-	private final List<String> implFiles = new ArrayList<String>();
+	private final List<String> implFiles = new ArrayList<>();
 
 	public static List<String> generate(Model model, WsimportOptions options,
 	    ErrorReceiver receiver) {
@@ -220,9 +220,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 				comment.add("\n\n");
 			}
 
-			for (String doc : getJAXWSClassComment()) {
-				comment.add(doc);
-			}
+			comment.addAll(getJAXWSClassComment());
 
 			// @WebService
 			JAnnotationUse webServiceAnn = cls.annotate(cm.ref(WebService.class));
@@ -504,7 +502,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 		}
 
 		public static List<ImplFile> toImplFiles(List<String> qualifiedClassNames) {
-			List<ImplFile> ret = new ArrayList<ImplFile>();
+			List<ImplFile> ret = new ArrayList<>();
 
 			for (String qualifiedClassName : qualifiedClassNames)
 				ret.add(new ImplFile(qualifiedClassName));

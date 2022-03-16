@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,7 +40,7 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
     private EditableWSDLPortType portType;
     private BindingID bindingId;
     private final @NotNull EditableWSDLModel owner;
-    private final QNameMap<EditableWSDLBoundOperation> bindingOperations = new QNameMap<EditableWSDLBoundOperation>();
+    private final QNameMap<EditableWSDLBoundOperation> bindingOperations = new QNameMap<>();
 
     /**
      * Operations keyed by the payload tag name.
@@ -173,12 +173,12 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
 
     private void freezePayloadMap() {
         if(style== Style.RPC) {
-            payloadMap = new QNameMap<EditableWSDLBoundOperation>();
+            payloadMap = new QNameMap<>();
             for(EditableWSDLBoundOperation op : bindingOperations.values()){
                 payloadMap.put(op.getRequestPayloadName(), op);
             }
         } else {
-            payloadMap = new QNameMap<EditableWSDLBoundOperation>();
+            payloadMap = new QNameMap<>();
             // For doclit The tag will be the operation that has the same input part descriptor value
             for(EditableWSDLBoundOperation op : bindingOperations.values()){
                 QName name = op.getRequestPayloadName();

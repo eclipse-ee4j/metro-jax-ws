@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,6 @@
 
 package com.sun.tools.ws.processor.model;
 
-import com.sun.tools.ws.wsdl.framework.Entity;
 import com.sun.tools.ws.wscompile.ErrorReceiver;
 import com.sun.tools.ws.wscompile.AbortException;
 import com.sun.tools.ws.resources.ModelMessages;
@@ -203,17 +202,17 @@ public abstract class Message extends ModelObject {
     }
 
     public Set<Block> getAllBlocks(){
-        Set<Block> blocks = new HashSet<Block>();
+        Set<Block> blocks = new HashSet<>();
         blocks.addAll(_bodyBlocks.values());
         blocks.addAll(_headerBlocks.values());
         blocks.addAll(_attachmentBlocks.values());
         return blocks;
     }
 
-    private Map<QName, Block> _attachmentBlocks = new HashMap<QName, Block>();
-    private Map<QName, Block> _bodyBlocks = new HashMap<QName, Block>();
-    private Map<QName, Block> _headerBlocks = new HashMap<QName, Block>();
-    private Map<QName, Block> _unboundBlocks = new HashMap<QName, Block>();
-    private List<Parameter> _parameters = new ArrayList<Parameter>();
-    private Map<String, Parameter> _parametersByName = new HashMap<String, Parameter>();
+    private Map<QName, Block> _attachmentBlocks = new HashMap<>();
+    private Map<QName, Block> _bodyBlocks = new HashMap<>();
+    private Map<QName, Block> _headerBlocks = new HashMap<>();
+    private Map<QName, Block> _unboundBlocks = new HashMap<>();
+    private List<Parameter> _parameters = new ArrayList<>();
+    private Map<String, Parameter> _parametersByName = new HashMap<>();
 }

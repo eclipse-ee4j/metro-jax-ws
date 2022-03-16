@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -83,9 +83,9 @@ final public class TieHandler implements EndpointCallBridge {
         this.method = method.getMethod();
         this.javaMethodModel = method;
         argumentsBuilder = createArgumentsBuilder();
-        List<MessageFiller> fillers = new ArrayList<MessageFiller>();
+        List<MessageFiller> fillers = new ArrayList<>();
         bodyBuilder = createResponseMessageBuilder(fillers);
-        this.outFillers = fillers.toArray(new MessageFiller[fillers.size()]);
+        this.outFillers = fillers.toArray(new MessageFiller[0]);
         this.isOneWay = method.getMEP().isOneWay();
         this.noOfArgs = this.method.getParameterTypes().length;
         packetFactory = mcf;
@@ -100,7 +100,7 @@ final public class TieHandler implements EndpointCallBridge {
     private EndpointArgumentsBuilder createArgumentsBuilder() {
         EndpointArgumentsBuilder argsBuilder;
         List<ParameterImpl> rp = javaMethodModel.getRequestParameters();
-        List<EndpointArgumentsBuilder> builders = new ArrayList<EndpointArgumentsBuilder>();
+        List<EndpointArgumentsBuilder> builders = new ArrayList<>();
 
         for( ParameterImpl param : rp ) {
             EndpointValueSetter setter = EndpointValueSetter.get(param);
@@ -219,9 +219,7 @@ final public class TieHandler implements EndpointCallBridge {
         Object[] args = new Object[noOfArgs];
         try {
             argumentsBuilder.readRequest(reqMsg,args);
-        } catch (JAXBException e) {
-            throw new WebServiceException(e);
-        } catch (XMLStreamException e) {
+        } catch (JAXBException | XMLStreamException e) {
             throw new WebServiceException(e);
         }
         return args;

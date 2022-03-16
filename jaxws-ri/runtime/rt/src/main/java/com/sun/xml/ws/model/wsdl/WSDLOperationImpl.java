@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,8 +46,8 @@ public final class WSDLOperationImpl extends AbstractExtensibleImpl implements E
     public WSDLOperationImpl(XMLStreamReader xsr, EditableWSDLPortType owner, QName name) {
         super(xsr);
         this.name = name;
-        this.faults = new ArrayList<EditableWSDLFault>();
-        this.faultMap = new QNameMap<EditableWSDLFault>();
+        this.faults = new ArrayList<>();
+        this.faultMap = new QNameMap<>();
         this.owner = owner;
     }
 

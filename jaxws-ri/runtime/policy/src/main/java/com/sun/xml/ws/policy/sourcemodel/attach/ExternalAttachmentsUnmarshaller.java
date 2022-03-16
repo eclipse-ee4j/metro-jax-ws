@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,7 +68,7 @@ public class ExternalAttachmentsUnmarshaller {
     private static final QName POLICY = new QName("http://www.w3.org/ns/ws-policy", "Policy");
     private static final QName URI = new QName("http://www.w3.org/ns/ws-policy", "URI");
     private static final QName POLICIES = new QName(PolicyConstants.SUN_MANAGEMENT_NAMESPACE, "Policies");
-    private static final ContextClassloaderLocal<XMLInputFactory> XML_INPUT_FACTORY = new ContextClassloaderLocal<XMLInputFactory>() {
+    private static final ContextClassloaderLocal<XMLInputFactory> XML_INPUT_FACTORY = new ContextClassloaderLocal<>() {
         @Override
         protected XMLInputFactory initialValue() throws Exception {
             return XMLInputFactory.newInstance();
@@ -77,7 +77,7 @@ public class ExternalAttachmentsUnmarshaller {
 
     private static final PolicyModelUnmarshaller POLICY_UNMARSHALLER = PolicyModelUnmarshaller.getXmlUnmarshaller();
 
-    private final Map<URI, Policy> map = new HashMap<URI, Policy>();
+    private final Map<URI, Policy> map = new HashMap<>();
     private URI currentUri = null;
     private Policy currentPolicy = null;
 

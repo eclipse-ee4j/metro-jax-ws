@@ -95,14 +95,14 @@ public interface WSDLModel extends WSDLExtensible {
     /**
      * Returns the first service QName from insertion order
      */
-    public QName getFirstServiceName();
+    QName getFirstServiceName();
     
     /**
      * Returns the message with the given QName
      * @param name Message name
      * @return Message
      */
-    public WSDLMessage getMessage(QName name);
+    WSDLMessage getMessage(QName name);
     
     /**
      * Gives a {@link Map} of wsdl:message qualified name and {@link com.sun.xml.ws.api.model.wsdl.WSDLMessage}
@@ -119,12 +119,12 @@ public interface WSDLModel extends WSDLExtensible {
      * @deprecated
      * Do not use this method as the PolicyMap API is not final yet and might change in next few months.
      */
-    public PolicyMap getPolicyMap();
+    PolicyMap getPolicyMap();
 
     /**
      * Main purpose of this class is to  parsing of a WSDL and get the {@link WSDLModel} from it.
      */
-    public class WSDLParser{
+    class WSDLParser{
        /**
          * Parses WSDL from the given wsdlLoc and gives a {@link WSDLModel} built from it.
          *

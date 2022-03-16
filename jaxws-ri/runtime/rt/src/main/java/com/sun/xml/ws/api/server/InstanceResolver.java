@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -131,7 +131,7 @@ public abstract class InstanceResolver<T> {
         assert singleton!=null;
         InstanceResolver ir = createFromInstanceResolverAnnotation(singleton.getClass());
         if(ir==null)
-            ir = new SingletonResolver<T>(singleton);
+            ir = new SingletonResolver<>(singleton);
         return ir;
     }
 
@@ -151,7 +151,7 @@ public abstract class InstanceResolver<T> {
     public static <T> InstanceResolver<T> createDefault(@NotNull Class<T> clazz) {
         InstanceResolver<T> ir = createFromInstanceResolverAnnotation(clazz);
         if(ir==null)
-            ir = new SingletonResolver<T>(createNewInstance(clazz));
+            ir = new SingletonResolver<>(createNewInstance(clazz));
         return ir;
     }
 
@@ -234,7 +234,7 @@ public abstract class InstanceResolver<T> {
             }
 
             public String toString() {
-                return "Default Invoker over "+InstanceResolver.this.toString();
+                return "Default Invoker over "+ InstanceResolver.this;
             }
         };
     }

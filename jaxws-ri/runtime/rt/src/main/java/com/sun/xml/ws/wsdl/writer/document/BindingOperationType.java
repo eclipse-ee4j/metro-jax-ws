@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,21 +25,21 @@ public interface BindingOperationType
 
 
     @XmlAttribute
-    public com.sun.xml.ws.wsdl.writer.document.BindingOperationType name(String value);
+    com.sun.xml.ws.wsdl.writer.document.BindingOperationType name(String value);
 
     @XmlElement(value="operation",ns="http://schemas.xmlsoap.org/wsdl/soap/")
-    public SOAPOperation soapOperation();
+    SOAPOperation soapOperation();
 
     @XmlElement(value="operation",ns="http://schemas.xmlsoap.org/wsdl/soap12/")
-    public com.sun.xml.ws.wsdl.writer.document.soap12.SOAPOperation soap12Operation();
+    com.sun.xml.ws.wsdl.writer.document.soap12.SOAPOperation soap12Operation();
 
     @XmlElement
-    public Fault fault();
+    Fault fault();
 
     @XmlElement
-    public StartWithExtensionsType output();
+    StartWithExtensionsType output();
 
     @XmlElement
-    public StartWithExtensionsType input();
+    StartWithExtensionsType input();
 
 }

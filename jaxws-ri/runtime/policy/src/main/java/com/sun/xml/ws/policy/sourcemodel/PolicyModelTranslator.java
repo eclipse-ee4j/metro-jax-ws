@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,8 +41,8 @@ import java.util.ServiceLoader;
 public class PolicyModelTranslator {
     
     private static final class ContentDecomposition {
-        final List<Collection<ModelNode>> exactlyOneContents = new LinkedList<Collection<ModelNode>>();
-        final List<ModelNode> assertions = new LinkedList<ModelNode>();
+        final List<Collection<ModelNode>> exactlyOneContents = new LinkedList<>();
+        final List<ModelNode> assertions = new LinkedList<>();
         
         void reset() {
             exactlyOneContents.clear();
@@ -64,13 +64,13 @@ public class PolicyModelTranslator {
     private static final class RawAlternative {
         private static final PolicyLogger LOGGER = PolicyLogger.getLogger(PolicyModelTranslator.RawAlternative.class);
         
-        final List<RawPolicy> allNestedPolicies = new LinkedList<RawPolicy>(); // used to track the nested policies which need to be normalized
+        final List<RawPolicy> allNestedPolicies = new LinkedList<>(); // used to track the nested policies which need to be normalized
         final Collection<RawAssertion> nestedAssertions;
         
         RawAlternative(Collection<ModelNode> assertionNodes) throws PolicyException {
-            this.nestedAssertions = new LinkedList<RawAssertion>();
+            this.nestedAssertions = new LinkedList<>();
             for (ModelNode node : assertionNodes) {
-                RawAssertion assertion = new RawAssertion(node, new LinkedList<ModelNode>());
+                RawAssertion assertion = new RawAssertion(node, new LinkedList<>());
                 nestedAssertions.add(assertion);
                 
                 for (ModelNode assertionNodeChild : assertion.originalNode.getChildren()) {
@@ -81,7 +81,7 @@ public class PolicyModelTranslator {
                         case POLICY:
                         case POLICY_REFERENCE:
                             if (assertion.nestedAlternatives == null) {
-                                assertion.nestedAlternatives = new LinkedList<RawAlternative>();
+                                assertion.nestedAlternatives = new LinkedList<>();
                                 RawPolicy nestedPolicy;
                                 if (assertionNodeChild.getType() == ModelNode.Type.POLICY) {
                                     nestedPolicy = new RawPolicy(assertionNodeChild, assertion.nestedAlternatives);
@@ -126,17 +126,15 @@ public class PolicyModelTranslator {
     protected PolicyModelTranslator(final Collection<PolicyAssertionCreator> creators) throws PolicyException {
         LOGGER.entering(creators);
 
-        final Collection<PolicyAssertionCreator> allCreators = new LinkedList<PolicyAssertionCreator>();
+        final Collection<PolicyAssertionCreator> allCreators = new LinkedList<>();
         for (PolicyAssertionCreator creator : ServiceLoader.load(PolicyAssertionCreator.class)) {
             allCreators.add(creator);
         }
         if (creators != null) {
-            for (PolicyAssertionCreator creator : creators) {
-                allCreators.add(creator);
-            }
+            allCreators.addAll(creators);
         }
 
-        final Map<String, PolicyAssertionCreator> pacMap = new HashMap<String, PolicyAssertionCreator>();
+        final Map<String, PolicyAssertionCreator> pacMap = new HashMap<>();
         for (PolicyAssertionCreator creator : allCreators) {
             final String[] supportedURIs = creator.getSupportedDomainNamespaceURIs();
             final String creatorClassName = creator.getClass().getName();
@@ -233,10 +231,10 @@ public class PolicyModelTranslator {
         final ContentDecomposition decomposition = new ContentDecomposition();
         
         // creating processing queue and starting the processing iterations
-        final Queue<RawPolicy> policyQueue = new LinkedList<RawPolicy>();
-        final Queue<Collection<ModelNode>> contentQueue = new LinkedList<Collection<ModelNode>>();
+        final Queue<RawPolicy> policyQueue = new LinkedList<>();
+        final Queue<Collection<ModelNode>> contentQueue = new LinkedList<>();
         
-        final RawPolicy rootPolicy = new RawPolicy(model.getRootNode(), new LinkedList<RawAlternative>());
+        final RawPolicy rootPolicy = new RawPolicy(model.getRootNode(), new LinkedList<>());
         RawPolicy processedPolicy = rootPolicy;
         do {
             Collection<ModelNode> processedContent = processedPolicy.originalContent;
@@ -259,7 +257,7 @@ public class PolicyModelTranslator {
         } while ((processedPolicy = policyQueue.poll()) != null);
         
         // normalize nested policies to contain single alternative only
-        final Collection<AssertionSet> assertionSets = new LinkedList<AssertionSet>();
+        final Collection<AssertionSet> assertionSets = new LinkedList<>();
         for (RawAlternative rootAlternative : rootPolicy.alternatives) {
             final Collection<AssertionSet> normalizedAlternatives = normalizeRawAlternative(rootAlternative);
             assertionSets.addAll(normalizedAlternatives);
@@ -279,7 +277,7 @@ public class PolicyModelTranslator {
     private void decompose(final Collection<ModelNode> content, final ContentDecomposition decomposition) throws PolicyException {
         decomposition.reset();
         
-        final Queue<ModelNode> allContentQueue = new LinkedList<ModelNode>(content);
+        final Queue<ModelNode> allContentQueue = new LinkedList<>(content);
         ModelNode node;
         while ((node = allContentQueue.poll()) != null) {
             // dissolving direct 'POLICY', 'POLICY_REFERENCE' and 'ALL' child nodes
@@ -321,9 +319,9 @@ public class PolicyModelTranslator {
      * Expands content of 'EXACTLY_ONE' node. Direct 'EXACTLY_ONE' child nodes are dissolved in the process.
      */
     private Collection<ModelNode> expandsExactlyOneContent(final Collection<ModelNode> content) throws PolicyException {
-        final Collection<ModelNode> result = new LinkedList<ModelNode>();
+        final Collection<ModelNode> result = new LinkedList<>();
         
-        final Queue<ModelNode> eoContentQueue = new LinkedList<ModelNode>(content);
+        final Queue<ModelNode> eoContentQueue = new LinkedList<>(content);
         ModelNode node;
         while ((node = eoContentQueue.poll()) != null) {
             // dissolving direct 'EXACTLY_ONE' child nodes
@@ -347,11 +345,11 @@ public class PolicyModelTranslator {
         return result;
     }
     
-    private List<AssertionSet> normalizeRawAlternative(final RawAlternative alternative) throws AssertionCreationException, PolicyException {
-        final List<PolicyAssertion> normalizedContentBase = new LinkedList<PolicyAssertion>();
-        final Collection<List<PolicyAssertion>> normalizedContentOptions = new LinkedList<List<PolicyAssertion>>();
+    private List<AssertionSet> normalizeRawAlternative(final RawAlternative alternative) throws PolicyException {
+        final List<PolicyAssertion> normalizedContentBase = new LinkedList<>();
+        final Collection<List<PolicyAssertion>> normalizedContentOptions = new LinkedList<>();
         if (!alternative.nestedAssertions.isEmpty()) {
-            final Queue<RawAssertion> nestedAssertionsQueue = new LinkedList<RawAssertion>(alternative.nestedAssertions);
+            final Queue<RawAssertion> nestedAssertionsQueue = new LinkedList<>(alternative.nestedAssertions);
             RawAssertion rawAssertion;
             while((rawAssertion = nestedAssertionsQueue.poll()) != null) {
                 final List<PolicyAssertion> normalized = normalizeRawAssertion(rawAssertion);
@@ -365,7 +363,7 @@ public class PolicyModelTranslator {
             }
         }
         
-        final List<AssertionSet> options = new LinkedList<AssertionSet>();
+        final List<AssertionSet> options = new LinkedList<>();
         if (normalizedContentOptions.isEmpty()) {
             // we do not have any options to combine => returning this assertion
             options.add(AssertionSet.createAssertionSet(normalizedContentBase));
@@ -379,20 +377,20 @@ public class PolicyModelTranslator {
         return options;
     }
     
-    private List<PolicyAssertion> normalizeRawAssertion(final RawAssertion assertion) throws AssertionCreationException, PolicyException {
+    private List<PolicyAssertion> normalizeRawAssertion(final RawAssertion assertion) throws PolicyException {
         List<PolicyAssertion> parameters;
         if (assertion.parameters.isEmpty()) {
             parameters = null;
         } else {
-            parameters = new ArrayList<PolicyAssertion>(assertion.parameters.size());
+            parameters = new ArrayList<>(assertion.parameters.size());
             for (ModelNode parameterNode : assertion.parameters) {
                 parameters.add(createPolicyAssertionParameter(parameterNode));
             }
         }
         
-        final List<AssertionSet> nestedAlternatives = new LinkedList<AssertionSet>();
+        final List<AssertionSet> nestedAlternatives = new LinkedList<>();
         if (assertion.nestedAlternatives != null && !assertion.nestedAlternatives.isEmpty()) {
-            final Queue<RawAlternative> nestedAlternativeQueue = new LinkedList<RawAlternative>(assertion.nestedAlternatives);
+            final Queue<RawAlternative> nestedAlternativeQueue = new LinkedList<>(assertion.nestedAlternatives);
             RawAlternative rawAlternative;
             while((rawAlternative = nestedAlternativeQueue.poll()) != null) {
                 nestedAlternatives.addAll(normalizeRawAlternative(rawAlternative));
@@ -401,7 +399,7 @@ public class PolicyModelTranslator {
             // more elements in the result indicate that we will have to create combinations
         }
         
-        final List<PolicyAssertion> assertionOptions = new LinkedList<PolicyAssertion>();
+        final List<PolicyAssertion> assertionOptions = new LinkedList<>();
         final boolean nestedAlternativesAvailable = !nestedAlternatives.isEmpty();
         if (nestedAlternativesAvailable) {
             for (AssertionSet nestedAlternative : nestedAlternatives) {
@@ -413,14 +411,14 @@ public class PolicyModelTranslator {
         return assertionOptions;
     }
     
-    private PolicyAssertion createPolicyAssertionParameter(final ModelNode parameterNode) throws AssertionCreationException, PolicyException {
+    private PolicyAssertion createPolicyAssertionParameter(final ModelNode parameterNode) throws PolicyException {
         if (parameterNode.getType() != ModelNode.Type.ASSERTION_PARAMETER_NODE) {
             throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0065_INCONSISTENCY_IN_POLICY_SOURCE_MODEL(parameterNode.getType())));
         }
         
         List<PolicyAssertion> childParameters = null;
         if (parameterNode.hasChildren()) {
-            childParameters = new ArrayList<PolicyAssertion>(parameterNode.childrenSize());
+            childParameters = new ArrayList<>(parameterNode.childrenSize());
             for (ModelNode childParameterNode : parameterNode) {
                 childParameters.add(createPolicyAssertionParameter(childParameterNode));
             }

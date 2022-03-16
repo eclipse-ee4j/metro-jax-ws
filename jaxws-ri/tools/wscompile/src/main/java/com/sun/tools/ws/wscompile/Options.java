@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,8 +20,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -185,7 +183,7 @@ public class Options {
     public boolean debugMode = false;
 
 
-    private final List<File> generatedFiles = new ArrayList<File>();
+    private final List<File> generatedFiles = new ArrayList<>();
     private ClassLoader classLoader;
 
 
@@ -364,7 +362,7 @@ public class Options {
             return 1;
         } else if (args[i].startsWith("-J")) {
             if (javacOptions == null) {
-                javacOptions = new ArrayList<String>();
+                javacOptions = new ArrayList<>();
             }
             javacOptions.add(args[i].substring(2));
             return 1;
@@ -396,7 +394,7 @@ public class Options {
     }
 
     public List<String> getJavacOptions(List<String> existingOptions, WsimportListener listener) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         for (String o: javacOptions) {
             if (o.contains("=") && !o.startsWith("A")) {
                 int i = o.indexOf('=');

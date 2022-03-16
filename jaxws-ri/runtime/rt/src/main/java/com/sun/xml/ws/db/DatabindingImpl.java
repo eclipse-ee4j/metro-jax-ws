@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -56,8 +56,8 @@ public final class DatabindingImpl implements Databinding {
     AbstractSEIModelImpl seiModel;
     Map<Method, StubHandler> stubHandlers;
 //    QNameMap<TieHandler> wsdlOpMap = new QNameMap<TieHandler>();
-    Map<JavaMethodImpl, TieHandler> wsdlOpMap = new HashMap<JavaMethodImpl, TieHandler>();
-    Map<Method, TieHandler> tieHandlers = new HashMap<Method, TieHandler>();
+    Map<JavaMethodImpl, TieHandler> wsdlOpMap = new HashMap<>();
+    Map<Method, TieHandler> tieHandlers = new HashMap<>();
     OperationDispatcher operationDispatcher;
     OperationDispatcher operationDispatcherNoWsdl;
     boolean clientConfig = false;
@@ -70,7 +70,7 @@ public final class DatabindingImpl implements Databinding {
         seiModel = modeler.buildRuntimeModel();
         WSDLPort wsdlport = config.getWsdlPort();
         Object facProp = config.properties().get("com.sun.xml.ws.api.message.MessageContextFactory");
-        packetFactory = (facProp != null && facProp instanceof MessageContextFactory)? (MessageContextFactory)facProp : 
+        packetFactory = (facProp instanceof MessageContextFactory)? (MessageContextFactory)facProp :
                         new MessageContextFactory(seiModel.getWSBinding().getFeatures());
         clientConfig = isClientConfig(config);
 	if (clientConfig) {
@@ -123,8 +123,8 @@ public final class DatabindingImpl implements Databinding {
 //Refactored from SEIStub
 
     private void initStubHandlers() {
-        stubHandlers = new HashMap<Method, StubHandler>();
-        Map<ActionBasedOperationSignature, JavaMethodImpl> syncs = new HashMap<ActionBasedOperationSignature, JavaMethodImpl>();
+        stubHandlers = new HashMap<>();
+        Map<ActionBasedOperationSignature, JavaMethodImpl> syncs = new HashMap<>();
         // fill in methodHandlers.
         // first fill in sychronized versions
         for (JavaMethodImpl m : seiModel.getJavaMethods()) {
@@ -260,7 +260,7 @@ public final class DatabindingImpl implements Databinding {
     @Override
     public com.oracle.webservices.api.databinding.JavaCallInfo deserializeResponse(
             MessageContext message, com.oracle.webservices.api.databinding.JavaCallInfo call) {
-        return deserializeResponse((Packet) message, (JavaCallInfo) call);
+        return deserializeResponse((Packet) message, call);
     }
 
     @Override

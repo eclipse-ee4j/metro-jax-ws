@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,7 +61,7 @@ public class JaxwsHttpServer {
         webappsDir = new File(j2seServerDir+sepChar+"webapps");
         classesDir = new File(webappsDir, "classes");
         System.out.println("webapps dir="+webappsDir.getAbsolutePath());
-        deployedWARs = new HashMap<String, WarInfo>();
+        deployedWARs = new HashMap<>();
         start();
     }
     
@@ -190,10 +190,10 @@ public class JaxwsHttpServer {
         ClassLoader urlc = new URLClassLoader(new URL[] { url }, 
                     this.getClass().getClassLoader());
          */
-        DeploymentDescriptorParser<Adapter> parser = new DeploymentDescriptorParser<Adapter>(
+        DeploymentDescriptorParser<Adapter> parser = new DeploymentDescriptorParser<>(
                 this.getClass().getClassLoader(), new FileSystemResourceLoader(warDirFile), null,
                 new AdapterList()
-            );
+        );
         return parser.parse(ddFile);
     }
     
