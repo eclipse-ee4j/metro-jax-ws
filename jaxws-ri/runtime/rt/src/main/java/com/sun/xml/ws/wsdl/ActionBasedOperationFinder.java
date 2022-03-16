@@ -104,19 +104,6 @@ final class ActionBasedOperationFinder extends WSDLOperationFinder {
         }
     }
 
-//    /**
-//     *
-//     * @param request  Request Packet that is used to find the associated WSDLOperation
-//     * @return WSDL operation Qname.
-//     *         return null if WS-Addressing is not engaged. 
-//     * @throws DispatchException with WSA defined fault message when it cannot find an associated WSDL operation.
-//     *
-//     */
-//    @Override
-//    public QName getWSDLOperationQName(Packet request) throws DispatchException {
-//        return getWSDLOperationMapping(request).getWSDLBoundOperation().getName();
-//    }
-
     public WSDLOperationMapping getWSDLOperationMapping(Packet request) throws DispatchException {
         MessageHeaders hl = request.getMessage().getHeaders();
         String action = AddressingUtils.getAction(hl, av, binding.getSOAPVersion());

@@ -45,7 +45,7 @@ import javax.xml.transform.sax.SAXResult;
     Source domSource = new DOMSource(doc);
 
     // create a StAXResult
-    XMLStreamWriter writer = XMLOutputFactory.newInstance().createXMLStreamWriter(System.out);
+    XMLStreamWriter writer = XMLOutputFactory.newInstance().create(System.out);
     Result staxResult = new StAXResult(writer);
 
     // run the transform

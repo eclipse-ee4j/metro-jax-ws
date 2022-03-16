@@ -99,13 +99,11 @@ final class PayloadQNameBasedOperationFinder extends WSDLOperationFinder {
     /**
      *
      * @return not null if it finds a unique handler for the request
-     *         null if it cannot idenitify a unique wsdl operation from the Payload QName.
+     *         null if it cannot identify a unique wsdl operation from the Payload QName.
      *  
      * @throws DispatchException if the payload itself is incorrect, this happens when the payload is not accepted by
      *          any operation in the port.
      */
-//  public QName getWSDLOperationQName(Packet request) throws DispatchException{
-
     public WSDLOperationMapping getWSDLOperationMapping(Packet request) throws DispatchException {
         Message message = request.getMessage();
         String localPart = message.getPayloadLocalPart();

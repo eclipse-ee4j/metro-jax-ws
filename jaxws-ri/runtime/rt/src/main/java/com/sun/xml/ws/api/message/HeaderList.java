@@ -114,15 +114,6 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     private BitSet moreUnderstoodBits = null;
 
     private SOAPVersion soapVersion;
-    
-    /**
-     * This method is deprecated - instead use this one: 
-     * public HeaderList(SOAPVersion)
-     * Creates an empty {@link HeaderList}.
-     */
-    @Deprecated
-    public HeaderList() {
-    }
 
     /**
      * Creates an empty {@link HeaderList} with the given soap version
@@ -285,14 +276,6 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     }
 
     /**
-     * @deprecated
-     *      Use {@link #get(String, String, boolean)}
-     */
-    public Header get(String nsUri, String localName) {
-        return get(nsUri, localName, true);
-    }
-
-    /**
      * Gets the first {@link Header} of the specified name.
      *
      * @param markAsUnderstood
@@ -304,24 +287,6 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     @Override
     public @Nullable Header get(@NotNull QName name, boolean markAsUnderstood) {
         return get(name.getNamespaceURI(), name.getLocalPart(), markAsUnderstood);
-    }
-
-    /**
-     * @deprecated
-     *      Use {@link #get(QName, boolean)}
-     */
-    @Deprecated
-    public @Nullable Header get(@NotNull QName name) {
-        return get(name, true);
-    }
-
-    /**
-     * @deprecated
-     *      Use {@link #getHeaders(String, String, boolean)}
-     */
-    @Deprecated
-    public Iterator<Header> getHeaders(final String nsUri, final String localName) {
-        return getHeaders(nsUri, localName, true);
     }
 
     /**
@@ -393,16 +358,6 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     @Override
     Iterator<Header> getHeaders(@NotNull QName headerName, final boolean markAsUnderstood) {
         return getHeaders(headerName.getNamespaceURI(), headerName.getLocalPart(), markAsUnderstood);
-    }
-
-    /**
-     * @deprecated
-     *      use {@link #getHeaders(String, boolean)}.
-     */
-    public
-    @NotNull
-    Iterator<Header> getHeaders(@NotNull final String nsUri) {
-        return getHeaders(nsUri, true);
     }
 
     /**

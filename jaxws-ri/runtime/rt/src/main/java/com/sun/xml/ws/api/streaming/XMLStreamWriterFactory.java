@@ -186,30 +186,6 @@ public abstract class XMLStreamWriterFactory {
     }
 
     /**
-     * @deprecated
-     *      Use {@link #create(OutputStream)}
-     */
-    public static XMLStreamWriter createXMLStreamWriter(OutputStream out) {
-        return create(out);
-    }
-
-    /**
-     * @deprecated
-     *      Use {@link #create(OutputStream, String)}
-     */
-    public static XMLStreamWriter createXMLStreamWriter(OutputStream out, String encoding) {
-        return create(out, encoding);
-    }
-
-    /**
-     * @deprecated
-     *      Use {@link #create(OutputStream, String)}. The boolean flag was unused anyway.
-     */
-    public static XMLStreamWriter createXMLStreamWriter(OutputStream out, String encoding, boolean declare) {
-        return create(out,encoding);
-    }
-
-    /**
      * Default {@link XMLStreamWriterFactory} implementation
      * that can work with any {@link XMLOutputFactory}.
      *

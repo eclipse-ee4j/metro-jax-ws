@@ -43,23 +43,16 @@ public abstract class WSDLOperationFinder {
     }
 
     /**
-     * This methods returns the QName of the WSDL operation correponding to a request Packet.
+     * This methods returns the QName of the WSDL operation corresponding to a request Packet.
      * An implementation should return null when it cannot dispatch to a unique method based on the information it processes.
      * In such case, other OperationFinders are queried to resolve a WSDL operation.
      * It should throw an instance of DispatchException if it finds incorrect information in the packet.
-     * 
-     * @deprecated use getWSDLOperationMapping(Packet request)
      *
      * @param request  Request Packet that is used to find the associated WSDLOperation
      * @return QName of the WSDL Operation that this request correponds to.
      *          null when it cannot find a unique operation to dispatch to.
      * @throws DispatchException When the information in the Packet is invalid
      */
-    public QName getWSDLOperationQName(Packet request) throws DispatchException {
-        WSDLOperationMapping m = getWSDLOperationMapping(request);
-        return m != null ? m.getOperationName() : null;
-    }
-    
     public WSDLOperationMapping getWSDLOperationMapping(Packet request) throws DispatchException {
         return null;
     }

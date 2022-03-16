@@ -102,20 +102,6 @@ public enum SOAPVersion {
      */
     public final QName faultCodeMustUnderstand;
 
-    /**
-     * SAAJ {@link MessageFactory} for this SOAP version.
-     * @deprecated
-     */
-    @Deprecated
-    public transient final MessageFactory saajMessageFactory;
-
-    /**
-     * SAAJ {@link SOAPFactory} for this SOAP version.
-     * @deprecated
-     */
-    @Deprecated
-    public transient  final SOAPFactory saajSoapFactory;
-
     private final String saajFactoryString;
     
     /**
@@ -158,17 +144,6 @@ public enum SOAPVersion {
         this.implicitRoleSet = Collections.singleton(implicitRole);
         this.roleAttributeName = roleAttributeName;
         this.saajFactoryString = saajFactoryString;
-        try {
-            saajMessageFactory = MessageFactory.newInstance(saajFactoryString);
-            saajSoapFactory = SOAPFactory.newInstance(saajFactoryString);
-        } catch (SOAPException e) {
-            throw new Error(e);
-        } catch (NoSuchMethodError e) {
-            // SAAJ 1.3 is not in the classpath
-            LinkageError x = new LinkageError("You are loading old SAAJ from "+ Which.which(MessageFactory.class));
-            x.initCause(e);
-            throw x;
-        }
         this.faultCodeMustUnderstand = faultCodeMustUnderstand;
         this.requiredRoles = requiredRoles;
         this.faultCodeClient = new QName(nsUri,faultCodeClientLocalName);

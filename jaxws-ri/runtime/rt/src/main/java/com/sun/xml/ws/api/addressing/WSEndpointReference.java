@@ -917,20 +917,6 @@ public final class WSEndpointReference  implements WSDLExtension {
 
     /**
      * Copies all the reference parameters in this EPR as headers
-     * to the given {@link HeaderList}.
-     * @deprecated - use addReferenceParametersToList(MessageHeaders)
-     */
-    @SuppressWarnings("ManualArrayToCollectionCopy")
-    public void addReferenceParametersToList(HeaderList outbound) {
-        // implemented through iteration because of unsupportedoperation exception thrown from addAll method on headerlist
-        // do not change
-        for (Header header : referenceParameters) {
-            outbound.add(header);
-        }
-    }
-
-    /**
-     * Copies all the reference parameters in this EPR as headers
      * to the given {@link MessageHeaders}.
      */
     public void addReferenceParametersToList(MessageHeaders outbound) {

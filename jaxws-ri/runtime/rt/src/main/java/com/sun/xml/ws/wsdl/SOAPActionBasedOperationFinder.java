@@ -68,7 +68,6 @@ final class SOAPActionBasedOperationFinder extends WSDLOperationFinder {
 
     }
 
-//  public QName getWSDLOperationQName(Packet request) {
     @Override
     public WSDLOperationMapping getWSDLOperationMapping(Packet request) throws DispatchException {
         return request.soapAction == null ? null : methodHandlers.get(request.soapAction);

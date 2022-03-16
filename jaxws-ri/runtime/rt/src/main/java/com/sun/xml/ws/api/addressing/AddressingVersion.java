@@ -487,17 +487,6 @@ public enum AddressingVersion {
     }
 
     /**
-     * Returns {@link #nsUri} associated with this {@link AddressingVersion}
-     *
-     * @return namespace URI
-     * @deprecated
-     *      Use {@link #nsUri}.
-     */
-    public String getNsUri() {
-        return nsUri;
-    }
-
-    /**
      * Returns true if the given local name is considered as
      * a reference parameter in EPR.
      *
@@ -518,27 +507,6 @@ public enum AddressingVersion {
      *     TODO  Remove it if no one elase uses it. 
      */
     public abstract WsaTubeHelper getWsaHelper(WSDLPort wsdlPort, SEIModel seiModel, WSBinding binding);
-
-    /**
-     * Gets the none URI value associated with this WS-Addressing version.
-     *
-     * @return none URI value
-     * @deprecated
-     *      Use {@link #noneUri}.
-     */
-    public final String getNoneUri() {
-        return noneUri;
-    }
-
-    /**
-     * Gets the anonymous URI value associated with this WS-Addressing version.
-     *
-     * @deprecated
-     *      Use {@link #anonymousUri}
-     */
-    public final String getAnonymousUri() {
-        return anonymousUri;
-    }
 
     /**
      * Gets the default fault Action value associated with this WS-Addressing version.
