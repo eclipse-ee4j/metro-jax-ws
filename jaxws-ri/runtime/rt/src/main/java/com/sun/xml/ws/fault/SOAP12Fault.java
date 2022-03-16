@@ -13,6 +13,7 @@ package com.sun.xml.ws.fault;
 
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.util.DOMUtil;
+import jakarta.xml.soap.DetailEntry;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -126,9 +127,9 @@ class SOAP12Fault extends SOAPFaultBuilder {
         node = fault.getFaultNode();
         if (fault.getDetail() != null) {
             detail = new DetailType();
-            Iterator iter = fault.getDetail().getDetailEntries();
+            Iterator<DetailEntry> iter = fault.getDetail().getDetailEntries();
             while(iter.hasNext()){
-                Element fd = (Element)iter.next();
+                Element fd = iter.next();
                 detail.getDetails().add(fd);
             }
         }
@@ -215,10 +216,10 @@ class SOAP12Fault extends SOAPFaultBuilder {
      * Adds Fault subcodes from {@link SOAPFault} to {@link #code}
      */
     private void fillFaultSubCodes(SOAPFault fault) throws SOAPException {
-        Iterator subcodes = fault.getFaultSubcodes();
+        Iterator<QName> subcodes = fault.getFaultSubcodes();
         SubcodeType firstSct = null;
         while(subcodes.hasNext()){
-            QName subcode = (QName)subcodes.next();
+            QName subcode = subcodes.next();
             if(firstSct == null){
                 firstSct = new SubcodeType(subcode);
                 code.setSubcode(firstSct);

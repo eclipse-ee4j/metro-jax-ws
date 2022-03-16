@@ -347,16 +347,17 @@ public class DeploymentDescriptorParser<A> {
      * @return returns corresponding API's binding ID or the same lexical
      */
     public static @NotNull String getBindingIdForToken(@NotNull String lexical) {
-        if (lexical.equals("##SOAP11_HTTP")) {
-            return SOAPBinding.SOAP11HTTP_BINDING;
-        } else if (lexical.equals("##SOAP11_HTTP_MTOM")) {
-            return SOAPBinding.SOAP11HTTP_MTOM_BINDING;
-        } else if (lexical.equals("##SOAP12_HTTP")) {
-            return SOAPBinding.SOAP12HTTP_BINDING;
-        } else if (lexical.equals("##SOAP12_HTTP_MTOM")) {
-            return SOAPBinding.SOAP12HTTP_MTOM_BINDING;
-        } else if (lexical.equals("##XML_HTTP")) {
-            return HTTPBinding.HTTP_BINDING;
+        switch (lexical) {
+            case "##SOAP11_HTTP":
+                return SOAPBinding.SOAP11HTTP_BINDING;
+            case "##SOAP11_HTTP_MTOM":
+                return SOAPBinding.SOAP11HTTP_MTOM_BINDING;
+            case "##SOAP12_HTTP":
+                return SOAPBinding.SOAP12HTTP_BINDING;
+            case "##SOAP12_HTTP_MTOM":
+                return SOAPBinding.SOAP12HTTP_MTOM_BINDING;
+            case "##XML_HTTP":
+                return HTTPBinding.HTTP_BINDING;
         }
         return lexical;
     }

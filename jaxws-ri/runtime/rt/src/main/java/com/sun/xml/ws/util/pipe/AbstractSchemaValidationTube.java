@@ -438,8 +438,8 @@ public abstract class AbstractSchemaValidationTube extends AbstractFilterTubeImp
      */
     private @Nullable void patchDOMFragment(NamespaceSupport nss, Element elem) {
         NamedNodeMap atts = elem.getAttributes();
-        for(Enumeration en = nss.getPrefixes(); en.hasMoreElements(); ) {
-            String prefix = (String)en.nextElement();
+        for(Enumeration<String> en = nss.getPrefixes(); en.hasMoreElements(); ) {
+            String prefix = en.nextElement();
 
             for( int i=0; i<atts.getLength(); i++ ) {
                 Attr a = (Attr)atts.item(i);
