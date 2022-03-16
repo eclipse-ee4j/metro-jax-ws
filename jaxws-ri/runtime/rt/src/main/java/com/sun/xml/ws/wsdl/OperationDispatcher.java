@@ -51,16 +51,10 @@ public class OperationDispatcher {
     }
 
     /**
-     * @deprecated use getWSDLOperationMapping(Packet request)
      * @param request Packet
-     * @return QName of the wsdl operation.
+     * @return the wsdl operation.
      * @throws DispatchException if a unique operartion cannot be associated with this packet.
      */
-    public @NotNull QName getWSDLOperationQName(Packet request) throws DispatchException {
-        WSDLOperationMapping m = getWSDLOperationMapping(request);
-        return m != null ? m.getOperationName() : null;
-    }
-
     public @NotNull WSDLOperationMapping getWSDLOperationMapping(Packet request) throws DispatchException {
         WSDLOperationMapping opName;
         for(WSDLOperationFinder finder: opFinders) {

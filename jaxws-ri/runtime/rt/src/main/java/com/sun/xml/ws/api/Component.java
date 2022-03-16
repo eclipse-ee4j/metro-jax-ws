@@ -16,7 +16,7 @@ import com.sun.xml.ws.api.server.WSEndpoint;
 
 /**
  * Interface that allows components to hook up with each other.
- * Replaces {@link com.sun.xml.ws.api.server.EndpointComponent} so that component
+ * Replaces {@code com.sun.xml.ws.api.server.EndpointComponent} so that component
  * pattern can apply to more RI types.
  *
  * @since 2.2.6
