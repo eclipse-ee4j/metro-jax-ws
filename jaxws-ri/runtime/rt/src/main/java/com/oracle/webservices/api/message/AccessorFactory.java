@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@ final class AccessorFactory {
     private AccessorFactory() {
     }
 
-    static MethodHandles.Lookup createPrivateLookup(Class clazz, MethodHandles.Lookup lookup) throws IllegalAccessException {
+    static MethodHandles.Lookup createPrivateLookup(Class<?> clazz, MethodHandles.Lookup lookup) throws IllegalAccessException {
         return (AccessorFactory.class.getModule() == clazz.getModule())
                 ? MethodHandles.privateLookupIn(clazz, MethodHandles.lookup())
                 : MethodHandles.privateLookupIn(clazz, lookup);
@@ -46,7 +46,7 @@ final class AccessorFactory {
                 value);
     }
 
-    static final class VarHandleAccessor implements BasePropertySet.Accessor {
+    private static final class VarHandleAccessor implements BasePropertySet.Accessor {
 
         /**
          * Field with the annotation.
@@ -54,11 +54,11 @@ final class AccessorFactory {
         private final VarHandle vh;
 
         /**
-         * One of the values in {@link Property} annotation on {@link #vh}.
+         * One of the values in {@link PropertySet.Property} annotation on {@link #vh}.
          */
         private final String name;
 
-        protected VarHandleAccessor(VarHandle vh, String name) {
+        private VarHandleAccessor(VarHandle vh, String name) {
             this.vh = vh;
             this.name = name;
         }
@@ -97,11 +97,11 @@ final class AccessorFactory {
         private final @Nullable MethodHandle setter;
 
         /**
-         * One of the values in {@link Property} annotation on {@link #getter}.
+         * One of the values in {@link PropertySet.Property} annotation on {@link #getter}.
          */
         private final String name;
 
-        protected MethodHandleAccessor(MethodHandle getter, MethodHandle setter, String value) {
+        private MethodHandleAccessor(MethodHandle getter, MethodHandle setter, String value) {
             this.getter = getter;
             this.setter = setter;
             this.name = value;

@@ -277,16 +277,17 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
 
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             String methodName = method.getName();
-            if (methodName.equals("name")) {
-                return name;
-            } else if (methodName.equals("namespace")) {
-                return namespace;
-            } else if (methodName.equals("nillable")) {
-                return nillable;
-            } else if (methodName.equals("required")) {
-                return required;
-            } else {
-                throw new WebServiceException("Not handling "+methodName);
+            switch (methodName) {
+                case "name":
+                    return name;
+                case "namespace":
+                    return namespace;
+                case "nillable":
+                    return nillable;
+                case "required":
+                    return required;
+                default:
+                    throw new WebServiceException("Not handling " + methodName);
             }
         }
     }

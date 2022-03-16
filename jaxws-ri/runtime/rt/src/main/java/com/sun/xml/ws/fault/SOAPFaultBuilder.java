@@ -439,11 +439,11 @@ public abstract class SOAPFaultBuilder {
             if(soapFaultCode != null){
                 faultCode = soapFaultCode;
                 code = new CodeType(faultCode);
-                Iterator iter = fault.getFaultSubcodes();
+                Iterator<QName> iter = fault.getFaultSubcodes();
                 boolean first = true;
                 SubcodeType subcode = null;
                 while(iter.hasNext()){
-                    QName value = (QName)iter.next();
+                    QName value = iter.next();
                     if(first){
                         SubcodeType sct = new SubcodeType(value);
                         code.setSubcode(sct);

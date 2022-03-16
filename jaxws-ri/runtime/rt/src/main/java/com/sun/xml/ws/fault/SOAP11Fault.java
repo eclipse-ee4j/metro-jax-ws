@@ -12,6 +12,7 @@ package com.sun.xml.ws.fault;
 
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.util.DOMUtil;
+import jakarta.xml.soap.DetailEntry;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -100,9 +101,9 @@ class SOAP11Fault extends SOAPFaultBuilder {
         this.faultactor = fault.getFaultActor();
         if (fault.getDetail() != null) {
             detail = new DetailType();
-            Iterator iter = fault.getDetail().getDetailEntries();
+            Iterator<DetailEntry> iter = fault.getDetail().getDetailEntries();
             while(iter.hasNext()){
-                Element fd = (Element)iter.next();
+                Element fd = iter.next();
                 detail.getDetails().add(fd);
             }
         }

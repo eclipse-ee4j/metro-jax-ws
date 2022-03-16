@@ -128,14 +128,16 @@ final class EndpointHttpExchange extends HttpExchange {
 
     @Override
     public Object getAttribute(String name) {
-        if (name.equals(MessageContext.SERVLET_CONTEXT)) {
-            return servletContext;
-        } else if (name.equals(MessageContext.SERVLET_REQUEST)) {
-            return req;
-        } else if (name.equals(MessageContext.SERVLET_RESPONSE)) {
-            return res;
+        switch (name) {
+            case MessageContext.SERVLET_CONTEXT:
+                return servletContext;
+            case MessageContext.SERVLET_REQUEST:
+                return req;
+            case MessageContext.SERVLET_RESPONSE:
+                return res;
+            default:
+                return null;
         }
-        return null;
     }
 
     @Override
