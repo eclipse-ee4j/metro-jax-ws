@@ -326,7 +326,7 @@ public abstract class SOAPFaultBuilder {
         if (ce.getExceptionClass().equals(detailBean)) return exception;
         Field[] fields = detailBean.getDeclaredFields();
         try {
-            Object detail = detailBean.newInstance();
+            Object detail = detailBean.getConstructor().newInstance();
             for (Field f : fields) {
                 Method em = exception.getClass().getMethod(getReadMethod(f));
                 try {

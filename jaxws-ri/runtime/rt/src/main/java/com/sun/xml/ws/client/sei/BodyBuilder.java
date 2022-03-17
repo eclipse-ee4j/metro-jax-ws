@@ -235,16 +235,9 @@ abstract class BodyBuilder {
                 }
 
                 return bean;
-            } catch (InstantiationException e) {
+            } catch (ReflectiveOperationException e) {
                 // this is irrecoverable
-                Error x = new InstantiationError(e.getMessage());
-                x.initCause(e);
-                throw x;
-            } catch (IllegalAccessException e) {
-                // this is irrecoverable
-                Error x = new IllegalAccessError(e.getMessage());
-                x.initCause(e);
-                throw x;
+                throw new InstantiationError(e.getMessage());
             } catch (com.sun.xml.ws.spi.db.DatabindingException e) {
                 // this can happen when the set method throw a checked exception or something like that
                 throw new WebServiceException(e);    // TODO:i18n

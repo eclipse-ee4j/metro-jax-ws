@@ -99,9 +99,9 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         if (fva != null) {
             Class<? extends FeatureListValidator> beanClass = fva.bean();
             try {
-                FeatureListValidator validator = beanClass.newInstance();
+                FeatureListValidator validator = beanClass.getConstructor().newInstance();
                 validator.validate(this);
-            } catch (InstantiationException | IllegalAccessException e) {
+            } catch (ReflectiveOperationException e) {
                 throw new WebServiceException(e);
             }
         }

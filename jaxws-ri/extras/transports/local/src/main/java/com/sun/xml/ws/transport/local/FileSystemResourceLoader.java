@@ -36,7 +36,7 @@ public final class FileSystemResourceLoader implements ResourceLoader {
 
     public URL getResource(String path) throws MalformedURLException {
         try {
-            return new File(root+path).getCanonicalFile().toURL();
+            return new File(root+path).getCanonicalFile().toURI().toURL();
         } catch(IOException ioe) {
             throw new WebServiceException(ioe);
         }

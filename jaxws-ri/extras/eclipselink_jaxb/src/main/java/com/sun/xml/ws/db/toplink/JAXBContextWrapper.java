@@ -160,7 +160,7 @@ public class JAXBContextWrapper implements BindingContext {
 	}
 	
     public Object newWrapperInstace(Class<?> wrapperType)
-            throws InstantiationException, IllegalAccessException {
-        return wrapperType.newInstance();
+			throws ReflectiveOperationException {
+        return wrapperType.getConstructor().newInstance();
     }
 }

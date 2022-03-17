@@ -189,19 +189,6 @@ public class HttpClientTransport {
     
     protected boolean checkHTTPS(HttpURLConnection connection) {
         if (connection instanceof HttpsURLConnection) {
-
-            // TODO The above property needs to be removed in future version as the semantics of this property are not preoperly defined.
-            // One should use JAXWSProperties.HOSTNAME_VERIFIER to control the behavior
-
-            // does the client want client hostname verification by the service
-            String verificationProperty =
-                (String) context.invocationProperties.get(BindingProviderProperties.HOSTNAME_VERIFICATION_PROPERTY);
-            if (verificationProperty != null) {
-                if (verificationProperty.equalsIgnoreCase("true")) {
-                    ((HttpsURLConnection) connection).setHostnameVerifier(new HttpClientVerifier());
-                }
-            }
-
             // Set application's HostNameVerifier for this connection
             HostnameVerifier verifier =
                 (HostnameVerifier) context.invocationProperties.get(JAXWSProperties.HOSTNAME_VERIFIER);

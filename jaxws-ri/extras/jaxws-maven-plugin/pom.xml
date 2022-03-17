@@ -246,6 +246,7 @@
                         <update>${copyright.update}</update>
                         <!-- check that year is correct -->
                         <ignoreYear>${copyright.ignoreyear}</ignoreYear>
+                        <quiet>false</quiet>
                     </configuration>
                 </plugin>
                 <plugin>

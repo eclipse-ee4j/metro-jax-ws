@@ -64,7 +64,7 @@ public class WSDLGen {
 
         List<WSEndpoint> endpoints = parser.parse(new File(riFile));
 
-        final String addr = new File(outputDir).toURL().toExternalForm();
+        final String addr = new File(outputDir).toURI().toURL().toExternalForm();
         final String address = "local"+addr.substring(4);// file:// -> local://
         for(WSEndpoint endpoint : endpoints) {
 			ServiceDefinition def = endpoint.getServiceDefinition();

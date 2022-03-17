@@ -91,7 +91,7 @@ public abstract class XMLStreamReaderFactory {
         XMLInputFactory xif = null;
         if (getProperty(XMLStreamReaderFactory.class.getName()+".woodstox")) {
             try {
-                xif = (XMLInputFactory)Class.forName("com.ctc.wstx.stax.WstxInputFactory").newInstance();
+                xif = (XMLInputFactory)Class.forName("com.ctc.wstx.stax.WstxInputFactory").getConstructor().newInstance();
             } catch (Exception e) {
                 if (LOGGER.isLoggable(Level.WARNING)) {
                     LOGGER.log(Level.WARNING, StreamingMessages.WOODSTOX_CANT_LOAD(CLASS_NAME_OF_WSTXINPUTFACTORY), e);

@@ -37,8 +37,8 @@ class InvokerImpl extends Invoker {
         postConstructMethod = findAnnotatedMethod(implType, PostConstruct.class);
 //        preDestroyMethod = findAnnotatedMethod(implType, PreDestroy.class);
         try {
-            impl = implType.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+            impl = implType.getConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
             throw new WebServiceException(e);
         }
     }
