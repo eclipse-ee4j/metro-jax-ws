@@ -395,6 +395,7 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
         return new JAXBMessage(this).copyFrom(this);
     }
     
+    @Override
     public XMLStreamReader readEnvelope() {
         int base = soapVersion.ordinal()*3;
         this.envelopeTag = DEFAULT_TAGS.get(base);
@@ -425,12 +426,15 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
         }
     }
     
+    @Override
     public boolean isPayloadStreamReader() { return false; }
 
+    @Override
     public QName getPayloadQName() {
         return new QName(getPayloadNamespaceURI(), getPayloadLocalPart());
     }
     
+    @Override
     public XMLStreamReader readToBodyStarTag() {
         int base = soapVersion.ordinal()*3;
         this.envelopeTag = DEFAULT_TAGS.get(base);

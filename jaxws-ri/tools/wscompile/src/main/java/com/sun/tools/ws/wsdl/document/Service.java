@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,10 +43,12 @@ public class Service extends GlobalEntity implements TWSDLExtensible {
         return _ports.iterator();
     }
 
+    @Override
     public Kind getKind() {
         return Kinds.SERVICE;
     }
 
+    @Override
     public QName getElementName() {
         return WSDLConstants.QNAME_SERVICE;
     }
@@ -59,6 +61,7 @@ public class Service extends GlobalEntity implements TWSDLExtensible {
         _documentation = d;
     }
 
+    @Override
     public void withAllSubEntitiesDo(EntityAction action) {
         for (Iterator iter = _ports.iterator(); iter.hasNext();) {
             action.perform((Entity) iter.next());
@@ -75,32 +78,39 @@ public class Service extends GlobalEntity implements TWSDLExtensible {
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
         if (getName() == null) {
             failValidation("validation.missingRequiredAttribute", "name");
         }
     }
 
+    @Override
     public String getNameValue() {
         return getName();
     }
 
+    @Override
     public String getNamespaceURI() {
         return getDefining().getTargetNamespaceURI();
     }
 
+    @Override
     public QName getWSDLElementName() {
         return getElementName();
     }
 
+    @Override
     public void addExtension(TWSDLExtension e) {
         _helper.addExtension(e);
     }
 
+    @Override
     public Iterable<TWSDLExtension> extensions() {
         return _helper.extensions();
     }
 
+    @Override
     public TWSDLExtensible getParent() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }

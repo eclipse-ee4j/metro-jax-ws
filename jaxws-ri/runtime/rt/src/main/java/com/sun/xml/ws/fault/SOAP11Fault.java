@@ -142,10 +142,12 @@ class SOAP11Fault extends SOAPFaultBuilder {
         return detail;
     }
 
+    @Override
     void setDetail(DetailType detail) {
         this.detail = detail;
     }
 
+    @Override
     protected Throwable getProtocolException() {
         try {
             SOAPFault fault = SOAPVersion.SOAP_11.getSOAPFactory().createFault(faultstring, faultcode);

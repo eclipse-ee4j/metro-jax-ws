@@ -71,6 +71,7 @@ public class RpcLitStructure extends AbstractType {
         this.jaxbModel = jaxbModel;
     }
 
+    @Override
     public boolean isLiteralType() {
         return true;
     }

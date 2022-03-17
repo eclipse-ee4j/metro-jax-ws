@@ -87,6 +87,7 @@ public class UsesJAXBContextFeature extends WebServiceFeature {
      */
     public UsesJAXBContextFeature(@Nullable final JAXBRIContext context) {
         this.factory = new JAXBContextFactory() {
+            @Override
             @NotNull
             public JAXBRIContext createJAXBContext(@NotNull SEIModel sei, @NotNull List<Class> classesToBind, @NotNull List<TypeReference> typeReferences) throws JAXBException {
                 return context;
@@ -105,6 +106,7 @@ public class UsesJAXBContextFeature extends WebServiceFeature {
         return factory;
     }
 
+    @Override
     @ManagedAttribute
     public String getID() {
         return ID;

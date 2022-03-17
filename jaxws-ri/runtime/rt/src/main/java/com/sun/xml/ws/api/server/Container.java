@@ -74,6 +74,7 @@ public abstract class Container implements ComponentRegistry, ComponentEx {
     private static final class NoneContainer extends Container {
     }
     
+    @Override
     public <S> S getSPI(Class<S> spiType) {
         if (components == null) return null;
     	for (Component c : components) {
@@ -84,11 +85,13 @@ public abstract class Container implements ComponentRegistry, ComponentEx {
         return null;
     }
     
-	public Set<Component> getComponents() {
+	@Override
+    public Set<Component> getComponents() {
 		return components;
 	}
 
-	public @NotNull <E> Iterable<E> getIterableSPI(Class<E> spiType) {
+	@Override
+    public @NotNull <E> Iterable<E> getIterableSPI(Class<E> spiType) {
     	E item = getSPI(spiType);
     	if (item != null) {
     		Collection<E> c = Collections.singletonList(item);

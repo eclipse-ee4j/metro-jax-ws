@@ -68,6 +68,7 @@ public class ResponseContext extends AbstractMap<String,Object> {
         this.packet = packet;
     }
 
+    @Override
     public boolean containsKey(Object key) {
         if(packet.supports(key))
             return packet.containsKey(key);    // strongly typed
@@ -79,6 +80,7 @@ public class ResponseContext extends AbstractMap<String,Object> {
         return false;
     }
 
+    @Override
     public Object get(Object key) {
         if(packet.supports(key))
             return packet.get(key);    // strongly typed
@@ -102,26 +104,31 @@ public class ResponseContext extends AbstractMap<String,Object> {
         return value;
     }
 
+    @Override
     public Object put(String key, Object value) {
         // response context is read-only
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Object remove(Object key) {
         // response context is read-only
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void putAll(Map<? extends String, ?> t) {
         // response context is read-only
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void clear() {
         // response context is read-only
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Set<Entry<String, Object>> entrySet() {
         if(entrySet==null) {
             // this is where the worst case happens. we have to clone the whole properties

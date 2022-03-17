@@ -97,6 +97,7 @@ public class ByteArrayBuffer extends OutputStream {
         }
     }
 
+    @Override
     public final void write(int b) {
         int newcount = count + 1;
         ensureCapacity(newcount);
@@ -104,6 +105,7 @@ public class ByteArrayBuffer extends OutputStream {
         count = newcount;
     }
 
+    @Override
     public final void write(byte[] b, int off, int len) {
         int newcount = count + len;
         ensureCapacity(newcount);
@@ -168,6 +170,7 @@ public class ByteArrayBuffer extends OutputStream {
         return buf;
     }
 
+    @Override
     public void close() throws IOException {
     }
 

@@ -303,12 +303,14 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         return false;
     }
 
+    @Override
     public Iterator<WebServiceFeature> iterator() {
         if (parent != null)
             return new MergedFeatures(parent.getFeatures());
         return wsfeatures.values().iterator();
     }
 
+    @Override
     public @NotNull
 	WebServiceFeature[] toArray() {
         if (parent != null)
@@ -316,6 +318,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         return wsfeatures.values().toArray(new WebServiceFeature[] {});
     }
 
+    @Override
     public boolean isEnabled(@NotNull Class<? extends WebServiceFeature> feature) {
         WebServiceFeature ftr = get(feature);
         return ftr != null && ftr.isEnabled();
@@ -326,6 +329,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         return ftr != null;
     }
 
+    @Override
     public @Nullable
 	<F extends WebServiceFeature> F get(@NotNull Class<F> featureType) {
         WebServiceFeature f = featureType.cast(wsfeatures.get(featureType));
@@ -395,6 +399,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
      *                          policy configuration) conflicts with feature setting in Deployed Service and
      *                          logs warning if there are any conflicts.
      */
+    @Override
     public void mergeFeatures(@NotNull Iterable<WebServiceFeature> features, boolean reportConflicts) {
         for (WebServiceFeature wsdlFtr : features) {
             if (get(wsdlFtr.getClass()) == null) {
@@ -408,6 +413,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         }
     }
 
+    @Override
     public void mergeFeatures(WebServiceFeature[] features, boolean reportConflicts) {
         for (WebServiceFeature wsdlFtr : features) {
             if (get(wsdlFtr.getClass()) == null) {
@@ -509,10 +515,12 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
             }
         }
 
+        @Override
         public boolean hasNext() {
             return !features.empty();
         }
 
+        @Override
         public WebServiceFeature next() {
             if (!features.empty()) {
                 return features.pop();
@@ -520,6 +528,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
             throw new NoSuchElementException();
         }
 
+        @Override
         public void remove() {
             if (!features.empty()) {
                 features.pop();

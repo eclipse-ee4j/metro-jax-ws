@@ -87,6 +87,7 @@ public abstract class BindingImpl implements WSBinding {
         this.features.validate();
     }
 
+    @Override
     public
     @NotNull
     List<Handler> getHandlerChain() {
@@ -109,25 +110,30 @@ public abstract class BindingImpl implements WSBinding {
         this.serviceMode = mode;
     }
 
+    @Override
     public Set<QName> getKnownHeaders() {
     	return unmodKnownHeaders;
     }
     
+    @Override
     public boolean addKnownHeader(QName headerQName) {
         addedHeaders.add(headerQName);
         return knownHeaders.add(headerQName);
     }
     
+    @Override
     public
     @NotNull
     BindingID getBindingId() {
         return bindingId;
     }
 
+    @Override
     public final SOAPVersion getSOAPVersion() {
         return bindingId.getSOAPVersion();
     }
 
+    @Override
     public AddressingVersion getAddressingVersion() {
         AddressingVersion addressingVersion;
         if (features.isEnabled(AddressingFeature.class))
@@ -219,30 +225,36 @@ public abstract class BindingImpl implements WSBinding {
         return new SOAPBindingImpl(BindingID.SOAP11_HTTP);
     }
 
+    @Override
     public String getBindingID() {
         return bindingId.toString();
     }
 
+    @Override
     public @Nullable <F extends WebServiceFeature> F getFeature(@NotNull Class<F> featureType){
         return features.get(featureType);
     }
 
+    @Override
     public @Nullable <F extends WebServiceFeature> F getOperationFeature(@NotNull Class<F> featureType,
-            @NotNull final QName operationName) {
+                                                                         @NotNull final QName operationName) {
         final WebServiceFeatureList operationFeatureList = this.operationFeatures.get(operationName);
         return FeatureListUtil.mergeFeature(featureType, operationFeatureList, features);
     }
 
+    @Override
     public boolean isFeatureEnabled(@NotNull Class<? extends WebServiceFeature> feature){
         return features.isEnabled(feature);
     }
 
+    @Override
     public boolean isOperationFeatureEnabled(@NotNull Class<? extends WebServiceFeature> featureType,
-            @NotNull final QName operationName) {
+                                             @NotNull final QName operationName) {
         final WebServiceFeatureList operationFeatureList = this.operationFeatures.get(operationName);
         return FeatureListUtil.isFeatureEnabled(featureType, operationFeatureList, features);
     }
 
+    @Override
     @NotNull
     public WebServiceFeatureList getFeatures() {
         //TODO scchen convert BindingID  to WebServiceFeature[]
@@ -253,11 +265,13 @@ public abstract class BindingImpl implements WSBinding {
         return features;
     }
 
+    @Override
     public @NotNull WebServiceFeatureList getOperationFeatures(@NotNull final QName operationName) {
         final WebServiceFeatureList operationFeatureList = this.operationFeatures.get(operationName);
         return FeatureListUtil.mergeList(operationFeatureList, features);
     }
     
+    @Override
     public @NotNull WebServiceFeatureList getInputMessageFeatures(@NotNull final QName operationName) {
         final WebServiceFeatureList operationFeatureList = this.operationFeatures.get(operationName);
         final WebServiceFeatureList messageFeatureList = this.inputMessageFeatures.get(operationName);
@@ -265,14 +279,16 @@ public abstract class BindingImpl implements WSBinding {
         
     }
     
+    @Override
     public @NotNull WebServiceFeatureList getOutputMessageFeatures(@NotNull final QName operationName) {
         final WebServiceFeatureList operationFeatureList = this.operationFeatures.get(operationName);
         final WebServiceFeatureList messageFeatureList = this.outputMessageFeatures.get(operationName);
         return FeatureListUtil.mergeList(operationFeatureList, messageFeatureList, features);
     }
     
+    @Override
     public @NotNull WebServiceFeatureList getFaultMessageFeatures(@NotNull final QName operationName,
-            @NotNull final QName messageName) {
+                                                                  @NotNull final QName messageName) {
         final WebServiceFeatureList operationFeatureList = this.operationFeatures.get(operationName);
         final WebServiceFeatureList messageFeatureList = this.faultMessageFeatures.get(
                 new MessageKey(operationName, messageName));
@@ -332,6 +348,7 @@ public abstract class BindingImpl implements WSBinding {
         }
     }
 
+    @Override
     public synchronized @NotNull com.oracle.webservices.api.message.MessageContextFactory getMessageContextFactory () {
         if (messageContextFactory == null) {
             messageContextFactory = MessageContextFactory.createFactory(getFeatures().toArray());

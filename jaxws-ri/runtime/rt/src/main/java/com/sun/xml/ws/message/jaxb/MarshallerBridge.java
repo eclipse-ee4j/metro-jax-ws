@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,6 +39,7 @@ final class MarshallerBridge extends Bridge {
         super((JAXBContextImpl)context);
     }
 
+    @Override
     public void marshal(Marshaller m, Object object, XMLStreamWriter output) throws JAXBException {
         m.setProperty(Marshaller.JAXB_FRAGMENT,true);
         try {
@@ -48,6 +49,7 @@ final class MarshallerBridge extends Bridge {
         }
     }
 
+    @Override
     public void marshal(Marshaller m, Object object, OutputStream output, NamespaceContext nsContext) throws JAXBException {
         m.setProperty(Marshaller.JAXB_FRAGMENT,true);
         try {
@@ -57,6 +59,7 @@ final class MarshallerBridge extends Bridge {
         }
     }
 
+    @Override
     public void marshal(Marshaller m, Object object, Node output) throws JAXBException {
         m.setProperty(Marshaller.JAXB_FRAGMENT,true);
         try {
@@ -66,6 +69,7 @@ final class MarshallerBridge extends Bridge {
         }
     }
 
+    @Override
     public void marshal(Marshaller m, Object object, ContentHandler contentHandler) throws JAXBException {
         m.setProperty(Marshaller.JAXB_FRAGMENT,true);
         try {
@@ -75,6 +79,7 @@ final class MarshallerBridge extends Bridge {
         }
     }
 
+    @Override
     public void marshal(Marshaller m, Object object, Result result) throws JAXBException {
         m.setProperty(Marshaller.JAXB_FRAGMENT,true);
         try {
@@ -84,22 +89,27 @@ final class MarshallerBridge extends Bridge {
         }
     }
 
+    @Override
     public Object unmarshal(Unmarshaller u, XMLStreamReader in) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Object unmarshal(Unmarshaller u, Source in) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Object unmarshal(Unmarshaller u, InputStream in) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Object unmarshal(Unmarshaller u, Node n) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public TypeReference getTypeReference() {
         throw new UnsupportedOperationException();
     }

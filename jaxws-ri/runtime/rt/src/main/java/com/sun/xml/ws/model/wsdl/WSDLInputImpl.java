@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,6 +37,7 @@ public final class WSDLInputImpl extends AbstractExtensibleImpl implements Edita
         this.operation = operation;
     }
 
+    @Override
     public String getName() {
         if(name != null)
             return name;
@@ -44,35 +45,43 @@ public final class WSDLInputImpl extends AbstractExtensibleImpl implements Edita
         return (operation.isOneWay())?operation.getName().getLocalPart():operation.getName().getLocalPart()+"Request";
     }
 
+    @Override
     public EditableWSDLMessage getMessage() {
         return message;
     }
 
+    @Override
     public String getAction() {
         return action;
     }
 
+    @Override
     @NotNull
     public EditableWSDLOperation getOperation() {
         return operation;
     }
 
+    @Override
     public QName getQName() {
         return new QName(operation.getName().getNamespaceURI(), getName());
     }
 
+    @Override
     public void setAction(String action) {
         this.action = action;
     }
 
+    @Override
     public boolean isDefaultAction() {
         return defaultAction;
     }
 
+    @Override
     public void setDefaultAction(boolean defaultAction) {
         this.defaultAction = defaultAction;
     }
     
+    @Override
     public void freeze(EditableWSDLModel parent) {
         message = parent.getMessage(messageName);
     }

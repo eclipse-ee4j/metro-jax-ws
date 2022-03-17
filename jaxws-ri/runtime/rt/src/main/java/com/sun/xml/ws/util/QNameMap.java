@@ -282,6 +282,7 @@ public final class QNameMap<V> {
     }
 
     private transient Iterable<V> views = new Iterable<>() {
+        @Override
         public Iterator<V> iterator() {
             return new ValueIterator();
         }
@@ -303,6 +304,7 @@ public final class QNameMap<V> {
             index = i;
         }
 
+        @Override
         public boolean hasNext() {
             return next != null;
         }
@@ -322,12 +324,14 @@ public final class QNameMap<V> {
             return e;
         }
 
+        @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }
     }
 
     private class ValueIterator extends HashIterator<V> {
+        @Override
         public V next() {
             return nextEntry().value;
         }
@@ -421,14 +425,17 @@ public final class QNameMap<V> {
     }
 
     private class EntryIterator extends HashIterator<Entry<V>> {
+        @Override
         public Entry<V> next() {
             return nextEntry();
         }
     }
     private class EntrySet extends AbstractSet<Entry<V>> {
+        @Override
         public Iterator<Entry<V>> iterator() {
             return newEntryIterator();
         }
+        @Override
         public boolean contains(Object o) {
             if (!(o instanceof Entry))
                 return false;
@@ -436,9 +443,11 @@ public final class QNameMap<V> {
             Entry<V> candidate = getEntry(e.nsUri,e.localName);
             return candidate != null && candidate.equals(e);
         }
+        @Override
         public boolean remove(Object o) {
             throw new UnsupportedOperationException();
         }
+        @Override
         public int size() {
             return size;
         }

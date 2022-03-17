@@ -44,10 +44,12 @@ public class XMLReaderComposite implements XMLStreamReaderEx {
         ElemInfo ancestor;
         TagInfoset tagInfo; 
         public ElemInfo(TagInfoset tag, ElemInfo parent) { tagInfo = tag; ancestor = parent; }
+        @Override
         public String getNamespaceURI(String prefix) {
             String n = tagInfo.getNamespaceURI(prefix);
             return (n != null) ? n : (ancestor != null) ?  ancestor.getNamespaceURI(prefix) : null;
         }
+        @Override
         public String getPrefix(String uri) {
             String p = tagInfo.getPrefix(uri);
             return (p != null) ? p : (ancestor != null) ?  ancestor.getPrefix(uri) : null;
@@ -62,6 +64,7 @@ public class XMLReaderComposite implements XMLStreamReaderEx {
             }
             return l;
         }
+        @Override
         public Iterator<String> getPrefixes(String namespaceURI) {
             return allPrefixes(namespaceURI).iterator();
         }

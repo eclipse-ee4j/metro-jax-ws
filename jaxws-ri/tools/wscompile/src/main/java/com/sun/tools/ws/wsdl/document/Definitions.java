@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,6 +46,7 @@ public class Definitions extends Entity implements Defining, TWSDLExtensible {
         _name = s;
     }
 
+    @Override
     public String getTargetNamespaceURI() {
         return _targetNsURI;
     }
@@ -111,14 +112,17 @@ public class Definitions extends Entity implements Defining, TWSDLExtensible {
         return _services.iterator();
     }
 
+    @Override
     public String getNameValue() {
         return getName();
     }
 
+    @Override
     public String getNamespaceURI() {
         return getTargetNamespaceURI();
     }
 
+    @Override
     public QName getWSDLElementName() {
         return WSDLConstants.QNAME_DEFINITIONS;
     }
@@ -131,10 +135,12 @@ public class Definitions extends Entity implements Defining, TWSDLExtensible {
         _documentation = d;
     }
 
+    @Override
     public void addExtension(TWSDLExtension e) {
         _helper.addExtension(e);
     }
 
+    @Override
     public Iterable<TWSDLExtension> extensions() {
         return _helper.extensions();
     }
@@ -142,10 +148,12 @@ public class Definitions extends Entity implements Defining, TWSDLExtensible {
     /**
      * wsdl:definition is the root hence no parent so return null.
      */
+    @Override
     public TWSDLExtensible getParent() {
         return null;
     }
 
+    @Override
     public void withAllSubEntitiesDo(EntityAction action) {
         if (_types != null) {
             action.perform(_types);
@@ -196,6 +204,7 @@ public class Definitions extends Entity implements Defining, TWSDLExtensible {
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
     }
     
@@ -216,6 +225,7 @@ public class Definitions extends Entity implements Defining, TWSDLExtensible {
     private List _imports;
     private Set _importedNamespaces;
 
+    @Override
     public QName getElementName() {
         return getWSDLElementName();
     }

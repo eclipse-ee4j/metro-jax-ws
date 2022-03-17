@@ -120,6 +120,7 @@ public class OneWayFeature extends WebServiceFeature {
     /**
      * {@inheritDoc}
      */
+    @Override
     @ManagedAttribute
     public String getID() {
         return ID;

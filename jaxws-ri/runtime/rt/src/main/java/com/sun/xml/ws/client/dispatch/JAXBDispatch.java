@@ -64,6 +64,7 @@ public class JAXBDispatch extends DispatchImpl<Object> {
         this.isContextSupported = BindingContextFactory.isContextSupported(jc);
     }
 
+    @Override
     Object toReturnValue(Packet response) {
         try {
             Unmarshaller unmarshaller = jaxbcontext.createUnmarshaller();
@@ -83,6 +84,7 @@ public class JAXBDispatch extends DispatchImpl<Object> {
     }
 
 
+    @Override
     Packet createPacket(Object msg) {
         assert jaxbcontext != null;
 
@@ -105,6 +107,7 @@ public class JAXBDispatch extends DispatchImpl<Object> {
 
     }
 
+    @Override
     public void setOutboundHeaders(Object... headers) {
         if (headers == null)
             throw new IllegalArgumentException();

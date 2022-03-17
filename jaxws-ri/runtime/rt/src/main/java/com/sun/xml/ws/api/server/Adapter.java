@@ -88,6 +88,7 @@ public abstract class Adapter<TK extends Adapter.Toolkit>
      * same instance of the pool.
      */
     protected volatile Pool<TK> pool = new Pool<>() {
+        @Override
         protected TK create() {
             return createToolkit();
         }
@@ -106,7 +107,8 @@ public abstract class Adapter<TK extends Adapter.Toolkit>
     
     protected Component getEndpointComponent() {
     	return new Component() {
-			public <S> S getSPI(Class<S> spiType) {
+			@Override
+            public <S> S getSPI(Class<S> spiType) {
 		        if (spiType.isAssignableFrom(Reconfigurable.class)) {
 		            return spiType.cast(Adapter.this);
 		        }
@@ -118,14 +120,17 @@ public abstract class Adapter<TK extends Adapter.Toolkit>
     /**
      * The pool instance needs to be recreated to prevent reuse of old Toolkit instances.
      */
+    @Override
     public void reconfigure() {
         this.pool = new Pool<>() {
+            @Override
             protected TK create() {
                 return createToolkit();
             }
         };
     }
 
+    @Override
     public <S> S getSPI(Class<S> spiType) {
         if (spiType.isAssignableFrom(Reconfigurable.class)) {
             return spiType.cast(this);

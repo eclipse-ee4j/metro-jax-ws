@@ -38,10 +38,12 @@ public final class PolicyMap implements Iterable<Policy> {
    private static final PolicyLogger LOGGER = PolicyLogger.getLogger(PolicyMap.class);
     
     private static final PolicyMapKeyHandler serviceKeyHandler = new PolicyMapKeyHandler() {
+        @Override
         public boolean areEqual(final PolicyMapKey key1, final PolicyMapKey key2) {
             return key1.getService().equals(key2.getService());
         }
 
+        @Override
         public int generateHashCode(final PolicyMapKey key) {
             int result = 17;
 
@@ -52,6 +54,7 @@ public final class PolicyMap implements Iterable<Policy> {
     };
 
     private static final PolicyMapKeyHandler endpointKeyHandler = new PolicyMapKeyHandler() {
+        @Override
         public boolean areEqual(final PolicyMapKey key1, final PolicyMapKey key2) {
             boolean retVal = true;
 
@@ -61,6 +64,7 @@ public final class PolicyMap implements Iterable<Policy> {
             return retVal;
         }
 
+        @Override
         public int generateHashCode(final PolicyMapKey key) {
             int result = 17;
 
@@ -74,6 +78,7 @@ public final class PolicyMap implements Iterable<Policy> {
     private static final PolicyMapKeyHandler operationAndInputOutputMessageKeyHandler = new PolicyMapKeyHandler() {
         // we use the same algorithm to handle operation and input/output message keys
 
+        @Override
         public boolean areEqual(final PolicyMapKey key1, final PolicyMapKey key2) {
             boolean retVal = true;
 
@@ -84,6 +89,7 @@ public final class PolicyMap implements Iterable<Policy> {
             return retVal;
         }
 
+        @Override
         public int generateHashCode(final PolicyMapKey key) {
             int result = 17;
 
@@ -96,6 +102,7 @@ public final class PolicyMap implements Iterable<Policy> {
     };
 
     private static final PolicyMapKeyHandler faultMessageHandler = new PolicyMapKeyHandler() {
+        @Override
         public boolean areEqual(final PolicyMapKey key1, final PolicyMapKey key2) {
             boolean retVal = true;
 
@@ -107,6 +114,7 @@ public final class PolicyMap implements Iterable<Policy> {
             return retVal;
         }
 
+        @Override
         public int generateHashCode(final PolicyMapKey key) {
             int result = 17;
 
@@ -192,14 +200,17 @@ public final class PolicyMap implements Iterable<Policy> {
             return localKeyCopy;
         }
         
+        @Override
         public Iterator<Policy> iterator() {
             return new Iterator<>() {
                 private final Iterator<PolicyMapKey> keysIterator = internalMap.keySet().iterator();
 
+                @Override
                 public boolean hasNext() {
                     return keysIterator.hasNext();
                 }
 
+                @Override
                 public Policy next() {
                     final PolicyMapKey key = keysIterator.next();
                     try {
@@ -209,6 +220,7 @@ public final class PolicyMap implements Iterable<Policy> {
                     }
                 }
 
+                @Override
                 public void remove() {
                     throw LOGGER.logSevereException(new UnsupportedOperationException(LocalizationMessages.WSP_0034_REMOVE_OPERATION_NOT_SUPPORTED()));
                 }
@@ -610,6 +622,7 @@ public final class PolicyMap implements Iterable<Policy> {
         return result.toString();
     }
     
+    @Override
     public Iterator<Policy> iterator() {
         return new Iterator<>() {
             private final Iterator<Iterator<Policy>> mainIterator;
@@ -628,6 +641,7 @@ public final class PolicyMap implements Iterable<Policy> {
                 currentScopeIterator = mainIterator.next();
             }
 
+            @Override
             public boolean hasNext() {
                 while (!currentScopeIterator.hasNext()) {
                     if (mainIterator.hasNext()) {
@@ -640,6 +654,7 @@ public final class PolicyMap implements Iterable<Policy> {
                 return true;
             }
 
+            @Override
             public Policy next() {
                 if (hasNext()) {
                     return currentScopeIterator.next();
@@ -647,6 +662,7 @@ public final class PolicyMap implements Iterable<Policy> {
                 throw LOGGER.logSevereException(new NoSuchElementException(LocalizationMessages.WSP_0054_NO_MORE_ELEMS_IN_POLICY_MAP()));
             }
 
+            @Override
             public void remove() {
                 throw LOGGER.logSevereException(new UnsupportedOperationException(LocalizationMessages.WSP_0034_REMOVE_OPERATION_NOT_SUPPORTED()));
             }

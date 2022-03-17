@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -57,12 +57,14 @@ class DOMBuilder extends SAX2DOMEx implements LexicalHandler {
 
     private Locator locator;
 
+    @Override
     public void setDocumentLocator(Locator locator) {
         this.locator = locator;
         super.setDocumentLocator(locator);
     }
 
 
+    @Override
     public void startElement(String namespaceURI, String localName, String qName, Attributes atts) {
         super.startElement(namespaceURI, localName, qName, atts);
 
@@ -83,23 +85,31 @@ class DOMBuilder extends SAX2DOMEx implements LexicalHandler {
         }
     }
 
+    @Override
     public void endElement(String namespaceURI, String localName, String qName) {
         locatorTable.storeEndLocation( getCurrentElement(), locator );
         super.endElement(namespaceURI, localName, qName);
     }
 
+    @Override
     public void startDTD(String name, String publicId, String systemId) throws SAXException {}
 
+    @Override
     public void endDTD() throws SAXException {}
 
+    @Override
     public void startEntity(String name) throws SAXException {}
 
+    @Override
     public void endEntity(String name) throws SAXException {}
 
+    @Override
     public void startCDATA() throws SAXException {}
 
+    @Override
     public void endCDATA() throws SAXException {}
 
+    @Override
     public void comment(char[] ch, int start, int length) throws SAXException {
         //Element e = getCurrentElement(); // does not work as the comments at the top of the document would return Document Node 
         // instead of Element

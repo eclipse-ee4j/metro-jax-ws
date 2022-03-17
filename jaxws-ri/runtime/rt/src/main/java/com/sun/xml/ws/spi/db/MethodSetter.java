@@ -33,11 +33,13 @@ public class MethodSetter extends PropertySetterBase {
         return method;
     }
 
+    @Override
     public <A> A getAnnotation(Class<A> annotationType) {
         Class c = annotationType;
         return (A) method.getAnnotation(c);
     }
     
+    @Override
     public void set(final Object instance, Object val) {
         final Object resource = (type.isPrimitive() && val == null)? uninitializedValue(type): val;
         final Object[] args = {resource};

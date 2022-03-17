@@ -53,6 +53,7 @@ public class AddressingFeatureConfigurator implements PolicyFeatureConfigurator 
     public AddressingFeatureConfigurator() {
     }
 
+    @Override
     public Collection<WebServiceFeature> getFeatures(final PolicyMapKey key, final PolicyMap policyMap) throws PolicyException {
         LOGGER.entering(key, policyMap);
         final Collection<WebServiceFeature> features = new LinkedList<>();

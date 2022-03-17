@@ -61,14 +61,17 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
         owner.addBinding(this);
     }
 
+    @Override
     public QName getName() {
         return name;
     }
 
+    @Override
     public @NotNull EditableWSDLModel getOwner() {
         return owner;
     }
 
+    @Override
     public EditableWSDLBoundOperation get(QName operationName) {
         return bindingOperations.get(operationName);
     }
@@ -80,28 +83,34 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
      * @param ptOp   Must be non-null
      * @throws NullPointerException if either opName or ptOp is null
      */
+    @Override
     public void put(QName opName, EditableWSDLBoundOperation ptOp) {
         bindingOperations.put(opName,ptOp);
     }
 
+    @Override
     public QName getPortTypeName() {
         return portTypeName;
     }
 
+    @Override
     public EditableWSDLPortType getPortType() {
         return portType;
     }
 
+    @Override
     public Iterable<EditableWSDLBoundOperation> getBindingOperations() {
         return bindingOperations.values();
     }
 
+    @Override
     public BindingID getBindingId() {
         //Should the default be SOAP1.1/HTTP binding? For now lets keep it for
         //JBI bug 6509800 
         return (bindingId==null)?BindingID.SOAP11_HTTP:bindingId;
     }
 
+    @Override
     public void setBindingId(BindingID bindingId) {
         this.bindingId = bindingId;
     }
@@ -110,10 +119,12 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
      * sets whether the {@link WSDLBoundPortType} is rpc or lit
      */
     private Style style = Style.DOCUMENT;
+    @Override
     public void setStyle(Style style){
         this.style = style;
     }
 
+    @Override
     public SOAPBinding.Style getStyle() {
         return style;
     }
@@ -135,6 +146,7 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
      * @param mode      {@link Mode#IN} or {@link Mode#OUT}. Must be non-null.
      * @return null if the binding could not be resolved for the part.
      */
+    @Override
     public ParameterBinding getBinding(QName operation, String part, Mode mode) {
         EditableWSDLBoundOperation op = get(operation);
         if (op == null) {
@@ -147,6 +159,7 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
             return op.getOutputBinding(part);
     }
 
+    @Override
     public EditableWSDLBoundOperation getOperation(String namespaceUri, String localName) {
         if(namespaceUri==null && localName == null)
             return emptyPayloadOperation;
@@ -155,6 +168,7 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
         }
     }
 
+    @Override
     public void freeze() {
         portType = owner.getPortType(portTypeName);
         if(portType == null){

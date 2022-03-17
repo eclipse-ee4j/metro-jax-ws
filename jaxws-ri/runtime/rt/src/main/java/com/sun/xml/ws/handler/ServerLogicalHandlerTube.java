@@ -85,6 +85,7 @@ public class ServerLogicalHandlerTube extends HandlerTube {
         }
     }
 
+   @Override
    public AbstractFilterTubeImpl copy(TubeCloner cloner) {
         return new ServerLogicalHandlerTube(this, cloner);
     }
@@ -97,10 +98,12 @@ public class ServerLogicalHandlerTube extends HandlerTube {
         }
     }
 
+    @Override
     protected void resetProcessor() {
     	processor = null;
     }
     
+    @Override
     void setUpProcessor() {
         if (!handlers.isEmpty() && processor == null) {
             if (getBinding().getSOAPVersion() == null) {
@@ -112,6 +115,7 @@ public class ServerLogicalHandlerTube extends HandlerTube {
         }
     }
 
+    @Override
     MessageUpdatableContext getContext(Packet packet) {
         return new LogicalMessageContextImpl(getBinding(), getBindingContext(), packet);
     }   
@@ -121,6 +125,7 @@ public class ServerLogicalHandlerTube extends HandlerTube {
         	((AbstractSEIModelImpl)seiModel).getBindingContext() : null;
 	}
 
+    @Override
     boolean callHandlersOnRequest(MessageUpdatableContext context, boolean isOneWay) {
 
         boolean handlerResult;
@@ -138,6 +143,7 @@ public class ServerLogicalHandlerTube extends HandlerTube {
         return handlerResult;
     }
 
+    @Override
     void callHandlersOnResponse(MessageUpdatableContext context, boolean handleFault) {
         //Lets copy all the MessageContext.OUTBOUND_ATTACHMENT_PROPERTY to the message
         Map<String, DataHandler> atts = (Map<String, DataHandler>) context.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
@@ -158,6 +164,7 @@ public class ServerLogicalHandlerTube extends HandlerTube {
         }
     }
 
+    @Override
     void closeHandlers(MessageContext mc) {
         closeServersideHandlers(mc);
 

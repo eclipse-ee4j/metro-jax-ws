@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -52,6 +52,7 @@ public class Output extends Entity implements TWSDLExtensible {
         return (Message) document.find(Kinds.MESSAGE, _message);
     }
 
+    @Override
     public QName getElementName() {
         return WSDLConstants.QNAME_OUTPUT;
     }
@@ -64,12 +65,14 @@ public class Output extends Entity implements TWSDLExtensible {
         _documentation = d;
     }
 
+    @Override
     public void withAllQNamesDo(QNameAction action) {
         if (_message != null) {
             action.perform(_message);
         }
     }
 
+    @Override
     public void withAllEntityReferencesDo(EntityReferenceAction action) {
         super.withAllEntityReferencesDo(action);
         if (_message != null) {
@@ -82,6 +85,7 @@ public class Output extends Entity implements TWSDLExtensible {
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
         if (_message == null) {
             errorReceiver.error(getLocator(), WsdlMessages.VALIDATION_MISSING_REQUIRED_ATTRIBUTE("name", "wsdl:message"));
@@ -96,14 +100,17 @@ public class Output extends Entity implements TWSDLExtensible {
     private ExtensibilityHelper _helper;
     private TWSDLExtensible parent;
 
+    @Override
     public void addExtension(TWSDLExtension e) {
         _helper.addExtension(e);
     }
 
+    @Override
     public QName getWSDLElementName() {
         return getElementName();
     }
 
+    @Override
     public TWSDLExtensible getParent() {
         return parent;
     }
@@ -112,14 +119,17 @@ public class Output extends Entity implements TWSDLExtensible {
         this.parent = parent;
     }
 
+    @Override
     public String getNamespaceURI() {
         return getElementName().getNamespaceURI();
     }
 
+    @Override
     public String getNameValue() {
         return null;
     }
 
+    @Override
     public Iterable<? extends TWSDLExtension> extensions() {
         return _helper.extensions();
     }

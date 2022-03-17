@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2006, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,6 +36,7 @@ public abstract class WsaBaseSOAPHandler implements SOAPHandler<SOAPMessageConte
     public WsaBaseSOAPHandler() {
     }
 
+    @Override
     public boolean handleMessage(SOAPMessageContext context) {
         boolean outbound = (Boolean)context.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
         try {
@@ -57,14 +58,17 @@ public abstract class WsaBaseSOAPHandler implements SOAPHandler<SOAPMessageConte
         return true;
     }
 
+    @Override
     public boolean handleFault(SOAPMessageContext context) {
         return handleMessage(context);
     }
 
+    @Override
     public Set<QName> getHeaders() {
         return null;
     }
 
+    @Override
     public void close(MessageContext messageContext) {
     }
 

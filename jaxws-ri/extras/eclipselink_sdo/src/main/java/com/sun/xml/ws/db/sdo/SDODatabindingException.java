@@ -56,6 +56,7 @@ public class SDODatabindingException extends RuntimeException {
         super(throwable);
     }
 
+    @Override
     public String getMessage() {
         Throwable cause = getCause();
         if (cause != null && cause.getMessage() != null && !super.getMessage().equals(cause.getMessage())) {

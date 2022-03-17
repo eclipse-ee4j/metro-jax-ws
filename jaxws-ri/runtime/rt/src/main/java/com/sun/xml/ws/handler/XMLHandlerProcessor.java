@@ -42,6 +42,7 @@ final class XMLHandlerProcessor<C extends MessageUpdatableContext> extends Handl
      * TODO: This is valid only for XML/HTTP binding
      * Empty the XML message
      */
+    @Override
     void insertFaultMessage(C context,
             ProtocolException exception) {
         if(exception instanceof HTTPException) {

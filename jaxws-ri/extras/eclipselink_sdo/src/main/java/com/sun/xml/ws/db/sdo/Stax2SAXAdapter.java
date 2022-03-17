@@ -186,18 +186,22 @@ public class Stax2SAXAdapter {
             this.columnNumber = columnNumber;
         }
 
+        @Override
         public String getPublicId() {
             return publicId;
         }
 
+        @Override
         public String getSystemId() {
             return systemId;
         }
 
+        @Override
         public int getLineNumber() {
             return lineNumber;
         }
 
+        @Override
         public int getColumnNumber() {
             return columnNumber;
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,6 +48,7 @@ public class ContentHandlerToXMLStreamWriter extends DefaultHandler {
      *
      * @see org.xml.sax.ContentHandler#endDocument()
      */
+    @Override
     public void endDocument() throws SAXException {
         try {
             staxWriter.writeEndDocument();
@@ -62,6 +63,7 @@ public class ContentHandlerToXMLStreamWriter extends DefaultHandler {
      *
      * @see org.xml.sax.ContentHandler#startDocument()
      */
+    @Override
     public void startDocument() throws SAXException {
         try {
             staxWriter.writeStartDocument();
@@ -75,6 +77,7 @@ public class ContentHandlerToXMLStreamWriter extends DefaultHandler {
      *
      * @see org.xml.sax.ContentHandler#characters(char[], int, int)
      */
+    @Override
     public void characters(char[] ch, int start, int length)
         throws SAXException {
 
@@ -91,6 +94,7 @@ public class ContentHandlerToXMLStreamWriter extends DefaultHandler {
      *
      * @see org.xml.sax.ContentHandler#ignorableWhitespace(char[], int, int)
      */
+    @Override
     public void ignorableWhitespace(char[] ch, int start, int length)
         throws SAXException {
 
@@ -102,6 +106,7 @@ public class ContentHandlerToXMLStreamWriter extends DefaultHandler {
      *
      * @see org.xml.sax.ContentHandler#endPrefixMapping(java.lang.String)
      */
+    @Override
     public void endPrefixMapping(String prefix) throws SAXException {
         // TODO: no-op?
 
@@ -114,6 +119,7 @@ public class ContentHandlerToXMLStreamWriter extends DefaultHandler {
      *
      * @see org.xml.sax.ContentHandler#skippedEntity(java.lang.String)
      */
+    @Override
     public void skippedEntity(String name) throws SAXException {
         try {
             staxWriter.writeEntityRef(name);
@@ -127,6 +133,7 @@ public class ContentHandlerToXMLStreamWriter extends DefaultHandler {
      *
      * @see org.xml.sax.ContentHandler#setDocumentLocator(org.xml.sax.Locator)
      */
+    @Override
     public void setDocumentLocator(Locator locator) {
         // TODO: no-op?
         // there doesn't seem to be any way to pass location info
@@ -140,6 +147,7 @@ public class ContentHandlerToXMLStreamWriter extends DefaultHandler {
      * @see org.xml.sax.ContentHandler#processingInstruction(java.lang.String,
      *      java.lang.String)
      */
+    @Override
     public void processingInstruction(String target, String data)
         throws SAXException {
 
@@ -157,6 +165,7 @@ public class ContentHandlerToXMLStreamWriter extends DefaultHandler {
      * @see org.xml.sax.ContentHandler#startPrefixMapping(java.lang.String,
      *      java.lang.String)
      */
+    @Override
     public void startPrefixMapping(String prefix, String uri)
         throws SAXException {
 
@@ -179,6 +188,7 @@ public class ContentHandlerToXMLStreamWriter extends DefaultHandler {
      * @see org.xml.sax.ContentHandler#endElement(java.lang.String,
      *      java.lang.String, java.lang.String)
      */
+    @Override
     public void endElement(String namespaceURI, String localName, String qName)
         throws SAXException {
 
@@ -196,6 +206,7 @@ public class ContentHandlerToXMLStreamWriter extends DefaultHandler {
      * @see org.xml.sax.ContentHandler#startElement(java.lang.String,
      *      java.lang.String, java.lang.String, org.xml.sax.Attributes)
      */
+    @Override
     public void startElement(
         String namespaceURI,
         String localName,

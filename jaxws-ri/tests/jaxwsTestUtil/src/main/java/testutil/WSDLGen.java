@@ -57,6 +57,7 @@ public class WSDLGen {
                 Thread.currentThread().getContextClassLoader(),
                 new FileSystemResourceLoader(new File(outputDir)), null,
                 new AdapterFactory<>() {
+                    @Override
                     public WSEndpoint createAdapter(String name, String urlPattern, WSEndpoint<?> endpoint) {
                         return endpoint;
                     }
@@ -88,12 +89,14 @@ public class WSDLGen {
                 ByteArrayBuffer buffer = new ByteArrayBuffer();
                 doc.writeTo(
 					new PortAddressResolver() {
-						public String getAddressFor(QName serviceName, String portName) {
+						@Override
+                        public String getAddressFor(QName serviceName, String portName) {
 							return address;
 						}
 					},
 					new DocumentAddressResolver() {
-						public String getRelativeAddressFor(
+						@Override
+                        public String getRelativeAddressFor(
 							SDDocument current, SDDocument referenced) {
 							String rel = referenced.getURL().toExternalForm();
 							return rel.substring(6);	// remove file:/

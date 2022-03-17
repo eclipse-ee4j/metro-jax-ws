@@ -92,10 +92,12 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
         return new StreamDecoderImpl();
     }
 
+    @Override
     public ContentType getStaticContentType(Packet packet) {
         return getContentType(packet);
     }
 
+    @Override
     public ContentType encode(Packet packet, OutputStream out) {
         if (packet.getMessage() != null) {
             String encoding = getPacketEncoding(packet);
@@ -116,6 +118,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
 
     protected abstract String getDefaultContentType();
 
+    @Override
     public ContentType encode(Packet packet, WritableByteChannel buffer) {
         //TODO: not yet implemented
         throw new UnsupportedOperationException();
@@ -123,6 +126,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
 
     protected abstract List<String> getExpectedContentTypes();
 
+    @Override
     public void decode(InputStream in, String contentType, Packet packet) throws IOException {
         decode(in, contentType, packet, new AttachmentSetImpl());
     }
@@ -151,6 +155,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
      * @param reader
      *      can point to the start document or the start element.
      */
+    @Override
     public final @NotNull Message decode(@NotNull XMLStreamReader reader) {
         return decode(reader,new AttachmentSetImpl());
     }
@@ -166,6 +171,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
      *      so that this codec can be used as a part of a biggre codec
      *      (like MIME multipart codec.)
      */
+    @Override
     public final Message decode(XMLStreamReader reader, @NotNull AttachmentSet attachmentSet) {
         return decode(soapVersion, reader, attachmentSet);
     }
@@ -182,14 +188,17 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
         return new StreamMessage(soapVersion, reader, attachmentSet);
     }
 
+    @Override
     public void decode(ReadableByteChannel in, String contentType, Packet packet ) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public final StreamSOAPCodec copy() {
         return this;
     }
     
+    @Override
     public void decode(InputStream in, String contentType, Packet packet, AttachmentSet att ) throws IOException {
         List<String> expectedContentTypes = getExpectedContentTypes();
         if (contentType != null && !isContentTypeSupported(contentType,expectedContentTypes)) {
@@ -210,6 +219,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
         packet.setMessage(streamDecoder.decode(in, charset, att, soapVersion));
     }
 
+    @Override
     public void decode(ReadableByteChannel in, String contentType, Packet response, AttachmentSet att ) {
         throw new UnsupportedOperationException();
     }

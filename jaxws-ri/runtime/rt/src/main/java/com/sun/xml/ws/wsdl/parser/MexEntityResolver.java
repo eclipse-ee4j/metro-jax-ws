@@ -54,6 +54,7 @@ public final class MexEntityResolver implements XMLEntityResolver {
         }
     }
 
+    @Override
     public Parser resolveEntity(String publicId, String systemId) throws SAXException, IOException, XMLStreamException {
         if (systemId != null) {
             SDDocumentSource src = wsdls.get(systemId);

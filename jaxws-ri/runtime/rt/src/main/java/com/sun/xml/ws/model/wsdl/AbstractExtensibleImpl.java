@@ -48,10 +48,12 @@ abstract class AbstractExtensibleImpl extends AbstractObjectImpl implements WSDL
         super(systemId, lineNumber);
     }
 
+    @Override
     public final Iterable<WSDLExtension> getExtensions() {
         return extensions;
     }
 
+    @Override
     public final <T extends WSDLExtension> Iterable<T> getExtensions(Class<T> type) {
         // TODO: this is a rather stupid implementation
         List<T> r = new ArrayList<>(extensions.size());
@@ -62,6 +64,7 @@ abstract class AbstractExtensibleImpl extends AbstractObjectImpl implements WSDL
         return r;
     }
 
+    @Override
     public <T extends WSDLExtension> T getExtension(Class<T> type) {
         for (WSDLExtension e : extensions) {
             if(type.isInstance(e))
@@ -70,6 +73,7 @@ abstract class AbstractExtensibleImpl extends AbstractObjectImpl implements WSDL
         return null;
     }
     
+    @Override
     public void addExtension(WSDLExtension ex) {
         if(ex==null)
             // I don't trust plugins. So let's always check it, instead of making this an assertion
@@ -77,6 +81,7 @@ abstract class AbstractExtensibleImpl extends AbstractObjectImpl implements WSDL
         extensions.add(ex);
     }
 
+    @Override
     public List<? extends UnknownWSDLExtension> getNotUnderstoodExtensions() {
     	return notUnderstoodExtensions;
     }
@@ -85,6 +90,7 @@ abstract class AbstractExtensibleImpl extends AbstractObjectImpl implements WSDL
      * This can be used if a WSDL extension element that has wsdl:required=true
      * is not understood
      */
+    @Override
     public void addNotUnderstoodExtension(QName extnEl, Locator locator) {
         notUnderstoodExtensions.add(new UnknownWSDLExtension(extnEl, locator));
     }
@@ -96,9 +102,11 @@ abstract class AbstractExtensibleImpl extends AbstractObjectImpl implements WSDL
             this.extnEl = extnEl;
             this.locator = locator;
         }
+        @Override
         public QName getName() {
             return extnEl;
         }
+        @Override
         @NotNull public Locator getLocation() {
             return locator;
         }
@@ -111,6 +119,7 @@ abstract class AbstractExtensibleImpl extends AbstractObjectImpl implements WSDL
      * This method should be called after freezing the WSDLModel
      * @return true if all wsdl required extensions on Port and Binding are understood
      */
+    @Override
     public boolean areRequiredExtensionsUnderstood() {
         if (notUnderstoodExtensions.size() != 0) {
             StringBuilder buf = new StringBuilder("Unknown WSDL extensibility elements:");

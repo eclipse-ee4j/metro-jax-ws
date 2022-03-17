@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,6 +24,7 @@ import java.util.Set;
  */
 @HandlesTypes({WebService.class, WebServiceProvider.class})
 public class WSServletContainerInitializer implements ServletContainerInitializer {
+    @Override
     public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException {
         //Called with null, when there are no matching classes as per Servlet 3.0 spec
         try {

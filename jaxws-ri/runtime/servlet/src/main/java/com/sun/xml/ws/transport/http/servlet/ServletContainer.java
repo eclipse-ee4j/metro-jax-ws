@@ -32,10 +32,12 @@ class ServletContainer extends Container {
     private final ServletModule module = new ServletModule() {
         private final List<BoundEndpoint> endpoints = new ArrayList<>();
 
+        @Override
         public @NotNull List<BoundEndpoint> getBoundEndpoints() {
             return endpoints;
         }
 
+        @Override
         public @NotNull String getContextPath() {
             // Cannot compute this since we don't know about hostname and port etc
             throw new WebServiceException("Container "+ServletContainer.class.getName()+" doesn't support getContextPath()");
@@ -43,6 +45,7 @@ class ServletContainer extends Container {
     };
 
     private final ResourceLoader loader = new ResourceLoader() {
+        @Override
         public URL getResource(String resource) throws MalformedURLException {
             return servletContext.getResource("/WEB-INF/"+resource);
         }
@@ -52,6 +55,7 @@ class ServletContainer extends Container {
         this.servletContext = servletContext;
     }
 
+    @Override
     public <T> T getSPI(Class<T> spiType) {
         if (spiType == ServletContext.class) {
             return spiType.cast(servletContext);

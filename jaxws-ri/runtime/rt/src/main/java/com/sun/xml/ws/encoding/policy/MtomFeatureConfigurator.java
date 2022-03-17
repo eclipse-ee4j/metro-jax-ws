@@ -44,6 +44,7 @@ public class MtomFeatureConfigurator implements PolicyFeatureConfigurator {
      * @param policyMap Must be non-null
      * @throws PolicyException If retrieving the policy triggered an exception
      */
+    @Override
     public Collection<WebServiceFeature> getFeatures(PolicyMapKey key, PolicyMap policyMap) throws PolicyException {
         final Collection<WebServiceFeature> features = new LinkedList<>();
         if ((key != null) && (policyMap != null)) {

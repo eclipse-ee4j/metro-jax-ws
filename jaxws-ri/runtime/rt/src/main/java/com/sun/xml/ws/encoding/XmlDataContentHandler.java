@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,10 +42,12 @@ public class XmlDataContentHandler implements DataContentHandler {
         flavors[2] = new ActivationDataFlavor(String.class, "text/xml", "XML String");
     }
 
+    @Override
     public ActivationDataFlavor[] getTransferDataFlavors() {
         return Arrays.copyOf(flavors, flavors.length);
     }
 
+    @Override
     public Object getTransferData(ActivationDataFlavor df, DataSource ds)
         throws IOException {
 
@@ -60,6 +62,7 @@ public class XmlDataContentHandler implements DataContentHandler {
     /**
      * Create an object from the input stream
      */
+    @Override
     public Object getContent(DataSource ds) throws IOException {
         String ctStr = ds.getContentType();
         String charset = null;
@@ -80,6 +83,7 @@ public class XmlDataContentHandler implements DataContentHandler {
     /**
      * Convert the object to a byte stream
      */
+    @Override
     public void writeTo(Object obj, String mimeType, OutputStream os)
         throws IOException {
 

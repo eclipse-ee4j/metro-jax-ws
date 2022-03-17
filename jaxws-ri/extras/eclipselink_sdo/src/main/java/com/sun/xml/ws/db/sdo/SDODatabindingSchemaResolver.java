@@ -45,6 +45,7 @@ public class SDODatabindingSchemaResolver extends DefaultSchemaResolver {
         externalResolver = resolver;
     }
     
+    @Override
     public Source resolveSchema(Source sourceXSD, String namespace,
                                 String schemaLocation) {
 

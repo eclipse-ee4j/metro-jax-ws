@@ -50,69 +50,86 @@ public class ProtocolSourceMessage extends Message {
         sm = codec.decode(reader);
     }
 
+    @Override
     public boolean hasHeaders() {
         return sm.hasHeaders();
     }
 
+    @Override
     public String getPayloadLocalPart() {
         return sm.getPayloadLocalPart();
     }
 
+    @Override
     public String getPayloadNamespaceURI() {
         return sm.getPayloadNamespaceURI();
     }
 
+    @Override
     public boolean hasPayload() {
         return sm.hasPayload();
     }
 
+    @Override
     public Source readPayloadAsSource() {
         return sm.readPayloadAsSource();
     }
 
+    @Override
     public XMLStreamReader readPayload() throws XMLStreamException {
         return sm.readPayload();
     }
 
+    @Override
     public void writePayloadTo(XMLStreamWriter sw) throws XMLStreamException {
         sm.writePayloadTo(sw);
     }
 
+    @Override
     public void writeTo(XMLStreamWriter sw) throws XMLStreamException {
         sm.writeTo(sw);
     }
 
+    @Override
     public Message copy() {
         return sm.copy().copyFrom(sm);
     }
 
+    @Override
     public Source readEnvelopeAsSource() {
         return sm.readEnvelopeAsSource();
     }
 
+    @Override
     public SOAPMessage readAsSOAPMessage() throws SOAPException {
         return sm.readAsSOAPMessage();
     }
 
+    @Override
     public SOAPMessage readAsSOAPMessage(Packet packet, boolean inbound) throws SOAPException {
         return sm.readAsSOAPMessage(packet, inbound);
     }
 
+    @Override
     public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         return sm.readPayloadAsJAXB(unmarshaller);
     }
     /** @deprecated */
+    @Override
     public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
         return sm.readPayloadAsJAXB(bridge);
     }
+    @Override
     public <T> T readPayloadAsJAXB(XMLBridge<T> bridge) throws JAXBException {
         return sm.readPayloadAsJAXB(bridge);
     }
 
+    @Override
     public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException {
         sm.writeTo(contentHandler, errorHandler);
     }
 
+    @Override
     public SOAPVersion getSOAPVersion() {
         return sm.getSOAPVersion();
     }

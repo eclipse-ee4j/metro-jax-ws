@@ -56,6 +56,7 @@ final class SOAPHandlerProcessor<C extends MessageUpdatableContext> extends Hand
      * something else will need to be passed to the method
      * to determine whether the fault code is client or server.
      */
+    @Override
     void insertFaultMessage(C context,
         ProtocolException exception) {
         try {

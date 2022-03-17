@@ -94,6 +94,7 @@ public class Service extends ModelObject {
         javaInterface = i;
     }
 
+    @Override
     public void accept(ModelVisitor visitor) throws Exception {
         visitor.visit(this);
     }

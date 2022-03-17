@@ -33,6 +33,7 @@ import jakarta.xml.ws.WebServiceException;
  */
 public class DefaultPolicyResolver implements PolicyResolver {
 
+    @Override
     public PolicyMap resolve(ServerContext context) {
         PolicyMap map = context.getPolicyMap();
         if(map != null)
@@ -40,6 +41,7 @@ public class DefaultPolicyResolver implements PolicyResolver {
         return map;
     }
 
+    @Override
     public PolicyMap resolve(ClientContext context) {
         PolicyMap map = context.getPolicyMap();
         if(map != null)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -50,14 +50,17 @@ public final class ByteArrayAttachment implements Attachment {
         this(contentId, data, 0, data.length, mimeType);
     }
 
+    @Override
     public String getContentId() {
         return contentId;
     }
 
+    @Override
     public String getContentType() {
         return mimeType;
     }
 
+    @Override
     public byte[] asByteArray() {
         if(start!=0 || len!=data.length) {
             // if our buffer isn't exact, switch to the exact one
@@ -69,22 +72,27 @@ public final class ByteArrayAttachment implements Attachment {
         return data;
     }
 
+    @Override
     public DataHandler asDataHandler() {
         return new DataSourceStreamingDataHandler(new ByteArrayDataSource(data,start,len,getContentType()));
     }
 
+    @Override
     public Source asSource() {
         return new StreamSource(asInputStream());
     }
 
+    @Override
     public InputStream asInputStream() {
          return new ByteArrayInputStream(data,start,len);
     }
 
+    @Override
     public void writeTo(OutputStream os) throws IOException {
         os.write(asByteArray());
     }
 
+    @Override
     public void writeTo(SOAPMessage saaj) throws SOAPException {
         AttachmentPart part = saaj.createAttachmentPart();
         part.setDataHandler(asDataHandler());

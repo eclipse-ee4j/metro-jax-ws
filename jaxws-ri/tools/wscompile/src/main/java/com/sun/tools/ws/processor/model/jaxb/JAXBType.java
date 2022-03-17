@@ -64,6 +64,7 @@ public class JAXBType extends AbstractType{
         return wrapperChildren.size() > 0;
     }
 
+    @Override
     public boolean isLiteralType() {
         return true;
     }

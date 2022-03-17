@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,6 +37,7 @@ public enum ValueGetter {
      * therefore the parameter itself is a value.
      */
     PLAIN() {
+        @Override
         public Object get(Object parameter) {
             return parameter;
         }
@@ -50,6 +51,7 @@ public enum ValueGetter {
      * so the value to be sent is obtained by getting the value of the holder.
      */
     HOLDER() {
+        @Override
         public Object get(Object parameter) {
             if(parameter==null)
                 // the user is allowed to pass in null where a Holder is expected.

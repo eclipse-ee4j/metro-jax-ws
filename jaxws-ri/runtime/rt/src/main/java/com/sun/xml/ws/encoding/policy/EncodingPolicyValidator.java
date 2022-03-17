@@ -40,10 +40,12 @@ public class EncodingPolicyValidator implements PolicyAssertionValidator {
     public EncodingPolicyValidator() {
     }
     
+    @Override
     public Fitness validateClientSide(PolicyAssertion assertion) {
         return clientSideSupportedAssertions.contains(assertion.getName()) ? Fitness.SUPPORTED : Fitness.UNKNOWN;
     }
 
+    @Override
     public Fitness validateServerSide(PolicyAssertion assertion) {
         QName assertionName = assertion.getName();
         if (serverSideSupportedAssertions.contains(assertionName)) {
@@ -55,6 +57,7 @@ public class EncodingPolicyValidator implements PolicyAssertionValidator {
         }
     }
 
+    @Override
     public String[] declareSupportedDomains() {
         return new String[] {EncodingConstants.OPTIMIZED_MIME_NS, EncodingConstants.ENCODING_NS, EncodingConstants.SUN_ENCODING_CLIENT_NS, EncodingConstants.SUN_FI_SERVICE_NS};
     }

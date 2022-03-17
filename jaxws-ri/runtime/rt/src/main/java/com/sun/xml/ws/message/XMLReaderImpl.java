@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,6 +30,7 @@ final class XMLReaderImpl extends XMLFilterImpl {
         this.msg = msg;
     }
 
+    @Override
     public void parse(String systemId) {
         reportError();
     }
@@ -40,6 +41,7 @@ final class XMLReaderImpl extends XMLFilterImpl {
             "This is a special XMLReader implementation that only works with the InputSource given in SAXSource.");
     }
 
+    @Override
     public void parse(InputSource input) throws SAXException {
         if(input!=THE_SOURCE)
             reportError();

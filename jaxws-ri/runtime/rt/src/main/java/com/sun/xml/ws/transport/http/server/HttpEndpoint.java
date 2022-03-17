@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,6 +44,7 @@ public final class HttpEndpoint extends com.sun.xml.ws.api.server.HttpEndpoint {
         this.adapter = adapter;
     }
 
+    @Override
     public void publish(String address) {
         this.address = address;
         httpContext = ServerMgr.getInstance().createContext(address);
@@ -86,6 +87,7 @@ public final class HttpEndpoint extends com.sun.xml.ws.api.server.HttpEndpoint {
     	return address;
     }
 
+    @Override
     public void stop() {
         if (httpContext != null) {
             if (address == null) {

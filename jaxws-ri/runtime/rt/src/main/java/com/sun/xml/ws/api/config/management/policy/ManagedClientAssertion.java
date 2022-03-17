@@ -67,6 +67,7 @@ public class ManagedClientAssertion extends ManagementAssertion {
      *
      * @return False.
      */
+    @Override
     public boolean isManagementEnabled() {
         final String management = this.getAttributeValue(MANAGEMENT_ATTRIBUTE_QNAME);
         if (management != null) {

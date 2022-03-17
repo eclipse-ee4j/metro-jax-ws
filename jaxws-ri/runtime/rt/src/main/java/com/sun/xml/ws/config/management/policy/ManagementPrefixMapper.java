@@ -29,6 +29,7 @@ public class ManagementPrefixMapper implements PrefixMapper {
         prefixMap.put(PolicyConstants.SUN_MANAGEMENT_NAMESPACE, "sunman");
     }
 
+    @Override
     public Map<String, String> getPrefixMap() {
         return prefixMap;
     }

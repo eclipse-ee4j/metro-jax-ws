@@ -60,26 +60,32 @@ public class SAX2DOMContentHandler implements ContentHandler {
         prefixMappings = new HashMap<>();
     }
 
+    @Override
     public void setDocumentLocator(Locator locator) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
     public void startDocument() throws SAXException {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
     public void endDocument() throws SAXException {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
     public void startPrefixMapping(String prefix, String uri) throws SAXException {
         prefixMappings.put(prefix, uri);
     }
 
+    @Override
     public void endPrefixMapping(String string) throws SAXException {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
     public void startElement(String ns, String local, String qname, Attributes attributes) throws SAXException {
         if (stack.isEmpty()) {
             throw new SAXException("invalid state");
@@ -116,10 +122,12 @@ public class SAX2DOMContentHandler implements ContentHandler {
         stack.push(e);
     }
 
+    @Override
     public void endElement(String string, String string1, String string2) throws SAXException {
         stack.pop();
     }
 
+    @Override
     public void characters(char[] chars, int i, int i1) throws SAXException {
         Text text = doc.createTextNode(new String(chars, i, i1));
         if (stack.isEmpty()) {
@@ -129,10 +137,12 @@ public class SAX2DOMContentHandler implements ContentHandler {
         node.appendChild(text);
     }
 
+    @Override
     public void ignorableWhitespace(char[] chars, int i, int i1) throws SAXException {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @Override
     public void processingInstruction(String string, String string1) throws SAXException {
         ProcessingInstruction pi = doc.createProcessingInstruction(string, string1);
         if (stack.isEmpty()) {
@@ -142,6 +152,7 @@ public class SAX2DOMContentHandler implements ContentHandler {
         node.appendChild(pi);
     }
 
+    @Override
     public void skippedEntity(String string) throws SAXException {
         //To change body of implemented methods use File | Settings | File Templates.
     }

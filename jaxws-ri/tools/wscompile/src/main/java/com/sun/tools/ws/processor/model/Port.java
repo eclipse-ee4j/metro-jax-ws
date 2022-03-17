@@ -103,6 +103,7 @@ public class Port extends ModelObject {
         _serviceImplName = name;
     }
 
+    @Override
     public void accept(ModelVisitor visitor) throws Exception {
         visitor.visit(this);
     }

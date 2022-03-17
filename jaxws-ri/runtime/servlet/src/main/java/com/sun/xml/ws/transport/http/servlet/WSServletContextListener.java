@@ -44,15 +44,19 @@ public final class WSServletContextListener
 
     private static final String WSSERVLET_CONTEXT_LISTENER_INVOKED="com.sun.xml.ws.transport.http.servlet.WSServletContextListener.Invoked";
 
+    @Override
     public void attributeAdded(ServletContextAttributeEvent event) {
     }
 
+    @Override
     public void attributeRemoved(ServletContextAttributeEvent event) {
     }
 
+    @Override
     public void attributeReplaced(ServletContextAttributeEvent event) {
     }
 
+    @Override
     public void contextDestroyed(ServletContextEvent event) {
         if (delegate != null) { // the deployment might have failed.
             delegate.destroy();
@@ -113,6 +117,7 @@ public final class WSServletContextListener
 
     }
 
+    @Override
     public void contextInitialized(ServletContextEvent event) {
         if (logger.isLoggable(Level.INFO)) {
             logger.info(WsservletMessages.LISTENER_INFO_INITIALIZE());

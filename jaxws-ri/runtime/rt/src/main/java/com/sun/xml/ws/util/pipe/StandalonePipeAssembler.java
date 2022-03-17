@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,6 +26,7 @@ import com.sun.xml.ws.api.pipe.ServerPipeAssemblerContext;
  */
 public class StandalonePipeAssembler implements PipelineAssembler {
 
+    @Override
     @NotNull
     public Pipe createClient(ClientPipeAssemblerContext context) {
         Pipe head = context.createTransportPipe();
@@ -46,6 +47,7 @@ public class StandalonePipeAssembler implements PipelineAssembler {
      * During assembling the Pipelines, we can decide if we really need a
      * SOAPHandlerPipe and LogicalHandlerPipe for a particular Endpoint.
      */
+    @Override
     public Pipe createServer(ServerPipeAssemblerContext context) {
         Pipe head = context.getTerminalPipe();
         head = context.createHandlerPipe(head);

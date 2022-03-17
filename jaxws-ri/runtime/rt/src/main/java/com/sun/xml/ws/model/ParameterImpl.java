@@ -65,10 +65,12 @@ public class ParameterImpl implements Parameter {
         this.parent = parent;
     }
 
+    @Override
     public AbstractSEIModelImpl getOwner() {
         return parent.owner;
     }
 
+    @Override
     public JavaMethod getParent() {
         return parent;
     }
@@ -76,6 +78,7 @@ public class ParameterImpl implements Parameter {
     /**
      * @return Returns the name.
      */
+    @Override
     public QName getName() {
         return name;
     }
@@ -105,6 +108,7 @@ public class ParameterImpl implements Parameter {
     }
 
     /**  @deprecated  */
+    @Override
     public Bridge getBridge() {
         return getOwner().getBridge(typeReference);
     }
@@ -137,10 +141,12 @@ public class ParameterImpl implements Parameter {
     }
 
 
+    @Override
     public Mode getMode() {
         return mode;
     }
 
+    @Override
     public int getIndex() {
         return index;
     }
@@ -148,10 +154,12 @@ public class ParameterImpl implements Parameter {
     /**
      * @return true if {@code this instanceof} {@link WrapperParameter}.
      */
+    @Override
     public boolean isWrapperStyle() {
         return false;
     }
 
+    @Override
     public boolean isReturnValue() {
         return index==-1;
     }
@@ -159,6 +167,7 @@ public class ParameterImpl implements Parameter {
     /**
      * @return the Binding for this Parameter
      */
+    @Override
     public ParameterBinding getBinding() {
         if(binding == null)
             return ParameterBinding.BODY;
@@ -179,24 +188,29 @@ public class ParameterImpl implements Parameter {
         this.outBinding = binding;
     }
 
+    @Override
     public ParameterBinding getInBinding(){
         return binding;
     }
 
+    @Override
     public ParameterBinding getOutBinding(){
         if(outBinding == null)
             return binding;
         return outBinding;
     }
 
+    @Override
     public boolean isIN() {
         return mode==Mode.IN;
     }
 
+    @Override
     public boolean isOUT() {
         return mode==Mode.OUT;
     }
 
+    @Override
     public boolean isINOUT() {
         return mode==Mode.INOUT;
     }
@@ -209,6 +223,7 @@ public class ParameterImpl implements Parameter {
      * at most one such {@link ParameterImpl}. Note that there coule be none,
      * in which case the method returns {@code void}.
      */
+    @Override
     public boolean isResponse() {
         return index == -1;
     }
@@ -220,12 +235,14 @@ public class ParameterImpl implements Parameter {
      * 
      * @return the holder value if applicable.
      */
+    @Override
     public Object getHolderValue(Object obj) {
         if (obj instanceof Holder)
             return ((Holder) obj).value;
         return obj;
     }
 
+    @Override
     public String getPartName() {
         if(partName == null)
             return name.getLocalPart();

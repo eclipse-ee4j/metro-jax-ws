@@ -85,6 +85,7 @@ public class ManagedServiceAssertion extends ManagementAssertion {
      *
      * @return The value of the management attribute.
      */
+    @Override
     public boolean isManagementEnabled() {
         final String management = this.getAttributeValue(MANAGEMENT_ATTRIBUTE_QNAME);
         boolean result = true;

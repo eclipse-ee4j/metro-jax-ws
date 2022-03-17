@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,50 +47,62 @@ public class PayloadStreamReaderMessage extends AbstractMessageImpl {
         message = new StreamMessage(headers, attSet, reader, soapVersion);
     }
     
+    @Override
     public boolean hasHeaders() {
         return message.hasHeaders();
     }
 
+    @Override
     public AttachmentSet getAttachments() {
         return message.getAttachments();
     }
 
+    @Override
     public String getPayloadLocalPart() {
         return message.getPayloadLocalPart();
     }
 
+    @Override
     public String getPayloadNamespaceURI() {
         return message.getPayloadNamespaceURI();
     }
 
+    @Override
     public boolean hasPayload() {
         return true;
     }
 
+    @Override
     public Source readPayloadAsSource() {
         return message.readPayloadAsSource();
     }
 
+    @Override
     public XMLStreamReader readPayload() throws XMLStreamException {
         return message.readPayload();
     }
 
+    @Override
     public void writePayloadTo(XMLStreamWriter sw) throws XMLStreamException {
         message.writePayloadTo(sw);
     }
 
+    @Override
     public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         return (T) message.readPayloadAsJAXB(unmarshaller);
     }
 
+    @Override
     public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException {
         message.writeTo(contentHandler, errorHandler);
     }
 
+    @Override
     protected void writePayloadTo(ContentHandler contentHandler, ErrorHandler errorHandler, boolean fragment) throws SAXException {
         message.writePayloadTo(contentHandler, errorHandler, fragment);
     }
 
+    @Override
     public Message copy() {
         return message.copy().copyFrom(message);
     }

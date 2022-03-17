@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,10 +42,12 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
         this.policyMap = context.getEndpoint().getPolicyMap();
     }
     
+    @Override
     public PolicyMap getPolicyMap() {
         return policyMap;
     }
     
+    @Override
     public boolean isPolicyAvailable() {
         return policyMap != null && !policyMap.isEmpty();
     }
@@ -56,6 +58,7 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * @return Null if the service doesn't have SEI model e.g. Provider endpoints,
      *         and otherwise non-null.
      */
+    @Override
     public @Nullable SEIModel getSEIModel() {
         return wrappedContext.getSEIModel();
     }
@@ -66,6 +69,7 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * @return Null if the service isn't associated with any port definition in WSDL,
      *         and otherwise non-null.
      */
+    @Override
     public @Nullable WSDLPort getWsdlPort() {
         return wrappedContext.getWsdlModel();
     }
@@ -77,6 +81,7 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * {@link com.sun.xml.ws.api.pipe.Pipe}s.
      *  @return Always non-null.
      */
+    @Override
     public @NotNull WSEndpoint getEndpoint() {
         return wrappedContext.getEndpoint();
     }
@@ -91,6 +96,7 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      *
      * @return always non-null terminal pipe
      */
+     @Override
      public @NotNull Tube getTerminalTube() {
          return wrappedContext.getTerminalTube();
     }
@@ -101,6 +107,7 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * hint, since often synchronous versions are cheaper to execute than asycnhronous
      * versions.
      */
+    @Override
     public boolean isSynchronous() {
         return wrappedContext.isSynchronous();
     }
@@ -114,6 +121,7 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * @return codec to be used for web service requests
      * @see {@link com.sun.xml.ws.api.pipe.Codecs}
      */
+    @Override
     public @NotNull Codec getCodec() {
         return wrappedContext.getCodec();
     }
@@ -136,10 +144,12 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * @param codec codec to be used for web service requests
      * @see {@link com.sun.xml.ws.api.pipe.Codecs}
      */
+    @Override
     public void setCodec(@NotNull Codec codec) {
         wrappedContext.setCodec(codec);
     }
         
+    @Override
     public ServerTubeAssemblerContext getWrappedContext() {
         return wrappedContext;
     }    

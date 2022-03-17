@@ -70,6 +70,7 @@ public class MtomPolicyMapConfigurator implements PolicyMapConfigurator {
      * </ol>
      *
      */
+    @Override
     public Collection<PolicySubject> update(PolicyMap policyMap, SEIModel model, WSBinding wsBinding) throws PolicyException {
         LOGGER.entering(policyMap, model, wsBinding);
 

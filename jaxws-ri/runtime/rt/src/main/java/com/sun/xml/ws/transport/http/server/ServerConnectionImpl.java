@@ -121,6 +121,7 @@ final class ServerConnectionImpl extends WSHTTPConnection implements WebServiceC
         return status;
     }
 
+    @Override
     public @NotNull InputStream getInput() {
         if (in == null) {
             in = new LWHSInputStream(httpExchange.getRequestBody());
@@ -161,6 +162,7 @@ final class ServerConnectionImpl extends WSHTTPConnection implements WebServiceC
     }
 
 
+    @Override
     public @NotNull OutputStream getOutput() throws IOException {
         if (out == null) {
             String lenHeader = httpExchange.getResponseHeaders().getFirst("Content-Length");
@@ -197,18 +199,22 @@ final class ServerConnectionImpl extends WSHTTPConnection implements WebServiceC
         return out;
     }
 
+    @Override
     public @NotNull WebServiceContextDelegate getWebServiceContextDelegate() {
         return this;
     }
 
+    @Override
     public Principal getUserPrincipal(Packet request) {
         return httpExchange.getPrincipal();
     }
 
+    @Override
     public boolean isUserInRole(Packet request, String role) {
         return false;
     }
 
+    @Override
     public @NotNull String getEPRAddress(Packet request, WSEndpoint endpoint) {
         //return WSHttpHandler.getRequestAddress(httpExchange);
         
@@ -220,6 +226,7 @@ final class ServerConnectionImpl extends WSHTTPConnection implements WebServiceC
 
     }
 
+    @Override
     public String getWSDLAddress(@NotNull Packet request, @NotNull WSEndpoint endpoint) {
         String eprAddress = getEPRAddress(request,endpoint);
         if(adapter.getEndpoint().getPort() != null)
@@ -319,6 +326,7 @@ final class ServerConnectionImpl extends WSHTTPConnection implements WebServiceC
 		return httpExchange.getLocalAddress().getPort();
 	}
 	
+    @Override
     protected PropertyMap getPropertyMap() {
         return model;
     }

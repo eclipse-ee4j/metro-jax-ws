@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,6 +26,7 @@ import javax.xml.namespace.QName;
  */
 public class ManagementPolicyValidator implements PolicyAssertionValidator {
 
+    @Override
     public Fitness validateClientSide(PolicyAssertion assertion) {
         final QName assertionName = assertion.getName();
         if (ManagedClientAssertion.MANAGED_CLIENT_QNAME.equals(assertionName)) {
@@ -39,6 +40,7 @@ public class ManagementPolicyValidator implements PolicyAssertionValidator {
         }
     }
 
+    @Override
     public Fitness validateServerSide(PolicyAssertion assertion) {
         final QName assertionName = assertion.getName();
         if (ManagedServiceAssertion.MANAGED_SERVICE_QNAME.equals(assertionName)) {
@@ -52,6 +54,7 @@ public class ManagementPolicyValidator implements PolicyAssertionValidator {
         }
     }
 
+    @Override
     public String[] declareSupportedDomains() {
         return new String[] { PolicyConstants.SUN_MANAGEMENT_NAMESPACE };
     }

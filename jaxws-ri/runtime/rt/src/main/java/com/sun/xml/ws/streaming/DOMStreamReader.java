@@ -223,6 +223,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         // displayDOM(node, System.out);
     }
 
+    @Override
     public void close() throws XMLStreamException {
     }
 
@@ -314,6 +315,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         return scope;
     }
 
+    @Override
     public int getAttributeCount() {
         if (_state == START_ELEMENT)
             return _currentAttributes.size();
@@ -323,6 +325,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
     /**
      * Return an attribute's local name. Handle the case of DOM level 1 nodes.
      */
+    @Override
     public String getAttributeLocalName(int index) {
         if (_state == START_ELEMENT) {
             String localName = _currentAttributes.get(index).getLocalName();
@@ -335,6 +338,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
     /**
      * Return an attribute's qname. Handle the case of DOM level 1 nodes.
      */
+    @Override
     public QName getAttributeName(int index) {
         if (_state == START_ELEMENT) {
             Node attr = _currentAttributes.get(index);
@@ -351,6 +355,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         throw new IllegalStateException("DOMStreamReader: getAttributeName() called in illegal state");
     }
 
+    @Override
     public String getAttributeNamespace(int index) {
         if (_state == START_ELEMENT) {
             String uri = _currentAttributes.get(index).getNamespaceURI();
@@ -359,6 +364,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         throw new IllegalStateException("DOMStreamReader: getAttributeNamespace() called in illegal state");
     }
 
+    @Override
     public String getAttributePrefix(int index) {
         if (_state == START_ELEMENT) {
             String prefix = _currentAttributes.get(index).getPrefix();
@@ -367,6 +373,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         throw new IllegalStateException("DOMStreamReader: getAttributePrefix() called in illegal state");
     }
 
+    @Override
     public String getAttributeType(int index) {
         if (_state == START_ELEMENT) {
             return "CDATA";
@@ -374,6 +381,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         throw new IllegalStateException("DOMStreamReader: getAttributeType() called in illegal state");
     }
 
+    @Override
     public String getAttributeValue(int index) {
         if (_state == START_ELEMENT) {
             return _currentAttributes.get(index).getNodeValue();
@@ -381,6 +389,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         throw new IllegalStateException("DOMStreamReader: getAttributeValue() called in illegal state");
     }
 
+    @Override
     public String getAttributeValue(String namespaceURI, String localName) {
         if (_state == START_ELEMENT) {
             if (_namedNodeMap != null) {
@@ -392,18 +401,22 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         throw new IllegalStateException("DOMStreamReader: getAttributeValue() called in illegal state");
     }
 
+    @Override
     public String getCharacterEncodingScheme() {
         return null;
     }
 
+    @Override
     public String getElementText() throws javax.xml.stream.XMLStreamException {
         throw new RuntimeException("DOMStreamReader: getElementText() not implemented");
     }
 
+    @Override
     public String getEncoding() {
         return null;
     }
 
+    @Override
     public int getEventType() {
         return _state;
     }
@@ -411,6 +424,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
     /**
      * Return an element's local name. Handle the case of DOM level 1 nodes.
      */
+    @Override
     public String getLocalName() {
         if (_state == START_ELEMENT || _state == END_ELEMENT) {
             String localName = _current.getLocalName();
@@ -423,6 +437,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         throw new IllegalStateException("DOMStreamReader: getAttributeValue() called in illegal state");
     }
 
+    @Override
     public Location getLocation() {
         return DummyLocation.INSTANCE;
     }
@@ -430,6 +445,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
     /**
      * Return an element's qname. Handle the case of DOM level 1 nodes.
      */
+    @Override
     public javax.xml.namespace.QName getName() {
         if (_state == START_ELEMENT || _state == END_ELEMENT) {
             String localName = _current.getLocalName();
@@ -445,6 +461,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         throw new IllegalStateException("DOMStreamReader: getName() called in illegal state");
     }
 
+    @Override
     public NamespaceContext getNamespaceContext() {
         return this;
     }
@@ -462,18 +479,22 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         throw new IllegalStateException("DOMStreamReader: neither on START_ELEMENT nor END_ELEMENT");
     }
 
+    @Override
     public int getNamespaceCount() {
         return getCheckedScope().getNamespaceCount();
     }
 
+    @Override
     public String getNamespacePrefix(int index) {
         return getCheckedScope().getNamespacePrefix(index);
     }
 
+    @Override
     public String getNamespaceURI(int index) {
         return getCheckedScope().getNamespaceURI(index);
     }
 
+    @Override
     public String getNamespaceURI() {
         if (_state == START_ELEMENT || _state == END_ELEMENT) {
             String uri = _current.getNamespaceURI();
@@ -487,6 +508,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
      * often. If we start to use it more, we should keep track of the 
      * NS declarations using a NamespaceContext implementation instead.
      */
+    @Override
     public String getNamespaceURI(String prefix) {
         if (prefix == null) {
             throw new IllegalArgumentException("DOMStreamReader: getNamespaceURI(String) call with a null prefix");
@@ -516,6 +538,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         return null;
     }
 
+    @Override
     public String getPrefix(String nsUri) {
         if (nsUri == null) {
             throw new IllegalArgumentException("DOMStreamReader: getPrefix(String) call with a null namespace URI");
@@ -582,6 +605,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         return null;
     }
 
+    @Override
     public Iterator getPrefixes(String nsUri) {
         // This is an incorrect implementation,
         // but AFAIK it's not used in the JAX-WS runtime
@@ -590,6 +614,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         else                return Collections.singletonList(prefix).iterator();
     }
 
+    @Override
     public String getPIData() {
         if (_state == PROCESSING_INSTRUCTION) {
             return ((ProcessingInstruction) _current).getData();
@@ -597,6 +622,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         return null;
     }
 
+    @Override
     public String getPITarget() {
         if (_state == PROCESSING_INSTRUCTION) {
             return ((ProcessingInstruction) _current).getTarget();
@@ -604,6 +630,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         return null;
     }
 
+    @Override
     public String getPrefix() {
         if (_state == START_ELEMENT || _state == END_ELEMENT) {
             String prefix = _current.getPrefix();
@@ -612,10 +639,12 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         return null;
     }
 
+    @Override
     public Object getProperty(String str) throws IllegalArgumentException {
         return null;
     }
 
+    @Override
     public String getText() {
         if (_state == CHARACTERS)
             return wholeText;
@@ -624,10 +653,12 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         throw new IllegalStateException("DOMStreamReader: getTextLength() called in illegal state");
     }
 
+    @Override
     public char[] getTextCharacters() {
         return getText().toCharArray();
     }
 
+    @Override
     public int getTextCharacters(int sourceStart, char[] target, int targetStart,
                                  int targetLength) throws XMLStreamException {
         String text = getText();
@@ -637,10 +668,12 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         return copiedSize;
     }
 
+    @Override
     public int getTextLength() {
         return getText().length();
     }
 
+    @Override
     public int getTextStart() {
         if (_state == CHARACTERS || _state == CDATA || _state == COMMENT || _state == ENTITY_REFERENCE) {
             return 0;
@@ -648,18 +681,22 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         throw new IllegalStateException("DOMStreamReader: getTextStart() called in illegal state");
     }
 
+    @Override
     public String getVersion() {
         return null;
     }
 
+    @Override
     public boolean hasName() {
         return (_state == START_ELEMENT || _state == END_ELEMENT);
     }
 
+    @Override
     public boolean hasNext() throws javax.xml.stream.XMLStreamException {
         return (_state != END_DOCUMENT);
     }
 
+    @Override
     public boolean hasText() {
         if (_state == CHARACTERS || _state == CDATA || _state == COMMENT || _state == ENTITY_REFERENCE) {
             return getText().trim().length() > 0;
@@ -667,26 +704,32 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         return false;
     }
 
+    @Override
     public boolean isAttributeSpecified(int param) {
         return false;
     }
 
+    @Override
     public boolean isCharacters() {
         return (_state == CHARACTERS);
     }
 
+    @Override
     public boolean isEndElement() {
         return (_state == END_ELEMENT);
     }
 
+    @Override
     public boolean isStandalone() {
         return true;
     }
 
+    @Override
     public boolean isStartElement() {
         return (_state == START_ELEMENT);
     }
 
+    @Override
     public boolean isWhiteSpace() {
         if (_state == CHARACTERS || _state == CDATA)
             return getText().trim().length()==0;
@@ -716,6 +759,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         }
     }
 
+    @Override
     public int next() throws XMLStreamException {
         while(true) {
             int r = _next();
@@ -802,6 +846,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         }
     }
 
+    @Override
     public int nextTag() throws javax.xml.stream.XMLStreamException {
         int eventType = next();
         while (eventType == CHARACTERS && isWhiteSpace()
@@ -818,6 +863,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         return eventType;
     }
 
+    @Override
     public void require(int type, String namespaceURI, String localName)
         throws javax.xml.stream.XMLStreamException
     {
@@ -832,6 +878,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
         }
     }
 
+    @Override
     public boolean standaloneSet() {
         return true;
     }

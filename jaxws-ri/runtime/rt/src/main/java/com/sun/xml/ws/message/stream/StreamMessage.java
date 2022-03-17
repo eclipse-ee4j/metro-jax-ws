@@ -109,6 +109,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         attachmentSet = attachments;        
     }
     
+    @Override
     public XMLStreamReader readEnvelope() {
         if (envelopeReader == null) {
             List<XMLStreamReader> hReaders = new java.util.ArrayList<>();
@@ -220,11 +221,13 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         this.bodyEpilogue = bodyEpilogue;
     }
 
+    @Override
     public boolean hasHeaders() {
         if ( envelopeReader != null ) readEnvelope(this);
         return headers!=null && headers.hasHeaders();
     }
 
+    @Override
     public MessageHeaders getHeaders() {
         if ( envelopeReader != null ) readEnvelope(this);
         if (headers == null) {
@@ -233,21 +236,25 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         return headers;
     }
     
+    @Override
     public String getPayloadLocalPart() {
         if ( envelopeReader != null ) readEnvelope(this);
         return payloadLocalName;
     }
 
+    @Override
     public String getPayloadNamespaceURI() {
         if ( envelopeReader != null ) readEnvelope(this);
         return payloadNamespaceURI;
     }
 
+    @Override
     public boolean hasPayload() {
         if ( envelopeReader != null ) readEnvelope(this);
         return payloadLocalName!=null;
     }
 
+    @Override
     public Source readPayloadAsSource() {
         if(hasPayload()) {
             assert unconsumed();
@@ -285,6 +292,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         return inscope.toArray(new String[0]);
     }
 
+    @Override
     public Object readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         if(!hasPayload())
             return null;
@@ -302,6 +310,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         }
     }
     /** @deprecated */
+    @Override
     public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
         if(!hasPayload())
             return null;
@@ -314,6 +323,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         return r;
     }
 
+    @Override
     public <T> T readPayloadAsJAXB(XMLBridge<T> bridge) throws JAXBException {
         if(!hasPayload())
             return null;
@@ -334,6 +344,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         XMLStreamReaderFactory.recycle(reader);
     }
 
+    @Override
     public XMLStreamReader readPayload() {
         if(!hasPayload())
             return null;
@@ -342,6 +353,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         return this.reader;
     }
 
+    @Override
     public void writePayloadTo(XMLStreamWriter writer)throws XMLStreamException {
         if ( envelopeReader != null ) readEnvelope(this);
         assert unconsumed();
@@ -393,11 +405,13 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         return name.equals("Body") && nsUri.equals(soapVersion.nsUri);
     }
 
+    @Override
     public void writeTo(XMLStreamWriter sw) throws XMLStreamException{
         if ( envelopeReader != null ) readEnvelope(this);
         writeEnvelope(sw);
     }
     
+    @Override
     public void writeToBodyStart(XMLStreamWriter writer) throws XMLStreamException {
         if ( envelopeReader != null ) readEnvelope(this);
         writer.writeStartDocument();
@@ -431,6 +445,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         writer.writeEndDocument();
     }
 
+    @Override
     public void writePayloadTo(ContentHandler contentHandler, ErrorHandler errorHandler, boolean fragment) throws SAXException {
         if ( envelopeReader != null ) readEnvelope(this);
         assert unconsumed();
@@ -551,6 +566,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         assert xsr.getEventType()== XMLStreamConstants.START_ELEMENT || xsr.getEventType()== XMLStreamConstants.END_ELEMENT;
     }
 
+    @Override
     public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler ) throws SAXException {
         if ( envelopeReader != null ) readEnvelope(this);
         contentHandler.setDocumentLocator(NULL_LOCATOR);
@@ -751,12 +767,15 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         return new MutableXMLStreamBuffer();
     }
     
+    @Override
     public boolean isPayloadStreamReader() { return true; }
 
+    @Override
     public QName getPayloadQName() {
         return this.hasPayload() ? new QName(payloadNamespaceURI, payloadLocalName) : null;
     }
     
+    @Override
     public XMLStreamReader readToBodyStarTag() {
         if ( envelopeReader != null ) readEnvelope(this);
         List<XMLStreamReader> hReaders = new java.util.ArrayList<>();

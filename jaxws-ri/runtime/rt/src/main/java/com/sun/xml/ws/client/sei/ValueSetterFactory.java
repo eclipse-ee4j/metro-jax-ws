@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,18 +24,21 @@ public abstract class ValueSetterFactory {
     public abstract ValueSetter get(ParameterImpl p);
 
     public static final ValueSetterFactory SYNC = new ValueSetterFactory() {
+        @Override
         public ValueSetter get(ParameterImpl p) {
             return ValueSetter.getSync(p);
         }
     };
 
     public static final ValueSetterFactory NONE = new ValueSetterFactory() {
+        @Override
         public ValueSetter get(ParameterImpl p) {
             throw new WebServiceException("This shouldn't happen. No response parameters.");
         }
     };
 
     public static final ValueSetterFactory SINGLE = new ValueSetterFactory() {
+        @Override
         public ValueSetter get(ParameterImpl p) {
             return ValueSetter.SINGLE_VALUE;
         }
@@ -48,6 +51,7 @@ public abstract class ValueSetterFactory {
             this.asyncBean = asyncBean;
         }
 
+        @Override
         public ValueSetter get(ParameterImpl p) {
             return new ValueSetter.AsyncBeanValueSetter(p, asyncBean);
         }

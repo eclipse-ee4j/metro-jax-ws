@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -73,10 +73,12 @@ public class ClientSchemaValidationTube extends AbstractSchemaValidationTube {
         validator = null;
     }
 
+    @Override
     protected Validator getValidator() {
         return validator;
     }
 
+    @Override
     protected boolean isNoValidation() {
         return noValidation;
     }
@@ -89,6 +91,7 @@ public class ClientSchemaValidationTube extends AbstractSchemaValidationTube {
         this.noValidation = that.noValidation;
     }
 
+    @Override
     public AbstractTubeImpl copy(TubeCloner cloner) {
         return new ClientSchemaValidationTube(this,cloner);
     }

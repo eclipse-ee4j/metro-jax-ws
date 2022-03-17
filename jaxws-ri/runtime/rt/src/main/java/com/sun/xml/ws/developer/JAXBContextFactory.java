@@ -78,6 +78,7 @@ public interface JAXBContextFactory {
      * The default implementation that creates {@link JAXBRIContext} according to the standard behavior.
      */
     JAXBContextFactory DEFAULT = new JAXBContextFactory() {
+        @Override
         @NotNull
         public JAXBRIContext createJAXBContext(@NotNull SEIModel sei, @NotNull List<Class> classesToBind, @NotNull List<TypeReference> typeReferences) throws JAXBException {
             return JAXBRIContext.newInstance(classesToBind.toArray(new Class[0]),

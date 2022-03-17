@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,6 +33,7 @@ public class DataHandlerDataSource implements DataSource {
      *
      * @return the <code>InputStream</code>
      */
+    @Override
     public InputStream getInputStream() throws IOException {
         return dataHandler.getInputStream();
     }
@@ -42,6 +43,7 @@ public class DataHandlerDataSource implements DataSource {
      *
      * @return the <code>OutputStream</code>
      */
+    @Override
     public OutputStream getOutputStream() throws IOException {
         return dataHandler.getOutputStream();
     }
@@ -51,6 +53,7 @@ public class DataHandlerDataSource implements DataSource {
      *
      * @return the MIME type
      */
+    @Override
     public String getContentType() {
         return dataHandler.getContentType();
     }
@@ -60,6 +63,7 @@ public class DataHandlerDataSource implements DataSource {
      *
      * @return the name of this object
      */
+    @Override
     public String getName() {
         return dataHandler.getName();
     }

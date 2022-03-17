@@ -62,14 +62,17 @@ abstract class SOAPProviderArgumentBuilder<T> extends ProviderArgumentsBuilder<T
             super(soapVersion);
         }
 
-        /*protected*/ public Source getParameter(Packet packet) {
+        /*protected*/ @Override
+        public Source getParameter(Packet packet) {
             return packet.getMessage().readPayloadAsSource();
         }
 
+        @Override
         protected Message getResponseMessage(Source source) {
             return Messages.createUsingPayload(source, soapVersion);
         }
 
+        @Override
         protected Message getResponseMessage(Exception e) {
             return SOAPFaultBuilder.createSOAPFaultMessage(soapVersion, null, e);
         }
@@ -81,14 +84,17 @@ abstract class SOAPProviderArgumentBuilder<T> extends ProviderArgumentsBuilder<T
             super(soapVersion);
         }
 
-        /*protected*/ public Source getParameter(Packet packet) {
+        /*protected*/ @Override
+        public Source getParameter(Packet packet) {
             return packet.getMessage().readEnvelopeAsSource();
         }
 
+        @Override
         protected Message getResponseMessage(Source source) {
             return Messages.create(source, soapVersion);
         }
 
+        @Override
         protected Message getResponseMessage(Exception e) {
             return SOAPFaultBuilder.createSOAPFaultMessage(soapVersion, null, e);
         }
@@ -99,7 +105,8 @@ abstract class SOAPProviderArgumentBuilder<T> extends ProviderArgumentsBuilder<T
             super(soapVersion);
         }
 
-        /*protected*/ public SOAPMessage getParameter(Packet packet) {
+        /*protected*/ @Override
+        public SOAPMessage getParameter(Packet packet) {
             try {
                 return packet.getMessage().readAsSOAPMessage(packet, true);
             } catch (SOAPException se) {
@@ -107,10 +114,12 @@ abstract class SOAPProviderArgumentBuilder<T> extends ProviderArgumentsBuilder<T
             }
         }
 
+        @Override
         protected Message getResponseMessage(SOAPMessage soapMsg) {
             return Messages.create(soapMsg);
         }
 
+        @Override
         protected Message getResponseMessage(Exception e) {
             return SOAPFaultBuilder.createSOAPFaultMessage(soapVersion, null, e);
         }

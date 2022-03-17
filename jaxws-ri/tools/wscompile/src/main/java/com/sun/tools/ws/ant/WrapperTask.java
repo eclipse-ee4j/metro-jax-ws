@@ -34,6 +34,7 @@ public abstract class WrapperTask extends ProtectedTask {
      */
     private boolean doEndorsedMagic = false;
 
+    @Override
     protected String getCoreClassName() {
         return getClass().getName()+'2';
     }
@@ -51,6 +52,7 @@ public abstract class WrapperTask extends ProtectedTask {
 
     }
 
+    @Override
     protected ClassLoader createClassLoader() throws ClassNotFoundException, IOException {
         ClassLoader cl = getClass().getClassLoader();
         if (doEndorsedMagic) {

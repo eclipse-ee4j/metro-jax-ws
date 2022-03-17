@@ -108,6 +108,7 @@ public final class SEIStub extends Stub implements InvocationHandler {
     /**
      * Nullable when there is no associated WSDL Model
      */
+    @Override
     public @Nullable
     OperationDispatcher getOperationDispatcher() {
         if(operationDispatcher == null && wsdlPort != null)
@@ -121,6 +122,7 @@ public final class SEIStub extends Stub implements InvocationHandler {
      */
     private final Map<Method, MethodHandler> methodHandlers = new HashMap<>();
 
+    @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         validateInputs(proxy, method);
         Container old = ContainerResolver.getDefault().enterContainer(owner.getContainer());
@@ -162,11 +164,13 @@ public final class SEIStub extends Stub implements InvocationHandler {
         super.processAsync(receiver, request, rc, callback);
     }
 
+    @Override
     protected @NotNull QName getPortName() {
         return wsdlPort.getName();
     }
 
 
+    @Override
     public void setOutboundHeaders(Object... headers) {
         if(headers==null)
             throw new IllegalArgumentException();

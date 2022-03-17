@@ -73,14 +73,17 @@ public abstract class AbstractQNameValidator implements PolicyAssertionValidator
         }        
     }        
         
+    @Override
     public String[] declareSupportedDomains() {
         return supportedDomains.toArray(new String[0]);
     }
     
+    @Override
     public Fitness validateClientSide(PolicyAssertion assertion) {
         return validateAssertion(assertion, clientAssertions, serverAssertions);
     }
     
+    @Override
     public Fitness validateServerSide(PolicyAssertion assertion) {
         return validateAssertion(assertion, serverAssertions, clientAssertions);
     }

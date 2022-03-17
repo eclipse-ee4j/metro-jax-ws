@@ -70,6 +70,7 @@ public class WsdlGenMojo extends AbstractWsGenMojo {
         return new File(project.getBuild().getDirectory(), "generated-sources/wsgen");
     }
 
+    @Override
     protected void processSei(String sei) throws MojoExecutionException {
         getLog().info("Processing: " + sei);
         List<String> args = getWsGenArgs(sei, false);

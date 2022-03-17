@@ -43,12 +43,14 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         this.extensions = extensions;
     }
 
+    @Override
     public void start(WSDLParserExtensionContext context) {
         for (WSDLParserExtension e : extensions) {
             e.start(context);
         }
     }
 
+    @Override
     public boolean serviceElements(EditableWSDLService service, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             if(e.serviceElements(service,reader))
@@ -58,11 +60,13 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return true;
     }
 
+    @Override
     public void serviceAttributes(EditableWSDLService service, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions)
             e.serviceAttributes(service,reader);
     }
 
+    @Override
     public boolean portElements(EditableWSDLPort port, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             if(e.portElements(port,reader))
@@ -77,6 +81,7 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return true;
     }
 
+    @Override
     public boolean portTypeOperationInput(EditableWSDLOperation op, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions)
             e.portTypeOperationInput(op,reader);
@@ -84,6 +89,7 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return false;
     }
 
+    @Override
     public boolean portTypeOperationOutput(EditableWSDLOperation op, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions)
             e.portTypeOperationOutput(op,reader);
@@ -91,6 +97,7 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return false;
     }
 
+    @Override
     public boolean portTypeOperationFault(EditableWSDLOperation op, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions)
             e.portTypeOperationFault(op,reader);
@@ -98,11 +105,13 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return false;
     }
 
+    @Override
     public void portAttributes(EditableWSDLPort port, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions)
             e.portAttributes(port,reader);
     }
 
+    @Override
     public boolean definitionsElements(XMLStreamReader reader){
         for (WSDLParserExtension e : extensions) {
             if (e.definitionsElements(reader)) {
@@ -113,6 +122,7 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return true;
     }
 
+    @Override
     public boolean bindingElements(EditableWSDLBoundPortType binding, XMLStreamReader reader){
         for (WSDLParserExtension e : extensions) {
             if (e.bindingElements(binding, reader)) {
@@ -129,12 +139,14 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return true;
     }
 
+    @Override
     public void bindingAttributes(EditableWSDLBoundPortType binding, XMLStreamReader reader){
         for (WSDLParserExtension e : extensions) {
             e.bindingAttributes(binding, reader);
         }
     }
 
+    @Override
     public boolean portTypeElements(EditableWSDLPortType portType, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             if (e.portTypeElements(portType, reader)) {
@@ -145,12 +157,14 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return true;
     }
 
+    @Override
     public void portTypeAttributes(EditableWSDLPortType portType, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             e.portTypeAttributes(portType, reader);
         }
     }
 
+    @Override
     public boolean portTypeOperationElements(EditableWSDLOperation operation, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             if (e.portTypeOperationElements(operation, reader)) {
@@ -161,12 +175,14 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return true;
     }
 
+    @Override
     public void portTypeOperationAttributes(EditableWSDLOperation operation, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             e.portTypeOperationAttributes(operation, reader);
         }
     }
 
+    @Override
     public boolean bindingOperationElements(EditableWSDLBoundOperation operation, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             if (e.bindingOperationElements(operation, reader)) {
@@ -177,12 +193,14 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return true;
     }
 
+    @Override
     public void bindingOperationAttributes(EditableWSDLBoundOperation operation, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             e.bindingOperationAttributes(operation, reader);
         }
     }
 
+    @Override
     public boolean messageElements(EditableWSDLMessage msg, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             if (e.messageElements(msg, reader)) {
@@ -193,12 +211,14 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return true;
     }
 
+    @Override
     public void messageAttributes(EditableWSDLMessage msg, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             e.messageAttributes(msg, reader);
         }
     }
 
+    @Override
     public boolean portTypeOperationInputElements(EditableWSDLInput input, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             if (e.portTypeOperationInputElements(input, reader)) {
@@ -209,12 +229,14 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return true;
     }
 
+    @Override
     public void portTypeOperationInputAttributes(EditableWSDLInput input, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             e.portTypeOperationInputAttributes(input, reader);
         }
     }
 
+    @Override
     public boolean portTypeOperationOutputElements(EditableWSDLOutput output, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             if (e.portTypeOperationOutputElements(output, reader)) {
@@ -225,12 +247,14 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return true;
     }
 
+    @Override
     public void portTypeOperationOutputAttributes(EditableWSDLOutput output, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             e.portTypeOperationOutputAttributes(output, reader);
         }
     }
 
+    @Override
     public boolean portTypeOperationFaultElements(EditableWSDLFault fault, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             if (e.portTypeOperationFaultElements(fault, reader)) {
@@ -241,12 +265,14 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return true;
     }
 
+    @Override
     public void portTypeOperationFaultAttributes(EditableWSDLFault fault, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             e.portTypeOperationFaultAttributes(fault, reader);
         }
     }
 
+    @Override
     public boolean bindingOperationInputElements(EditableWSDLBoundOperation operation, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             if (e.bindingOperationInputElements(operation, reader)) {
@@ -257,12 +283,14 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return true;
     }
 
+    @Override
     public void bindingOperationInputAttributes(EditableWSDLBoundOperation operation, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             e.bindingOperationInputAttributes(operation, reader);
         }
     }
 
+    @Override
     public boolean bindingOperationOutputElements(EditableWSDLBoundOperation operation, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             if (e.bindingOperationOutputElements(operation, reader)) {
@@ -273,12 +301,14 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return true;
     }
 
+    @Override
     public void bindingOperationOutputAttributes(EditableWSDLBoundOperation operation, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             e.bindingOperationOutputAttributes(operation, reader);
         }
     }
 
+    @Override
     public boolean bindingOperationFaultElements(EditableWSDLBoundFault fault, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             if (e.bindingOperationFaultElements(fault, reader)) {
@@ -289,18 +319,21 @@ final class WSDLParserExtensionFacade extends WSDLParserExtension {
         return true;
     }
 
+    @Override
     public void bindingOperationFaultAttributes(EditableWSDLBoundFault fault, XMLStreamReader reader) {
         for (WSDLParserExtension e : extensions) {
             e.bindingOperationFaultAttributes(fault, reader);
         }
     }
 
+    @Override
     public void finished(WSDLParserExtensionContext context) {
         for (WSDLParserExtension e : extensions) {
             e.finished(context);
         }
     }
 
+    @Override
     public void postFinished(WSDLParserExtensionContext context) {
         for (WSDLParserExtension e : extensions) {
             e.postFinished(context);

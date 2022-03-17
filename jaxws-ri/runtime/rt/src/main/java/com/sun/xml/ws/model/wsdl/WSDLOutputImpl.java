@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,40 +37,49 @@ public final class WSDLOutputImpl extends AbstractExtensibleImpl implements Edit
         this.operation = operation;
     }
 
+    @Override
     public String getName() {
         return (name == null)?operation.getName().getLocalPart()+"Response":name;
     }
 
+    @Override
     public EditableWSDLMessage getMessage() {
         return message;
     }
 
+    @Override
     public String getAction() {
         return action;
     }
 
+    @Override
     public boolean isDefaultAction() {
         return defaultAction;
     }
 
+    @Override
     public void setDefaultAction(boolean defaultAction) {
         this.defaultAction = defaultAction;
     }
 
+    @Override
     @NotNull
     public EditableWSDLOperation getOperation() {
         return operation;
     }
 
+    @Override
     @NotNull
     public QName getQName() {
         return new QName(operation.getName().getNamespaceURI(), getName());
     }
 
+    @Override
     public void setAction(String action) {
         this.action = action;
     }
 
+    @Override
     public void freeze(EditableWSDLModel root) {
         message = root.getMessage(messageName);
     }

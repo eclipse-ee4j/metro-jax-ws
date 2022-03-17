@@ -28,6 +28,7 @@ public interface CookiePolicy {
      * One pre-defined policy which accepts all cookies.
      */
     CookiePolicy ACCEPT_ALL = new CookiePolicy(){
+        @Override
         public boolean shouldAccept(URI uri, HttpCookie cookie) {
             return true;
         }
@@ -37,6 +38,7 @@ public interface CookiePolicy {
      * One pre-defined policy which accepts no cookies.
      */
     CookiePolicy ACCEPT_NONE = new CookiePolicy(){
+        @Override
         public boolean shouldAccept(URI uri, HttpCookie cookie) {
             return false;
         }
@@ -46,6 +48,7 @@ public interface CookiePolicy {
      * One pre-defined policy which only accepts cookies from original server.
      */
     CookiePolicy ACCEPT_ORIGINAL_SERVER  = new CookiePolicy(){
+        @Override
         public boolean shouldAccept(URI uri, HttpCookie cookie) {
             return HttpCookie.domainMatches(cookie.getDomain(), uri.getHost());
         }

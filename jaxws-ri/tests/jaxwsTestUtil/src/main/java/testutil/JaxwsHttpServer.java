@@ -86,6 +86,7 @@ public class JaxwsHttpServer {
     }
     
     public class DeployWAR implements Runnable {
+        @Override
         public void run() {
             System.out.println("Starting DeployWAR thread");
             while(!isStopped()) {
@@ -174,6 +175,7 @@ public class JaxwsHttpServer {
     }
 
     static final class AdapterList extends HttpAdapterList<Adapter> implements AdapterFactory<Adapter> {
+        @Override
         protected Adapter createHttpAdapter(String name, String urlPattern, WSEndpoint<?> endpoint) {
             return new Adapter(endpoint,urlPattern,this);
         }
@@ -279,6 +281,7 @@ public class JaxwsHttpServer {
         adminServer.setExecutor(adminExecutorService);
         HttpContext context = adminServer.createContext("/admin");
         context.setHandler(new HttpHandler() {
+            @Override
             public void handle(HttpExchange msg) {
                 try {
                     System.out.println("Received HTTP request:"+msg.getRequestURI());

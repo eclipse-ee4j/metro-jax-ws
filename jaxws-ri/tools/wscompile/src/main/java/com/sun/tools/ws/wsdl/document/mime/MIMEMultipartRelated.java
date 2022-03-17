@@ -33,6 +33,7 @@ public class MIMEMultipartRelated extends ExtensionImpl {
         _parts = new ArrayList<>();
     }
 
+    @Override
     public QName getElementName() {
         return MIMEConstants.QNAME_MULTIPART_RELATED;
     }
@@ -45,6 +46,7 @@ public class MIMEMultipartRelated extends ExtensionImpl {
         return _parts;
     }
 
+    @Override
     public void withAllSubEntitiesDo(EntityAction action) {
         super.withAllSubEntitiesDo(action);
 
@@ -53,11 +55,13 @@ public class MIMEMultipartRelated extends ExtensionImpl {
         }
     }
 
+    @Override
     public void accept(ExtensionVisitor visitor) throws Exception {
         visitor.preVisit(this);
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
     }
 

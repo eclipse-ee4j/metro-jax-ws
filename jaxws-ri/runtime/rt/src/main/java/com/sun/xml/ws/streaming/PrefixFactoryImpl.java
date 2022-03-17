@@ -25,6 +25,7 @@ public class PrefixFactoryImpl implements PrefixFactory {
         _next = 1;
     }
 
+    @Override
     public String getPrefix(String uri) {
         String prefix = null;
 

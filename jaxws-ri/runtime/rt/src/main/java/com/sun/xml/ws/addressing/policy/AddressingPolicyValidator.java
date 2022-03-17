@@ -45,10 +45,12 @@ public class AddressingPolicyValidator implements PolicyAssertionValidator {
     public AddressingPolicyValidator() {
     }
 
+    @Override
     public Fitness validateClientSide(PolicyAssertion assertion) {
         return supportedAssertions.contains(assertion.getName()) ? Fitness.SUPPORTED : Fitness.UNKNOWN;
     }
 
+    @Override
     public Fitness validateServerSide(PolicyAssertion assertion) {
         if (!supportedAssertions.contains(assertion.getName()))
             return Fitness.UNKNOWN;
@@ -80,6 +82,7 @@ public class AddressingPolicyValidator implements PolicyAssertionValidator {
         return Fitness.SUPPORTED;
     }
 
+    @Override
     public String[] declareSupportedDomains() {
         return new String[]{AddressingVersion.MEMBER.policyNsUri, AddressingVersion.W3C.policyNsUri, W3CAddressingMetadataConstants.WSAM_NAMESPACE_NAME};
     }

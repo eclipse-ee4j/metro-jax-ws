@@ -54,14 +54,17 @@ public final class OutboundStreamHeader extends AbstractHeaderImpl {
         this.localName = localName;
     }
 
+    @Override
     public @NotNull String getNamespaceURI() {
         return nsUri;
     }
 
+    @Override
     public @NotNull String getLocalPart() {
         return localName;
     }
 
+    @Override
     public String getAttribute(String nsUri, String localName) {
         if(attributes==null)
             parseAttributes();
@@ -97,14 +100,17 @@ public final class OutboundStreamHeader extends AbstractHeaderImpl {
         }
     }
 
+    @Override
     public XMLStreamReader readHeader() throws XMLStreamException {
         return infoset.readAsXMLStreamReader();
     }
 
+    @Override
     public void writeTo(XMLStreamWriter w) throws XMLStreamException {
         infoset.writeToXMLStreamWriter(w,true);
     }
 
+    @Override
     public void writeTo(SOAPMessage saaj) throws SOAPException {
         try {
             SOAPHeader header = saaj.getSOAPHeader();
@@ -116,6 +122,7 @@ public final class OutboundStreamHeader extends AbstractHeaderImpl {
         }
     }
 
+    @Override
     public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException {
         infoset.writeTo(contentHandler,errorHandler);
     }

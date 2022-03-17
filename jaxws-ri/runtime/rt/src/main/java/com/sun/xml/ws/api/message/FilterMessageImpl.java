@@ -54,106 +54,132 @@ public class FilterMessageImpl extends Message {
         this.delegate = delegate;
     }
 
+    @Override
     public boolean hasHeaders() {
         return delegate.hasHeaders();
     }
 
+    @Override
     public @NotNull MessageHeaders getHeaders() {
         return delegate.getHeaders();
     }
 
+    @Override
     public @NotNull AttachmentSet getAttachments() {
         return delegate.getAttachments();
     }
 
+    @Override
     protected boolean hasAttachments() {
         return delegate.hasAttachments();    
     }
 
+    @Override
     public boolean isOneWay(@NotNull WSDLPort port) {
         return delegate.isOneWay(port);
     }
 
+    @Override
     public @Nullable String getPayloadLocalPart() {
         return delegate.getPayloadLocalPart();
     }
 
+    @Override
     public String getPayloadNamespaceURI() {
         return delegate.getPayloadNamespaceURI();
     }
 
+    @Override
     public boolean hasPayload() {
         return delegate.hasPayload();
     }
 
+    @Override
     public boolean isFault() {
         return delegate.isFault();
     }
 
+    @Override
     public @Nullable QName getFirstDetailEntryName() {
         return delegate.getFirstDetailEntryName();
     }
 
+    @Override
     public Source readEnvelopeAsSource() {
         return delegate.readEnvelopeAsSource();
     }
 
+    @Override
     public Source readPayloadAsSource() {
         return delegate.readPayloadAsSource();
     }
 
+    @Override
     public SOAPMessage readAsSOAPMessage() throws SOAPException {
         return delegate.readAsSOAPMessage();
     }
 
+    @Override
     public SOAPMessage readAsSOAPMessage(Packet packet, boolean inbound) throws SOAPException {
         return delegate.readAsSOAPMessage(packet, inbound);
     }
 
+    @Override
     public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         return delegate.readPayloadAsJAXB(unmarshaller);
     }
     /** @deprecated */ 
+    @Override
     public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
         return delegate.readPayloadAsJAXB(bridge);
     }
     
+    @Override
     public <T> T readPayloadAsJAXB(XMLBridge<T> bridge) throws JAXBException {
         return delegate.readPayloadAsJAXB(bridge);
     }
 
+    @Override
     public XMLStreamReader readPayload() throws XMLStreamException {
         return delegate.readPayload();
     }
 
+    @Override
     public void consume() {
         delegate.consume();
     }
 
+    @Override
     public void writePayloadTo(XMLStreamWriter sw) throws XMLStreamException {
         delegate.writePayloadTo(sw);
     }
 
+    @Override
     public void writeTo(XMLStreamWriter sw) throws XMLStreamException {
         delegate.writeTo(sw);
     }
 
+    @Override
     public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException {
         delegate.writeTo(contentHandler, errorHandler);
     }
 
+    @Override
     public Message copy() {
         return delegate.copy().copyFrom(delegate);
     }
 
+    @Override
     public @NotNull String getID(@NotNull WSBinding binding) {
         return delegate.getID(binding);
     }
 
+    @Override
     public @NotNull String getID(AddressingVersion av, SOAPVersion sv) {
         return delegate.getID(av, sv);
     }
 
+    @Override
     public SOAPVersion getSOAPVersion() {
         return delegate.getSOAPVersion();
     }

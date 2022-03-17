@@ -34,6 +34,7 @@ public final class FileSystemResourceLoader implements ResourceLoader {
         this.root = root;
     }
 
+    @Override
     public URL getResource(String path) throws MalformedURLException {
         try {
             return new File(root+path).getCanonicalFile().toURI().toURL();
@@ -42,10 +43,12 @@ public final class FileSystemResourceLoader implements ResourceLoader {
         }
     }
 
+    @Override
     public URL getCatalogFile() throws MalformedURLException {
         return getResource("/WEB-INF/jax-ws-catalog.xml");
     }
 
+    @Override
     public Set<String> getResourcePaths(String path) {
         Set<String> r = new HashSet<>();
         File[] files = new File(root+path).listFiles();

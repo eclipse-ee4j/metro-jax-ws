@@ -44,6 +44,7 @@ public class PipeClonerImpl extends PipeCloner {
     /**
      * {@link Pipe} version of {@link #copy(Tube)}
      */
+    @Override
     @SuppressWarnings("unchecked")
 	public <T extends Pipe> T copy(T p) {
         Pipe r = (Pipe)master2copy.get(p);
@@ -59,6 +60,7 @@ public class PipeClonerImpl extends PipeCloner {
     /**
      * The {@link Pipe} version of {@link #add(Tube, Tube)}.
      */
+    @Override
     public void add(Pipe original, Pipe copy) {
         assert !master2copy.containsKey(original);
         assert original!=null && copy!=null;

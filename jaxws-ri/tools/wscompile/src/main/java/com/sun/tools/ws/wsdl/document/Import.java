@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,6 +42,7 @@ public class Import extends Entity{
         _location = s;
     }
 
+    @Override
     public QName getElementName() {
         return WSDLConstants.QNAME_IMPORT;
     }
@@ -58,6 +59,7 @@ public class Import extends Entity{
         visitor.visit(this);
     }
 
+    @Override
     public void validateThis() {
         if (_location == null) {
             failValidation("validation.missingRequiredAttribute", "location");

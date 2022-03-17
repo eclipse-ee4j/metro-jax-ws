@@ -99,6 +99,7 @@ final class BuilderHandlerMessageScope extends BuilderHandler{
         return hashCode;
     }
     
+    @Override
     protected void doPopulate(final PolicyMapExtender policyMapExtender) throws PolicyException{
         PolicyMapKey mapKey;
         

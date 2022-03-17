@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,6 +39,7 @@ final class EntityResolverWrapper implements XMLEntityResolver {
         this.useStreamFromEntityResolver =  useStreamFromEntityResolver;
     }
 
+    @Override
     public Parser resolveEntity(String publicId, String systemId) throws SAXException, IOException {
         InputSource source = core.resolveEntity(publicId,systemId);
         if(source==null)

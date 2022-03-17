@@ -231,6 +231,7 @@ public final class WSDLPatcher extends XMLStreamReaderToXMLStreamWriter {
     private static Boolean getBooleanSystemProperty(final String prop) {
         return AccessController.doPrivileged(
                 new PrivilegedAction<>() {
+                    @Override
                     public Boolean run() {
                         return Boolean.getBoolean(prop);
                     }

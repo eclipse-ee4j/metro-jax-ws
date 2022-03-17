@@ -821,6 +821,7 @@ final class HttpCookie implements Cloneable {
      *
      * @return          a clone of this http cookie
      */
+    @Override
     public Object clone() {
         try {
             return super.clone();
@@ -948,26 +949,31 @@ final class HttpCookie implements Cloneable {
     static {
         assignors = new java.util.HashMap<>();
         assignors.put("comment", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     if (cookie.getComment() == null) cookie.setComment(attrValue);
                 }
             });
         assignors.put("commenturl", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     if (cookie.getCommentURL() == null) cookie.setCommentURL(attrValue);
                 }
             });
         assignors.put("discard", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     cookie.setDiscard(true);
                 }
             });
         assignors.put("domain", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     if (cookie.getDomain() == null) cookie.setDomain(attrValue);
                 }
             });
         assignors.put("max-age", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     try {
                         long maxage = Long.parseLong(attrValue);
@@ -978,26 +984,31 @@ final class HttpCookie implements Cloneable {
                 }
             });
         assignors.put("path", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     if (cookie.getPath() == null) cookie.setPath(attrValue);
                 }
             });
         assignors.put("port", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     if (cookie.getPortlist() == null) cookie.setPortlist(attrValue == null ? "" : attrValue);
                 }
             });
         assignors.put("secure", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     cookie.setSecure(true);
                 }
             });
         assignors.put("httponly", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     cookie.setHttpOnly(true);
                 }
             });
         assignors.put("version", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     try {
                         int version = Integer.parseInt(attrValue);
@@ -1008,6 +1019,7 @@ final class HttpCookie implements Cloneable {
                 }
             });
         assignors.put("expires", new CookieAttributeAssignor(){ // Netscape only
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     if (cookie.getMaxAge() == MAX_AGE_UNSPECIFIED) {
                         cookie.setMaxAge(cookie.expiryDate2DeltaSeconds(attrValue));

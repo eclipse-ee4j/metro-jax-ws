@@ -27,6 +27,7 @@ public class ClassNameAllocatorImpl implements ClassNameAllocator {
         this.jaxbClasses = new HashSet<>();
     }
 
+    @Override
     public String assignClassName(String packageName, String className) {
         if(packageName== null || className == null){
             //TODO: throw Exception

@@ -19,6 +19,7 @@ import com.sun.xml.ws.util.Constants;
  */
 public class XmlWsLoggingProvider implements LoggingProvider {
 
+    @Override
     public String getLoggingSubsystemName() {
         return Constants.LoggingDomain;
     }

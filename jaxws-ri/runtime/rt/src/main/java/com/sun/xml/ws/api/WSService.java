@@ -89,6 +89,7 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
      */
     public abstract @NotNull Container getContainer();
 
+    @Override
     public @Nullable <S> S getSPI(@NotNull Class<S> spiType) {
     	for (Component c : components) {
     		S s = c.getSPI(spiType);
@@ -99,6 +100,7 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
     	return getContainer().getSPI(spiType);
     }
     
+    @Override
     public @NotNull Set<Component> getComponents() {
     	return components;
     }
@@ -208,6 +210,7 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
      */
     public static WSService unwrap(final Service svc) {
         return AccessController.doPrivileged(new PrivilegedAction<>() {
+            @Override
             public WSService run() {
                 try {
                     Field f = svc.getClass().getField("delegate");

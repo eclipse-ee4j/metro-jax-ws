@@ -33,6 +33,7 @@ public class AddressingPrefixMapper implements PrefixMapper {
         prefixMap.put(W3CAddressingMetadataConstants.WSAM_NAMESPACE_NAME,W3CAddressingMetadataConstants.WSAM_PREFIX_NAME);
     }
         
+    @Override
     public Map<String, String> getPrefixMap() {
         return prefixMap;
     }

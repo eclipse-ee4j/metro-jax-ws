@@ -54,6 +54,7 @@ public class XmlPolicyModelUnmarshaller extends PolicyModelUnmarshaller {
     /**
      * See {@link PolicyModelUnmarshaller#unmarshalModel(Object) base method documentation}.
      */
+    @Override
     public PolicySourceModel unmarshalModel(final Object storage) throws PolicyException {
         final XMLEventReader reader = createXMLEventReader(storage);
         PolicySourceModel model = null;

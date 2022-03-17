@@ -60,6 +60,7 @@ public class ExternalMetadataFeature extends WebServiceFeature {
     
     public List<File> getFiles() { return files; }
 
+    @Override
     public boolean isEnabled() {
         return enabled;
     }

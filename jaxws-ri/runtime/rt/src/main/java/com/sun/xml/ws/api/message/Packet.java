@@ -277,6 +277,7 @@ public final class Packet
         return wsdlOperation;
     }
 
+    @Override
     public WSDLOperationMapping getWSDLOperationMapping() {
         if (wsdlOperationMapping != null) return wsdlOperationMapping;
         OperationDispatcher opDispatcher = null;

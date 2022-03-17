@@ -41,6 +41,7 @@ public class NamespaceContextImpl implements NamespaceContext {
         nsToPrefixMap.put(namespaceURI, prefix);
     }
 
+    @Override
     public String getNamespaceURI(String prefix) {
         if (prefix == null) {
             throw new IllegalArgumentException(
@@ -69,6 +70,7 @@ public class NamespaceContextImpl implements NamespaceContext {
         return XMLConstants.NULL_NS_URI;
     }
 
+    @Override
     public String getPrefix(String namespaceURI) {
         if (namespaceURI == null) {
             throw new IllegalArgumentException(
@@ -97,6 +99,7 @@ public class NamespaceContextImpl implements NamespaceContext {
         return null;
     }
 
+    @Override
     public Iterator getPrefixes(String namespaceURI) {
         return prefixToNSMap.keySet().iterator();
     }

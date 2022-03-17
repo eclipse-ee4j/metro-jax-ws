@@ -31,6 +31,7 @@ import java.util.LinkedList;
 public class EffectiveAlternativeSelector {
     private enum AlternativeFitness {
         UNEVALUATED {
+            @Override
             AlternativeFitness combine(final Fitness assertionFitness) {
                 switch (assertionFitness) {
                     case UNKNOWN:
@@ -47,11 +48,13 @@ public class EffectiveAlternativeSelector {
             }
         },
         INVALID {
+            @Override
             AlternativeFitness combine(final Fitness assertionFitness) {
                 return INVALID;
             }
         },
         UNKNOWN {
+            @Override
             AlternativeFitness combine(final Fitness assertionFitness) {
                 switch (assertionFitness) {
                     case UNKNOWN:
@@ -68,6 +71,7 @@ public class EffectiveAlternativeSelector {
             }
         },
         UNSUPPORTED {
+            @Override
             AlternativeFitness combine(final Fitness assertionFitness) {
                 switch (assertionFitness) {
                     case UNKNOWN:
@@ -83,6 +87,7 @@ public class EffectiveAlternativeSelector {
             }
         },
         PARTIALLY_SUPPORTED {
+            @Override
             AlternativeFitness combine(final Fitness assertionFitness) {
                 switch (assertionFitness) {
                     case UNKNOWN:
@@ -97,12 +102,14 @@ public class EffectiveAlternativeSelector {
             }
         },
         SUPPORTED_EMPTY {
+            @Override
             AlternativeFitness combine(final Fitness assertionFitness) {
                 // will not localize - this exception may not occur if there is no programatic error in this class
                 throw new UnsupportedOperationException("Combine operation was called unexpectedly on 'SUPPORTED_EMPTY' alternative fitness enumeration state.");
             }
         },
         SUPPORTED {
+            @Override
             AlternativeFitness combine(final Fitness assertionFitness) {
                 switch (assertionFitness) {
                     case UNKNOWN:
