@@ -46,7 +46,7 @@ public class DeploymentDescriptorParser<A> {
     private final ResourceLoader loader;
     private final AdapterFactory<A> adapterFactory;
 
-    // securite xml processing always enabled - parsing deployment descriptor ...
+    // secure xml processing always enabled - parsing deployment descriptor ...
     private static final XMLInputFactory xif = XmlUtil.newXMLInputFactory(true);
 
     /**
@@ -131,7 +131,7 @@ public class DeploymentDescriptorParser<A> {
     }
 
     /**
-     * Get all the WSDL & schema documents recursively.
+     * Get all the WSDL and schema documents recursively.
      */
     private void collectDocs(String dirPath) throws IOException {
         Set<String> paths = loader.getResourcePaths(dirPath);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -80,8 +80,8 @@ public class Policy12ExtensionHandler extends TWSDLExtensionHandler {
     }
 
     /**
-     * Only skip the element if it is a <wsp:Policy/>, <wsp:PolicyReference/> or
-     * <wsp:UsingPolicy> element.
+     * Only skip the element if it is a {@code <wsp:Policy/>}, {@code <wsp:PolicyReference/>} or
+     * {@code <wsp:UsingPolicy>} element.
      */
     private boolean handleExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         return XmlUtil.matchesTagNS(e, NamespaceVersion.v1_2.asQName(XmlToken.Policy))

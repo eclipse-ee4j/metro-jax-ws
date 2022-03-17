@@ -174,7 +174,7 @@ public class DeploymentDescriptorParser<A> {
     }
 
     /**
-     * Get all the WSDL & schema documents recursively.
+     * Get all the WSDL and schema documents recursively.
      */
     private void collectDocs(String dirPath) throws MalformedURLException {
         Set<String> paths = loader.getResourcePaths(dirPath);
@@ -373,7 +373,7 @@ public class DeploymentDescriptorParser<A> {
     }
 
     /**
-     * Checks the deployment descriptor or {@link @WebServiceProvider} annotation
+     * Checks the deployment descriptor or {@link jakarta.xml.ws.WebServiceProvider} annotation
      * to see if it points to any WSDL. If so, returns the {@link SDDocumentSource}.
      *
      * @return The pointed WSDL, if any. Otherwise null.

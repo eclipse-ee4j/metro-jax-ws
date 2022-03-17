@@ -16,11 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <pre>
- * &lt;env:Reason>
- *     &lt;env:Text xml:lang="en">Sender Timeout</env:Text>
- * &lt;/env:Reason>
- * </pre>
+ * <pre>{@code
+ * <env:Reason>
+ *     <env:Text xml:lang="en">Sender Timeout</env:Text>
+ * </env:Reason>
+ * }</pre>
  */
 class ReasonType {
     ReasonType() {

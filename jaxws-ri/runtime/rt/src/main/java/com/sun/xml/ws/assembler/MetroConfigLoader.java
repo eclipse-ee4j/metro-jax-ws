@@ -46,7 +46,7 @@ import java.util.logging.Level;
  * then used in {@link TubelineAssemblyController} to construct the list of
  * {@link TubeCreator} objects that are used in the actual tubeline construction.
  *
- * @author Marek Potociar <marek.potociar at sun.com>
+ * @author Marek Potociar
  */
 // TODO Move the logic of this class directly into MetroConfig class.
 class MetroConfigLoader {

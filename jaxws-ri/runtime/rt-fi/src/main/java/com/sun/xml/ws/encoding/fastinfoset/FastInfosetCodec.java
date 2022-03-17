@@ -149,7 +149,7 @@ public class FastInfosetCodec implements Codec {
     /**
      * Create a new (@link StAXDocumentSerializer} instance.
      *
-     * @param in the OutputStream to serialize to.
+     * @param out the OutputStream to serialize to.
      * @param retainState if true the serializer should retain the state of
      *        vocabulary tables for multiple serializations.
      * @return a new {@link StAXDocumentSerializer} instance.
@@ -161,7 +161,7 @@ public class FastInfosetCodec implements Codec {
     /**
      * Create a new (@link StAXDocumentSerializer} instance.
      *
-     * @param in the OutputStream to serialize to.
+     * @param out the OutputStream to serialize to.
      * @param retainState if true the serializer should retain the state of
      *        vocabulary tables for multiple serializations.
      * @return a new {@link StAXDocumentSerializer} instance.

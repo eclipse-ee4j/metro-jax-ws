@@ -8,10 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sun.xml.ws.assembler;
 
 import com.sun.istack.NotNull;
@@ -119,7 +115,7 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * encode/decode entire MIME messages in SOAP binding)
      *
      * @return codec to be used for web service requests
-     * @see {@link com.sun.xml.ws.api.pipe.Codecs}
+     * @see com.sun.xml.ws.api.pipe.Codecs
      */
     @Override
     public @NotNull Codec getCodec() {
@@ -142,7 +138,7 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * serving requests concurrently.
      *
      * @param codec codec to be used for web service requests
-     * @see {@link com.sun.xml.ws.api.pipe.Codecs}
+     * @see com.sun.xml.ws.api.pipe.Codecs
      */
     @Override
     public void setCodec(@NotNull Codec codec) {

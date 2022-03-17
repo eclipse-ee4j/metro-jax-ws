@@ -49,8 +49,6 @@ final class TubelineAssemblyController {
      * outside of Metro codebase.
      * </b>
      *
-     * @param endpointUri URI of the endpoint for which the collection of tube factories should be returned
-     *
      * @return collection of WSIT/Metro client-side tube creators
      */
     Collection<TubeCreator> getTubeCreators(ClientTubelineAssemblyContext context) {
@@ -77,8 +75,6 @@ final class TubelineAssemblyController {
      * replaced by a different method without a prior notice. The method SHOULD NOT be used
      * outside of Metro codebase.
      * </b>
-     * 
-     * @param endpointUri URI of the endpoint for which the collection of tube factories should be returned
      *
      * @return collection of WSIT/Metro server-side tube creators
      */

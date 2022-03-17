@@ -100,7 +100,7 @@ public class MtomPolicyMapConfigurator implements PolicyMapConfigurator {
     /**
      * Create a policy with an MTOM assertion.
      *
-     * @param model The binding element name. Used to generate a (locally) unique ID for the policy.
+     * @param bindingName The binding element name. Used to generate a (locally) unique ID for the policy.
      * @return The policy.
      */
     private Policy createMtomPolicy(final QName bindingName) {

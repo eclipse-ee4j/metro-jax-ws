@@ -100,7 +100,7 @@ public class PolicySourceModel implements Cloneable {
      * Constructor that creates a new policy source model instance without any
      * id or name identifier. The namespace-to-prefix map is initialized with mapping
      * of policy namespace to the default value set by
-     * {@link PolicyConstants#POLICY_NAMESPACE_PREFIX POLICY_NAMESPACE_PREFIX constant}.
+     * {@link PolicyConstants#SUN_POLICY_NAMESPACE_PREFIX SUN_POLICY_NAMESPACE_PREFIX constant}.
      *
      * @param nsVersion The WS-Policy version.
      */
