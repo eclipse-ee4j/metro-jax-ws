@@ -66,11 +66,6 @@ import java.util.TimeZone;
 
 /**
  * A set of core utility methods that shapes the sdo databinding
- * Created by IntelliJ IDEA.
- * User: giglee
- * Date: May 13, 2009
- * Time: 10:21:12 AM
- * To change this template use File | Settings | File Templates.
  */
 public class SDOUtils {
 
@@ -485,7 +480,7 @@ public class SDOUtils {
         try {
             fin = new FileInputStream(f);
             StreamSource source = new StreamSource(fin);
-            source.setSystemId(f.toURL().toExternalForm());
+            source.setSystemId(f.toURI().toURL().toExternalForm());
             List<Source> main_schema = new ArrayList<>();
             main_schema.add(source);
             Map<String, Source> map = SDOUtils.getMetadataClosure(main_schema);

@@ -129,7 +129,7 @@ public final class SDOContextWrapper implements BindingContext {
     }
 
     @Override
-    public Object newWrapperInstace(Class<?> wrapperType) {
+    public Object newWrapperInstace(Class<?> wrapperType) throws ReflectiveOperationException {
         return getHelperContext().getDataFactory()
                 .create(wrapperType);
     }

@@ -14,10 +14,6 @@ import com.sun.xml.ws.developer.JAXWSProperties;
 
 public interface BindingProviderProperties extends JAXWSProperties{
 
-    //legacy properties
-    @Deprecated
-    String HOSTNAME_VERIFICATION_PROPERTY =
-        "com.sun.xml.ws.client.http.HostnameVerificationProperty";
     String HTTP_COOKIE_JAR =
         "com.sun.xml.ws.client.http.CookieJar";
 

@@ -26,13 +26,6 @@ import java.net.HttpURLConnection;
 
 public interface JAXWSProperties {
 
-    /**
-     *
-     * @deprecated use {@link ContentNegotiation#PROPERTY}
-     */
-    // Content negotiation property: values "none", "pessimistic" and "optimistic"
-    @Deprecated
-    String CONTENT_NEGOTIATION_PROPERTY = ContentNegotiation.PROPERTY;
     String MTOM_THRESHOLOD_VALUE =  "com.sun.xml.ws.common.MtomThresholdValue";
     String HTTP_EXCHANGE = "com.sun.xml.ws.http.exchange";
 

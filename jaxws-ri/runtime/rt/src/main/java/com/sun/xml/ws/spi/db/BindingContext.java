@@ -45,7 +45,7 @@ public interface BindingContext {
 	Unmarshaller createUnmarshaller() throws JAXBException;
 	JAXBContext getJAXBContext();
     Object newWrapperInstace(Class<?> wrapperType)
-            throws InstantiationException, IllegalAccessException;
+            throws ReflectiveOperationException;
 	
 	
 	

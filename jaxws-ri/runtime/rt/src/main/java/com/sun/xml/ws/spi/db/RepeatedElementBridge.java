@@ -125,7 +125,7 @@ public class RepeatedElementBridge<T> implements XMLBridge<T> {
         @Override
         public Object convert(List list) {
             try {
-                Object o = type.newInstance();
+                Object o = type.getConstructor().newInstance();
                 ((Collection)o).addAll(list);
                 return o;
             } catch (Exception e) {

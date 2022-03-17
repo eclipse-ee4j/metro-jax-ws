@@ -99,7 +99,7 @@ public abstract class DatabindingFactory extends com.oracle.webservices.api.data
 	static public DatabindingFactory newInstance() {
 		try {
 			Class<?> cls = Class.forName(ImplClass);
-			return (DatabindingFactory) cls.newInstance();
+			return (DatabindingFactory) cls.getConstructor().newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

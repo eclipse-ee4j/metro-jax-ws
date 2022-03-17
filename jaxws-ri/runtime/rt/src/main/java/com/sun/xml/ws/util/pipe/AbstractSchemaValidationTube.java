@@ -534,7 +534,7 @@ public abstract class AbstractSchemaValidationTube extends AbstractFilterTubeImp
         Class<? extends ValidationErrorHandler> handlerClass = feature.getErrorHandler();
         ValidationErrorHandler handler;
         try {
-            handler = handlerClass.newInstance();
+            handler = handlerClass.getConstructor().newInstance();
         } catch(Exception e) {
             throw new WebServiceException(e);
         }

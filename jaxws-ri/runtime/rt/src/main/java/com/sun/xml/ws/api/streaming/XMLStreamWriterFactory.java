@@ -58,7 +58,7 @@ public abstract class XMLStreamWriterFactory {
                     XMLOutputFactory xof = null;
                     if (Boolean.getBoolean(XMLStreamWriterFactory.class.getName() + ".woodstox")) {
                         try {
-                            xof = (XMLOutputFactory) Class.forName("com.ctc.wstx.stax.WstxOutputFactory").newInstance();
+                            xof = (XMLOutputFactory) Class.forName("com.ctc.wstx.stax.WstxOutputFactory").getConstructor().newInstance();
                         } catch (Exception e) {
                             // Ignore and fallback to default XMLOutputFactory
                         }

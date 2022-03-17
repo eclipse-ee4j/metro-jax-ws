@@ -495,7 +495,7 @@ public class WsimportOptions extends Options {
 
     private InputSource fileToInputSource(File source) {
         try {
-            String url = source.toURL().toExternalForm();
+            String url = source.toURI().toURL().toExternalForm();
             return new InputSource(Util.escapeSpace(url));
         } catch (MalformedURLException e) {
             return new InputSource(source.getPath());
@@ -537,7 +537,7 @@ public class WsimportOptions extends Options {
         // absolutize all the system IDs in the input,
         // so that we can map system IDs to DOM trees.
         try {
-            URL baseURL = new File(".").getCanonicalFile().toURL();
+            URL baseURL = new File(".").getCanonicalFile().toURI().toURL();
             is.setSystemId(new URL(baseURL, is.getSystemId()).toExternalForm());
         } catch (IOException e) {
             // ignore

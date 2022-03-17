@@ -166,16 +166,7 @@ public abstract class InstanceResolver<T> {
             Class<? extends InstanceResolver> ir = ira.value();
             try {
                 return ir.getConstructor(Class.class).newInstance(clazz);
-            } catch (InstantiationException e) {
-                throw new WebServiceException(ServerMessages.FAILED_TO_INSTANTIATE_INSTANCE_RESOLVER(
-                    ir.getName(),a.annotationType(),clazz.getName()));
-            } catch (IllegalAccessException e) {
-                throw new WebServiceException(ServerMessages.FAILED_TO_INSTANTIATE_INSTANCE_RESOLVER(
-                    ir.getName(),a.annotationType(),clazz.getName()));
-            } catch (InvocationTargetException e) {
-                throw new WebServiceException(ServerMessages.FAILED_TO_INSTANTIATE_INSTANCE_RESOLVER(
-                    ir.getName(),a.annotationType(),clazz.getName()));
-            } catch (NoSuchMethodException e) {
+            } catch (ReflectiveOperationException e) {
                 throw new WebServiceException(ServerMessages.FAILED_TO_INSTANTIATE_INSTANCE_RESOLVER(
                     ir.getName(),a.annotationType(),clazz.getName()));
             }
@@ -186,12 +177,8 @@ public abstract class InstanceResolver<T> {
 
     protected static <T> T createNewInstance(Class<T> cl) {
         try {
-            return cl.newInstance();
-        } catch (InstantiationException e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-            throw new ServerRtException(
-                WsservletMessages.ERROR_IMPLEMENTOR_FACTORY_NEW_INSTANCE_FAILED(cl));
-        } catch (IllegalAccessException e) {
+            return cl.getConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
             throw new ServerRtException(
                 WsservletMessages.ERROR_IMPLEMENTOR_FACTORY_NEW_INSTANCE_FAILED(cl));

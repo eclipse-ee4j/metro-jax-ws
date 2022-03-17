@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,17 +43,13 @@ final class TubeCreator {
                 // We can suppress "unchecked" warning here as we are checking for the correct type in the if statement above
                 @SuppressWarnings("unchecked")
                 Class<TubeFactory> typedClass = (Class<TubeFactory>) factoryClass;
-                this.factory = typedClass.newInstance();
+                this.factory = typedClass.getConstructor().newInstance();
                 this.msgDumpPropertyBase = this.factory.getClass().getName() + ".dump";
             } else {
                 throw new RuntimeException(TubelineassemblyMessages.MASM_0015_CLASS_DOES_NOT_IMPLEMENT_INTERFACE(factoryClass.getName(), TubeFactory.class.getName()));
             }
-        } catch (InstantiationException ex) {
+        } catch (ReflectiveOperationException ex) {
             throw LOGGER.logSevereException(new RuntimeException(TubelineassemblyMessages.MASM_0016_UNABLE_TO_INSTANTIATE_TUBE_FACTORY(className), ex), true);
-        } catch (IllegalAccessException ex) {
-            throw LOGGER.logSevereException(new RuntimeException(TubelineassemblyMessages.MASM_0016_UNABLE_TO_INSTANTIATE_TUBE_FACTORY(className), ex), true);
-        } catch (ClassNotFoundException ex) {
-            throw LOGGER.logSevereException(new RuntimeException(TubelineassemblyMessages.MASM_0017_UNABLE_TO_LOAD_TUBE_FACTORY_CLASS(className), ex), true);
         }
     }
 

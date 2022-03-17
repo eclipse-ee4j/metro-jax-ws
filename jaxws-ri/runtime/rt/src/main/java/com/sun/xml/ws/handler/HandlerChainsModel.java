@@ -237,8 +237,8 @@ public class HandlerChainsModel {
                 ensureProperName(reader, QNAME_HANDLER_CLASS);
                 try {
                     handler = (Handler) loadClass(classLoader,
-                            XMLStreamReaderUtil.getElementText(reader).trim()).newInstance();
-                } catch (InstantiationException | IllegalAccessException ie){
+                            XMLStreamReaderUtil.getElementText(reader).trim()).getConstructor().newInstance();
+                } catch (ReflectiveOperationException ie){
                     throw new RuntimeException(ie);
                 }
                 XMLStreamReaderUtil.nextContent(reader);
@@ -304,10 +304,10 @@ public class HandlerChainsModel {
                 for(HandlerType handler : hchain.getHandlers()) {
                     try {
                         Handler handlerClass = (Handler) loadClass(annotatedClass.getClassLoader(),
-                                handler.getHandlerClass()).newInstance();
+                                handler.getHandlerClass()).getConstructor().newInstance();
                         callHandlerPostConstruct(handlerClass);
                         handlerClassList.add(handlerClass);
-                    } catch (InstantiationException | IllegalAccessException ie){
+                    } catch (ReflectiveOperationException ie){
                         throw new RuntimeException(ie);
                     }
 
@@ -323,9 +323,10 @@ public class HandlerChainsModel {
 
     }
 
-    private static Class loadClass(ClassLoader loader, String name) {
+    @SuppressWarnings({"unchecked"})
+    private static <T> Class<T> loadClass(ClassLoader loader, String name) {
         try {
-            return Class.forName(name, true, loader);
+            return (Class<T>) Class.forName(name, true, loader);
         } catch (ClassNotFoundException e) {
             throw new UtilException(
                     "util.handler.class.not.found",

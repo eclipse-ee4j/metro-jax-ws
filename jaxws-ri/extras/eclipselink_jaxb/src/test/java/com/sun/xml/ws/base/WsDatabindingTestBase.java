@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -116,7 +116,7 @@ abstract public class WsDatabindingTestBase extends TestCase {
 			srv = server;
 			serviceBeanType = endpoint;
 			try {
-				serviceBeanInstance = serviceBeanType.newInstance();
+				serviceBeanInstance = serviceBeanType.getConstructor().newInstance();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
