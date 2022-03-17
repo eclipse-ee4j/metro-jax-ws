@@ -43,7 +43,7 @@ import java.util.logging.Logger;
  * then use that computed value during a method invocation again and again.
  *
  * <p>
- * For this goal, we use {@link com.sun.xml.ws.api.PropertySet} and implement some properties
+ * For this goal, we use {@link com.oracle.webservices.api.message.PropertySet} and implement some properties
  * as virtual properties backed by methods. This allows us to do the computation
  * in the setter, and store it in a field.
  *
@@ -80,13 +80,6 @@ public final class RequestContext extends BaseDistributedPropertySet {
     private static ContentNegotiation defaultContentNegotiation =
             ContentNegotiation.obtainFromSystemProperty();
 
-    /**
-     * @deprecated
-     */
-    public void addSatellite(@NotNull com.sun.xml.ws.api.PropertySet satellite) {
-        super.addSatellite(satellite);
-    }
-    
     /**
      * The endpoint address to which this message is sent to.
      *

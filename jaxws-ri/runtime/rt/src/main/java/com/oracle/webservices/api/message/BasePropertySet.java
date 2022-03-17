@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
 import java.security.AccessController;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
-import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -329,7 +328,7 @@ public abstract class BasePropertySet implements PropertySet {
      * the map but also to modify the map in a way it is in sync with original strongly typed fields. It also allows
      * (if necessary) to store additional properties those can't be found in strongly typed fields.
      *
-     * @see com.sun.xml.ws.api.PropertySet#asMap() method
+     * @see PropertySet#asMap() method
      */
     final class MapView extends HashMap<String, Object> {
 
