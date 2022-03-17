@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Marek Potociar <marek.potociar at sun.com>
+ * @author Marek Potociar
  */
 final class MessageDumper {
 

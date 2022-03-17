@@ -370,7 +370,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
 
     /**
      * Sets MTOM feature, overriding any existing feature.  This is necessary for compatibility
-     * with the existing {@link SOAPBinding.setMTOMEnabled}.
+     * with the existing {@link jakarta.xml.ws.soap.SOAPBinding#setMTOMEnabled}.
      * @param b if MTOM will be enabled
      */
     void setMTOMEnabled(boolean b) {

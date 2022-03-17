@@ -20,9 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * &lt;env:Detail>
- *     &lt;m:MaxTime>P5M</m:MaxTime>
- * &lt;/env:Detail>
+ * <pre>{@code
+ * <env:Detail>
+ *     <m:MaxTime>P5M</m:MaxTime>
+ * </env:Detail>
+ * }</pre>
  */
 class DetailType {
     /**

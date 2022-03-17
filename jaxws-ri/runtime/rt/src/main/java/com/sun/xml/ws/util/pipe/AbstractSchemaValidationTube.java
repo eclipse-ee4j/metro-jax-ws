@@ -431,7 +431,7 @@ public abstract class AbstractSchemaValidationTube extends AbstractFilterTubeImp
     }
 
     /**
-     * Adds inscope namespaces as attributes to  <xsd:schema> fragment nodes.
+     * Adds inscope namespaces as attributes to  {@code <xsd:schema>} fragment nodes.
      *
      * @param nss namespace context info
      * @param elem that is patched with inscope namespaces

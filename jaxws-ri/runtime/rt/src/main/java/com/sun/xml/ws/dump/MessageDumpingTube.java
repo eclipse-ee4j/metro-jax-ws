@@ -35,14 +35,6 @@ final class MessageDumpingTube extends AbstractFilterTubeImpl {
     //
     private final MessageDumpingFeature messageDumpingFeature;
     /**
-     * @param name
-     *      Specify the name that identifies this {@link MessageDumpingTube}
-     *      instance. This string will be printed when this pipe
-     *      dumps messages, and allows people to distinguish which
-     *      pipe instance is dumping a message when multiple
-     *      {@link com.sun.xml.ws.util.pipe.DumpTube}s print messages out.
-     * @param out
-     *      The output to send dumps to.
      * @param next
      *      The next {@link com.sun.xml.ws.api.pipe.Tube} in the pipeline.
      */

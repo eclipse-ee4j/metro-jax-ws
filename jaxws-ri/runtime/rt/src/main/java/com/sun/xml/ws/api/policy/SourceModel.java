@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,7 @@ public class SourceModel extends PolicySourceModel {
      * Private constructor that creates a new policy source model instance without any
      * id or name identifier. The namespace-to-prefix map is initialized with mapping
      * of policy namespace to the default value set by
-     * {@link PolicyConstants#POLICY_NAMESPACE_PREFIX POLICY_NAMESPACE_PREFIX constant}.
+     * {@link com.sun.xml.ws.policy.PolicyConstants#SUN_POLICY_NAMESPACE_PREFIX POLICY_NAMESPACE_PREFIX constant}.
      *
      * @param nsVersion The WS-Policy version.
      */

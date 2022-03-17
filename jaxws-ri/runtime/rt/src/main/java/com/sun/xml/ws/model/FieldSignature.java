@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,11 @@
 
 package com.sun.xml.ws.model;
 
-import java.lang.reflect.*;
+import java.lang.reflect.GenericArrayType;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.lang.reflect.WildcardType;
 
 /**
  * Creates vm signature string from Type
@@ -18,7 +22,7 @@ import java.lang.reflect.*;
  * TypeSignature: Z | C | B | S | I | F | J | D | FieldTypeSignature
  * FieldTypeSignature: ClassTypeSignature | [ TypeSignature | TypeVar
  * ClassTypeSignature: L Id ( / Id )* TypeArgs? ( . Id TypeArgs? )* ;
- * TypeArgs: < TypeArg+ >
+ * TypeArgs: {@literal <} TypeArg+ {@literal >}
  * TypeArg: * | ( + | - )? FieldTypeSignature
  * TypeVar: T Id ;
  *

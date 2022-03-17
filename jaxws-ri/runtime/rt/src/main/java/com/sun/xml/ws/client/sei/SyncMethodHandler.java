@@ -34,7 +34,7 @@ import jakarta.xml.ws.WebServiceException;
  * <ol>
  *  <li>Accepts Object[] that represents arguments for a Java method,
  *      and creates {@link JAXBMessage} that represents a request message.
- *  <li>Takes a {@link Message] that represents a response,
+ *  <li>Takes a {@link Message} that represents a response,
  *      and extracts the return value (and updates {@link Holder}s.)
  * </ol>
  *

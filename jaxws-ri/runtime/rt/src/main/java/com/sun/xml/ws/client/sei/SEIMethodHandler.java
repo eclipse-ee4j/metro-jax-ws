@@ -30,7 +30,7 @@ import java.util.Map;
  * <ol>
  *  <li>Accepts Object[] that represents arguments for a Java method,
  *      and creates {@link com.sun.xml.ws.message.jaxb.JAXBMessage} that represents a request message.
- *  <li>Takes a {@link com.sun.xml.ws.api.message.Message] that represents a response,
+ *  <li>Takes a {@link com.sun.xml.ws.api.message.Message} that represents a response,
  *      and extracts the return value (and updates {@link jakarta.xml.ws.Holder }s.)
  * </ol>
  *

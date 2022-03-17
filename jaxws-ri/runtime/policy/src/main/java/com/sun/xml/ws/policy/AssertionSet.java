@@ -37,9 +37,9 @@ public final class AssertionSet implements Iterable<PolicyAssertion>, Comparable
      *
      * 1. namespace (not null String)
      * 2. local name (not null String)
-     * 3. value (String): null < "" < "not empty"
-     * 4. has nested assertions (boolean): false < true
-     * 5. has nested policy (boolean): false < true
+     * 3. value (String): null {@literal <} "" {@literal <} "not empty"
+     * 4. has nested assertions (boolean): false {@literal <} true
+     * 5. has nested policy (boolean): false {@literal <} true
      * 6. hashCode comparison
      */
     private static final Comparator<PolicyAssertion> ASSERTION_COMPARATOR = new Comparator<>() {

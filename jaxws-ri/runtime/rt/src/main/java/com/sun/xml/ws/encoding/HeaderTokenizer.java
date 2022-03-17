@@ -75,7 +75,7 @@ class HeaderTokenizer {
          * one of the following:
          * <ul>
          * <li><code>ATOM</code> A sequence of ASCII characters
-         *	delimited by either SPACE, CTL, "(", <"> or the
+         *	delimited by either SPACE, CTL, "(", "{@literal <}, "{@literal >}" or the
          *	specified SPECIALS
          * <li><code>QUOTEDSTRING</code> A sequence of ASCII characters
          *	within quotes

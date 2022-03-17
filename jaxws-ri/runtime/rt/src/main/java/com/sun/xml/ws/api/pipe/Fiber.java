@@ -181,7 +181,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
      * <br>
      * <br>
      * Logically this is just a boolean, but we need to prepare for the case
-     * where the thread is {@link #resume(Packet) resumed} before we get to the {@link #suspend()}.
+     * where the thread is {@link #resume(Packet) resumed} before we get to the {@link #suspend(Holder, Runnable)}.
      * This happens when things happen in the following order:
      * <br>
      * <ol>
@@ -190,12 +190,12 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
      * <li>Tube returns with {@link NextAction#suspend()}.
      * <li>"External mechanism" becomes signal state and invokes {@link Fiber#resume(Packet)}
      * to wake up fiber
-     * <li>{@link Fiber#doRun} invokes {@link Fiber#suspend()}.
+     * <li>{@link Fiber#doRun} invokes {@link Fiber#suspend(Holder, Runnable)}.
      * </ol>
      * <br>
      * <br>
      * Using int, this will work OK because {@code suspendedCount} becomes -1 when
-     * {@link #resume(Packet)} occurs before {@link #suspend()}.
+     * {@link #resume(Packet)} occurs before {@link #suspend(Holder, Runnable)}.
      * <br>
      * <br>
      * Increment and decrement is guarded by 'this' object.
@@ -901,7 +901,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
     /**
      * Invokes all registered {@link InterceptorHandler}s and then call into
-     * {@link Fiber#__doRun()}.
+     * {@link #__doRun(Holder, List)}.
      */
     private class InterceptorHandler implements FiberContextSwitchInterceptor.Work<Tube, Tube> {
         private final Holder<Boolean> isUnlockRequired;
@@ -918,7 +918,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
         }
 
         /**
-         * Initiate the interception, and eventually invokes {@link Fiber#__doRun()}.
+         * Initiate the interception, and eventually invokes {@link #__doRun(Holder, List)}.
          */
         Tube invoke(Tube next) {
             idx = 0;

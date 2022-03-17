@@ -39,7 +39,7 @@ public final class QNameMap<V> {
     /**
      * The maximum capacity, used if a higher value is implicitly specified
      * by either of the constructors with arguments.
-     * MUST be a power of two <= 1<<30.
+     * MUST be a power of two {@literal <= 1<<30}.
      */
     private static final int MAXIMUM_CAPACITY = 1 << 30;
 

@@ -117,8 +117,8 @@ public final class AssertionData implements Cloneable, Serializable {
      * @param attributes map of model node's &lt;attribute name, attribute value&gt; pairs
      * @param type specifies whether the data will belong to the assertion or assertion parameter node. This is
      *             a workaround solution that allows us to transfer this information about the owner node to
-     *             a policy assertion instance factory without actualy having to touch the {@link PolicyAssertionCreator}
-     *             interface and protected {@link PolicyAssertion} constructors.
+     *             a policy assertion instance factory without actualy having to touch the {@link com.sun.xml.ws.policy.spi.PolicyAssertionCreator}
+     *             interface and protected {@link com.sun.xml.ws.policy.PolicyAssertion} constructors.
      *
      * @throws IllegalArgumentException in case the {@code type} parameter is not
      * {@link ModelNode.Type#ASSERTION ASSERTION} or
