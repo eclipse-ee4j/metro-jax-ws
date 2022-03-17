@@ -188,34 +188,42 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
         this.sddocResolver = sddocResolver;
     }
 
+    @Override
     public QName getRootName() {
         return rootName;
     }
 
+    @Override
     public boolean isWSDL() {
         return false;
     }
 
+    @Override
     public boolean isSchema() {
         return false;
     }
 
+    @Override
     public URL getURL() {
         return url;
     }
 
+    @Override
     public XMLStreamReader read(XMLInputFactory xif) throws IOException, XMLStreamException {
         return source.read(xif);
     }
 
+    @Override
     public XMLStreamReader read() throws IOException, XMLStreamException {
         return source.read();
     }
 
+    @Override
     public URL getSystemId() {
         return url;
     }
 
+    @Override
     public Set<String> getImports() {
         return imports;
     }
@@ -245,6 +253,7 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
     }
 
 
+    @Override
     public void writeTo(PortAddressResolver portAddressResolver, DocumentAddressResolver resolver, OutputStream os) throws IOException {
         XMLStreamWriter w = null;
         try {
@@ -269,6 +278,7 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
         }
     }
 
+    @Override
     public void writeTo(PortAddressResolver portAddressResolver, DocumentAddressResolver resolver, XMLStreamWriter out) throws XMLStreamException, IOException {
         if (filters != null) {
             for (SDDocumentFilter f : filters) {
@@ -300,10 +310,12 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
             this.targetNamespace = targetNamespace;
         }
 
+        @Override
         public String getTargetNamespace() {
             return targetNamespace;
         }
 
+        @Override
         public boolean isSchema() {
             return true;
         }
@@ -325,22 +337,27 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
             this.allServices = allServices;
         }
 
+        @Override
         public String getTargetNamespace() {
             return targetNamespace;
         }
 
+        @Override
         public boolean hasPortType() {
             return hasPortType;
         }
 
+        @Override
         public boolean hasService() {
             return hasService;
         }
 
+        @Override
         public Set<QName> getAllServices() {
             return allServices;
         }
 
+        @Override
         public boolean isWSDL() {
             return true;
         }
@@ -353,6 +370,7 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
             this.delegate = delegate;
         }
 
+        @Override
         public String getLocationFor(String namespaceURI, String systemId) {
             if (sddocResolver == null) {
                 return systemId;

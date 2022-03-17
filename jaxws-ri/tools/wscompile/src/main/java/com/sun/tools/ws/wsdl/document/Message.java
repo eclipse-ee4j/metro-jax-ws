@@ -61,10 +61,12 @@ public class Message extends GlobalEntity {
         return _parts.size();
     }
 
+    @Override
     public Kind getKind() {
         return Kinds.MESSAGE;
     }
 
+    @Override
     public QName getElementName() {
         return WSDLConstants.QNAME_MESSAGE;
     }
@@ -77,6 +79,7 @@ public class Message extends GlobalEntity {
         _documentation = d;
     }
 
+    @Override
     public void withAllSubEntitiesDo(EntityAction action) {
         super.withAllSubEntitiesDo(action);
 
@@ -93,6 +96,7 @@ public class Message extends GlobalEntity {
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
         if (getName() == null) {
             errorReceiver.error(getLocator(), WsdlMessages.VALIDATION_MISSING_REQUIRED_ATTRIBUTE("name", "wsdl:message"));

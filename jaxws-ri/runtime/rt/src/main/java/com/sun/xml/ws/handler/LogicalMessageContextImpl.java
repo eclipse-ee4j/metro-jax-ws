@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,12 +39,14 @@ class LogicalMessageContextImpl extends MessageUpdatableContext implements Logic
         this.defaultJaxbContext = defaultJAXBContext;
     }
 
+    @Override
     public LogicalMessage getMessage() {
         if(lm == null)
             lm = new LogicalMessageImpl(defaultJaxbContext, packet);
         return lm;
     }
 
+    @Override
     void setPacketMessage(Message newMessage){
         if(newMessage != null) {
             packet.setMessage(newMessage);
@@ -53,6 +55,7 @@ class LogicalMessageContextImpl extends MessageUpdatableContext implements Logic
     }
 
 
+    @Override
     protected void updateMessage() {
         //If LogicalMessage is not acccessed, its not modified.
         if(lm != null) {

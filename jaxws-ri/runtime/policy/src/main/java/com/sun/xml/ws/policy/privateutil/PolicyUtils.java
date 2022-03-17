@@ -140,6 +140,7 @@ public final class PolicyUtils {
          * 2. local name (not null String)
          */
         public static final Comparator<QName> QNAME_COMPARATOR = new Comparator<>() {
+            @Override
             public int compare(final QName qn1, final QName qn2) {
                 if (qn1 == qn2 || qn1.equals(qn2)) {
                     return 0;

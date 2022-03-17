@@ -76,14 +76,17 @@ public abstract class WSDLOperationFinder {
             operationName = (javaMethod != null) ? javaMethod.getOperationQName() : wsdlOperation.getName();
         }
 
+        @Override
         public WSDLBoundOperation getWSDLBoundOperation() {
             return wsdlOperation;
         }
         
+        @Override
         public JavaMethod getJavaMethod() {
             return javaMethod;
         }
         
+        @Override
         public QName getOperationName() {
             return operationName;
         }

@@ -132,6 +132,7 @@ public class TubelineAssemblyDecorator {
             return tube;
         }
         
+        @Override
         public Tube decorateServer(Tube tube, ServerTubelineAssemblyContext context) {
             for (TubelineAssemblyDecorator decorator : decorators) {
                 tube = decorator.decorateServer(tube, context);

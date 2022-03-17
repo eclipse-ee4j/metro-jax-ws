@@ -85,12 +85,14 @@ public class StubAsyncHandler extends StubHandler {
        
     }
 	
-	protected void initArgs(Object[] args) throws Exception {
+	@Override
+    protected void initArgs(Object[] args) throws Exception {
         if (asyncBeanClass != null) {
             args[0] = asyncBeanClass.getConstructor().newInstance();
         }
 	}
 
+    @Override
     ValueGetterFactory getValueGetterFactory() {
         return ValueGetterFactory.ASYNC;
     }

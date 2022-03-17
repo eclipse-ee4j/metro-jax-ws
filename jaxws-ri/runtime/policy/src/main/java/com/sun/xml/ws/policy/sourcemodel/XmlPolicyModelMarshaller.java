@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,6 +38,7 @@ public final class XmlPolicyModelMarshaller extends PolicyModelMarshaller {
         this.marshallInvisible = marshallInvisible;
     }
     
+    @Override
     public void marshal(final PolicySourceModel model, final Object storage) throws PolicyException {
         if (storage instanceof StaxSerializer) {
             marshal(model, (StaxSerializer) storage);
@@ -50,6 +51,7 @@ public final class XmlPolicyModelMarshaller extends PolicyModelMarshaller {
         }
     }
     
+    @Override
     public void marshal(final Collection<PolicySourceModel> models, final Object storage) throws PolicyException {
         for (PolicySourceModel model : models) {
             marshal(model, storage);

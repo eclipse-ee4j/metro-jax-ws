@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,6 +42,7 @@ class DefaultPolicyAssertionCreator implements PolicyAssertionCreator {
     /**
      * See {@link PolicyAssertionCreator#getSupportedDomainNamespaceURIs() method documentation in interface}
      */
+    @Override
     public String[] getSupportedDomainNamespaceURIs() {
         return new String[0];
     }
@@ -49,6 +50,7 @@ class DefaultPolicyAssertionCreator implements PolicyAssertionCreator {
     /**
      * See {@link PolicyAssertionCreator#createAssertion(AssertionData, Collection, AssertionSet, PolicyAssertionCreator) method documentation in interface}
      */
+    @Override
     public PolicyAssertion createAssertion(final AssertionData data, final Collection<PolicyAssertion> assertionParameters, final AssertionSet nestedAlternative, final PolicyAssertionCreator defaultCreator) throws AssertionCreationException {
         return new DefaultPolicyAssertion(data, assertionParameters, nestedAlternative);
     }    

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,6 +39,7 @@ public class BindingFault extends Entity implements TWSDLExtensible {
         _name = name;
     }
 
+    @Override
     public QName getElementName() {
         return WSDLConstants.QNAME_FAULT;
     }
@@ -51,30 +52,37 @@ public class BindingFault extends Entity implements TWSDLExtensible {
         _documentation = d;
     }
 
+    @Override
     public String getNameValue() {
         return getName();
     }
 
+    @Override
     public String getNamespaceURI() {
         return getParent().getNamespaceURI();
     }
 
+    @Override
     public QName getWSDLElementName() {
         return getElementName();
     }
 
+    @Override
     public void addExtension(TWSDLExtension e) {
         _helper.addExtension(e);
     }
 
+    @Override
     public Iterable<TWSDLExtension> extensions() {
         return _helper.extensions();
     }
 
+    @Override
     public TWSDLExtensible getParent() {
         return parent;
     }
 
+    @Override
     public void withAllSubEntitiesDo(EntityAction action) {
         _helper.withAllSubEntitiesDo(action);
     }
@@ -85,6 +93,7 @@ public class BindingFault extends Entity implements TWSDLExtensible {
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
         if (_name == null) {
             failValidation("validation.missingRequiredAttribute", "name");

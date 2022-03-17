@@ -60,6 +60,7 @@ public final class StreamingAttachmentFeature extends WebServiceFeature {
         this.memoryThreshold = memoryThreshold;
     }
 
+    @Override
     @ManagedAttribute
     public String getID() {
         return ID;

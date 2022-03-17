@@ -42,6 +42,7 @@ public abstract class AbstractInstanceResolver<T> extends InstanceResolver<T> {
     protected static void invokeMethod(final @Nullable Method method, final Object instance, final Object... args) {
         if(method==null)    return;
         AccessController.doPrivileged(new PrivilegedAction<Void>() {
+            @Override
             public Void run() {
                 try {
                     if (!method.isAccessible()) {

@@ -42,5 +42,6 @@ public interface Closeable extends java.io.Closeable {
      *      If clean up fails unexpectedly, this exception
      *      will be thrown (instead of {@link IOException}.
      */
+    @Override
     void close() throws WebServiceException;
 }

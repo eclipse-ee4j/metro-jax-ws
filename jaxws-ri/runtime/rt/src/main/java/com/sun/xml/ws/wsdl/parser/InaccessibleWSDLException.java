@@ -58,6 +58,7 @@ public class InaccessibleWSDLException extends WebServiceException {
 
     public static class Builder implements ErrorHandler {
         private final List<Throwable> list = new ArrayList<>();
+        @Override
         public void error(Throwable e) {
             list.add(e);
         }

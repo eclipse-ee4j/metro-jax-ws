@@ -42,6 +42,7 @@ public class SelectOptimalEncodingFeatureConfigurator implements PolicyFeatureCo
      * @param policyMap The policy map.
      * @throws PolicyException If retrieving the policy triggered an exception.
      */
+    @Override
     public Collection<WebServiceFeature> getFeatures(PolicyMapKey key, PolicyMap policyMap) throws PolicyException {
         final Collection<WebServiceFeature> features = new LinkedList<>();
         if ((key != null) && (policyMap != null)) {

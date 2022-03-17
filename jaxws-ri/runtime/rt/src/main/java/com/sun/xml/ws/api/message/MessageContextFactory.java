@@ -69,31 +69,37 @@ public class MessageContextFactory extends com.oracle.webservices.api.message.Me
         }
     }
 
+    @Override
     protected com.oracle.webservices.api.message.MessageContextFactory newFactory(WebServiceFeature... f) {
         return new com.sun.xml.ws.api.message.MessageContextFactory(f);
     }
 
 
+    @Override
     public com.oracle.webservices.api.message.MessageContext createContext() {
         return packet(null);
     }
 
+    @Override
     public com.oracle.webservices.api.message.MessageContext createContext(SOAPMessage soap) {
         throwIfIllegalMessageArgument(soap);
         if (saajFactory!= null) return packet(saajFactory.createMessage(soap));
         return packet(Messages.create(soap));
     }
 
+    @Override
     public MessageContext createContext(Source m, com.oracle.webservices.api.EnvelopeStyle.Style envelopeStyle) {
         throwIfIllegalMessageArgument(m);
         return packet(Messages.create(m, SOAPVersion.from(envelopeStyle)));
     }
 
+    @Override
     public com.oracle.webservices.api.message.MessageContext createContext(Source m) {
         throwIfIllegalMessageArgument(m);
         return packet(Messages.create(m, SOAPVersion.from(singleSoapStyle)));
     }
     
+    @Override
     public com.oracle.webservices.api.message.MessageContext createContext(InputStream in, String contentType) throws IOException {
         throwIfIllegalMessageArgument(in);
         //TODO when do we use xmlCodec?
@@ -105,7 +111,8 @@ public class MessageContextFactory extends com.oracle.webservices.api.message.Me
     /**
      * @deprecated http://java.net/jira/browse/JAX_WS-1077
      */
-    @Deprecated 
+    @Override
+    @Deprecated
     public com.oracle.webservices.api.message.MessageContext createContext(InputStream in, MimeHeaders headers) throws IOException {
         String contentType = getHeader(headers, "Content-Type");
         Packet packet = (Packet) createContext(in, contentType);
@@ -156,14 +163,17 @@ public class MessageContextFactory extends com.oracle.webservices.api.message.Me
         }
     }
 
+    @Override
     @Deprecated
     public com.oracle.webservices.api.message.MessageContext doCreate() {
         return packet(null);
     }
+    @Override
     @Deprecated
     public com.oracle.webservices.api.message.MessageContext doCreate(SOAPMessage m) {
         return createContext(m);
     }
+    @Override
     @Deprecated
     public com.oracle.webservices.api.message.MessageContext doCreate(Source x, SOAPVersion soapVersion) {
         return packet(Messages.create(x, soapVersion));

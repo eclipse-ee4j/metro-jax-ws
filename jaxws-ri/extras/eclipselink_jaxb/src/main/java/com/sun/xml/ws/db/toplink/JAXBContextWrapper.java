@@ -57,6 +57,7 @@ public class JAXBContextWrapper implements BindingContext {
 		jaxbContext = (org.eclipse.persistence.jaxb.JAXBContext) cxt;
 		infoMap = map;
 	    mpool = new ObjectPool<>() {
+			@Override
 			protected JAXBMarshaller newInstance() {
 				try {
 					return jaxbContext.createMarshaller();
@@ -67,6 +68,7 @@ public class JAXBContextWrapper implements BindingContext {
 			}
 		};
 	    upool = new ObjectPool<>() {
+			@Override
 			protected JAXBUnmarshaller newInstance() {
 				try {
 					return jaxbContext.createUnmarshaller();
@@ -81,26 +83,32 @@ public class JAXBContextWrapper implements BindingContext {
         seiModel = model;
 	}
 	
+	@Override
 	public String getBuildId() {
 		return Version.getBuildRevision();
 	}
 
+	@Override
 	public XMLBridge createBridge(TypeInfo ref) {
 		return WrapperComposite.class.equals(ref.type) ? new com.sun.xml.ws.spi.db.WrapperBridge(this, ref) : new JAXBBond(this, ref);
 	}
 
+	@Override
 	public XMLBridge createFragmentBridge() {
 		return new JAXBBond(this, null);
 	}
 
+	@Override
 	public Marshaller createMarshaller() throws JAXBException {
 		return jaxbContext.createMarshaller();
 	}
 
+	@Override
 	public Unmarshaller createUnmarshaller() throws JAXBException {
 		return jaxbContext.createUnmarshaller();
 	}
 
+	@Override
 	public void generateSchema(SchemaOutputResolver outputResolver)
 			throws IOException {
 		jaxbContext.generateSchema(outputResolver);
@@ -110,12 +118,14 @@ public class JAXBContextWrapper implements BindingContext {
         }
 	}
 
+	@Override
 	public QName getElementName(Object o) throws JAXBException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-    public QName getElementName(Class cls) throws JAXBException {
+    @Override
+	public QName getElementName(Class cls) throws JAXBException {
         XmlRootElement xre = (XmlRootElement) cls.getAnnotation(XmlRootElement.class);
         XmlType xt = (XmlType) cls.getAnnotation(XmlType.class);
         if (xt != null && xt.name() != null && !"".equals(xt.name())) return null;
@@ -131,6 +141,7 @@ public class JAXBContextWrapper implements BindingContext {
       return null;
     }
 
+	@Override
 	public <B, V> PropertyAccessor<B, V> getElementPropertyAccessor(Class<B> wrapperBean, String ns, String name) throws JAXBException {
 		JAXBWrapperAccessor wa = wrapperAccessors.get(wrapperBean);
 		if (wa == null) {
@@ -140,26 +151,31 @@ public class JAXBContextWrapper implements BindingContext {
 		return wa.getPropertyAccessor(ns, name);
 	}
 
+	@Override
 	public JAXBContext getJAXBContext() {
 		return jaxbContext;
 	}
 
+	@Override
 	public List<String> getKnownNamespaceURIs() {
 		// TODO
 		return new ArrayList<>();
 	}
 
+	@Override
 	public QName getTypeName(TypeInfo tr) {
 		if (typeNames == null) typeNames = jaxbContext.getTypeMappingInfoToSchemaType();
 	    TypeMappingInfo tmi = infoMap.get(tr);
 	    return typeNames.get(tmi);
 	}
 
+	@Override
 	public boolean hasSwaRef() {
 		return hasSwaRef;
 	}
 	
-    public Object newWrapperInstace(Class<?> wrapperType)
+    @Override
+	public Object newWrapperInstace(Class<?> wrapperType)
 			throws ReflectiveOperationException {
         return wrapperType.getConstructor().newInstance();
     }

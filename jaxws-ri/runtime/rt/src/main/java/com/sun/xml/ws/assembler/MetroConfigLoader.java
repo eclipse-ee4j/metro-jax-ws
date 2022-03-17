@@ -63,12 +63,14 @@ class MetroConfigLoader {
 
     private static final TubeFactoryListResolver ENDPOINT_SIDE_RESOLVER = new TubeFactoryListResolver() {
 
+        @Override
         public TubeFactoryList getFactories(TubelineDefinition td) {
             return (td != null) ? td.getEndpointSide() : null;
         }
     };
     private static final TubeFactoryListResolver CLIENT_SIDE_RESOLVER = new TubeFactoryListResolver() {
 
+        @Override
         public TubeFactoryList getFactories(TubelineDefinition td) {
             return (td != null) ? td.getClientSide() : null;
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,6 +28,7 @@ public class SpawnTask extends ExecTask implements Runnable{
     /**
      * Run the command in a new thread
      */
+    @Override
     public void execute() throws BuildException {
 
         //Instantiate a new thread and run the command in this thread.
@@ -36,6 +37,7 @@ public class SpawnTask extends ExecTask implements Runnable{
 
     }
 
+    @Override
     public void run() {
 
         //Run the parent ExecTask in a separate thread

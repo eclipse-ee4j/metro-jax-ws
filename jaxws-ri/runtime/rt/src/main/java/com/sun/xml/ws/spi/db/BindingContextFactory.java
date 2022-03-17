@@ -44,6 +44,7 @@ abstract public class BindingContextFactory {
         return new Iterator<>() {
             private BindingContextFactory bcf;
 
+            @Override
             public boolean hasNext() {
                 while (true) {
                     try {
@@ -62,6 +63,7 @@ abstract public class BindingContextFactory {
                 }
             }
 
+            @Override
             public BindingContextFactory next() {
                 if (LOGGER.isLoggable(Level.FINER))
                     LOGGER.finer("SPI found provider: " +
@@ -69,6 +71,7 @@ abstract public class BindingContextFactory {
                 return bcf;
             }
 
+            @Override
             public void remove() {
                 throw new UnsupportedOperationException();
             }

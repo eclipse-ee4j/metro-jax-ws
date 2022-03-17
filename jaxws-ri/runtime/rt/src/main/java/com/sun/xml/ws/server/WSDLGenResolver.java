@@ -76,6 +76,7 @@ final class WSDLGenResolver implements com.oracle.webservices.api.databinding.WS
      *
      * @return Result the generated concrete WSDL
      */
+    @Override
     public Result getWSDL(String filename) {
         URL url = createURL(filename);
         MutableXMLStreamBuffer xsb = new MutableXMLStreamBuffer();
@@ -112,6 +113,7 @@ final class WSDLGenResolver implements com.oracle.webservices.api.databinding.WS
      * return null if abstract WSDL need not be generated
      *        Result the abstract WSDL
      */
+    @Override
     public Result getAbstractWSDL(Holder<String> filename) {
         if (abstractWsdl != null) {
             filename.value = abstractWsdl.getURL().toString();
@@ -135,6 +137,7 @@ final class WSDLGenResolver implements com.oracle.webservices.api.databinding.WS
      * return null if schema need not be generated
      *        Result the generated schema document
      */
+    @Override
     public Result getSchemaOutput(String namespace, Holder<String> filename) {
         List<SDDocumentImpl> schemas = nsMapping.get(namespace);
         if (schemas != null) {

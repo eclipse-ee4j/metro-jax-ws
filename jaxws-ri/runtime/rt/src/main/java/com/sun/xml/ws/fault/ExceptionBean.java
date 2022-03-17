@@ -175,6 +175,7 @@ final class ExceptionBean {
     }
 
     private static final NamespacePrefixMapper nsp = new NamespacePrefixMapper() {
+        @Override
         public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
             if (NS.equals(namespaceUri)) {
                 return "";

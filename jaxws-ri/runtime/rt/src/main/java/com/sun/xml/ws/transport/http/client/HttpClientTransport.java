@@ -296,12 +296,14 @@ public class HttpClientTransport {
     // overide default SSL HttpClientVerifier to always return true
     // effectively overiding Hostname client verification when using SSL
     private static class HttpClientVerifier implements HostnameVerifier {
+        @Override
         public boolean verify(String s, SSLSession sslSession) {
             return true;
         }
     }
 
     private static class LocalhostHttpClientVerifier implements HostnameVerifier {
+        @Override
         public boolean verify(String s, SSLSession sslSession) {
             return "localhost".equalsIgnoreCase(s) || "127.0.0.1".equals(s);
         }

@@ -109,6 +109,7 @@ public class ExternalMetadataReader extends ReflectAnnotationReader {
         }
     }
 
+    @Override
     public <A extends Annotation> A getAnnotation(Class<A> annType, Class<?> cls) {
         JavaWsdlMappingType r = reader(cls);
         return r == null ? super.getAnnotation(annType, cls) : Util.annotation(r, annType);
@@ -128,13 +129,16 @@ public class ExternalMetadataReader extends ReflectAnnotationReader {
         return list.toArray(new Annotation[0]);
     }
 
+    @Override
     public Annotation[] getAnnotations(final Class<?> c) {
 
         Merger<Annotation[]> merger = new Merger<>(reader(c)) {
+            @Override
             Annotation[] reflection() {
                 return ExternalMetadataReader.super.getAnnotations(c);
             }
 
+            @Override
             Annotation[] external() {
                 return getAnnotations(reader.getClassAnnotation());
             }
@@ -142,12 +146,15 @@ public class ExternalMetadataReader extends ReflectAnnotationReader {
         return merger.merge();
     }
 
+    @Override
     public Annotation[] getAnnotations(final Method m) {
         Merger<Annotation[]> merger = new Merger<>(reader(m.getDeclaringClass())) {
+            @Override
             Annotation[] reflection() {
                 return ExternalMetadataReader.super.getAnnotations(m);
             }
 
+            @Override
             Annotation[] external() {
                 JavaMethod jm = getJavaMethod(m, reader);
                 return (jm == null) ? new Annotation[0] : getAnnotations(jm.getMethodAnnotation());
@@ -156,13 +163,16 @@ public class ExternalMetadataReader extends ReflectAnnotationReader {
         return merger.merge();
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public <A extends Annotation> A getAnnotation(final Class<A> annType, final Method m) {
         Merger<Annotation> merger = new Merger<>(reader(m.getDeclaringClass())) {
+            @Override
             Annotation reflection() {
                 return ExternalMetadataReader.super.getAnnotation(annType, m);
             }
 
+            @Override
             Annotation external() {
                 JavaMethod jm = getJavaMethod(m, reader);
                 return Util.annotation(jm, annType);
@@ -171,12 +181,15 @@ public class ExternalMetadataReader extends ReflectAnnotationReader {
         return (A) merger.merge();
     }
 
+    @Override
     public Annotation[][] getParameterAnnotations(final Method m) {
         Merger<Annotation[][]> merger = new Merger<>(reader(m.getDeclaringClass())) {
+            @Override
             Annotation[][] reflection() {
                 return ExternalMetadataReader.super.getParameterAnnotations(m);
             }
 
+            @Override
             Annotation[][] external() {
                 JavaMethod jm = getJavaMethod(m, reader);
                 Annotation[][] a = m.getParameterAnnotations();
@@ -191,6 +204,7 @@ public class ExternalMetadataReader extends ReflectAnnotationReader {
         return merger.merge();
     }
 
+    @Override
     public void getProperties(final Map<String, Object> prop, final Class<?> cls) {
 
         JavaWsdlMappingType r = reader(cls);
@@ -202,6 +216,7 @@ public class ExternalMetadataReader extends ReflectAnnotationReader {
 
     }
 
+    @Override
     public void getProperties(final Map<String, Object> prop, final Method m) {
 
         JavaWsdlMappingType r = reader(m.getDeclaringClass());
@@ -219,6 +234,7 @@ public class ExternalMetadataReader extends ReflectAnnotationReader {
 
     }
 
+    @Override
     public void getProperties(final Map<String, Object> prop, final Method m, int pos) {
 
         JavaWsdlMappingType r = reader(m.getDeclaringClass());

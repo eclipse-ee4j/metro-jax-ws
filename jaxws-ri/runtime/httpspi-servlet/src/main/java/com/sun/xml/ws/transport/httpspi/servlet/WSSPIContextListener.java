@@ -38,15 +38,19 @@ public final class WSSPIContextListener
 
     private WSServletDelegate delegate;
 
+    @Override
     public void attributeAdded(ServletContextAttributeEvent event) {
     }
 
+    @Override
     public void attributeRemoved(ServletContextAttributeEvent event) {
     }
 
+    @Override
     public void attributeReplaced(ServletContextAttributeEvent event) {
     }
 
+    @Override
     public void contextDestroyed(ServletContextEvent event) {
         if (delegate != null) { // the deployment might have failed.
             delegate.destroy();
@@ -57,6 +61,7 @@ public final class WSSPIContextListener
         }
     }
 
+    @Override
     public void contextInitialized(ServletContextEvent event) {
         if (logger.isLoggable(Level.INFO)) {
             logger.info("JAX-WS context listener initializing");

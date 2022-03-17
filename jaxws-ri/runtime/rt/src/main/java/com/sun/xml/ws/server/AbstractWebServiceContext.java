@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,6 +40,7 @@ public abstract class AbstractWebServiceContext implements WSWebServiceContext {
         this.endpoint = endpoint;
     }
 
+    @Override
     public MessageContext getMessageContext() {
         Packet packet = getRequestPacket();
         if (packet == null) {
@@ -48,6 +49,7 @@ public abstract class AbstractWebServiceContext implements WSWebServiceContext {
         return new EndpointMessageContextImpl(packet);
     }
 
+    @Override
     public Principal getUserPrincipal() {
         Packet packet = getRequestPacket();
         if (packet == null) {
@@ -56,6 +58,7 @@ public abstract class AbstractWebServiceContext implements WSWebServiceContext {
         return packet.webServiceContextDelegate.getUserPrincipal(packet);
     }
 
+    @Override
     public boolean isUserInRole(String role) {
         Packet packet = getRequestPacket();
         if (packet == null) {
@@ -64,10 +67,12 @@ public abstract class AbstractWebServiceContext implements WSWebServiceContext {
         return packet.webServiceContextDelegate.isUserInRole(packet,role);
     }
 
+    @Override
     public EndpointReference getEndpointReference(Element...referenceParameters) {
         return getEndpointReference(W3CEndpointReference.class, referenceParameters);
     }
 
+    @Override
     public <T extends EndpointReference> T getEndpointReference(Class<T> clazz, Element...referenceParameters) {
         Packet packet = getRequestPacket();
         if (packet == null) {

@@ -63,6 +63,7 @@ public class AddressingPolicyMapConfigurator implements PolicyMapConfigurator {
     /**
      * Puts an addressing policy into the PolicyMap if the addressing feature was set.
      */
+    @Override
     public Collection<PolicySubject> update(final PolicyMap policyMap, final SEIModel model, final WSBinding wsBinding)
             throws PolicyException {
         LOGGER.entering(policyMap, model, wsBinding);

@@ -182,6 +182,7 @@ public class CookieManager extends CookieHandler
     }
 
 
+    @Override
     public Map<String, List<String>>
         get(URI uri, Map<String, List<String>> requestHeaders)
         throws IOException
@@ -240,6 +241,7 @@ public class CookieManager extends CookieHandler
     }
 
 
+    @Override
     public void
         put(URI uri, Map<String, List<String>> responseHeaders)
         throws IOException

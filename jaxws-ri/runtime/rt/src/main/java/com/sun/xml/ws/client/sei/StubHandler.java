@@ -198,6 +198,7 @@ public class StubHandler implements ClientCallBridge {
      * @param args proxy invocation arguments
      * @return Message for the arguments
      */
+    @Override
     public Packet createRequestPacket(JavaCallInfo args) {
         Message msg = bodyBuilder.createMessage(args.getParameters());
 
@@ -216,7 +217,8 @@ public class StubHandler implements ClientCallBridge {
         return ValueGetterFactory.SYNC;
     }
 
-	public JavaCallInfo readResponse(Packet p, JavaCallInfo call) throws Throwable {
+	@Override
+    public JavaCallInfo readResponse(Packet p, JavaCallInfo call) throws Throwable {
 		Message msg = p.getMessage();
         if(msg.isFault()) {
             SOAPFaultBuilder faultBuilder = SOAPFaultBuilder.create(msg);
@@ -247,10 +249,12 @@ public class StubHandler implements ClientCallBridge {
 	protected void initArgs(Object[] args) throws Exception {
 	}
 
-	public Method getMethod() {
+	@Override
+    public Method getMethod() {
 		return javaMethod.getMethod();
 	}
     
+    @Override
     public JavaMethod getOperationModel() {
         return javaMethod;
     }

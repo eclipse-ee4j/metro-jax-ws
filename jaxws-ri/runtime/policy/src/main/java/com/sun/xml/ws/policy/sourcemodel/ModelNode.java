@@ -443,6 +443,7 @@ public final class ModelNode implements Iterable<ModelNode>, Cloneable {
      *
      * @return An iterator for the child nodes
      */
+    @Override
     public Iterator<ModelNode> iterator() {
         return children.iterator();
     }

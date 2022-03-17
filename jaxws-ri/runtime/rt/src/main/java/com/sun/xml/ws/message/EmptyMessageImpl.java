@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -64,42 +64,52 @@ public class EmptyMessageImpl extends AbstractMessageImpl {
         this.copyFrom(that);
     }
 
+    @Override
     public boolean hasHeaders() {
         return headers.hasHeaders();
     }
     
+    @Override
     public MessageHeaders getHeaders() {
         return headers;
     }
 
+    @Override
     public String getPayloadLocalPart() {
         return null;
     }
 
+    @Override
     public String getPayloadNamespaceURI() {
         return null;
     }
 
+    @Override
     public boolean hasPayload() {
         return false;
     }
 
+    @Override
     public Source readPayloadAsSource() {
         return null;
     }
 
+    @Override
     public XMLStreamReader readPayload() throws XMLStreamException {
         return null;
     }
 
+    @Override
     public void writePayloadTo(XMLStreamWriter sw) throws XMLStreamException {
         // noop
     }
 
+    @Override
     public void writePayloadTo(ContentHandler contentHandler, ErrorHandler errorHandler, boolean fragment) throws SAXException {
         // noop
     }
 
+    @Override
     public Message copy() {
         return new EmptyMessageImpl(this).copyFrom(this);
     }

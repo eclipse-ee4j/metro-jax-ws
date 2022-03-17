@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,16 +32,19 @@ public final class SingletonResolver<T> extends AbstractInstanceResolver<T> {
         this.singleton = singleton;
     }
 
+    @Override
     public @NotNull T resolve(Packet request) {
         return singleton;
     }
 
+    @Override
     public void start(WSWebServiceContext wsc, WSEndpoint endpoint) {
         getResourceInjector(endpoint).inject(wsc,singleton);
         // notify that we are ready to serve
         invokeMethod(findAnnotatedMethod(singleton.getClass(),PostConstruct.class),singleton);
     }
 
+    @Override
     public void dispose() {
         invokeMethod(findAnnotatedMethod(singleton.getClass(),PreDestroy.class),singleton);
     }

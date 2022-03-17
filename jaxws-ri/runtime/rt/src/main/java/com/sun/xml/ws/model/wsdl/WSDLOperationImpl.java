@@ -51,42 +51,52 @@ public final class WSDLOperationImpl extends AbstractExtensibleImpl implements E
         this.owner = owner;
     }
 
+    @Override
     public QName getName() {
         return name;
     }
 
+    @Override
     public String getParameterOrder() {
         return parameterOrder;
     }
 
+    @Override
     public void setParameterOrder(String parameterOrder) {
         this.parameterOrder = parameterOrder;
     }
 
+    @Override
     public EditableWSDLInput getInput() {
         return input;
     }
 
+    @Override
     public void setInput(EditableWSDLInput input) {
         this.input = input;
     }
 
+    @Override
     public EditableWSDLOutput getOutput() {
         return output;
     }
 
+    @Override
     public boolean isOneWay() {
         return output == null;
     }
 
+    @Override
     public void setOutput(EditableWSDLOutput output) {
         this.output = output;
     }
 
+    @Override
     public Iterable<EditableWSDLFault> getFaults() {
         return faults;
     }
 
+    @Override
     public EditableWSDLFault getFault(QName faultDetailName) {
         EditableWSDLFault fault = faultMap.get(faultDetailName);
         if(fault != null)
@@ -103,15 +113,18 @@ public final class WSDLOperationImpl extends AbstractExtensibleImpl implements E
         return null;
     }
     
+    @Override
     @NotNull
     public QName getPortTypeName() {
         return owner.getName();
     }
 
+    @Override
     public void addFault(EditableWSDLFault fault) {
         faults.add(fault);
     }
 
+    @Override
     public void freeze(EditableWSDLModel root) {
         assert input != null;
         input.freeze(root);

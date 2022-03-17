@@ -29,6 +29,7 @@ public class EncodingPrefixMapper implements PrefixMapper {
         prefixMap.put(EncodingConstants.SUN_FI_SERVICE_NS, "fi");
     }
         
+    @Override
     public Map<String, String> getPrefixMap() {
         return prefixMap;
     }

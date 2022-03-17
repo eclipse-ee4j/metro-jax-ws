@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -58,10 +58,12 @@ public final class CheckedExceptionImpl implements CheckedException {
         this.javaMethod = jm;
     }
 
+    @Override
     public AbstractSEIModelImpl getOwner() {
         return javaMethod.owner;
     }
 
+    @Override
     public JavaMethod getParent() {
         return javaMethod;
     }
@@ -70,14 +72,17 @@ public final class CheckedExceptionImpl implements CheckedException {
      * @return the <code>Class</code> for this object
      * 
      */
+    @Override
     public Class getExceptionClass() {
         return exceptionClass;
     }
 
+    @Override
     public Class getDetailBean() {
         return (Class) detail.type;
     }
     /** @deprecated */
+    @Override
     public Bridge getBridge() {
 //TODO        return getOwner().getBridge(detail);
         return null;
@@ -87,14 +92,17 @@ public final class CheckedExceptionImpl implements CheckedException {
         return getOwner().getXMLBridge(detail);
     }
 
+    @Override
     public TypeInfo getDetailType() {
         return detail;
     }
 
+    @Override
     public ExceptionType getExceptionType() {
         return exceptionType;
     }
     
+    @Override
     public String getMessageName() {
         return messageName;
     }

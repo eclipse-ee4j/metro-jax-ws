@@ -275,6 +275,7 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
             this.required = required;
         }
 
+        @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             String methodName = method.getName();
             switch (methodName) {
@@ -476,6 +477,7 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
     private static Boolean getBooleanSystemProperty(final String prop) {
         return AccessController.doPrivileged(
                 new java.security.PrivilegedAction<>() {
+                    @Override
                     public Boolean run() {
                         return Boolean.getBoolean(prop);
                     }

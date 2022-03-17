@@ -101,6 +101,7 @@ public final class JavaMethodImpl implements JavaMethod {
         return new ActionBasedOperationSignature(getInputAction(), qname);
     }
 
+    @Override
     public SEIModel getOwner() {
         return owner;
     }
@@ -110,6 +111,7 @@ public final class JavaMethodImpl implements JavaMethod {
      *
      * @return Returns the method. 
      */
+    @Override
     public Method getMethod() {
         return method;
     }
@@ -119,6 +121,7 @@ public final class JavaMethodImpl implements JavaMethod {
      *
      * @return Returns the SEI method where annotations are present
      */
+    @Override
     public Method getSEIMethod() {
         return seiMethod;
     }
@@ -126,6 +129,7 @@ public final class JavaMethodImpl implements JavaMethod {
     /**
      * @return Returns the mep.
      */
+    @Override
     public MEP getMEP() {
         return mep;
     }
@@ -141,6 +145,7 @@ public final class JavaMethodImpl implements JavaMethod {
     /**
      * @return the Binding object
      */
+    @Override
     public SOAPBinding getBinding() {
         if (binding == null)
             return new SOAPBindingImpl();
@@ -176,14 +181,17 @@ public final class JavaMethodImpl implements JavaMethod {
         return (wsdlOperation != null)? wsdlOperation.getSOAPAction(): soapAction;
     }
     
+    @Override
     public String getOperationName() {
         return operationName.getLocalPart();
     }
 
+    @Override
     public String getRequestMessageName() {
         return getOperationName();
     }
 
+    @Override
     public String getResponseMessageName() {
         if(mep.isOneWay())
             return null;
@@ -197,6 +205,7 @@ public final class JavaMethodImpl implements JavaMethod {
     /**
      * @return soap:Body's first child name for request message.
      */
+    @Override
     public @Nullable QName getRequestPayloadName() {
         return (wsdlOperation != null)? wsdlOperation.getRequestPayloadName(): requestPayloadName;
     }
@@ -204,6 +213,7 @@ public final class JavaMethodImpl implements JavaMethod {
     /**
      * @return soap:Body's first child name for response message.
      */
+    @Override
     public @Nullable QName getResponsePayloadName() {
         return (mep == MEP.ONE_WAY) ? null : wsdlOperation.getResponsePayloadName();
     }
@@ -301,6 +311,7 @@ public final class JavaMethodImpl implements JavaMethod {
     /**
      * @return a list of checked Exceptions thrown by this method
      */
+    @Override
     public List<CheckedExceptionImpl> getCheckedExceptions(){
         return Collections.unmodifiableList(exceptions);
     }

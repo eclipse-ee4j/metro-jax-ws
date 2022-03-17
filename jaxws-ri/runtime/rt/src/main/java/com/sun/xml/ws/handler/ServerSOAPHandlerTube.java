@@ -72,6 +72,7 @@ public class ServerSOAPHandlerTube extends HandlerTube {
     }
 
 
+    @Override
     public AbstractFilterTubeImpl copy(TubeCloner cloner) {
         return new ServerSOAPHandlerTube(this, cloner);
     }
@@ -87,19 +88,23 @@ public class ServerSOAPHandlerTube extends HandlerTube {
         }
     }
 
+    @Override
     protected void resetProcessor() {
     	processor = null;
     }
     
+    @Override
     void setUpProcessor() {
         if(!handlers.isEmpty() && processor == null)
             processor = new SOAPHandlerProcessor(false, this, getBinding(), handlers);
     }
+    @Override
     MessageUpdatableContext getContext(Packet packet) {
         SOAPMessageContextImpl context = new SOAPMessageContextImpl(getBinding(), packet,roles);
         return context;
     }
 
+    @Override
     boolean callHandlersOnRequest(MessageUpdatableContext context, boolean isOneWay) {
 
         boolean handlerResult;
@@ -118,6 +123,7 @@ public class ServerSOAPHandlerTube extends HandlerTube {
         return handlerResult;
     }
 
+    @Override
     void callHandlersOnResponse(MessageUpdatableContext context, boolean handleFault) {
 
         //Lets copy all the MessageContext.OUTBOUND_ATTACHMENT_PROPERTY to the message
@@ -141,6 +147,7 @@ public class ServerSOAPHandlerTube extends HandlerTube {
         }
     }
 
+    @Override
     void closeHandlers(MessageContext mc) {
         closeServersideHandlers(mc);
 

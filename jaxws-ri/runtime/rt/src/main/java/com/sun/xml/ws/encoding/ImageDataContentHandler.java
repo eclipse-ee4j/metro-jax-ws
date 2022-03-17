@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,6 +51,7 @@ public class ImageDataContentHandler extends Component
      *
      * @return The DataFlavors.
      */
+    @Override
     public ActivationDataFlavor[] getTransferDataFlavors() {
         return Arrays.copyOf(flavor, flavor.length);
     }
@@ -64,6 +65,7 @@ public class ImageDataContentHandler extends Component
      * @param ds The DataSource representing the data to be converted.
      * @return The constructed Object.
      */
+    @Override
     public Object getTransferData(ActivationDataFlavor df, DataSource ds)
         throws IOException {
         for (ActivationDataFlavor aFlavor : flavor) {
@@ -82,6 +84,7 @@ public class ImageDataContentHandler extends Component
      * @param ds The DataSource representing the data to be converted.
      * @return The constructed Object.
      */
+    @Override
     public Object getContent(DataSource ds) throws IOException {
         return ImageIO.read(new BufferedInputStream(ds.getInputStream()));
     }
@@ -96,6 +99,7 @@ public class ImageDataContentHandler extends Component
      *          byte stream.
      */
 
+    @Override
     public void writeTo(Object obj, String type, OutputStream os)
         throws IOException {
 

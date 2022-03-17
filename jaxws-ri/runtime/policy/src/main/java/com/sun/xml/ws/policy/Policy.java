@@ -499,6 +499,7 @@ public class Policy implements Iterable<AssertionSet> {
      *
      * @return An iterator to iterate through all contained assertion sets
      */
+    @Override
     public Iterator<AssertionSet> iterator() {
         return assertionSets.iterator();
     }

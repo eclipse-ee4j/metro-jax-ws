@@ -63,8 +63,10 @@ public abstract class InjectionPlan<T, R> {
             this.field = field;
         }
 
+        @Override
         public void inject(final T instance, final R resource) {
             AccessController.doPrivileged(new PrivilegedAction<>() {
+                @Override
                 public Object run() {
                     try {
                         if (!field.isAccessible()) {
@@ -91,6 +93,7 @@ public abstract class InjectionPlan<T, R> {
             this.method = method;
         }
 
+        @Override
         public void inject(T instance, R resource) {
             invokeMethod(method, instance, resource);
         }
@@ -102,6 +105,7 @@ public abstract class InjectionPlan<T, R> {
     private static void invokeMethod(final Method method, final Object instance, final Object... args) {
         if(method==null)    return;
         AccessController.doPrivileged(new PrivilegedAction<Void>() {
+            @Override
             public Void run() {
                 try {
                     if (!method.isAccessible()) {
@@ -126,11 +130,13 @@ public abstract class InjectionPlan<T, R> {
             this.children = children;
         }
 
+        @Override
         public void inject(T instance, R res) {
             for (InjectionPlan<T, R> plan : children)
                 plan.inject(instance, res);
         }
         
+        @Override
         public void inject(T instance, Callable<R> resource) {
             if (!children.isEmpty()) {
                 super.inject(instance, resource);

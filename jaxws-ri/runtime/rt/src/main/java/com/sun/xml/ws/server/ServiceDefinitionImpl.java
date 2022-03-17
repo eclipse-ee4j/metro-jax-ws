@@ -80,14 +80,17 @@ public final class ServiceDefinitionImpl implements ServiceDefinition, SDDocumen
         this.owner = owner;
     }
 
+    @Override
     public @NotNull SDDocument getPrimary() {
         return primaryWsdl;
     }
 
+    @Override
     public void addFilter(SDDocumentFilter filter) {
         filters.add(filter);
     }
 
+    @Override
     public Iterator<SDDocument> iterator() {
         init();
         return (Iterator)docs.iterator();
@@ -100,6 +103,7 @@ public final class ServiceDefinitionImpl implements ServiceDefinition, SDDocumen
      * @return
      *      null if none is found.
      */
+    @Override
     public SDDocument resolve(String systemId) {
         init();
         return bySystemId.get(systemId);

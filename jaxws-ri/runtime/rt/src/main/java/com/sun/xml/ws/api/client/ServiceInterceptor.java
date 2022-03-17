@@ -89,6 +89,7 @@ public abstract class ServiceInterceptor {
         if(interceptors.length==1)
             return interceptors[0];
         return new ServiceInterceptor() {
+            @Override
             public List<WebServiceFeature> preCreateBinding(@NotNull WSPortInfo port, @Nullable Class<?> portInterface, @NotNull WSFeatureList defaultFeatures) {
                 List<WebServiceFeature> r = new ArrayList<>();
                 for (ServiceInterceptor si : interceptors)
@@ -96,11 +97,13 @@ public abstract class ServiceInterceptor {
                 return r;
             }
 
+            @Override
             public void postCreateProxy(@NotNull WSBindingProvider bp, @NotNull Class<?> serviceEndpointInterface) {
                 for (ServiceInterceptor si : interceptors)
                     si.postCreateProxy(bp,serviceEndpointInterface);
             }
 
+            @Override
             public void postCreateDispatch(@NotNull WSBindingProvider bp) {
                 for (ServiceInterceptor si : interceptors)
                     si.postCreateDispatch(bp);

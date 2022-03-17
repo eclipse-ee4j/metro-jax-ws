@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,18 +25,22 @@ public class WSDLGeneratorExtensionImpl extends WSDLGeneratorExtension {
         writer._attribute(new QName("jaxws_test", attrName), attrValue);
     }
 
+    @Override
     public void addServiceExtension(TypedXmlWriter service) {
         addAttribute(service, "serviceAttr", "myService");
     }
 
+    @Override
     public void addPortExtension(TypedXmlWriter port) {
         addAttribute(port, "portAttr", "myPort");
     }
 
+    @Override
     public void addPortTypeExtension(TypedXmlWriter portType) {
         addAttribute(portType, "portTypeAttr", "myPortType");
     }
 
+    @Override
     public void addBindingExtension(TypedXmlWriter binding) {
         addAttribute(binding, "bindingAttr", "myBinding");
     }

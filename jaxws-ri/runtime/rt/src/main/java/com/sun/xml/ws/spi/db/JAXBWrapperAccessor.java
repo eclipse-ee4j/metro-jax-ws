@@ -292,6 +292,7 @@ public class JAXBWrapperAccessor extends WrapperAccessor {
             } else {
                 try {
                     AccessController.doPrivileged(new PrivilegedExceptionAction<>() {
+                        @Override
                         public Object run() throws IllegalAccessException {
                             if (!field.isAccessible()) {
                                 field.setAccessible(true);
@@ -320,6 +321,7 @@ public class JAXBWrapperAccessor extends WrapperAccessor {
                 this.field = field;
                 this.instance = instance;
             }
+            @Override
             public Object run() throws IllegalAccessException {
                 if (!field.isAccessible()) {
                     field.setAccessible(true);

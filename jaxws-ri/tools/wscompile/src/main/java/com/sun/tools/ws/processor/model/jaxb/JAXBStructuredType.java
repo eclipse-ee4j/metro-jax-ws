@@ -85,6 +85,7 @@ public class JAXBStructuredType extends JAXBType {
     /* (non-Javadoc)
      * @see JAXBType#isUnwrapped()
      */
+    @Override
     public boolean isUnwrapped() {
         return true;
     }

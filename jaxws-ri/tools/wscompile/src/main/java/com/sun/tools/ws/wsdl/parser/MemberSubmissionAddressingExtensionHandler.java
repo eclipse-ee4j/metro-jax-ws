@@ -47,6 +47,7 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
         return AddressingVersion.MEMBER.wsdlNsUri;
     }
 
+    @Override
     protected QName getWSDLExtensionQName() {
         return AddressingVersion.MEMBER.wsdlExtensionTag;
     }

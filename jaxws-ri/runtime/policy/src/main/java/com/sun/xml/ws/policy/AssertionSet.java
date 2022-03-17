@@ -43,6 +43,7 @@ public final class AssertionSet implements Iterable<PolicyAssertion>, Comparable
      * 6. hashCode comparison
      */
     private static final Comparator<PolicyAssertion> ASSERTION_COMPARATOR = new Comparator<>() {
+        @Override
         public int compare(final PolicyAssertion pa1, final PolicyAssertion pa2) {
             if (pa1.equals(pa2)) {
                 return 0;
@@ -213,6 +214,7 @@ public final class AssertionSet implements Iterable<PolicyAssertion>, Comparable
      *
      * @return policy assertion Iterator.
      */
+    @Override
     public Iterator<PolicyAssertion> iterator() {
         return this.assertions.iterator();
     }
@@ -263,6 +265,7 @@ public final class AssertionSet implements Iterable<PolicyAssertion>, Comparable
      * An {@code Comparable<T>.compareTo(T o)} interface method implementation.
      * @param that other alternative to compare with
      */
+    @Override
     public int compareTo(final AssertionSet that) {
         if (this.equals(that)) {
             return 0;

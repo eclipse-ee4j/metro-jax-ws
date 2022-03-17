@@ -834,6 +834,7 @@ public class EndpointFactory {
             this.resolver = resolver;
         }
 
+        @Override
         public Parser resolveEntity (String publicId, String systemId) throws IOException, XMLStreamException {
             if (systemId != null) {
                 SDDocumentSource doc = metadata.get(systemId);

@@ -25,45 +25,57 @@ import com.sun.xml.ws.api.databinding.MetadataReader;
  */
 public class ReflectAnnotationReader implements MetadataReader {
 //getAnnotationOnImpl SEIorIMpl
-	public Annotation[] getAnnotations(Method m) {
+	@Override
+    public Annotation[] getAnnotations(Method m) {
 		return m.getAnnotations();
 	}
 
-	public Annotation[][] getParameterAnnotations(final Method method) {
+	@Override
+    public Annotation[][] getParameterAnnotations(final Method method) {
         return AccessController.doPrivileged(new PrivilegedAction<>() {
+            @Override
             public Annotation[][] run() {
                 return method.getParameterAnnotations();
             }
         });
     }
 	
-	public <A extends Annotation> A getAnnotation(final Class<A> annType, final Method m) {
+	@Override
+    public <A extends Annotation> A getAnnotation(final Class<A> annType, final Method m) {
         return AccessController.doPrivileged(new PrivilegedAction<>() {
+            @Override
             public A run() {
                 return m.getAnnotation(annType);
             }
         });
 	}
 	
-	public <A extends Annotation> A getAnnotation(final Class<A> annType, final Class<?> cls) {
+	@Override
+    public <A extends Annotation> A getAnnotation(final Class<A> annType, final Class<?> cls) {
         return AccessController.doPrivileged(new PrivilegedAction<>() {
+            @Override
             public A run() {
                 return cls.getAnnotation(annType);
             }
         });
 	}
 
+    @Override
     public Annotation[] getAnnotations(final Class<?> cls) {
         return AccessController.doPrivileged(new PrivilegedAction<>() {
+            @Override
             public Annotation[] run() {
                 return cls.getAnnotations();
             }
         });
     }
 
+    @Override
     public void getProperties(final Map<String, Object> prop, final Class<?> cls){}
     
-    public void getProperties(final Map<String, Object> prop, final Method method){}  
+    @Override
+    public void getProperties(final Map<String, Object> prop, final Method method){}
     
+    @Override
     public void getProperties(final Map<String, Object> prop, final Method method, int pos){}
 }

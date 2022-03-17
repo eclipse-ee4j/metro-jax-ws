@@ -107,6 +107,7 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
      * Creates a new HandlerConfiguration object and sets it on the BindingImpl. Also parses Headers understood by
      * Protocol Handlers and sets the HandlerConfiguration.
      */
+    @Override
     public void setHandlerChain(List<Handler> chain) {
         setHandlerConfig(new HandlerConfiguration(getHandlerConfig().getRoles(), chain));
     }
@@ -115,6 +116,7 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
         roles.addAll(soapVersion.requiredRoles);
     }
 
+    @Override
     public Set<String> getRoles() {
         return getHandlerConfig().getRoles();
     }
@@ -124,6 +126,7 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
      * been called by a user without them.
      * Creates a new HandlerConfiguration object and sets it on the BindingImpl.
      */
+    @Override
     public void setRoles(Set<String> roles) {
         if (roles == null) {
             roles = new HashSet<>();
@@ -139,6 +142,7 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
     /**
      * Used typically by the runtime to enable/disable Mtom optimization
      */
+    @Override
     public boolean isMTOMEnabled() {
         return isFeatureEnabled(MTOMFeature.class);
     }
@@ -146,14 +150,17 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
     /**
      * Client application can override if the MTOM optimization should be enabled
      */
+    @Override
     public void setMTOMEnabled(boolean b) {
         features.setMTOMEnabled(b);
     }
 
+    @Override
     public SOAPFactory getSOAPFactory() {
         return soapVersion.getSOAPFactory();
     }
 
+    @Override
     public MessageFactory getMessageFactory() {
         return soapVersion.getMessageFactory();
     }

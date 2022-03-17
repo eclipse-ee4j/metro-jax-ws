@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,14 +30,17 @@ public class SDOAttachmentUnmarshaller implements XMLAttachmentUnmarshaller {
         this.jbu = jbu;
     }
 
+    @Override
     public byte[] getAttachmentAsByteArray(String cid) {
         return jbu.getAttachmentAsByteArray(cid);
     }
 
+    @Override
     public DataHandler getAttachmentAsDataHandler(String cid) {
        return jbu.getAttachmentAsDataHandler(cid);
     }
 
+    @Override
     public boolean isXOPPackage() {
         return jbu.isXOPPackage();
     }

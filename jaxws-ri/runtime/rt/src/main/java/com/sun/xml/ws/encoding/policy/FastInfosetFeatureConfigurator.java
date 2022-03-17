@@ -43,6 +43,7 @@ public class FastInfosetFeatureConfigurator implements PolicyFeatureConfigurator
      * @param policyMap the policy map.
      * @throws PolicyException If retrieving the policy triggered an exception.
      */
+     @Override
      public Collection<WebServiceFeature> getFeatures(final PolicyMapKey key, final PolicyMap policyMap) throws PolicyException {
         final Collection<WebServiceFeature> features = new LinkedList<>();
         if ((key != null) && (policyMap != null)) {

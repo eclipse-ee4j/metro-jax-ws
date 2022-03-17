@@ -57,18 +57,22 @@ public class FastInfosetCodec implements Codec {
             new ContentTypeImpl(FastInfosetMIMETypes.INFOSET);
     }
     
+    @Override
     public String getMimeType() {
         return _contentType.getContentType();
     }
     
+    @Override
     public Codec copy() {
         return new FastInfosetCodec(_retainState);
     }
     
+    @Override
     public ContentType getStaticContentType(Packet packet) {
         return _contentType;
     }
     
+    @Override
     public ContentType encode(Packet packet, OutputStream out) {
         Message message = packet.getMessage();
         if (message != null && message.hasPayload()) {
@@ -86,11 +90,13 @@ public class FastInfosetCodec implements Codec {
         return _contentType;
     }
     
+    @Override
     public ContentType encode(Packet packet, WritableByteChannel buffer) {
         //TODO: not yet implemented
         throw new UnsupportedOperationException();
     }
     
+    @Override
     public void decode(InputStream in, String contentType, Packet packet) throws IOException {
         /* Implements similar logic as the XMLMessage.create(String, InputStream).
          * But it's faster, as we know the InputStream has FastInfoset content*/
@@ -106,6 +112,7 @@ public class FastInfosetCodec implements Codec {
         packet.setMessage(message);
     }
     
+    @Override
     public void decode(ReadableByteChannel in, String contentType, Packet response) {
         throw new UnsupportedOperationException();
     }

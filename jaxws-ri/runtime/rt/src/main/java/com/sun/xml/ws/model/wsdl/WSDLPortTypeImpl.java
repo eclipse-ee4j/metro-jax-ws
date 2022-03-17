@@ -37,14 +37,17 @@ public final class WSDLPortTypeImpl  extends AbstractExtensibleImpl implements E
         portTypeOperations = new Hashtable<>();
     }
 
+    @Override
     public QName getName() {
         return name;
     }
 
+    @Override
     public EditableWSDLOperation get(String operationName) {
         return portTypeOperations.get(operationName);
     }
 
+    @Override
     public Iterable<EditableWSDLOperation> getOperations() {
         return portTypeOperations.values();
     }
@@ -55,6 +58,7 @@ public final class WSDLPortTypeImpl  extends AbstractExtensibleImpl implements E
      * @param ptOp  Must be non-null
      * @throws NullPointerException if either opName or ptOp is null
      */
+    @Override
     public void put(String opName, EditableWSDLOperation ptOp){
         portTypeOperations.put(opName, ptOp);
     }
@@ -63,6 +67,7 @@ public final class WSDLPortTypeImpl  extends AbstractExtensibleImpl implements E
         return owner;
     }
 
+    @Override
     public void freeze() {
         for(EditableWSDLOperation op : portTypeOperations.values()){
             op.freeze(owner);

@@ -39,6 +39,7 @@ public class StreamHeader12 extends StreamHeader {
         super(reader);
     }
 
+    @Override
     protected final FinalArrayList<Attribute> processHeaderAttributes(XMLStreamReader reader) {
         FinalArrayList<Attribute> atts = null;
 

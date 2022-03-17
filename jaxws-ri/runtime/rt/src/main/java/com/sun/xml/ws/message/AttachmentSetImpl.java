@@ -43,6 +43,7 @@ public final class AttachmentSetImpl implements AttachmentSet {
             add(a);
     }
 
+    @Override
     public Attachment get(String contentId) {
         for( int i=attList.size()-1; i>=0; i-- ) {
             Attachment a = attList.get(i);
@@ -52,14 +53,17 @@ public final class AttachmentSetImpl implements AttachmentSet {
         return null;
     }
 
+    @Override
     public boolean isEmpty() {
         return attList.isEmpty();
     }
 
+    @Override
     public void add(Attachment att) {
         attList.add(att);
     }
 
+    @Override
     public Iterator<Attachment> iterator() {
         return attList.iterator();
     }

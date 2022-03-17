@@ -85,6 +85,7 @@ public class W3CAddressingWSDLParserExtension extends WSDLParserExtension {
         return false;
     }
 
+    @Override
     public void portTypeOperationInputAttributes(EditableWSDLInput input, XMLStreamReader reader) {
        String action = ParserUtil.getAttribute(reader, getWsdlActionTag());
        if (action != null) {
@@ -94,6 +95,7 @@ public class W3CAddressingWSDLParserExtension extends WSDLParserExtension {
     }
 
 
+    @Override
     public void portTypeOperationOutputAttributes(EditableWSDLOutput output, XMLStreamReader reader) {
        String action = ParserUtil.getAttribute(reader, getWsdlActionTag());
        if (action != null) {
@@ -103,6 +105,7 @@ public class W3CAddressingWSDLParserExtension extends WSDLParserExtension {
     }
 
 
+    @Override
     public void portTypeOperationFaultAttributes(EditableWSDLFault fault, XMLStreamReader reader) {
         String action = ParserUtil.getAttribute(reader, getWsdlActionTag());
         if (action != null) {

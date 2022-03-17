@@ -34,6 +34,7 @@ public abstract class Entity implements Elemental {
         this.errorReceiver = errorReceiver;
     }
 
+    @Override
     public Locator getLocator() {
         return locator;
     }

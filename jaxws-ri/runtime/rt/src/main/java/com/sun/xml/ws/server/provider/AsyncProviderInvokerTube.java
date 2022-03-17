@@ -47,6 +47,7 @@ class AsyncProviderInvokerTube<T> extends ProviderInvokerTube<T> {
     * invoke() is used to create a new {@link Message} that traverses
     * through the Pipeline to transport.
     */
+    @Override
     public @NotNull NextAction processRequest(@NotNull Packet request) {
         T param = argsBuilder.getParameter(request);
         NoSuspendResumer resumer = new NoSuspendResumer();
@@ -90,7 +91,8 @@ class AsyncProviderInvokerTube<T> extends ProviderInvokerTube<T> {
             this.fiber = Fiber.current();
     	}
     	
-    	public void onResume(Packet response) {
+    	@Override
+        public void onResume(Packet response) {
             // Only used by AsyncProvider<Packet>
             // Implementation may pass Packet containing throwable; use both
     	    ThrowableContainerPropertySet tc = response.getSatellite(ThrowableContainerPropertySet.class);
@@ -102,7 +104,8 @@ class AsyncProviderInvokerTube<T> extends ProviderInvokerTube<T> {
     private class NoSuspendResumer implements Resumer {
     	protected Packet response = null;
 
-		public void onResume(Packet response) {
+		@Override
+        public void onResume(Packet response) {
 			this.response = response;
 		}
     }
@@ -116,6 +119,7 @@ class AsyncProviderInvokerTube<T> extends ProviderInvokerTube<T> {
             this.resumer = resumer;
         }
 
+        @Override
         public void send(@Nullable T param) {
             if (param == null) {
                 if (request.transportBackChannel != null) {
@@ -128,6 +132,7 @@ class AsyncProviderInvokerTube<T> extends ProviderInvokerTube<T> {
             }
         }
 
+        @Override
         public void sendError(@NotNull Throwable t) {
             Exception e;
             if (t instanceof Exception) {
@@ -153,15 +158,18 @@ class AsyncProviderInvokerTube<T> extends ProviderInvokerTube<T> {
             this.packet = packet;
         }
 
+        @Override
         public @NotNull Packet getRequestPacket() {
             return packet;
         }
     }
 
+    @Override
     public @NotNull NextAction processResponse(@NotNull Packet response) {
         return doReturnWith(response);
     }
 
+    @Override
     public @NotNull NextAction processException(@NotNull Throwable t) {
         return doThrow(t);
     }

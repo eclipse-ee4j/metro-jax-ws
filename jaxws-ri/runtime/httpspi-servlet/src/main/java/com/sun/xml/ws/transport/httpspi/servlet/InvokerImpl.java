@@ -49,6 +49,7 @@ class InvokerImpl extends Invoker {
     private static void invokeMethod(final Method method, final Object instance, final Object... args) {
         if(method==null)    return;
         AccessController.doPrivileged(new PrivilegedAction<Void>() {
+            @Override
             public Void run() {
                 try {
                     if (!method.isAccessible()) {
@@ -63,12 +64,14 @@ class InvokerImpl extends Invoker {
         });
     }
 
+    @Override
     public void inject(WebServiceContext webServiceContext) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         InjectionPlan.buildInjectionPlan(
             implType, WebServiceContext.class,false).inject(impl,webServiceContext);
         invokeMethod(postConstructMethod, impl);
     }
 
+    @Override
     public Object invoke(Method m, Object... args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         return m.invoke(impl, args);
     }

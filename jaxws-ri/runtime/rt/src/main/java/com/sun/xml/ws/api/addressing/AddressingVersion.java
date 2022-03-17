@@ -58,7 +58,9 @@ public enum AddressingVersion {
                     "ReferenceParameters",
                     null )) {
 
-        /* package */  String getActionMismatchLocalName() {
+        /* package */
+        @Override
+        String getActionMismatchLocalName() {
             return "ActionMismatch";
         }
         @Override
@@ -81,7 +83,9 @@ public enum AddressingVersion {
             return "A required header representing a Message Addressing Property is not present";
         }
 
-        /* package */ String getInvalidAddressLocalName() {
+        /* package */
+        @Override
+        String getInvalidAddressLocalName() {
             return "InvalidAddress";
         }
 
@@ -100,26 +104,35 @@ public enum AddressingVersion {
             return "InvalidCardinality";
         }
 
-        /*package*/ Header createReferenceParameterHeader(XMLStreamBuffer mark, String nsUri, String localName) {
+        /*package*/
+        @Override
+        Header createReferenceParameterHeader(XMLStreamBuffer mark, String nsUri, String localName) {
             return new OutboundReferenceParameterHeader(mark,nsUri,localName);
         }
 
-        /*package*/ String getIsReferenceParameterLocalName() {
+        /*package*/
+        @Override
+        String getIsReferenceParameterLocalName() {
             return "IsReferenceParameter";
         }
 
-        /* package */ String getWsdlAnonymousLocalName() {
+        /* package */
+        @Override
+        String getWsdlAnonymousLocalName() {
             return "Anonymous";
         }
 
+        @Override
         public String getPrefix() {
             return "wsa";
         }
 
+        @Override
         public String getWsdlPrefix() {
             return "wsaw";
         }
 
+        @Override
         public Class<? extends WebServiceFeature> getFeatureClass() {
             return AddressingFeature.class;
         }
@@ -139,7 +152,9 @@ public enum AddressingVersion {
                     MemberSubmissionAddressingConstants.MEX_METADATA,
                     "ReferenceParameters",
                     "ReferenceProperties")) {
-        /* package */  String getActionMismatchLocalName() {
+        /* package */
+        @Override
+        String getActionMismatchLocalName() {
             return "InvalidMessageInformationHeader";
         }
         @Override
@@ -162,7 +177,9 @@ public enum AddressingVersion {
             return "A required message information header, To, MessageID, or Action, is not present.";
         }
 
-        /* package */ String getInvalidAddressLocalName() {
+        /* package */
+        @Override
+        String getInvalidAddressLocalName() {
             return getInvalidMapLocalName();
         }
 
@@ -181,26 +198,35 @@ public enum AddressingVersion {
             return getInvalidMapLocalName();
         }
 
-        /*package*/ Header createReferenceParameterHeader(XMLStreamBuffer mark, String nsUri, String localName) {
+        /*package*/
+        @Override
+        Header createReferenceParameterHeader(XMLStreamBuffer mark, String nsUri, String localName) {
             return new OutboundStreamHeader(mark,nsUri,localName);
         }
 
-        /*package*/ String getIsReferenceParameterLocalName() {
+        /*package*/
+        @Override
+        String getIsReferenceParameterLocalName() {
             return "";
         }
 
-        /* package */ String getWsdlAnonymousLocalName() {
+        /* package */
+        @Override
+        String getWsdlAnonymousLocalName() {
             return "";
         }
 
+        @Override
         public String getPrefix() {
             return "wsa";
         }
 
+        @Override
         public String getWsdlPrefix() {
             return "wsaw";
         }
 
+        @Override
         public Class<? extends WebServiceFeature> getFeatureClass() {
             return MemberSubmissionAddressingFeature.class;
         }

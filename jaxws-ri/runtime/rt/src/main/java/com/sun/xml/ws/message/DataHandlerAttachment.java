@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,6 +42,7 @@ public final class DataHandlerAttachment implements Attachment {
         this.contentId = contentId;
     }
 
+    @Override
     public String getContentId() {
 //        return contentId;
         if (contentIdNoAngleBracket == null) {
@@ -52,10 +53,12 @@ public final class DataHandlerAttachment implements Attachment {
         return contentIdNoAngleBracket;
     }
 
+    @Override
     public String getContentType() {
         return dh.getContentType();
     }
 
+    @Override
     public byte[] asByteArray() {
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -66,10 +69,12 @@ public final class DataHandlerAttachment implements Attachment {
         }
     }
 
+    @Override
     public DataHandler asDataHandler() {
         return dh;
     }
 
+    @Override
     public Source asSource() {
         try {
             return new StreamSource(dh.getInputStream());
@@ -78,6 +83,7 @@ public final class DataHandlerAttachment implements Attachment {
         }
     }
 
+    @Override
     public InputStream asInputStream() {
         try {
             return dh.getInputStream();
@@ -86,10 +92,12 @@ public final class DataHandlerAttachment implements Attachment {
         }
     }
 
+    @Override
     public void writeTo(OutputStream os) throws IOException {
         dh.writeTo(os);
     }
 
+    @Override
     public void writeTo(SOAPMessage saaj) throws SOAPException {
         AttachmentPart part = saaj.createAttachmentPart();
         part.setDataHandler(dh);

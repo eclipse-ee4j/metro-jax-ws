@@ -48,6 +48,7 @@ public class SOAPMessageContextImpl extends MessageUpdatableContext implements S
         this.roles = roles;
     }
 
+    @Override
     public SOAPMessage getMessage() {
         if(soapMsg == null) {
             try {
@@ -60,6 +61,7 @@ public class SOAPMessageContextImpl extends MessageUpdatableContext implements S
         return soapMsg;
     }
 
+    @Override
     public void setMessage(SOAPMessage soapMsg) {
         try {
             this.soapMsg = soapMsg;
@@ -68,6 +70,7 @@ public class SOAPMessageContextImpl extends MessageUpdatableContext implements S
         }
     }
     
+    @Override
     void setPacketMessage(Message newMessage){
         if(newMessage != null) {
             packet.setMessage(newMessage);
@@ -75,6 +78,7 @@ public class SOAPMessageContextImpl extends MessageUpdatableContext implements S
         }
     }
     
+    @Override
     protected void updateMessage() {
         //Check if SOAPMessage has changed, if so construct new one,
         // Packet are handled through MessageContext
@@ -84,6 +88,7 @@ public class SOAPMessageContextImpl extends MessageUpdatableContext implements S
         }
     }
 
+    @Override
     public Object[] getHeaders(QName header, JAXBContext jaxbContext, boolean allRoles) {
         SOAPVersion soapVersion = binding.getSOAPVersion();
 
@@ -110,6 +115,7 @@ public class SOAPMessageContextImpl extends MessageUpdatableContext implements S
         }
     }
 
+    @Override
     public Set<String> getRoles() {
         return roles;
     } 

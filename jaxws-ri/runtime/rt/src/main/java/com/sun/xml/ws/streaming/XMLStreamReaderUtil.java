@@ -384,10 +384,12 @@ public class XMLStreamReaderUtil {
             }
         }
 
+        @Override
         public int getLength() {
             return atInfos.length;
         }
 
+        @Override
         public String getLocalName(int index) {
             if (index >= 0 && index < atInfos.length) {
                 return atInfos[index].getLocalName();
@@ -395,6 +397,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public QName getName(int index) {
             if (index >= 0 && index < atInfos.length) {
                 return atInfos[index].getName();
@@ -402,6 +405,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public String getPrefix(int index) {
             if (index >= 0 && index < atInfos.length) {
                 return atInfos[index].getName().getPrefix();
@@ -409,6 +413,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public String getURI(int index) {
             if (index >= 0 && index < atInfos.length) {
                 return atInfos[index].getName().getNamespaceURI();
@@ -416,6 +421,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public String getValue(int index) {
             if (index >= 0 && index < atInfos.length) {
                 return atInfos[index].getValue();
@@ -423,6 +429,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public String getValue(QName name) {
             int index = getIndex(name);
             if (index != -1) {
@@ -431,6 +438,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public String getValue(String localName) {
             int index = getIndex(localName);
             if (index != -1) {
@@ -439,6 +447,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public String getValue(String uri, String localName) {
             int index = getIndex(uri, localName);
             if (index != -1) {
@@ -447,6 +456,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public boolean isNamespaceDeclaration(int index) {
             if (index >= 0 && index < atInfos.length) {
                 return atInfos[index].isNamespaceDeclaration();
@@ -454,6 +464,7 @@ public class XMLStreamReaderUtil {
             return false;
         }
 
+        @Override
         public int getIndex(QName name) {
             for (int i=0; i<atInfos.length; i++) {
                 if (atInfos[i].getName().equals(name)) {
@@ -463,6 +474,7 @@ public class XMLStreamReaderUtil {
             return -1;
         }
 
+        @Override
         public int getIndex(String localName) {
             for (int i=0; i<atInfos.length; i++) {
                 if (atInfos[i].getName().getLocalPart().equals(localName)) {
@@ -472,6 +484,7 @@ public class XMLStreamReaderUtil {
             return -1;
         }
 
+        @Override
         public int getIndex(String uri, String localName) {
             QName qName;
             for (int i=0; i<atInfos.length; i++) {

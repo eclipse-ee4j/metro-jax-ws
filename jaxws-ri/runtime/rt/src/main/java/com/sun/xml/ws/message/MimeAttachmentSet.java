@@ -36,6 +36,7 @@ public final class MimeAttachmentSet implements AttachmentSet {
         this.mpp = mpp;
     }
 
+    @Override
     @Nullable
     public Attachment get(String contentId) {
         Attachment att;
@@ -65,10 +66,12 @@ public final class MimeAttachmentSet implements AttachmentSet {
      * This is expensive operation, its going to to read all the underlying
      * attachments in {@link MimeMultipartParser}.
      */
+    @Override
     public boolean isEmpty() {
         return atts.size() <= 0 && mpp.getAttachmentParts().isEmpty();
     }
 
+    @Override
     public void add(Attachment att) {
         atts.put(att.getContentId(), att);
     }
@@ -76,6 +79,7 @@ public final class MimeAttachmentSet implements AttachmentSet {
     /**
      * Expensive operation.
      */
+    @Override
     public Iterator<Attachment> iterator() {
         /*
           Browse thru all the attachments in the mpp, add them to #atts,

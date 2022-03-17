@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,20 +41,24 @@ public final class ByteArrayDataSource implements DataSource {
         this.contentType = contentType;
     }
 
+    @Override
     public String getContentType() {
         if(contentType==null)
             return "application/octet-stream";
         return contentType;
     }
 
+    @Override
     public InputStream getInputStream() {
         return new ByteArrayInputStream(buf,start,len);
     }
 
+    @Override
     public String getName() {
         return null;
     }
 
+    @Override
     public OutputStream getOutputStream() {
         throw new UnsupportedOperationException();
     }

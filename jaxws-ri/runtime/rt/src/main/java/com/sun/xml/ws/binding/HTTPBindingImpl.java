@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,6 +44,7 @@ public class HTTPBindingImpl extends BindingImpl implements HTTPBinding {
      * Only logical handlers are allowed with HTTPBinding.
      * Setting SOAPHandlers throws WebServiceException
      */
+    @Override
     public void setHandlerChain(List<Handler> chain) {
         for (Handler handler : chain) {
             if (!(handler instanceof LogicalHandler)) {

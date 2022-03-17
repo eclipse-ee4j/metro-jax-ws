@@ -70,10 +70,12 @@ public final class AsyncResponseImpl<T> extends FutureTask<T> implements Respons
     }
 
 
+    @Override
     public ResponseContext getContext() {
         return responseContext;
     }
 
+    @Override
     public void setResponseContext(ResponseContext rc) {
         responseContext = rc;
     }
@@ -94,6 +96,7 @@ public final class AsyncResponseImpl<T> extends FutureTask<T> implements Respons
                         super(v, t);
                     }
 
+                    @Override
                     public Map<String, Object> getContext() {
                         return AsyncResponseImpl.this.getContext();
                     }
@@ -115,6 +118,7 @@ public final class AsyncResponseImpl<T> extends FutureTask<T> implements Respons
     	this.cancelable = cancelable;
     }
     
+    @Override
     public boolean cancel(boolean mayInterruptIfRunning) {
     	if (cancelable != null)
     		cancelable.cancel(mayInterruptIfRunning);

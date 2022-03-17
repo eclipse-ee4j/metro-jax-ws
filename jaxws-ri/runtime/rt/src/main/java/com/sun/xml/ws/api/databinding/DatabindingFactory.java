@@ -79,6 +79,7 @@ public abstract class DatabindingFactory extends com.oracle.webservices.api.data
    *
    * @return properties of this WsFactory
    */
+	@Override
 	abstract public Map<String, Object> properties();
 
 	/**

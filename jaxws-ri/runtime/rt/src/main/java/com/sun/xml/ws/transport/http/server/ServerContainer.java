@@ -27,11 +27,13 @@ class ServerContainer extends Container {
     private final Module module = new Module() {
         private final List<BoundEndpoint> endpoints = new ArrayList<>();
 
+        @Override
         public @NotNull List<BoundEndpoint> getBoundEndpoints() {
             return endpoints;
         }
     };
 
+    @Override
     public <T> T getSPI(Class<T> spiType) {
         T t = super.getSPI(spiType);
         if (t != null)

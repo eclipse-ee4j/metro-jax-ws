@@ -277,6 +277,7 @@ public class WSServiceDelegate extends WSService {
 	        if(wsdl == null){
 	            if(serviceClass != Service.class){
 	                WebServiceClient wsClient = AccessController.doPrivileged(new PrivilegedAction<>() {
+                        @Override
                         public WebServiceClient run() {
                             return serviceClass.getAnnotation(WebServiceClient.class);
                         }
@@ -313,6 +314,7 @@ public class WSServiceDelegate extends WSService {
             //if @HandlerChain present, set HandlerResolver on service context
             HandlerChain handlerChain =
                     AccessController.doPrivileged(new PrivilegedAction<>() {
+                        @Override
                         public HandlerChain run() {
                             return serviceClass.getAnnotation(HandlerChain.class);
                         }
@@ -342,14 +344,17 @@ public class WSServiceDelegate extends WSService {
     	return XmlUtil.createDefaultCatalogResolver();
     }
 
+    @Override
     public Executor getExecutor() {
         return executor;
     }
 
+    @Override
     public void setExecutor(Executor executor) {
         this.executor = executor;
     }
 
+    @Override
     public HandlerResolver getHandlerResolver() {
         return handlerConfigurator.getResolver();
     }
@@ -358,14 +363,17 @@ public class WSServiceDelegate extends WSService {
         return handlerConfigurator;
     }
 
+    @Override
     public void setHandlerResolver(HandlerResolver resolver) {
         handlerConfigurator = new HandlerResolverImpl(resolver);
     }
 
+    @Override
     public <T> T getPort(QName portName, Class<T> portInterface) throws WebServiceException {
         return getPort(portName, portInterface, EMPTY_FEATURES);
     }
 
+    @Override
     public <T> T getPort(QName portName, Class<T> portInterface, WebServiceFeature... features) {
         if (portName == null || portInterface == null)
             throw new IllegalArgumentException();
@@ -384,10 +392,12 @@ public class WSServiceDelegate extends WSService {
         return getPort(portModel.getEPR(), portName, portInterface, new WebServiceFeatureList(features));
     }
 
+    @Override
     public <T> T getPort(EndpointReference epr, Class<T> portInterface, WebServiceFeature... features) {
         return getPort(WSEndpointReference.create(epr),portInterface,features);
     }
 
+    @Override
     public <T> T getPort(WSEndpointReference wsepr, Class<T> portInterface, WebServiceFeature... features) {
         //get the portType from SEI, so that it can be used if EPR does n't have endpointName
         WebServiceFeatureList featureList = new WebServiceFeatureList(features);
@@ -439,10 +449,12 @@ public class WSServiceDelegate extends WSService {
         return getPort(portName, portInterface,features);
     }
 
+    @Override
     public <T> T getPort(Class<T> portInterface) throws WebServiceException {
         return getPort(portInterface, EMPTY_FEATURES);
     }
     
+    @Override
     public void addPort(QName portName, String bindingId, String endpointAddress) throws WebServiceException {
         if (!ports.containsKey(portName)) {
             BindingID bid = (bindingId == null) ? BindingID.SOAP11_HTTP : BindingID.parse(bindingId);
@@ -454,6 +466,7 @@ public class WSServiceDelegate extends WSService {
     }
 
 
+    @Override
     public <T> Dispatch<T> createDispatch(QName portName, Class<T>  aClass, Service.Mode mode) throws WebServiceException {
         return createDispatch(portName, aClass, mode, EMPTY_FEATURES);
     }
@@ -486,6 +499,7 @@ public class WSServiceDelegate extends WSService {
         return dispatch;
     }
 
+    @Override
     public <T> Dispatch<T> createDispatch(QName portName, Class<T> aClass, Service.Mode mode, WebServiceFeature... features) {
     	return createDispatch(portName, aClass, mode, new WebServiceFeatureList(features));
     }
@@ -511,6 +525,7 @@ public class WSServiceDelegate extends WSService {
         return createDispatch(portName, wsepr, aClass, mode, features);
     }
 
+    @Override
     public <T> Dispatch<T> createDispatch(EndpointReference endpointReference, Class<T> type, Service.Mode mode, WebServiceFeature... features) {
         WSEndpointReference wsepr = new WSEndpointReference(endpointReference);
         QName portName = addPortEpr(wsepr);
@@ -544,6 +559,7 @@ public class WSServiceDelegate extends WSService {
         return p != null ? p.targetEndpoint : null;
     }
 
+    @Override
     public Dispatch<Object> createDispatch(QName portName, JAXBContext jaxbContext, Service.Mode mode) throws WebServiceException {
         return createDispatch(portName, jaxbContext, mode, EMPTY_FEATURES);
     }
@@ -582,6 +598,7 @@ public class WSServiceDelegate extends WSService {
         return container;
     }
 
+    @Override
     public Dispatch<Object> createDispatch(QName portName, JAXBContext jaxbContext, Service.Mode mode, WebServiceFeature... webServiceFeatures) {
     	return createDispatch(portName, jaxbContext, mode, new WebServiceFeatureList(webServiceFeatures));
     }
@@ -607,6 +624,7 @@ public class WSServiceDelegate extends WSService {
         return createDispatch(portName, wsepr, jaxbContext, mode, features);
     }
 
+    @Override
     public Dispatch<Object> createDispatch(EndpointReference endpointReference, JAXBContext context, Service.Mode mode, WebServiceFeature... features) {
         WSEndpointReference wsepr = new WSEndpointReference(endpointReference);
         QName portName = addPortEpr(wsepr);
@@ -709,6 +727,7 @@ public class WSServiceDelegate extends WSService {
 
     private WSDLService getWSDLModelfromSEI(final Class sei) {
         WebService ws = AccessController.doPrivileged(new PrivilegedAction<>() {
+            @Override
             public WebService run() {
                 return (WebService) sei.getAnnotation(WebService.class);
             }
@@ -734,6 +753,7 @@ public class WSServiceDelegate extends WSService {
         return service;
     }
 
+    @Override
     public QName getServiceName() {
         return serviceName;
     }
@@ -742,6 +762,7 @@ public class WSServiceDelegate extends WSService {
         return serviceClass;
     }
 
+    @Override
     public Iterator<QName> getPorts() throws WebServiceException {
         // KK: the spec seems to be ambigous about whether
         // this returns ports that are dynamically added or not.
@@ -929,10 +950,12 @@ public class WSServiceDelegate extends WSService {
             this.loader = loader1;
         }
 
+        @Override
         protected Class findClass(String name) throws ClassNotFoundException {
             return loader.loadClass(name);
         }
 
+        @Override
         protected URL findResource(String name) {
             return loader.getResource(name);
         }

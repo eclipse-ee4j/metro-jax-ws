@@ -32,6 +32,7 @@ public class FieldSetter extends PropertySetterBase {
         return field;
     }
 
+    @Override
     public void set(final Object instance, final Object val) {
         final Object resource = (type.isPrimitive() && val == null)? uninitializedValue(type): val;
         try {
@@ -41,6 +42,7 @@ public class FieldSetter extends PropertySetterBase {
         }
     }
     
+    @Override
     public <A> A getAnnotation(Class<A> annotationType) {
         Class c = annotationType;
         return (A) field.getAnnotation(c);

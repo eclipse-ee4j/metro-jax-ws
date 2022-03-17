@@ -29,7 +29,8 @@ public class DatabindingProviderImpl implements DatabindingProvider {
     static final private String CachedDatabinding = "com.sun.xml.ws.db.DatabindingProviderImpl";
 	Map<String, Object> properties;
 	
-	public void init(Map<String, Object> p) {
+	@Override
+    public void init(Map<String, Object> p) {
             properties = p;
 	}
 	
@@ -38,7 +39,8 @@ public class DatabindingProviderImpl implements DatabindingProvider {
 	    return (object instanceof DatabindingImpl)? (DatabindingImpl)object : null;
 	}
 
-	public Databinding create(DatabindingConfig config) {
+	@Override
+    public Databinding create(DatabindingConfig config) {
 	    DatabindingImpl impl = getCachedDatabindingImpl(config);
 	    if (impl == null) {
 	        impl = new DatabindingImpl(this, config);
@@ -47,11 +49,13 @@ public class DatabindingProviderImpl implements DatabindingProvider {
 		return impl;
 	}
 
+    @Override
     public WSDLGenerator wsdlGen(DatabindingConfig config) {
         DatabindingImpl impl = (DatabindingImpl)create(config);
         return new JaxwsWsdlGen(impl);
     }
 
+    @Override
     public boolean isFor(String databindingMode) {
         //This is the default one, so it always return true
         return true;
@@ -66,21 +70,25 @@ public class DatabindingProviderImpl implements DatabindingProvider {
             wsdlGenInfo = new WSDLGenInfo();
         }
         
+        @Override
         public WSDLGenerator inlineSchema(boolean inline) {
             wsdlGenInfo.setInlineSchemas(inline); 
             return this;
         }
 
+        @Override
         public WSDLGenerator property(String name, Object value) {
             // TODO wsdlGenInfo.set...
             return this;
         }
 
+        @Override
         public void generate(WSDLResolver wsdlResolver) {
             wsdlGenInfo.setWsdlResolver(wsdlResolver);
             databinding.generateWSDL(wsdlGenInfo);
         }
         
+        @Override
         public void generate(File outputDir, String name) {
             // TODO Auto-generated method stub
             databinding.generateWSDL(wsdlGenInfo);            

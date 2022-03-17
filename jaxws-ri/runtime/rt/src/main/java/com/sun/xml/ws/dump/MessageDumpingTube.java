@@ -69,6 +69,7 @@ final class MessageDumpingTube extends AbstractFilterTubeImpl {
         this.messageDumper = that.messageDumper;
     }
 
+    @Override
     public MessageDumpingTube copy(TubeCloner cloner) {
         return new MessageDumpingTube(this, cloner);
     }

@@ -35,14 +35,17 @@ public final class WSDLMessageImpl extends AbstractExtensibleImpl implements Edi
         this.parts = new ArrayList<>();
     }
 
+    @Override
     public QName getName() {
         return name;
     }
 
+    @Override
     public void add(EditableWSDLPart part){
         parts.add(part);
     }
 
+    @Override
     public Iterable<EditableWSDLPart> parts(){
         return parts;
     }

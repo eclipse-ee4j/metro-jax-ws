@@ -1643,6 +1643,7 @@ public class RuntimeModeler {
     private static Boolean getBooleanSystemProperty(final String prop) {
         return AccessController.doPrivileged(
                 new java.security.PrivilegedAction<>() {
+                    @Override
                     public Boolean run() {
                         String value = System.getProperty(prop);
                         return value != null ? Boolean.valueOf(value) : Boolean.FALSE;

@@ -86,10 +86,12 @@ final class LocalTransportTube extends AbstractTubeImpl {
         cloner.add(that,this);
     }
 
+    @Override
     public @NotNull NextAction processException(@NotNull Throwable t) {
         return doThrow(t);
     }
 
+    @Override
     public Packet process(Packet request) {
 
         try {
@@ -208,20 +210,24 @@ final class LocalTransportTube extends AbstractTubeImpl {
         return null;
     }
 
+    @Override
     @NotNull
     public NextAction processRequest(@NotNull Packet request) {
         return doReturnWith(process(request));
     }
 
+    @Override
     @NotNull
     public NextAction processResponse(@NotNull Packet response) {
         throw new IllegalStateException("LocalTransportPipe's processResponse shouldn't be called.");
     }
 
+    @Override
     public void preDestroy() {
         // Nothing to do here. Intenionally left empty
     }
 
+    @Override
     public LocalTransportTube copy(TubeCloner cloner) {
         return new LocalTransportTube(this, cloner);
     }

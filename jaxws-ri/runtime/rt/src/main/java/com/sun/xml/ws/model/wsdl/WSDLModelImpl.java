@@ -60,51 +60,63 @@ public final class WSDLModelImpl extends AbstractExtensibleImpl implements Edita
         super(null,-1);
     }
 
+    @Override
     public void addMessage(EditableWSDLMessage msg){
         messages.put(msg.getName(), msg);
     }
 
+    @Override
     public EditableWSDLMessage getMessage(QName name){
         return messages.get(name);
     }
 
+    @Override
     public void addPortType(EditableWSDLPortType pt){
         portTypes.put(pt.getName(), pt);
     }
 
+    @Override
     public EditableWSDLPortType getPortType(QName name){
         return portTypes.get(name);
     }
 
+    @Override
     public void addBinding(EditableWSDLBoundPortType boundPortType){
         assert !bindings.containsValue(boundPortType);
         bindings.put(boundPortType.getName(), boundPortType);
     }
 
+    @Override
     public EditableWSDLBoundPortType getBinding(QName name){
         return bindings.get(name);
     }
 
+    @Override
     public void addService(EditableWSDLService svc){
         services.put(svc.getName(), svc);
     }
 
+    @Override
     public EditableWSDLService getService(QName name){
         return services.get(name);
     }
 
+    @Override
     public Map<QName, EditableWSDLMessage> getMessages() {
         return messages;
     }
 
+    @Override
     public @NotNull Map<QName, EditableWSDLPortType> getPortTypes() {
         return portTypes;
     }
 
+    @Override
     public @NotNull Map<QName, ? extends EditableWSDLBoundPortType> getBindings() {
         return unmBindings;
     }
 
+    @Override
     public @NotNull Map<QName, EditableWSDLService> getServices(){
         return services;
     }
@@ -112,6 +124,7 @@ public final class WSDLModelImpl extends AbstractExtensibleImpl implements Edita
     /**
      * Returns the first service QName from insertion order
      */
+    @Override
     public QName getFirstServiceName(){
         if(services.isEmpty())
             return null;
@@ -125,6 +138,7 @@ public final class WSDLModelImpl extends AbstractExtensibleImpl implements Edita
      * @return
      *          WSDLBoundOperation on success otherwise null. throws NPE if any of the parameters null
      */
+    @Override
     public EditableWSDLBoundPortType getBinding(QName serviceName, QName portName){
         EditableWSDLService service = services.get(serviceName);
         if(service != null){
@@ -135,6 +149,7 @@ public final class WSDLModelImpl extends AbstractExtensibleImpl implements Edita
         return null;
     }
 
+    @Override
     public void finalizeRpcLitBinding(EditableWSDLBoundPortType boundPortType){
         assert(boundPortType != null);
         QName portTypeName = boundPortType.getPortTypeName();
@@ -187,6 +202,7 @@ public final class WSDLModelImpl extends AbstractExtensibleImpl implements Edita
      *
      * @return PolicyMap
      */
+    @Override
     public PolicyMap getPolicyMap() {
         return policyMap;
     }
@@ -194,6 +210,7 @@ public final class WSDLModelImpl extends AbstractExtensibleImpl implements Edita
     /**
      * Set PolicyMap for the WSDLModel.
      */
+    @Override
     public void setPolicyMap(PolicyMap policyMap) {
         this.policyMap = policyMap;
     }
@@ -201,6 +218,7 @@ public final class WSDLModelImpl extends AbstractExtensibleImpl implements Edita
     /**
      * Invoked at the end of the model construction to fix up references, etc.
      */
+    @Override
     public void freeze() {
         for (EditableWSDLService service : services.values()) {
             service.freeze(this);

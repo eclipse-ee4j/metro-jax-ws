@@ -115,6 +115,7 @@ public class Operation extends Entity implements TWSDLOperation {
         _parameterOrder = s;
     }
 
+    @Override
     public QName getElementName() {
         return WSDLConstants.QNAME_OPERATION;
     }
@@ -127,6 +128,7 @@ public class Operation extends Entity implements TWSDLOperation {
         _documentation = d;
     }
 
+    @Override
     public void withAllSubEntitiesDo(EntityAction action) {
         super.withAllSubEntitiesDo(action);
 
@@ -156,6 +158,7 @@ public class Operation extends Entity implements TWSDLOperation {
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
         if (_name == null) {
             failValidation("validation.missingRequiredAttribute", "name");
@@ -182,14 +185,17 @@ public class Operation extends Entity implements TWSDLOperation {
         }
     }
 
+    @Override
     public String getNameValue() {
         return getName();
     }
 
+    @Override
     public String getNamespaceURI() {
         return parent.getNamespaceURI();
     }
 
+    @Override
     public QName getWSDLElementName() {
         return getElementName();
     }
@@ -197,6 +203,7 @@ public class Operation extends Entity implements TWSDLOperation {
     /* (non-Javadoc)
     * @see TWSDLExtensible#addExtension(ExtensionImpl)
     */
+    @Override
     public void addExtension(TWSDLExtension e) {
         _helper.addExtension(e);
 
@@ -205,10 +212,12 @@ public class Operation extends Entity implements TWSDLOperation {
     /* (non-Javadoc)
      * @see TWSDLExtensible#extensions()
      */
+    @Override
     public Iterable<? extends TWSDLExtension> extensions() {
         return _helper.extensions();
     }
 
+    @Override
     public TWSDLExtensible getParent() {
         return parent;
     }
@@ -217,6 +226,7 @@ public class Operation extends Entity implements TWSDLOperation {
         this.parent = parent;
     }
 
+    @Override
     public Map<String, JClass> getFaults() {
         return unmodifiableFaultClassMap;
     }

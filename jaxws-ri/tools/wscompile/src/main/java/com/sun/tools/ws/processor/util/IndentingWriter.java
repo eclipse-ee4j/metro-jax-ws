@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,11 +42,13 @@ public class IndentingWriter extends BufferedWriter {
         indentStep = step;
     }
 
+    @Override
     public void write(int c) throws IOException {
         checkWrite();
         super.write(c);
     }
 
+    @Override
     public void write(char[] cbuf, int off, int len) throws IOException {
         if (len > 0) {
             checkWrite();
@@ -54,6 +56,7 @@ public class IndentingWriter extends BufferedWriter {
         super.write(cbuf, off, len);
     }
 
+    @Override
     public void write(String s, int off, int len) throws IOException {
         if (len > 0) {
             checkWrite();
@@ -61,6 +64,7 @@ public class IndentingWriter extends BufferedWriter {
         super.write(s, off, len);
     }
 
+    @Override
     public void newLine() throws IOException {
         super.newLine();
         beginningOfLine = true;

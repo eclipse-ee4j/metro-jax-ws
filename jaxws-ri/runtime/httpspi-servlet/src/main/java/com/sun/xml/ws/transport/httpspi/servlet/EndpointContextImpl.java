@@ -26,6 +26,7 @@ public class EndpointContextImpl extends EndpointContext {
         set.add(endpoint);
     }
 
+    @Override
     public Set<Endpoint> getEndpoints() {
         return set;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -66,14 +66,17 @@ public abstract class FastInfosetStreamSOAPCodec implements Codec {
         this._defaultContentType = that._defaultContentType;
     }
     
+    @Override
     public String getMimeType() {
         return _defaultContentType.getContentType();
     }
     
+    @Override
     public ContentType getStaticContentType(Packet packet) {
         return getContentType(packet.soapAction);
     }
     
+    @Override
     public ContentType encode(Packet packet, OutputStream out) {
         if (packet.getMessage() != null) {
             final XMLStreamWriter writer = getXMLStreamWriter(out);
@@ -87,16 +90,19 @@ public abstract class FastInfosetStreamSOAPCodec implements Codec {
         return getContentType(packet.soapAction);
     }
     
+    @Override
     public ContentType encode(Packet packet, WritableByteChannel buffer) {
         //TODO: not yet implemented
         throw new UnsupportedOperationException();
     }
     
+    @Override
     public void decode(InputStream in, String contentType, Packet response) throws IOException {
         response.setMessage(
                 _soapCodec.decode(getXMLStreamReader(in)));
     }
     
+    @Override
     public void decode(ReadableByteChannel in, String contentType, Packet response) {
         throw new UnsupportedOperationException();
     }

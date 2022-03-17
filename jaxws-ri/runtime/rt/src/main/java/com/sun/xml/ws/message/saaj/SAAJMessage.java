@@ -144,11 +144,13 @@ public class SAAJMessage extends Message {
         }
     }
 
+    @Override
     public boolean hasHeaders() {
         parse();
         return headers.hasHeaders();
     }
 
+    @Override
     public @NotNull
     MessageHeaders getHeaders() {
         parse();
@@ -177,17 +179,20 @@ public class SAAJMessage extends Message {
         return !getAttachments().isEmpty();
     }
 
+    @Override
     public @Nullable
     String getPayloadLocalPart() {
         soapBodyFirstChild();
         return payloadLocalName;
     }
 
+    @Override
     public String getPayloadNamespaceURI() {
         soapBodyFirstChild();
         return payloadNamespace;
     }
 
+    @Override
     public boolean hasPayload() {
         return soapBodyFirstChild() != null;
     }
@@ -215,6 +220,7 @@ public class SAAJMessage extends Message {
         }
     }
 
+    @Override
     public Source readEnvelopeAsSource() {
         try {
             if (!parsedMessage) {
@@ -243,6 +249,7 @@ public class SAAJMessage extends Message {
         }
     }
 
+    @Override
     public SOAPMessage readAsSOAPMessage() throws SOAPException {
         if (!parsedMessage) {
             return sm;
@@ -285,11 +292,13 @@ public class SAAJMessage extends Message {
         }
     }
 
+    @Override
     public Source readPayloadAsSource() {
         access();
         return (payload != null) ? new DOMSource(payload) : null;
     }
 
+    @Override
     public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         access();
         if (payload != null) {
@@ -305,6 +314,7 @@ public class SAAJMessage extends Message {
     /**
      * @deprecated
      */
+    @Override
     public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
         access();
         if (payload != null) {
@@ -313,6 +323,7 @@ public class SAAJMessage extends Message {
         return null;
     }
 
+    @Override
     public <T> T readPayloadAsJAXB(XMLBridge<T> bridge) throws JAXBException {
         access();
         if (payload != null) {
@@ -321,10 +332,12 @@ public class SAAJMessage extends Message {
         return null;
     }
 
+    @Override
     public XMLStreamReader readPayload() throws XMLStreamException {
         return soapBodyFirstChildReader();
     }
 
+    @Override
     public void writePayloadTo(XMLStreamWriter sw) throws XMLStreamException {
         access();
         try {
@@ -336,6 +349,7 @@ public class SAAJMessage extends Message {
         }
     }
 
+    @Override
     public void writeTo(XMLStreamWriter writer) throws XMLStreamException {
         try {
             writer.writeStartDocument();
@@ -367,6 +381,7 @@ public class SAAJMessage extends Message {
         }
     }
 
+    @Override
     public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException {
         String soapNsUri = soapVersion.nsUri;
         if (!parsedMessage) {
@@ -499,6 +514,7 @@ public class SAAJMessage extends Message {
      * hence it's best to be done by the
      * {@link com.sun.xml.ws.api.message.Message} implementation itself.
      */
+    @Override
     public Message copy() {
         Message result = null;
         try {
@@ -536,6 +552,7 @@ public class SAAJMessage extends Message {
         /**
          * Content ID of the attachment. Uniquely identifies an attachment.
          */
+        @Override
         public String getContentId() {
             if (contentIdNoAngleBracket == null) {
                 contentIdNoAngleBracket = ap.getContentId();
@@ -549,6 +566,7 @@ public class SAAJMessage extends Message {
         /**
          * Gets the MIME content-type of this attachment.
          */
+        @Override
         public String getContentType() {
             return ap.getContentType();
         }
@@ -556,6 +574,7 @@ public class SAAJMessage extends Message {
         /**
          * Gets the attachment as an exact-length byte array.
          */
+        @Override
         public byte[] asByteArray() {
             try {
                 return ap.getRawContentBytes();
@@ -567,6 +586,7 @@ public class SAAJMessage extends Message {
         /**
          * Gets the attachment as a {@link jakarta.activation.DataHandler}.
          */
+        @Override
         public DataHandler asDataHandler() {
             try {
                 return ap.getDataHandler();
@@ -579,6 +599,7 @@ public class SAAJMessage extends Message {
          * Gets the attachment as a {@link javax.xml.transform.Source}. Note
          * that there's no guarantee that the attachment is actually an XML.
          */
+        @Override
         public Source asSource() {
             try {
                 return new StreamSource(ap.getRawContent());
@@ -590,6 +611,7 @@ public class SAAJMessage extends Message {
         /**
          * Obtains this attachment as an {@link java.io.InputStream}.
          */
+        @Override
         public InputStream asInputStream() {
             try {
                 return ap.getRawContent();
@@ -601,6 +623,7 @@ public class SAAJMessage extends Message {
         /**
          * Writes the contents of the attachment into the given stream.
          */
+        @Override
         public void writeTo(OutputStream os) throws IOException {
             try {
                 ASCIIUtility.copyStream(ap.getRawContent(), os);
@@ -613,6 +636,7 @@ public class SAAJMessage extends Message {
          * Writes this attachment to the given
          * {@link jakarta.xml.soap.SOAPMessage}.
          */
+        @Override
         public void writeTo(SOAPMessage saaj) {
             saaj.addAttachmentPart(ap);
         }
@@ -621,26 +645,32 @@ public class SAAJMessage extends Message {
             return ap;
         }
 
+        @Override
         public Iterator<MimeHeader> getMimeHeaders() {
             final Iterator it = ap.getAllMimeHeaders();
             return new Iterator<>() {
+                @Override
                 public boolean hasNext() {
                     return it.hasNext();
                 }
 
+                @Override
                 public MimeHeader next() {
                     final jakarta.xml.soap.MimeHeader mh = (jakarta.xml.soap.MimeHeader) it.next();
                     return new MimeHeader() {
+                        @Override
                         public String getName() {
                             return mh.getName();
                         }
 
+                        @Override
                         public String getValue() {
                             return mh.getValue();
                         }
                     };
                 }
 
+                @Override
                 public void remove() {
                     throw new UnsupportedOperationException();
                 }
@@ -669,6 +699,7 @@ public class SAAJMessage extends Message {
          *
          * @return null if no such attachment exist.
          */
+        @Override
         public Attachment get(String contentId) {
             // if this is the first time then create the attachment Map
             if (attMap == null) {
@@ -683,6 +714,7 @@ public class SAAJMessage extends Message {
             return attMap.get(contentId);
         }
 
+        @Override
         public boolean isEmpty() {
             if (attMap != null) {
                 return attMap.isEmpty();
@@ -696,6 +728,7 @@ public class SAAJMessage extends Message {
          *
          * @return an Iterator.
          */
+        @Override
         public Iterator<Attachment> iterator() {
             if (attMap == null) {
                 attMap = createAttachmentMap();
@@ -712,11 +745,13 @@ public class SAAJMessage extends Message {
             return map;
         }
 
+        @Override
         public void add(Attachment att) {
             attMap.put('<' + att.getContentId() + '>', att);
         }
     }
 
+    @Override
     public SOAPVersion getSOAPVersion() {
         return soapVersion;
     }

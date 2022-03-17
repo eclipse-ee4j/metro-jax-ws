@@ -28,6 +28,7 @@ public final class FastInfosetStreamReaderFactory extends XMLStreamReaderFactory
         return factory;
     }
     
+    @Override
     public XMLStreamReader doCreate(String systemId, InputStream in, boolean rejectDTDs) {
         StAXDocumentParser parser = fetch();
         if (parser == null) {
@@ -38,6 +39,7 @@ public final class FastInfosetStreamReaderFactory extends XMLStreamReaderFactory
         return parser;
     }
     
+    @Override
     public XMLStreamReader doCreate(String systemId, Reader reader, boolean rejectDTDs) {
         throw new UnsupportedOperationException();
     }
@@ -48,6 +50,7 @@ public final class FastInfosetStreamReaderFactory extends XMLStreamReaderFactory
         return parser;
     }
     
+    @Override
     public void doRecycle(XMLStreamReader r) {
         if (r instanceof StAXDocumentParser) {
             pool.set((StAXDocumentParser) r);

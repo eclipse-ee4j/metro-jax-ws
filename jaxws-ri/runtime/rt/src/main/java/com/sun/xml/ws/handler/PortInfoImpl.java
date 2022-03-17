@@ -63,14 +63,17 @@ public class PortInfoImpl implements PortInfo {
         this.serviceName = serviceName;
     }
 
+    @Override
     public String getBindingID() {
         return bindingId.toString();
     }
 
+    @Override
     public QName getPortName() {
         return portName;
     }
 
+    @Override
     public QName getServiceName() {
         return serviceName;
     }

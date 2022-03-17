@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,10 +61,12 @@ public class Binding extends GlobalEntity implements TWSDLExtensible {
         }
     }
 
+    @Override
     public Kind getKind() {
         return Kinds.BINDING;
     }
 
+    @Override
     public QName getElementName() {
         return WSDLConstants.QNAME_BINDING;
     }
@@ -77,6 +79,7 @@ public class Binding extends GlobalEntity implements TWSDLExtensible {
         _documentation = d;
     }
 
+    @Override
     public void withAllSubEntitiesDo(EntityAction action) {
         for (Iterator iter = _operations.iterator(); iter.hasNext();) {
             action.perform((Entity) iter.next());
@@ -84,6 +87,7 @@ public class Binding extends GlobalEntity implements TWSDLExtensible {
         _helper.withAllSubEntitiesDo(action);
     }
 
+    @Override
     public void withAllQNamesDo(QNameAction action) {
         super.withAllQNamesDo(action);
 
@@ -92,6 +96,7 @@ public class Binding extends GlobalEntity implements TWSDLExtensible {
         }
     }
 
+    @Override
     public void withAllEntityReferencesDo(EntityReferenceAction action) {
         super.withAllEntityReferencesDo(action);
         if (_portType != null) {
@@ -109,6 +114,7 @@ public class Binding extends GlobalEntity implements TWSDLExtensible {
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
         if (getName() == null) {
             failValidation("validation.missingRequiredAttribute", "name");
@@ -118,26 +124,32 @@ public class Binding extends GlobalEntity implements TWSDLExtensible {
         }
     }
 
+    @Override
     public String getNameValue() {
         return getName();
     }
 
+    @Override
     public String getNamespaceURI() {
         return getDefining().getTargetNamespaceURI();
     }
 
+    @Override
     public QName getWSDLElementName() {
         return getElementName();
     }
 
+    @Override
     public void addExtension(TWSDLExtension e) {
         _helper.addExtension(e);
     }
 
+    @Override
     public Iterable<TWSDLExtension> extensions() {
         return _helper.extensions();
     }
 
+    @Override
     public TWSDLExtensible getParent() {
         return parent;
     }

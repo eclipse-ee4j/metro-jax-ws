@@ -39,6 +39,7 @@ public class JAXWSBinding extends ExtensionImpl {
     /* (non-Javadoc)
      * @see Entity#validateThis()
      */
+    @Override
     public void validateThis(){
         // TODO Auto-generated method stub
 
@@ -47,6 +48,7 @@ public class JAXWSBinding extends ExtensionImpl {
     /* (non-Javadoc)
      * @see Elemental#getElementName()
      */
+    @Override
     public QName getElementName(){
         // TODO Auto-generated method stub
         return JAXWSBindingsConstants.JAXWS_BINDINGS;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -58,10 +58,12 @@ public class PortType extends GlobalEntity implements TWSDLExtensible {
         return result;
     }
 
+    @Override
     public Kind getKind() {
         return Kinds.PORT_TYPE;
     }
 
+    @Override
     public QName getElementName() {
         return WSDLConstants.QNAME_PORT_TYPE;
     }
@@ -74,6 +76,7 @@ public class PortType extends GlobalEntity implements TWSDLExtensible {
         _documentation = d;
     }
 
+    @Override
     public void withAllSubEntitiesDo(EntityAction action) {
         super.withAllSubEntitiesDo(action);
 
@@ -92,20 +95,24 @@ public class PortType extends GlobalEntity implements TWSDLExtensible {
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
         if (getName() == null) {
             failValidation("validation.missingRequiredAttribute", "name");
         }
     }
 
+    @Override
     public String getNameValue() {
         return getName();
     }
 
+    @Override
     public String getNamespaceURI() {
         return getDefining().getTargetNamespaceURI();
     }
 
+    @Override
     public QName getWSDLElementName() {
         return getElementName();
     }
@@ -113,6 +120,7 @@ public class PortType extends GlobalEntity implements TWSDLExtensible {
     /* (non-Javadoc)
     * @see TWSDLExtensible#addExtension(ExtensionImpl)
     */
+    @Override
     public void addExtension(TWSDLExtension e) {
         _helper.addExtension(e);
 
@@ -121,10 +129,12 @@ public class PortType extends GlobalEntity implements TWSDLExtensible {
     /* (non-Javadoc)
      * @see TWSDLExtensible#extensions()
      */
+    @Override
     public Iterable<TWSDLExtension> extensions() {
         return _helper.extensions();
     }
 
+    @Override
     public TWSDLExtensible getParent() {
         return parent;
     }
