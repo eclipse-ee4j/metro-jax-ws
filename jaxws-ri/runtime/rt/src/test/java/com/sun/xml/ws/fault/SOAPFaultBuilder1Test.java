@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -71,21 +71,21 @@ public class SOAPFaultBuilder1Test extends TestCase {
         assertTrue(t instanceof SOAPFaultException);
         SOAPFaultException sfe = (SOAPFaultException) t;
         Detail detail = sfe.getFault().getDetail();
-        assertTrue(detail != null);
+        assertNotNull(detail);
         Iterator iter = detail.getDetailEntries();
 
         //there should be two detail entries
         assertTrue(iter.hasNext());
         DetailEntry de = (DetailEntry) iter.next();
-        assertTrue(de.getElementQName().equals(new QName("http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd", "FaultDetail")));
+        assertEquals(de.getElementQName(), new QName("http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd", "FaultDetail"));
         Node n = de.getFirstChild();
-        assertTrue(n.getNodeValue().equals("http://schemas.dmtf.org/wbem/wsman/1/wsman/faultDetail/InvalidValues"));
+        assertEquals("http://schemas.dmtf.org/wbem/wsman/1/wsman/faultDetail/InvalidValues", n.getNodeValue());
 
         assertTrue(iter.hasNext());
         de = (DetailEntry) iter.next();
-        assertTrue(de.getElementQName().equals(new QName("http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd", "FaultDetail2")));
-        n = de.getFirstChild();        
-        assertTrue(n.getNodeValue().equals("http://schemas.dmtf.org/wbem/wsman/1/wsman/faultDetail/InvalidValues1"));
+        assertEquals(de.getElementQName(), new QName("http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd", "FaultDetail2"));
+        n = de.getFirstChild();
+        assertEquals("http://schemas.dmtf.org/wbem/wsman/1/wsman/faultDetail/InvalidValues1", n.getNodeValue());
     }
 
     public void testFault3() throws Exception {
@@ -110,11 +110,11 @@ public class SOAPFaultBuilder1Test extends TestCase {
         assertTrue(ex instanceof SOAPFaultException);
         SOAPFaultException sfe = (SOAPFaultException) ex;
         SOAPFault sf = sfe.getFault();
-        assertTrue(sf.getFaultString().equals(faultString));
+        assertEquals(sf.getFaultString(), faultString);
 
         //compare detail
         Detail detail = sfe.getFault().getDetail();
-        assertTrue(detail != null);
+        assertNotNull(detail);
         Iterator iter = detail.getDetailEntries();
         assertTrue(iter.hasNext());
         DetailEntry n = (DetailEntry) iter.next();
@@ -127,15 +127,15 @@ public class SOAPFaultBuilder1Test extends TestCase {
         Iterator scs = sf.getFaultSubcodes();
         assertTrue(scs.hasNext());
         QName sc = (QName) scs.next();
-        assertTrue(sc.equals(sc1));
+        assertEquals(sc, sc1);
 
         assertTrue(scs.hasNext());
         sc = (QName) scs.next();
-        assertTrue(sc.equals(sc2));
+        assertEquals(sc, sc2);
 
         assertTrue(scs.hasNext());
         sc = (QName) scs.next();
-        assertTrue(sc.equals(sc3));
+        assertEquals(sc, sc3);
     }
 
 }

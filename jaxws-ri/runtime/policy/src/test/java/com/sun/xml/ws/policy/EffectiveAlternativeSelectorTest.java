@@ -15,12 +15,12 @@ import com.sun.xml.ws.policy.sourcemodel.ModelNode;
 import com.sun.xml.ws.policy.sourcemodel.PolicyModelTranslator;
 import com.sun.xml.ws.policy.sourcemodel.PolicySourceModel;
 import com.sun.xml.ws.policy.sourcemodel.wspolicy.NamespaceVersion;
-import static com.sun.xml.ws.policy.testutils.PolicyResourceLoader.loadPolicy;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import javax.xml.namespace.QName;
 
+import com.sun.xml.ws.policy.testutils.PolicyResourceLoader;
 import junit.framework.TestCase;
 
 /**
@@ -281,7 +281,7 @@ public class EffectiveAlternativeSelectorTest extends TestCase {
 
         //Policy pol1 = PolicyModelTranslator.getTranslator()
         //                .translate(unmarshalModel("single_alternative_policy/policy3.xml"));
-        Policy pol2 = loadPolicy("complex_policy/nested_assertions_with_alternatives.xml");
+        Policy pol2 = PolicyResourceLoader.loadPolicy("complex_policy/nested_assertions_with_alternatives.xml");
 
         PolicyMapKey aKey = PolicyMap.createWsdlEndpointScopeKey(new QName("service"),new QName("port"));
 
@@ -311,7 +311,7 @@ public class EffectiveAlternativeSelectorTest extends TestCase {
 
         //Policy pol1 = PolicyModelTranslator.getTranslator()
         //                .translate(unmarshalModel("single_alternative_policy/policy3.xml"));
-        Policy pol2 = loadPolicy("complex_policy/nested_assertions_with_alternatives.xml");
+        Policy pol2 = PolicyResourceLoader.loadPolicy("complex_policy/nested_assertions_with_alternatives.xml");
 
         PolicyMapKey aKey = PolicyMap.createWsdlEndpointScopeKey(new QName("service"),new QName("port"));
 

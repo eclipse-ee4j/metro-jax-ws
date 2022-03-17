@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -187,7 +187,7 @@ public class PolicyIntersectorTest extends TestCase {
         Policy expected = Policy.createEmptyPolicy("fake", null);
         Policy result = strictIntersector.intersect(expected);
 
-        assertTrue("Intersecting collection with single policy instance should return the very same policy instance", expected == result);
+        assertSame("Intersecting collection with single policy instance should return the very same policy instance", expected, result);
     }
 
     public void testStrictIntersectNullPolicyInCollectionReturnsNullPolicy() throws Exception {

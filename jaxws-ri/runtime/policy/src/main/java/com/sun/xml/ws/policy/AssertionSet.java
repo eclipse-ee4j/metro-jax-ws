@@ -61,7 +61,7 @@ public final class AssertionSet implements Iterable<PolicyAssertion>, Comparable
                 return result;
             }
 
-            result = PolicyUtils.Comparison.compareBoolean(pa1.hasNestedAssertions(), pa2.hasNestedAssertions());
+            result = PolicyUtils.Comparison.compareBoolean(pa1.hasParameters(), pa2.hasParameters());
             if (result != 0) {
                 return result;
             }

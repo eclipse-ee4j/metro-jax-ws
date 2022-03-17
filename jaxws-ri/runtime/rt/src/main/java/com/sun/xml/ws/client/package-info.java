@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,7 +29,7 @@
  * (parameters specified by the user) and metadata such as RuntimeContext, RequestContext, 
  * Message Exchange Pattern into this MessageInfo. This method then invokes 
  * {@code com.sun.pept.Delegate#send} and returns the response.
- * <P></P>
+ * <p>
  * The Delegate.send method iterates through the ContactInfoList and picks up the 
  * correct {@code com.sun.pept.ept.ContactInfo} based upon the binding id of 
  * {@link jakarta.xml.ws.BindingProvider} and sets it on the MessageInfo. After the
@@ -42,7 +42,7 @@
  * MessageDispatcher.send method makes a decision about the synchronous and 
  * asynchronous nature of the message exchange pattern and invokes separate methods
  * accordingly.
- * <p></P>
+ * <p>
  * The MessageDispatcher uses ContactInfo to obtain
  * a {@code com.sun.xml.ws.encoding.soap.client.SOAPXMLEncoder} which converts 
  * the MessageInfo to {@code com.sun.xml.ws.encoding.soap.internal.InternalMessage}. 
@@ -54,7 +54,7 @@
  * of this SOAPMessage and context information for {@code com.sun.xml.ws.api.server.WSConnection}.
  * The SOAPMessge is then written to the output stream of the WSConnection
  * obtained from MessageInfo.
- *<P></P>
+ * <p>
  * The MessageDispatcher.receive method handles the response. The 
  * SOAPMessageDispatcher extracts the SOAPMessage from the input stream of 
  * WSConnection and performs the mustUnderstand processing followed by invocation 

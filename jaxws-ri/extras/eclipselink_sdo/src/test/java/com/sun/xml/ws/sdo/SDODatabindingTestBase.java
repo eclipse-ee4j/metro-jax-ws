@@ -69,6 +69,7 @@ import com.sun.xml.ws.util.xml.XmlUtil;
 import com.sun.xml.ws.wsdl.parser.RuntimeWSDLParser;
 
 import commonj.sdo.helper.HelperContext;
+import org.junit.Assert;
 
 /**
  * WsDatabindingTestBase
@@ -213,23 +214,23 @@ abstract public class SDODatabindingTestBase extends TestCase {
 
     
     static public void assertEqualList(List<?> list1, List<?> list2) {
-        assertTrue(list1.size() == list2.size());
+        Assert.assertEquals(list1.size(), list2.size());
         for (int i = 0; i < list1.size(); i++) {
-            assertEquals(list1.get(i), list2.get(i));
+            Assert.assertEquals(list1.get(i), list2.get(i));
         }        
     }
 
     static public void assertEqualCollection(Collection<?> c1, Collection<?> c2) {
-        assertTrue(c1.size() == c2.size());
+        Assert.assertEquals(c1.size(), c2.size());
         for (Iterator i = c1.iterator(); i.hasNext();) {
-            assertTrue(c2.contains(i.next()));
+            Assert.assertTrue(c2.contains(i.next()));
         }        
     }
     
     static public void assertEqualArray(Object a1, Object a2) {
-        assertTrue(Array.getLength(a1) == Array.getLength(a2));
+        Assert.assertEquals(Array.getLength(a1), Array.getLength(a2));
         for (int i = 0; i < Array.getLength(a1); i++) {
-            assertEquals(Array.get(a1, i), Array.get(a2, i));
+            Assert.assertEquals(Array.get(a1, i), Array.get(a2, i));
         }        
     }   
 

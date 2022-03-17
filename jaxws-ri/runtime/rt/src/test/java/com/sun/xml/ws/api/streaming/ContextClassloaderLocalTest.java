@@ -24,7 +24,7 @@ public class ContextClassloaderLocalTest extends TestCase {
       };
       Field f = streamReader.getClass().getSuperclass().getDeclaredField("CACHE");
       f.setAccessible(true);
-      assertTrue(f.get(streamReader).getClass().getName().equals("java.util.Collections$SynchronizedMap"));
+        assertEquals("java.util.Collections$SynchronizedMap", f.get(streamReader).getClass().getName());
     }
 }
 

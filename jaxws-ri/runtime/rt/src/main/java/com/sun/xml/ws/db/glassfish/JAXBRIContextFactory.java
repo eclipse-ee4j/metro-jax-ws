@@ -77,7 +77,7 @@ public class JAXBRIContextFactory extends BindingContextFactory {
     }
 
     private <T> List<T> toList(T[] a) {
-        List<T> l = new ArrayList<T>(Arrays.asList(a));
+        List<T> l = new ArrayList<>(Arrays.asList(a));
         return l;
     }
 
@@ -85,7 +85,7 @@ public class JAXBRIContextFactory extends BindingContextFactory {
         if (col instanceof List) {
             return (List<T>) col;
         }
-        List<T> l = new ArrayList<T>(col);
+        List<T> l = new ArrayList<>(col);
         return l;
     }
 

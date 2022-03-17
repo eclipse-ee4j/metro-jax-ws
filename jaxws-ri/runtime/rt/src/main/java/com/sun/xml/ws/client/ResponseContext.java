@@ -137,13 +137,13 @@ public class ResponseContext extends AbstractMap<String,Object> {
             // use TreeSet so that toString() sort them nicely. It's easier for apps.
 
             // export application-scope properties
-            Map<String, Object> r = new HashMap<String, Object>(packet.invocationProperties);
+            Map<String, Object> r = new HashMap<>(packet.invocationProperties);
 
             // hide handler-scope properties
             r.keySet().removeAll(packet.getHandlerScopePropertyNames(true));
 
             // and all strongly typed ones
-            r.putAll(packet.createMapView());
+            r.putAll(packet.asMap());
 
             entrySet = Collections.unmodifiableSet(r.entrySet());
         }

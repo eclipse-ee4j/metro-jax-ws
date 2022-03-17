@@ -38,7 +38,7 @@ public final class JAXWSUtils {
             try {
                 return escapeSpace(new URL(fileOrURL).toExternalForm());
             } catch (MalformedURLException e) {
-                return new File(fileOrURL).getCanonicalFile().toURL().toExternalForm();
+                return new File(fileOrURL).getCanonicalFile().toURI().toURL().toExternalForm();
             }
         } catch (Exception e) {
             // try it as an URL
@@ -54,7 +54,7 @@ public final class JAXWSUtils {
             return new URL(url.toURI().toASCIIString());
           return url;
         } catch (URISyntaxException | MalformedURLException e) {
-            return new File(fileOrURL).toURL();
+            return new File(fileOrURL).toURI().toURL();
         }
     }
 
@@ -90,7 +90,7 @@ public final class JAXWSUtils {
         // absolutize all the system IDs in the input,
         // so that we can map system IDs to DOM trees.
         try {
-            URL baseURL = new File(".").getCanonicalFile().toURL();
+            URL baseURL = new File(".").getCanonicalFile().toURI().toURL();
             return new URL(baseURL, name).toExternalForm();
         } catch( IOException e) {
             //ignore

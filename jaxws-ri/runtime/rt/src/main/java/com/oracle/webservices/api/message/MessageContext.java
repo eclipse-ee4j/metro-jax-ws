@@ -38,13 +38,6 @@ public interface MessageContext extends DistributedPropertySet {
      * @return The SOAPMessage
      */
     SOAPMessage getAsSOAPMessage() throws SOAPException;
-    
-    /**
-     * Gets the SAAJ SOAPMessage representation of the SOAP message.
-     * @deprecated use getAsSOAPMessage
-     * @return The SOAPMessage
-     */
-    SOAPMessage getSOAPMessage() throws SOAPException;
 
     /**
      * Writes the XML infoset portion of this MessageContext

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,15 +21,15 @@ import jakarta.xml.bind.annotation.XmlType;
  * <p>Java class for existing-annotations-type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
- * <p>
- * <pre>
- * &lt;simpleType name="existing-annotations-type">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="merge"/>
- *     &lt;enumeration value="ignore"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
- * </pre>
+ *
+ * <pre>{@code
+ * <simpleType name="existing-annotations-type">
+ *   <restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *     <enumeration value="merge"/>
+ *     <enumeration value="ignore"/>
+ *   </restriction>
+ * </simpleType>
+ * }</pre>
  * 
  */
 @XmlType(name = "existing-annotations-type")

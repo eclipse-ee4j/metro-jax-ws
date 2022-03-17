@@ -170,35 +170,9 @@ public abstract class PolicyAssertion {
      * Returns the boolean information whether this assertion contains any parameters.
      *
      * @return {@code true} if the assertion contains parameters. Returns {@code false} otherwise.
-     *
-     * @deprecated Use hasParameters() instead
-     */
-    @Deprecated
-    public final boolean hasNestedAssertions() {
-        // TODO: remove
-        return !parameters.isEmpty();
-    }
-
-    /**
-     * Returns the boolean information whether this assertion contains any parameters.
-     *
-     * @return {@code true} if the assertion contains parameters. Returns {@code false} otherwise.
      */
     public final boolean hasParameters() {
         return !parameters.isEmpty();
-    }
-
-    /**
-     * Returns the assertion's parameter collection iterator.
-     *
-     * @return the assertion's parameter collection iterator.
-     *
-     * @deprecated Use getNestedParametersIterator() instead
-     */
-    @Deprecated
-    public final Iterator<PolicyAssertion> getNestedAssertionsIterator() {
-        // TODO: remove
-        return parameters.iterator();
     }
 
     /**

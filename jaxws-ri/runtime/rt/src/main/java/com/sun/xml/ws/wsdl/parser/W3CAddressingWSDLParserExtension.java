@@ -116,7 +116,7 @@ public class W3CAddressingWSDLParserExtension extends WSDLParserExtension {
 
     /**
      * Process wsdl:portType operation after the entire WSDL model has been populated.
-     * The task list includes: <p>
+     * The task list includes:
      * <ul>
      * <li>Patch the value of UsingAddressing in wsdl:port and wsdl:binding</li>
      * <li>Populate actions for the messages that do not have an explicit wsaw:Action</li>

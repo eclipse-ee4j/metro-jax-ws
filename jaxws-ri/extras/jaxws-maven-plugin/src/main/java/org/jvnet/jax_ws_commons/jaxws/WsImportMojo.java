@@ -330,7 +330,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
      */
     private ArrayList<String> getWsImportArgs(String relativePath)
             throws MojoExecutionException {
-        ArrayList<String> args = new ArrayList<String>(getCommonArgs());
+        ArrayList<String> args = new ArrayList<>(getCommonArgs());
 
         if ( httpproxy != null )
         {

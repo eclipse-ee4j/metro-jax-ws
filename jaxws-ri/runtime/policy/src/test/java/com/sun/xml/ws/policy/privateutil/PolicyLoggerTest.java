@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -229,13 +229,13 @@ public class PolicyLoggerTest extends TestCase {
         message = null;
         result = logger.logSevereException(new PolicyException(message), true);
         assertEquals(message, result.getMessage());
-        assertEquals(null, result.getCause());
+        assertNull(result.getCause());
         assertEquals("testCommonsCreateAndLogException", result.getStackTrace()[0].getMethodName());
         
         message = "Test message.";
         result = logger.logSevereException(new PolicyException(message), false);
         assertEquals(message, result.getMessage());
-        assertEquals(null, result.getCause());
+        assertNull(result.getCause());
         assertEquals("testCommonsCreateAndLogException", result.getStackTrace()[0].getMethodName());
         
         cause = new NullPointerException("test");
@@ -255,13 +255,13 @@ public class PolicyLoggerTest extends TestCase {
         message = null;
         result = logger.logSevereException(new PolicyException(message));
         assertEquals(message, result.getMessage());
-        assertEquals(null, result.getCause());
+        assertNull(result.getCause());
         assertEquals("testCommonsCreateAndLogException", result.getStackTrace()[0].getMethodName());
         
         message = "Test message.";
         result = logger.logSevereException(new PolicyException(message));
         assertEquals(message, result.getMessage());
-        assertEquals(null, result.getCause());
+        assertNull(result.getCause());
         assertEquals("testCommonsCreateAndLogException", result.getStackTrace()[0].getMethodName());
         
         cause = new NullPointerException("test");

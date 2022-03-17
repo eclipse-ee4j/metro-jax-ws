@@ -26,13 +26,11 @@ import com.sun.xml.ws.wsdl.DispatchException;
  * an XML(SOAP) message to/from a JAVA method invocation and return value which
  * are represented as <code>JavaCallInfo</code> instances.
  * <p>
- * </p>
  * Each Databinding is associated with a <code>MessageFactory</code> instance
  * which can be used to create <code>Message</code> instances that can be
  * deserialized by the Databinding. The <code>MessageFactory</code> also
  * supports the conversion of Oracle Fabric Normalized messages.
- * <p>
- * </p>
+ *
  * <blockquote> Following is an example that creates a {@code Databinding} which
  * provides the operations to serialize/deserialize a JavaCallInfo to/from a
  * SOAP message:<br>

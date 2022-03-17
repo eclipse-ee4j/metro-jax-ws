@@ -342,7 +342,7 @@ public class EndpointFactory {
                 Map<String, SDDocumentImpl> newMap = new HashMap<>();
                 newMap.put(primaryDoc.getSystemId().toString(), primaryDoc);
 
-                List<String> remaining = new ArrayList<String>(primaryDoc.getImports());
+                List<String> remaining = new ArrayList<>(primaryDoc.getImports());
                 while (!remaining.isEmpty()) {
                     String url = remaining.remove(0);
                     SDDocumentImpl doc = oldMap.get(url);

@@ -771,7 +771,7 @@ public abstract class Message {
 
     /**
      * Retuns a unique id for the message.
-     * <p><p>
+     *
      * @see #getID(com.sun.xml.ws.api.WSBinding) for detailed description.
      * @param av WS-Addressing version
      * @param sv SOAP version

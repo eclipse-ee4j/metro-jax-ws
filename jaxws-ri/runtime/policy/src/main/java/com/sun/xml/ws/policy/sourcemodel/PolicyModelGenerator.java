@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -127,8 +127,8 @@ public abstract class PolicyModelGenerator {
             if (assertionParameter.hasNestedPolicy()) {
                 throw LOGGER.logSevereException(new IllegalStateException(LocalizationMessages.WSP_0005_UNEXPECTED_POLICY_ELEMENT_FOUND_IN_ASSERTION_PARAM(assertionParameter)));
             }
-            if (assertionParameter.hasNestedAssertions()) {
-                translate(assertionParameterNode, assertionParameter.getNestedAssertionsIterator());
+            if (assertionParameter.hasParameters()) {
+                translate(assertionParameterNode, assertionParameter.getParametersIterator());
             }
         }
     }

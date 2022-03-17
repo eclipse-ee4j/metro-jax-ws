@@ -183,7 +183,7 @@ class HeaderTokenizer {
      * Peek at the next token, without actually removing the token
      * from the parse stream. Invoking this method multiple times
      * will return successive tokens, until <code>next()</code> is
-     * called. <p>
+     * called.
      *
      * @return		the next Token
      * @exception	WebServiceException if the parse fails

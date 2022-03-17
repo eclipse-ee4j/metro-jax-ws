@@ -517,7 +517,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     /**
      * Creates a set of outbound WS-Addressing headers on the client with the
      * specified Action Message Addressing Property value.
-     * <p><p>
+     * <p>
      * This method needs to be invoked right after such a Message is
      * created which is error prone but so far only MEX, RM and JAX-WS
      * creates a request so this ugliness is acceptable. This method is also used
@@ -542,12 +542,12 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     /**
      * Creates a set of outbound WS-Addressing headers on the client with the
      * default Action Message Addressing Property value.
-     * <p><p>
+     * <p>
      * This method needs to be invoked right after such a Message is
      * created which is error prone but so far only MEX, RM and JAX-WS
      * creates a request so this ugliness is acceptable. If more components
      * are identified using this, then we may revisit this.
-     * <p><p>
+     * <p>
      * This method is used if default Action Message Addressing Property is to
      * be used. See
      * {@link #fillRequestAddressingHeaders(Packet, com.sun.xml.ws.api.addressing.AddressingVersion, com.sun.xml.ws.api.SOAPVersion, boolean, String)}
@@ -744,7 +744,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
      * if the header list contains one or more such
      * headers.  Returns {@code true} if the list contained the
      * specified element (or equivalently, if the list changed as a
-     * result of the call).<p>
+     * result of the call).
      *
      * @param o element to be removed from this list, if present.
      * @return {@code true} if the list contained the specified element.

@@ -172,7 +172,7 @@ public final class EndpointMessageContextImpl extends AbstractMap<String,Object>
     }
 
     private Map<String, Object> createBackupMap() {
-        Map<String, Object> backupMap = new HashMap<String, Object>(packet.createMapView());
+        Map<String, Object> backupMap = new HashMap<>(packet.asMap());
         Set<String> handlerProps = packet.getHandlerScopePropertyNames(true);
         for(Map.Entry<String, Object> e : packet.invocationProperties.entrySet()) {
             if (!handlerProps.contains(e.getKey())) {
