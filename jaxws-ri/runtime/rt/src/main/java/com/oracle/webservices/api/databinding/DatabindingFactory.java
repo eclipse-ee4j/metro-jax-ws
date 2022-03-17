@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +17,6 @@ import java.util.Map;
  * Databinding APIs. A DatabindingFactory instance can be used to create 
  * <code>Databinding.Builder</code> instances, and <code>Databinding.Builder</code> 
  * instances are used to configure and build <code>Databinding</code> instances.
- * <p>
  *
  * <blockquote>
  * Following is an example that creates a {@code Databinding} which provides the

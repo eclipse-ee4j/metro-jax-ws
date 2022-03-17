@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -45,15 +45,15 @@ public class PolicyTest extends TestCase {
     public void testNullPolicyFactoryMethodReturnsConstantObjectOnNullArguments () {
         Policy tested = Policy.createNullPolicy(null, null);
         Policy expected = Policy.createNullPolicy();
-        
-        assertTrue("The createNullPolicy(String, String) factory method should return the same instance as createNullPolicy()", tested == expected);
+
+        assertSame("The createNullPolicy(String, String) factory method should return the same instance as createNullPolicy()", tested, expected);
     }    
 
     public void testEmptyPolicyFactoryMethodReturnsConstantObjectOnNullArguments () {
         Policy tested = Policy.createEmptyPolicy(null, null);
         Policy expected = Policy.createEmptyPolicy();
-        
-        assertTrue("The createEmptyPolicy(String, String) factory method should return the same instance as createEmptyPolicy()", tested == expected);
+
+        assertSame("The createEmptyPolicy(String, String) factory method should return the same instance as createEmptyPolicy()", tested, expected);
     }    
 
     public void testNullPolicyFactoryMethodReturnsProperObjectOnNonNullArguments () {

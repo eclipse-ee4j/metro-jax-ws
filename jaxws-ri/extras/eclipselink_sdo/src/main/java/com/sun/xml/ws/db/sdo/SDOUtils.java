@@ -205,7 +205,7 @@ public class SDOUtils {
             currentDocs.put(src.getSystemId(), src);
         }
 
-        Set<String> remaining = new HashSet<String>(currentDocs.keySet());
+        Set<String> remaining = new HashSet<>(currentDocs.keySet());
 
         while (!remaining.isEmpty()) {
             Iterator<String> it = remaining.iterator();

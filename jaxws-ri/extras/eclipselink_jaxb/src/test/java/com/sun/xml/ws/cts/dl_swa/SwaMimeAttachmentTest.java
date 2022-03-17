@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,6 +29,7 @@ import jakarta.xml.ws.handler.MessageContext;
 import com.oracle.webservices.api.databinding.DatabindingModeFeature;
 import com.oracle.webservices.api.databinding.JavaCallInfo;
 
+import org.junit.Assert;
 import org.xml.sax.EntityResolver;
 
 import com.sun.xml.ws.base.WsDatabindingTestBase;
@@ -97,19 +98,19 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
         SOAPMessageContextImpl smc = new SOAPMessageContextImpl(null, cliSoapReq, null);
         Map<String, DataHandler> smcAtts1 = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
         smc.put(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS, smcAtts1);
-        assertEquals( 5, smcAtts1.size() );
+        Assert.assertEquals( 5, smcAtts1.size() );
         for (String cid : smcAtts1.keySet()) 
-            assertTrue(cid.charAt(0)!='<');
+            Assert.assertTrue(cid.charAt(0)!='<');
         
         for (com.sun.xml.ws.api.message.Attachment a : cliSoapReq.getMessage().getAttachments()) 
-            assertTrue(a.getContentId().charAt(0)!='<');
+            Assert.assertTrue(a.getContentId().charAt(0)!='<');
         
         Object s1 = cliSoapReq.getAsSOAPMessage();
         Object s2 = smc.getMessage();
-        assertTrue(s1 == s2);
+        Assert.assertSame(s1, s2);
         
         for (com.sun.xml.ws.api.message.Attachment a : cliSoapReq.getMessage().getAttachments()) 
-            assertTrue(a.getContentId().charAt(0)!='<');
+            Assert.assertTrue(a.getContentId().charAt(0)!='<');
 //        {
 //        Map<String, DataHandler> atts = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
 //        AttachmentSet attSet = cliSoapReq.getMessage().getAttachments();
@@ -123,8 +124,8 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
 
 
         Map<String, DataHandler> smcAtts2 = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
-        assertEquals( 5, smcAtts1.size() );
-        for (String cid : smcAtts2.keySet()) assertTrue(cid.charAt(0)!='<');
+        Assert.assertEquals( 5, smcAtts1.size() );
+        for (String cid : smcAtts2.keySet()) Assert.assertTrue(cid.charAt(0)!='<');
     }
 
 
@@ -176,8 +177,8 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
         SOAPMessageContextImpl smc = new SOAPMessageContextImpl(null, cliSoapReq, null);
         Map<String, DataHandler> smcAtts1 = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
 
-        assertEquals( 6, smcAtts1.size() );
-        assertNotNull(smcAtts1.get(customContentId));
+        Assert.assertEquals( 6, smcAtts1.size() );
+        Assert.assertNotNull(smcAtts1.get(customContentId));
         
         {//ClientSOAPHandlerTube.callHandlersOnRequest
             Map<String, DataHandler> atts = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
@@ -192,24 +193,24 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
 
         int attCount = 0;
         for (com.sun.xml.ws.api.message.Attachment a : cliSoapReq.getMessage().getAttachments()) {
-//            assertTrue(a.getContentId().charAt(0)!='<'); 
+//            Assert.assertTrue(a.getContentId().charAt(0)!='<'); 
             attCount++;
         }
-        assertEquals( 6, attCount);
+        Assert.assertEquals( 6, attCount);
         Object s1 = cliSoapReq.getAsSOAPMessage();
         Object s2 = smc.getMessage();
-        assertTrue(s1 == s2);
+        Assert.assertSame(s1, s2);
 
         int attCountSaaj = 0;
         for (com.sun.xml.ws.api.message.Attachment a : cliSoapReq.getMessage().getAttachments()) {
-            assertTrue(a.getContentId().charAt(0)!='<');
+            Assert.assertTrue(a.getContentId().charAt(0)!='<');
             attCountSaaj++;
         }
-        assertEquals( 6, attCountSaaj);
+        Assert.assertEquals( 6, attCountSaaj);
         Map<String, DataHandler> smcAtts2 = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
-        assertEquals( 6, smcAtts2.size() );
+        Assert.assertEquals( 6, smcAtts2.size() );
 //        System.out.println(smcAtts2.size() + " " + smcAtts2);
-        assertNotNull(smcAtts2.get(customContentId));
+        Assert.assertNotNull(smcAtts2.get(customContentId));
     }
     
     public void testCTS_WsiDocLitSwaTest() throws Exception {
@@ -259,7 +260,7 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
             VoidRequest request = new VoidRequest();
             OutputResponseAll response = port.echoAllAttachmentTypes(request,
                     attach1, attach2, attach3, attach4, attach5);
-            assertTrue(ValidateRequestResponseAttachmentsEchoAllTestCase(
+            Assert.assertTrue(ValidateRequestResponseAttachmentsEchoAllTestCase(
                     request, response, attach1, attach2, attach3, attach4,
                     attach5));
         }
@@ -275,7 +276,7 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
             jakarta.xml.ws.Holder<DataHandler> attach2 = new jakarta.xml.ws.Holder<DataHandler>();
             jakarta.xml.ws.Holder<OutputResponse> response = new jakarta.xml.ws.Holder<OutputResponse>();
             port.getMultipleAttachments(request, response, attach1, attach2);
-            assertTrue(ValidateRequestResponseAttachmentsGetTestCase(request,
+            Assert.assertTrue(ValidateRequestResponseAttachmentsGetTestCase(request,
                     response.value, attach1, attach2));
         }
         {
@@ -296,7 +297,7 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
             byte[] bytes = baos.toByteArray();
             port.echoData("EnableMIMEContent = false", data);   
 //            for ( int i = 0; i < data.value.length; i++ ) {
-//                assertTrue(bytes[i] == data.value[i]);
+//                Assert.assertTrue(bytes[i] == data.value[i]);
 //            }
         }
     }

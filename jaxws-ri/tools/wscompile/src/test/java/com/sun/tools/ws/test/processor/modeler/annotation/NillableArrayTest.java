@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javax.xml.parsers.DocumentBuilderFactory;
-import junit.framework.Assert;
+import org.junit.Assert;
 import junit.framework.TestCase;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;

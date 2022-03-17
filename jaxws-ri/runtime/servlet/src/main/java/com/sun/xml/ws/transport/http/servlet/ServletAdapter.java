@@ -43,7 +43,7 @@ import java.util.logging.Logger;
  *
  * <p>
  * This class implements {@link BoundEndpoint} and represent the
- * servlet-{@code WSEndpoint} association for {@link }
+ * servlet-{@code WSEndpoint} association
  *
  */
 public class ServletAdapter extends HttpAdapter implements BoundEndpoint {

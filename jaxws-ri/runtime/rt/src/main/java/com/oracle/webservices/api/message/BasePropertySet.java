@@ -483,37 +483,6 @@ public abstract class BasePropertySet implements PropertySet {
     }
 
     /**
-     * Creates a {@link Map} view of this {@link PropertySet}.
-     *
-     * <p>
-     * This map is partially live, in the sense that values you set to it
-     * will be reflected to {@link PropertySet}.
-     *
-     * <p>
-     * However, this map may not pick up changes made
-     * to {@link PropertySet} after the view is created.
-     *
-     * @deprecated use newer implementation {@link PropertySet#asMap()} which produces
-     * readwrite {@link Map}
-     *
-     * @return
-     *      always non-null valid instance.
-     */
-    @Deprecated
-    @Override
-    public final Map<String,Object> createMapView() {
-        final Set<Entry<String,Object>> core = new HashSet<>();
-        createEntrySet(core);
-
-        return new AbstractMap<>() {
-            @Override
-            public Set<Entry<String, Object>> entrySet() {
-                return core;
-            }
-        };
-    }
-
-    /**
      * Creates a modifiable {@link Map} view of this {@link PropertySet}.
      * <br>
      * Changes done on this {@link Map} or on {@link PropertySet} object work in both directions - values made to

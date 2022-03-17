@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,9 +9,6 @@
  */
 
 package com.sun.xml.ws.eclipselink;
-
-import static jakarta.jws.soap.SOAPBinding.Style.RPC;
-import static jakarta.jws.soap.SOAPBinding.Use.LITERAL;
 
 import java.lang.reflect.Method;
 
@@ -31,6 +28,7 @@ import com.oracle.webservices.api.databinding.DatabindingMode;
 import com.oracle.webservices.api.databinding.DatabindingModeFeature;
 import com.oracle.webservices.api.databinding.JavaCallInfo;
 
+import org.junit.Assert;
 import org.w3c.dom.Node;
 
 import com.oracle.webservices.api.message.MessageContext;
@@ -41,7 +39,7 @@ import com.sun.xml.ws.model.RuntimeModeler;
 public class WrapperNSTest extends TestCase {
 
     @WebService(targetNamespace = "http://echo.org/")
-    @SOAPBinding(style = RPC, use = LITERAL)
+    @SOAPBinding(style = SOAPBinding.Style.RPC, use = SOAPBinding.Use.LITERAL)
     static public interface MyHelloRPC {
         public String echoString(String str);
     }
@@ -71,7 +69,7 @@ public class WrapperNSTest extends TestCase {
             Object[] args = { "test" };
             JavaCallInfo call = db.createJavaCallInfo(method, args);
             MessageContext mc = db.serializeRequest(call);
-            SOAPMessage msg = mc.getSOAPMessage();
+            SOAPMessage msg = mc.getAsSOAPMessage();
             // System.out.println("------------------ eclipselink");
             // msg.writeTo(System.out);
             // System.out.println();
@@ -79,7 +77,7 @@ public class WrapperNSTest extends TestCase {
             Node n = msg.getSOAPBody().getChildNodes().item(0);
             // System.out.println("num of attributes is: "+
             // n.getAttributes().getLength());
-            assertTrue(n.getAttributes().getLength() == 1);
+            Assert.assertEquals(1, n.getAttributes().getLength());
         }
 
     }
@@ -123,14 +121,14 @@ public class WrapperNSTest extends TestCase {
             Object[] args = { "test" };
             JavaCallInfo call = db.createJavaCallInfo(method, args);
             MessageContext mc = db.serializeRequest(call);
-            SOAPMessage msg = mc.getSOAPMessage();
+            SOAPMessage msg = mc.getAsSOAPMessage();
             // System.out.println("------------------ glassfish");
             // msg.writeTo(System.out);
             // System.out.println();
             Node n = msg.getSOAPBody().getChildNodes().item(0);
             // System.out.println("num of attributes is: "+
             // n.getAttributes().getLength());
-            assertTrue(n.getAttributes().getLength() == 1);
+            Assert.assertEquals(1, n.getAttributes().getLength());
         }
 
     }

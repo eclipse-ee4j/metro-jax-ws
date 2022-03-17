@@ -72,13 +72,13 @@ public class EprUtil extends junit.framework.Assert {
 
             Element add = XmlUtil.getFirstElementChild(node);
             String value = XmlUtil.getTextForNode(add);
-            assertTrue(value.equals(endpointAddress));
+            assertEquals(value, endpointAddress);
             if(serviceName == null && portName == null && !hasWSDL) {
                 // Need not check metadata
                 return true;
             }
             NodeList nl = elm.getElementsByTagNameNS(W3C_EPR_NS, "Metadata");
-            assertTrue(nl.getLength() == 1);
+            assertEquals(1, nl.getLength());
             Element metdata = (Element) nl.item(0);
             String qname;
             String prefix;
@@ -87,7 +87,7 @@ public class EprUtil extends junit.framework.Assert {
             //service
             if(serviceName != null) {
                 nl = metdata.getElementsByTagNameNS(W3C_EPR_WSDL_NS, "ServiceName");
-                assertTrue(nl.getLength() == 1);
+                assertEquals(1, nl.getLength());
                 Node service = nl.item(0);
                 qname = XmlUtil.getTextForNode(service);
                 prefix = XmlUtil.getPrefix(qname);
@@ -104,7 +104,7 @@ public class EprUtil extends junit.framework.Assert {
             if(portTypeName != null) {
                 //validate portType
                 nl = metdata.getElementsByTagNameNS(W3C_EPR_WSDL_NS, "InterfaceName");
-                assertTrue(nl.getLength() == 1);
+                assertEquals(1, nl.getLength());
                 Node portType = nl.item(0);
                 qname = XmlUtil.getTextForNode(portType);
                 prefix = XmlUtil.getPrefix(qname);
@@ -144,7 +144,7 @@ public class EprUtil extends junit.framework.Assert {
 
             Element add = XmlUtil.getFirstElementChild(node);
             String value = XmlUtil.getTextForNode(add);
-            assertTrue(value.equals(endpointAddress));
+            assertEquals(value, endpointAddress);
             NodeList nl;
             String qname;
             String prefix;
@@ -153,7 +153,7 @@ public class EprUtil extends junit.framework.Assert {
             //service
             if (serviceName != null) {
                 nl = elm.getElementsByTagNameNS(MS_EPR_NS, "ServiceName");
-                assertTrue(nl.getLength() == 1);
+                assertEquals(1, nl.getLength());
                 Node service = nl.item(0);
                 qname = XmlUtil.getTextForNode(service);
                 prefix = XmlUtil.getPrefix(qname);
@@ -171,7 +171,7 @@ public class EprUtil extends junit.framework.Assert {
             if (hasWSDL) {
                 //validate portType
                 nl = elm.getElementsByTagNameNS(MS_EPR_NS, "PortType");
-                assertTrue(nl.getLength() == 1);
+                assertEquals(1, nl.getLength());
                 Node portType = nl.item(0);
                 qname = XmlUtil.getTextForNode(portType);
                 prefix = XmlUtil.getPrefix(qname);
@@ -195,7 +195,7 @@ public class EprUtil extends junit.framework.Assert {
 
     public static boolean validateEPR(EndpointReference epr, String endpointAddress, QName serviceName,
                                       QName portName, QName portTypeName, boolean hasWSDL) {
-        assertTrue(epr != null);
+        assertNotNull(epr);
         DOMResult dr = new DOMResult();
         epr.writeTo(dr);
         Node node = dr.getNode();

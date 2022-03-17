@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,6 +26,7 @@ import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.message.saaj.SAAJMessage;
 
 import junit.framework.TestCase;
+import org.junit.Assert;
 
 public class DatabindingTest extends TestCase {
     @WebService
@@ -45,7 +46,7 @@ public class DatabindingTest extends TestCase {
 //        InVmWSDLResolver res = new InVmWSDLResolver();
 //        wsdlgen.generate(res);
 ////        res.print();
-//        assertEquals(1, res.getAll().size());
+//        Assert.assertEquals(1, res.getAll().size());
 //        }
         //TODO serviceName and portName
         {
@@ -57,7 +58,7 @@ public class DatabindingTest extends TestCase {
         InVmWSDLResolver res = new InVmWSDLResolver();
         wsdlgen.generate(res);
         res.print();
-        assertEquals(1, res.getAll().size());
+        Assert.assertEquals(1, res.getAll().size());
         }
     }
     
@@ -78,7 +79,7 @@ public class DatabindingTest extends TestCase {
       mcf.setSAAJFactory(saajFac);
       builder.property("com.sun.xml.ws.api.message.MessageContextFactory", mcf);
       com.oracle.webservices.api.databinding.Databinding db = builder.build();
-      assertTrue(((com.sun.xml.ws.api.databinding.Databinding)db).getMessageContextFactory() == mcf);
+        Assert.assertSame(((com.sun.xml.ws.api.databinding.Databinding) db).getMessageContextFactory(), mcf);
       Class[] paramType = {String.class};
       Object[] params = { "echoResponse" };
       com.oracle.webservices.api.databinding.JavaCallInfo call = 
@@ -86,6 +87,6 @@ public class DatabindingTest extends TestCase {
       call.setReturnValue("echoResponse");
       MessageContext mc = db.serializeResponse(call);
       SOAPMessage soap = mc.getAsSOAPMessage();
-      assertTrue(saajFac.called);
+      Assert.assertTrue(saajFac.called);
     }
 }

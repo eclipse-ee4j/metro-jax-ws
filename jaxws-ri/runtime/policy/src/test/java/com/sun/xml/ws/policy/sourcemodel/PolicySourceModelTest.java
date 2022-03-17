@@ -20,6 +20,7 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import junit.framework.TestCase;
+import org.junit.Assert;
 
 /**
  *
@@ -38,7 +39,7 @@ public class PolicySourceModelTest extends TestCase {
         NamespaceVersion nsVersion = NamespaceVersion.v1_2;
         NamespaceVersion expResult = NamespaceVersion.v1_2;
         PolicySourceModel result = PolicySourceModel.createPolicySourceModel(nsVersion);
-        assertEquals(expResult, result.getNamespaceVersion());
+        Assert.assertEquals(expResult, result.getNamespaceVersion());
     }
 
     /**
@@ -48,7 +49,7 @@ public class PolicySourceModelTest extends TestCase {
         NamespaceVersion nsVersion = NamespaceVersion.v1_5;
         NamespaceVersion expResult = NamespaceVersion.v1_5;
         PolicySourceModel result = PolicySourceModel.createPolicySourceModel(nsVersion);
-        assertEquals(expResult, result.getNamespaceVersion());
+        Assert.assertEquals(expResult, result.getNamespaceVersion());
     }
 
     /**
@@ -63,19 +64,19 @@ public class PolicySourceModelTest extends TestCase {
         AssertionData assertionChild = AssertionData.createAssertionData(name);
         childNode.createChildAssertionParameterNode(assertionChild);
         Map<String, String> result = instance.getNamespaceToPrefixMapping();
-        assertEquals("wsp", result.get("http://www.w3.org/ns/ws-policy"));
-        assertEquals("wsu", result.get("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"));
-        assertEquals("sunwsp", result.get("http://java.sun.com/xml/ns/wsit/policy"));
+        Assert.assertEquals("wsp", result.get("http://www.w3.org/ns/ws-policy"));
+        Assert.assertEquals("wsu", result.get("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"));
+        Assert.assertEquals("sunwsp", result.get("http://java.sun.com/xml/ns/wsit/policy"));
     }
 
     public void testEqualsDifferentClass() {
         PolicySourceModel instance = PolicySourceModel.createPolicySourceModel(NamespaceVersion.v1_2);
-        assertFalse(instance.equals(new Object()));
+        Assert.assertNotEquals(instance, new Object());
     }
 
     public void testEqualsSameObject() {
         PolicySourceModel instance = PolicySourceModel.createPolicySourceModel(NamespaceVersion.v1_2);
-        assertTrue(instance.equals(instance));
+        Assert.assertEquals(instance, instance);
     }
 
     public void testEqualsDifferentObject() {
@@ -91,12 +92,12 @@ public class PolicySourceModelTest extends TestCase {
         AssertionData assertion2 = AssertionData.createAssertionData(name2);
         root2.createChildAssertionNode(assertion2);
 
-        assertFalse(instance.equals(instance2));
+        Assert.assertNotEquals(instance, instance2);
     }
 
     public void testToString() {
         PolicySourceModel instance = PolicySourceModel.createPolicySourceModel(NamespaceVersion.v1_2);
-        assertNotNull(instance.toString());
+        Assert.assertNotNull(instance.toString());
     }
 
     public void testContainsPolicyReferences() {
@@ -120,9 +121,9 @@ public class PolicySourceModelTest extends TestCase {
         PolicySourceModelContext context = PolicySourceModelContext.createContext();
         context.addModel(policyReference, referredModel);
 
-        assertNull(referenceNode.getReferencedModel());
+        Assert.assertNull(referenceNode.getReferencedModel());
         referringModel.expand(context);
-        assertNotNull(referenceNode.getReferencedModel());
+        Assert.assertNotNull(referenceNode.getReferencedModel());
     }
 
     public void testCloneModel() throws Exception {
@@ -131,7 +132,7 @@ public class PolicySourceModelTest extends TestCase {
 
         model.toString();
         clone.toString();
-        assertEquals(model, clone);
+        Assert.assertEquals(model, clone);
     }
 
 }

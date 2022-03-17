@@ -16,7 +16,6 @@ import java.util.Map;
  * WsFactory is the entry point of all the ws-databinding APIs. A WsFactory
  * instance can be used to create <code>WsTool</code>, <code>WsRuntime</code>,
  * <code>XsTool</code>, and <code>XsRuntime</code> instances.
- * <p>
  *
  * <blockquote>
  * Following is an example that creates a {@code WsTool} which provides the

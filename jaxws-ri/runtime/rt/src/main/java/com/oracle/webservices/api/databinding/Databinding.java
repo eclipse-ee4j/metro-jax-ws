@@ -29,7 +29,7 @@ import com.oracle.webservices.api.message.MessageContext;
  * be created from a Databinding object to genreate WSDL representation of 
  * a JAVA service endpoint interface.
  * <p>
- * </p>
+ *
  * The supported databinding modes(flavors) are:
  * <ul>
  * <li>"toplink.jaxb"</li>

@@ -19,7 +19,6 @@ import java.lang.reflect.Method;
  * client is deserialized as an update to the JavaCallInfo object which is used
  * to generated the request.
  * <p>
- * </p>
  * On the server or service provider side, a SOAP request message is
  * deserialized to a JavaCallInfo object which can be used to determine which
  * method to call, and get the parameter values to call the back-end service
