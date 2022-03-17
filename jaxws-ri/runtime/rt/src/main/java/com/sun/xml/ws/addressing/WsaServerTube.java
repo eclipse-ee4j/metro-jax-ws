@@ -30,7 +30,6 @@ import com.sun.xml.ws.api.model.wsdl.WSDLPort;
 import com.sun.xml.ws.api.pipe.*;
 import com.sun.xml.ws.api.server.WSEndpoint;
 import com.sun.xml.ws.client.Stub;
-import com.sun.xml.ws.developer.JAXWSProperties;
 import com.sun.xml.ws.message.FaultDetailHeader;
 import com.sun.xml.ws.resources.AddressingMessages;
 
@@ -342,12 +341,6 @@ public class WsaServerTube extends WsaTube {
         */
 
     }
-    
-    /**
-     * @deprecated
-     *      Use {@link JAXWSProperties#ADDRESSING_MESSAGEID}.
-     */
-    public static final String REQUEST_MESSAGE_ID = "com.sun.xml.ws.addressing.request.messageID";
 
     private static final Logger LOGGER = Logger.getLogger(WsaServerTube.class.getName());
 }

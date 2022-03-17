@@ -118,8 +118,7 @@ public class WsaPropertyBag extends BasePropertySet {
      * @return
      *      null if the incoming SOAP message didn't have the header.
      */
-    // WsaServerTube.REQUEST_MESSAGE_ID is exposed for backward compatibility with 2.1
-    @Property({JAXWSProperties.ADDRESSING_MESSAGEID,WsaServerTube.REQUEST_MESSAGE_ID})
+    @Property(JAXWSProperties.ADDRESSING_MESSAGEID)
     public String getMessageID() {
         if (packet.getMessage() == null) {
           return null;
