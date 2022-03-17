@@ -1468,36 +1468,8 @@ public final class Packet
 		return cType.getContentType().contains("application/xop+xml");
 	}
 
-	/**
-     * @deprecated
-     */
-    public void addSatellite(@NotNull com.sun.xml.ws.api.PropertySet satellite) {
-        super.addSatellite(satellite);
-    }
-    
     /**
-     * @deprecated
-     */
-    public void addSatellite(@NotNull Class keyClass, @NotNull com.sun.xml.ws.api.PropertySet satellite) {
-        super.addSatellite(keyClass, satellite);
-    }
-    
-    /**
-     * @deprecated
-     */
-    public void copySatelliteInto(@NotNull com.sun.xml.ws.api.DistributedPropertySet r) {
-        super.copySatelliteInto(r);
-    }
-    
-    /**
-     * @deprecated
-     */
-    public void removeSatellite(com.sun.xml.ws.api.PropertySet satellite) {
-        super.removeSatellite(satellite);
-    }
-
-    /**
-     * This is propogated from SOAPBindingCodec and will affect isMtomAcceptable and isFastInfosetAcceptable
+     * This is propagated from SOAPBindingCodec and will affect isMtomAcceptable and isFastInfosetAcceptable
      */
     private boolean isFastInfosetDisabled;
     
