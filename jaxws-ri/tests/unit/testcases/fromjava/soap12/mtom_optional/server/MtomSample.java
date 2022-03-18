@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,11 +10,11 @@
 
 package fromjava.soap12.mtom_optional.server;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 import javax.xml.transform.Source;
-import javax.xml.bind.annotation.XmlMimeType;
-import javax.xml.ws.soap.MTOM;
-import javax.xml.ws.BindingType;
+import jakarta.xml.bind.annotation.XmlMimeType;
+import jakarta.xml.ws.soap.MTOM;
+import jakarta.xml.ws.BindingType;
 
 /**
  * @author Rama Pulavarthi

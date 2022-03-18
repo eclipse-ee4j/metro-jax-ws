@@ -24,7 +24,7 @@ for more samples with SSL.
       war file
     * sun-jaxws.xml deployment descriptor for web container
     * web.xml with security defined
-    * deploy-targets.xml contains atgerts for deployment to Glassfish and 
+    * deploy-targets.xml contains target for deployment to Glassfish and
       Tomcat.
       It also contains targets for setting up tomcat keystore and client 
       truststore.

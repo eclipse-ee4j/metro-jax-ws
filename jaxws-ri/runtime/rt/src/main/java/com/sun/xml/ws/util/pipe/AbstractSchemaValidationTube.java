@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,7 +29,12 @@ import com.sun.xml.ws.util.ByteArrayBuffer;
 import com.sun.xml.ws.util.xml.XmlUtil;
 import com.sun.xml.ws.wsdl.SDDocumentResolver;
 import com.sun.xml.ws.wsdl.parser.WSDLConstants;
-import org.w3c.dom.*;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.SAXException;
@@ -45,7 +50,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -53,11 +58,14 @@ import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static com.sun.xml.ws.util.xml.XmlUtil.allowExternalAccess;
 
 /**
  * {@link Tube} that does the schema validation.
@@ -77,7 +85,7 @@ public abstract class AbstractSchemaValidationTube extends AbstractFilterTubeImp
         super(next);
         this.binding = binding;
         feature = binding.getFeature(SchemaValidationFeature.class);
-        sf = allowExternalAccess(SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI), "all", false);
+        sf = XmlUtil.allowExternalAccess(SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI), "all", false);
     }
 
     protected AbstractSchemaValidationTube(AbstractSchemaValidationTube that, TubeCloner cloner) {
@@ -125,10 +133,10 @@ public abstract class AbstractSchemaValidationTube extends AbstractFilterTubeImp
     protected class MetadataResolverImpl implements SDDocumentResolver, LSResourceResolver {
 
         // systemID --> SDDocument
-        final Map<String, SDDocument> docs = new HashMap<String, SDDocument>();
+        final Map<String, SDDocument> docs = new HashMap<>();
 
         // targetnamespace --> SDDocument
-        final Map<String, SDDocument> nsMapping = new HashMap<String, SDDocument>();
+        final Map<String, SDDocument> nsMapping = new HashMap<>();
 
         public MetadataResolverImpl() {
         }
@@ -296,11 +304,7 @@ public abstract class AbstractSchemaValidationTube extends AbstractFilterTubeImp
     }
 
     private void updateMultiSchemaForTns(String tns, String systemId, Map<String, List<String>> schemas) {
-        List<String> docIdList = schemas.get(tns);
-        if (docIdList == null) {
-            docIdList = new ArrayList<String>();
-            schemas.put(tns, docIdList);
-        }
+        List<String> docIdList = schemas.computeIfAbsent(tns, k -> new ArrayList<>());
         docIdList.add(systemId);
     }
 
@@ -320,11 +324,11 @@ public abstract class AbstractSchemaValidationTube extends AbstractFilterTubeImp
     protected Source[] getSchemaSources(Iterable<SDDocument> docs, MetadataResolverImpl mdresolver) {
         // All schema fragments in WSDLs are put inlinedSchemas
         // systemID --> DOMSource
-        Map<String, DOMSource> inlinedSchemas = new HashMap<String, DOMSource>();
+        Map<String, DOMSource> inlinedSchemas = new HashMap<>();
 
         // Consolidates all the schemas(inlined and external) for a tns
         // tns --> list of systemId
-        Map<String, List<String>> multiSchemaForTns = new HashMap<String, List<String>>();
+        Map<String, List<String>> multiSchemaForTns = new HashMap<>();
 
         for(SDDocument sdoc: docs) {
             if (sdoc.isWSDL()) {
@@ -357,7 +361,7 @@ public abstract class AbstractSchemaValidationTube extends AbstractFilterTubeImp
         // If there are multiple schema fragments for the same tns, create a
         // pseudo schema for that tns by using <xsd:include> of those.
         // tns --> systemId of a pseudo schema document (consolidated for that tns)
-        Map<String, String> oneSchemaForTns = new HashMap<String, String>();
+        Map<String, String> oneSchemaForTns = new HashMap<>();
         int i = 0;
         for(Map.Entry<String, List<String>> e: multiSchemaForTns.entrySet()) {
             String systemId;
@@ -427,15 +431,15 @@ public abstract class AbstractSchemaValidationTube extends AbstractFilterTubeImp
     }
 
     /**
-     * Adds inscope namespaces as attributes to  <xsd:schema> fragment nodes.
+     * Adds inscope namespaces as attributes to  {@code <xsd:schema>} fragment nodes.
      *
      * @param nss namespace context info
      * @param elem that is patched with inscope namespaces
      */
     private @Nullable void patchDOMFragment(NamespaceSupport nss, Element elem) {
         NamedNodeMap atts = elem.getAttributes();
-        for( Enumeration en = nss.getPrefixes(); en.hasMoreElements(); ) {
-            String prefix = (String)en.nextElement();
+        for(Enumeration<String> en = nss.getPrefixes(); en.hasMoreElements(); ) {
+            String prefix = en.nextElement();
 
             for( int i=0; i<atts.getLength(); i++ ) {
                 Attr a = (Attr)atts.item(i);
@@ -530,7 +534,7 @@ public abstract class AbstractSchemaValidationTube extends AbstractFilterTubeImp
         Class<? extends ValidationErrorHandler> handlerClass = feature.getErrorHandler();
         ValidationErrorHandler handler;
         try {
-            handler = handlerClass.newInstance();
+            handler = handlerClass.getConstructor().newInstance();
         } catch(Exception e) {
             throw new WebServiceException(e);
         }

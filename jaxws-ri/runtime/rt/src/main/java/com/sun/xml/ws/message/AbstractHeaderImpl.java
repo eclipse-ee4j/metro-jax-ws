@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,8 +11,8 @@
 package com.sun.xml.ws.message;
 
 import com.sun.istack.NotNull;
-import com.sun.xml.bind.api.Bridge;
-import com.sun.xml.bind.api.BridgeContext;
+import org.glassfish.jaxb.runtime.api.Bridge;
+import org.glassfish.jaxb.runtime.api.BridgeContext;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.addressing.AddressingVersion;
 import com.sun.xml.ws.api.addressing.WSEndpointReference;
@@ -22,8 +22,8 @@ import com.sun.xml.ws.spi.db.XMLBridge;
 
 import org.xml.sax.helpers.AttributesImpl;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -50,6 +50,7 @@ public abstract class AbstractHeaderImpl implements Header {
         return readAsJAXB(bridge);
     }
 
+    @Override
     public <T> T readAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         try {
             return (T)unmarshaller.unmarshal(readHeader());
@@ -58,6 +59,8 @@ public abstract class AbstractHeaderImpl implements Header {
         }
     }
     /** @deprecated */
+    @Deprecated
+    @Override
     public <T> T readAsJAXB(Bridge<T> bridge) throws JAXBException {
         try {
             return bridge.unmarshal(readHeader());
@@ -66,6 +69,7 @@ public abstract class AbstractHeaderImpl implements Header {
         }
     }
 
+    @Override
     public <T> T readAsJAXB(XMLBridge<T> bridge) throws JAXBException {
         try {
             return bridge.unmarshal(readHeader(), null);
@@ -77,6 +81,7 @@ public abstract class AbstractHeaderImpl implements Header {
     /**
      * Default implementation that copies the infoset. Not terribly efficient.
      */
+    @Override
     public WSEndpointReference readAsEPR(AddressingVersion expected) throws XMLStreamException {
         XMLStreamReader xsr = readHeader();
         WSEndpointReference epr = new WSEndpointReference(xsr, expected);
@@ -84,6 +89,7 @@ public abstract class AbstractHeaderImpl implements Header {
         return epr;
     }
 
+    @Override
     public boolean isIgnorable(@NotNull SOAPVersion soapVersion, @NotNull Set<String> roles) {
         // check mustUnderstand
         String v = getAttribute(soapVersion.nsUri, "mustUnderstand");
@@ -95,6 +101,7 @@ public abstract class AbstractHeaderImpl implements Header {
         return !roles.contains(getRole(soapVersion));
     }
 
+    @Override
     public @NotNull String getRole(@NotNull SOAPVersion soapVersion) {
         String v = getAttribute(soapVersion.nsUri, soapVersion.roleAttributeName);
         if(v==null)
@@ -102,12 +109,14 @@ public abstract class AbstractHeaderImpl implements Header {
         return v;
     }
 
+    @Override
     public boolean isRelay() {
         String v = getAttribute(SOAPVersion.SOAP_12.nsUri,"relay");
         if(v==null) return false;   // on SOAP 1.1 message there shouldn't be such an attribute, so this works fine
         return parseBool(v);
     }
 
+    @Override
     public String getAttribute(QName name) {
         return getAttribute(name.getNamespaceURI(),name.getLocalPart());
     }
@@ -125,6 +134,7 @@ public abstract class AbstractHeaderImpl implements Header {
         return ch=='t' || ch=='1';
     }
 
+    @Override
     public String getStringContent() {
         try {
             XMLStreamReader xsr = readHeader();

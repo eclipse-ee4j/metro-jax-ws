@@ -10,7 +10,7 @@
 
 package fromjava.nosei_rpclit_apt.server;
 
-@javax.xml.ws.WebFault(name="BarException",
+@jakarta.xml.ws.WebFault(name="BarException",
     targetNamespace="urn:test:types")
 public class WSDLBarException extends Exception {
     Bar bar;

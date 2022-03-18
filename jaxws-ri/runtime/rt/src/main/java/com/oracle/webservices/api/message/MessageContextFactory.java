@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,10 +17,10 @@ import com.oracle.webservices.api.EnvelopeStyle;
 import com.sun.xml.ws.api.SOAPVersion; // TODO leaking RI APIs
 import com.sun.xml.ws.util.ServiceFinder;
 
-import javax.xml.soap.MimeHeaders;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.MimeHeaders;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.Source;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceFeature;
 
 public abstract class MessageContextFactory
 {   
@@ -73,6 +73,7 @@ public abstract class MessageContextFactory
     public static MessageContext create(final ClassLoader... classLoader) {
         return serviceFinder(classLoader,
                              new Creator() {
+                                 @Override
                                  public MessageContext create(final MessageContextFactory f) {
                                      return f.doCreate();
                                  }
@@ -83,6 +84,7 @@ public abstract class MessageContextFactory
     public static MessageContext create(final SOAPMessage m, final ClassLoader... classLoader) {
         return serviceFinder(classLoader,
                              new Creator() {
+                                 @Override
                                  public MessageContext create(final MessageContextFactory f) {
                                      return f.doCreate(m);
                                  }
@@ -93,6 +95,7 @@ public abstract class MessageContextFactory
     public static MessageContext create(final Source m, final SOAPVersion v, final ClassLoader... classLoader) {
         return serviceFinder(classLoader,
                              new Creator() {
+                                 @Override
                                  public MessageContext create(final MessageContextFactory f) {
                                      return f.doCreate(m, v);
                                  }
@@ -111,8 +114,8 @@ public abstract class MessageContextFactory
     }
 
     @Deprecated
-    private static interface Creator {
-        public MessageContext create(MessageContextFactory f);
+    private interface Creator {
+        MessageContext create(MessageContextFactory f);
     }
     
     public void setSAAJFactory(com.sun.xml.ws.api.message.saaj.SAAJFactory saajFactory) {

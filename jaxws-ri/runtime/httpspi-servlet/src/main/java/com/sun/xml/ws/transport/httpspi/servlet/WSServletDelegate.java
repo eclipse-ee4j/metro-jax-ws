@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,12 +10,12 @@
 
 package com.sun.xml.ws.transport.httpspi.servlet;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Binding;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.http.HTTPBinding;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.xml.ws.Binding;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.http.HTTPBinding;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -43,8 +43,8 @@ public class WSServletDelegate {
      */
     public final List<EndpointAdapter> adapters;
 
-    private final Map<String, EndpointAdapter> fixedUrlPatternEndpoints = new HashMap<String, EndpointAdapter>();
-    private final List<EndpointAdapter> pathUrlPatternEndpoints = new ArrayList<EndpointAdapter>();
+    private final Map<String, EndpointAdapter> fixedUrlPatternEndpoints = new HashMap<>();
+    private final List<EndpointAdapter> pathUrlPatternEndpoints = new ArrayList<>();
 
     public WSServletDelegate(List<EndpointAdapter> adapters, ServletContext context) {
         this.adapters = adapters;
@@ -175,7 +175,7 @@ public class WSServletDelegate {
 
     private void registerEndpointUrlPattern(EndpointAdapter a) {
         String urlPattern = a.getUrlPattern();
-        if (urlPattern.indexOf("*.") != -1) {
+        if (urlPattern.contains("*.")) {
             // cannot deal with implicit mapping right now
             logger.log(Level.WARNING, "Ignoring implicit url-pattern {0}", urlPattern);
         } else if (urlPattern.endsWith("/*")) {

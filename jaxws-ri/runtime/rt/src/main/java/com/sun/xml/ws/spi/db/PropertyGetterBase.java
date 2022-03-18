@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 package com.sun.xml.ws.spi.db;
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * This is the Gtter of a bean property. 
@@ -21,6 +21,7 @@ import javax.xml.ws.WebServiceException;
 public abstract class PropertyGetterBase implements PropertyGetter {
     protected Class type;
     
+    @Override
     public Class getType() {
         return type;
     }
@@ -33,11 +34,9 @@ public abstract class PropertyGetterBase implements PropertyGetter {
                 method.getName().length() > 3) {
                 return true;
             } else {
-                if ((method.getReturnType().equals(boolean.class) || method.getReturnType().equals(Boolean.class)) &&
-                    method.getName().startsWith("is") &&
-                    method.getName().length() > 2) {
-                    return true;
-                }
+                return (method.getReturnType().equals(boolean.class) || method.getReturnType().equals(Boolean.class)) &&
+                        method.getName().startsWith("is") &&
+                        method.getName().length() > 2;
             }
         } 
         return false;

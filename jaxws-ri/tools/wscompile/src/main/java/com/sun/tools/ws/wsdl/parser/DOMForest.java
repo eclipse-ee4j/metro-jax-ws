@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@ import com.sun.tools.ws.wscompile.ErrorReceiver;
 import com.sun.tools.ws.wscompile.WsimportOptions;
 import com.sun.tools.ws.wsdl.document.schema.SchemaConstants;
 import com.sun.tools.xjc.reader.internalizer.LocatorTable;
-import com.sun.xml.bind.marshaller.DataWriter;
+import org.glassfish.jaxb.core.marshaller.DataWriter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -53,17 +53,17 @@ public class DOMForest {
      * <br>
      * Set of system ids as strings.
      */
-    protected final Set<String> rootDocuments = new HashSet<String>();
+    protected final Set<String> rootDocuments = new HashSet<>();
 
     /**
      * Contains wsdl:import(s)
      */
-    protected final Set<String> externalReferences = new HashSet<String>();
+    protected final Set<String> externalReferences = new HashSet<>();
 
     /**
      * actual data storage map&lt;SystemId,Document&gt;.
      */
-    protected final Map<String, Document> core = new HashMap<String, Document>();
+    protected final Map<String, Document> core = new HashMap<>();
     protected final ErrorReceiver errorReceiver;
 
     private final DocumentBuilder documentBuilder;
@@ -72,7 +72,7 @@ public class DOMForest {
     /**
      * inlined schema elements inside wsdl:type section
      */
-    protected final List<Element> inlinedSchemaElements = new ArrayList<Element>();
+    protected final List<Element> inlinedSchemaElements = new ArrayList<>();
 
 
     /**
@@ -84,7 +84,7 @@ public class DOMForest {
     /**
      * Stores all the outer-most &lt;jaxb:bindings&gt; customizations.
      */
-    public final Set<Element> outerMostBindings = new HashSet<Element>();
+    public final Set<Element> outerMostBindings = new HashSet<>();
 
     /**
      * Schema language dependent part of the processing.
@@ -98,7 +98,7 @@ public class DOMForest {
         this.errorReceiver = errReceiver;
         this.logic = logic;
         // secure xml processing can be switched off if input requires it
-        boolean disableXmlSecurity = options == null ? false : options.disableXmlSecurity;
+        boolean disableXmlSecurity = options != null && options.disableXmlSecurity;
         
         DocumentBuilderFactory dbf = XmlUtil.newDocumentBuilderFactory(disableXmlSecurity);
         this.parserFactory = XmlUtil.newSAXParserFactory(disableXmlSecurity);
@@ -153,7 +153,7 @@ public class DOMForest {
         // but we still use the original system Id as the key.
         return parse(systemId, is, root);
     }
-    protected Map<String,String> resolvedCache = new HashMap<String,String>();
+    protected Map<String,String> resolvedCache = new HashMap<>();
 
     public Map<String,String> getReferencedEntityMap() {
         return resolvedCache;
@@ -216,7 +216,7 @@ public class DOMForest {
         /**
          * Gets the DOM that was built.
          */
-        public Document getDocument();
+        Document getDocument();
     }
 
     /**
@@ -287,9 +287,10 @@ public class DOMForest {
             // on Windows, filenames are case insensitive.
             // perform case-insensitive search for improved user experience
             String systemPath = getPath(systemId);
-            for (String key : core.keySet()) {
+            for (Map.Entry<String, Document> entry : core.entrySet()) {
+                String key = entry.getKey();
                 if (key.startsWith("file:") && getPath(key).equalsIgnoreCase(systemPath)) {
-                    doc = core.get(key);
+                    doc = entry.getValue();
                     break;
                 }
             }
@@ -312,7 +313,7 @@ public class DOMForest {
      * Gets all the system IDs of the documents.
      */
     public String[] listSystemIDs() {
-        return core.keySet().toArray(new String[core.keySet().size()]);
+        return core.keySet().toArray(new String[0]);
     }
 
     /**

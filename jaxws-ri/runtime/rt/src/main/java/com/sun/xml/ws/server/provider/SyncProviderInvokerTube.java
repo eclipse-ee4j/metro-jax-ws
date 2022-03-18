@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,7 @@ import com.sun.xml.ws.api.pipe.NextAction;
 import com.sun.xml.ws.api.pipe.ThrowableContainerPropertySet;
 import com.sun.xml.ws.api.server.Invoker;
 
-import javax.xml.ws.Provider;
+import jakarta.xml.ws.Provider;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,6 +43,7 @@ class SyncProviderInvokerTube<T> extends ProviderInvokerTube<T> {
     * invoke() is used to create a new {@link Message} that traverses
     * through the Pipeline to transport.
     */
+    @Override
     public NextAction processRequest(Packet request) {
         WSDLPort port = getEndpoint().getPort();
         WSBinding binding = getEndpoint().getBinding();
@@ -75,10 +76,12 @@ class SyncProviderInvokerTube<T> extends ProviderInvokerTube<T> {
         return t != null ? doThrow(response, t) : doReturnWith(response);
     }
 
+    @Override
     public @NotNull NextAction processResponse(@NotNull Packet response) {
         return doReturnWith(response);
     }
 
+    @Override
     public @NotNull NextAction processException(@NotNull Throwable t) {
         return doThrow(t);
     }

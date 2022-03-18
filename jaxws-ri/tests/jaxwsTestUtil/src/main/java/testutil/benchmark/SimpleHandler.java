@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,14 +17,14 @@ package testutil.benchmark;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.handler.soap.SOAPHandler;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.soap.SOAPMessageContext;
-import javax.xml.soap.SOAPBody;
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPPart;
+import jakarta.xml.ws.handler.soap.SOAPHandler;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.soap.SOAPMessageContext;
+import jakarta.xml.soap.SOAPBody;
+import jakarta.xml.soap.SOAPEnvelope;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPPart;
 
 /**
  * @author JAX-RPC RI Development Team
@@ -35,15 +35,18 @@ public class SimpleHandler implements SOAPHandler<SOAPMessageContext> {
     
     public SimpleHandler() {}
 
+    @Override
     public Set<QName> getHeaders() {
         return null;
     }
 
+    @Override
     public boolean handleMessage(SOAPMessageContext context) {
         doSomeWork(context);
         return true;
     }
 
+    @Override
     public boolean handleFault(SOAPMessageContext context) {
         doSomeWork(context);
         return true;
@@ -63,6 +66,7 @@ public class SimpleHandler implements SOAPHandler<SOAPMessageContext> {
 
     }
 
+    @Override
     public void close(MessageContext messageContext) {
     }
 

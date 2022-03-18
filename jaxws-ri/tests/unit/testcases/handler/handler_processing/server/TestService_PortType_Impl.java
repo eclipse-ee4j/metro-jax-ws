@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@ import handler.handler_processing.common.TestConstants;
 /**
  * @author Rama Pulvarthi
  */
-@javax.jws.WebService(serviceName="TestService", portName="TestServicePort", targetNamespace="urn:test", endpointInterface="handler.handler_processing.server.TestService")
+@jakarta.jws.WebService(serviceName="TestService", portName="TestServicePort", targetNamespace="urn:test", endpointInterface="handler.handler_processing.server.TestService")
 public class TestService_PortType_Impl implements TestService, TestConstants {
 
     /*

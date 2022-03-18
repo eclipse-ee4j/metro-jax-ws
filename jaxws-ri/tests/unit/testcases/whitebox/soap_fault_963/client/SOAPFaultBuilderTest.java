@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,14 +20,14 @@ import junit.framework.TestCase;
 import org.w3c.dom.Node;
 
 import javax.xml.namespace.QName;
-import javax.xml.soap.*;
+import jakarta.xml.soap.*;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 
@@ -51,7 +51,7 @@ public class SOAPFaultBuilderTest extends TestCase {
   }
 
   private static SOAPFault createFault(SOAPVersion soapVersion) throws Exception {
-    SOAPFactory fac = soapVersion.saajSoapFactory;
+    SOAPFactory fac = soapVersion.getSOAPFactory();
     SOAPFault sf = fac.createFault("This is a fault.", soapVersion.faultCodeClient);
     Detail d = sf.addDetail();
     // value of underlied element/ElementNSImpl is null

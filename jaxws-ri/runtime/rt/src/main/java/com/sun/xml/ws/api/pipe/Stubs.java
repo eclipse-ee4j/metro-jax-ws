@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,16 +29,16 @@ import com.sun.xml.ws.client.sei.SEIStub;
 import com.sun.xml.ws.developer.WSBindingProvider;
 import com.sun.xml.ws.model.SOAPSEIModel;
 
-import javax.activation.DataSource;
-import javax.xml.bind.JAXBContext;
+import jakarta.activation.DataSource;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.Source;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Service;
-import javax.xml.ws.Service.Mode;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Service.Mode;
+import jakarta.xml.ws.WebServiceException;
 import java.lang.reflect.Proxy;
 
 /**
@@ -54,7 +54,7 @@ import java.lang.reflect.Proxy;
  * Tango, so that they don't have hard-code dependency on
  * our implementation classes.
  *
- * <a name="param"></a>
+ * <a id="param"></a>
  * <h2>Common Parameters and Their Meanings</h2>
  *
  * <h3>Pipe next</h3>

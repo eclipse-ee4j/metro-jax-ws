@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,8 +25,8 @@ import com.sun.xml.ws.client.ContentNegotiation;
 import com.sun.xml.ws.transport.http.HttpAdapter;
 import com.sun.xml.ws.transport.http.WSHTTPConnection;
 
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.handler.MessageContext;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
@@ -66,7 +66,7 @@ final class LocalAsyncTransportTube extends AbstractTubeImpl {
     // per-pipe reusable resources.
     // we don't really have to reuse anything since this isn't designed for performance,
     // but nevertheless we do it as an experiement.
-    private final Map<String, List<String>> reqHeaders = new HashMap<String, List<String>>();
+    private final Map<String, List<String>> reqHeaders = new HashMap<>();
 
     public LocalAsyncTransportTube(URI baseURI, WSEndpoint endpoint, Codec codec) {
         this(baseURI,HttpAdapter.createAlone(endpoint),codec);

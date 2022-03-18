@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@
     <section xml:id="wsimport-overview">
         <title><command>wsimport</command> Overview</title>
 
-        <para>The <command>wsimport</command> tool generates JAX-WS portable
+        <para>The <command>wsimport</command> tool generates &ws.spec.name; portable
         artifacts, such as:</para>
 
         <itemizedlist>
@@ -50,14 +50,14 @@
             </listitem>
 
             <listitem>
-                <para>JAXB generated value types (mapped java classes from
+                <para>&binding.spec.name; generated value types (mapped java classes from
                 schema types)</para>
             </listitem>
         </itemizedlist>
 
         <para>These artifacts can be packaged in a WAR file with the WSDL and
         schema documents along with the endpoint implementation to be
-        deployed. &jax-ws.product.name; also provides a <xref
+        deployed. &ws.impl.name.full; also provides a <xref
         linkend="tools-wsimport-ant-task" xrefstyle="select:title" />.</para>
     </section>
 
@@ -69,7 +69,7 @@
                 <para><emphasis role="bold">Solaris/Linux</emphasis>
                 <itemizedlist>
                         <listitem>
-                            <programlisting><![CDATA[JAXWS_HOME/bin/wsimport.sh -help]]></programlisting>
+                            <programlisting>&jax-ws.home;<![CDATA[/bin/wsimport.sh -help]]></programlisting>
                         </listitem>
                     </itemizedlist></para>
             </listitem>
@@ -77,7 +77,7 @@
             <listitem>
                 <para><emphasis role="bold">Windows</emphasis> <itemizedlist>
                         <listitem>
-                            <programlisting><![CDATA[JAXWS_HOME\bin\wsimport.bat -help]]></programlisting>
+                            <programlisting>&jax-ws.home;<![CDATA[\bin\wsimport.bat -help]]></programlisting>
                         </listitem>
                     </itemizedlist></para>
             </listitem>
@@ -135,7 +135,7 @@
                     <row>
                         <entry><literal>-b &lt;path&gt;</literal></entry>
 
-                        <entry>Specify external JAX-WS or JAXB binding files
+                        <entry>Specify external &ws.spec.name; or &binding.spec.name; binding files
                         or additional schema files (Each
                         <literal>&lt;file&gt;</literal> must have its own
                         <option>-b</option>).</entry>
@@ -145,7 +145,7 @@
                         <entry><literal>-B
                         &lt;jaxbOption&gt;</literal></entry>
 
-                        <entry>Pass this option to JAXB schema
+                        <entry>Pass this option to &binding.spec.name; schema
                         compiler.</entry>
                     </row>
 
@@ -264,9 +264,9 @@
                         <entry><literal>-target
                         &lt;version&gt;</literal></entry>
 
-                        <entry>Generate code as per the given JAX-WS
+                        <entry>Generate code as per the given &ws.spec.name;
                         specification version. For example, "<literal>-target
-                        2.0</literal>" generates compliant code for JAX-WS 2.0
+                        2.0</literal>" generates compliant code for &ws.spec.name; 2.0
                         spec. Default value is 2.2.</entry>
                     </row>
 
@@ -305,7 +305,9 @@
                     <row>
                         <entry><literal>-XdisableAuthenticator</literal></entry>
 
-                        <entry>Disables Authenticator used by JAX-WS RI, <literal>-Xauthfile</literal> option will be ignored if <literal>-XdisableAuthenticator</literal> is set.</entry>
+                        <entry>Disables Authenticator used by &ws.impl.name;,
+                        <literal>-Xauthfile</literal> option will be ignored if
+                        <literal>-XdisableAuthenticator</literal> is set.</entry>
                     </row>
 
                     <row>
@@ -332,10 +334,10 @@
             </tgroup>
         </informaltable>
 
-        <para>Multiple JAX-WS and JAXB binding files can be specified using
+        <para>Multiple &ws.spec.name; and &binding.spec.name; binding files can be specified using
         <option>-b</option> option and they can be used to customize various
-        things like package names, bean names, etc. More information on JAX-WS
-        and JAXB binding files can be found in the <xref
+        things like package names, bean names, etc. More information on &ws.spec.name;
+        and &binding.spec.name; binding files can be found in the <xref
         linkend="users-guide-wsdl-customization"
         xrefstyle="select:title" />.</para>
     </section>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,13 +22,11 @@ import com.sun.xml.ws.api.WSBinding;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.message.Message;
 import com.sun.xml.ws.api.message.Messages;
-import com.sun.xml.ws.encoding.soap.SOAP12Constants;
-import com.sun.xml.ws.encoding.soap.SOAPConstants;
 import java.util.List;
 import java.util.logging.Level;
 import javax.xml.namespace.QName;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.handler.Handler;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.handler.Handler;
 
 /**
  *
@@ -58,7 +56,8 @@ final class SOAPHandlerProcessor<C extends MessageUpdatableContext> extends Hand
      * something else will need to be passed to the method
      * to determine whether the fault code is client or server.
      */
-    final void insertFaultMessage(C context,
+    @Override
+    void insertFaultMessage(C context,
         ProtocolException exception) {
         try {
             if(!context.getPacketMessage().isFault()) {

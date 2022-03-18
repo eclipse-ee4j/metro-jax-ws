@@ -13,15 +13,15 @@ package fromwsdl.doclit_fault.client;
 import client.common.client.DispatchTestCase;
 import testutil.ClientServerTestUtil;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.Source;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.SOAPBinding;
 import java.io.File;
 
 /**
@@ -135,7 +135,7 @@ public class DispatchTestApp extends DispatchTestCase {
     private static JAXBContext createJAXBContext() {
         try {
             return JAXBContext.newInstance(fromwsdl.doclit_fault.client.ObjectFactory.class);
-        } catch (javax.xml.bind.JAXBException e) {
+        } catch (jakarta.xml.bind.JAXBException e) {
             throw new WebServiceException(e.getMessage(), e);
         }
     }

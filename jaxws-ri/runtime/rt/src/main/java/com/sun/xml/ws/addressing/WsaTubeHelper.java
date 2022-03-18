@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,13 +31,13 @@ import com.sun.istack.Nullable;
 import org.w3c.dom.Element;
 
 import javax.xml.namespace.QName;
-import javax.xml.soap.Detail;
-import javax.xml.soap.SOAPConstants;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPFactory;
-import javax.xml.soap.SOAPFault;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.soap.Detail;
+import jakarta.xml.soap.SOAPConstants;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPFactory;
+import jakarta.xml.soap.SOAPFault;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * @author Rama Pulavarthi
@@ -185,7 +185,6 @@ public abstract class WsaTubeHelper {
      * This method gives the Input addressing Action for a message.
      * It gives the Action set in the wsdl operation for the corresponding payload.
      * If it is not explicitly set, it gives the soapAction
-     * @param packet
      * @return input Action
      */
     public String getEffectiveInputAction(Packet packet) {

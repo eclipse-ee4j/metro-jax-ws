@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import javax.xml.ws.spi.WebServiceFeatureAnnotation;
+import jakarta.xml.ws.spi.WebServiceFeatureAnnotation;
 
 /**
  * This feature represents the use of WS-Addressing with either
@@ -81,7 +81,7 @@ public @interface MemberSubmissionAddressing {
      *
      * If Validation.LAX, then some WS-Adressing headers are not strictly checked.
      */
-    public enum Validation { LAX, STRICT }
+    enum Validation { LAX, STRICT }
 
     Validation validation() default Validation.LAX;                   
 

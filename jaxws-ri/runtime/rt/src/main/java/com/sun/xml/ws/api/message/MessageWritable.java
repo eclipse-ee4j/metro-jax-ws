@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@ package com.sun.xml.ws.api.message;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.xml.ws.soap.MTOMFeature;
+import jakarta.xml.ws.soap.MTOMFeature;
 
 import com.oracle.webservices.api.message.ContentType;
 
@@ -34,7 +34,7 @@ public interface MessageWritable {
 
     /**
      * Writes the XML infoset portion of this MessageContext
-     * (from &lt;soap:Envelope> to &lt;/soap:Envelope>).
+     * (from &lt;soap:Envelope&gt; to &lt;/soap:Envelope&gt;).
      *
      * @param out
      *      Must not be null. The caller is responsible for closing the stream,
@@ -51,7 +51,7 @@ public interface MessageWritable {
 
     /**
      * Passes configuration information to this message to ensure the proper
-     * wire format is created. (from &lt;soap:Envelope> to &lt;/soap:Envelope>).
+     * wire format is created. (from &lt;soap:Envelope&gt; to &lt;/soap:Envelope&gt;).
      * 
      * @param mtomFeature
      *            The standard <code>WebServicesFeature</code> for specifying

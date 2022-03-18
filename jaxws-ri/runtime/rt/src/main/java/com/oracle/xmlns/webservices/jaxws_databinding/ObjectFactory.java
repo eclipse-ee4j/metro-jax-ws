@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,9 +9,9 @@
  */
 
 package com.oracle.xmlns.webservices.jaxws_databinding;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlElementDecl;
-import javax.xml.bind.annotation.XmlRegistry;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.XmlElementDecl;
+import jakarta.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
 
 
@@ -247,7 +247,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://xmlns.oracle.com/webservices/jaxws-databinding", name = "java-wsdl-mapping")
     public JAXBElement<JavaWsdlMappingType> createJavaWsdlMapping(JavaWsdlMappingType value) {
-        return new JAXBElement<JavaWsdlMappingType>(_JavaWsdlMapping_QNAME, JavaWsdlMappingType.class, null, value);
+        return new JAXBElement<>(_JavaWsdlMapping_QNAME, JavaWsdlMappingType.class, null, value);
     }
 
 }

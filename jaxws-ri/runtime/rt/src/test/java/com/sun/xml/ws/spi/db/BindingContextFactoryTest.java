@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2015, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,11 +13,11 @@ package com.sun.xml.ws.spi.db;
 import com.sun.istack.NotNull;
 import junit.framework.TestCase;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.SchemaOutputResolver;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.Unmarshaller;
 import javax.xml.namespace.QName;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -114,7 +114,7 @@ public class BindingContextFactoryTest extends TestCase {
         }
 
         @Override
-        public Object newWrapperInstace(Class<?> wrapperType) throws InstantiationException, IllegalAccessException {
+        public Object newWrapperInstace(Class<?> wrapperType) throws ReflectiveOperationException {
             return null;
         }
 
@@ -212,7 +212,7 @@ public class BindingContextFactoryTest extends TestCase {
 
         @Override
         protected boolean isFor(String s) {
-            return "com.sun.xml.bind.v2.runtime".equals(s);
+            return "org.glassfish.jaxb.runtime.v2.runtime".equals(s);
         }
     }
 
@@ -256,7 +256,7 @@ public class BindingContextFactoryTest extends TestCase {
 
         @Override
         protected boolean isFor(String s) {
-            return "com.sun.xml.bind.v2.runtime".equals(s);
+            return "org.glassfish.jaxb.runtime.v2.runtime".equals(s);
         }
     }
 

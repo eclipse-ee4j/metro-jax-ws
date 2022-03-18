@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,7 @@ package com.sun.xml.ws.api;
 
 import com.sun.xml.ws.binding.WebServiceFeatureList;
 
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceFeature;
 import java.lang.annotation.Annotation;
 
 /**
@@ -25,7 +25,7 @@ public class WebServiceFeatureFactory {
 
     /**
      * Returns a feature list for feature annotations(i.e which have
-     * {@link javax.xml.ws.spi.WebServiceFeatureAnnotation} meta annotation)
+     * {@link jakarta.xml.ws.spi.WebServiceFeatureAnnotation} meta annotation)
      *
      * @param ann list of annotations(that can also have non-feature annotations)
      * @return non-null feature list object
@@ -38,7 +38,7 @@ public class WebServiceFeatureFactory {
 
     /**
      * Returns a corresponding feature for a feature annotation(i.e which has
-     * {@link javax.xml.ws.spi.WebServiceFeatureAnnotation} meta annotation)
+     * {@link jakarta.xml.ws.spi.WebServiceFeatureAnnotation} meta annotation)
      *
      * @param ann any annotation, not required to be a feature annotation
      * @return corresponding feature for the annotation

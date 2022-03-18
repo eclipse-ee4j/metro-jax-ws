@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2008, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,15 +10,10 @@
 
 package com.sun.xml.ws.model;
 
-import java.lang.reflect.Field;
-import javax.xml.ws.WebServiceException;
-import java.lang.reflect.InvocationTargetException;
+import jakarta.xml.ws.WebServiceException;
 import java.lang.reflect.Method;
-import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.security.PrivilegedActionException;
-import java.security.PrivilegedExceptionAction;
 import java.security.ProtectionDomain;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,77 +29,22 @@ final class Injector {
     private static final Logger LOGGER = Logger.getLogger(Injector.class.getName());
 
     private static Method defineClass;
-    private static Method resolveClass;
-    private static Method getPackage;
-    private static Method definePackage;
-    private static Object U;
 
     static {
         try {
-            Method[] m = AccessController.doPrivileged(
-                    new PrivilegedAction<Method[]>() {
-                @Override
-                public Method[] run() {
-                    return new Method[]{
-                        getMethod(ClassLoader.class, "defineClass", String.class, byte[].class, Integer.TYPE, Integer.TYPE),
-                        getMethod(ClassLoader.class, "resolveClass", Class.class),
-                        getMethod(ClassLoader.class, "getPackage", String.class),
-                        getMethod(ClassLoader.class, "definePackage",
-                            String.class, String.class, String.class, String.class,
-                            String.class, String.class, String.class, URL.class)
-                    };
-                }
-            }
-            );
-            defineClass = m[0];
-            resolveClass = m[1];
-            getPackage = m[2];
-            definePackage = m[3];
+            defineClass = AccessController.doPrivileged(
+                    new PrivilegedAction<>() {
+                        @Override
+                        public Method run() {
+                            return InjectorHelper.getMethod(ClassLoader.class, "defineClass",
+                                    String.class, byte[].class, Integer.TYPE, Integer.TYPE, ProtectionDomain.class);
+                        }
+                    });
 
         } catch (Throwable t) {
-            try {
-                U = AccessController.doPrivileged(new PrivilegedExceptionAction() {
-                    @Override
-                    public Object run() throws Exception {
-                        Class u = Class.forName("jdk.internal.misc.Unsafe");
-                        Field theUnsafe = u.getDeclaredField("theUnsafe");
-                        theUnsafe.setAccessible(true);
-                        return theUnsafe.get(null);
-                    }
-                });
-                defineClass = AccessController.doPrivileged(new PrivilegedExceptionAction<Method>() {
-                    @Override
-                    public Method run() throws Exception {
-                        try {
-                            return U.getClass().getMethod("defineClass",
-                                    new Class[]{String.class,
-                                        byte[].class,
-                                        Integer.TYPE,
-                                        Integer.TYPE,
-                                        ClassLoader.class,
-                                        ProtectionDomain.class});
-                        } catch (NoSuchMethodException | SecurityException ex) {
-                            throw ex;
-                        }
-                    }
-                });
-            } catch (SecurityException | PrivilegedActionException ex) {
-                Logger.getLogger(Injector.class.getName()).log(Level.SEVERE, null, ex);
-                WebServiceException we = new WebServiceException(ex);
-                we.addSuppressed(t);
-                throw we;
-            }
-        }
-    }
-
-    private static Method getMethod(final Class<?> c, final String methodname, final Class<?>... params) {
-        try {
-            Method m = c.getDeclaredMethod(methodname, params);
-            m.setAccessible(true);
-            return m;
-        } catch (NoSuchMethodException e) {
-            // impossible
-            throw new NoSuchMethodError(e.getMessage());
+            Logger.getLogger(Injector.class.getName()).log(Level.SEVERE, null, t);
+            WebServiceException we = new WebServiceException(t);
+            throw we;
         }
     }
 
@@ -117,23 +57,9 @@ final class Injector {
             // nothing to do
         }
         try {
-            if (definePackage == null) {
-                return (Class) defineClass.invoke(U, className.replace('/', '.'), image, 0, image.length, cl, Injector.class.getProtectionDomain());
-            }
-            int packIndex = className.lastIndexOf('.');
-            if (packIndex != -1) {
-                String pkgname = className.substring(0, packIndex);
-                // Check if package already loaded.
-                Package pkg = (Package) getPackage.invoke(cl, pkgname);
-                if (pkg == null) {
-                    definePackage.invoke(cl, pkgname, null, null, null, null, null, null, null);
-                }
-            }
-
-            Class c = (Class) defineClass.invoke(cl, className.replace('/', '.'), image, 0, image.length);
-            resolveClass.invoke(cl, c);
-            return c;
-        } catch (IllegalAccessException | InvocationTargetException e) {
+                return (Class) defineClass.invoke(cl,
+                        className.replace('/', '.'), image, 0, image.length, Injector.class.getProtectionDomain());
+        } catch (ReflectiveOperationException e) {
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.log(Level.FINE, "Unable to inject " + className, e);
             }
@@ -142,4 +68,3 @@ final class Injector {
     }
 
 }
-

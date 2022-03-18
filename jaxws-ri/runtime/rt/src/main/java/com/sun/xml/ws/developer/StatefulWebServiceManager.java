@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,13 +17,13 @@ import com.sun.xml.ws.api.pipe.Tube;
 import com.sun.xml.ws.api.server.AsyncProvider;
 import com.sun.xml.ws.api.server.AsyncProviderCallback;
 
-import javax.annotation.Resource;
-import javax.jws.WebMethod;
-import javax.jws.WebService;
-import javax.xml.ws.EndpointReference;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.annotation.Resource;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.EndpointReference;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 
 /**
  * Stateful web service support in the JAX-WS RI.
@@ -181,7 +181,8 @@ public interface StatefulWebServiceManager<T> {
      * processing is synchronous, and that's why this parameter is only needed for
      * asynchronous web services.)
      *
-     * <h3>Why {@link WebServiceContext} is needed?</h3>
+     * <p>
+     * <strong>Why {@link WebServiceContext} is needed?</strong>
      * <p>
      * The obtained EPR contains address, such as host name. The server does not
      * know what its own host name is (or there are more than one of them),

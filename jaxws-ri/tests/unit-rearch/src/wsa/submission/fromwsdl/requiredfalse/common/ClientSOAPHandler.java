@@ -12,7 +12,7 @@ package wsa.submission.fromwsdl.requiredfalse.common;
 
 import javax.xml.namespace.QName;
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import testutil.WsaBaseSOAPHandler;
 import testutil.MemberSubmissionAddressingConstants;
 

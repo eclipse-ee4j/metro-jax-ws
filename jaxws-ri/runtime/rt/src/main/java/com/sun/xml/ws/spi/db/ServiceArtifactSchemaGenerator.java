@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,8 +10,6 @@
 
 package com.sun.xml.ws.spi.db;
 
-import static com.sun.xml.ws.model.RuntimeModeler.DocWrappeeNamespapceQualified;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map.Entry;
@@ -20,19 +18,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.sun.xml.ws.wsdl.writer.WSDLGenerator.XsdNs;
-
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.SchemaOutputResolver;
+import com.sun.xml.ws.model.RuntimeModeler;
+import com.sun.xml.ws.wsdl.writer.WSDLGenerator;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.SchemaOutputResolver;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
-import com.sun.xml.bind.v2.schemagen.xmlschema.ComplexType;
-import com.sun.xml.bind.v2.schemagen.xmlschema.Element;
-import com.sun.xml.bind.v2.schemagen.xmlschema.ExplicitGroup;
-import com.sun.xml.bind.v2.schemagen.xmlschema.LocalElement;
-import com.sun.xml.bind.v2.schemagen.xmlschema.Occurs;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.ComplexType;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.Element;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.ExplicitGroup;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.LocalElement;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.Occurs;
 import com.sun.xml.txw2.TXW;
 import com.sun.xml.txw2.output.ResultFactory;
 import com.sun.xml.ws.api.model.SEIModel;
@@ -71,19 +69,19 @@ public class ServiceArtifactSchemaGenerator {
     
     public void generate(SchemaOutputResolver resolver) {
         xsdResolver = resolver;
-        List<WrapperParameter> wrappers = new ArrayList<WrapperParameter>();
+        List<WrapperParameter> wrappers = new ArrayList<>();
         for (JavaMethodImpl method : model.getJavaMethods()) {
             if(method.getBinding().isRpcLit()) continue; 
             for (ParameterImpl p : method.getRequestParameters()) {
                 if (p instanceof WrapperParameter) {
-                    if (WrapperComposite.class.equals((((WrapperParameter)p).getTypeInfo().type))) {
+                    if (WrapperComposite.class.equals((p.getTypeInfo().type))) {
                         wrappers.add((WrapperParameter)p);
                     }
                 }
             }
             for (ParameterImpl p : method.getResponseParameters()) {
                 if (p instanceof WrapperParameter) {
-                    if (WrapperComposite.class.equals((((WrapperParameter)p).getTypeInfo().type))) {
+                    if (WrapperComposite.class.equals((p.getTypeInfo().type))) {
                         wrappers.add((WrapperParameter)p);
                     }
                 }
@@ -125,7 +123,7 @@ public class ServiceArtifactSchemaGenerator {
     }
     
     protected Occurs addChild(ExplicitGroup sq, QName name, TypeInfo typeInfo) {
-        LocalElement le = null;;
+        LocalElement le = null;
         QName type = model.getBindingContext().getTypeName(typeInfo); 
         if (type != null) {
             le = sq.element();
@@ -135,7 +133,7 @@ public class ServiceArtifactSchemaGenerator {
             if (typeInfo.type instanceof Class) {
                 try {
                     QName elemName = model.getBindingContext().getElementName((Class)typeInfo.type);
-                    if (elemName.getLocalPart().equals("any") && elemName.getNamespaceURI().equals(XsdNs)) {
+                    if (elemName.getLocalPart().equals("any") && elemName.getNamespaceURI().equals(WSDLGenerator.XsdNs)) {
                         return sq.any();
                     } else {
                         le = sq.element();
@@ -151,10 +149,10 @@ public class ServiceArtifactSchemaGenerator {
     
     //All the imports have to go first ...
     private HashMap<String, Schema> initWrappersSchemaWithImports(List<WrapperParameter> wrappers) {
-        Object o = model.databindingInfo().properties().get(DocWrappeeNamespapceQualified);
-        boolean wrappeeQualified = (o!= null && o instanceof Boolean) ? ((Boolean) o) : false;
-        HashMap<String, Schema> xsds = new HashMap<String, Schema>(); 
-        HashMap<String, Set<String>> imports = new HashMap<String, Set<String>>(); 
+        Object o = model.databindingInfo().properties().get(RuntimeModeler.DocWrappeeNamespapceQualified);
+        boolean wrappeeQualified = (o instanceof Boolean) ? ((Boolean) o) : false;
+        HashMap<String, Schema> xsds = new HashMap<>();
+        HashMap<String, Set<String>> imports = new HashMap<>();
         for(WrapperParameter wp : wrappers) {
             String tns = wp.getName().getNamespaceURI();
             Schema xsd = xsds.get(tns);
@@ -167,11 +165,7 @@ public class ServiceArtifactSchemaGenerator {
             for (ParameterImpl p : wp.getWrapperChildren() ) {
                 String nsToImport = (p.getBinding().isBody())? bodyParamNS(p): null;
                 if (nsToImport != null && !nsToImport.equals(tns) && !nsToImport.equals("http://www.w3.org/2001/XMLSchema")) {
-                    Set<String> importSet = imports.get(tns);
-                    if (importSet == null) {
-                        importSet = new HashSet<String>();
-                        imports.put(tns, importSet);
-                    }
+                    Set<String> importSet = imports.computeIfAbsent(tns, k -> new HashSet<>());
                     importSet.add(nsToImport);
                 }
             }

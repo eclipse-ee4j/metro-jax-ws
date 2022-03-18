@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,10 +14,10 @@ import com.sun.istack.tools.ProtectedTask;
 import com.sun.tools.ws.Invoker;
 import com.sun.tools.ws.wscompile.Options;
 import com.sun.tools.ws.resources.WscompileMessages;
-import com.sun.xml.bind.util.Which;
+import org.glassfish.jaxb.core.util.Which;
 import org.apache.tools.ant.BuildException;
 
-import javax.xml.ws.Service;
+import jakarta.xml.ws.Service;
 import java.io.IOException;
 
 /**
@@ -34,6 +34,7 @@ public abstract class WrapperTask extends ProtectedTask {
      */
     private boolean doEndorsedMagic = false;
 
+    @Override
     protected String getCoreClassName() {
         return getClass().getName()+'2';
     }
@@ -47,10 +48,11 @@ public abstract class WrapperTask extends ProtectedTask {
         if(name.equals("target"))
             targetVersionAttribute = value;
         else if(name.equals("xendorsed"))
-            this.doEndorsedMagic = Boolean.valueOf(value);
+            this.doEndorsedMagic = Boolean.parseBoolean(value);
 
     }
 
+    @Override
     protected ClassLoader createClassLoader() throws ClassNotFoundException, IOException {
         ClassLoader cl = getClass().getClassLoader();
         if (doEndorsedMagic) {

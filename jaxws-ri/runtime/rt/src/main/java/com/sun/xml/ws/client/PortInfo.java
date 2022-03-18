@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,7 @@ import com.sun.xml.ws.policy.PolicyMap;
 import com.sun.xml.ws.policy.jaxws.PolicyUtil;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceFeature;
 
 /**
  * Information about a port.
@@ -72,6 +72,7 @@ public class PortInfo implements WSPortInfo {
         this.policyMap = createPolicyMap();
     }
 
+    @Override
     public PolicyMap getPolicyMap() {
         return policyMap;
     }
@@ -150,21 +151,25 @@ public class PortInfo implements WSPortInfo {
 // implementation of API PortInfo interface
 //
 
+    @Override
     @Nullable
     public WSDLPort getPort() {
         return portModel;
     }
 
+    @Override
     @NotNull
     public WSService getOwner() {
         return owner;
     }
 
+    @Override
     @NotNull
     public BindingID getBindingId() {
         return bindingId;
     }
 
+    @Override
     @NotNull
     public EndpointAddress getEndpointAddress() {
         return targetEndpoint;
@@ -172,26 +177,29 @@ public class PortInfo implements WSPortInfo {
 
     /**
      * @deprecated
-     *      Only meant to be used via {@link javax.xml.ws.handler.PortInfo}.
+     *      Only meant to be used via {@link jakarta.xml.ws.handler.PortInfo}.
      *      Use {@link WSServiceDelegate#getServiceName()}.
      */
+    @Override
     public QName getServiceName() {
         return owner.getServiceName();
     }
 
     /**
-     *      Only meant to be used via {@link javax.xml.ws.handler.PortInfo}.
+     *      Only meant to be used via {@link jakarta.xml.ws.handler.PortInfo}.
      *      Use {@link #portName}.
      */
+    @Override
     public QName getPortName() {
         return portName;
     }
 
     /**
      * @deprecated
-     *      Only meant to be used via {@link javax.xml.ws.handler.PortInfo}.
+     *      Only meant to be used via {@link jakarta.xml.ws.handler.PortInfo}.
      *      Use {@link #bindingId}.
      */
+    @Override
     public String getBindingID() {
         return bindingId.toString();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,15 +23,15 @@ public interface BodyType
 
 
     @XmlAttribute
-    public com.sun.xml.ws.wsdl.writer.document.soap.BodyType encodingStyle(String value);
+    com.sun.xml.ws.wsdl.writer.document.soap.BodyType encodingStyle(String value);
 
     @XmlAttribute
-    public com.sun.xml.ws.wsdl.writer.document.soap.BodyType namespace(String value);
+    com.sun.xml.ws.wsdl.writer.document.soap.BodyType namespace(String value);
 
     @XmlAttribute
-    public com.sun.xml.ws.wsdl.writer.document.soap.BodyType use(String value);
+    com.sun.xml.ws.wsdl.writer.document.soap.BodyType use(String value);
 
     @XmlAttribute
-    public com.sun.xml.ws.wsdl.writer.document.soap.BodyType parts(String value);
+    com.sun.xml.ws.wsdl.writer.document.soap.BodyType parts(String value);
 
 }

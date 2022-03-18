@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,12 +12,11 @@ package com.sun.xml.ws.developer;
 
 import com.sun.xml.ws.server.DraconianValidationErrorHandler;
 
-import javax.jws.WebService;
-import javax.xml.ws.spi.WebServiceFeatureAnnotation;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.spi.WebServiceFeatureAnnotation;
 import java.lang.annotation.Documented;
-import static java.lang.annotation.ElementType.TYPE;
 import java.lang.annotation.Retention;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 
@@ -42,8 +41,8 @@ import java.lang.annotation.ElementType;
  * @author Jitendra Kotamraju
  * @see SchemaValidationFeature
  */
-@Retention(RUNTIME)
-@Target({TYPE, ElementType.METHOD, ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
 @Documented
 @WebServiceFeatureAnnotation(id = SchemaValidationFeature.ID, bean = SchemaValidationFeature.class)
 public @interface SchemaValidation {
@@ -71,20 +70,20 @@ public @interface SchemaValidation {
      */
     boolean outbound() default true;
 
-    /**
-     * Does validation for bound headers in a SOAP message.
-     *
+    /*
+      Does validation for bound headers in a SOAP message.
+
     boolean headers() default false;
      */
 
-    /**
-     * Additional schema documents that are used to create {@link Schema} object. Useful
-     * when the application adds additional SOAP headers to the message. This is a list
-     * of system-ids, that are used to create {@link Source} objects and used in creation
-     * of {@link Schema} object
-     *
-     * for e.g.:
-     * @SchemaValidation(schemaLocations={"http://bar.foo/b.xsd", "http://foo.bar/a.xsd"}
+    /*
+      Additional schema documents that are used to create {@link Schema} object. Useful
+      when the application adds additional SOAP headers to the message. This is a list
+      of system-ids, that are used to create {@link Source} objects and used in creation
+      of {@link Schema} object
+
+      for e.g.:
+      @SchemaValidation(schemaLocations={"http://bar.foo/b.xsd", "http://foo.bar/a.xsd"}
      *
     String[] schemaLocations() default {};
      */

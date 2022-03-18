@@ -18,9 +18,9 @@
 
 package whitebox.message.saaj.types;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlElementDecl;
-import javax.xml.bind.annotation.XmlRegistry;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.XmlElementDecl;
+import jakarta.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
 import whitebox.message.saaj.types.ObjectFactory;
 import whitebox.message.saaj.types.ValueType;

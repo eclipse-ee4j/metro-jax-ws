@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@ package com.sun.xml.ws.developer;
 import com.sun.xml.ws.api.FeatureConstructor;
 import com.sun.istack.Nullable;
 
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceFeature;
 
 import org.jvnet.mimepull.MIMEConfig;
 
@@ -60,6 +60,7 @@ public final class StreamingAttachmentFeature extends WebServiceFeature {
         this.memoryThreshold = memoryThreshold;
     }
 
+    @Override
     @ManagedAttribute
     public String getID() {
         return ID;
@@ -69,7 +70,6 @@ public final class StreamingAttachmentFeature extends WebServiceFeature {
      * Returns the configuration object. Once this is called, you cannot
      * change the configuration.
      *
-     * @return
      */
     @ManagedAttribute
     public MIMEConfig getConfig() {

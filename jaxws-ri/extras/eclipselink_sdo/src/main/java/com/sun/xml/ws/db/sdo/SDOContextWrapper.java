@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,11 +19,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.SchemaOutputResolver;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.Unmarshaller;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -81,7 +81,7 @@ public final class SDOContextWrapper implements BindingContext {
     public SDOContextWrapper(BindingInfo bi) {
         this.properties = bi.properties();
         bindingInfo = bi;
-        wrapperAccessors = new HashMap<Class<?>, SDOWrapperAccessor>();
+        wrapperAccessors = new HashMap<>();
         contextResolver = (HelperContextResolver) properties.get(SDO_HELPER_CONTEXT_RESOLVER);
         if (contextResolver == null) {
             defaultContext = SDOHelperContext.getHelperContext();
@@ -110,7 +110,7 @@ public final class SDOContextWrapper implements BindingContext {
     }
 
     public void config(Set<SchemaInfo> schemas) {
-        List<Source> list = new ArrayList<Source>();
+        List<Source> list = new ArrayList<>();
         if (schemas == null) {
             return;
         }
@@ -129,7 +129,7 @@ public final class SDOContextWrapper implements BindingContext {
     }
 
     @Override
-    public Object newWrapperInstace(Class<?> wrapperType) {
+    public Object newWrapperInstace(Class<?> wrapperType) throws ReflectiveOperationException {
         return getHelperContext().getDataFactory()
                 .create(wrapperType);
     }
@@ -143,7 +143,7 @@ public final class SDOContextWrapper implements BindingContext {
     }
     
     public void init(Iterator<Source> i) {
-        schemas = new ArrayList<Source>();
+        schemas = new ArrayList<>();
         while (i.hasNext()) {
             Source src = i.next();
             schemas.add(src);
@@ -218,7 +218,7 @@ public final class SDOContextWrapper implements BindingContext {
     @Override
     public List<String> getKnownNamespaceURIs() {
         // TODO
-        return new ArrayList<String>();
+        return new ArrayList<>();
     }
 
     @Override

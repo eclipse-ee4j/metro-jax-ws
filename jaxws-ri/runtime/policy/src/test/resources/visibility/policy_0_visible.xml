@@ -1,0 +1,29 @@
+<!--
+
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<wsp:Policy 
+  xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+  xmlns:policy="http://java.sun.com/xml/ns/wsit/policy" 
+  xmlns:t1="http://schemas.foo.com/goo/t1"
+  xmlns:t2="http://schemas.foo.com/goo/t2"
+  xmlns:t3="http://schemas.foo.com/goo/t3"
+  xmlns:t4="http://schemas.foo.com/goo/t4">
+  
+  <t1:Assertion policy:visibility="private"/>
+  <t2:Assertion policy:visibility="private" a="value"/>
+  <t3:Assertion policy:visibility="private" a1="value1" a2="value2">content</t3:Assertion>
+  <t4:Assertion policy:visibility="private">
+    100
+  </t4:Assertion>
+  
+</wsp:Policy>
+

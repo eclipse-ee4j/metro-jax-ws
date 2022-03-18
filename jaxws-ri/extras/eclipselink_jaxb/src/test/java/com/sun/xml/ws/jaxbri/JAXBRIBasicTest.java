@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -7,10 +7,9 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
-
 package com.sun.xml.ws.jaxbri;
 
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceFeature;
 
 import com.oracle.webservices.api.databinding.DatabindingModeFeature;
 
@@ -25,27 +24,27 @@ import com.sun.xml.ws.test.HelloPort;
 
 /**
  * JAXBRIBasicTest
- * 
+ *
  * @author shih-chang.chen@oracle.com
  */
-public class JAXBRIBasicTest extends BasicDatabindingTestBase  {
-	
-	protected DatabindingModeFeature databindingMode() {
-		return new DatabindingModeFeature(DatabindingModeFeature.GLASSFISH_JAXB); 
-	}
-	
-	public void testHelloEcho() throws Exception {
-	    String wrapperName = _testHelloEcho();
+public class JAXBRIBasicTest extends BasicDatabindingTestBase {
+
+    protected DatabindingModeFeature databindingMode() {
+        return new DatabindingModeFeature(DatabindingModeFeature.GLASSFISH_JAXB);
+    }
+
+    public void testHelloEcho() throws Exception {
+        String wrapperName = _testHelloEcho();
         assertTrue(wrapperName != null && wrapperName.endsWith("JAXBRIContextWrapper"));
-	}
-	
-	public void testHelloEchoNoMode() throws Exception {
+    }
+
+    public void testHelloEchoNoMode() throws Exception {
         Class endpointClass = HelloImpl.class;
         Class proxySEIClass = HelloPort.class;
         DatabindingConfig srvConfig = new DatabindingConfig();
         srvConfig.setEndpointClass(endpointClass);
         srvConfig.setMetadataReader(new DummyAnnotations());
-        WebServiceFeature[] f = {  };
+        WebServiceFeature[] f = {};
         srvConfig.setFeatures(f);
 
         DatabindingConfig cliConfig = new DatabindingConfig();
@@ -59,23 +58,23 @@ public class JAXBRIBasicTest extends BasicDatabindingTestBase  {
         assertEquals(req, res);
         String wrapperName = srvConfig.properties().get(
                 BindingContext.class.getName()).getClass().getName();
-        assertTrue(wrapperName != null && wrapperName.endsWith("JAXBRIContextWrapper"));
+        assertTrue("Wrapper: " + wrapperName, wrapperName != null && wrapperName.endsWith("JAXBRIContextWrapper"));
     }
-	
-	public void testHelloEchoInvalidDB() throws Exception {
+
+    public void testHelloEchoInvalidDB() throws Exception {
         Class endpointClass = HelloImpl.class;
         Class proxySEIClass = HelloPort.class;
         DatabindingConfig srvConfig = new DatabindingConfig();
         srvConfig.setEndpointClass(endpointClass);
         srvConfig.setMetadataReader(new DummyAnnotations());
-        WebServiceFeature[] f = { new DatabindingModeFeature("invalid.db") };
+        WebServiceFeature[] f = {new DatabindingModeFeature("invalid.db")};
         srvConfig.setFeatures(f);
 
         DatabindingConfig cliConfig = new DatabindingConfig();
         cliConfig.setMetadataReader(new DummyAnnotations());
         cliConfig.setContractClass(proxySEIClass);
         cliConfig.setFeatures(f);
-        
+
         try {
             HelloPort hp = createProxy(HelloPort.class, srvConfig, cliConfig, false);
             fail("Expected DatabindingException not thrown");
@@ -84,4 +83,3 @@ public class JAXBRIBasicTest extends BasicDatabindingTestBase  {
         }
     }
 }
-

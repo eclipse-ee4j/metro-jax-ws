@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2006, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -173,7 +173,7 @@ final class HttpCookie implements Cloneable {
         }
 
 
-        List<HttpCookie> cookies = new java.util.ArrayList<HttpCookie>();
+        List<HttpCookie> cookies = new java.util.ArrayList<>();
         // The Netscape cookie may have a comma in its expires attribute,
         // while the comma is the delimiter in rfc 2965/2109 cookie header string.
         // so the parse logic is slightly different
@@ -218,10 +218,7 @@ final class HttpCookie implements Cloneable {
         if (maxAge == MAX_AGE_UNSPECIFIED) return false;
 
         long deltaSecond = (System.currentTimeMillis() - whenCreated) / 1000;
-        if (deltaSecond > maxAge)
-            return true;
-        else
-            return false;
+        return deltaSecond > maxAge;
     }
 
     /**
@@ -824,6 +821,7 @@ final class HttpCookie implements Cloneable {
      *
      * @return          a clone of this http cookie
      */
+    @Override
     public Object clone() {
         try {
             return super.clone();
@@ -870,23 +868,18 @@ final class HttpCookie implements Cloneable {
      *                  specification, <code>false</code> if it is not
      */
     private static boolean isReserved(String name) {
-        if (name.equalsIgnoreCase("Comment")
-            || name.equalsIgnoreCase("CommentURL")      // rfc2965 only
-            || name.equalsIgnoreCase("Discard")         // rfc2965 only
-            || name.equalsIgnoreCase("Domain")
-            || name.equalsIgnoreCase("Expires")         // netscape draft only
-            || name.equalsIgnoreCase("Max-Age")
-            || name.equalsIgnoreCase("Path")
-            || name.equalsIgnoreCase("Port")            // rfc2965 only
-            || name.equalsIgnoreCase("Secure")
-            || name.equalsIgnoreCase("Version")
-            || name.equalsIgnoreCase("HttpOnly")
-            || name.charAt(0) == '$')
-        {
-            return true;
-        }
-
-        return false;
+        return name.equalsIgnoreCase("Comment")
+                || name.equalsIgnoreCase("CommentURL")      // rfc2965 only
+                || name.equalsIgnoreCase("Discard")         // rfc2965 only
+                || name.equalsIgnoreCase("Domain")
+                || name.equalsIgnoreCase("Expires")         // netscape draft only
+                || name.equalsIgnoreCase("Max-Age")
+                || name.equalsIgnoreCase("Path")
+                || name.equalsIgnoreCase("Port")            // rfc2965 only
+                || name.equalsIgnoreCase("Secure")
+                || name.equalsIgnoreCase("Version")
+                || name.equalsIgnoreCase("HttpOnly")
+                || name.charAt(0) == '$';
     }
 
 
@@ -949,33 +942,38 @@ final class HttpCookie implements Cloneable {
      * assign cookie attribute value to attribute name;
      * use a map to simulate method dispatch
      */
-    static interface CookieAttributeAssignor {
-            public void assign(HttpCookie cookie, String attrName, String attrValue);
+    interface CookieAttributeAssignor {
+            void assign(HttpCookie cookie, String attrName, String attrValue);
     }
     static java.util.Map<String, CookieAttributeAssignor> assignors = null;
     static {
-        assignors = new java.util.HashMap<String, CookieAttributeAssignor>();
+        assignors = new java.util.HashMap<>();
         assignors.put("comment", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     if (cookie.getComment() == null) cookie.setComment(attrValue);
                 }
             });
         assignors.put("commenturl", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     if (cookie.getCommentURL() == null) cookie.setCommentURL(attrValue);
                 }
             });
         assignors.put("discard", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     cookie.setDiscard(true);
                 }
             });
         assignors.put("domain", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     if (cookie.getDomain() == null) cookie.setDomain(attrValue);
                 }
             });
         assignors.put("max-age", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     try {
                         long maxage = Long.parseLong(attrValue);
@@ -986,26 +984,31 @@ final class HttpCookie implements Cloneable {
                 }
             });
         assignors.put("path", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     if (cookie.getPath() == null) cookie.setPath(attrValue);
                 }
             });
         assignors.put("port", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     if (cookie.getPortlist() == null) cookie.setPortlist(attrValue == null ? "" : attrValue);
                 }
             });
         assignors.put("secure", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     cookie.setSecure(true);
                 }
             });
         assignors.put("httponly", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     cookie.setHttpOnly(true);
                 }
             });
         assignors.put("version", new CookieAttributeAssignor(){
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     try {
                         int version = Integer.parseInt(attrValue);
@@ -1016,6 +1019,7 @@ final class HttpCookie implements Cloneable {
                 }
             });
         assignors.put("expires", new CookieAttributeAssignor(){ // Netscape only
+                @Override
                 public void assign(HttpCookie cookie, String attrName, String attrValue) {
                     if (cookie.getMaxAge() == MAX_AGE_UNSPECIFIED) {
                         cookie.setMaxAge(cookie.expiryDate2DeltaSeconds(attrValue));
@@ -1107,13 +1111,13 @@ final class HttpCookie implements Cloneable {
         int version = 0;
 
         header = header.toLowerCase();
-        if (header.indexOf("expires=") != -1) {
+        if (header.contains("expires=")) {
             // only netscape cookie using 'expires'
             version = 0;
-        } else if (header.indexOf("version=") != -1) {
+        } else if (header.contains("version=")) {
             // version is mandatory for rfc 2965/2109 cookie
             version = 1;
-        } else if (header.indexOf("max-age") != -1) {
+        } else if (header.contains("max-age")) {
             // rfc 2965/2109 use 'max-age'
             version = 1;
         } else if (startsWithIgnoreCase(header, SET_COOKIE2)) {
@@ -1152,12 +1156,8 @@ final class HttpCookie implements Cloneable {
     private static boolean startsWithIgnoreCase(String s, String start) {
         if (s == null || start == null) return false;
 
-        if (s.length() >= start.length() &&
-                start.equalsIgnoreCase(s.substring(0, start.length()))) {
-            return true;
-        }
-
-        return false;
+        return s.length() >= start.length() &&
+                start.equalsIgnoreCase(s.substring(0, start.length()));
     }
 
     /*
@@ -1172,7 +1172,7 @@ final class HttpCookie implements Cloneable {
      *
      */
     private static List<String> splitMultiCookies(String header) {
-        List<String> cookies = new java.util.ArrayList<String>();
+        List<String> cookies = new java.util.ArrayList<>();
         int quoteCount = 0;
         int p, q;
 

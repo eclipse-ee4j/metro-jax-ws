@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,14 +16,14 @@ import com.sun.xml.ws.api.server.AsyncProvider;
 import com.sun.xml.ws.resources.ServerMessages;
 import com.sun.xml.ws.spi.db.BindingHelper;
 
-import javax.activation.DataSource;
-import javax.xml.soap.SOAPMessage;
+import jakarta.activation.DataSource;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.Source;
-import javax.xml.ws.Provider;
-import javax.xml.ws.Service;
-import javax.xml.ws.ServiceMode;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.Provider;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.ServiceMode;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.SOAPBinding;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -67,7 +67,7 @@ final class ProviderEndpointModel<T> {
         isAsync = AsyncProvider.class.isAssignableFrom(implementorClass);
 
 
-        Class<? extends Object> baseType = isAsync ? AsyncProvider.class : Provider.class;
+        Class<?> baseType = isAsync ? AsyncProvider.class : Provider.class;
         Type baseParam = BindingHelper.getBaseType(implementorClass, baseType);
         if (baseParam==null)
             throw new WebServiceException(ServerMessages.NOT_IMPLEMENT_PROVIDER(implementorClass.getName()));

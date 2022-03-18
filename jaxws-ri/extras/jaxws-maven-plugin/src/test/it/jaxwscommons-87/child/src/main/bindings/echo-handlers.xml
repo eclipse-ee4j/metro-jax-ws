@@ -3,7 +3,7 @@
 
     DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
 
     Oracle licenses this file to You under the Apache License, Version 2.0
     (the "License"); you may not use this file except in compliance with
@@ -21,11 +21,11 @@
 
 <jaxws:bindings xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
-                xmlns:javaee="http://java.sun.com/xml/ns/javaee"
+                xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws"
+                xmlns:javaee="https://jakarta.ee/xml/ns/jakartaee"
                 xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-                xsi:schemaLocation="http://java.sun.com/xml/ns/jaxws http://java.sun.com/xml/ns/jaxws/wsdl_customizationschema_2_0.xsd
-                        http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+                xsi:schemaLocation="https://jakarta.ee/xml/ns/jaxws https://jakarta.ee/xml/ns/jaxws/wsdl_customizationschema_3_0.xsd
+                        https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
                 wsdlLocation="../wsdl/echo.wsdl">
     <jaxws:package name="org.jvnet.jax_ws_commons.jaxws.test" />
     <jaxws:bindings node="wsdl:definitions">

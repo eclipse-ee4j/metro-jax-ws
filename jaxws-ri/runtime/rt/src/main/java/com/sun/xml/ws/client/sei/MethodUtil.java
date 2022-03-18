@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,7 +40,7 @@ class MethodUtil {
 
     private static InvocationTargetException unwrapException(InvocationTargetException ite) {
         Throwable targetException = ite.getTargetException();
-        if (targetException != null && targetException instanceof InvocationTargetException) {
+        if (targetException instanceof InvocationTargetException) {
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.log(Level.FINE, "Unwrapping invocation target exception");
             }

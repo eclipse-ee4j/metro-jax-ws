@@ -15,7 +15,7 @@ import java.rmi.RemoteException;
 
 import java.util.List;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 /**
  * @author JAX-RPC Development Team

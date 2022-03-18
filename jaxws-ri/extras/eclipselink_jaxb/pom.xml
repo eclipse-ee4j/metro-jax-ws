@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,14 +16,14 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>2.4.0-SNAPSHOT</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-eclipselink-plugin</artifactId>
-    <version>2.4.0-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
 
     <name>JAX-WS RI Eclipselink Plugin</name>
     <description>Pluggable databinding module employing Eclipselink JAXB (MOXy)</description>
@@ -34,30 +34,24 @@
 
     <dependencies>
         <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.moxy</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jaxws-rt</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
-        <!-- Cannot use API jar since it has different module name than the impl jar -->
-<!--        <dependency>
+        <dependency>
             <groupId>jakarta.mail</groupId>
             <artifactId>jakarta.mail-api</artifactId>
             <scope>provided</scope>
-        </dependency>-->
+        </dependency>
 
         <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
-            <!--<scope>runtime</scope>-->
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-mail</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -81,25 +75,8 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-compile</id>
-                        <configuration>
-                            <!--adds reads for gmbal-->
-                            <compilerArgs>
-                                <arg>--add-reads</arg>
-                                <arg>com.sun.xml.ws.eclipselink=ALL-UNNAMED</arg>
-                            </compilerArgs>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <classpathDependencyExcludes>jakarta.activation:jakarta.activation-api,jakarta.mail:jakarta.mail-api</classpathDependencyExcludes>
                     <!-- to make sure that plugin's classes are at the end of the cp
                     otherwise testHelloEchoNoMode(com.sun.xml.ws.jaxbri.JAXBRIBasicTest) will fail
                     as it requires specific order of jars on the cp -->
@@ -107,17 +84,8 @@
                     <additionalClasspathElements>
                         <additionalClasspathElement>${project.build.outputDirectory}</additionalClasspathElement>
                     </additionalClasspathElements>
-                    <forkCount>0</forkCount>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <additionalJOptions>
-                        <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.xml.ws.eclipselink=ALL-UNNAMED</additionalJOption>
-                    </additionalJOptions>
+                    <forkCount>1</forkCount>
+                    <testFailureIgnore>${ignore.failing.tests}</testFailureIgnore>
                 </configuration>
             </plugin>
         </plugins>
@@ -128,7 +96,7 @@
             <id>osgi-bundle</id>
             <activation>
                 <property>
-                    <name>!cobertura-build</name>
+                    <name>!jacoco-build</name>
                 </property>
             </activation>
             <build>
@@ -145,10 +113,8 @@
                                 </goals>
                                 <configuration>
                                     <instructions>
-                                        <_removeheaders>Bnd-LastModified,Include-Resource,Private-Package</_removeheaders>
                                         <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
                                         <Import-Package>
-                                            javax.activation;version=!,
                                             org.eclipse.persistence.*;version=!,
                                             *
                                         </Import-Package>

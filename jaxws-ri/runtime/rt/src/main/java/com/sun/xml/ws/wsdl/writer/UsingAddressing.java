@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,5 +23,5 @@ import com.sun.xml.ws.wsdl.writer.document.StartWithExtensionsType;
             ns = W3CAddressingConstants.WSAW_USING_ADDRESSING_NAME)
 public interface UsingAddressing extends TypedXmlWriter, StartWithExtensionsType {
     @XmlAttribute(value = "required", ns = "http://schemas.xmlsoap.org/wsdl/")
-    public void required(boolean b);
+    void required(boolean b);
 }

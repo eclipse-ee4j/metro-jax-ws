@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -97,6 +97,7 @@ public class ByteArrayBuffer extends OutputStream {
         }
     }
 
+    @Override
     public final void write(int b) {
         int newcount = count + 1;
         ensureCapacity(newcount);
@@ -104,7 +105,8 @@ public class ByteArrayBuffer extends OutputStream {
         count = newcount;
     }
 
-    public final void write(byte b[], int off, int len) {
+    @Override
+    public final void write(byte[] b, int off, int len) {
         int newcount = count + len;
         ensureCapacity(newcount);
         System.arraycopy(b, off, buf, count, len);
@@ -113,7 +115,7 @@ public class ByteArrayBuffer extends OutputStream {
 
     private void ensureCapacity(int newcount) {
         if (newcount > buf.length) {
-            byte newbuf[] = new byte[Math.max(buf.length << 1, newcount)];
+            byte[] newbuf = new byte[Math.max(buf.length << 1, newcount)];
             System.arraycopy(buf, 0, newbuf, 0, count);
             buf = newbuf;
         }
@@ -127,7 +129,7 @@ public class ByteArrayBuffer extends OutputStream {
         int remaining = count;
         int off = 0;
         while(remaining > 0) {
-            int chunk = (remaining > CHUNK_SIZE) ? CHUNK_SIZE : remaining;
+            int chunk = Math.min(remaining, CHUNK_SIZE);
             out.write(buf, off, chunk);
             remaining -= chunk;
             off += chunk;
@@ -149,7 +151,7 @@ public class ByteArrayBuffer extends OutputStream {
      *      you have to.
      */
     public final byte[] toByteArray() {
-        byte newbuf[] = new byte[count];
+        byte[] newbuf = new byte[count];
         System.arraycopy(buf, 0, newbuf, 0, count);
         return newbuf;
     }
@@ -168,6 +170,7 @@ public class ByteArrayBuffer extends OutputStream {
         return buf;
     }
 
+    @Override
     public void close() throws IOException {
     }
 

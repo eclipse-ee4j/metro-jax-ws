@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -117,11 +117,7 @@ public class AttachmentHelper {
 
         while (iter1.hasNext() && iter2.hasNext()) {
             Pixel pixel = (Pixel) iter1.next();
-            if (pixel.equals((Pixel) iter2.next())) {
-                matched = true;
-            } else {
-                matched = false;
-            }
+            matched = pixel.equals((Pixel) iter2.next());
         }
         return matched;
     }

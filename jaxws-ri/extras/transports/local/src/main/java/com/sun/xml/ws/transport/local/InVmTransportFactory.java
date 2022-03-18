@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@ import com.sun.xml.ws.api.pipe.TransportTubeFactory;
 import com.sun.xml.ws.api.pipe.Tube;
 import com.sun.xml.ws.api.server.WSEndpoint;
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import java.net.URI;
 
 /**
@@ -24,6 +24,7 @@ import java.net.URI;
  * "in-vm://<i>inVmServerId</i>[?<i>portLocalName</i>]".
  */
 public final class InVmTransportFactory extends TransportTubeFactory {
+    @Override
     public Tube doCreate(@NotNull ClientTubeAssemblerContext context) {
         URI adrs = context.getAddress().getURI();
         if(!adrs.getScheme().equals("in-vm") && !adrs.getScheme().equals("in-vm-async"))

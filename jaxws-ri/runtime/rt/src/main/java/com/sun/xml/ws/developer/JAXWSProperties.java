@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,24 +13,21 @@ package com.sun.xml.ws.developer;
 import com.sun.xml.ws.api.message.HeaderList;
 import com.sun.xml.ws.api.server.WSEndpoint;
 import com.sun.xml.ws.api.addressing.WSEndpointReference;
+import com.sun.xml.ws.client.ContentNegotiation;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.BindingType;
+import jakarta.xml.ws.http.HTTPBinding;
 import java.net.HttpURLConnection;
 
 public interface JAXWSProperties {
-    // Content negotiation property: values "none", "pessimistic" and "optimistic"
-    // It is split into two strings so that package renaming for
-    // Java SE 6 doesn't alter the value. So do not combine them
-    @Deprecated
-    public static final String CONTENT_NEGOTIATION_PROPERTY = "com.sun."+"xml.ws.client.ContentNegotiation";
-    public static final String MTOM_THRESHOLOD_VALUE =  "com.sun.xml.ws.common.MtomThresholdValue";
-    public static final String HTTP_EXCHANGE = "com.sun.xml.ws.http.exchange";
+
+    String MTOM_THRESHOLOD_VALUE =  "com.sun.xml.ws.common.MtomThresholdValue";
+    String HTTP_EXCHANGE = "com.sun.xml.ws.http.exchange";
 
     /**
      * Set this property on the {@link BindingProvider#getRequestContext()} to
@@ -38,10 +35,10 @@ public interface JAXWSProperties {
      *
      *<p>
      * int timeout = ...;
-     * Map<String, Object> ctxt = ((BindingProvider)proxy).getRequestContext();
+     * Map&lt;String, Object&gt; ctxt = ((BindingProvider)proxy).getRequestContext();
      * ctxt.put(CONNECT_TIMEOUT, timeout);
      */
-    public static final String CONNECT_TIMEOUT =
+    String CONNECT_TIMEOUT =
         "com.sun.xml.ws.connect.timeout";
 
     /**
@@ -50,10 +47,10 @@ public interface JAXWSProperties {
      *
      *<p>
      * int timeout = ...;
-     * Map<String, Object> ctxt = ((BindingProvider)proxy).getRequestContext();
+     * Map&lt;String, Object&gt; ctxt = ((BindingProvider)proxy).getRequestContext();
      * ctxt.put(REQUEST_TIMEOUT, timeout);
      */
-     public static final String REQUEST_TIMEOUT =
+    String REQUEST_TIMEOUT =
         "com.sun.xml.ws.request.timeout";
 
     /**
@@ -62,10 +59,10 @@ public interface JAXWSProperties {
      *
      *<p>
      * int chunkSize = ...;
-     * Map<String, Object> ctxt = ((BindingProvider)proxy).getRequestContext();
+     * Map&lt;String, Object&gt; ctxt = ((BindingProvider)proxy).getRequestContext();
      * ctxt.put(HTTP_CLIENT_STREAMING_CHUNK_SIZE, chunkSize);
      */
-    public static final String HTTP_CLIENT_STREAMING_CHUNK_SIZE = "com.sun.xml.ws.transport.http.client.streaming.chunk.size";
+    String HTTP_CLIENT_STREAMING_CHUNK_SIZE = "com.sun.xml.ws.transport.http.client.streaming.chunk.size";
 
 
     /**
@@ -75,13 +72,13 @@ public interface JAXWSProperties {
      *
      * <p>
      * HostNameVerifier hostNameVerifier = ...;
-     * Map<String, Object> ctxt = ((BindingProvider)proxy).getRequestContext();
+     * Map&lt;String, Object&gt; ctxt = ((BindingProvider)proxy).getRequestContext();
      * ctxt.put(HOSTNAME_VERIFIER, hostNameVerifier);
      *
      * <p>
      * <b>THIS PROPERTY IS EXPERIMENTAL AND IS SUBJECT TO CHANGE WITHOUT NOTICE IN FUTURE.</b>
      */
-    public static final String HOSTNAME_VERIFIER = "com.sun.xml.ws.transport.https.client.hostname.verifier";
+    String HOSTNAME_VERIFIER = "com.sun.xml.ws.transport.https.client.hostname.verifier";
 
     /**
      * Set this property on the {@link BindingProvider#getRequestContext()} to
@@ -90,13 +87,13 @@ public interface JAXWSProperties {
      *
      * <p>
      * SSLSocketFactory sslFactory = ...;
-     * Map<String, Object> ctxt = ((BindingProvider)proxy).getRequestContext();
+     * Map&lt;String, Object&gt; ctxt = ((BindingProvider)proxy).getRequestContext();
      * ctxt.put(SSL_SOCKET_FACTORY, sslFactory);
      *
      * <p>
      * <b>THIS PROPERTY IS EXPERIMENTAL AND IS SUBJECT TO CHANGE WITHOUT NOTICE IN FUTURE.</b>
      */
-    public static final String SSL_SOCKET_FACTORY = "com.sun.xml.ws.transport.https.client.SSLSocketFactory";
+    String SSL_SOCKET_FACTORY = "com.sun.xml.ws.transport.https.client.SSLSocketFactory";
 
     /**
      * Acccess the list of SOAP headers in the SOAP message.
@@ -114,7 +111,7 @@ public interface JAXWSProperties {
      * <p>
      * <b>THIS PROPERTY IS EXPERIMENTAL AND IS SUBJECT TO CHANGE WITHOUT NOTICE IN FUTURE.</b>
      */
-    public static final String INBOUND_HEADER_LIST_PROPERTY = "com.sun.xml.ws.api.message.HeaderList";
+    String INBOUND_HEADER_LIST_PROPERTY = "com.sun.xml.ws.api.message.HeaderList";
 
     /**
      * Access the {@link WSEndpoint} object that delivered the request.
@@ -130,7 +127,7 @@ public interface JAXWSProperties {
      *
      * @since 2.1.2
      */
-    public static final String WSENDPOINT = "com.sun.xml.ws.api.server.WSEndpoint";
+    String WSENDPOINT = "com.sun.xml.ws.api.server.WSEndpoint";
 
     /**
      * Gets the {@code wsa:To} header.
@@ -142,7 +139,7 @@ public interface JAXWSProperties {
      *
      * @since 2.1.3
      */
-    public static final String ADDRESSING_TO = "com.sun.xml.ws.api.addressing.to";
+    String ADDRESSING_TO = "com.sun.xml.ws.api.addressing.to";
 
     /**
      * Gets the {@code wsa:From} header.
@@ -154,7 +151,7 @@ public interface JAXWSProperties {
      *
      * @since 2.1.3
      */
-    public static final String ADDRESSING_FROM = "com.sun.xml.ws.api.addressing.from";
+    String ADDRESSING_FROM = "com.sun.xml.ws.api.addressing.from";
 
     /**
      * Gets the {@code wsa:Action} header value.
@@ -166,7 +163,7 @@ public interface JAXWSProperties {
      *
      * @since 2.1.3
      */
-    public static final String ADDRESSING_ACTION = "com.sun.xml.ws.api.addressing.action";
+    String ADDRESSING_ACTION = "com.sun.xml.ws.api.addressing.action";
 
     /**
      * Gets the {@code wsa:MessageID} header value.
@@ -178,7 +175,7 @@ public interface JAXWSProperties {
      *
      * @since 2.1.3
      */
-    public static final String ADDRESSING_MESSAGEID = "com.sun.xml.ws.api.addressing.messageId";
+    String ADDRESSING_MESSAGEID = "com.sun.xml.ws.api.addressing.messageId";
 
     /**
      * Reconstructs the URL the client used to make the request. The returned URL
@@ -189,7 +186,7 @@ public interface JAXWSProperties {
      *
      * @since 2.1.3
      */
-    public static final String HTTP_REQUEST_URL = "com.sun.xml.ws.transport.http.servlet.requestURL";
+    String HTTP_REQUEST_URL = "com.sun.xml.ws.transport.http.servlet.requestURL";
 
     /**
      * Binding to represent RESTful services. {@link HTTPBinding#HTTP_BINDING} works
@@ -215,6 +212,15 @@ public interface JAXWSProperties {
      *
      * @since 2.1.4
      */
-    public static final String REST_BINDING = "http://jax-ws.dev.java.net/rest";
+    String REST_BINDING = "http://jax-ws.dev.java.net/rest";
+    
+	/**
+	 * Set this property to enable {@link HttpURLConnection#setAuthenticator(Authenticator)}, 
+	 * available in JDK9+.
+	 *
+	 * @since 2.3.4
+	 */
+    String REQUEST_AUTHENTICATOR = "com.sun.xml.ws.request.authenticator";
+
     
 }

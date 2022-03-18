@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,9 +12,9 @@ package com.sun.xml.ws.handler;
 
 import com.sun.xml.ws.api.WSBinding;
 
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.handler.Handler;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.handler.Handler;
+import jakarta.xml.ws.handler.MessageContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -54,7 +54,7 @@ abstract class HandlerProcessor<C extends MessageUpdatableContext> {
     protected HandlerProcessor(HandlerTube owner, WSBinding binding, List<? extends Handler> chain) {
         this.owner = owner;
         if (chain == null) { // should only happen in testing
-            chain = new ArrayList<Handler>();
+            chain = new ArrayList<>();
         }
         handlers = chain;
         this.binding = binding;

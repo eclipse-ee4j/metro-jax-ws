@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,11 +11,11 @@
 package fromjava.nosei_bare_apt.server;
 
 import fromjava.nosei_bare_apt.server.Bar;
-import javax.jws.*;
-import javax.jws.soap.*;
-import javax.jws.soap.SOAPBinding.ParameterStyle;
+import jakarta.jws.*;
+import jakarta.jws.soap.*;
+import jakarta.jws.soap.SOAPBinding.ParameterStyle;
 
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 import org.omg.CORBA.BAD_CONTEXT;
 @WebService(name="Echo", serviceName="EchoService", targetNamespace="http://echo.org/")
 @SOAPBinding(parameterStyle=ParameterStyle.BARE)
@@ -169,7 +169,7 @@ public class EchoImpl {
 //    @WebResult(name="outHeaderResponse")
 //    public Long echoOutHeader(@WebParam(name="outHeader")Integer age, @WebParam(name="num", mode=WebParam.Mode.OUT, header=true)LongWrapperHolder num) {
 //        log("-----------age: "+age);
-//        num.value = new Long(age);;
+//        num.value = Long.valueOf(age);;
 //        log("-----------num.value: "+num.value);
 //        log("-----------num.value+age: "+(num.value+age));
 //        return num.value+age;
@@ -179,7 +179,7 @@ public class EchoImpl {
     @WebResult(name="outHeaderResponse")
     public Long echoOutHeader(@WebParam(name="outHeader")Integer age, @WebParam(name="num", mode=WebParam.Mode.OUT, header=true)Holder<Long> num) {
         log("-----------age: "+age);
-        num.value = new Long(age);;
+        num.value = Long.valueOf(age);;
         log("-----------num.value: "+num.value);
         log("-----------num.value+age: "+(num.value+age));
         return num.value+age;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,14 +9,12 @@
  */
 
 package com.oracle.xmlns.webservices.jaxws_databinding;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 import java.lang.annotation.Annotation;
-
-import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 
 
 /**
@@ -43,7 +41,7 @@ import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "request-wrapper")
-public class XmlRequestWrapper implements javax.xml.ws.RequestWrapper {
+public class XmlRequestWrapper implements jakarta.xml.ws.RequestWrapper {
 
     @XmlAttribute(name = "local-name")
     protected String localName;
@@ -148,26 +146,26 @@ public class XmlRequestWrapper implements javax.xml.ws.RequestWrapper {
 
     @Override
     public String localName() {
-        return nullSafe(localName);
+        return Util.nullSafe(localName);
     }
 
     @Override
     public String targetNamespace() {
-        return nullSafe(targetNamespace);
+        return Util.nullSafe(targetNamespace);
     }
 
     @Override
     public String className() {
-        return nullSafe(className);
+        return Util.nullSafe(className);
     }
 
     @Override
     public String partName() {
-        return nullSafe(partName);
+        return Util.nullSafe(partName);
     }
 
     @Override
     public Class<? extends Annotation> annotationType() {
-        return javax.xml.ws.RequestWrapper.class;
+        return jakarta.xml.ws.RequestWrapper.class;
     }
 }

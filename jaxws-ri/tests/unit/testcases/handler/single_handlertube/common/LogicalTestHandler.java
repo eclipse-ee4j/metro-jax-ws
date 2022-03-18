@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,12 +12,12 @@ package handler.single_handlertube.common;
 
 import static handler.single_handlertube.common.TestConstants.*;
 
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.handler.LogicalHandler;
-import javax.xml.ws.handler.LogicalMessageContext;
-import javax.xml.ws.handler.MessageContext;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.handler.LogicalHandler;
+import jakarta.xml.ws.handler.LogicalMessageContext;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 /*
  * This handler needs to be in the same package as the

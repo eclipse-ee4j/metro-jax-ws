@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,19 +33,16 @@ import com.sun.xml.ws.spi.db.BindingContext;
 import com.sun.xml.ws.spi.db.TypeInfo;
 import com.sun.xml.ws.spi.db.WrapperComposite;
 
-import static com.sun.xml.ws.binding.WebServiceFeatureList.getSoapVersion;   
-import static com.sun.xml.ws.model.Utils.REFLECTION_NAVIGATOR;
-
-import javax.jws.*;
-import javax.jws.WebParam.Mode;
-import javax.jws.soap.SOAPBinding;
-import javax.jws.soap.SOAPBinding.Style;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import jakarta.jws.*;
+import jakarta.jws.WebParam.Mode;
+import jakarta.jws.soap.SOAPBinding;
+import jakarta.jws.soap.SOAPBinding.Style;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.namespace.QName;
-import javax.xml.ws.*;
-import javax.xml.ws.soap.MTOM;
-import javax.xml.ws.soap.MTOMFeature;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.soap.MTOM;
+import jakarta.xml.ws.soap.MTOMFeature;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -59,8 +56,6 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 import java.util.concurrent.Future;
 import java.util.logging.Logger;
-
-import static javax.jws.soap.SOAPBinding.ParameterStyle.WRAPPED;
 
 /**
  * Creates a runtime model of a SEI (portClass).
@@ -110,7 +105,7 @@ public class RuntimeModeler {
         this(portClass, serviceName, null, bindingId, features);
     }*/
 
-    /**
+    /*
      *
      * creates an instance of RunTimeModeler given a <code>sei</code> and <code>binding</code>
      * @param portClass The SEI class to be modeled.
@@ -166,7 +161,7 @@ public class RuntimeModeler {
     private BindingID getDefaultBindingID() {
     	BindingType bt = getAnnotation(portClass, BindingType.class);
     	if (bt != null) return BindingID.parse(bt.value());
-    	SOAPVersion ver = getSoapVersion(features); 
+    	SOAPVersion ver = WebServiceFeatureList.getSoapVersion(features);
     	boolean mtomEnabled = features.isEnabled(MTOMFeature.class);
     	if (SOAPVersion.SOAP_12.equals(ver)) {
     	    return (mtomEnabled) ? BindingID.SOAP12_HTTP_MTOM : BindingID.SOAP12_HTTP; 
@@ -332,7 +327,7 @@ public class RuntimeModeler {
 
     private boolean noWrapperGen() {
         Object o = config.properties().get(SuppressDocLitWrapperGeneration);
-        return (o!= null && o instanceof Boolean) ? ((Boolean) o) : false;
+        return (o instanceof Boolean) ? ((Boolean) o) : false;
     }
 
     private Class getRequestWrapperClass(String className, Method method, QName reqElemName) {
@@ -361,7 +356,7 @@ public class RuntimeModeler {
     private Class getExceptionBeanClass(String className, Class exception, String name, String namespace) {
         boolean decapitalizeExceptionBeanProperties = true;
         Object o = config.properties().get(DecapitalizeExceptionBeanProperties);
-        if (o!= null && o instanceof Boolean) decapitalizeExceptionBeanProperties = (Boolean) o;
+        if (o instanceof Boolean) decapitalizeExceptionBeanProperties = (Boolean) o;
         ClassLoader loader =  (classLoader == null) ? Thread.currentThread().getContextClassLoader() : classLoader;
         try {
             return loader.loadClass(className);
@@ -393,7 +388,7 @@ public class RuntimeModeler {
     }
 
     void processClass(Class clazz) {
-        classUsesWebMethod = new HashSet<Class>();
+        classUsesWebMethod = new HashSet<>();
         determineWebMethodUse(clazz);
         WebService webService = getAnnotation(clazz, WebService.class);
         QName portTypeName = getPortTypeName(clazz, targetNamespace, metadataReader);
@@ -423,7 +418,7 @@ public class RuntimeModeler {
                         soapBinding, clazz);
 
             }
-            isWrapped = soapBinding.parameterStyle()== WRAPPED;
+            isWrapped = soapBinding.parameterStyle()== SOAPBinding.ParameterStyle.WRAPPED;
         }
         defaultBinding = createBinding(soapBinding);
         /*
@@ -470,10 +465,10 @@ public class RuntimeModeler {
      * Section 3.3 of spec
      * Otherwise, the class implicitly defines a service endpoint interface (SEI) which
      * comprises all of the public methods that satisfy one of the following conditions:
-     *  1. They are annotated with the javax.jws.WebMethod annotation with the exclude element set to
+     *  1. They are annotated with the jakarta.jws.WebMethod annotation with the exclude element set to
      *     false or missing (since false is the default for this annotation element).
-     *  2. They are not annotated with the javax.jws.WebMethod annotation but their declaring class has a
-     *     javax.jws.WebService annotation.
+     *  2. They are not annotated with the jakarta.jws.WebMethod annotation but their declaring class has a
+     *     jakarta.jws.WebService annotation.
      *
      * also the method should non-static or non-final
      */
@@ -518,8 +513,8 @@ public class RuntimeModeler {
     }
 
     /**
-     * creates a runtime model <code>SOAPBinding</code> from a <code>javax.jws.soap.SOAPBinding</code> object
-     * @param soapBinding the <code>javax.jws.soap.SOAPBinding</code> to model
+     * creates a runtime model <code>SOAPBinding</code> from a <code>jakarta.jws.soap.SOAPBinding</code> object
+     * @param soapBinding the <code>jakarta.jws.soap.SOAPBinding</code> to model
      * @return returns the runtime model SOAPBinding corresponding to <code>soapBinding</code>
      */
     protected SOAPBindingImpl createBinding(SOAPBinding soapBinding) {
@@ -683,7 +678,7 @@ public class RuntimeModeler {
             if (action != null)
                 mySOAPBinding.setSOAPAction(action);
             methodIsWrapped = methodBinding.parameterStyle().equals(
-                WRAPPED);
+                    SOAPBinding.ParameterStyle.WRAPPED);
             javaMethod.setBinding(mySOAPBinding);
         } else {
             SOAPBindingImpl sb = new SOAPBindingImpl(defaultBinding);
@@ -941,7 +936,7 @@ public class RuntimeModeler {
 
     private QName qualifyWrappeeIfNeeded(QName resultQName, String ns) {
         Object o = config.properties().get(DocWrappeeNamespapceQualified);
-        boolean qualified = (o!= null && o instanceof Boolean) ? ((Boolean) o) : false;
+        boolean qualified = (o instanceof Boolean) ? ((Boolean) o) : false;
         if (qualified) {
             if (resultQName.getNamespaceURI() == null || "".equals(resultQName.getNamespaceURI())) {
                 return new QName(ns, resultQName.getLocalPart());
@@ -966,8 +961,8 @@ public class RuntimeModeler {
         // use a large index (10000+) to avoid colliding with ordered ones.
         // this assumes that there's no operation with # of parameters > 10000,
         // but I think it's a pretty safe assumption - KK.
-        Map<Integer, ParameterImpl> resRpcParams = new TreeMap<Integer, ParameterImpl>();
-        Map<Integer, ParameterImpl> reqRpcParams = new TreeMap<Integer, ParameterImpl>();
+        Map<Integer, ParameterImpl> resRpcParams = new TreeMap<>();
+        Map<Integer, ParameterImpl> reqRpcParams = new TreeMap<>();
 
         //Lets take the service namespace and overwrite it with the one we get it from wsdl
         String reqNamespace = targetNamespace;
@@ -1090,8 +1085,8 @@ public class RuntimeModeler {
             }
             Mode paramMode = isHolder ? Mode.INOUT : Mode.IN;
             for (Annotation annotation : pannotations[pos]) {
-                if (annotation.annotationType() == javax.jws.WebParam.class) {
-                    javax.jws.WebParam webParam = (javax.jws.WebParam) annotation;
+                if (annotation.annotationType() == jakarta.jws.WebParam.class) {
+                    jakarta.jws.WebParam webParam = (jakarta.jws.WebParam) annotation;
                     paramName = webParam.name();
                     partName = webParam.partName();
                     isHeader = webParam.header();
@@ -1196,7 +1191,7 @@ public class RuntimeModeler {
                 continue;
             if (RUNTIME_EXCEPTION_CLASS.isAssignableFrom(exception) || isRemoteException(exception))
                 continue;
-            if (getAnnotation(exception, javax.xml.bind.annotation.XmlTransient.class) != null)
+            if (getAnnotation(exception, jakarta.xml.bind.annotation.XmlTransient.class) != null)
                 continue;            
             Class exceptionBean;
             Annotation[] anns;
@@ -1339,8 +1334,8 @@ public class RuntimeModeler {
 
             Mode paramMode = isHolder ? Mode.INOUT : Mode.IN;
             for (Annotation annotation : pannotations[pos]) {
-                if (annotation.annotationType() == javax.jws.WebParam.class) {
-                    javax.jws.WebParam webParam = (javax.jws.WebParam) annotation;
+                if (annotation.annotationType() == jakarta.jws.WebParam.class) {
+                    jakarta.jws.WebParam webParam = (jakarta.jws.WebParam) annotation;
                     paramMode = webParam.mode();
                     if (isHolder && paramMode == Mode.IN)
                         paramMode = Mode.INOUT;
@@ -1446,7 +1441,7 @@ public class RuntimeModeler {
         if (name == null || name.length() == 0) {
             return name;
         }
-        char chars[] = name.toCharArray();
+        char[] chars = name.toCharArray();
         chars[0] = Character.toUpperCase(chars[0]);
         return new String(chars);
     }
@@ -1647,12 +1642,13 @@ public class RuntimeModeler {
 
     private static Boolean getBooleanSystemProperty(final String prop) {
         return AccessController.doPrivileged(
-            new java.security.PrivilegedAction<Boolean>() {
-                public Boolean run() {
-                    String value = System.getProperty(prop);
-                    return value != null ? Boolean.valueOf(value) : Boolean.FALSE;
+                new java.security.PrivilegedAction<>() {
+                    @Override
+                    public Boolean run() {
+                        String value = System.getProperty(prop);
+                        return value != null ? Boolean.valueOf(value) : Boolean.FALSE;
+                    }
                 }
-            }
         );
     }
 
@@ -1737,6 +1733,6 @@ public class RuntimeModeler {
     }
 
     static public Class erasure(Type type) {
-        return (Class)REFLECTION_NAVIGATOR.erasure(type);
+        return (Class) Utils.REFLECTION_NAVIGATOR.erasure(type);
     }
 }

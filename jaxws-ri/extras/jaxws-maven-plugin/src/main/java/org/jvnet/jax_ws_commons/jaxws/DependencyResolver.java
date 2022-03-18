@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * Oracle licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -64,7 +64,7 @@ final class DependencyResolver {
     }
 
     private static Dependency createDependency(org.apache.maven.model.Dependency d) {
-        Collection<Exclusion> toExclude = new ArrayList<Exclusion>();
+        Collection<Exclusion> toExclude = new ArrayList<>();
         for (org.apache.maven.model.Exclusion e : d.getExclusions()) {
             toExclude.add(new Exclusion(e.getGroupId(), e.getArtifactId(), null, "jar"));
         }

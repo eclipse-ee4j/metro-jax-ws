@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,15 +43,16 @@ import com.sun.xml.ws.spi.db.BindingHelper;
 import org.xml.sax.Locator;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.WebEndpoint;
-import javax.xml.ws.WebServiceClient;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebEndpoint;
+import jakarta.xml.ws.WebServiceClient;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.sun.xml.ws.util.ServiceFinder;
 import java.util.Locale;
+import java.util.ServiceLoader;
 
 /**
  * @author WS Development Team
@@ -85,7 +86,7 @@ public class ServiceGenerator extends GeneratorBase {
             return;
         }
 
-        cls._extends(javax.xml.ws.Service.class);
+        cls._extends(jakarta.xml.ws.Service.class);
         String serviceFieldName = BindingHelper.mangleNameToClassName(service.getName().getLocalPart()).toUpperCase(Locale.ENGLISH);
         String wsdlLocationName = serviceFieldName + "_WSDL_LOCATION";
         JFieldVar urlField = cls.field(JMod.PRIVATE | JMod.STATIC | JMod.FINAL, URL.class, wsdlLocationName);
@@ -121,9 +122,7 @@ public class ServiceGenerator extends GeneratorBase {
             comment.add("\n\n");
         }
 
-        for (String doc : getJAXWSClassComment()) {
-            comment.add(doc);
-        }
+        comment.addAll(getJAXWSClassComment());
 
         // Generating constructor
         // for e.g:  public ExampleService()
@@ -181,7 +180,7 @@ public class ServiceGenerator extends GeneratorBase {
         writeWebServiceClientAnnotation(service, webServiceClientAnn);
 
         // additional annotations
-        for (GeneratorExtension f:ServiceFinder.find(GeneratorExtension.class)) {
+        for (GeneratorExtension f: ServiceFinder.find(GeneratorExtension.class, ServiceLoader.load(GeneratorExtension.class))) {
             f.writeWebServiceClientAnnotation(options, cm, cls);
         }
 

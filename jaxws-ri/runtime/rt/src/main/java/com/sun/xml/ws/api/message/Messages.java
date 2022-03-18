@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,12 +38,12 @@ import com.sun.xml.ws.resources.AddressingMessages;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import javax.xml.namespace.QName;
-import javax.xml.soap.*;
+import jakarta.xml.soap.*;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -51,8 +51,8 @@ import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * Factory methods for various {@link Message} implementations.
@@ -98,15 +98,17 @@ public abstract class Messages {
      * For use when creating a Dispatch object with an unknown JAXB implementation
      * for he JAXBContext parameter.
      * 
-     */ 
+     */
+    @Deprecated
     public static Message createRaw(JAXBContext context, Object jaxbObject, SOAPVersion soapVersion) {
         return JAXBMessage.createRaw(context,jaxbObject,soapVersion);
     }
 
     /**
      * @deprecated
-     *      Use {@link #create(JAXBRIContext, Object, SOAPVersion)}
+     *      Use {@link #create(jakarta.xml.bind.JAXBContext, java.lang.Object, com.sun.xml.ws.api.SOAPVersion)}
      */
+    @Deprecated
     public static Message create(Marshaller marshaller, Object jaxbObject, SOAPVersion soapVersion) {
         return create(BindingContextFactory.getBindingContext(marshaller).getJAXBContext(),jaxbObject,soapVersion);
     }
@@ -252,7 +254,7 @@ public abstract class Messages {
      * the start of the envelope.
      *
      * @param reader
-     *      can point to the start document or the start element (of &lt;s:Envelope>)
+     *      can point to the start document or the start element (of &lt;s:Envelope&gt;)
      */
     public static @NotNull Message create(@NotNull XMLStreamReader reader) {
         // skip until the root element
@@ -395,7 +397,7 @@ public abstract class Messages {
      *
      * @param soapVersion {@link SOAPVersion#SOAP_11} or {@link SOAPVersion#SOAP_12}
      * @param pex a ProtocolException
-     * @param faultcode soap faultcode. Its ignored if the {@link ProtocolException} instance is {@link javax.xml.ws.soap.SOAPFaultException} and it has a
+     * @param faultcode soap faultcode. Its ignored if the {@link ProtocolException} instance is {@link jakarta.xml.ws.soap.SOAPFaultException} and it has a
      * faultcode present in the underlying {@link SOAPFault}.
      * @return {@link Message} representing SOAP fault
      */

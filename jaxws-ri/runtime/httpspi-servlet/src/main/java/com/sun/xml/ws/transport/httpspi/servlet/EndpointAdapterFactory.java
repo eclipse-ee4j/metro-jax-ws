@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,9 +13,9 @@ package com.sun.xml.ws.transport.httpspi.servlet;
 
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
-import javax.xml.ws.Endpoint;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.spi.Provider;
+import jakarta.xml.ws.Endpoint;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.spi.Provider;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +48,7 @@ public final class EndpointAdapterFactory implements DeploymentDescriptorParser.
 
         // Use DD's service name, port names as WSDL_SERVICE and WSDL_PORT
         if (portName != null || serviceName != null) {
-            Map<String, Object> props = new HashMap<String, Object>();
+            Map<String, Object> props = new HashMap<>();
             if (portName != null) {
                 props.put(Endpoint.WSDL_PORT, portName);
             }
@@ -64,7 +64,7 @@ public final class EndpointAdapterFactory implements DeploymentDescriptorParser.
         // Set bundle's wsdl, xsd docs as metadata
         if (metadata != null) {
             endpoint.setMetadata(metadata);
-            List<String> docId = new ArrayList<String>();
+            List<String> docId = new ArrayList<>();
             for(Source source : metadata) {
                 docId.add(source.getSystemId());
             }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,7 +22,7 @@ public enum WSDLDescriptorKind {
      *
      * <pre>
      * for exmaple,
-     * &lt;wsdl:part name="foo" element="ns1:FooElement">
+     * &lt;wsdl:part name="foo" element="ns1:FooElement"&gt;
      * </pre>
      */
     ELEMENT(0),
@@ -32,7 +32,7 @@ public enum WSDLDescriptorKind {
      *
      * <pre>
      * for exmaple,
-     * &lt;wsdl:part name="foo" element="ns1:FooType">
+     * &lt;wsdl:part name="foo" element="ns1:FooType"&gt;
      * </pre>
      */
     TYPE(1);

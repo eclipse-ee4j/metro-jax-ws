@@ -10,7 +10,7 @@
 
 package fromjava.generic.server;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 @WebService(endpointInterface="fromjava.generic.server.EchoIF", portName="EchoPort")
 public class EchoImpl implements EchoIF<Bar> {

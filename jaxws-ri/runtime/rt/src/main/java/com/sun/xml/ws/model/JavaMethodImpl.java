@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 package com.sun.xml.ws.model;
 
-import com.sun.xml.bind.api.TypeReference;
+import org.glassfish.jaxb.runtime.api.TypeReference;
 import com.sun.xml.ws.api.databinding.MetadataReader;
 import com.sun.xml.ws.api.model.JavaMethod;
 import com.sun.xml.ws.api.model.MEP;
@@ -25,9 +25,9 @@ import com.sun.xml.ws.wsdl.ActionBasedOperationSignature;
 import com.sun.istack.Nullable;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Action;
-import javax.xml.ws.WebServiceException;
-import javax.jws.WebMethod;
+import jakarta.xml.ws.Action;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.jws.WebMethod;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,10 +43,10 @@ public final class JavaMethodImpl implements JavaMethod {
 
     private String inputAction = "";
     private String outputAction = "";
-    private final List<CheckedExceptionImpl> exceptions = new ArrayList<CheckedExceptionImpl>();
+    private final List<CheckedExceptionImpl> exceptions = new ArrayList<>();
     private final Method method;
-    /*package*/ final List<ParameterImpl> requestParams = new ArrayList<ParameterImpl>();
-    /*package*/ final List<ParameterImpl> responseParams = new ArrayList<ParameterImpl>();
+    /*package*/ final List<ParameterImpl> requestParams = new ArrayList<>();
+    /*package*/ final List<ParameterImpl> responseParams = new ArrayList<>();
     private final List<ParameterImpl> unmReqParams = Collections.unmodifiableList(requestParams);
     private final List<ParameterImpl> unmResParams = Collections.unmodifiableList(responseParams);
     private SOAPBinding binding;
@@ -59,7 +59,6 @@ public final class JavaMethodImpl implements JavaMethod {
     private String soapAction;
     
     /**
-     * @param owner
      * @param method : Implementation class method
      * @param seiMethod : corresponding SEI Method.
      *                  Is there is no SEI, it should be Implementation class method
@@ -102,6 +101,7 @@ public final class JavaMethodImpl implements JavaMethod {
         return new ActionBasedOperationSignature(getInputAction(), qname);
     }
 
+    @Override
     public SEIModel getOwner() {
         return owner;
     }
@@ -111,6 +111,7 @@ public final class JavaMethodImpl implements JavaMethod {
      *
      * @return Returns the method. 
      */
+    @Override
     public Method getMethod() {
         return method;
     }
@@ -120,6 +121,7 @@ public final class JavaMethodImpl implements JavaMethod {
      *
      * @return Returns the SEI method where annotations are present
      */
+    @Override
     public Method getSEIMethod() {
         return seiMethod;
     }
@@ -127,6 +129,7 @@ public final class JavaMethodImpl implements JavaMethod {
     /**
      * @return Returns the mep.
      */
+    @Override
     public MEP getMEP() {
         return mep;
     }
@@ -142,6 +145,7 @@ public final class JavaMethodImpl implements JavaMethod {
     /**
      * @return the Binding object
      */
+    @Override
     public SOAPBinding getBinding() {
         if (binding == null)
             return new SOAPBindingImpl();
@@ -149,7 +153,6 @@ public final class JavaMethodImpl implements JavaMethod {
     }
 
     /**
-     * @param binding
      */
     void setBinding(SOAPBinding binding) {
         this.binding = binding;
@@ -178,14 +181,17 @@ public final class JavaMethodImpl implements JavaMethod {
         return (wsdlOperation != null)? wsdlOperation.getSOAPAction(): soapAction;
     }
     
+    @Override
     public String getOperationName() {
         return operationName.getLocalPart();
     }
 
+    @Override
     public String getRequestMessageName() {
         return getOperationName();
     }
 
+    @Override
     public String getResponseMessageName() {
         if(mep.isOneWay())
             return null;
@@ -199,6 +205,7 @@ public final class JavaMethodImpl implements JavaMethod {
     /**
      * @return soap:Body's first child name for request message.
      */
+    @Override
     public @Nullable QName getRequestPayloadName() {
         return (wsdlOperation != null)? wsdlOperation.getRequestPayloadName(): requestPayloadName;
     }
@@ -206,6 +213,7 @@ public final class JavaMethodImpl implements JavaMethod {
     /**
      * @return soap:Body's first child name for response message.
      */
+    @Override
     public @Nullable QName getResponsePayloadName() {
         return (mep == MEP.ONE_WAY) ? null : wsdlOperation.getResponsePayloadName();
     }
@@ -281,7 +289,6 @@ public final class JavaMethodImpl implements JavaMethod {
     }
 
     /**
-     * @param ce
      */
     void addException(CheckedExceptionImpl ce) {
         if (!exceptions.contains(ce))
@@ -289,7 +296,6 @@ public final class JavaMethodImpl implements JavaMethod {
     }
 
     /**
-     * @param exceptionClass
      * @return CheckedException corresponding to the exceptionClass. Returns
      *         null if not found.
      */
@@ -305,6 +311,7 @@ public final class JavaMethodImpl implements JavaMethod {
     /**
      * @return a list of checked Exceptions thrown by this method
      */
+    @Override
     public List<CheckedExceptionImpl> getCheckedExceptions(){
         return Collections.unmodifiableList(exceptions);
     }
@@ -321,7 +328,6 @@ public final class JavaMethodImpl implements JavaMethod {
 
     /**
      * @deprecated
-     * @param detailType
      * @return Gets the CheckedException corresponding to detailType. Returns
      *         null if no CheckedExcpetion with the detailType found.
      */
@@ -381,7 +387,7 @@ public final class JavaMethodImpl implements JavaMethod {
         }
     }
 
-    final void fillTypes(List<TypeInfo> types) {
+    void fillTypes(List<TypeInfo> types) {
         fillTypes(requestParams, types);
         fillTypes(responseParams, types);
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@
     <section xml:id="section-524340464580105">
         <title>Handler Types</title>
 
-        <para>JAX-WS 2.0 defines a <literal>Handler</literal> interface, with
+        <para>&ws.spec.name; defines a <literal>Handler</literal> interface, with
         subinterfaces <literal>LogicalHandler</literal> and
         <literal>SOAPHandler</literal>. The <literal>Handler</literal>
         interface contains <literal>handleMessage(C context)</literal> and
@@ -80,8 +80,8 @@
         <literal>void</literal> and take no arguments:</para>
 
         <informalexample>
-            <programlisting language="java"><![CDATA[import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+            <programlisting language="java"><![CDATA[import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 public class MyLogicalHandler implements 
         LogicalHandler<LogicalMessageContext> {
@@ -104,7 +104,7 @@ public class MyLogicalHandler implements
 
         <para>In the examples above, the <literal>LogicalMessage</literal>
         object allows a handler to get and set the message payload either as a
-        JAXB object or as a <literal>javax.xml.transform.Source</literal>. The
+        &binding.spec.name; object or as a <literal>javax.xml.transform.Source</literal>. The
         <literal>SOAPMessage</literal> object allows access to headers and the
         SOAP body of the message.</para>
 
@@ -138,7 +138,7 @@ public class MyLogicalHandler implements
 
             <para>Starting from a WSDL file, handler chain configuration is
             through WSDL customizations as defined by <link
-            xlink:href="http://jcp.org/en/jsr/detail?id=109">JSR 109</link>. A
+            xlink:href="https://jakarta.ee/specifications/enterprise-ws/">Jakarta Enterprise Web Services</link>. A
             <literal>&lt;handler-chains&gt;</literal> element is added to the
             customization file. The following is a simple handler chain with
             one handler (customization may be on server or client
@@ -146,8 +146,8 @@ public class MyLogicalHandler implements
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<-- excerpt from customization file -->
-<bindings xmlns="http://java.sun.com/xml/ns/jaxws">
-    <handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+<bindings xmlns="https://jakarta.ee/xml/ns/jaxws">
+    <handler-chains xmlns="https://jakarta.ee/xml/ns/jakartaee">
         <handler-chain>
             <handler>
                 <handler-class>fromwsdl.handler_simple.common.TestHandler
@@ -167,7 +167,7 @@ public class MyLogicalHandler implements
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<-- excerpt -->
-<handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+<handler-chains xmlns="https://jakarta.ee/xml/ns/jakartaee">
     <handler-chain>
         <service-name-pattern xmlns:ns1="urn:namespace">ns1:My*Service
         </service-name-pattern>
@@ -194,13 +194,13 @@ public class MyLogicalHandler implements
 
             <para>Starting from a Java class, annotations are used to describe
             the handler chain as defined by <link
-            xlink:href="http://jcp.org/en/jsr/detail?id=181">JSR 181</link>.
+            xlink:href="https://jakarta.ee/specifications/web-services-metadata/">&metadata.spec.name;</link>.
             The following example uses the <literal>@HandlerChain</literal>
             annotation to refer to a file describing the chain.</para>
 
             <informalexample>
-                <programlisting language="java"><![CDATA[import javax.jws.HandlerChain;
-import javax.jws.WebService;
+                <programlisting language="java"><![CDATA[import jakarta.jws.HandlerChain;
+import jakarta.jws.WebService;
 
 @WebService
 @HandlerChain(file = "handlers.xml")
@@ -215,7 +215,7 @@ public class MyServiceImpl {
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<jws:handler-chains xmlns:jws="http://java.sun.com/xml/ns/javaee">
+<jws:handler-chains xmlns:jws="https://jakarta.ee/xml/ns/jakartaee">
     <jws:handler-chain>
         <jws:handler>
             <jws:handler-class>fromjava.handler_simple.common.TestHandler
@@ -240,7 +240,7 @@ public class MyServiceImpl {
             <informalexample>
                 <programlisting language="xml"><![CDATA[<endpoints ...>
     <endpoint...>
-        <handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
+        <handler-chains xmlns="https://jakarta.ee/xml/ns/jakartaee">
             <handler-chain>
                 ...
             </handler-chain>

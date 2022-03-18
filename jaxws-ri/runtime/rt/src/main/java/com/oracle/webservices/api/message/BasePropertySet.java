@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,17 +12,19 @@ package com.oracle.webservices.api.message;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
+import java.lang.invoke.MethodHandles;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.util.AbstractMap;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -102,52 +104,87 @@ public abstract class BasePropertySet implements PropertySet {
      *   return model;
      * }
      * </pre>
+     * or if the implementation is in different Java module.
+     * <pre>
+     * private static final PropertyMap model;
+     * static {
+     *   model = parse(MyDerivedClass.class, MethodHandles.lookup());
+     * }
+     * protected PropertyMap getPropertyMap() {
+     *   return model;
+     * }
+     * </pre>
+     * @return the map of strongly-typed known properties keyed by property names
      */
     protected abstract PropertyMap getPropertyMap();
 
     /**
      * This method parses a class for fields and methods with {@link PropertySet.Property}.
+     *
+     * @param clazz Class to be parsed
+     * @return the map of strongly-typed known properties keyed by property names
+     * @see #parse(java.lang.Class, java.lang.invoke.MethodHandles.Lookup)
      */
-    protected static PropertyMap parse(final Class clazz) {
-        // make all relevant fields and methods accessible.
-        // this allows runtime to skip the security check, so they runs faster.
-        return AccessController.doPrivileged(new PrivilegedAction<PropertyMap>() {
-            @Override
-            public PropertyMap run() {
+    protected static PropertyMap parse(final Class<?> clazz) {
+        return parse(clazz, MethodHandles.lookup());
+    }
+
+    /**
+     * This method parses a class for fields and methods with {@link PropertySet.Property}.
+     *
+     * @param clazz Class to be parsed
+     * @param caller the caller lookup object
+     * @return the map of strongly-typed known properties keyed by property names
+     * @throws NullPointerException if {@code clazz} or {@code caller} is {@code null}
+     * @throws SecurityException if denied by the security manager
+     * @throws RuntimeException if any of the other access checks specified above fails
+     * @since 3.0.1
+     */
+    protected static PropertyMap parse(final Class<?> clazz, final MethodHandles.Lookup caller) {
+        Class<?> cl = Objects.requireNonNull(clazz, "clazz must not be null");
+        MethodHandles.Lookup lookup = Objects.requireNonNull(caller, "caller must not be null");
+        try {
+            return AccessController.doPrivileged((PrivilegedExceptionAction<PropertyMap>) () -> {
                 PropertyMap props = new PropertyMap();
-                for (Class c=clazz; c!=null; c=c.getSuperclass()) {
+                for (Class<?> c = cl; c != Object.class; c = c.getSuperclass()) {
+                    MethodHandles.Lookup privateLookup = AccessorFactory.createPrivateLookup(c, lookup);
                     for (Field f : c.getDeclaredFields()) {
                         Property cp = f.getAnnotation(Property.class);
-                        if(cp!=null) {
-                            for(String value : cp.value()) {
-                                props.put(value, new FieldAccessor(f, value));
+                        if (cp != null) {
+                            for (String value : cp.value()) {
+                                props.put(value, AccessorFactory.createAccessor(f, value, privateLookup));
                             }
                         }
                     }
                     for (Method m : c.getDeclaredMethods()) {
                         Property cp = m.getAnnotation(Property.class);
-                        if(cp!=null) {
+                        if (cp != null) {
                             String name = m.getName();
                             assert name.startsWith("get") || name.startsWith("is");
 
-                            String setName = name.startsWith("is") ? "set"+name.substring(2) : // isFoo -> setFoo
-                                                                     's'  +name.substring(1);  // getFoo -> setFoo
+                            String setName = name.startsWith("is")
+                                    ? "set" + name.substring(2) // isFoo -> setFoo
+                                    : 's' + name.substring(1);  // getFoo -> setFoo
                             Method setter;
                             try {
-                                setter = clazz.getMethod(setName,m.getReturnType());
+                                setter = cl.getMethod(setName, m.getReturnType());
                             } catch (NoSuchMethodException e) {
                                 setter = null; // no setter
                             }
-                            for(String value : cp.value()) {
-                                props.put(value, new MethodAccessor(m, setter, value));
+                            for (String value : cp.value()) {
+                                props.put(value, AccessorFactory.createAccessor(m, setter, value, privateLookup));
                             }
                         }
                     }
                 }
 
                 return props;
-            }
-        });
+            });
+        } catch (PrivilegedActionException ex) {
+            Throwable t = ex.getCause();
+            // TODO9: use InaccessibleObjectException on JDK 9+ instead
+            throw new RuntimeException(t);
+        }
     }
 
     /**
@@ -291,7 +328,7 @@ public abstract class BasePropertySet implements PropertySet {
      * the map but also to modify the map in a way it is in sync with original strongly typed fields. It also allows
      * (if necessary) to store additional properties those can't be found in strongly typed fields.
      *
-     * @see com.sun.xml.ws.api.PropertySet#asMap() method
+     * @see PropertySet#asMap() method
      */
     final class MapView extends HashMap<String, Object> {
 
@@ -325,9 +362,9 @@ public abstract class BasePropertySet implements PropertySet {
 
         @Override
         public Set<Entry<String, Object>> entrySet() {
-            Set<Entry<String, Object>> entries = new HashSet<Entry<String, Object>>();
+            Set<Entry<String, Object>> entries = new HashSet<>();
             for (String key : keySet()) {
-                entries.add(new SimpleImmutableEntry<String, Object>(key, get(key)));
+                entries.add(new SimpleImmutableEntry<>(key, get(key)));
             }
             return entries;
         }
@@ -336,7 +373,7 @@ public abstract class BasePropertySet implements PropertySet {
         public Object put(String key, Object value) {
 
             Object o = super.get(key);
-            if (o != null && o instanceof Accessor) {
+            if (o instanceof Accessor) {
 
                 Object oldValue = ((Accessor) o).get(BasePropertySet.this);
                 ((Accessor) o).set(BasePropertySet.this, value);
@@ -400,7 +437,9 @@ public abstract class BasePropertySet implements PropertySet {
     /**
      * Sets a property.
      *
-     * <h3>Implementation Note</h3>
+     * <p>
+     * <strong>Implementation Note</strong>
+     * <p>
      * This method is slow. Code inside JAX-WS should define strongly-typed
      * fields in this class and access them directly, instead of using this.
      *
@@ -443,37 +482,6 @@ public abstract class BasePropertySet implements PropertySet {
     }
 
     /**
-     * Creates a {@link Map} view of this {@link PropertySet}.
-     *
-     * <p>
-     * This map is partially live, in the sense that values you set to it
-     * will be reflected to {@link PropertySet}.
-     *
-     * <p>
-     * However, this map may not pick up changes made
-     * to {@link PropertySet} after the view is created.
-     *
-     * @deprecated use newer implementation {@link PropertySet#asMap()} which produces
-     * readwrite {@link Map}
-     *
-     * @return
-     *      always non-null valid instance.
-     */
-    @Deprecated
-    @Override
-    public final Map<String,Object> createMapView() {
-        final Set<Entry<String,Object>> core = new HashSet<Entry<String,Object>>();
-        createEntrySet(core);
-
-        return new AbstractMap<String, Object>() {
-            @Override
-            public Set<Entry<String,Object>> entrySet() {
-                return core;
-            }
-        };
-    }
-
-    /**
      * Creates a modifiable {@link Map} view of this {@link PropertySet}.
      * <br>
      * Changes done on this {@link Map} or on {@link PropertySet} object work in both directions - values made to
@@ -509,7 +517,7 @@ public abstract class BasePropertySet implements PropertySet {
 
     protected void createEntrySet(Set<Entry<String,Object>> core) {
         for (final Entry<String, Accessor> e : getPropertyMap().entrySet()) {
-            core.add(new Entry<String, Object>() {
+            core.add(new Entry<>() {
                 @Override
                 public String getKey() {
                     return e.getKey();
@@ -524,7 +532,7 @@ public abstract class BasePropertySet implements PropertySet {
                 public Object setValue(Object value) {
                     Accessor acc = e.getValue();
                     Object old = acc.get(BasePropertySet.this);
-                    acc.set(BasePropertySet.this,value);
+                    acc.set(BasePropertySet.this, value);
                     return old;
                 }
             });

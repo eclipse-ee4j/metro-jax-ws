@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,13 +25,13 @@ import com.sun.tools.ws.wsdl.document.soap.SOAPStyle;
 import com.sun.tools.ws.wsdl.document.PortType;
 import com.sun.tools.ws.resources.GeneratorMessages;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class SeiGenerator extends GeneratorBase {
 
     public void init(Model model, WsimportOptions options, ErrorReceiver receiver, TJavaGeneratorExtension... extensions) {
         init(model, options, receiver);
-        extensionHandlers = new ArrayList<TJavaGeneratorExtension>();
+        extensionHandlers = new ArrayList<>();
 
         // register handlers for default extensions
 
@@ -62,7 +62,7 @@ public class SeiGenerator extends GeneratorBase {
             register(j);
         }
 
-        this.extension = new JavaGeneratorExtensionFacade(extensionHandlers.toArray(new TJavaGeneratorExtension[extensionHandlers.size()]));
+        this.extension = new JavaGeneratorExtensionFacade(extensionHandlers.toArray(new TJavaGeneratorExtension[0]));
     }
 
     private void write(Port port) {
@@ -107,9 +107,7 @@ public class SeiGenerator extends GeneratorBase {
             comment.add("\n\n");
         }
 
-        for(String doc:getJAXWSClassComment()){
-                comment.add(doc);
-        }
+        comment.addAll(getJAXWSClassComment());
 
 
         //@WebService
@@ -212,7 +210,7 @@ public class SeiGenerator extends GeneratorBase {
         }
 
         if (operation.getResponse() == null){
-            m.annotate(javax.jws.Oneway.class);
+            m.annotate(jakarta.jws.Oneway.class);
         }else if (!operation.getJavaMethod().getReturnType().getName().equals("void") &&
                  operation.getResponse().getParametersList().size() > 0){
             Block block;
@@ -246,12 +244,12 @@ public class SeiGenerator extends GeneratorBase {
                         JAnnotationUse wr = null;
 
                         if(!resultName.equals("return")){
-                            wr = m.annotate(javax.jws.WebResult.class);
+                            wr = m.annotate(jakarta.jws.WebResult.class);
                             wr.param("name", resultName);
                         }
                         if (nsURI != null || (isDocStyle && operation.isWrapped())) {
                             if(wr == null) {
-                                wr = m.annotate(javax.jws.WebResult.class);
+                                wr = m.annotate(jakarta.jws.WebResult.class);
                             }
                             wr.param("targetNamespace", nsURI);
                         }
@@ -259,13 +257,13 @@ public class SeiGenerator extends GeneratorBase {
                         if(!(isDocStyle && operation.isWrapped()) ||
                                 (parameter.getBlock().getLocation() == Block.HEADER)){
                             if (wr == null) {
-                                wr = m.annotate(javax.jws.WebResult.class);
+                                wr = m.annotate(jakarta.jws.WebResult.class);
                             }
                             wr.param("partName", parameter.getName());
                         }
                         if(parameter.getBlock().getLocation() == Block.HEADER){
                             if (wr == null) {
-                                wr = m.annotate(javax.jws.WebResult.class);
+                                wr = m.annotate(jakarta.jws.WebResult.class);
                             }
                             wr.param("header",true);
                         }
@@ -285,13 +283,13 @@ public class SeiGenerator extends GeneratorBase {
 
         if (operation.isWrapped() && operation.getStyle().equals(SOAPStyle.DOCUMENT)) {
             Block reqBlock = operation.getRequest().getBodyBlocks().next();
-            JAnnotationUse reqW = m.annotate(javax.xml.ws.RequestWrapper.class);
+            JAnnotationUse reqW = m.annotate(jakarta.xml.ws.RequestWrapper.class);
             reqW.param("localName", reqBlock.getName().getLocalPart());
             reqW.param("targetNamespace", reqBlock.getName().getNamespaceURI());
             reqW.param("className", reqBlock.getType().getJavaType().getName());
 
             if (response != null) {
-                JAnnotationUse resW = m.annotate(javax.xml.ws.ResponseWrapper.class);
+                JAnnotationUse resW = m.annotate(jakarta.xml.ws.ResponseWrapper.class);
                 Block resBlock = response.getBodyBlocks().next();
                 resW.param("localName", resBlock.getName().getLocalPart());
                 resW.param("targetNamespace", resBlock.getName().getNamespaceURI());
@@ -389,10 +387,10 @@ public class SeiGenerator extends GeneratorBase {
         }
 
         if (param.isINOUT()){
-            paramAnno.param("mode", javax.jws.WebParam.Mode.INOUT);
+            paramAnno.param("mode", jakarta.jws.WebParam.Mode.INOUT);
         }else if ((res != null) && (isMessageParam(param, res) || isHeaderParam(param, res) || isAttachmentParam(param, res) ||
                 isUnboundParam(param,res) || param.isOUT())){
-            paramAnno.param("mode", javax.jws.WebParam.Mode.OUT);
+            paramAnno.param("mode", jakarta.jws.WebParam.Mode.OUT);
         }
 
         //doclit wrapped could have additional headers

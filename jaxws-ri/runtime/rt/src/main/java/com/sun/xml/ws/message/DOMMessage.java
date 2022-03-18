@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,8 +11,8 @@
 package com.sun.xml.ws.message;
 
 import com.sun.istack.FragmentContentHandler;
-import com.sun.xml.bind.api.Bridge;
-import com.sun.xml.bind.unmarshaller.DOMScanner;
+import org.glassfish.jaxb.runtime.api.Bridge;
+import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.message.HeaderList;
 import com.sun.xml.ws.api.message.Message;
@@ -25,14 +25,14 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * {@link Message} backed by a DOM {@link Element} that represents the payload.
@@ -68,10 +68,12 @@ public final class DOMMessage extends AbstractMessageImpl {
         this.copyFrom(that);
     }
 
+    @Override
     public boolean hasHeaders() {
         return getHeaders().hasHeaders();
     }
 
+    @Override
     public MessageHeaders getHeaders() {
         if (headers == null)
             headers = new HeaderList(getSOAPVersion());
@@ -79,22 +81,27 @@ public final class DOMMessage extends AbstractMessageImpl {
         return headers;
     }
 
+    @Override
     public String getPayloadLocalPart() {
         return payload.getLocalName();
     }
 
+    @Override
     public String getPayloadNamespaceURI() {
         return payload.getNamespaceURI();
     }
 
+    @Override
     public boolean hasPayload() {
         return true;
     }
 
+    @Override
     public Source readPayloadAsSource() {
         return new DOMSource(payload);
     }
 
+    @Override
     public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         if(hasAttachments())
             unmarshaller.setAttachmentUnmarshaller(new AttachmentUnmarshallerImpl(getAttachments()));
@@ -105,11 +112,13 @@ public final class DOMMessage extends AbstractMessageImpl {
         }
     }
     /** @deprecated */
+    @Override
     public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
         return bridge.unmarshal(payload,
             hasAttachments()? new AttachmentUnmarshallerImpl(getAttachments()) : null);
     }
 
+    @Override
     public XMLStreamReader readPayload() throws XMLStreamException {
         DOMStreamReader dss = new DOMStreamReader();
         dss.setCurrentNode(payload);
@@ -118,6 +127,7 @@ public final class DOMMessage extends AbstractMessageImpl {
         return dss;
     }
 
+    @Override
     public void writePayloadTo(XMLStreamWriter sw) {
         try {
             if (payload != null)
@@ -127,6 +137,7 @@ public final class DOMMessage extends AbstractMessageImpl {
         }
     }
 
+    @Override
     protected void writePayloadTo(ContentHandler contentHandler, ErrorHandler errorHandler, boolean fragment) throws SAXException {
         if(fragment)
             contentHandler = new FragmentContentHandler(contentHandler);
@@ -135,6 +146,7 @@ public final class DOMMessage extends AbstractMessageImpl {
         ds.scan(payload);
     }
 
+    @Override
     public Message copy() {
         return new DOMMessage(this).copyFrom(this);
     }

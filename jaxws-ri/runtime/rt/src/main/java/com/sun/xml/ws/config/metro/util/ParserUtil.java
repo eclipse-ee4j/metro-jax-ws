@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,7 @@ package com.sun.xml.ws.config.metro.util;
 
 import com.sun.istack.logging.Logger;
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  *
@@ -32,7 +32,7 @@ public class ParserUtil {
      * @param value The String representation of the value. Must not be null.
      * @return True if the value is "true" or "1". False if the value is
      *   "false" or "0".
-     * @throws PolicyException If the value is not "true", "false", "0" or "1".
+     * @throws WebServiceException If the value is not "true", "false", "0" or "1".
      */
     public static boolean parseBooleanValue(String value) throws WebServiceException {
         if ("true".equals(value) || "1".equals(value)) {

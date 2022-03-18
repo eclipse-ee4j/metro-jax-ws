@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  * Copyright 2006 Guillaume Nodet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,6 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -201,7 +202,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
 
     /**
      * Binding W3C EndpointReferenceType to Java. By default WsImport follows spec and does not bind
-     * EndpointReferenceType to Java and uses the spec provided {@link javax.xml.ws.wsaddressing.W3CEndpointReference}
+     * EndpointReferenceType to Java and uses the spec provided {@link jakarta.xml.ws.wsaddressing.W3CEndpointReference}
      */
     @Parameter(defaultValue = "false")
     private boolean xnoAddressingDataBinding;
@@ -262,8 +263,6 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
             }
             this.processWsdlViaUrls();
             this.processLocalWsdlFiles(wsdls);
-        } catch (MojoExecutionException e) {
-            throw e;
         } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
@@ -280,9 +279,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
     }
 
     /**
-     * 
-     * @throws MojoExecutionException
-     * @throws IOException
+     *
      */
     private void processLocalWsdlFiles(URL[] wsdls)
             throws MojoExecutionException, IOException {
@@ -309,7 +306,6 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
 
     /**
      * process external wsdl
-     * @throws MojoExecutionException
      */
     private void processWsdlViaUrls()
             throws MojoExecutionException, IOException {
@@ -331,12 +327,10 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
     /**
      * 
      * @return wsimport's command arguments
-     * @throws MojoExecutionException
      */
     private ArrayList<String> getWsImportArgs(String relativePath)
             throws MojoExecutionException {
-        ArrayList<String> args = new ArrayList<String>();
-        args.addAll(getCommonArgs());
+        ArrayList<String> args = new ArrayList<>(getCommonArgs());
 
         if ( httpproxy != null )
         {
@@ -409,8 +403,8 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
             args.add("-Xdebug");
         }
 
-        /**
-         * -Xno-addressing-databinding enable binding of W3C EndpointReferenceType to Java
+        /*
+          -Xno-addressing-databinding enable binding of W3C EndpointReferenceType to Java
          */
         if(xnoAddressingDataBinding){
             args.add("-Xno-addressing-databinding");
@@ -422,7 +416,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
 
         if(xauthFile != null){
             args.add("-Xauthfile");
-            args.add(xauthFile.getAbsolutePath());
+            args.add("'" + xauthFile.getAbsolutePath() + "'");
         }
 
         if (xdisableSSLHostnameVerification) {
@@ -504,10 +498,10 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
      * @return An array of schema files to be parsed by the schema compiler.
      */
     private URL[] getWSDLFiles() throws MojoExecutionException {
-        List<URL> files = new ArrayList<URL>();
+        List<URL> files = new ArrayList<>();
         @SuppressWarnings("unchecked")
         Set<Artifact> dependencyArtifacts = project.getDependencyArtifacts();
-        List<URL> urlCpath = new ArrayList<URL>(dependencyArtifacts.size());
+        List<URL> urlCpath = new ArrayList<>(dependencyArtifacts.size());
         for (Artifact a: dependencyArtifacts) {
             try {
                 if (a.getFile() != null) {
@@ -523,7 +517,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
         }
         ClassLoader loader = urlCpath.isEmpty()
                 ? Thread.currentThread().getContextClassLoader()
-                : new URLClassLoader(urlCpath.toArray(new URL[urlCpath.size()]));
+                : new URLClassLoader(urlCpath.toArray(new URL[0]));
         if (wsdlFiles != null) {
             for (String wsdlFileName : wsdlFiles) {
                 File wsdl = new File(wsdlFileName);
@@ -589,7 +583,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
                 }
             }
         }
-        return files.toArray(new URL[files.size()]);
+        return files.toArray(new URL[0]);
     }
 
     /**
@@ -704,12 +698,10 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
         try {
             MessageDigest md = MessageDigest.getInstance("SHA");
             Formatter formatter = new Formatter();
-            for (byte b : md.digest(s.getBytes("UTF-8"))) {
+            for (byte b : md.digest(s.getBytes(StandardCharsets.UTF_8))) {
                 formatter.format("%02x", b);
             }
             return formatter.toString();
-        } catch (UnsupportedEncodingException ex) {
-            getLog().debug(ex.getMessage(), ex);
         } catch (NoSuchAlgorithmException ex) {
             getLog().debug(ex.getMessage(), ex);
         }

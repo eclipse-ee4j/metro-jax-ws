@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@ public interface EditableWSDLOperation extends WSDLOperation {
      *
      * @param input Input
      */
-    public void setInput(EditableWSDLInput input);
+    void setInput(EditableWSDLInput input);
 
     @Override
     @Nullable
@@ -38,7 +38,7 @@ public interface EditableWSDLOperation extends WSDLOperation {
      *
      * @param output Output
      */
-    public void setOutput(EditableWSDLOutput output);
+    void setOutput(EditableWSDLOutput output);
 
     @Override
     Iterable<? extends EditableWSDLFault> getFaults();
@@ -48,7 +48,7 @@ public interface EditableWSDLOperation extends WSDLOperation {
      *
      * @param fault Fault
      */
-    public void addFault(EditableWSDLFault fault);
+    void addFault(EditableWSDLFault fault);
 
     @Override
     @Nullable
@@ -59,12 +59,12 @@ public interface EditableWSDLOperation extends WSDLOperation {
      *
      * @param parameterOrder Parameter order
      */
-    public void setParameterOrder(String parameterOrder);
+    void setParameterOrder(String parameterOrder);
 
     /**
      * Freezes WSDL model to prevent further modification
      *
      * @param root WSDL Model
      */
-    public void freeze(EditableWSDLModel root);
+    void freeze(EditableWSDLModel root);
 }

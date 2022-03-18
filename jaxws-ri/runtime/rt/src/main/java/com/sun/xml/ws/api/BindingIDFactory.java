@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@ package com.sun.xml.ws.api;
 import com.sun.istack.Nullable;
 import com.sun.istack.NotNull;
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * Extension point to plug in additional {@link BindingID} parsing logic.
@@ -66,7 +66,7 @@ public abstract class BindingIDFactory {
      *      if the implementation understood the transport but it is not correct,
      *      this exception can be thrown to abort the creation with error.
      *      No further {@link BindingIDFactory} will be consulted, and
-     *      {@link #create(String, SOAPVersion)} will throw the exception.
+     *      {@code #create(String, SOAPVersion)} will throw the exception.
      */
     public @Nullable BindingID create(@NotNull String transport, @NotNull SOAPVersion soapVersion) throws WebServiceException {
         return null;

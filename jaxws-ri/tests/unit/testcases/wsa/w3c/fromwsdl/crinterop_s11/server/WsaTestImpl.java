@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,11 +10,11 @@
 
 package wsa.w3c.fromwsdl.crinterop_s11.server;
 
-import javax.jws.WebService;
-import javax.xml.ws.soap.SOAPFaultException;
-import javax.xml.ws.WebServiceException;
-import javax.xml.soap.SOAPFault;
-import javax.xml.soap.SOAPException;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.soap.SOAPFault;
+import jakarta.xml.soap.SOAPException;
 import javax.xml.namespace.QName;
 
 import com.sun.xml.ws.api.SOAPVersion;
@@ -47,7 +47,7 @@ public class WsaTestImpl implements WsaTestPortType {
 
     SOAPFault createSOAPFault(String message) {
         try {
-            SOAPFault fault = SOAPVersion.SOAP_11.saajSoapFactory.createFault();
+            SOAPFault fault = SOAPVersion.SOAP_11.getSOAPFactory().createFault();
             fault.setFaultString(message);
             fault.setFaultCode(new QName("http://example.org/echo", "EmptyEchoString"));
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,12 +21,12 @@ import com.sun.xml.ws.api.server.WebModule;
 import com.sun.xml.ws.transport.http.HttpAdapter;
 import com.sun.xml.ws.transport.http.WSHTTPConnection;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import javax.xml.namespace.QName;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceFeature;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -43,7 +43,7 @@ import java.util.logging.Logger;
  *
  * <p>
  * This class implements {@link BoundEndpoint} and represent the
- * servlet-{@link WSEndpoint} association for {@link }
+ * servlet-{@code WSEndpoint} association
  *
  */
 public class ServletAdapter extends HttpAdapter implements BoundEndpoint {
@@ -82,6 +82,7 @@ public class ServletAdapter extends HttpAdapter implements BoundEndpoint {
     /**
      * Gets the name of the endpoint as given in the <code>sun-jaxws.xml</code>
      * deployment descriptor.
+     * @return the name
      */
     public String getName() {
         return name;
@@ -175,7 +176,7 @@ public class ServletAdapter extends HttpAdapter implements BoundEndpoint {
             }
 
             if (asyncRequest) {
-                final javax.servlet.AsyncContext asyncContext = request.startAsync(request, response);
+                final jakarta.servlet.AsyncContext asyncContext = request.startAsync(request, response);
                 final AsyncCompletionCheck completionCheck = new AsyncCompletionCheck();
                 new WSAsyncListener(connection, callback).addListenerTo(asyncContext,completionCheck);
                 //asyncContext.setTimeout(10000L);// TODO get it from @ or config file

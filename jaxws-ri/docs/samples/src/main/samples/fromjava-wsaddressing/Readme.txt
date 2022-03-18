@@ -1,6 +1,6 @@
 fromjava-wsaddressing sample demonstrates the use of WS-Addressing in Web Services starting from Java.
 Notice in AddNumbersImpl,
- @javax.xml.ws.soap.Addressing is used to enable addressing. With this annotation the generated WSDL for this service contains
+ @jakarta.xml.ws.soap.Addressing is used to enable addressing. With this annotation the generated WSDL for this service contains
  <wsaw:UsingAddressing/> in the binding section. At the minimal, this should be specified on an endpoint
  implementation to enable addressing starting from Java.
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,11 +12,10 @@ package com.sun.xml.ws.server;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import com.sun.xml.bind.marshaller.SAX2DOMEx;
+import org.glassfish.jaxb.core.marshaller.SAX2DOMEx;
 import com.sun.xml.ws.api.ha.HighAvailabilityProvider;
 import com.sun.xml.ws.api.ha.HighAvailabilityProvider.StoreType;
 import com.sun.xml.ws.api.message.Header;
-import com.sun.xml.ws.api.message.HeaderList;
 import com.sun.xml.ws.api.message.MessageHeaders;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.api.server.InstanceResolver;
@@ -42,10 +41,10 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.sax.SAXResult;
-import javax.xml.ws.EndpointReference;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.xml.ws.EndpointReference;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -481,8 +480,8 @@ public final class StatefulInstanceResolver<T> extends AbstractMultiInstanceReso
     private <EPR extends EndpointReference> EPR createEPR(String key,
                                                           Class<EPR> eprClass, String address, String wsdlAddress, EPRRecipe recipe) {
 
-        List<Element> referenceParameters = new ArrayList<Element>();
-        List<Element> metadata = new ArrayList<Element>();
+        List<Element> referenceParameters = new ArrayList<>();
+        List<Element> metadata = new ArrayList<>();
 
         Document doc = DOMUtil.createDom();
         Element cookie =
@@ -549,7 +548,7 @@ public final class StatefulInstanceResolver<T> extends AbstractMultiInstanceReso
             }
 
             @Override
-            public void characters(char ch[], int start, int length) throws SAXException {
+            public void characters(char[] ch, int start, int length) throws SAXException {
                 if (inCookie) {
                     buf.append(ch, start, length);
                 }
@@ -618,9 +617,9 @@ public final class StatefulInstanceResolver<T> extends AbstractMultiInstanceReso
 
     private class HAMap {
         // cookie --> Instance
-        final Map<String, Instance> instances = new HashMap<String, Instance>();
+        final Map<String, Instance> instances = new HashMap<>();
         // object --> cookie
-        final Map<T, String> reverseInstances = new HashMap<T, String>();
+        final Map<T, String> reverseInstances = new HashMap<>();
         final BackingStore<String, HAInstance> bs;
         // Removes expired entrees from BackingStore
         TimerTask expiredTask;
@@ -690,7 +689,7 @@ public final class StatefulInstanceResolver<T> extends AbstractMultiInstanceReso
 
             instances.put(id, newi);
             reverseInstances.put(newi.instance, id);
-            HAInstance<T> hai = new HAInstance<T>(newi.instance, timeoutMilliseconds);
+            HAInstance<T> hai = new HAInstance<>(newi.instance, timeoutMilliseconds);
             HighAvailabilityProvider.saveTo(bs, id, hai, isNew);
         }
 

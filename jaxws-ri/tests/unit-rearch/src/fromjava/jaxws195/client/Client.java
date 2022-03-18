@@ -13,11 +13,11 @@ package fromjava.jaxws195.client;
 import junit.framework.TestCase;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.Dispatch;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.MimeHeaders;
-import javax.xml.soap.SOAPException;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.soap.MimeHeaders;
+import jakarta.xml.soap.SOAPException;
 
 import com.sun.xml.ws.api.SOAPVersion;
 

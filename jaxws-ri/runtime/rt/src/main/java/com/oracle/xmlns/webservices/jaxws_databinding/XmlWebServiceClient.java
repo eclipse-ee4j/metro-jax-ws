@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,14 +9,12 @@
  */
 
 package com.oracle.xmlns.webservices.jaxws_databinding;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 import java.lang.annotation.Annotation;
-
-import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 
 
 /**
@@ -42,7 +40,7 @@ import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "web-service-client")
-public class XmlWebServiceClient implements javax.xml.ws.WebServiceClient {
+public class XmlWebServiceClient implements jakarta.xml.ws.WebServiceClient {
 
     @XmlAttribute(name = "name")
     protected String name;
@@ -125,21 +123,21 @@ public class XmlWebServiceClient implements javax.xml.ws.WebServiceClient {
 
     @Override
     public String name() {
-        return nullSafe(name);
+        return Util.nullSafe(name);
     }
 
     @Override
     public String targetNamespace() {
-        return nullSafe(targetNamespace);
+        return Util.nullSafe(targetNamespace);
     }
 
     @Override
     public String wsdlLocation() {
-        return nullSafe(wsdlLocation);
+        return Util.nullSafe(wsdlLocation);
     }
 
     @Override
     public Class<? extends Annotation> annotationType() {
-        return javax.xml.ws.WebServiceClient.class;
+        return jakarta.xml.ws.WebServiceClient.class;
     }
 }

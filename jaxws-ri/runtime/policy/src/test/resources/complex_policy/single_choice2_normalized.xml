@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<wsp:Policy 
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+    xmlns:foo="http://schemas.foo.com/">
+    <wsp:ExactlyOne>
+        <wsp:All>
+            <foo:TopLevelAssertion_1 />
+            <foo:TopLevelAssertion_2 />
+            <foo:TopLevelAssertion_3 />
+            <foo:TopLevelAssertion_choice1_1 />
+            <foo:TopLevelAssertion_choice1_2 />
+            <foo:TopLevelAssertion_choice1_3 />
+        </wsp:All>
+        <wsp:All>
+            <foo:TopLevelAssertion_1 />
+            <foo:TopLevelAssertion_2 />
+            <foo:TopLevelAssertion_3 />
+            <foo:TopLevelAssertion_choice2_1 />
+            <foo:TopLevelAssertion_choice2_2 />
+            <foo:TopLevelAssertion_choice2_3 />
+            <foo:TopLevelAssertion_choice2_4 />
+        </wsp:All>
+        <wsp:All>
+            <foo:TopLevelAssertion_1 />
+            <foo:TopLevelAssertion_2 />
+            <foo:TopLevelAssertion_3 />
+            <foo:TopLevelAssertion_choice3_1 />
+            <foo:TopLevelAssertion_choice3_2 />
+        </wsp:All>
+        <wsp:All>
+            <foo:TopLevelAssertion_1 />
+            <foo:TopLevelAssertion_2 />
+            <foo:TopLevelAssertion_3 />
+            <foo:TopLevelAssertion_choice4_1 />
+        </wsp:All>
+        <wsp:All>
+            <foo:TopLevelAssertion_1 />
+            <foo:TopLevelAssertion_2 />
+            <foo:TopLevelAssertion_3 />
+        </wsp:All>
+    </wsp:ExactlyOne>
+</wsp:Policy>

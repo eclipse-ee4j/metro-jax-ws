@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,8 +10,8 @@
 
 package com.sun.xml.ws.developer;
 
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceFeature;
 import java.lang.reflect.Constructor;
 import java.net.CookieHandler;
 
@@ -86,6 +86,7 @@ public final class HttpConfigFeature extends WebServiceFeature {
         }
     }
 
+    @Override
     public String getID() {
         return ID;
     }

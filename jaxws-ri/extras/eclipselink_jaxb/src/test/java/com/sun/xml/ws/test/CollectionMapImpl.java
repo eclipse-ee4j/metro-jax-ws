@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,18 +10,15 @@
 
 package com.sun.xml.ws.test;
 
-import static javax.jws.soap.SOAPBinding.Style.RPC;
-import static javax.jws.soap.SOAPBinding.Use.LITERAL;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
 
 @WebService(targetNamespace="http://www.oracle.com/webservices/tests")
-@SOAPBinding(style = RPC, use = LITERAL)
+@SOAPBinding(style = SOAPBinding.Style.RPC, use = SOAPBinding.Use.LITERAL)
 public class CollectionMapImpl {
 	public List<String> echoListOfString(List<String> l) {
 		return l;

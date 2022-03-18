@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -117,6 +117,7 @@ public abstract class AbstractServerAsyncTransport<T> {
         Packet request = decodePacket(connection, codec);
         if (!request.getMessage().isFault()) {
             endpoint.schedule(request, new WSEndpoint.CompletionCallback() {
+                @Override
                 public void onCompletion(@NotNull Packet response) {
                     try {
                         encodePacket(connection, response, codec);
@@ -136,6 +137,7 @@ public abstract class AbstractServerAsyncTransport<T> {
             this. endpoint = endpoint;
         }
 
+        @Override
         protected Codec create() {
             return endpoint.createCodec();
         }

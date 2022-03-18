@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@ import java.net.URL;
 
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceFeature;
 
 import org.xml.sax.EntityResolver;
 
@@ -29,7 +29,7 @@ import com.oracle.webservices.api.message.MessageContext;
  * be created from a Databinding object to genreate WSDL representation of 
  * a JAVA service endpoint interface.
  * <p>
- * </p>
+ *
  * The supported databinding modes(flavors) are:
  * <ul>
  * <li>"toplink.jaxb"</li>
@@ -106,10 +106,10 @@ public interface Databinding {
 	 */
 	MessageContext serializeResponse(JavaCallInfo call);
 
-    /**
-     * Gets the MessageContextFactory
-     * 
-     * @return The MessageContextFactory
+    /*
+      Gets the MessageContextFactory
+
+      @return The MessageContextFactory
      */
 //Wait for WLS/src1212 - wls.jaxrpc wrapper
 //	MessageContextFactory getMessageContextFactory();
@@ -121,7 +121,7 @@ public interface Databinding {
      * @see com.oracle.webservices.api.databinding.DatabindingFactory
 	 * @author shih-chang.chen@oracle.com
 	 */
-	public interface Builder {
+    interface Builder {
 		
 		/**
 		 * Sets the targetNamespace of the WSDL

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -57,11 +57,13 @@ public class NonAnonymousResponseProcessor {
 	        
 			if (currentFiberCallback != null) {
 		          fiberCallback = new Fiber.CompletionCallback() {
-		          public void onCompletion(@NotNull Packet response) {
+		          @Override
+                  public void onCompletion(@NotNull Packet response) {
 		            currentFiberCallback.onCompletion(response);
 		          }
 		
-		          public void onCompletion(@NotNull Throwable error) {
+		          @Override
+                  public void onCompletion(@NotNull Throwable error) {
 		            currentFiberCallback.onCompletion(error);
 		          }
 		        };

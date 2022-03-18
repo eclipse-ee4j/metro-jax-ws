@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,10 +12,10 @@ package com.sun.xml.ws.developer;
 
 import com.sun.xml.ws.api.FeatureConstructor;
 
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceFeature;
 
 /**
- * {@link javax.xml.ws.WebServiceFeature} for configuration serialization.
+ * {@link jakarta.xml.ws.WebServiceFeature} for configuration serialization.
  *
  * @since JAX-WS RI 2.2.6
  * @author Jitendra Kotamraju
@@ -37,6 +37,7 @@ public class SerializationFeature extends WebServiceFeature {
         this.encoding = encoding;
     }
 
+    @Override
     public String getID() {
         return ID;
     }

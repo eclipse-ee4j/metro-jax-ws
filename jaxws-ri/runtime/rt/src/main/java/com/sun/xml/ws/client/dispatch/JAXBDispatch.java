@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 package com.sun.xml.ws.client.dispatch;
 
-import com.sun.xml.bind.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import com.sun.xml.ws.api.addressing.WSEndpointReference;
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.api.message.Headers;
@@ -24,18 +24,18 @@ import com.sun.xml.ws.client.WSServiceDelegate;
 import com.sun.xml.ws.message.jaxb.JAXBDispatchMessage;
 import com.sun.xml.ws.spi.db.BindingContextFactory;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * The <code>JAXBDispatch</code> class provides support
  * for the dynamic invocation of a service endpoint operation using
- * JAXB objects. The <code>javax.xml.ws.Service</code>
+ * JAXB objects. The <code>jakarta.xml.ws.Service</code>
  * interface acts as a factory for the creation of <code>JAXBDispatch</code>
  * instances.
  *
@@ -64,6 +64,7 @@ public class JAXBDispatch extends DispatchImpl<Object> {
         this.isContextSupported = BindingContextFactory.isContextSupported(jc);
     }
 
+    @Override
     Object toReturnValue(Packet response) {
         try {
             Unmarshaller unmarshaller = jaxbcontext.createUnmarshaller();
@@ -83,6 +84,7 @@ public class JAXBDispatch extends DispatchImpl<Object> {
     }
 
 
+    @Override
     Packet createPacket(Object msg) {
         assert jaxbcontext != null;
 
@@ -105,6 +107,7 @@ public class JAXBDispatch extends DispatchImpl<Object> {
 
     }
 
+    @Override
     public void setOutboundHeaders(Object... headers) {
         if (headers == null)
             throw new IllegalArgumentException();
@@ -113,7 +116,7 @@ public class JAXBDispatch extends DispatchImpl<Object> {
             if (headers[i] == null)
                 throw new IllegalArgumentException();
             // TODO: handle any JAXBContext.
-            hl[i] = Headers.create((JAXBRIContext) jaxbcontext, headers[i]);
+            hl[i] = Headers.create(jaxbcontext, headers[i]);
         }
         super.setOutboundHeaders(hl);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,7 +20,7 @@ import junit.framework.TestCase;
 public class MessageContextImplTest extends TestCase {
 
     private static final String DIRECT_CHILD = "com.sun.xml.ws.client.ContentNegotiation";
-    private static final String SATELLITES_CHILD = "javax.xml.ws.wsdl.service";
+    private static final String SATELLITES_CHILD = "jakarta.xml.ws.wsdl.service";
 
     public void test() {
 

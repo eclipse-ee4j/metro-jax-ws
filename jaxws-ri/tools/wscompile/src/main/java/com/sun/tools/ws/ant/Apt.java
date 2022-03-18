@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -63,7 +63,6 @@ public class Apt extends Task {
 
     /**
      * Creates a nested classpath element.
-     * @return 
      */
     public Path createClasspath() {
         if (compileClasspath == null) {
@@ -74,7 +73,6 @@ public class Apt extends Task {
 
     /**
      * Adds a reference to a CLASSPATH defined elsewhere.
-     * @param r
      */
     public void setClasspathRef(Reference r) {
         createClasspath().setRefid(r);
@@ -188,7 +186,7 @@ public class Apt extends Task {
         this.xPrintFactoryInfo = xPrintFactoryInfo;
     }
 
-    /** Inherited from javac */
+    /* Inherited from javac */
 
     /**
      * -g option: debugging info
@@ -333,7 +331,7 @@ public class Apt extends Task {
         this.targetVM = target;
     }
 
-    /** Others */
+    /* Others */
 
     /**
      * -fork option:
@@ -529,7 +527,7 @@ public class Apt extends Task {
             Commandline cmd = fork ? setupAptForkCommand() : setupAptCommand();
 
             if (verbose) {
-                log("command line: apt " + cmd.toString());
+                log("command line: apt " + cmd);
             }
             int status = 0;
             if (fork)
@@ -559,7 +557,7 @@ public class Apt extends Task {
             }
             if (status != 0) {
                 if (!verbose) {
-                    log("Command invoked: apt " + cmd.toString());
+                    log("Command invoked: apt " + cmd);
                 }
                 throw new BuildException("apt failed", location);
             }

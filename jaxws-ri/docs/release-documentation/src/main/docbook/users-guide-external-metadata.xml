@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,17 +21,17 @@
         >
     <title>External Web Service Metadata</title>
 
-    <para>It's one of goals of JAX-WS RI to make development of web services as simple as possible, so using of java
+    <para>It's one of goals of &ws.impl.name; to make development of web services as simple as possible, so using of java
         annotations perfectly makes sense. However there are usecases where it is impossible to use them.
         For example if we need to expose existing component as a web service, but we have no source code, just binaries.
-        In such scenarios we need not to rely on annotations and JAX-WS RI framework needs a different way how to obtain
-        necessary metadata. The solution is to provide metadata in xml files and to configure JAX-WS RI framework in a
+        In such scenarios we need not to rely on annotations and &ws.impl.name; framework needs a different way how to obtain
+        necessary metadata. The solution is to provide metadata in xml files and to configure &ws.impl.name; framework in a
         way it's aware of them.
     </para>
 
     <section xml:id="external-metadata-xml-per-file">
         <title>Configuration files</title>
-        <para>To specify classes' metadata externally, each java class requires separate file. The way how JAX-WS RI framework
+        <para>To specify classes' metadata externally, each java class requires separate file. The way how &ws.impl.name; framework
             handles this metadata depends on attributes of xml root element <option>java-wsdl-mapping</option>:
         </para>
 
@@ -64,7 +64,7 @@
                     <itemizedlist>
                         <listitem>
                             <literal>ignore</literal>
-                            <para>- annotations found in java class are ignored; JAX-WS RI framework behaves as if
+                            <para>- annotations found in java class are ignored; &ws.impl.name; framework behaves as if
                                 there was no other metadata than one in xml file</para>
                         </listitem>
                         <listitem>
@@ -86,7 +86,7 @@
         <para>
             As you probably noticed in an example above, there is a new schema for configuration files:
             <link xlink:href="http://xmlns.oracle.com/webservices/jaxws-databinding/1.0/jaxws-databinding.xsd">http://xmlns.oracle.com/webservices/jaxws-databinding</link>.
-            The schema is designed to reflect Web Service Metadata (JSR-181) and JAX-WS Annotations (JSR-224) so structure
+            The schema is designed to reflect Web Service Metadata (JSR-181) and &ws.spec.name; Annotations (JSR-224) so structure
             should be really intuitive to developers - see following table:
 
             <table frame="all" xml:id="external-metadata-annotation-element-mapping-table">
@@ -102,11 +102,11 @@
 
                     <tbody>
                         <row>
-                            <entry><para><literal>javax.jws.WebService(name="AddNumbers", portName="AddNumbersPort")</literal></para></entry>
+                            <entry><para><literal>jakarta.jws.WebService(name="AddNumbers", portName="AddNumbersPort")</literal></para></entry>
                             <entry><para><literal><![CDATA[<web-service name="AddNumbers" port-name="AddNumbersPort" />]]></literal></para></entry>
                         </row>
                         <row>
-                            <entry><para><literal>javax.xml.ws.WebServiceProvider(
+                            <entry><para><literal>jakarta.xml.ws.WebServiceProvider(
                                 targetNamespace="urn:test",
                                 serviceName="Endpoint",
                                 portName="EndpointPort")
@@ -117,7 +117,7 @@
                             port-name="EndpointPort" />]]></literal></para></entry>
                         </row>
                         <row>
-                            <entry><para><literal>javax.xml.ws.ServiceMode(Service.Mode.MESSAGE)</literal></para> </entry>
+                            <entry><para><literal>jakarta.xml.ws.ServiceMode(Service.Mode.MESSAGE)</literal></para> </entry>
                             <entry><para><literal><![CDATA[<service-mode value="MESSAGE" />]]></literal></para></entry>
                         </row>
                     </tbody>
@@ -130,9 +130,9 @@
     </section>
 
     <section xml:id="external-metadata-passing-configurations">
-        <title>Passing Configuration Files to JAX-WS RI</title>
+        <title>Passing Configuration Files to &ws.impl.name;</title>
         <para>
-            There are different stages where we need to pass the collection of files to JAX-WS RI framework:
+            There are different stages where we need to pass the collection of files to &ws.impl.name; framework:
 
             <itemizedlist>
                 <listitem>
@@ -173,7 +173,7 @@
                 <listitem>
                     <para>runtime - in runtime, it's necessary to tell somehow to container (Servlet or JEE) what xml
                         files to load.
-                        Currently, JAX-WS RI Servlet deployment is supported -
+                        Currently, &ws.impl.name; Servlet deployment is supported -
                         <literal>sun-jaxws.xml</literal> schema has been updated to support new elements -
                         <literal><![CDATA[<external-metadata>]]></literal>, saying to a container to parse the resources
                         when doing a deployment:

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,9 +31,9 @@ import java.net.MalformedURLException;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
-import javax.xml.ws.*;
-import javax.xml.ws.spi.http.HttpContext;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.spi.http.HttpContext;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 import javax.xml.parsers.ParserConfigurationException;
 
 import java.io.IOException;
@@ -98,7 +98,7 @@ public class EndpointImpl extends Endpoint {
     }
 
     public EndpointImpl(@NotNull BindingID bindingId, @NotNull Class implClass,
-                        javax.xml.ws.spi.Invoker invoker,
+                        jakarta.xml.ws.spi.Invoker invoker,
                         WebServiceFeature ... features) {
         this(bindingId, null, implClass, new InvokerImpl(invoker),  features);
     }
@@ -310,7 +310,7 @@ public class EndpointImpl extends Endpoint {
                 binding,
                 getPrimaryWsdl(metadataReader),
                 buildDocList(),
-                (EntityResolver) null,
+                null,
                 false
         );
         // Don't load HttpEndpoint class before as it may load HttpServer classes
@@ -435,9 +435,9 @@ public class EndpointImpl extends Endpoint {
     }
 
     private static class InvokerImpl extends Invoker {
-        private javax.xml.ws.spi.Invoker spiInvoker;
+        private jakarta.xml.ws.spi.Invoker spiInvoker;
 
-        InvokerImpl(javax.xml.ws.spi.Invoker spiInvoker) {
+        InvokerImpl(jakarta.xml.ws.spi.Invoker spiInvoker) {
             this.spiInvoker = spiInvoker;
         }
 

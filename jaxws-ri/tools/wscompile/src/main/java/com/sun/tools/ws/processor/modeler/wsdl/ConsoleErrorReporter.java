@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,6 +36,7 @@ public class ConsoleErrorReporter extends ErrorReceiver {
         return hasError;
     }
 
+    @Override
     public void error(SAXParseException e) {
         if(debug)
             e.printStackTrace();
@@ -49,6 +50,7 @@ public class ConsoleErrorReporter extends ErrorReceiver {
 
 
 
+    @Override
     public void fatalError(SAXParseException e) {
         if(debug)
             e.printStackTrace();
@@ -56,6 +58,7 @@ public class ConsoleErrorReporter extends ErrorReceiver {
         print(WscompileMessages.WSIMPORT_ERROR_MESSAGE(e.getMessage()), e);
     }
 
+    @Override
     public void warning(SAXParseException e) {
         print(WscompileMessages.WSIMPORT_WARNING_MESSAGE(e.getMessage()), e);
     }
@@ -64,10 +67,12 @@ public class ConsoleErrorReporter extends ErrorReceiver {
      * Used to report possibly verbose information that
      * can be safely ignored.
      */
+    @Override
     public void info(SAXParseException e) {
         print(WscompileMessages.WSIMPORT_INFO_MESSAGE(e.getMessage()), e);
     }
 
+    @Override
     public void debug(SAXParseException e){
         print(WscompileMessages.WSIMPORT_DEBUG_MESSAGE(e.getMessage()), e);
     }

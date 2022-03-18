@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2011, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * Oracle licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -20,11 +20,7 @@ package org.jvnet.jax_ws_commons.jaxws;
 
 import java.io.File;
 import java.io.IOException;
-import static org.jvnet.jax_ws_commons.jaxws.Assertions.assertFileContains;
-import static org.jvnet.jax_ws_commons.jaxws.Assertions.assertFileNotPresent;
-import static org.jvnet.jax_ws_commons.jaxws.Assertions.assertFilePresent;
-import static org.jvnet.jax_ws_commons.jaxws.Assertions.assertJarContains;
-import static org.jvnet.jax_ws_commons.jaxws.Assertions.assertJarNotContains;
+
 import org.testng.annotations.Test;
 
 /**
@@ -39,59 +35,6 @@ public class WsGenMojoITCase {
     public WsGenMojoITCase() {
     }
 
-    @Test(enabled = false)
-    public void wsgen217() throws IOException {
-        project = new File(PROJECTS_DIR, "wsgen217");
-
-        //check EchoService
-        assertFilePresent(project, "target/custom/sources/org/jvnet/jax_ws_commons/jaxws/test/jaxws/EchoResponse.java");
-        assertFilePresent(project, "target/custom/classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/Echo.class");
-        assertFilePresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/EchoService.class");
-        //-wsdl[...]
-        assertFilePresent(project, "target/wsdl/EchoService.wsdl");
-        assertFilePresent(project, "target/wsdl/EchoService_schema1.xsd");
-        assertFileNotPresent(project, "target/jaxws/wsgen/wsdl/EchoService.wsdl");
-        assertFileNotPresent(project, "target/generated-sources/wsdl/EchoService.wsdl");
-        assertFileNotPresent(project, "target/generated-sources/test-wsdl/EchoService.wsdl");
-        //-wsdl:Xsoap12 + -extension
-        assertFileContains(project, "target/wsdl/EchoService.wsdl", "http://schemas.xmlsoap.org/wsdl/soap12/");
-        //dependency on 2.1.7
-        assertFileContains(project, "target/wsdl/EchoService.wsdl", "JAX-WS RI 2.1.7");
-
-        //check AddService
-        assertFilePresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/Add.class");
-        assertFilePresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/AddService.class");
-        assertFileNotPresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/Add.java");
-        assertFileNotPresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/AddService.java");
-        assertFileNotPresent(project, "target/wsdl/AddService.wsdl");
-        assertFileNotPresent(project, "target/jaxws/wsgen/wsdl/AddService.wsdl");
-
-        //check TService
-        assertFilePresent(project, "target/generated-sources/test-wsdl/TService.wsdl");
-        assertFilePresent(project, "target/generated-sources/test-wsdl/ExService.wsdl");
-        assertFilePresent(project, "target/test-classes/org/jvnet/jax_ws_commons/jaxws/test/TService.class");
-        assertFilePresent(project, "target/test-classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/HelloResponse.class");
-        assertFilePresent(project, "target/generated-sources/test-wsgen/org/jvnet/jax_ws_commons/jaxws/test/jaxws/HelloResponse.java");
-        assertFileNotPresent(project, "target/test-classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/HelloResponse.java");
-        //dependency on 2.1.7
-        assertFileContains(project, "target/generated-sources/test-wsdl/ExService.wsdl", "JAX-WS RI 2.1.7");
-        //-portname
-        assertFileContains(project, "target/generated-sources/test-wsdl/ExService.wsdl", "port name=\"ExPort\"");
-        //-servicename
-        assertFileContains(project, "target/generated-sources/test-wsdl/ExService.wsdl", "service name=\"ExService\"");
-
-        //-encoding is not supported, warning should be present
-        assertFileContains(project, "build.log", "'-encoding' is not supported by jaxws-tools:2.1.7");
-
-        //package wsdl
-        assertJarContains(project, "mojo.it.wsgentest217-2.2.6.jar", "META-INF/wsdl/EchoService.wsdl");
-        assertJarContains(project, "mojo.it.wsgentest217-2.2.6.jar", "META-INF/wsdl/EchoService_schema1.xsd");
-        assertJarNotContains(project, "mojo.it.wsgentest217-2.2.6.jar", "META-INF/EchoService_schema.xsd");
-        assertJarNotContains(project, "mojo.it.wsgentest217-2.2.6.jar", "EchoService_schema.xsd");
-        assertJarNotContains(project, "mojo.it.wsgentest217-2.2.6.jar", "META-INF/wsdl/ExService.wsdl");
-        assertJarNotContains(project, "mojo.it.wsgentest217-2.2.6.jar", "ExService.wsdl");
-    }
-
     @Test
     public void wsgen22() throws IOException {
         project = new File(PROJECTS_DIR, "wsgen22");
@@ -102,88 +45,88 @@ public class WsGenMojoITCase {
         String version = i != j ? v.substring(0, i) + v.substring(j) : v;
 
         //check EchoService
-        assertFilePresent(project, "target/custom/sources/org/jvnet/jax_ws_commons/jaxws/test/jaxws/EchoResponse.java");
-        assertFilePresent(project, "target/custom/classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/Echo.class");
-        assertFilePresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/EchoService.class");
+        Assertions.assertFilePresent(project, "target/custom/sources/org/jvnet/jax_ws_commons/jaxws/test/jaxws/EchoResponse.java");
+        Assertions.assertFilePresent(project, "target/custom/classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/Echo.class");
+        Assertions.assertFilePresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/EchoService.class");
         //-wsdl[...]
-        assertFilePresent(project, "target/wsdl/EchoService.wsdl");
+        Assertions.assertFilePresent(project, "target/wsdl/EchoService.wsdl");
         //-inlineSchemas
-        assertFileContains(project, "target/wsdl/EchoService.wsdl", "xs:complexType");
-        assertFileNotPresent(project, "target/wsdl/EchoService_schema1.xsd");
-        assertFileNotPresent(project, "target/jaxws/wsgen/wsdl/EchoService.wsdl");
-        assertFileNotPresent(project, "target/generated-sources/wsdl/EchoService.wsdl");
-        assertFileNotPresent(project, "target/generated-sources/test-wsdl/EchoService.wsdl");
+        Assertions.assertFileContains(project, "target/wsdl/EchoService.wsdl", "xs:complexType");
+        Assertions.assertFileNotPresent(project, "target/wsdl/EchoService_schema1.xsd");
+        Assertions.assertFileNotPresent(project, "target/jaxws/wsgen/wsdl/EchoService.wsdl");
+        Assertions.assertFileNotPresent(project, "target/generated-sources/wsdl/EchoService.wsdl");
+        Assertions.assertFileNotPresent(project, "target/generated-sources/test-wsdl/EchoService.wsdl");
         //-wsdl:Xsoap12 + -extension
-        assertFileContains(project, "target/wsdl/EchoService.wsdl", "http://schemas.xmlsoap.org/wsdl/soap12/");
+        Assertions.assertFileContains(project, "target/wsdl/EchoService.wsdl", "http://schemas.xmlsoap.org/wsdl/soap12/");
         //default dependency on 2.2.x
-        assertFileContains(project, "target/wsdl/EchoService.wsdl", "JAX-WS RI " + version);
+        Assertions.assertFileContains(project, "target/wsdl/EchoService.wsdl", "JAX-WS RI " + version);
 
         //check AddService
-        assertFilePresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/Add.class");
-        assertFilePresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/AddService.class");
-        assertFileNotPresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/Add.java");
-        assertFileNotPresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/AddService.java");
-        assertFileNotPresent(project, "target/wsdl/AddService.wsdl");
-        assertFileNotPresent(project, "target/jaxws/wsgen/wsdl/AddService.wsdl");
+        Assertions.assertFilePresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/Add.class");
+        Assertions.assertFilePresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/AddService.class");
+        Assertions.assertFileNotPresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/Add.java");
+        Assertions.assertFileNotPresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/AddService.java");
+        Assertions.assertFileNotPresent(project, "target/wsdl/AddService.wsdl");
+        Assertions.assertFileNotPresent(project, "target/jaxws/wsgen/wsdl/AddService.wsdl");
 
         //check TService
-        assertFilePresent(project, "target/generated-sources/test-wsdl/TService.wsdl");
-        assertFilePresent(project, "target/generated-sources/test-wsdl/ExService.wsdl");
-        assertFilePresent(project, "target/test-classes/org/jvnet/jax_ws_commons/jaxws/test/TService.class");
-        assertFilePresent(project, "target/test-classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/HelloResponse.class");
-        assertFilePresent(project, "target/generated-sources/test-wsgen/org/jvnet/jax_ws_commons/jaxws/test/jaxws/HelloResponse.java");
-        assertFileNotPresent(project, "target/test-classes/org/jvnet/jax_ws_commons/jaxws/test/TService.java");
-        assertFileNotPresent(project, "target/test-classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/HelloResponse.java");
+        Assertions.assertFilePresent(project, "target/generated-sources/test-wsdl/TService.wsdl");
+        Assertions.assertFilePresent(project, "target/generated-sources/test-wsdl/ExService.wsdl");
+        Assertions.assertFilePresent(project, "target/test-classes/org/jvnet/jax_ws_commons/jaxws/test/TService.class");
+        Assertions.assertFilePresent(project, "target/test-classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/HelloResponse.class");
+        Assertions.assertFilePresent(project, "target/generated-sources/test-wsgen/org/jvnet/jax_ws_commons/jaxws/test/jaxws/HelloResponse.java");
+        Assertions.assertFileNotPresent(project, "target/test-classes/org/jvnet/jax_ws_commons/jaxws/test/TService.java");
+        Assertions.assertFileNotPresent(project, "target/test-classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/HelloResponse.java");
         //default dependency on 2.2.x
-        assertFileContains(project, "target/generated-sources/test-wsdl/ExService.wsdl", "JAX-WS RI " + version);
+        Assertions.assertFileContains(project, "target/generated-sources/test-wsdl/ExService.wsdl", "JAX-WS RI " + version);
         //-portname
-        assertFileContains(project, "target/generated-sources/test-wsdl/ExService.wsdl", "port name=\"ExPort\"");
+        Assertions.assertFileContains(project, "target/generated-sources/test-wsdl/ExService.wsdl", "port name=\"ExPort\"");
         //-servicename
-        assertFileContains(project, "target/generated-sources/test-wsdl/ExService.wsdl", "service name=\"ExService\"");
+        Assertions.assertFileContains(project, "target/generated-sources/test-wsdl/ExService.wsdl", "service name=\"ExService\"");
 
         //package wsdl
-        assertJarContains(project, "mojo.it.wsgentest22-2.2.6.jar", "META-INF/wsdl/EchoService.wsdl");
-        assertJarNotContains(project, "mojo.it.wsgentest22-2.2.6.jar", "META-INF/wsdl/EchoService_schema1.xsd");
-        assertJarNotContains(project, "mojo.it.wsgentest22-2.2.6.jar", "META-INF/EchoService_schema.xsd");
-        assertJarNotContains(project, "mojo.it.wsgentest22-2.2.6.jar", "EchoService_schema.xsd");
-        assertJarNotContains(project, "mojo.it.wsgentest22-2.2.6.jar", "META-INF/wsdl/ExService.wsdl");
-        assertJarNotContains(project, "mojo.it.wsgentest22-2.2.6.jar", "ExService.wsdl");
+        Assertions.assertJarContains(project, "mojo.it.wsgentest22-2.2.6.jar", "META-INF/wsdl/EchoService.wsdl");
+        Assertions.assertJarNotContains(project, "mojo.it.wsgentest22-2.2.6.jar", "META-INF/wsdl/EchoService_schema1.xsd");
+        Assertions.assertJarNotContains(project, "mojo.it.wsgentest22-2.2.6.jar", "META-INF/EchoService_schema.xsd");
+        Assertions.assertJarNotContains(project, "mojo.it.wsgentest22-2.2.6.jar", "EchoService_schema.xsd");
+        Assertions.assertJarNotContains(project, "mojo.it.wsgentest22-2.2.6.jar", "META-INF/wsdl/ExService.wsdl");
+        Assertions.assertJarNotContains(project, "mojo.it.wsgentest22-2.2.6.jar", "ExService.wsdl");
     }
 
     @Test
     public void jaxwscommons43() throws IOException {
         project = new File(PROJECTS_DIR, "jaxwscommons-43");
 
-        assertFilePresent(project, "target/classes/tests/jaxwscommons43/jaxws/Bye.class");
-        assertFilePresent(project, "target/generated-sources/wsdl/WsImplAService.wsdl");
-        assertFilePresent(project, "target/generated-sources/wsdl/WsImplBService.wsdl");
-        assertFileContains(project, "build.log", "No @javax.jws.WebService found.");
-        assertFileContains(project, "build.log", "Skipping tests, nothing to do.");
+        Assertions.assertFilePresent(project, "target/classes/tests/jaxwscommons43/jaxws/Bye.class");
+        Assertions.assertFilePresent(project, "target/generated-sources/wsdl/WsImplAService.wsdl");
+        Assertions.assertFilePresent(project, "target/generated-sources/wsdl/WsImplBService.wsdl");
+        Assertions.assertFileContains(project, "build.log", "No @jakarta.jws.WebService found.");
+        Assertions.assertFileContains(project, "build.log", "Skipping tests, nothing to do.");
     }
 
     @Test
     public void jaxwscommons3() throws IOException {
         project = new File(PROJECTS_DIR, "jaxwscommons-3");
 
-        assertFilePresent(project, "target/cst/WEB-INF/wsdl/NewWebService.wsdl");
-        assertJarContains(project, "jaxwscommons-3-1.0.war", "WEB-INF/wsdl/NewWebService.wsdl");
+        Assertions.assertFilePresent(project, "target/cst/WEB-INF/wsdl/NewWebService.wsdl");
+        Assertions.assertJarContains(project, "jaxwscommons-3-1.0.war", "WEB-INF/wsdl/NewWebService.wsdl");
     }
 
     @Test
     public void jaxwscommons91() throws IOException {
         project = new File(PROJECTS_DIR, "jaxwscommons-91");
 
-        assertFilePresent(project, "target/generated-sources/wsgen/com/mycompany/mavenproject2/jaxws/CustomExBean.java");
-        assertFilePresent(project, "target/generated-sources/wsdl/NewWebService.wsdl");
+        Assertions.assertFilePresent(project, "target/generated-sources/wsgen/com/mycompany/mavenproject2/jaxws/CustomExBean.java");
+        Assertions.assertFilePresent(project, "target/generated-sources/wsdl/NewWebService.wsdl");
     }
 
     @Test
     public void jaxwscommons103() throws IOException {
         project = new File(PROJECTS_DIR, "jaxwscommons-103/ws");
 
-        assertJarContains(project, "jaxwscommons-103.ws.war", "WEB-INF/wsdl/EchoImplService.wsdl");
-        assertJarContains(project, "jaxwscommons-103.ws.war", "WEB-INF/wsdl/EchoImplService_schema1.xsd");
-        assertJarContains(project, "jaxwscommons-103.ws.war", "WEB-INF/classes/metadata-echo.xml");
+        Assertions.assertJarContains(project, "jaxwscommons-103.ws.war", "WEB-INF/wsdl/EchoImplService.wsdl");
+        Assertions.assertJarContains(project, "jaxwscommons-103.ws.war", "WEB-INF/wsdl/EchoImplService_schema1.xsd");
+        Assertions.assertJarContains(project, "jaxwscommons-103.ws.war", "WEB-INF/classes/metadata-echo.xml");
     }
 
 }

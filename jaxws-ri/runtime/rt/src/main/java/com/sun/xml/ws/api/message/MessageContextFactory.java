@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,12 +18,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.soap.MimeHeader;
-import javax.xml.soap.MimeHeaders;
-import javax.xml.soap.SOAPMessage;
+import com.sun.xml.ws.transport.http.HttpAdapter;
+import jakarta.xml.soap.MimeHeader;
+import jakarta.xml.soap.MimeHeaders;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.Source;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.soap.MTOMFeature;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.soap.MTOMFeature;
 
 import com.oracle.webservices.api.EnvelopeStyle;
 import com.oracle.webservices.api.EnvelopeStyleFeature;
@@ -32,7 +33,6 @@ import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.WSFeatureList;
 import com.sun.xml.ws.api.pipe.Codec;
 import com.sun.xml.ws.api.pipe.Codecs;
-import static com.sun.xml.ws.transport.http.HttpAdapter.fixQuotesAroundSoapAction;
 
 /**
  * The MessageContextFactory implements com.oracle.webservices.api.message.MessageContextFactory as
@@ -56,7 +56,7 @@ public class MessageContextFactory extends com.oracle.webservices.api.message.Me
         features = wsf;
         envelopeStyle = features.get(EnvelopeStyleFeature.class);
         if (envelopeStyle == null) {//Default to SOAP11
-            envelopeStyle = new EnvelopeStyleFeature(new EnvelopeStyle.Style[]{EnvelopeStyle.Style.SOAP11});
+            envelopeStyle = new EnvelopeStyleFeature(EnvelopeStyle.Style.SOAP11);
             features.mergeFeatures(new WebServiceFeature[]{envelopeStyle}, false);
         }
         for (EnvelopeStyle.Style s : envelopeStyle.getStyles()) {
@@ -69,31 +69,37 @@ public class MessageContextFactory extends com.oracle.webservices.api.message.Me
         }
     }
 
+    @Override
     protected com.oracle.webservices.api.message.MessageContextFactory newFactory(WebServiceFeature... f) {
         return new com.sun.xml.ws.api.message.MessageContextFactory(f);
     }
 
 
+    @Override
     public com.oracle.webservices.api.message.MessageContext createContext() {
         return packet(null);
     }
 
+    @Override
     public com.oracle.webservices.api.message.MessageContext createContext(SOAPMessage soap) {
         throwIfIllegalMessageArgument(soap);
         if (saajFactory!= null) return packet(saajFactory.createMessage(soap));
         return packet(Messages.create(soap));
     }
 
+    @Override
     public MessageContext createContext(Source m, com.oracle.webservices.api.EnvelopeStyle.Style envelopeStyle) {
         throwIfIllegalMessageArgument(m);
         return packet(Messages.create(m, SOAPVersion.from(envelopeStyle)));
     }
 
+    @Override
     public com.oracle.webservices.api.message.MessageContext createContext(Source m) {
         throwIfIllegalMessageArgument(m);
         return packet(Messages.create(m, SOAPVersion.from(singleSoapStyle)));
     }
     
+    @Override
     public com.oracle.webservices.api.message.MessageContext createContext(InputStream in, String contentType) throws IOException {
         throwIfIllegalMessageArgument(in);
         //TODO when do we use xmlCodec?
@@ -105,12 +111,13 @@ public class MessageContextFactory extends com.oracle.webservices.api.message.Me
     /**
      * @deprecated http://java.net/jira/browse/JAX_WS-1077
      */
-    @Deprecated 
+    @Override
+    @Deprecated
     public com.oracle.webservices.api.message.MessageContext createContext(InputStream in, MimeHeaders headers) throws IOException {
         String contentType = getHeader(headers, "Content-Type");
         Packet packet = (Packet) createContext(in, contentType);
         packet.acceptableMimeTypes = getHeader(headers, "Accept");
-        packet.soapAction = fixQuotesAroundSoapAction(getHeader(headers, "SOAPAction"));
+        packet.soapAction = HttpAdapter.fixQuotesAroundSoapAction(getHeader(headers, "SOAPAction"));
 //      packet.put(Packet.INBOUND_TRANSPORT_HEADERS, toMap(headers));
         return packet;
     }
@@ -121,14 +128,10 @@ public class MessageContextFactory extends com.oracle.webservices.api.message.Me
     }
    
     static Map<String, List<String>> toMap(MimeHeaders headers) {
-        HashMap<String, List<String>> map = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> map = new HashMap<>();
         for (Iterator<MimeHeader> i = headers.getAllHeaders(); i.hasNext();) {
             MimeHeader mh = i.next();
-            List<String> values = map.get(mh.getName());
-            if (values == null) {
-                values = new ArrayList<String>();
-                map.put(mh.getName(), values);
-            }
+            List<String> values = map.computeIfAbsent(mh.getName(), k -> new ArrayList<>());
             values.add(mh.getValue());
         }       
         return map;
@@ -160,14 +163,17 @@ public class MessageContextFactory extends com.oracle.webservices.api.message.Me
         }
     }
 
+    @Override
     @Deprecated
     public com.oracle.webservices.api.message.MessageContext doCreate() {
         return packet(null);
     }
+    @Override
     @Deprecated
     public com.oracle.webservices.api.message.MessageContext doCreate(SOAPMessage m) {
         return createContext(m);
     }
+    @Override
     @Deprecated
     public com.oracle.webservices.api.message.MessageContext doCreate(Source x, SOAPVersion soapVersion) {
         return packet(Messages.create(x, soapVersion));

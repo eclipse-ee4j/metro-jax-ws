@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,12 +10,12 @@
 
 package async.client;
 
-import javax.xml.ws.AsyncHandler;
-import javax.xml.ws.Response;
+import jakarta.xml.ws.AsyncHandler;
+import jakarta.xml.ws.Response;
 import java.rmi.RemoteException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import javax.xml.ws.BindingProvider;
+import jakarta.xml.ws.BindingProvider;
 import com.sun.xml.ws.developer.JAXWSProperties;
 public class AddNumbersClient {
     private AddNumbersImpl port;
@@ -94,7 +94,7 @@ public class AddNumbersClient {
         private AddNumbersResponse output;
 
         /*
-        * @see javax.xml.ws.AsyncHandler#handleResponse(javax.xml.ws.Response)
+        * @see jakarta.xml.ws.AsyncHandler#handleResponse(jakarta.xml.ws.Response)
         */
         public void handleResponse(Response<AddNumbersResponse> response) {
             System.out.println("AddNumbersCallbackHandler: Received Response from the service");

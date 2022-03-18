@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -74,7 +74,7 @@
         nt.getName().add(in[1]);
         nt.getName().add(in[2]);
         nt.getName().add(in[3]);
-        req = new javax.xml.ws.Holder(nt);
+        req = new jakarta.xml.ws.Holder(nt);
         helloPort.echoArray(req);
         assertNull(req.value);
     </client>
@@ -90,7 +90,7 @@
         nt.getName().add(in[1]);
         nt.getName().add(in[2]);
         nt.getName().add(in[3]);
-        req = new javax.xml.ws.Holder(nt);
+        req = new jakarta.xml.ws.Holder(nt);
         helloPort.echoArray1(req);
         assertTrue(Arrays.equals(in, req.value.getName().toArray()));
     </client>
@@ -99,7 +99,7 @@
         <description>
             Test echoArray2().
         </description>
-        req = new javax.xml.ws.Holder();
+        req = new jakarta.xml.ws.Holder();
         helloPort.echoArray2(req);
         assertNull(req.value);
     </client>
@@ -113,7 +113,7 @@
         in.add("JAXRPC 1.1");
         in.add("JAXRPC 1.1.2");
         in.add("JAXRPC 2.0");
-        req = new javax.xml.ws.Holder(in);
+        req = new jakarta.xml.ws.Holder(in);
         helloPort.echoArray3(req);
         assertEquals(in, req.value);
     </client>

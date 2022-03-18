@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,12 +25,12 @@ import com.sun.xml.ws.model.ParameterImpl;
 import com.sun.xml.ws.model.WrapperParameter;
 import com.sun.xml.ws.wsdl.DispatchException;
 
-import javax.jws.WebParam.Mode;
-import javax.xml.bind.JAXBException;
+import jakarta.jws.WebParam.Mode;
+import jakarta.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.ws.Holder;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.WebServiceException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -83,9 +83,9 @@ final public class TieHandler implements EndpointCallBridge {
         this.method = method.getMethod();
         this.javaMethodModel = method;
         argumentsBuilder = createArgumentsBuilder();
-        List<MessageFiller> fillers = new ArrayList<MessageFiller>();
+        List<MessageFiller> fillers = new ArrayList<>();
         bodyBuilder = createResponseMessageBuilder(fillers);
-        this.outFillers = fillers.toArray(new MessageFiller[fillers.size()]);
+        this.outFillers = fillers.toArray(new MessageFiller[0]);
         this.isOneWay = method.getMEP().isOneWay();
         this.noOfArgs = this.method.getParameterTypes().length;
         packetFactory = mcf;
@@ -100,7 +100,7 @@ final public class TieHandler implements EndpointCallBridge {
     private EndpointArgumentsBuilder createArgumentsBuilder() {
         EndpointArgumentsBuilder argsBuilder;
         List<ParameterImpl> rp = javaMethodModel.getRequestParameters();
-        List<EndpointArgumentsBuilder> builders = new ArrayList<EndpointArgumentsBuilder>();
+        List<EndpointArgumentsBuilder> builders = new ArrayList<>();
 
         for( ParameterImpl param : rp ) {
             EndpointValueSetter setter = EndpointValueSetter.get(param);
@@ -219,9 +219,7 @@ final public class TieHandler implements EndpointCallBridge {
         Object[] args = new Object[noOfArgs];
         try {
             argumentsBuilder.readRequest(reqMsg,args);
-        } catch (JAXBException e) {
-            throw new WebServiceException(e);
-        } catch (XMLStreamException e) {
+        } catch (JAXBException | XMLStreamException e) {
             throw new WebServiceException(e);
         }
         return args;

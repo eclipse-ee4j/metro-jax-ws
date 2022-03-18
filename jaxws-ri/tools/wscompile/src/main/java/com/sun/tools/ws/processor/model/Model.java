@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,7 +61,7 @@ public class Model extends ModelObject {
         if (servicesByName.size() != services.size()) {
             initializeServicesByName();
         }
-        return (Service)servicesByName.get(name);
+        return servicesByName.get(name);
     }
 
     /* serialization */
@@ -107,6 +107,7 @@ public class Model extends ModelObject {
     }
 
 
+    @Override
     public void accept(ModelVisitor visitor) throws Exception {
         visitor.visit(this);
     }
@@ -119,7 +120,6 @@ public class Model extends ModelObject {
     }
 
     /**
-     * @param string
      */
     public void setSource(String string) {
         source = string;
@@ -135,9 +135,9 @@ public class Model extends ModelObject {
 
     private QName name;
     private String targetNamespace;
-    private List<Service> services = new ArrayList<Service>();
-    private Map<QName, Service> servicesByName = new HashMap<QName, Service>();
-    private Set<AbstractType> extraTypes = new HashSet<AbstractType>();
+    private List<Service> services = new ArrayList<>();
+    private Map<QName, Service> servicesByName = new HashMap<>();
+    private Set<AbstractType> extraTypes = new HashSet<>();
     private String source;
     private JAXBModel jaxBModel = null;
 }

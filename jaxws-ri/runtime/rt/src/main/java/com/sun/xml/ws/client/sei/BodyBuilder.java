@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,10 +21,10 @@ import com.sun.xml.ws.spi.db.XMLBridge;
 import com.sun.xml.ws.spi.db.PropertyAccessor;
 import com.sun.xml.ws.spi.db.WrapperComposite;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceException;
 import java.util.List;
 
 /**
@@ -46,6 +46,7 @@ abstract class BodyBuilder {
             this.soapVersion = soapVersion;
         }
 
+        @Override
         Message createMessage(Object[] methodArgs) {
             return Messages.createEmpty(soapVersion);
         }
@@ -69,6 +70,7 @@ abstract class BodyBuilder {
             this.soapVersion = soapVersion;
         }
 
+        @Override
         final Message createMessage(Object[] methodArgs) {
             return JAXBMessage.create( bridge, build(methodArgs), soapVersion );
         }
@@ -103,6 +105,7 @@ abstract class BodyBuilder {
         /**
          * Picks up an object from the method arguments and uses it.
          */
+        @Override
         Object build(Object[] methodArgs) {
             return getter.get(methodArgs[methodPos]);
         }
@@ -223,6 +226,7 @@ abstract class BodyBuilder {
         /**
          * Packs a bunch of arguments into a {@link WrapperComposite}.
          */
+        @Override
         Object build(Object[] methodArgs) {
             if (dynamicWrapper) return buildWrapperComposite(methodArgs);
             try {
@@ -235,16 +239,9 @@ abstract class BodyBuilder {
                 }
 
                 return bean;
-            } catch (InstantiationException e) {
+            } catch (ReflectiveOperationException e) {
                 // this is irrecoverable
-                Error x = new InstantiationError(e.getMessage());
-                x.initCause(e);
-                throw x;
-            } catch (IllegalAccessException e) {
-                // this is irrecoverable
-                Error x = new IllegalAccessError(e.getMessage());
-                x.initCause(e);
-                throw x;
+                throw new InstantiationError(e.getMessage());
             } catch (com.sun.xml.ws.spi.db.DatabindingException e) {
                 // this can happen when the set method throw a checked exception or something like that
                 throw new WebServiceException(e);    // TODO:i18n
@@ -276,6 +273,7 @@ abstract class BodyBuilder {
                 parameterBridges[i] = children.get(i).getXMLBridge();
         }
 
+        @Override
         Object build(Object[] methodArgs) {
             return buildWrapperComposite(methodArgs);
         }

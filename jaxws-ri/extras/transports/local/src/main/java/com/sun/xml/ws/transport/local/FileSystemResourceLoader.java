@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,7 @@ package com.sun.xml.ws.transport.local;
 
 import com.sun.xml.ws.transport.http.ResourceLoader;
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -34,20 +34,23 @@ public final class FileSystemResourceLoader implements ResourceLoader {
         this.root = root;
     }
 
+    @Override
     public URL getResource(String path) throws MalformedURLException {
         try {
-            return new File(root+path).getCanonicalFile().toURL();
+            return new File(root+path).getCanonicalFile().toURI().toURL();
         } catch(IOException ioe) {
             throw new WebServiceException(ioe);
         }
     }
 
+    @Override
     public URL getCatalogFile() throws MalformedURLException {
         return getResource("/WEB-INF/jax-ws-catalog.xml");
     }
 
+    @Override
     public Set<String> getResourcePaths(String path) {
-        Set<String> r = new HashSet<String>();
+        Set<String> r = new HashSet<>();
         File[] files = new File(root+path).listFiles();
         if (files == null) {
             return null;

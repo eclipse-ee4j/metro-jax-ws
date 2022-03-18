@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -85,6 +85,7 @@ public class JAXBStructuredType extends JAXBType {
     /* (non-Javadoc)
      * @see JAXBType#isUnwrapped()
      */
+    @Override
     public boolean isUnwrapped() {
         return true;
     }
@@ -104,9 +105,9 @@ public class JAXBStructuredType extends JAXBType {
             !_parentType.equals(parent)) {
 
             throw new ModelException("model.parent.type.already.set",
-                new Object[] { getName().toString(),
+                    getName().toString(),
                     _parentType.getName().toString(),
-                    parent.getName().toString()});
+                    parent.getName().toString());
         }
         this._parentType = parent;
     }

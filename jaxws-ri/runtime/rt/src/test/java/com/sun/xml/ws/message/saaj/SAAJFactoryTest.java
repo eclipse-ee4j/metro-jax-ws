@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,16 +16,14 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 import javax.xml.namespace.QName;
-import javax.xml.soap.AttachmentPart;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.MimeHeader;
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.AttachmentPart;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.MimeHeader;
+import jakarta.xml.soap.SOAPElement;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.OutputKeys;
@@ -48,7 +46,6 @@ import com.sun.xml.ws.binding.BindingImpl;
 import com.sun.xml.ws.encoding.SOAPBindingCodec;
 import com.sun.xml.ws.message.stream.StreamMessage;
 
-import com.sun.xml.ws.util.ByteArrayBuffer;
 import junit.framework.TestCase;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -87,7 +84,6 @@ public class SAAJFactoryTest extends TestCase {
     /**
      * Test whether SAAJFactory.readAsSOAPMessage can handle null namespace prefixes if the 
      * appropriate flag is set on Woodstox
-     * @throws Exception
      */
     public void testNullNamespacePrefix() throws Exception {
     	XMLInputFactory infact = XMLInputFactory.newFactory();
@@ -132,14 +128,13 @@ public class SAAJFactoryTest extends TestCase {
      * This test operates against JDK XMLInputFactory.
      * </p>
      *
-     * @throws Exception
      */
     public void testResetDefaultNamespaceToGlobalWithJDK() throws Exception {
         XMLInputFactory inputFactory = getBuiltInJdkXmlInputFactory();
         XMLStreamReader envelope = inputFactory.createXMLStreamReader(new StringReader("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
                 "<s:Body>" +
-                "<SampleServiceRequest xmlns=\"http://sample.ex.org/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">" +
+                "<SampleServiceRequest xmlns=\"http://sample.ex.org/\">" +
                 "<RequestParams xmlns=\"\">" +
                 "<Param1>hogehoge</Param1>" +
                 "<Param2>fugafuga</Param2>" +
@@ -186,14 +181,13 @@ public class SAAJFactoryTest extends TestCase {
      * This test operates against woodstax.
      * </p>
      *
-     * @throws Exception
      */
     public void testResetDefaultNamespaceToGlobalWithWoodstax() throws Exception {
         XMLInputFactory inputFactory = XMLInputFactory.newFactory();
         XMLStreamReader envelope = inputFactory.createXMLStreamReader(new StringReader("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\">" +
                 "<s:Body>" +
-                "<SampleServiceRequest xmlns=\"http://sample.ex.org/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">" +
+                "<SampleServiceRequest xmlns=\"http://sample.ex.org/\">" +
                 "<RequestParams xmlns=\"\">" +
                 "<Param1>hogehoge</Param1>" +
                 "<Param2>fugafuga</Param2>" +

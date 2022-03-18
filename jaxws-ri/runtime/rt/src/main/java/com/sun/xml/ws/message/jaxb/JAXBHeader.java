@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,10 +12,9 @@ package com.sun.xml.ws.message.jaxb;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.XMLStreamException2;
-import com.sun.xml.bind.api.Bridge;
+import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.stream.buffer.MutableXMLStreamBuffer;
 import com.sun.xml.stream.buffer.XMLStreamBuffer;
-import com.sun.xml.stream.buffer.XMLStreamBufferResult;
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.encoding.SOAPBindingCodec;
 import com.sun.xml.ws.message.AbstractHeaderImpl;
@@ -29,14 +28,14 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.util.JAXBResult;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.util.JAXBResult;
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPHeader;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPHeader;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
@@ -109,24 +108,28 @@ public final class JAXBHeader extends AbstractHeaderImpl {
     }
 
 
+    @Override
     public @NotNull String getNamespaceURI() {
         if(nsUri==null)
             parse();
         return nsUri;
     }
 
+    @Override
     public @NotNull String getLocalPart() {
         if(localName==null)
             parse();
         return localName;
     }
 
+    @Override
     public String getAttribute(String nsUri, String localName) {
         if(atts==null)
             parse();
         return atts.getValue(nsUri,localName);
     }
 
+    @Override
     public XMLStreamReader readHeader() throws XMLStreamException {
         if(infoset==null) {
             MutableXMLStreamBuffer buffer = new MutableXMLStreamBuffer();
@@ -136,6 +139,7 @@ public final class JAXBHeader extends AbstractHeaderImpl {
         return infoset.readAsXMLStreamReader();
     }
 
+    @Override
     public <T> T readAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         try {
             JAXBResult r = new JAXBResult(unmarshaller);
@@ -149,14 +153,17 @@ public final class JAXBHeader extends AbstractHeaderImpl {
         }
     }
     /** @deprecated */
+    @Override
     public <T> T readAsJAXB(Bridge<T> bridge) throws JAXBException {
         return bridge.unmarshal(new JAXBBridgeSource(this.bridge,jaxbObject));
     }
 
-	public <T> T readAsJAXB(XMLBridge<T> bond) throws JAXBException {
+	@Override
+    public <T> T readAsJAXB(XMLBridge<T> bond) throws JAXBException {
         return bond.unmarshal(new JAXBBridgeSource(this.bridge,jaxbObject),null);
 	}
 
+    @Override
     public void writeTo(XMLStreamWriter sw) throws XMLStreamException {
         try {
             // Get the encoding of the writer
@@ -174,6 +181,7 @@ public final class JAXBHeader extends AbstractHeaderImpl {
         }
     }
 
+    @Override
     public void writeTo(SOAPMessage saaj) throws SOAPException {
         try {
             SOAPHeader header = saaj.getSOAPHeader();
@@ -185,6 +193,7 @@ public final class JAXBHeader extends AbstractHeaderImpl {
         }
     }
 
+    @Override
     public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException {
         try {
             bridge.marshal(jaxbObject,contentHandler,null);

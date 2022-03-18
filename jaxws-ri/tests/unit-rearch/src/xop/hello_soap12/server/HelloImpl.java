@@ -11,11 +11,11 @@
 package xop.hello_soap12.server;
 
 
-import javax.jws.WebService;
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.xml.ws.Holder;
-import javax.activation.DataHandler;
+import jakarta.jws.WebService;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
+import jakarta.xml.ws.Holder;
+import jakarta.activation.DataHandler;
 import java.rmi.RemoteException;
 import java.awt.*;
 

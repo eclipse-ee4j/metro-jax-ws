@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,10 +21,8 @@ import com.sun.xml.ws.policy.jaxws.spi.PolicyFeatureConfigurator;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.soap.MTOMFeature;
-
-import static com.sun.xml.ws.encoding.policy.EncodingConstants.OPTIMIZED_MIME_SERIALIZATION_ASSERTION;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.soap.MTOMFeature;
 
 /**
  *
@@ -46,18 +44,19 @@ public class MtomFeatureConfigurator implements PolicyFeatureConfigurator {
      * @param policyMap Must be non-null
      * @throws PolicyException If retrieving the policy triggered an exception
      */
+    @Override
     public Collection<WebServiceFeature> getFeatures(PolicyMapKey key, PolicyMap policyMap) throws PolicyException {
-        final Collection<WebServiceFeature> features = new LinkedList<WebServiceFeature>();
+        final Collection<WebServiceFeature> features = new LinkedList<>();
         if ((key != null) && (policyMap != null)) {
             Policy policy = policyMap.getEndpointEffectivePolicy(key);
-            if (null!=policy && policy.contains(OPTIMIZED_MIME_SERIALIZATION_ASSERTION)) {
+            if (null!=policy && policy.contains(EncodingConstants.OPTIMIZED_MIME_SERIALIZATION_ASSERTION)) {
                 Iterator <AssertionSet> assertions = policy.iterator();
                 while(assertions.hasNext()){
                     AssertionSet assertionSet = assertions.next();
                     Iterator<PolicyAssertion> policyAssertion = assertionSet.iterator();
                     while(policyAssertion.hasNext()){
                         PolicyAssertion assertion = policyAssertion.next();
-                        if(OPTIMIZED_MIME_SERIALIZATION_ASSERTION.equals(assertion.getName())){
+                        if(EncodingConstants.OPTIMIZED_MIME_SERIALIZATION_ASSERTION.equals(assertion.getName())){
                             features.add(new MTOMFeature(true));
                         } // end-if non optional mtom assertion found
                     } // next assertion

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,6 +43,7 @@ final class BuilderHandlerOperationScope extends BuilderHandler{
         this.operation = operation;
     }
     
+    @Override
     protected void doPopulate(final PolicyMapExtender policyMapExtender) throws PolicyException{
         final PolicyMapKey mapKey = PolicyMap.createWsdlOperationScopeKey(service, port, operation);
         for (PolicySubject subject : getPolicySubjects()) {

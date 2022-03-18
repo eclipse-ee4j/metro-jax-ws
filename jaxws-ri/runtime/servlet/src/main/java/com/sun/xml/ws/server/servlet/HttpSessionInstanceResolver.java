@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,10 +15,10 @@ import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.developer.servlet.HttpSessionScope;
 import com.sun.xml.ws.server.AbstractMultiInstanceResolver;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.handler.MessageContext;
 
 /**
  * Instance resolver that ties a service instance per {@link HttpSession}.
@@ -32,6 +32,7 @@ public class HttpSessionInstanceResolver<T> extends AbstractMultiInstanceResolve
         super(clazz);
     }
 
+    @Override
     public @NotNull T resolve(Packet request) {
         HttpServletRequest sr = (HttpServletRequest) request.get(MessageContext.SERVLET_REQUEST);
         if(sr==null)

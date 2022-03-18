@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,10 +25,10 @@ import com.sun.xml.ws.binding.BindingImpl;
 import com.sun.xml.ws.client.HandlerConfiguration;
 import com.sun.xml.ws.message.DataHandlerAttachment;
 
-import javax.activation.DataHandler;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.Handler;
+import jakarta.activation.DataHandler;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.Handler;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -55,10 +55,12 @@ public class ClientMessageHandlerTube extends HandlerTube {
         this.seiModel = that.seiModel;
     }
 
+    @Override
     public AbstractFilterTubeImpl copy(TubeCloner cloner) {
         return new ClientMessageHandlerTube(this, cloner);
     }
     
+    @Override
     void callHandlersOnResponse(MessageUpdatableContext context, boolean handleFault) {
         try {
             //CLIENT-SIDE
@@ -72,6 +74,7 @@ public class ClientMessageHandlerTube extends HandlerTube {
         }
     }
 
+    @Override
     boolean callHandlersOnRequest(MessageUpdatableContext context, boolean isOneWay) {
         boolean handlerResult;
 
@@ -105,21 +108,23 @@ public class ClientMessageHandlerTube extends HandlerTube {
         return handlerResult;
     }
 
+    @Override
     void closeHandlers(MessageContext mc) {
         closeClientsideHandlers(mc);
 
     }
     
+    @Override
     void setUpProcessor() {
     	if (handlers == null) {
 	        // Take a snapshot, User may change chain after invocation, Same chain
 	        // should be used for the entire MEP
-	        handlers = new ArrayList<Handler>();
+	        handlers = new ArrayList<>();
 	        HandlerConfiguration handlerConfig = ((BindingImpl) getBinding()).getHandlerConfig();
 	        List<MessageHandler> msgHandlersSnapShot= handlerConfig.getMessageHandlers();
 	        if (!msgHandlersSnapShot.isEmpty()) {
 	            handlers.addAll(msgHandlersSnapShot);
-	            roles = new HashSet<String>();
+	            roles = new HashSet<>();
 	            roles.addAll(handlerConfig.getRoles());
 	            processor = new SOAPHandlerProcessor(true, this, getBinding(), handlers);
 	        }
@@ -128,6 +133,7 @@ public class ClientMessageHandlerTube extends HandlerTube {
 
 
 
+    @Override
     MessageUpdatableContext getContext(Packet p) {
         MessageHandlerContextImpl context = new MessageHandlerContextImpl(seiModel, getBinding(), port, p, roles);
         return context;

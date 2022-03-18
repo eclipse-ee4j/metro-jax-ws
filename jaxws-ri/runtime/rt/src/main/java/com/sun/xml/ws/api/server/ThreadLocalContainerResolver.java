@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,13 +31,14 @@ import java.util.concurrent.Executor;
  * @since 2.2.7
  */
 public class ThreadLocalContainerResolver extends ContainerResolver {
-    private ThreadLocal<Container> containerThreadLocal = new ThreadLocal<Container>() {
+    private ThreadLocal<Container> containerThreadLocal = new ThreadLocal<>() {
         @Override
         protected Container initialValue() {
             return Container.NONE;
         }
     };
     
+    @Override
     public Container getContainer() {
         return containerThreadLocal.get();
     }

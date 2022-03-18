@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,14 +10,14 @@
 
 package com.sun.xml.ws.client.test;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebResult;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.ws.Action;
-import javax.xml.ws.Holder;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
+import jakarta.jws.WebResult;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.ws.Action;
+import jakarta.xml.ws.Holder;
 
 
 /**
@@ -36,7 +36,6 @@ public interface Echo {
 
     /**
      * 
-     * @param add
      * @return
      *     returns int
      */
@@ -47,11 +46,6 @@ public interface Echo {
         @WebParam(name = "add", targetNamespace = "http://echo.org/", partName = "add")
         NumbersRequest add);
 
-    /**
-     * 
-     * @param addNumbersResponse
-     * @param addNumbers
-     */
     @WebMethod
     @Action(input = "http://echo.org/Echo/addNumbersRequest", output = "http://echo.org/Echo/addNumbersResponse")
     public void addNumbers(
@@ -60,10 +54,6 @@ public interface Echo {
         @WebParam(name = "addNumbersResponse", targetNamespace = "http://echo.org/", mode = WebParam.Mode.OUT, partName = "addNumbersResponse")
         Holder<Integer> addNumbersResponse);
 
-    /**
-     * 
-     * @param echoString
-     */
     @WebMethod
     @Action(input = "http://echo.org/Echo/echoStringRequest", output = "http://echo.org/Echo/echoStringResponse")
     public void echoString(
@@ -72,10 +62,6 @@ public interface Echo {
 
     /**
      * 
-     * @param arg3
-     * @param arg2
-     * @param arg1
-     * @param echoHeaders
      * @return
      *     returns java.lang.String
      */

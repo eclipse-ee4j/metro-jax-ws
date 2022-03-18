@@ -10,7 +10,7 @@
 
 package wsa.submission.fromwsdl.requiredfalse.server;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 import com.sun.xml.ws.developer.MemberSubmissionAddressing;
 
 /**

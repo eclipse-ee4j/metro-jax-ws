@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,10 +14,10 @@ import org.w3c.dom.*;
 import org.w3c.dom.Node;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.soap.SOAPFaultException;
-import javax.xml.soap.*;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.soap.*;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -28,7 +28,7 @@ import java.util.Properties;
 
 import com.sun.xml.ws.fault.SOAPFaultBuilder;
 
-@javax.jws.WebService(endpointInterface="fromwsdl.doclit_fault.server.Fault")
+@jakarta.jws.WebService(endpointInterface="fromwsdl.doclit_fault.server.Fault")
 public class FaultImpl{
     public java.lang.String echo(java.lang.String type)
             throws
@@ -55,7 +55,7 @@ public class FaultImpl{
             System.out.println("Throwing Fault2Exception");
             throw new Fault2Exception("Fault2 message", fault);        
         } else if (type.equals("Fault3")) {
-            Integer fault = new Integer("1");
+            Integer fault = Integer.valueOf("1");
             System.out.println("Throwing Fault3Exception");
             throw new Fault3Exception("Fault3 message", fault);
         } else if (type.equals("Fault4")) {

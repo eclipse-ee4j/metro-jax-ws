@@ -14,7 +14,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import testutil.ClientServerTestUtil;
-import javax.xml.ws.Service;
+import jakarta.xml.ws.Service;
 import java.math.BigInteger;
 
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,8 +15,8 @@ import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.api.message.Headers;
 
 import javax.xml.transform.Source;
-import javax.xml.ws.EndpointReference;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.xml.ws.EndpointReference;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,8 +50,8 @@ import java.util.List;
  * @see Headers
  */
 public final class EPRRecipe {
-    private final List<Header> referenceParameters = new ArrayList<Header>();
-    private final List<Source> metadata = new ArrayList<Source>();
+    private final List<Header> referenceParameters = new ArrayList<>();
+    private final List<Source> metadata = new ArrayList<>();
 
     /**
      * Gets all the reference parameters added so far.

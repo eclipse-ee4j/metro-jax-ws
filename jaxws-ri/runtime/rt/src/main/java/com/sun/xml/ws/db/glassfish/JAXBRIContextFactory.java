@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,15 +15,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.lang.reflect.Type;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
 
-import com.sun.xml.bind.api.TypeReference;
-import com.sun.xml.bind.api.JAXBRIContext;
-import com.sun.xml.bind.api.CompositeStructure;
-import com.sun.xml.bind.v2.ContextFactory;
-import com.sun.xml.bind.v2.model.annotation.RuntimeAnnotationReader;
-import com.sun.xml.bind.v2.runtime.MarshallerImpl;
+import org.glassfish.jaxb.runtime.api.TypeReference;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.CompositeStructure;
+import org.glassfish.jaxb.runtime.v2.ContextFactory;
+import org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeAnnotationReader;
+import org.glassfish.jaxb.runtime.v2.runtime.MarshallerImpl;
 import com.sun.xml.ws.developer.JAXBContextFactory;
 import com.sun.xml.ws.spi.db.BindingContext;
 import com.sun.xml.ws.spi.db.BindingContextFactory;
@@ -47,7 +47,7 @@ public class JAXBRIContextFactory extends BindingContextFactory {
 
     @Override
     public BindingContext newContext(BindingInfo bi) {
-        Class[] classes = bi.contentClasses().toArray(new Class[bi.contentClasses().size()]);
+        Class[] classes = bi.contentClasses().toArray(new Class[0]);
         for (int i = 0; i < classes.length; i++) {
             if (WrapperComposite.class.equals(classes[i])) {
                 classes[i] = CompositeStructure.class;
@@ -57,7 +57,7 @@ public class JAXBRIContextFactory extends BindingContextFactory {
         Map<Class, Class> subclassReplacements = bi.subclassReplacements();
         String defaultNamespaceRemap = bi.getDefaultNamespace();
         Boolean c14nSupport = (Boolean) bi.properties().get("c14nSupport");
-        RuntimeAnnotationReader ar = (RuntimeAnnotationReader) bi.properties().get("com.sun.xml.bind.v2.model.annotation.RuntimeAnnotationReader");
+        RuntimeAnnotationReader ar = (RuntimeAnnotationReader) bi.properties().get("org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeAnnotationReader");
         JAXBContextFactory jaxbContextFactory = (JAXBContextFactory) bi.properties().get(JAXBContextFactory.class.getName());
         try {
             JAXBRIContext context = (jaxbContextFactory != null)
@@ -77,8 +77,7 @@ public class JAXBRIContextFactory extends BindingContextFactory {
     }
 
     private <T> List<T> toList(T[] a) {
-        List<T> l = new ArrayList<T>();
-        l.addAll(Arrays.asList(a));
+        List<T> l = new ArrayList<>(Arrays.asList(a));
         return l;
     }
 
@@ -86,13 +85,12 @@ public class JAXBRIContextFactory extends BindingContextFactory {
         if (col instanceof List) {
             return (List<T>) col;
         }
-        List<T> l = new ArrayList<T>();
-        l.addAll(col);
+        List<T> l = new ArrayList<>(col);
         return l;
     }
 
     private Map<TypeInfo, TypeReference> typeInfoMappings(Collection<TypeInfo> typeInfos) {
-        Map<TypeInfo, TypeReference> map = new java.util.HashMap<TypeInfo, TypeReference>();
+        Map<TypeInfo, TypeReference> map = new java.util.HashMap<>();
         for (TypeInfo ti : typeInfos) {
             Type type = WrapperComposite.class.equals(ti.type) ? CompositeStructure.class : ti.type;
             TypeReference tr = new TypeReference(ti.tagName, type, ti.annotations);
@@ -110,6 +108,6 @@ public class JAXBRIContextFactory extends BindingContextFactory {
     protected boolean isFor(String str) {
         return (str.equals("glassfish.jaxb")
                 || str.equals(this.getClass().getName())
-                || str.equals("com.sun.xml.bind.v2.runtime"));
+                || str.equals("org.glassfish.jaxb.runtime.v2.runtime"));
     }
 }

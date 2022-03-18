@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,14 +10,14 @@
 
 package fromjava.nosei_bare.server;
 
-import javax.jws.Oneway;
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebResult;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import javax.jws.soap.SOAPBinding.ParameterStyle;
-import javax.xml.ws.Holder;
+import jakarta.jws.Oneway;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
+import jakarta.jws.WebResult;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
+import jakarta.jws.soap.SOAPBinding.ParameterStyle;
+import jakarta.xml.ws.Holder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -206,7 +206,7 @@ public class EchoImpl {
 //    @WebResult(name="outHeaderResponse")
 //    public Long echoOutHeader(@WebParam(name="outHeader")Integer age, @WebParam(name="num", mode=WebParam.Mode.OUT, header=true, targetNamespace="foo/bar")LongWrapperHolder num) {
 //        log("-----------age: "+age);
-//        num.value = new Long(age);;
+//        num.value = Long.valueOf(age);;
 //        log("-----------num.value: "+num.value);
 //        log("-----------num.value+age: "+(num.value+age));
 //        return num.value+age;
@@ -216,7 +216,7 @@ public class EchoImpl {
     @WebResult(name="outHeaderResponse")
     public Long echoOutHeader(@WebParam(name="outHeader")Integer age, @WebParam(name="num", mode=WebParam.Mode.OUT, header=true, targetNamespace="foo/bar")Holder<Long> num) {
         log("-----------age: "+age);
-        num.value = new Long(age);;
+        num.value = Long.valueOf(age);;
         log("-----------num.value: "+num.value);
         log("-----------num.value+age: "+(num.value+age));
         return num.value+age;
@@ -228,7 +228,7 @@ public class EchoImpl {
 //    public Long echoOut2Header(@WebParam(name="out2Header")Integer age, @WebParam(name="num", mode=WebParam.Mode.OUT, header=true, targetNamespace="foo/bar")LongWrapperHolder num,
 //			            @WebParam(name="name", header=true, mode=WebParam.Mode.OUT)Holder<String> name) {
 //        log("-----------age: "+age);
-//        num.value = new Long(age);
+//        num.value = Long.valueOf(age);
 //        name.value="Fred";
 //        log("-----------num.value: "+num.value);
 //        log("-----------num.value+age: "+(num.value+age));
@@ -240,7 +240,7 @@ public class EchoImpl {
     public Long echoOut2Header(@WebParam(name="out2Header")Integer age, @WebParam(name="num", mode=WebParam.Mode.OUT, header=true, targetNamespace="foo/bar")Holder<Long> num,
                         @WebParam(name="name", mode=WebParam.Mode.OUT, header=true)Holder<String> name) {
         log("-----------age: "+age);
-        num.value = new Long(age);
+        num.value = Long.valueOf(age);
         name.value="Fred";
         log("-----------num.value: "+num.value);
         log("-----------num.value+age: "+(num.value+age));

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,12 +23,12 @@ import org.jvnet.mimepull.Header;
 import org.jvnet.mimepull.MIMEMessage;
 import org.jvnet.mimepull.MIMEPart;
 
-import javax.activation.DataHandler;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
+import jakarta.activation.DataHandler;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -55,7 +55,7 @@ public final class MimeMultipartParser {
     private ContentTypeImpl contentType;
     
     // Attachments without root part
-    private final Map<String, Attachment> attachments = new HashMap<String, Attachment>();
+    private final Map<String, Attachment> attachments = new HashMap<>();
 
     private boolean gotAll;
 
@@ -98,7 +98,7 @@ public final class MimeMultipartParser {
     /**
      * Parses the entire stream and returns all MIME parts except root MIME part.
      *
-     * @return Map<String, StreamAttachment> for all attachment parts
+     * @return Map&lt;String, StreamAttachment&gt; for all attachment parts
      */
     public @NotNull Map<String, Attachment> getAttachmentParts() {
         if (!gotAll) {
@@ -224,7 +224,7 @@ public final class MimeMultipartParser {
         public Iterator<MimeHeader> getMimeHeaders() {
             final Iterator<? extends Header> ih = part.getAllHeaders()
                     .iterator();
-            return new Iterator<MimeHeader>() {
+            return new Iterator<>() {
                 @Override
                 public boolean hasNext() {
                     return ih.hasNext();
@@ -238,6 +238,7 @@ public final class MimeMultipartParser {
                         public String getValue() {
                             return hdr.getValue();
                         }
+
                         @Override
                         public String getName() {
                             return hdr.getName();

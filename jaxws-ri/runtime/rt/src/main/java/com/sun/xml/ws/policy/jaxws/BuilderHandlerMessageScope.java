@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,9 +36,9 @@ final class BuilderHandlerMessageScope extends BuilderHandler{
         InputMessageScope,
         OutputMessageScope,
         FaultMessageScope,
-    };
-    
-    
+    }
+
+
     /** Creates a new instance of WSDLServiceScopeBuilderHandler */
     BuilderHandlerMessageScope(
             Collection<String> policyURIs
@@ -73,13 +73,13 @@ final class BuilderHandlerMessageScope extends BuilderHandler{
         final BuilderHandlerMessageScope that = (BuilderHandlerMessageScope) obj;
         boolean result = true;
         
-        result = result && ((this.policySubject == null) ? ((that.policySubject == null) ? true : false) :this.policySubject.equals(that.policySubject));
-        result = result && ((this.scope == null) ? ((that.scope == null) ? true : false) :this.scope.equals(that.scope));
-        result = result && ((this.message == null) ? ((that.message == null) ? true : false) :this.message.equals(that.message));
+        result = result && ((this.policySubject == null) ? (that.policySubject == null) :this.policySubject.equals(that.policySubject));
+        result = result && ((this.scope == null) ? (that.scope == null) :this.scope.equals(that.scope));
+        result = result && ((this.message == null) ? (that.message == null) :this.message.equals(that.message));
         if (this.scope != Scope.FaultMessageScope) {
-            result = result && ((this.service == null) ? ((that.service == null) ? true : false) :this.service.equals(that.service));
-            result = result && ((this.port == null) ? ((that.port == null) ? true : false) :this.port.equals(that.port));
-            result = result && ((this.operation == null) ? ((that.operation == null) ? true : false) :this.operation.equals(that.operation));
+            result = result && ((this.service == null) ? (that.service == null) :this.service.equals(that.service));
+            result = result && ((this.port == null) ? (that.port == null) :this.port.equals(that.port));
+            result = result && ((this.operation == null) ? (that.operation == null) :this.operation.equals(that.operation));
         }
         
         return result;
@@ -99,6 +99,7 @@ final class BuilderHandlerMessageScope extends BuilderHandler{
         return hashCode;
     }
     
+    @Override
     protected void doPopulate(final PolicyMapExtender policyMapExtender) throws PolicyException{
         PolicyMapKey mapKey;
         

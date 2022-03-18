@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,9 +12,9 @@ package com.sun.xml.ws.api.message;
 
 import java.io.ByteArrayInputStream;
 
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPConstants;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.SOAPConstants;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
@@ -106,7 +106,7 @@ public class ReplaceAddressingHeaderTest extends TestCase {
 
       //check toHeader
       String toHeaderAfterProcessed = AddressingUtils.getTo(responsePacket.getHeaderList(), av, sv);
-      assertTrue(toHeaderAfterProcessed.equals(originToHeader));
+      assertEquals(toHeaderAfterProcessed, originToHeader);
   }
   private SOAPMessage makeSOAPMessage(String msg) throws Exception {
       MessageFactory factory = MessageFactory.newInstance(SOAPConstants.SOAP_1_2_PROTOCOL);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,9 +18,9 @@
 
 package com.sun.xml.ws.runtime.config;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlElementDecl;
-import javax.xml.bind.annotation.XmlRegistry;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.XmlElementDecl;
+import jakarta.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
 
 
@@ -106,7 +106,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://java.sun.com/xml/ns/metro/config", name = "tubelines")
     public JAXBElement<Tubelines> createTubelines(Tubelines value) {
-        return new JAXBElement<Tubelines>(_Tubelines_QNAME, Tubelines.class, null, value);
+        return new JAXBElement<>(_Tubelines_QNAME, Tubelines.class, null, value);
     }
 
     /**
@@ -115,7 +115,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://java.sun.com/xml/ns/metro/config", name = "tubeline-mapping")
     public JAXBElement<TubelineMapping> createTubelineMapping(TubelineMapping value) {
-        return new JAXBElement<TubelineMapping>(_TubelineMapping_QNAME, TubelineMapping.class, null, value);
+        return new JAXBElement<>(_TubelineMapping_QNAME, TubelineMapping.class, null, value);
     }
 
     /**
@@ -124,7 +124,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://java.sun.com/xml/ns/metro/config", name = "tubeline")
     public JAXBElement<TubelineDefinition> createTubeline(TubelineDefinition value) {
-        return new JAXBElement<TubelineDefinition>(_Tubeline_QNAME, TubelineDefinition.class, null, value);
+        return new JAXBElement<>(_Tubeline_QNAME, TubelineDefinition.class, null, value);
     }
 
 }

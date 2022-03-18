@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,14 +27,25 @@ import com.sun.xml.ws.util.ByteArrayBuffer;
 import com.sun.xml.ws.util.RuntimeVersion;
 import com.sun.xml.ws.util.StreamUtils;
 
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.soap.SOAPBinding;
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import jakarta.xml.bind.DatatypeConverter;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.soap.SOAPBinding;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Authenticator;
+import java.net.CookieHandler;
+import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,13 +74,14 @@ public class HttpTransportPipe extends AbstractTubeImpl {
     private final boolean sticky;
 
     static {
-        boolean b;
         try {
-            b = Boolean.getBoolean(HttpTransportPipe.class.getName()+".dump");
-        } catch( Throwable t ) {
-            b = false;
+            dump = Boolean.getBoolean(HttpTransportPipe.class.getName() + ".dump");
+        } catch (SecurityException se) {
+            if (LOGGER.isLoggable(Level.CONFIG)) {
+                LOGGER.log(Level.CONFIG, "Cannot read ''{0}'' property, using defaults.",
+                        new Object[]{HttpTransportPipe.class.getName() + ".dump"});
+            }
         }
-        dump = b;
     }
 
     public HttpTransportPipe(Codec codec, WSBinding binding) {
@@ -354,11 +366,11 @@ public class HttpTransportPipe extends AbstractTubeImpl {
             return rememberedCookies;
         }
 
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         cookieListToMap(rememberedCookies, map);
         cookieListToMap(userCookies, map);
 
-        return new ArrayList<String>(map.values());
+        return new ArrayList<>(map.values());
     }
 
     private void cookieListToMap(List<String> cookieList, Map<String, String> targetMap) {
@@ -432,6 +444,7 @@ public class HttpTransportPipe extends AbstractTubeImpl {
             pw.println(WsservletMessages.MESSAGE_TOO_LONG(HttpAdapter.class.getName() + ".dumpTreshold"));
         } else {
             buf.writeTo(baos);
+            pw.println();
         }
         pw.println("--------------------");
 
@@ -444,4 +457,7 @@ public class HttpTransportPipe extends AbstractTubeImpl {
         }
     }
 
+    public static void setDump(boolean dumpMessages) {
+        HttpTransportPipe.dump = dumpMessages;
+    }
 }

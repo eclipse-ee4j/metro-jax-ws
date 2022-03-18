@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -157,7 +157,7 @@ public class Util {
     }
 
     public static void fail(String key, String arg1, String arg2) {
-        throw new ParseException(key, new Object[] { arg1, arg2 });
+        throw new ParseException(key, arg1, arg2);
     }
 
     public static void fail(String key, Object[] args) {

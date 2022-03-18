@@ -3,7 +3,7 @@
 
     DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-    Copyright (c) 2011, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2011, 2022 Oracle and/or its affiliates. All rights reserved.
 
     Oracle licenses this file to You under the Apache License, Version 2.0
     (the "License"); you may not use this file except in compliance with
@@ -26,7 +26,7 @@
     <parent>
         <groupId>com.sun.xml.ws.test</groupId>
         <artifactId>parent</artifactId>
-        <version>2.4.0-SNAPSHOT</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
@@ -140,7 +140,7 @@
                             <xadditionalHeaders>true</xadditionalHeaders>
                             <destDir>${project.build.directory}/custom/classes</destDir>
                             <sourceDestDir>${project.build.directory}/custom/sources</sourceDestDir>
-                            <target>2.0</target>
+                            <target>3.0</target>
                             <xnocompile>false</xnocompile>
                             <xdebug>true</xdebug>
                             <bindingFiles>

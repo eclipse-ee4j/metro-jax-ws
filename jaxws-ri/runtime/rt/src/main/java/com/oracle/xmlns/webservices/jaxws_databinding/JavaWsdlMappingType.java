@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,15 +11,15 @@
 package com.oracle.xmlns.webservices.jaxws_databinding;
 import org.w3c.dom.Element;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyAttribute;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementRef;
-import javax.xml.bind.annotation.XmlElementRefs;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAnyAttribute;
+import jakarta.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementRef;
+import jakarta.xml.bind.annotation.XmlElementRefs;
+import jakarta.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,7 +109,7 @@ public class JavaWsdlMappingType {
     @XmlAttribute(name = "databinding")
     protected String databinding;
     @XmlAnyAttribute
-    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+    private Map<QName, String> otherAttributes = new HashMap<>();
 
     /**
      * Gets the value of the xmlSchemaMapping property.
@@ -171,7 +171,7 @@ public class JavaWsdlMappingType {
      */
     public List<Object> getClassAnnotation() {
         if (classAnnotation == null) {
-            classAnnotation = new ArrayList<Object>();
+            classAnnotation = new ArrayList<>();
         }
         return this.classAnnotation;
     }
@@ -367,7 +367,7 @@ public class JavaWsdlMappingType {
          */
         public List<JavaMethod> getJavaMethod() {
             if (javaMethod == null) {
-                javaMethod = new ArrayList<JavaMethod>();
+                javaMethod = new ArrayList<>();
             }
             return this.javaMethod;
         }
@@ -427,7 +427,7 @@ public class JavaWsdlMappingType {
          */
         public List<Object> getAny() {
             if (any == null) {
-                any = new ArrayList<Object>();
+                any = new ArrayList<>();
             }
             return this.any;
         }

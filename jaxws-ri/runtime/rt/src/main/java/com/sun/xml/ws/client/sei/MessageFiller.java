@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,10 +21,11 @@ import com.sun.xml.ws.spi.db.XMLBridge;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 import javax.xml.transform.Source;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * Puts a non-payload message parameter to {@link Message}.
@@ -67,11 +68,7 @@ abstract class MessageFiller {
             this.param = param;
             this.getter = getter;
             mimeType = param.getBinding().getMimeType();
-            try {
-                contentIdPart = URLEncoder.encode(param.getPartName(), "UTF-8")+'=';
-            } catch (UnsupportedEncodingException e) {
-                throw new WebServiceException(e);
-            }
+            contentIdPart = URLEncoder.encode(param.getPartName(), StandardCharsets.UTF_8)+'=';
         }
         
         /**
@@ -105,6 +102,7 @@ abstract class MessageFiller {
         protected ByteArrayFiller(ParameterImpl param, ValueGetter getter) {
             super(param, getter);
         }
+        @Override
         void fillIn(Object[] methodArgs, Message msg) {
             String contentId = getContentId();
             Object obj = getter.get(methodArgs[methodPos]);
@@ -117,6 +115,7 @@ abstract class MessageFiller {
         protected DataHandlerFiller(ParameterImpl param, ValueGetter getter) {
             super(param, getter);
         }
+        @Override
         void fillIn(Object[] methodArgs, Message msg) {
             String contentId = getContentId();
             Object obj = getter.get(methodArgs[methodPos]);
@@ -130,6 +129,7 @@ abstract class MessageFiller {
         protected JAXBFiller(ParameterImpl param, ValueGetter getter) {
             super(param, getter);
         }
+        @Override
         void fillIn(Object[] methodArgs, Message msg) {
             String contentId = getContentId();
             Object obj = getter.get(methodArgs[methodPos]);
@@ -151,6 +151,7 @@ abstract class MessageFiller {
             this.getter = getter;
         }
 
+        @Override
         void fillIn(Object[] methodArgs, Message msg) {
             Object value = getter.get(methodArgs[methodPos]);
             msg.getHeaders().add(Headers.create(bridge,value));

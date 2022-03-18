@@ -10,8 +10,8 @@
 
 package whitebox.enable_mtom.config;
 
-import javax.xml.ws.soap.MTOM;
-import javax.jws.WebService;
+import jakarta.xml.ws.soap.MTOM;
+import jakarta.jws.WebService;
 
 /**
  * @author Rama Pulavarthi

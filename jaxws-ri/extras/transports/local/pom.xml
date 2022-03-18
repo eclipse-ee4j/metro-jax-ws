@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,14 +16,14 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>2.4.0-SNAPSHOT</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-local-transport</artifactId>
-    <version>2.4.0-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
 
     <name>JAX-WS RI Local-Transport Implementation</name>
     <description>Implementation of Local-Transport for JAX-WS RI, used mainly in tests</description>
@@ -44,7 +44,7 @@
             <id>osgi-bundle</id>
             <activation>
                 <property>
-                    <name>!cobertura-build</name>
+                    <name>!jacoco-build</name>
                 </property>
             </activation>
             <build>
@@ -61,7 +61,6 @@
                                 </goals>
                                 <configuration>
                                     <instructions>
-                                        <_removeheaders>Bnd-LastModified,Include-Resource,Private-Package</_removeheaders>
                                         <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
                                     </instructions>
                                 </configuration>

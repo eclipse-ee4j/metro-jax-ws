@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,8 +19,8 @@ import com.sun.xml.ws.api.pipe.helper.AbstractFilterTubeImpl;
 import com.sun.xml.ws.binding.BindingImpl;
 import com.sun.xml.ws.client.HandlerConfiguration;
 
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.Handler;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.Handler;
 import java.util.List;
 
 /**
@@ -217,7 +217,6 @@ public abstract class HandlerTube extends AbstractFilterTubeImpl {
      * On Client, Override by calling #closeClientHandlers(MessageContext mc)
      * On Server, Override by calling #closeServerHandlers(MessageContext mc)
      *      The difference is the order in which they are closed.
-     * @param mc
      */
     abstract void closeHandlers(MessageContext mc);
 

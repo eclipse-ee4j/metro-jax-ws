@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,12 +27,14 @@ public class NamedNodeMapIterator implements Iterator {
         _index = 0;
     }
 
+    @Override
     public boolean hasNext() {
         if (_map == null)
             return false;
         return _index < _map.getLength();
     }
 
+    @Override
     public Object next() {
         Object obj = _map.item(_index);
         if (obj != null)
@@ -40,6 +42,7 @@ public class NamedNodeMapIterator implements Iterator {
         return obj;
     }
 
+    @Override
     public void remove() {
         throw new UnsupportedOperationException();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,12 +10,12 @@
 
 package com.sun.xml.ws.transport.http.servlet;
 
-import javax.jws.WebService;
-import javax.servlet.ServletContainerInitializer;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.HandlesTypes;
-import javax.xml.ws.WebServiceProvider;
+import jakarta.jws.WebService;
+import jakarta.servlet.ServletContainerInitializer;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.HandlesTypes;
+import jakarta.xml.ws.WebServiceProvider;
 import java.net.URL;
 import java.util.Set;
 
@@ -24,6 +24,7 @@ import java.util.Set;
  */
 @HandlesTypes({WebService.class, WebServiceProvider.class})
 public class WSServletContainerInitializer implements ServletContainerInitializer {
+    @Override
     public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException {
         //Called with null, when there are no matching classes as per Servlet 3.0 spec
         try {

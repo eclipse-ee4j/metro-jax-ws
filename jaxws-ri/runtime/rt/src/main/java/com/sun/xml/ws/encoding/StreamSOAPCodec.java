@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,26 +10,19 @@
 
 package com.sun.xml.ws.encoding;
 
-import static com.sun.xml.ws.binding.WebServiceFeatureList.getSoapVersion;
-
 import com.oracle.webservices.impl.encoding.StreamDecoderImpl;
 import com.oracle.webservices.impl.internalspi.encoding.StreamDecoder;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import com.sun.xml.stream.buffer.MutableXMLStreamBuffer;
-import com.sun.xml.stream.buffer.XMLStreamBuffer;
-import com.sun.xml.stream.buffer.XMLStreamBufferMark;
-import com.sun.xml.stream.buffer.stax.StreamReaderBufferCreator;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.WSBinding;
 import com.sun.xml.ws.api.WSFeatureList;
 import com.sun.xml.ws.api.message.AttachmentSet;
-import com.sun.xml.ws.api.message.Header;
-import com.sun.xml.ws.api.message.HeaderList;
 import com.sun.xml.ws.api.message.Message;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.api.pipe.ContentType;
 import com.sun.xml.ws.api.streaming.XMLStreamWriterFactory;
+import com.sun.xml.ws.binding.WebServiceFeatureList;
 import com.sun.xml.ws.developer.SerializationFeature;
 import com.sun.xml.ws.message.AttachmentSetImpl;
 import com.sun.xml.ws.message.stream.StreamMessage;
@@ -42,16 +35,14 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A stream SOAP codec.
@@ -84,7 +75,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
     }
     
     StreamSOAPCodec(WSFeatureList features) {
-        this(getSoapVersion(features), features.get(SerializationFeature.class));
+        this(WebServiceFeatureList.getSoapVersion(features), features.get(SerializationFeature.class));
     }
 
     private StreamSOAPCodec(SOAPVersion soapVersion, @Nullable SerializationFeature sf) {
@@ -101,10 +92,12 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
         return new StreamDecoderImpl();
     }
 
+    @Override
     public ContentType getStaticContentType(Packet packet) {
         return getContentType(packet);
     }
 
+    @Override
     public ContentType encode(Packet packet, OutputStream out) {
         if (packet.getMessage() != null) {
             String encoding = getPacketEncoding(packet);
@@ -125,6 +118,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
 
     protected abstract String getDefaultContentType();
 
+    @Override
     public ContentType encode(Packet packet, WritableByteChannel buffer) {
         //TODO: not yet implemented
         throw new UnsupportedOperationException();
@@ -132,6 +126,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
 
     protected abstract List<String> getExpectedContentTypes();
 
+    @Override
     public void decode(InputStream in, String contentType, Packet packet) throws IOException {
         decode(in, contentType, packet, new AttachmentSetImpl());
     }
@@ -160,6 +155,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
      * @param reader
      *      can point to the start document or the start element.
      */
+    @Override
     public final @NotNull Message decode(@NotNull XMLStreamReader reader) {
         return decode(reader,new AttachmentSetImpl());
     }
@@ -175,6 +171,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
      *      so that this codec can be used as a part of a biggre codec
      *      (like MIME multipart codec.)
      */
+    @Override
     public final Message decode(XMLStreamReader reader, @NotNull AttachmentSet attachmentSet) {
         return decode(soapVersion, reader, attachmentSet);
     }
@@ -191,21 +188,24 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
         return new StreamMessage(soapVersion, reader, attachmentSet);
     }
 
+    @Override
     public void decode(ReadableByteChannel in, String contentType, Packet packet ) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public final StreamSOAPCodec copy() {
         return this;
     }
     
+    @Override
     public void decode(InputStream in, String contentType, Packet packet, AttachmentSet att ) throws IOException {
         List<String> expectedContentTypes = getExpectedContentTypes();
         if (contentType != null && !isContentTypeSupported(contentType,expectedContentTypes)) {
             throw new UnsupportedMediaException(contentType, expectedContentTypes);
         }
         com.oracle.webservices.api.message.ContentType pct = packet.getInternalContentType();
-        ContentTypeImpl cti = (pct != null && pct instanceof ContentTypeImpl) ?
+        ContentTypeImpl cti = (pct instanceof ContentTypeImpl) ?
                 (ContentTypeImpl)pct : new ContentTypeImpl(contentType);
         String charset = cti.getCharSet();
         if (charset != null && !Charset.isSupported(charset)) {
@@ -219,6 +219,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
         packet.setMessage(streamDecoder.decode(in, charset, att, soapVersion));
     }
 
+    @Override
     public void decode(ReadableByteChannel in, String contentType, Packet response, AttachmentSet att ) {
         throw new UnsupportedOperationException();
     }
@@ -244,7 +245,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
      * Creates a new {@link StreamSOAPCodec} instance using binding
      */
     public static StreamSOAPCodec create(WSFeatureList features) {
-        SOAPVersion version = getSoapVersion(features);
+        SOAPVersion version = WebServiceFeatureList.getSoapVersion(features);
         if(version==null)
             // this decoder is for SOAP, not for XML/HTTP
             throw new IllegalArgumentException();

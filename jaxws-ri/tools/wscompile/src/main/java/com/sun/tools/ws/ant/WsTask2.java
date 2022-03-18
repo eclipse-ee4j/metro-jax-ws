@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,8 +16,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.URL;
-import java.util.Enumeration;
+
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -563,28 +562,50 @@ abstract class WsTask2 extends MatchingTask {
         if (toolsJar.exists()) {
             antcp += File.pathSeparatorChar + toolsJar.getAbsolutePath();
         }
+
+        Path cp = getCommandline().createClasspath(getProject());
+
         if (System.getProperty("jdk.module.path") != null) {
-            // this should not happen as a class from META-INF/versions/9
-            // is supposed to be used. If it happens, warn and fall back
             log("Changing original module path to classpath.", Project.MSG_WARN);
             antcp += File.pathSeparatorChar + System.getProperty("jdk.module.path");
         }
-        getCommandline().createClasspath(getProject()).append(new Path(getProject(), antcp));
 
-        String apiCp = getApiClassPath(this.getClass().getClassLoader());
-        if (apiCp != null && !isModular()) {
-            getCommandline().createVmArgument().setLine("-Xbootclasspath/p:" + apiCp);
+        cp.append(new Path(getProject(), antcp));
+
+        Path mvn = getProject().getReference("maven.plugin.classpath");
+        if (mvn != null) {
+            // fork in ant called from maven,
+            // likely through maven-antrun-plugin:run
+            cp.append(mvn);
         }
+
+        if (getModulepath() != null && getModulepath().size() > 0) {
+            getCommandline().createModulepath(getProject()).add(getModulepath());
+        }
+
+        if (getUpgrademodulepath() != null && getUpgrademodulepath().size() > 0) {
+            getCommandline().createUpgrademodulepath(getProject()).add(getUpgrademodulepath());
+        }
+        if (getAddmodules() != null && getAddmodules().length() > 0) {
+            getCommandline().createVmArgument().setLine("--add-modules " + getAddmodules());
+        }
+        if (getAddreads() != null && getAddreads().length() > 0) {
+            getCommandline().createVmArgument().setLine("--add-reads " + getAddreads());
+        }
+        if (getAddexports() != null && getAddexports().length() > 0) {
+            getCommandline().createVmArgument().setLine("--add-exports " + getAddexports());
+        }
+        if (getAddopens() != null && getAddopens().length() > 0) {
+            getCommandline().createVmArgument().setLine("--add-opens " + getAddopens());
+        }
+        if (getPatchmodule() != null && getPatchmodule().length() > 0) {
+            getCommandline().createVmArgument().setLine("--patch-module " + getPatchmodule());
+        }
+        if (getLimitmodules() != null && getLimitmodules().length() > 0) {
+            getCommandline().createVmArgument().setLine("--limit-modules " + getLimitmodules());
+        }
+
         getCommandline().setClassname(className);
-    }
-
-    private boolean isModular() {
-        try {
-            Class<?> moduleClass = Class.forName("java.lang.Module");
-            return moduleClass != null;
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
     }
 
     /**
@@ -610,42 +631,4 @@ abstract class WsTask2 extends MatchingTask {
         }
     }
 
-    private String getApiClassPath(ClassLoader cl) {
-        StringBuilder sb = new StringBuilder();
-        URL wsAPI = getResourceFromCP(cl, "javax/xml/ws/EndpointContext.class");
-        if (wsAPI != null) {
-            sb.append(jarToPath(wsAPI));
-            URL jaxbAPI = getResourceFromCP(cl, "javax/xml/bind/JAXBPermission.class");
-            if (jaxbAPI != null) {
-                String s = jarToPath(jaxbAPI);
-                if (sb.indexOf(s) < 0) {
-                    sb.append(File.pathSeparator);
-                    sb.append(s);
-                }
-            }
-        }
-        return sb.length() != 0 ? sb.toString() : null;
-    }
-
-    private URL getResourceFromCP(ClassLoader cl, String resource) {
-        try {
-            Enumeration<URL> res = cl.getResources(resource);
-            while (res.hasMoreElements()) {
-                URL u = res.nextElement();
-                String s = u.toExternalForm();
-                if (!s.contains("rt.jar") && !s.contains("classes.jar")) {
-                    return u;
-                }
-            }
-        } catch (IOException ex) {
-            log(ex.getMessage(), Project.MSG_WARN);
-        }
-        return null;
-    }
-
-    private String jarToPath(URL u) {
-        String s = u.toExternalForm();
-        s = s.substring(s.lastIndexOf(':') + 1);
-        return s.indexOf('!') < 0 ? s : s.substring(0, s.indexOf('!'));
-    }
 }

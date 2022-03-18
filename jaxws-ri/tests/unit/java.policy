@@ -115,7 +115,7 @@ grant {
     permission java.net.SocketPermission "*", "connect,resolve,accept,listen";
     permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
 
-    permission javax.xml.ws.WebServicePermission "publishEndpoint";
+    permission jakarta.xml.ws.WebServicePermission "publishEndpoint";
 
 };
 

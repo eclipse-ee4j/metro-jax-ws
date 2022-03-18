@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,7 +26,7 @@ import org.apache.tools.ant.taskdefs.Copy;
 import org.apache.tools.ant.taskdefs.Expand;
 import org.apache.tools.ant.types.FileSet;
 
-import javax.xml.ws.Endpoint;
+import jakarta.xml.ws.Endpoint;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,7 +61,7 @@ public class JaxwsHttpServer {
         webappsDir = new File(j2seServerDir+sepChar+"webapps");
         classesDir = new File(webappsDir, "classes");
         System.out.println("webapps dir="+webappsDir.getAbsolutePath());
-        deployedWARs = new HashMap<String, WarInfo>();
+        deployedWARs = new HashMap<>();
         start();
     }
     
@@ -86,6 +86,7 @@ public class JaxwsHttpServer {
     }
     
     public class DeployWAR implements Runnable {
+        @Override
         public void run() {
             System.out.println("Starting DeployWAR thread");
             while(!isStopped()) {
@@ -174,6 +175,7 @@ public class JaxwsHttpServer {
     }
 
     static final class AdapterList extends HttpAdapterList<Adapter> implements AdapterFactory<Adapter> {
+        @Override
         protected Adapter createHttpAdapter(String name, String urlPattern, WSEndpoint<?> endpoint) {
             return new Adapter(endpoint,urlPattern,this);
         }
@@ -190,10 +192,10 @@ public class JaxwsHttpServer {
         ClassLoader urlc = new URLClassLoader(new URL[] { url }, 
                     this.getClass().getClassLoader());
          */
-        DeploymentDescriptorParser<Adapter> parser = new DeploymentDescriptorParser<Adapter>(
+        DeploymentDescriptorParser<Adapter> parser = new DeploymentDescriptorParser<>(
                 this.getClass().getClassLoader(), new FileSystemResourceLoader(warDirFile), null,
                 new AdapterList()
-            );
+        );
         return parser.parse(ddFile);
     }
     
@@ -279,6 +281,7 @@ public class JaxwsHttpServer {
         adminServer.setExecutor(adminExecutorService);
         HttpContext context = adminServer.createContext("/admin");
         context.setHandler(new HttpHandler() {
+            @Override
             public void handle(HttpExchange msg) {
                 try {
                     System.out.println("Received HTTP request:"+msg.getRequestURI());

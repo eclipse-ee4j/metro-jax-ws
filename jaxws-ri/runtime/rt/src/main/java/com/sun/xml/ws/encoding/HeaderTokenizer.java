@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 package com.sun.xml.ws.encoding;
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * This class tokenizes RFC822 and MIME headers into the basic
@@ -75,7 +75,7 @@ class HeaderTokenizer {
          * one of the following:
          * <ul>
          * <li><code>ATOM</code> A sequence of ASCII characters
-         *	delimited by either SPACE, CTL, "(", <"> or the
+         *	delimited by either SPACE, CTL, "(", "{@literal <}, "{@literal >}" or the
          *	specified SPECIALS
          * <li><code>QUOTEDSTRING</code> A sequence of ASCII characters
          *	within quotes
@@ -183,7 +183,7 @@ class HeaderTokenizer {
      * Peek at the next token, without actually removing the token
      * from the parse stream. Invoking this method multiple times
      * will return successive tokens, until <code>next()</code> is
-     * called. <p>
+     * called.
      *
      * @return		the next Token
      * @exception	WebServiceException if the parse fails
@@ -295,9 +295,9 @@ class HeaderTokenizer {
         // Check for SPECIAL or CTL
         if (c < 040 || c >= 0177 || delimiters.indexOf(c) >= 0) {
             currentPos++; // re-position currentPos
-            char ch[] = new char[1];
+            char[] ch = new char[1];
             ch[0] = c;
-            return new Token((int)c, new String(ch));
+            return new Token(c, new String(ch));
         }
 
         // Check for ATOM
@@ -326,7 +326,7 @@ class HeaderTokenizer {
      * quoted string.
      */
     private static String filterToken(String s, int start, int end) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         char c;
         boolean gotEscape = false;
         boolean gotCR = false;

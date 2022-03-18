@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -118,8 +118,7 @@ public class WsaPropertyBag extends BasePropertySet {
      * @return
      *      null if the incoming SOAP message didn't have the header.
      */
-    // WsaServerTube.REQUEST_MESSAGE_ID is exposed for backward compatibility with 2.1
-    @Property({JAXWSProperties.ADDRESSING_MESSAGEID,WsaServerTube.REQUEST_MESSAGE_ID})
+    @Property(JAXWSProperties.ADDRESSING_MESSAGEID)
     public String getMessageID() {
         if (packet.getMessage() == null) {
           return null;
@@ -136,6 +135,7 @@ public class WsaPropertyBag extends BasePropertySet {
         return h.readAsEPR(addressingVersion);
     }
 
+    @Override
     protected PropertyMap getPropertyMap() {
         return model;
     }

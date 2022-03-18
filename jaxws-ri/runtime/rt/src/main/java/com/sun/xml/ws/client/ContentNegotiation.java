@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@ package com.sun.xml.ws.client;
 /**
  * Content negotiation enum.
  * <p>
- * A value of {@link #none} means no content negotation at level of the 
+ * A value of {@link #none} means no content negotiation at level of the
  * client transport will be performed to negotiate the encoding of XML infoset.
  * The default encoding will always be used.
  * <p>

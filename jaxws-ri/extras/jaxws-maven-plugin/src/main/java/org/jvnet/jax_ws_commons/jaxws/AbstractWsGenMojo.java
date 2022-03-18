@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  * Copyright 2006 Guillaume Nodet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,15 +20,13 @@ package org.jvnet.jax_ws_commons.jaxws;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.jws.WebService;
+import jakarta.jws.WebService;
+import java.util.List;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -46,10 +44,11 @@ import org.codehaus.plexus.util.FileUtils;
 abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
 
     /**
-     * Specify that a WSDL file should be generated in <code>${resourceDestDir}</code>.
+     * Service endpoint implementation class names.
+     * @since 3.0.1
      */
-    @Parameter(defaultValue = "false")
-    protected boolean genWsdl;
+    @Parameter
+    private List<String> seis;
 
     /**
      * Service endpoint implementation class name.
@@ -100,12 +99,12 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     private boolean xdonotoverwrite;
 
     /**
-     * Metadata file for wsgen. See <a href="https://jax-ws.java.net/2.2.8/docs/ch03.html#users-guide-external-metadata">the JAX-WS Guide</a>
+     * Metadata file for wsgen. See <a href="https://eclipse-ee4j.github.io/metro-jax-ws/3.0.0/docs/ch03.html#users-guide-external-metadata">the JAX-WS Guide</a>
      * for the description of this feature.
      * Unmatched files will be ignored.
      *
      * @since 2.3
-     * @see <a href="https://jax-ws.java.net/2.2.8/docs/ch03.html#users-guide-external-metadata">External Web Service Metadata</a>
+     * @see <a href="https://eclipse-ee4j.github.io/metro-jax-ws/3.0.0/docs/ch03.html#users-guide-external-metadata">External Web Service Metadata</a>
      */
     @Parameter
     private File metadata;
@@ -114,26 +113,34 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
 
     protected abstract File getClassesDir();
 
+    protected abstract boolean getGenWSDL();
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Set<String> seis = new HashSet<String>();
+        Set<String> allSeis = new HashSet<>();
+        if (seis != null && !seis.isEmpty()) {
+            allSeis.addAll(seis);
+        }
         if (sei != null) {
-            seis.add(sei);
-        } else {
+            if (!allSeis.add(sei)) {
+                getLog().warn("'" + sei + "' was already added");
+            }
+        }
+        if (allSeis.isEmpty()) {
             //find all SEIs within current classes
-            seis.addAll(getSEIs(getClassesDir()));
+            allSeis.addAll(getSEIs(getClassesDir()));
         }
-        if (seis.isEmpty()) {
-            throw new MojoFailureException("No @javax.jws.WebService found.");
+        if (allSeis.isEmpty()) {
+            throw new MojoFailureException("No @jakarta.jws.WebService found.");
         }
-        for (String aSei : seis) {
+        for (String aSei : allSeis) {
             processSei(aSei);
         }
     }
 
     protected void processSei(String sei) throws MojoExecutionException {
         getLog().info("Processing: " + sei);
-        ArrayList<String> args = getWsGenArgs(sei);
+        List<String> args = getWsGenArgs(sei, true);
         getLog().info("jaxws:wsgen args: " + args);
         exec(args);
         if (metadata != null) {
@@ -155,7 +162,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     protected String getExtraClasspath() {
         StringBuilder buf = new StringBuilder();
         buf.append(getClassesDir().getAbsolutePath());
-        for (Artifact a : (Set<Artifact>)project.getArtifacts()) {
+        for (Artifact a : project.getArtifacts()) {
             buf.append(File.pathSeparatorChar);
             buf.append(a.getFile().getAbsolutePath());
         }
@@ -169,14 +176,15 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
 
     /**
      * Construct wsgen arguments
+     * @param aSei web service
+     * @param attachResources true to attach resources to the project
      * @return a list of arguments
-     * @throws MojoExecutionException
+     * @throws MojoExecutionException for errors
      */
-    private ArrayList<String> getWsGenArgs(String aSei) throws MojoExecutionException {
-        ArrayList<String> args = new ArrayList<String>();
-        args.addAll(getCommonArgs());
+    protected List<String> getWsGenArgs(String aSei, boolean attachResources) throws MojoExecutionException {
+        List<String> args = new ArrayList<>(getCommonArgs());
 
-        if (this.genWsdl) {
+        if (getGenWSDL()) {
             if (this.protocol != null) {
                 args.add("-wsdl:" + this.protocol);
             } else {
@@ -203,7 +211,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
             }
             args.add("-r");
             args.add("'" + resourceDir.getAbsolutePath() + "'");
-            if (!"war".equals(project.getPackaging())) {
+            if (attachResources && !"war".equals(project.getPackaging())) {
                 Resource r = new Resource();
                 r.setDirectory(getRelativePath(project.getBasedir(), getResourceDestDir()));
                 project.addResource(r);
@@ -230,7 +238,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     }
 
     private Set<String> getSEIs(File directory) throws MojoExecutionException {
-        Set<String> seis = new HashSet<String>();
+        Set<String> seis = new HashSet<>();
         if (!directory.exists() || directory.isFile()) {
             return seis;
         }
@@ -252,7 +260,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
         } catch (IOException ex) {
             throw new MojoExecutionException(ex.getMessage(), ex);
         } finally {
-            if (cl != null && cl instanceof Closeable) {
+            if (cl instanceof Closeable) {
                 try {
                     ((Closeable) cl).close();
                 } catch (IOException ex) {

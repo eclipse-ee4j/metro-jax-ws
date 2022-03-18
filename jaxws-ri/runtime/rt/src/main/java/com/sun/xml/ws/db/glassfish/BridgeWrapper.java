@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,11 +13,11 @@ package com.sun.xml.ws.db.glassfish;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.attachment.AttachmentMarshaller;
-import javax.xml.bind.attachment.AttachmentUnmarshaller;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.attachment.AttachmentMarshaller;
+import jakarta.xml.bind.attachment.AttachmentUnmarshaller;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
@@ -27,7 +27,7 @@ import javax.xml.transform.Source;
 import org.w3c.dom.Node;
 import org.xml.sax.ContentHandler;
 
-import com.sun.xml.bind.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import com.sun.xml.ws.spi.db.BindingContext;
 import com.sun.xml.ws.spi.db.XMLBridge;
 import com.sun.xml.ws.spi.db.DatabindingException;
@@ -36,9 +36,9 @@ import com.sun.xml.ws.spi.db.TypeInfo;
 public class BridgeWrapper<T> implements XMLBridge<T> {
 
     private JAXBRIContextWrapper parent;
-    private com.sun.xml.bind.api.Bridge<T> bridge;
+    private org.glassfish.jaxb.runtime.api.Bridge<T> bridge;
 
-    public BridgeWrapper(JAXBRIContextWrapper p, com.sun.xml.bind.api.Bridge<T> b) {
+    public BridgeWrapper(JAXBRIContextWrapper p, org.glassfish.jaxb.runtime.api.Bridge<T> b) {
         parent = p;
         bridge = b;
     }
@@ -48,7 +48,7 @@ public class BridgeWrapper<T> implements XMLBridge<T> {
         return parent;
     }
 
-    com.sun.xml.bind.api.Bridge getBridge() {
+    org.glassfish.jaxb.runtime.api.Bridge getBridge() {
         return bridge;
     }
 

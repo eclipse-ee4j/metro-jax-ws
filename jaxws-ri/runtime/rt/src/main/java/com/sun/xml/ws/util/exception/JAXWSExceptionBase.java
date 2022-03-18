@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,7 +21,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * Represents a {@link WebServiceException} with
@@ -38,8 +38,6 @@ public abstract class JAXWSExceptionBase
     private transient Localizable msg;
 
     /**
-     * @param key
-     * @param args
      * @deprecated Should use the localizable constructor instead.
      */
     @Deprecated
@@ -55,7 +53,6 @@ public abstract class JAXWSExceptionBase
 
     /**
      * Creates a new exception that wraps the specified exception.
-     * @param throwable
      */
     protected JAXWSExceptionBase(Throwable throwable) {
         this(new NullLocalizable(throwable.toString()),throwable);
@@ -137,7 +134,6 @@ public abstract class JAXWSExceptionBase
     /**
      * Gets the default resource bundle name for this kind of exception.
      * Used for {@link #JAXWSExceptionBase(String, Object[])}.
-     * @return
      */
     protected abstract String getDefaultResourceBundleName();
 

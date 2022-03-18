@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,7 +41,7 @@ public class Stax2SAXAdapter {
 
     public void parse(ContentHandler handler) throws XMLStreamException, SAXException {
 
-        Stack<String> stack = new Stack<String>();
+        Stack<String> stack = new Stack<>();
         boolean done = false;
         while (!done) {
             int event = staxReader.getEventType();
@@ -186,18 +186,22 @@ public class Stax2SAXAdapter {
             this.columnNumber = columnNumber;
         }
 
+        @Override
         public String getPublicId() {
             return publicId;
         }
 
+        @Override
         public String getSystemId() {
             return systemId;
         }
 
+        @Override
         public int getLineNumber() {
             return lineNumber;
         }
 
+        @Override
         public int getColumnNumber() {
             return columnNumber;
         }

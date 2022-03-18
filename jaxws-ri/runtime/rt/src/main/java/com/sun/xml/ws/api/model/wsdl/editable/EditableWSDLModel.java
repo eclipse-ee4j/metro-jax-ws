@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,7 +48,7 @@ public interface EditableWSDLModel extends WSDLModel {
      *
      * @param msg Message
      */
-    public void addMessage(EditableWSDLMessage msg);
+    void addMessage(EditableWSDLMessage msg);
 
     @Override
     @NotNull
@@ -59,7 +59,7 @@ public interface EditableWSDLModel extends WSDLModel {
      *
      * @param pt Port type
      */
-    public void addPortType(EditableWSDLPortType pt);
+    void addPortType(EditableWSDLPortType pt);
 
     @Override
     @NotNull
@@ -74,27 +74,26 @@ public interface EditableWSDLModel extends WSDLModel {
      *
      * @param svc Service
      */
-    public void addService(EditableWSDLService svc);
+    void addService(EditableWSDLService svc);
 
     @Override
-    public EditableWSDLMessage getMessage(QName name);
+    EditableWSDLMessage getMessage(QName name);
 
     /**
-     * @param policyMap
      * @deprecated
      */
-    public void setPolicyMap(PolicyMap policyMap);
+    void setPolicyMap(PolicyMap policyMap);
 
     /**
      * Finalize rpc-lit binding
      *
      * @param portType Binding
      */
-    public void finalizeRpcLitBinding(EditableWSDLBoundPortType portType);
+    void finalizeRpcLitBinding(EditableWSDLBoundPortType portType);
 
     /**
      * Freezes WSDL model to prevent further modification
      */
-    public void freeze();
+    void freeze();
 
 }

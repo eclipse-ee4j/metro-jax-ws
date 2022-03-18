@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@ import com.sun.xml.ws.api.model.ParameterBinding;
 import com.sun.xml.ws.spi.db.TypeInfo;
 import com.sun.xml.ws.spi.db.WrapperComposite;
 
-import javax.jws.WebParam.Mode;
+import jakarta.jws.WebParam.Mode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +37,7 @@ import java.util.List;
  * @author Vivek Pandey
  */
 public class WrapperParameter extends ParameterImpl {
-    protected final List<ParameterImpl> wrapperChildren = new ArrayList<ParameterImpl>();
+    protected final List<ParameterImpl> wrapperChildren = new ArrayList<>();
 
     // TODO: wrapper parameter doesn't use 'typeRef' --- it only uses tag name.
     public WrapperParameter(JavaMethodImpl parent, TypeInfo typeRef, Mode mode, int index) {
@@ -65,8 +65,7 @@ public class WrapperParameter extends ParameterImpl {
 
     /**
      * Adds a new child parameter.
-     * 
-     * @param wrapperChild
+     *
      */
     public void addWrapperChild(ParameterImpl wrapperChild) {
         wrapperChildren.add(wrapperChild);

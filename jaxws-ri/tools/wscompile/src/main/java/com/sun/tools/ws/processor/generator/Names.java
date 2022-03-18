@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -105,7 +105,7 @@ public final class Names {
         return messageName + GeneratorConstants.RESPONSE.getValue();
     }
 
-    private static final Map<String, String> RESERVED_WORDS = new HashMap<String, String>(53);
+    private static final Map<String, String> RESERVED_WORDS = new HashMap<>(53);
 
     static {
         RESERVED_WORDS.put("abstract", "_abstract");

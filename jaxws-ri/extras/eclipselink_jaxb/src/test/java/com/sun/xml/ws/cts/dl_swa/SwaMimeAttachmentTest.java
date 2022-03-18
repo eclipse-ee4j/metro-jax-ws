@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,18 +17,19 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.activation.CommandMap;
-import javax.activation.DataHandler;
-import javax.activation.MailcapCommandMap;
+import jakarta.activation.CommandMap;
+import jakarta.activation.DataHandler;
+import jakarta.activation.MailcapCommandMap;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.handler.MessageContext;
 
 import com.oracle.webservices.api.databinding.DatabindingModeFeature;
 import com.oracle.webservices.api.databinding.JavaCallInfo;
 
+import org.junit.Assert;
 import org.xml.sax.EntityResolver;
 
 import com.sun.xml.ws.base.WsDatabindingTestBase;
@@ -78,14 +79,14 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
         DataHandler dh3 = new DataHandler(url3);
 //        DataHandler dh4 = new DataHandler(url4);
 //        DataHandler dh5 = new DataHandler(url5);
-        javax.xml.ws.Holder<javax.activation.DataHandler> attach1 = new javax.xml.ws.Holder<javax.activation.DataHandler>();
+        jakarta.xml.ws.Holder<jakarta.activation.DataHandler> attach1 = new jakarta.xml.ws.Holder<jakarta.activation.DataHandler>();
         attach1.value = dh1;
-        javax.xml.ws.Holder<javax.activation.DataHandler> attach2 = new javax.xml.ws.Holder<javax.activation.DataHandler>();
+        jakarta.xml.ws.Holder<jakarta.activation.DataHandler> attach2 = new jakarta.xml.ws.Holder<jakarta.activation.DataHandler>();
         attach2.value = dh2;
-        javax.xml.ws.Holder<javax.xml.transform.Source> attach3 = new javax.xml.ws.Holder<javax.xml.transform.Source>();
+        jakarta.xml.ws.Holder<javax.xml.transform.Source> attach3 = new jakarta.xml.ws.Holder<javax.xml.transform.Source>();
         attach3.value = new StreamSource(dh3.getInputStream());
-        javax.xml.ws.Holder<java.awt.Image> attach4 = new javax.xml.ws.Holder<java.awt.Image>();
-        javax.xml.ws.Holder<java.awt.Image> attach5 = new javax.xml.ws.Holder<java.awt.Image>();
+        jakarta.xml.ws.Holder<java.awt.Image> attach4 = new jakarta.xml.ws.Holder<java.awt.Image>();
+        jakarta.xml.ws.Holder<java.awt.Image> attach5 = new jakarta.xml.ws.Holder<java.awt.Image>();
         attach4.value = javax.imageio.ImageIO.read(url4);
         attach5.value = javax.imageio.ImageIO.read(url5);
         VoidRequest request = new VoidRequest();
@@ -97,19 +98,19 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
         SOAPMessageContextImpl smc = new SOAPMessageContextImpl(null, cliSoapReq, null);
         Map<String, DataHandler> smcAtts1 = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
         smc.put(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS, smcAtts1);
-        assertEquals( 5, smcAtts1.size() );
+        Assert.assertEquals( 5, smcAtts1.size() );
         for (String cid : smcAtts1.keySet()) 
-            assertTrue(cid.charAt(0)!='<');
+            Assert.assertTrue(cid.charAt(0)!='<');
         
         for (com.sun.xml.ws.api.message.Attachment a : cliSoapReq.getMessage().getAttachments()) 
-            assertTrue(a.getContentId().charAt(0)!='<');
+            Assert.assertTrue(a.getContentId().charAt(0)!='<');
         
         Object s1 = cliSoapReq.getAsSOAPMessage();
         Object s2 = smc.getMessage();
-        assertTrue(s1 == s2);
+        Assert.assertSame(s1, s2);
         
         for (com.sun.xml.ws.api.message.Attachment a : cliSoapReq.getMessage().getAttachments()) 
-            assertTrue(a.getContentId().charAt(0)!='<');
+            Assert.assertTrue(a.getContentId().charAt(0)!='<');
 //        {
 //        Map<String, DataHandler> atts = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
 //        AttachmentSet attSet = cliSoapReq.getMessage().getAttachments();
@@ -123,8 +124,8 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
 
 
         Map<String, DataHandler> smcAtts2 = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
-        assertEquals( 5, smcAtts1.size() );
-        for (String cid : smcAtts2.keySet()) assertTrue(cid.charAt(0)!='<');
+        Assert.assertEquals( 5, smcAtts1.size() );
+        for (String cid : smcAtts2.keySet()) Assert.assertTrue(cid.charAt(0)!='<');
     }
 
 
@@ -152,14 +153,14 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
         DataHandler dh3 = new DataHandler(url3);
         DataHandler dh4 = new DataHandler(url4);
 //        DataHandler dh5 = new DataHandler(url5);
-        javax.xml.ws.Holder<javax.activation.DataHandler> attach1 = new javax.xml.ws.Holder<javax.activation.DataHandler>();
+        jakarta.xml.ws.Holder<jakarta.activation.DataHandler> attach1 = new jakarta.xml.ws.Holder<jakarta.activation.DataHandler>();
         attach1.value = dh1;
-        javax.xml.ws.Holder<javax.activation.DataHandler> attach2 = new javax.xml.ws.Holder<javax.activation.DataHandler>();
+        jakarta.xml.ws.Holder<jakarta.activation.DataHandler> attach2 = new jakarta.xml.ws.Holder<jakarta.activation.DataHandler>();
         attach2.value = dh2;
-        javax.xml.ws.Holder<javax.xml.transform.Source> attach3 = new javax.xml.ws.Holder<javax.xml.transform.Source>();
+        jakarta.xml.ws.Holder<javax.xml.transform.Source> attach3 = new jakarta.xml.ws.Holder<javax.xml.transform.Source>();
         attach3.value = new StreamSource(dh3.getInputStream());
-        javax.xml.ws.Holder<java.awt.Image> attach4 = new javax.xml.ws.Holder<java.awt.Image>();
-        javax.xml.ws.Holder<java.awt.Image> attach5 = new javax.xml.ws.Holder<java.awt.Image>();
+        jakarta.xml.ws.Holder<java.awt.Image> attach4 = new jakarta.xml.ws.Holder<java.awt.Image>();
+        jakarta.xml.ws.Holder<java.awt.Image> attach5 = new jakarta.xml.ws.Holder<java.awt.Image>();
         attach4.value = javax.imageio.ImageIO.read(url4);
         attach5.value = javax.imageio.ImageIO.read(url5);
         VoidRequest request = new VoidRequest();
@@ -176,8 +177,8 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
         SOAPMessageContextImpl smc = new SOAPMessageContextImpl(null, cliSoapReq, null);
         Map<String, DataHandler> smcAtts1 = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
 
-        assertEquals( 6, smcAtts1.size() );
-        assertNotNull(smcAtts1.get(customContentId));
+        Assert.assertEquals( 6, smcAtts1.size() );
+        Assert.assertNotNull(smcAtts1.get(customContentId));
         
         {//ClientSOAPHandlerTube.callHandlersOnRequest
             Map<String, DataHandler> atts = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
@@ -192,24 +193,24 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
 
         int attCount = 0;
         for (com.sun.xml.ws.api.message.Attachment a : cliSoapReq.getMessage().getAttachments()) {
-//            assertTrue(a.getContentId().charAt(0)!='<'); 
+//            Assert.assertTrue(a.getContentId().charAt(0)!='<'); 
             attCount++;
         }
-        assertEquals( 6, attCount);
+        Assert.assertEquals( 6, attCount);
         Object s1 = cliSoapReq.getAsSOAPMessage();
         Object s2 = smc.getMessage();
-        assertTrue(s1 == s2);
+        Assert.assertSame(s1, s2);
 
         int attCountSaaj = 0;
         for (com.sun.xml.ws.api.message.Attachment a : cliSoapReq.getMessage().getAttachments()) {
-            assertTrue(a.getContentId().charAt(0)!='<');
+            Assert.assertTrue(a.getContentId().charAt(0)!='<');
             attCountSaaj++;
         }
-        assertEquals( 6, attCountSaaj);
+        Assert.assertEquals( 6, attCountSaaj);
         Map<String, DataHandler> smcAtts2 = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
-        assertEquals( 6, smcAtts2.size() );
+        Assert.assertEquals( 6, smcAtts2.size() );
 //        System.out.println(smcAtts2.size() + " " + smcAtts2);
-        assertNotNull(smcAtts2.get(customContentId));
+        Assert.assertNotNull(smcAtts2.get(customContentId));
     }
     
     public void testCTS_WsiDocLitSwaTest() throws Exception {
@@ -246,20 +247,20 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
             DataHandler dh3 = new DataHandler(url3);
             DataHandler dh4 = new DataHandler(url4);
             DataHandler dh5 = new DataHandler(url5);
-            javax.xml.ws.Holder<javax.activation.DataHandler> attach1 = new javax.xml.ws.Holder<javax.activation.DataHandler>();
+            jakarta.xml.ws.Holder<jakarta.activation.DataHandler> attach1 = new jakarta.xml.ws.Holder<jakarta.activation.DataHandler>();
             attach1.value = dh1;
-            javax.xml.ws.Holder<javax.activation.DataHandler> attach2 = new javax.xml.ws.Holder<javax.activation.DataHandler>();
+            jakarta.xml.ws.Holder<jakarta.activation.DataHandler> attach2 = new jakarta.xml.ws.Holder<jakarta.activation.DataHandler>();
             attach2.value = dh2;
-            javax.xml.ws.Holder<javax.xml.transform.Source> attach3 = new javax.xml.ws.Holder<javax.xml.transform.Source>();
+            jakarta.xml.ws.Holder<javax.xml.transform.Source> attach3 = new jakarta.xml.ws.Holder<javax.xml.transform.Source>();
             attach3.value = new StreamSource(dh3.getInputStream());
-            javax.xml.ws.Holder<java.awt.Image> attach4 = new javax.xml.ws.Holder<java.awt.Image>();
-            javax.xml.ws.Holder<java.awt.Image> attach5 = new javax.xml.ws.Holder<java.awt.Image>();
+            jakarta.xml.ws.Holder<java.awt.Image> attach4 = new jakarta.xml.ws.Holder<java.awt.Image>();
+            jakarta.xml.ws.Holder<java.awt.Image> attach5 = new jakarta.xml.ws.Holder<java.awt.Image>();
             attach4.value = javax.imageio.ImageIO.read(url4);
             attach5.value = javax.imageio.ImageIO.read(url5);
             VoidRequest request = new VoidRequest();
             OutputResponseAll response = port.echoAllAttachmentTypes(request,
                     attach1, attach2, attach3, attach4, attach5);
-            assertTrue(ValidateRequestResponseAttachmentsEchoAllTestCase(
+            Assert.assertTrue(ValidateRequestResponseAttachmentsEchoAllTestCase(
                     request, response, attach1, attach2, attach3, attach4,
                     attach5));
         }
@@ -271,15 +272,15 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
             request.setMimeType2("text/html");
             request.setUrl1(url1.toString());
             request.setUrl2(url2.toString());
-            javax.xml.ws.Holder<DataHandler> attach1 = new javax.xml.ws.Holder<DataHandler>();
-            javax.xml.ws.Holder<DataHandler> attach2 = new javax.xml.ws.Holder<DataHandler>();
-            javax.xml.ws.Holder<OutputResponse> response = new javax.xml.ws.Holder<OutputResponse>();
+            jakarta.xml.ws.Holder<DataHandler> attach1 = new jakarta.xml.ws.Holder<DataHandler>();
+            jakarta.xml.ws.Holder<DataHandler> attach2 = new jakarta.xml.ws.Holder<DataHandler>();
+            jakarta.xml.ws.Holder<OutputResponse> response = new jakarta.xml.ws.Holder<OutputResponse>();
             port.getMultipleAttachments(request, response, attach1, attach2);
-            assertTrue(ValidateRequestResponseAttachmentsGetTestCase(request,
+            Assert.assertTrue(ValidateRequestResponseAttachmentsGetTestCase(request,
                     response.value, attach1, attach2));
         }
         {
-            javax.xml.ws.Holder<byte[]> data = new javax.xml.ws.Holder<byte[]>();
+            jakarta.xml.ws.Holder<byte[]> data = new jakarta.xml.ws.Holder<byte[]>();
 //            InputStream in = getSwaAttachmentURL("attach.jpeg1").openStream();
 //            java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
 //            byte[] bytes = new byte[4096];
@@ -296,7 +297,7 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
             byte[] bytes = baos.toByteArray();
             port.echoData("EnableMIMEContent = false", data);   
 //            for ( int i = 0; i < data.value.length; i++ ) {
-//                assertTrue(bytes[i] == data.value[i]);
+//                Assert.assertTrue(bytes[i] == data.value[i]);
 //            }
         }
     }
@@ -306,11 +307,11 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
      **************************************************************************/
     private boolean ValidateRequestResponseAttachmentsEchoAllTestCase(
             VoidRequest request, OutputResponseAll response,
-            javax.xml.ws.Holder<DataHandler> attach1,
-            javax.xml.ws.Holder<DataHandler> attach2,
-            javax.xml.ws.Holder<Source> attach3,
-            javax.xml.ws.Holder<Image> attach4,
-            javax.xml.ws.Holder<Image> attach5) throws Exception {
+            jakarta.xml.ws.Holder<DataHandler> attach1,
+            jakarta.xml.ws.Holder<DataHandler> attach2,
+            jakarta.xml.ws.Holder<Source> attach3,
+            jakarta.xml.ws.Holder<Image> attach4,
+            jakarta.xml.ws.Holder<Image> attach5) throws Exception {
         boolean result = true;
         URL url1 = getResource("attach.text");
         URL url2 = getResource("attach.html");
@@ -412,8 +413,8 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
      **************************************************************************/
     private boolean ValidateRequestResponseAttachmentsGetTestCase(
             InputRequestGet request, OutputResponse response,
-            javax.xml.ws.Holder<DataHandler> attach1,
-            javax.xml.ws.Holder<DataHandler> attach2) {
+            jakarta.xml.ws.Holder<DataHandler> attach1,
+            jakarta.xml.ws.Holder<DataHandler> attach2) {
         boolean result = true;
         if (!response.getMimeType1().equals(request.getMimeType1())) {
             result = false;

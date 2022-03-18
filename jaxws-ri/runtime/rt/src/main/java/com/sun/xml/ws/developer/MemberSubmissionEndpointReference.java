@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,23 +15,23 @@ import com.sun.xml.ws.addressing.v200408.MemberSubmissionAddressingConstants;
 import com.sun.xml.ws.wsdl.parser.WSDLConstants;
 import org.w3c.dom.Element;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAnyAttribute;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.annotation.XmlAnyAttribute;
+import jakarta.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlValue;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.ws.EndpointReference;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.EndpointReference;
+import jakarta.xml.ws.WebServiceException;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +49,7 @@ import java.util.Map;
 @XmlType(name = "EndpointReferenceType", namespace = MemberSubmissionEndpointReference.MSNS)
 public final class MemberSubmissionEndpointReference extends EndpointReference implements MemberSubmissionAddressingConstants {
 
-    private final static ContextClassloaderLocal<JAXBContext> msjc = new ContextClassloaderLocal<JAXBContext>() {
+    private final static ContextClassloaderLocal<JAXBContext> msjc = new ContextClassloaderLocal<>() {
         @Override
         protected JAXBContext initialValue() throws Exception {
             return MemberSubmissionEndpointReference.getMSJaxbContext();
@@ -64,7 +64,7 @@ public final class MemberSubmissionEndpointReference extends EndpointReference i
      *
      * @param source A source object containing valid XmlInfoset
      *               instance consistent with the Member Submission WS-Addressing
-     * @throws javax.xml.ws.WebServiceException
+     * @throws jakarta.xml.ws.WebServiceException
      *                              if the source does not contain a valid W3C WS-Addressing
      *                              EndpointReference.
      * @throws WebServiceException if the <code>null</code> <code>source</code> value is given

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,11 +10,11 @@
 
 package provider.http_status_code_200_oneway.server;
 
-import javax.activation.DataSource;
-import javax.annotation.Resource;
-import javax.xml.ws.*;
-import javax.xml.ws.http.HTTPBinding;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.activation.DataSource;
+import jakarta.annotation.Resource;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.handler.MessageContext;
 import javax.xml.transform.Source;
 
 /**

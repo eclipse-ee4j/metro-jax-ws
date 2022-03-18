@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,15 +10,14 @@
 
 package com.sun.xml.ws.api.handler;
 
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.handler.MessageContext;
-
-import junit.framework.Assert;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.handler.MessageContext;
 
 import junit.framework.TestCase;
 
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.handler.SOAPMessageContextImpl;
+import org.junit.Assert;
 
 public class MessageContextTest extends TestCase {
 

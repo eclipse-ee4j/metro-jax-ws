@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,7 +19,6 @@ import java.lang.reflect.Method;
  * client is deserialized as an update to the JavaCallInfo object which is used
  * to generated the request.
  * <p>
- * </p>
  * On the server or service provider side, a SOAP request message is
  * deserialized to a JavaCallInfo object which can be used to determine which
  * method to call, and get the parameter values to call the back-end service
@@ -50,7 +49,8 @@ public class JavaCallInfo implements com.oracle.webservices.api.databinding.Java
 	 * 
 	 * @return the method
 	 */
-	public Method getMethod() {
+	@Override
+    public Method getMethod() {
 		return method;
 	}
 
@@ -69,7 +69,8 @@ public class JavaCallInfo implements com.oracle.webservices.api.databinding.Java
 	 * 
 	 * @return the parameters
 	 */
-	public Object[] getParameters() {
+	@Override
+    public Object[] getParameters() {
 		return parameters;
 	}
 
@@ -88,7 +89,8 @@ public class JavaCallInfo implements com.oracle.webservices.api.databinding.Java
 	 * 
 	 * @return the returnValue
 	 */
-	public Object getReturnValue() {
+	@Override
+    public Object getReturnValue() {
 		return returnValue;
 	}
 
@@ -98,7 +100,8 @@ public class JavaCallInfo implements com.oracle.webservices.api.databinding.Java
 	 * @param returnValue
 	 *            the returnValue to set
 	 */
-	public void setReturnValue(Object returnValue) {
+	@Override
+    public void setReturnValue(Object returnValue) {
 		this.returnValue = returnValue;
 	}
 
@@ -107,7 +110,8 @@ public class JavaCallInfo implements com.oracle.webservices.api.databinding.Java
 	 * 
 	 * @return the exception
 	 */
-	public Throwable getException() {
+	@Override
+    public Throwable getException() {
 		return exception;
 	}
 
@@ -117,7 +121,8 @@ public class JavaCallInfo implements com.oracle.webservices.api.databinding.Java
 	 * @param exception
 	 *            the exception to set
 	 */
-	public void setException(Throwable exception) {
+	@Override
+    public void setException(Throwable exception) {
 		this.exception = exception;
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,12 +13,12 @@ package server.endpoint_dtd.client;
 import java.io.StringReader;
 import java.net.URL;
  
-import javax.jws.WebMethod;
-import javax.jws.WebService;
-import javax.jws.Oneway;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebService;
+import jakarta.jws.Oneway;
 import javax.xml.namespace.QName;
-import javax.xml.ws.*;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.handler.MessageContext;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.Transformer;
@@ -29,8 +29,8 @@ import javax.xml.stream.*;
 import java.io.*;
 import java.util.*;
 import java.net.*;
-import javax.jws.soap.SOAPBinding;
-import javax.jws.soap.SOAPBinding.Style;
+import jakarta.jws.soap.SOAPBinding;
+import jakarta.jws.soap.SOAPBinding.Style;
 
 import testutil.ClientServerTestUtil;
 import testutil.HTTPResponseInfo;

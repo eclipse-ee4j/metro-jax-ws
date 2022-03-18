@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@ package com.sun.xml.ws.model;
 import com.sun.xml.ws.api.model.ParameterBinding;
 import com.sun.xml.ws.binding.WebServiceFeatureList;
 
-import javax.jws.WebParam.Mode;
+import jakarta.jws.WebParam.Mode;
 import javax.xml.namespace.QName;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -60,7 +60,7 @@ public class SOAPSEIModel extends AbstractSEIModelImpl {
     }
 
     public Set<QName> getKnownHeaders() {
-        Set<QName> headers = new HashSet<QName>();
+        Set<QName> headers = new HashSet<>();
         
         try{
         	lock.lock();
@@ -81,8 +81,6 @@ public class SOAPSEIModel extends AbstractSEIModelImpl {
     }
 
     /**
-     * @param params
-     * @param headers
      */
     private void fillHeaders(Iterator<ParameterImpl> params, Set<QName> headers, Mode mode) {
         while (params.hasNext()) {

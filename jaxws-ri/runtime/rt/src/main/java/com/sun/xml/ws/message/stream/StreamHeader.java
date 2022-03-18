@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,9 +25,9 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPHeader;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
@@ -121,6 +121,7 @@ public abstract class StreamHeader extends AbstractHeaderImpl {
         _mark = XMLStreamBuffer.createNewBufferFromXMLStreamReader(reader);
     }
 
+    @Override
     public final boolean isIgnorable(@NotNull SOAPVersion soapVersion, @NotNull Set<String> roles) {
         // check mustUnderstand
         if(!_isMustUnderstand) return true;
@@ -132,23 +133,28 @@ public abstract class StreamHeader extends AbstractHeaderImpl {
         return !roles.contains(_role);
     }
 
+    @Override
     public @NotNull String getRole(@NotNull SOAPVersion soapVersion) {
         assert _role!=null;
         return _role;
     }
 
+    @Override
     public boolean isRelay() {
         return _isRelay;
     }
 
+    @Override
     public @NotNull String getNamespaceURI() {
         return _namespaceURI;
     }
 
+    @Override
     public @NotNull String getLocalPart() {
         return _localName;
     }
 
+    @Override
     public String getAttribute(String nsUri, String localName) {
         if(attributes!=null) {
             for(int i=attributes.size()-1; i>=0; i-- ) {
@@ -163,10 +169,12 @@ public abstract class StreamHeader extends AbstractHeaderImpl {
     /**
      * Reads the header as a {@link XMLStreamReader}
      */
+    @Override
     public XMLStreamReader readHeader() throws XMLStreamException {
         return _mark.readAsXMLStreamReader();
     }
 
+    @Override
     public void writeTo(XMLStreamWriter w) throws XMLStreamException {
         if(_mark.getInscopeNamespaces().size() > 0)
             _mark.writeToXMLStreamWriter(w,true);
@@ -174,6 +182,7 @@ public abstract class StreamHeader extends AbstractHeaderImpl {
             _mark.writeToXMLStreamWriter(w);
     }
 
+    @Override
     public void writeTo(SOAPMessage saaj) throws SOAPException {
         try {
             // TODO what about in-scope namespaces
@@ -197,6 +206,7 @@ public abstract class StreamHeader extends AbstractHeaderImpl {
         }
     }
 
+    @Override
     public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException {
         _mark.writeTo(contentHandler);
     }

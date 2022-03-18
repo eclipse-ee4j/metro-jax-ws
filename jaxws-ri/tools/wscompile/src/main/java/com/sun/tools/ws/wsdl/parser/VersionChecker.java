@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,13 +18,14 @@ import org.xml.sax.helpers.XMLFilterImpl;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
  * Checks the jaxb:version attribute on a XML Schema document.
  *
- * jaxws:version is optional, if absent its value is assumed to be "2.0" and if present its value must be
- * "2.0" or more.
+ * jaxws:version is optional, if absent its value is assumed to be "3.0" and if present its value must be
+ * "3.0" or more.
  *
  * @author
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
@@ -61,6 +62,7 @@ public class VersionChecker extends XMLFilterImpl {
         if(er!=null)    setEntityResolver(er);
     }
 
+    @Override
     public void startElement(String namespaceURI, String localName, String qName, Attributes atts)
         throws SAXException {
 
@@ -80,9 +82,9 @@ public class VersionChecker extends XMLFilterImpl {
                         WsdlMessages.INTERNALIZER_TWO_VERSION_ATTRIBUTES(), locator);
                     getErrorHandler().error(e);
                 }
-                //According to JAXWS 2.0 spec, if version attribute is missing its assumed to be "2.0"
+                //According to JAXWS 2.0 spec, if version attribute is missing its assumed to be "3.0"
                 if( version==null)
-                    version = (version2!=null)?version2:"2.0";
+                    version = (version2!=null)?version2:"3.0";
             }
 
         }
@@ -90,11 +92,12 @@ public class VersionChecker extends XMLFilterImpl {
         if( JAXWSBindingsConstants.NS_JAXWS_BINDINGS.equals(namespaceURI)){
             seenBindings = true;
             if(version == null)
-                version = "2.0";            
+                version = "3.0";
         }
 
     }
 
+    @Override
     public void endDocument() throws SAXException {
         super.endDocument();
 
@@ -104,19 +107,20 @@ public class VersionChecker extends XMLFilterImpl {
             getErrorHandler().error(e);
         }
 
-        // if present, the value must be >= 2.0
+        // if present, the value must be >= 3.0
         if( version!=null && !VERSIONS.contains(version) ) {
             SAXParseException e = new SAXParseException(WsdlMessages.INTERNALIZER_INCORRECT_VERSION(), rootTagStart);
             getErrorHandler().error(e);
         }
     }
 
+    @Override
     public void setDocumentLocator(Locator locator) {
         super.setDocumentLocator(locator);
         this.locator = locator;
     }
 
-    private static final Set<String> VERSIONS = new HashSet<String>(Arrays.asList("2.0","2.1"));
+    private static final Set<String> VERSIONS = new HashSet<>(List.of("3.0"));
 
 }
 

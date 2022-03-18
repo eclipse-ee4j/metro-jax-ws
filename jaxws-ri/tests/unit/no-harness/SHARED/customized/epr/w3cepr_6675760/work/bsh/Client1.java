@@ -10,13 +10,13 @@
 
 package bsh;
 
-import javax.activation.*;
-import javax.xml.ws.*;
-import javax.xml.ws.soap.*;
-import javax.xml.ws.handler.*;
-import javax.xml.ws.handler.soap.*;
-import javax.xml.bind.*;
-import javax.xml.soap.*;
+import jakarta.activation.*;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.soap.*;
+import jakarta.xml.ws.handler.*;
+import jakarta.xml.ws.handler.soap.*;
+import jakarta.xml.bind.*;
+import jakarta.xml.soap.*;
 import javax.xml.namespace.*;
 import javax.xml.transform.*;
 import javax.xml.transform.sax.*;
@@ -65,22 +65,22 @@ public class Client1 {
         
         javax.xml.transform.Source source = new javax.xml.transform.stream.StreamSource(
         new java.io.FileInputStream(resource("w3cepr.xml")));
-        javax.xml.ws.wsaddressing.W3CEndpointReference jaxwsEPR = new javax.xml.ws.wsaddressing.W3CEndpointReference(source);
+        jakarta.xml.ws.wsaddressing.W3CEndpointReference jaxwsEPR = new jakarta.xml.ws.wsaddressing.W3CEndpointReference(source);
         String str = jaxwsEPR.toString();
 
-        Object address = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "address");
+        Object address = getField(jaxwsEPR, jakarta.xml.ws.wsaddressing.W3CEndpointReference.class, "address");
         assertTrue(address != null);
 
-        Object referenceParameters = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "referenceParameters");
+        Object referenceParameters = getField(jaxwsEPR, jakarta.xml.ws.wsaddressing.W3CEndpointReference.class, "referenceParameters");
         assertTrue(referenceParameters != null);
 
-        Object metadata = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "metadata");
+        Object metadata = getField(jaxwsEPR, jakarta.xml.ws.wsaddressing.W3CEndpointReference.class, "metadata");
         assertTrue(metadata != null);
 
-        Object elements = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "elements");
+        Object elements = getField(jaxwsEPR, jakarta.xml.ws.wsaddressing.W3CEndpointReference.class, "elements");
         assertTrue(elements != null);
 
-        Object attributes = getField(jaxwsEPR, javax.xml.ws.wsaddressing.W3CEndpointReference.class, "attributes");
+        Object attributes = getField(jaxwsEPR, jakarta.xml.ws.wsaddressing.W3CEndpointReference.class, "attributes");
         assertTrue(attributes != null);
 
         assertTrue(str.indexOf("eprattr") != -1);

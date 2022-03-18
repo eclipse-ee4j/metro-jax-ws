@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,7 +33,6 @@ import java.util.logging.Logger;
 
 // BEGIN IMPORTS FOR RewritingMOM
 import java.util.ResourceBundle ;
-import java.lang.reflect.AnnotatedElement ;
 import java.lang.annotation.Annotation ;
 import javax.management.ObjectName ;
 import javax.management.MBeanServer ;
@@ -107,19 +106,19 @@ public abstract class MonitorBase {
     private String getContextPath(final WSEndpoint endpoint) {
         try {
             Container container = endpoint.getContainer();
-            Method getSPI = 
-                container.getClass().getDeclaredMethod("getSPI", Class.class);
-            getSPI.setAccessible(true);
-            Class servletContextClass = 
-                Class.forName("javax.servlet.ServletContext");
-            Object servletContext =
-                getSPI.invoke(container, servletContextClass);
-            if (servletContext != null) {
-                Method getContextPath = servletContextClass.getDeclaredMethod("getContextPath");
-                getContextPath.setAccessible(true);
-                return (String) getContextPath.invoke(servletContext);
+            try {
+                Class servletContextClass = Class.forName("jakarta.servlet.ServletContext");
+                if (servletContextClass != null) {
+                    Object servletContext = container.getSPI(servletContextClass);
+                    if (servletContext != null) {
+                        Method getContextPath = servletContextClass.getDeclaredMethod("getContextPath");
+                        return (String) getContextPath.invoke(servletContext);
+                    }
+                }
+            } catch (ClassNotFoundException cnfe) {
+                logger.log(Level.FINEST, "Class {0} not found", cnfe.getMessage());
+                return null;
             }
-            return null;
         } catch (Throwable t) {
             logger.log(Level.FINEST, "getContextPath", t);
         }
@@ -226,9 +225,9 @@ public abstract class MonitorBase {
                 "com.sun.xml.ws.rx.rm.runtime.sequence");
 
             // Add annotations to a standard class
-            mom.addAnnotation(javax.xml.ws.WebServiceFeature.class, DummyWebServiceFeature.class.getAnnotation(ManagedData.class));
-            mom.addAnnotation(javax.xml.ws.WebServiceFeature.class, DummyWebServiceFeature.class.getAnnotation(Description.class));
-            mom.addAnnotation(javax.xml.ws.WebServiceFeature.class, DummyWebServiceFeature.class.getAnnotation(InheritedAttributes.class));
+            mom.addAnnotation(jakarta.xml.ws.WebServiceFeature.class, DummyWebServiceFeature.class.getAnnotation(ManagedData.class));
+            mom.addAnnotation(jakarta.xml.ws.WebServiceFeature.class, DummyWebServiceFeature.class.getAnnotation(Description.class));
+            mom.addAnnotation(jakarta.xml.ws.WebServiceFeature.class, DummyWebServiceFeature.class.getAnnotation(InheritedAttributes.class));
 
             // Defer so we can register "this" as root from
             // within constructor.
@@ -247,7 +246,7 @@ public abstract class MonitorBase {
     }
 
     private ManagedObjectManager createRoot(final ManagedObjectManager mom, final String rootName, int unique) {
-        final String name = rootName + (unique == 0 ? "" : "-" + String.valueOf(unique));
+        final String name = rootName + (unique == 0 ? "" : "-" + unique);
         try {
             final Object ignored = mom.createRoot(this, name);
             if (ignored != null) {
@@ -317,7 +316,7 @@ public abstract class MonitorBase {
             }
 
             s = System.getProperty(monitorProperty + "runtimeDebug");
-            if (s != null && s.toLowerCase().equals("true")) {
+            if (s != null && s.equalsIgnoreCase("true")) {
                 runtimeDebug = true;
             }
 

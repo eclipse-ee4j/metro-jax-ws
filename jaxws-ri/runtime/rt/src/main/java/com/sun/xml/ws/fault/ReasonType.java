@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,17 +10,17 @@
 
 package com.sun.xml.ws.fault;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElements;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <pre>
- * &lt;env:Reason>
- *     &lt;env:Text xml:lang="en">Sender Timeout</env:Text>
- * &lt;/env:Reason>
- * </pre>
+ * <pre>{@code
+ * <env:Reason>
+ *     <env:Text xml:lang="en">Sender Timeout</env:Text>
+ * </env:Reason>
+ * }</pre>
  */
 class ReasonType {
     ReasonType() {
@@ -36,7 +36,7 @@ class ReasonType {
      * minOccurs=1 maxOccurs=unbounded
      */
     @XmlElements(@XmlElement(name = "Text", namespace = "http://www.w3.org/2003/05/soap-envelope", type = TextType.class))
-    private final List<TextType> text = new ArrayList<TextType>();
+    private final List<TextType> text = new ArrayList<>();
 
     List<TextType> texts() {
         return text;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,23 +16,21 @@ import com.sun.xml.ws.policy.spi.PolicyAssertionValidator.Fitness;
 import java.util.ArrayList;
 import javax.xml.namespace.QName;
 
-import static com.sun.xml.ws.encoding.policy.EncodingConstants.*;
-
 /**
  *
  * @author Jakub Podlesak (jakub.podlesak at sun.com)
  */
 public class EncodingPolicyValidator implements PolicyAssertionValidator {
 
-    private static final ArrayList<QName> serverSideSupportedAssertions = new ArrayList<QName>(3);
-    private static final ArrayList<QName> clientSideSupportedAssertions = new ArrayList<QName>(4);
+    private static final ArrayList<QName> serverSideSupportedAssertions = new ArrayList<>(3);
+    private static final ArrayList<QName> clientSideSupportedAssertions = new ArrayList<>(4);
     
     static {
-        serverSideSupportedAssertions.add(OPTIMIZED_MIME_SERIALIZATION_ASSERTION);
-        serverSideSupportedAssertions.add(UTF816FFFE_CHARACTER_ENCODING_ASSERTION);
-        serverSideSupportedAssertions.add(OPTIMIZED_FI_SERIALIZATION_ASSERTION);
+        serverSideSupportedAssertions.add(EncodingConstants.OPTIMIZED_MIME_SERIALIZATION_ASSERTION);
+        serverSideSupportedAssertions.add(EncodingConstants.UTF816FFFE_CHARACTER_ENCODING_ASSERTION);
+        serverSideSupportedAssertions.add(EncodingConstants.OPTIMIZED_FI_SERIALIZATION_ASSERTION);
         
-        clientSideSupportedAssertions.add(SELECT_OPTIMAL_ENCODING_ASSERTION);
+        clientSideSupportedAssertions.add(EncodingConstants.SELECT_OPTIMAL_ENCODING_ASSERTION);
         clientSideSupportedAssertions.addAll(serverSideSupportedAssertions);
     }
     
@@ -42,10 +40,12 @@ public class EncodingPolicyValidator implements PolicyAssertionValidator {
     public EncodingPolicyValidator() {
     }
     
+    @Override
     public Fitness validateClientSide(PolicyAssertion assertion) {
         return clientSideSupportedAssertions.contains(assertion.getName()) ? Fitness.SUPPORTED : Fitness.UNKNOWN;
     }
 
+    @Override
     public Fitness validateServerSide(PolicyAssertion assertion) {
         QName assertionName = assertion.getName();
         if (serverSideSupportedAssertions.contains(assertionName)) {
@@ -57,7 +57,8 @@ public class EncodingPolicyValidator implements PolicyAssertionValidator {
         }
     }
 
+    @Override
     public String[] declareSupportedDomains() {
-        return new String[] {OPTIMIZED_MIME_NS, ENCODING_NS, SUN_ENCODING_CLIENT_NS, SUN_FI_SERVICE_NS};
+        return new String[] {EncodingConstants.OPTIMIZED_MIME_NS, EncodingConstants.ENCODING_NS, EncodingConstants.SUN_ENCODING_CLIENT_NS, EncodingConstants.SUN_FI_SERVICE_NS};
     }
 }

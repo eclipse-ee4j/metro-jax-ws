@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
-import javax.activation.DataSource;
+import jakarta.activation.DataSource;
 import junit.framework.TestCase;
 
 /**
@@ -101,7 +101,6 @@ public class XmlDataContentHandlerTest extends TestCase {
     /**
      * Test MIME type processing in {@code isXml(ContentType)} method
      * of {@link XmlDataContentHandler} class with lower case mime type.
-     * @throws ClassNotFoundException
      */
     public void testIsXmlLowerCase() throws Exception {
         checkIsXml("application/xml");
@@ -110,7 +109,6 @@ public class XmlDataContentHandlerTest extends TestCase {
     /**
      * Test MIME type processing in {@code isXml(ContentType)} method
      * of {@link XmlDataContentHandler} class with upper case mime type.
-     * @throws ClassNotFoundException
      */
     public void testIsXmlUpperCase() throws ClassNotFoundException, IOException {
         checkIsXml("APPLICATION/XML");
@@ -119,7 +117,6 @@ public class XmlDataContentHandlerTest extends TestCase {
     /**
      * Test MIME type processing in {@code isXml(ContentType)} method
      * of {@link XmlDataContentHandler} class with mixed case mime type.
-     * @throws ClassNotFoundException
      */
     public void testIsXmlMixedCase() throws ClassNotFoundException, IOException {
         checkIsXml("application/XML");

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,7 @@ package com.sun.xml.ws.model;
 
 import java.lang.reflect.Method;
 
-import com.sun.xml.bind.api.Bridge;
+import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.api.model.CheckedException;
 import com.sun.xml.ws.api.model.ExceptionType;
 import com.sun.xml.ws.api.model.JavaMethod;
@@ -44,7 +44,7 @@ public final class CheckedExceptionImpl implements CheckedException {
     /**
      * @param jm {@link JavaMethodImpl} that throws this exception
      * @param exceptionClass
-     *            Userdefined or WSDL exception class that extends
+     *            User defined or WSDL exception class that extends
      *            java.lang.Exception.
      * @param detail
      *            detail or exception bean's TypeReference
@@ -58,26 +58,31 @@ public final class CheckedExceptionImpl implements CheckedException {
         this.javaMethod = jm;
     }
 
+    @Override
     public AbstractSEIModelImpl getOwner() {
         return javaMethod.owner;
     }
 
+    @Override
     public JavaMethod getParent() {
         return javaMethod;
     }
 
     /**
-     * @return the <code>Class</clode> for this object
+     * @return the <code>Class</code> for this object
      * 
      */
+    @Override
     public Class getExceptionClass() {
         return exceptionClass;
     }
 
+    @Override
     public Class getDetailBean() {
         return (Class) detail.type;
     }
     /** @deprecated */
+    @Override
     public Bridge getBridge() {
 //TODO        return getOwner().getBridge(detail);
         return null;
@@ -87,14 +92,17 @@ public final class CheckedExceptionImpl implements CheckedException {
         return getOwner().getXMLBridge(detail);
     }
 
+    @Override
     public TypeInfo getDetailType() {
         return detail;
     }
 
+    @Override
     public ExceptionType getExceptionType() {
         return exceptionType;
     }
     
+    @Override
     public String getMessageName() {
         return messageName;
     }

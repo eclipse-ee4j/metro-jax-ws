@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,7 +53,7 @@ public final class MetadataFinder extends DOMForest{
 
     public boolean isMexMetadata;
     private String rootWSDL;
-    private final Set<String> rootWsdls = new HashSet<String>();
+    private final Set<String> rootWsdls = new HashSet<>();
 
     public MetadataFinder(InternalizationLogic logic, WsimportOptions options, ErrorReceiver errReceiver) {
         super(logic, new WSEntityResolver(options,errReceiver), options, errReceiver);
@@ -92,11 +92,9 @@ public final class MetadataFinder extends DOMForest{
             } catch (FileNotFoundException e) {
                 errorReceiver.error(WsdlMessages.FILE_NOT_FOUND(systemID), e);
                 return;
-            } catch (IOException e) {
-                doc = getFromMetadataResolver(systemID, e);
             } catch (SAXParseException e) {
                 doc = getFromMetadataResolver(systemID, e);
-            } catch (SAXException e) {
+            } catch (IOException | SAXException e) {
                 doc = getFromMetadataResolver(systemID, e);
             }
 
@@ -231,16 +229,14 @@ public final class MetadataFinder extends DOMForest{
      * Gives the root wsdl document systemId. A root wsdl document is the one which has wsdl:service.
      * @return null if there is no root wsdl
      */
-    public @Nullable
-    String getRootWSDL(){
+    public @Nullable String getRootWSDL(){
         return rootWSDL;
     }
 
     /**
      * Gives all the WSDL documents.
      */
-    public @NotNull
-    Set<String> getRootWSDLs(){
+    public @NotNull Set<String> getRootWSDLs(){
         return rootWsdls;
     }
 
@@ -290,7 +286,7 @@ public final class MetadataFinder extends DOMForest{
         //try MEX
         MetaDataResolver resolver;
         ServiceDescriptor serviceDescriptor = null;
-        for (MetadataResolverFactory resolverFactory : ServiceFinder.find(MetadataResolverFactory.class)) {
+        for (MetadataResolverFactory resolverFactory : ServiceFinder.find(MetadataResolverFactory.class, ServiceLoader.load(MetadataResolverFactory.class))) {
             resolver = resolverFactory.metadataResolver(options.entityResolver);
             try {
                 serviceDescriptor = resolver.resolve(new URI(systemId));

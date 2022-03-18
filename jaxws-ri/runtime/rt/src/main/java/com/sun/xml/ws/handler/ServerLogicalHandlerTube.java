@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,11 +24,11 @@ import com.sun.xml.ws.message.DataHandlerAttachment;
 import com.sun.xml.ws.model.AbstractSEIModelImpl;
 import com.sun.xml.ws.spi.db.BindingContext;
 
-import javax.xml.ws.handler.LogicalHandler;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.Handler;
-import javax.xml.ws.WebServiceException;
-import javax.activation.DataHandler;
+import jakarta.xml.ws.handler.LogicalHandler;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.Handler;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.activation.DataHandler;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -85,22 +85,25 @@ public class ServerLogicalHandlerTube extends HandlerTube {
         }
     }
 
+   @Override
    public AbstractFilterTubeImpl copy(TubeCloner cloner) {
         return new ServerLogicalHandlerTube(this, cloner);
     }
 
     private void setUpHandlersOnce() {
-        handlers = new ArrayList<Handler>();
+        handlers = new ArrayList<>();
         List<LogicalHandler> logicalSnapShot= ((BindingImpl) getBinding()).getHandlerConfig().getLogicalHandlers();
         if (!logicalSnapShot.isEmpty()) {
             handlers.addAll(logicalSnapShot);
         }
     }
 
+    @Override
     protected void resetProcessor() {
     	processor = null;
     }
     
+    @Override
     void setUpProcessor() {
         if (!handlers.isEmpty() && processor == null) {
             if (getBinding().getSOAPVersion() == null) {
@@ -112,6 +115,7 @@ public class ServerLogicalHandlerTube extends HandlerTube {
         }
     }
 
+    @Override
     MessageUpdatableContext getContext(Packet packet) {
         return new LogicalMessageContextImpl(getBinding(), getBindingContext(), packet);
     }   
@@ -121,6 +125,7 @@ public class ServerLogicalHandlerTube extends HandlerTube {
         	((AbstractSEIModelImpl)seiModel).getBindingContext() : null;
 	}
 
+    @Override
     boolean callHandlersOnRequest(MessageUpdatableContext context, boolean isOneWay) {
 
         boolean handlerResult;
@@ -138,6 +143,7 @@ public class ServerLogicalHandlerTube extends HandlerTube {
         return handlerResult;
     }
 
+    @Override
     void callHandlersOnResponse(MessageUpdatableContext context, boolean handleFault) {
         //Lets copy all the MessageContext.OUTBOUND_ATTACHMENT_PROPERTY to the message
         Map<String, DataHandler> atts = (Map<String, DataHandler>) context.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
@@ -152,14 +158,13 @@ public class ServerLogicalHandlerTube extends HandlerTube {
             //SERVER-SIDE
             processor.callHandlersResponse(HandlerProcessor.Direction.OUTBOUND, context, handleFault);
 
-        } catch (WebServiceException wse) {
+        } catch (RuntimeException wse) {
             //no rewrapping
             throw wse;
-        } catch (RuntimeException re) {
-            throw re;
         }
     }
 
+    @Override
     void closeHandlers(MessageContext mc) {
         closeServersideHandlers(mc);
 

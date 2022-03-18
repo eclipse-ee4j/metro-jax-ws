@@ -14,13 +14,13 @@ import junit.framework.TestCase;
 import testutil.AttachmentHelper;
 import testutil.ClientServerTestUtil;
 
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.Holder;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.handler.MessageContext;
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;

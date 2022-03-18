@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +14,7 @@ import com.sun.xml.ws.api.model.wsdl.WSDLFeaturedObject;
 import com.sun.xml.ws.binding.WebServiceFeatureList;
 
 import javax.xml.stream.XMLStreamReader;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceFeature;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -29,6 +29,7 @@ abstract class AbstractFeaturedObjectImpl extends AbstractExtensibleImpl impleme
         super(systemId, lineNumber);
     }
 
+    @Override
     public final void addFeature(WebServiceFeature feature) {
         if (features == null)
             features = new WebServiceFeatureList();
@@ -36,6 +37,7 @@ abstract class AbstractFeaturedObjectImpl extends AbstractExtensibleImpl impleme
         features.add(feature);
     }
 
+    @Override
     public @NotNull WebServiceFeatureList getFeatures() {
         if(features == null)
             return new WebServiceFeatureList();
@@ -53,6 +55,7 @@ abstract class AbstractFeaturedObjectImpl extends AbstractExtensibleImpl impleme
         return null;
     }
 
+    @Override
     @Nullable
     public <F extends WebServiceFeature> F getFeature(@NotNull Class<F> featureType) {
         if(features==null)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
 
 
 import com.oracle.webservices.api.databinding.DatabindingModeFeature;
@@ -41,9 +41,10 @@ abstract public class BindingContextFactory {
                 .find(BindingContextFactory.class);
         final Iterator<BindingContextFactory> ibcf = sf.iterator();
 
-        return new Iterator<BindingContextFactory>() {
+        return new Iterator<>() {
             private BindingContextFactory bcf;
 
+            @Override
             public boolean hasNext() {
                 while (true) {
                     try {
@@ -62,6 +63,7 @@ abstract public class BindingContextFactory {
                 }
             }
 
+            @Override
             public BindingContextFactory next() {
                 if (LOGGER.isLoggable(Level.FINER))
                     LOGGER.finer("SPI found provider: " +
@@ -69,6 +71,7 @@ abstract public class BindingContextFactory {
                 return bcf;
             }
 
+            @Override
             public void remove() {
                 throw new UnsupportedOperationException();
             }
@@ -76,7 +79,7 @@ abstract public class BindingContextFactory {
     }
 
     static private List<BindingContextFactory> factories() {
-        List<BindingContextFactory> factories = new java.util.ArrayList<BindingContextFactory>();
+        List<BindingContextFactory> factories = new java.util.ArrayList<>();
         Iterator<BindingContextFactory> ibcf = serviceIterator();
         while (ibcf.hasNext())
             factories.add(ibcf.next());
@@ -99,8 +102,7 @@ abstract public class BindingContextFactory {
 	 * Check to see if the BindingContextFactory is for the databinding mode/flavor. The
 	 * String parameter can be the package name of the JAXBContext implementation as well.
 	 * @param databinding mode/flavor or the package name of the JAXBContext implementation.
-	 * @return
-	 */
+     */
 	abstract protected boolean isFor(String databinding);		
 
 	/**
@@ -167,13 +169,13 @@ abstract public class BindingContextFactory {
      * @return Created context or null. Null will be returned if we were not able to create context with any given factory.
      */
     private static BindingContext getBindingContextFromSpi(List<BindingContextFactory> factories, BindingInfo bindingInfo) {
-        List<BindingContextFactory> fallback = new ArrayList<BindingContextFactory>();
+        List<BindingContextFactory> fallback = new ArrayList<>();
         BindingContext result;
         for (BindingContextFactory factory : factories) {
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.log(Level.FINE, "Found SPI-determined databindng mode: " + factory.getClass().getName());
             }
-            if (factory.isFor("org.eclipse.persistence.jaxb") || factory.isFor("com.sun.xml.bind.v2.runtime")) { // filter (JAXB RI || MOXy) implementation
+            if (factory.isFor("org.eclipse.persistence.jaxb") || factory.isFor("org.glassfish.jaxb.runtime.v2.runtime")) { // filter (JAXB RI || MOXy) implementation
                 result = factory.newContext(bindingInfo);
                 if (result != null) {
                     return result;

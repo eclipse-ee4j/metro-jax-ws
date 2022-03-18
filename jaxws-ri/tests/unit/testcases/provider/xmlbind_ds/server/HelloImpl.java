@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,26 +14,26 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.Provider;
-import javax.xml.ws.Service;
-import javax.xml.ws.Service.Mode;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.Provider;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Service.Mode;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.soap.*;
+import jakarta.xml.soap.*;
 import org.w3c.dom.Node;
 import javax.xml.transform.dom.DOMSource;
-import javax.activation.DataSource;
-import javax.xml.ws.ServiceMode;
+import jakarta.activation.DataSource;
+import jakarta.xml.ws.ServiceMode;
 import com.sun.xml.messaging.saaj.packaging.mime.internet.MimeBodyPart;
 import com.sun.xml.messaging.saaj.packaging.mime.internet.MimeMultipart;
 import com.sun.xml.messaging.saaj.packaging.mime.internet.InternetHeaders;
 import java.io.*;
 import junit.framework.*;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.http.HTTPBinding;
-import javax.xml.ws.WebServiceProvider;
+import jakarta.xml.ws.BindingType;
+import jakarta.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.WebServiceProvider;
 
 /**
  * @author Jitendra Kotamraju
@@ -46,14 +46,14 @@ public class HelloImpl implements Provider<DataSource> {
     private static final JAXBContext jaxbContext = createJAXBContext();
     private int bodyIndex;
 
-    public javax.xml.bind.JAXBContext getJAXBContext(){
+    public jakarta.xml.bind.JAXBContext getJAXBContext(){
         return jaxbContext;
     }
     
-    private static javax.xml.bind.JAXBContext createJAXBContext(){
+    private static jakarta.xml.bind.JAXBContext createJAXBContext(){
         try{
-            return javax.xml.bind.JAXBContext.newInstance(ObjectFactory.class);
-        }catch(javax.xml.bind.JAXBException e){
+            return jakarta.xml.bind.JAXBContext.newInstance(ObjectFactory.class);
+        }catch(jakarta.xml.bind.JAXBException e){
             throw new WebServiceException(e.getMessage(), e);
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,8 +23,8 @@ import com.sun.xml.ws.api.model.wsdl.editable.EditableWSDLOperation;
 import com.sun.xml.ws.api.model.wsdl.editable.EditableWSDLPart;
 import com.sun.xml.ws.model.RuntimeModeler;
 
-import javax.jws.WebParam.Mode;
-import javax.jws.soap.SOAPBinding.Style;
+import jakarta.jws.WebParam.Mode;
+import jakarta.jws.soap.SOAPBinding.Style;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamReader;
 
@@ -70,15 +70,15 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
     public WSDLBoundOperationImpl(XMLStreamReader xsr, EditableWSDLBoundPortType owner, QName name) {
         super(xsr);
         this.name = name;
-        inputParts = new HashMap<String, ParameterBinding>();
-        outputParts = new HashMap<String, ParameterBinding>();
-        faultParts = new HashMap<String, ParameterBinding>();
-        inputMimeTypes = new HashMap<String, String>();
-        outputMimeTypes = new HashMap<String, String>();
-        faultMimeTypes = new HashMap<String, String>();
-        inParts = new HashMap<String, EditableWSDLPart>();
-        outParts = new HashMap<String, EditableWSDLPart>();
-        wsdlBoundFaults = new ArrayList<EditableWSDLBoundFault>();
+        inputParts = new HashMap<>();
+        outputParts = new HashMap<>();
+        faultParts = new HashMap<>();
+        inputMimeTypes = new HashMap<>();
+        outputMimeTypes = new HashMap<>();
+        faultMimeTypes = new HashMap<>();
+        inParts = new HashMap<>();
+        outParts = new HashMap<>();
+        wsdlBoundFaults = new ArrayList<>();
         this.owner = owner;
     }
 
@@ -92,6 +92,7 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
         return soapAction;
     }
 
+    @Override
     public void setSoapAction(String soapAction) {
         this.soapAction = soapAction!=null?soapAction:"";
     }
@@ -106,6 +107,7 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
         return null;
     }
 
+    @Override
     public void addPart(EditableWSDLPart part, Mode mode){
         if(mode==Mode.IN)
             inParts.put(part.getName(), part);
@@ -118,6 +120,7 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
      *
      * @return empty Map if there is no parts
      */
+    @Override
     public Map<String, ParameterBinding> getInputParts() {
         return inputParts;
     }
@@ -127,6 +130,7 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
      *
      * @return empty Map if there is no parts
      */
+    @Override
     public Map<String, ParameterBinding> getOutputParts() {
         return outputParts;
     }
@@ -136,6 +140,7 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
      *
      * @return empty Map if there is no parts
      */
+    @Override
     public Map<String, ParameterBinding> getFaultParts() {
         return faultParts;
     }
@@ -157,6 +162,7 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
         return wsdlBoundFaults;
     }
 
+    @Override
     public void addFault(@NotNull EditableWSDLBoundFault fault){
         wsdlBoundFaults.add(fault);
     }
@@ -168,12 +174,10 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
      * @param part Name of wsdl:part, must be non-null
      * @return null if the part is not found.
      */
+    @Override
     public ParameterBinding getInputBinding(String part){
         if(emptyInputBody == null){
-            if(inputParts.get(" ") != null)
-                emptyInputBody = true;
-            else
-                emptyInputBody = false;
+            emptyInputBody = inputParts.get(" ") != null;
         }
         ParameterBinding block = inputParts.get(part);
         if(block == null){
@@ -191,12 +195,10 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
      * @param part Name of wsdl:part, must be non-null
      * @return null if the part is not found.
      */
+    @Override
     public ParameterBinding getOutputBinding(String part){
         if(emptyOutputBody == null){
-            if(outputParts.get(" ") != null)
-                emptyOutputBody = true;
-            else
-                emptyOutputBody = false;
+            emptyOutputBody = outputParts.get(" ") != null;
         }
         ParameterBinding block = outputParts.get(part);
         if(block == null){
@@ -214,12 +216,10 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
      * @param part Name of wsdl:part, must be non-null
      * @return null if the part is not found.
      */
+    @Override
     public ParameterBinding getFaultBinding(String part){
         if(emptyFaultBody == null){
-            if(faultParts.get(" ") != null)
-                emptyFaultBody = true;
-            else
-                emptyFaultBody = false;
+            emptyFaultBody = faultParts.get(" ") != null;
         }
         ParameterBinding block = faultParts.get(part);
         if(block == null){
@@ -237,6 +237,7 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
      * @param part Name of wsdl:part, must be non-null
      * @return null if the part is not found.
      */
+    @Override
     public String getMimeTypeForInputPart(String part){
         return inputMimeTypes.get(part);
     }
@@ -247,6 +248,7 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
      * @param part Name of wsdl:part, must be non-null
      * @return null if the part is not found.
      */
+    @Override
     public String getMimeTypeForOutputPart(String part){
         return outputMimeTypes.get(part);
     }
@@ -257,6 +259,7 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
      * @param part Name of wsdl:part, must be non-null
      * @return null if the part is not found.
      */
+    @Override
     public String getMimeTypeForFaultPart(String part){
         return faultMimeTypes.get(part);
     }
@@ -272,19 +275,23 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
         return owner;
     }
 
+    @Override
     public void setInputExplicitBodyParts(boolean b) {
         explicitInputSOAPBodyParts = b;
     }
 
+    @Override
     public void setOutputExplicitBodyParts(boolean b) {
         explicitOutputSOAPBodyParts = b;
     }
 
+    @Override
     public void setFaultExplicitBodyParts(boolean b) {
         explicitFaultSOAPBodyParts = b;
     }
 
     private Style style = Style.DOCUMENT;
+    @Override
     public void setStyle(Style style){
         this.style = style;
     }
@@ -364,6 +371,7 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
         return (reqNamespace != null)?reqNamespace:name.getNamespaceURI();
     }
 
+    @Override
     public void setRequestNamespace(String ns){
         reqNamespace = ns;
     }
@@ -379,6 +387,7 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
         return (respNamespace!=null)?respNamespace:name.getNamespaceURI();
     }
 
+    @Override
     public void setResponseNamespace(String ns){
         respNamespace = ns;
     }
@@ -393,6 +402,7 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
     private boolean emptyResponsePayload;
     private Map<QName, ? extends EditableWSDLMessage> messages;
 
+    @Override
     public void freeze(EditableWSDLModel parent) {
         messages = parent.getMessages();
         operation = owner.getPortType().get(name.getLocalPart());
@@ -401,13 +411,11 @@ public final class WSDLBoundOperationImpl extends AbstractExtensibleImpl impleme
         }
     }
 
+    @Override
     public void setAnonymous(ANONYMOUS anonymous) {
         this.anonymous = anonymous;
     }
 
-    /**
-     * @inheritDoc
-     */
     @Override
     public ANONYMOUS getAnonymous() {
         return anonymous;

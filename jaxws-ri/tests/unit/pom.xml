@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,14 +18,14 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-ri-tests</artifactId>
-        <version>2.4.0-SNAPSHOT</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>jaxws-unit</artifactId>
     <packaging>pom</packaging>
-    <version>2.4.0-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
 
     <name>JAX-WS RI Unit Tests</name>
     <description>JAX-WS RI Unit Tests</description>
@@ -101,8 +101,8 @@
                         <configuration>
                             <rules>
                                 <requireProperty>
-                                    <property>jaxb-api.version</property>
-                                    <message>Property jaxb-api.version not imported or set!</message>
+                                    <property>xml.bind-api.version</property>
+                                    <message>Property xml.bind-api.version not imported or set!</message>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>saaj-api.version</property>
@@ -113,8 +113,8 @@
                                     <message>Property jaxws-api.version not imported or set!</message>
                                 </requireProperty>
                                 <requireProperty>
-                                    <property>javax.annotation-api.version</property>
-                                    <message>Property javax.annotation-api.version not imported or set!</message>
+                                    <property>jakarta.annotation-api.version</property>
+                                    <message>Property jakarta.annotation-api.version not imported or set!</message>
                                 </requireProperty>
                             </rules>
                             <fail>true</fail>
@@ -151,7 +151,6 @@
                         </goals>
                         <configuration>
                             <extDir>${extensions.dir}</extDir>
-                            <endorsedDir>${endorsed.dir}</endorsedDir>
                             <args>
                                 <arg>${ws.all-args}</arg>
                             </args>
@@ -182,56 +181,10 @@
         </profile>
 
         <profile>
-            <id>jaxwsInJDK6</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <ws.all-args>-jaxwsInJDK -version 2.1.6 -lwhs ${ws.args}</ws.all-args>
-                <maven.endorsed.skip>true</maven.endorsed.skip>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>jaxwsInJDK7</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <ws.all-args>-jaxwsInJDK -version 2.2.4 -lwhs ${ws.args}</ws.all-args>
-                <maven.endorsed.skip>true</maven.endorsed.skip>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>jaxwsInJDK8</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <ws.all-args>-jaxwsInJDK -version 2.2.8 -lwhs ${ws.args}</ws.all-args>
-                <maven.endorsed.skip>true</maven.endorsed.skip>
-                <ws.permGenJvmOpts></ws.permGenJvmOpts>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>jaxwsInJDK9</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <ws.all-args>-jaxwsInJDK -version 2.3.0 -lwhs ${ws.args}</ws.all-args>
-                <maven.endorsed.skip>true</maven.endorsed.skip>
-                <ws.permGenJvmOpts></ws.permGenJvmOpts>
-            </properties>
-        </profile>
-
-        <profile>
             <id>dev</id>
             <activation>
                 <property>
-                    <name>!dev</name>
+                    <name>!ws.localImage</name>
                 </property>
             </activation>
 
@@ -240,7 +193,7 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>jaxws-ri</artifactId>
                     <version>${project.version}</version>
-                    <!--<classifier>${jaxwsri.dep.classifier}</classifier>-->
+                    <!--classifier>${jaxwsri.dep.classifier}</classifier-->
                     <type>zip</type>
                 </dependency>
                 <dependency>
@@ -374,17 +327,7 @@
                 </dependency>
                 <dependency>
                     <groupId>org.glassfish.gmbal</groupId>
-                    <artifactId>gmbal</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.pfl</groupId>
-                    <artifactId>pfl-tf</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.pfl</groupId>
-                    <artifactId>pfl-basic</artifactId>
+                    <artifactId>gmbal-api-only</artifactId>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
@@ -421,12 +364,6 @@
                     </exclusions>
                 </dependency>
                 -->
-
-                <!-- To be removed after end of support for JDK 8 -->
-<!--                <dependency>
-                    <groupId>com.sun.org.apache.xml.internal</groupId>
-                    <artifactId>resolver</artifactId>
-                </dependency>-->
 
                 <!-- Plugin dependencies -->
                 <dependency>
@@ -492,48 +429,95 @@
             <id>coverage</id>
             <activation>
                 <property>
-                    <name>cobertura-build</name>
+                    <name>jacoco-build</name>
                 </property>
             </activation>
-            <properties>
-                <ws.jvmOpts>-Dnet.sourceforge.cobertura.datafile=${basedir}/target/cobertura.ser</ws.jvmOpts>
-            </properties>
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>copy-ser-file</id>
+                                <id>default-prepare-agent</id>
                                 <phase>package</phase>
                                 <goals>
-                                    <goal>run</goal>
+                                    <goal>prepare-agent</goal>
                                 </goals>
                                 <configuration>
-                                    <target>
-                                        <copy todir="target/cobertura" file="${basedir}/target/cobertura.ser"
-                                              verbose="true" failonerror="true"/>
-                                    </target>
+                                    <propertyName>ws.jvmOpts</propertyName>
+                                    <classDumpDir>${project.build.outputDirectory}</classDumpDir>
                                 </configuration>
                             </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>cobertura-maven-plugin</artifactId>
-                        <configuration>
-                            <forceMojoExecution>true</forceMojoExecution>
-                        </configuration>
-                        <executions>
                             <execution>
-                                <id>instrument-code</id>
-                                <phase>package</phase>
+                                <id>default-report</id>
+                                <phase>verify</phase>
                                 <goals>
-                                    <goal>instrument</goal>
+                                    <goal>report</goal>
                                 </goals>
                                 <configuration>
-                                    <attach>true</attach>
+                                    <excludes>
+                                        <!-- JDK -->
+                                        <exclude>javax/annotation/**</exclude>
+                                        <exclude>javax/lang/**</exclude>
+                                        <exclude>javax/tools/**</exclude>
+                                        <exclude>jdk/javadoc/**</exclude>
+                                        <exclude>jdk/nio/**</exclude>
+                                        <exclude>com/sun/net/**</exclude>
+                                        <exclude>com/sun/source/**</exclude>
+                                        <exclude>com/sun/tools/doclint/**</exclude>
+                                        <exclude>com/sun/tools/javac/**</exclude>
+                                        <exclude>sun/net/**</exclude>
+                                        <exclude>sun/nio/**</exclude>
+                                        <exclude>sun/util/**</exclude>
+                                        <!-- test runtime & dependencies -->
+                                        <exclude>bsh/**</exclude>
+                                        <exclude>junit/**</exclude>
+                                        <exclude>org/junit/**</exclude>
+                                        <exclude>org/apache/**</exclude>
+                                        <exclude>freemarker/**</exclude>
+                                        <exclude>org/ctc/**</exclude>
+                                        <exclude>com/ctc/**</exclude>
+                                        <exclude>org/codehaus/**</exclude>
+                                        <exclude>com/sun/xml/ws/test/**</exclude>
+                                        <!-- -tests -->
+                                        <exclude>async/**</exclude>
+                                        <exclude>bugs/**</exclude>
+                                        <exclude>customization/**</exclude>
+                                        <exclude>epr/**</exclude>
+                                        <exclude>fromjava/**</exclude>
+                                        <exclude>handler/**</exclude>
+                                        <exclude>provider/**</exclude>
+                                        <exclude>server/**</exclude>
+                                        <exclude>wsa/**</exclude>
+                                        <exclude>xop/**</exclude>
+                                        <exclude>benchmark/**</exclude>
+                                        <exclude>client/**</exclude>
+                                        <exclude>deployment/**</exclude>
+                                        <exclude>externalmetadata/**</exclude>
+                                        <exclude>fromwsdl/**</exclude>
+                                        <exclude>mtom/**</exclude>
+                                        <exclude>rt_wsdl_parser/**</exclude>
+                                        <exclude>whitebox/**</exclude>
+                                        <exclude>wsimport/**</exclude>
+                                        <exclude>custom/**</exclude>
+                                        <exclude>default/**</exclude>
+                                        <exclude>dispatch/**</exclude>
+                                        <exclude>jaxws/**</exclude>
+                                        <exclude>testcases/**</exclude>
+                                        <exclude>testutil/**</exclude>
+                                        <!-- likely used/reported in mvn plugin only -->
+                                        <exclude>bean/**</exclude>
+                                        <exclude>https/**</exclude>
+                                        <exclude>mojo/**</exclude>
+                                        <exclude>com/mycompany/**</exclude>
+                                        <exclude>org/jvnet/jax_ws_commons/jaxws/test/**</exclude>
+                                        <exclude>org/jvnet/jax_ws_commons/wsimport/test/**</exclude>
+                                        <exclude>sample/**</exclude>
+                                        <exclude>test/**</exclude>
+                                        <exclude>tests/**</exclude>
+                                        <exclude>work/**</exclude>
+                                    </excludes>
                                 </configuration>
                             </execution>
                         </executions>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,10 +12,10 @@ package fromwsdl.catalog.client;
 
 import junit.framework.TestCase;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
+import jakarta.xml.ws.BindingProvider;
 import java.net.URL;
 
 /**
@@ -30,7 +30,7 @@ public class ClientTest extends TestCase {
     }
 
     public void test1() throws Exception {
-        //import javax.xml.ws.handler.MessageContext;
+        //import jakarta.xml.ws.handler.MessageContext;
         // http://localhost:8080/fromwsdl.catalog.server/HelloImpl
         String originalAddress = (String) ((BindingProvider) helloPort).getRequestContext().get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY);
 

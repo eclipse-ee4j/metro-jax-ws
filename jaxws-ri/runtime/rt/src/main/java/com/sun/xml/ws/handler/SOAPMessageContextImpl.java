@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,12 +16,12 @@ import com.sun.xml.ws.api.message.saaj.SAAJFactory;
 import com.sun.xml.ws.api.WSBinding;
 import com.sun.xml.ws.api.SOAPVersion;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.handler.soap.SOAPMessageContext;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.handler.soap.SOAPMessageContext;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -48,6 +48,7 @@ public class SOAPMessageContextImpl extends MessageUpdatableContext implements S
         this.roles = roles;
     }
 
+    @Override
     public SOAPMessage getMessage() {
         if(soapMsg == null) {
             try {
@@ -60,6 +61,7 @@ public class SOAPMessageContextImpl extends MessageUpdatableContext implements S
         return soapMsg;
     }
 
+    @Override
     public void setMessage(SOAPMessage soapMsg) {
         try {
             this.soapMsg = soapMsg;
@@ -68,6 +70,7 @@ public class SOAPMessageContextImpl extends MessageUpdatableContext implements S
         }
     }
     
+    @Override
     void setPacketMessage(Message newMessage){
         if(newMessage != null) {
             packet.setMessage(newMessage);
@@ -75,6 +78,7 @@ public class SOAPMessageContextImpl extends MessageUpdatableContext implements S
         }
     }
     
+    @Override
     protected void updateMessage() {
         //Check if SOAPMessage has changed, if so construct new one,
         // Packet are handled through MessageContext
@@ -84,10 +88,11 @@ public class SOAPMessageContextImpl extends MessageUpdatableContext implements S
         }
     }
 
+    @Override
     public Object[] getHeaders(QName header, JAXBContext jaxbContext, boolean allRoles) {
         SOAPVersion soapVersion = binding.getSOAPVersion();
 
-        List<Object> beanList = new ArrayList<Object>();
+        List<Object> beanList = new ArrayList<>();
         try {
             Iterator<Header> itr = packet.getMessage().getHeaders().getHeaders(header,false);
             if(allRoles) {
@@ -110,6 +115,7 @@ public class SOAPMessageContextImpl extends MessageUpdatableContext implements S
         }
     }
 
+    @Override
     public Set<String> getRoles() {
         return roles;
     } 

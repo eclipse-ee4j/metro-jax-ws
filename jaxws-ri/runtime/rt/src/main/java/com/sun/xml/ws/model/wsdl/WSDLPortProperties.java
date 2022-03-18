@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@ import com.sun.xml.ws.api.model.SEIModel;
 import com.sun.xml.ws.api.model.wsdl.WSDLPort;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.MessageContext;
 
 /**
  * Properties exposed from {@link WSDLPort} for {@link MessageContext}.
@@ -37,14 +37,17 @@ public final class WSDLPortProperties extends WSDLProperties {
         this.port = port;
     }
 
+    @Override
     public QName getWSDLService() {
         return port.getOwner().getName();
     }
 
+    @Override
     public QName getWSDLPort() {
         return port.getName();
     }
 
+    @Override
     public QName getWSDLPortType() {
         return port.getBinding().getPortTypeName();
     }

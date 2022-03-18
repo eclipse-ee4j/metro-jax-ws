@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,11 +14,11 @@ import com.sun.xml.ws.api.BindingID;
 import com.sun.xml.ws.client.HandlerConfiguration;
 import com.sun.xml.ws.resources.ClientMessages;
 
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.handler.Handler;
-import javax.xml.ws.handler.LogicalHandler;
-import javax.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.handler.Handler;
+import jakarta.xml.ws.handler.LogicalHandler;
+import jakarta.xml.ws.http.HTTPBinding;
 import java.util.Collections;
 import java.util.List;
 
@@ -44,6 +44,7 @@ public class HTTPBindingImpl extends BindingImpl implements HTTPBinding {
      * Only logical handlers are allowed with HTTPBinding.
      * Setting SOAPHandlers throws WebServiceException
      */
+    @Override
     public void setHandlerChain(List<Handler> chain) {
         for (Handler handler : chain) {
             if (!(handler instanceof LogicalHandler)) {

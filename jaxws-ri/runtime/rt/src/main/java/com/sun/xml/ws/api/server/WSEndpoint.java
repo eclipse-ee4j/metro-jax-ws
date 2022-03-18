@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,14 +41,15 @@ import org.xml.sax.EntityResolver;
 import org.w3c.dom.Element;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Binding;
-import javax.xml.ws.EndpointReference;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Binding;
+import jakarta.xml.ws.EndpointReference;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.WebServiceException;
 
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -89,7 +90,7 @@ import java.util.concurrent.Executor;
  *
  *
  *
- * <h3>Objects Exposed From Endpoint</h3>
+ * <h2>Objects Exposed From Endpoint</h2>
  * <p>
  * {@link WSEndpoint} exposes a series of information that represents
  * how an endpoint is configured to host a service. See the getXXX methods
@@ -97,7 +98,7 @@ import java.util.concurrent.Executor;
  *
  *
  *
- * <h3>Implementation Notes</h3>
+ * <h2>Implementation Notes</h2>
  * <p>
  * {@link WSEndpoint} owns a {@link WSWebServiceContext} implementation.
  * But a bulk of the work is delegated to {@link WebServiceContextDelegate},
@@ -371,15 +372,15 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
     	Module m = getContainer().getSPI(Module.class);
     	return m != null ? m.getBoundEndpoints() : null;
     }
-    
+
     /**
-     * Gets the list of {@link EndpointComponent} that are associated
+     * Gets the list of {@link Component}s that are associated
      * with this endpoint.
      *
      * <p>
      * Components (such as codec, tube, handler, etc) who wish to provide
      * some service to other components in the endpoint can iterate the
-     * registry and call its {@link EndpointComponent#getSPI(Class)} to
+     * registry and call its {@link Component#getSPI(Class)} to
      * establish a private contract between components.
      * <p>
      * Components who wish to subscribe to such a service can add itself
@@ -387,25 +388,25 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
      *
      * @return
      *      always return the same set.
-     * @deprecated
      */
-    public abstract @NotNull Set<EndpointComponent> getComponentRegistry();
-
-	public @NotNull Set<Component> getComponents() {
-    	return Collections.emptySet();
+    @Override
+    public @NotNull Set<Component> getComponents() {
+        return Collections.emptySet();
     }
-    
-	public @Nullable <S> S getSPI(@NotNull Class<S> spiType) {
-		Set<Component> componentRegistry = getComponents();
-		if (componentRegistry != null) {
-			for (Component c : componentRegistry) {
-				S s = c.getSPI(spiType);
-				if (s != null)
-					return s;
-			}
-		}
-		return getContainer().getSPI(spiType);
-	}
+
+    @Override
+    public @Nullable <S> S getSPI(@NotNull Class<S> spiType) {
+        Set<Component> componentRegistry = getComponents();
+        if (componentRegistry != null) {
+            for (Component c : componentRegistry) {
+                S s = c.getSPI(spiType);
+                if (s != null) {
+                    return s;
+                }
+            }
+        }
+        return getContainer().getSPI(spiType);
+    }
     
     /**
      * Gets the {@link com.sun.xml.ws.api.model.SEIModel} that represents the relationship
@@ -484,7 +485,7 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
      * @param binding
      *      JAX-WS implementation of {@link Binding}. This object can be created by
      *      {@link BindingID#createBinding()}. Usually the binding can be got from
-     *      DD, {@link javax.xml.ws.BindingType}.
+     *      DD, {@link jakarta.xml.ws.BindingType}.
      *
      *
      * TODO: DD has a configuration for MTOM threshold.
@@ -647,7 +648,6 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
 
     /**
      * Return EndpointReference instance, based on passed parameters and spec version represented by clazz
-     * @param <T>
      * @param clazz represents spec version
      * @param address   endpoint address
      * @param wsdlAddress   wsdl address
@@ -658,12 +658,6 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
 
     /**
      * 
-     * @param <T>
-     * @param clazz
-     * @param address
-     * @param wsdlAddress
-     * @param metadata
-     * @param referenceParameters
      * @return EndpointReference instance based on passed parameters and values obtained from current instance
      */
     public abstract <T extends EndpointReference> T getEndpointReference(Class<T> clazz,
@@ -672,7 +666,6 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
     
     /**
      * Used for managed endpoints infrastructure to compare equality of proxies vs proxied endpoints.
-     * @param endpoint
      * @return true if the proxied endpoint instance held by this instance equals to 'endpoint', otherwise return false.
      */
     public boolean equalsProxiedInstance(WSEndpoint endpoint) {
@@ -682,7 +675,6 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
 
     /**
      * Nullable when there is no associated WSDL Model
-     * @return
      */
     public abstract @Nullable OperationDispatcher getOperationDispatcher();
 
@@ -696,4 +688,5 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
                                                              final WSDLPort    wsdlPort,
                                                              final SEIModel    seiModel,
                                                              final WSBinding   binding);
+
 }

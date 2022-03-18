@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 package com.sun.xml.ws.api.model.wsdl.editable;
 
-import javax.jws.soap.SOAPBinding.Style;
+import jakarta.jws.soap.SOAPBinding.Style;
 import javax.xml.namespace.QName;
 
 import com.sun.istack.NotNull;
@@ -25,7 +25,7 @@ public interface EditableWSDLBoundPortType extends WSDLBoundPortType {
     @NotNull EditableWSDLModel getOwner();
 
 	@Override
-    public EditableWSDLBoundOperation get(QName operationName);
+    EditableWSDLBoundOperation get(QName operationName);
 
 	@Override
     EditableWSDLPortType getPortType();
@@ -43,21 +43,21 @@ public interface EditableWSDLBoundPortType extends WSDLBoundPortType {
      * @param ptOp   Must be non-null
      * @throws NullPointerException if either opName or ptOp is null
      */
-    public void put(QName opName, EditableWSDLBoundOperation ptOp);
+    void put(QName opName, EditableWSDLBoundOperation ptOp);
 
     /**
      * Sets the binding ID
      * @param bindingId Binding ID
      */
-	public void setBindingId(BindingID bindingId);
+    void setBindingId(BindingID bindingId);
 	
     /**
      * sets whether the {@link WSDLBoundPortType} is rpc or lit
      */
-	public void setStyle(Style style);
+    void setStyle(Style style);
 	
 	/**
 	 * Freezes WSDL model to prevent further modification
 	 */
-	public void freeze();
+    void freeze();
 }

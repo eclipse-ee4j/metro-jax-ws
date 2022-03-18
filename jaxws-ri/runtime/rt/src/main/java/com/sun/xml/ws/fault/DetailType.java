@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,14 +15,16 @@ import com.sun.istack.Nullable;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import javax.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.annotation.XmlAnyElement;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * &lt;env:Detail>
- *     &lt;m:MaxTime>P5M</m:MaxTime>
- * &lt;/env:Detail>
+ * <pre>{@code
+ * <env:Detail>
+ *     <m:MaxTime>P5M</m:MaxTime>
+ * </env:Detail>
+ * }</pre>
  */
 class DetailType {
     /**
@@ -32,14 +34,14 @@ class DetailType {
      * Even though the jaxbContext is aware of the detail jaxbBean but we get the list of
      * {@link org.w3c.dom.Node}s.
      *
-     * this is because since we unmarshall using {@link com.sun.xml.bind.api.Bridge} all we're
+     * this is because since we unmarshall using {@link org.glassfish.jaxb.runtime.api.Bridge} all we're
      * going to get during unmarshalling is {@link org.w3c.dom.Node} and not the jaxb bean instances.
      *
      * TODO: For now detailEntry would be List of Node isntead of Object and it needs to be changed to
-     * {@link Object} once we have better solution that working thru {@link com.sun.xml.bind.api.Bridge}
+     * {@link Object} once we have better solution that working thru {@link org.glassfish.jaxb.runtime.api.Bridge}
      */
     @XmlAnyElement
-    private final List<Element> detailEntry = new ArrayList<Element>();
+    private final List<Element> detailEntry = new ArrayList<>();
 
     @NotNull
     List<Element> getDetails() {

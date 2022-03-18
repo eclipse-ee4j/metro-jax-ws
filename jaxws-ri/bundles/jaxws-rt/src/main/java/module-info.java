@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,11 +13,11 @@
  * the Web Services Metadata API.
  *
  *
- * @uses javax.xml.soap.MessageFactory
- * @uses javax.xml.soap.SAAJMetaFactory
- * @uses javax.xml.soap.SOAPConnectionFactory
- * @uses javax.xml.soap.SOAPFactory
- * @uses javax.xml.ws.spi.Provider
+ * @uses jakarta.xml.soap.MessageFactory
+ * @uses jakarta.xml.soap.SAAJMetaFactory
+ * @uses jakarta.xml.soap.SOAPConnectionFactory
+ * @uses jakarta.xml.soap.SOAPFactory
+ * @uses jakarta.xml.ws.spi.Provider
  *
  * @since 2.4.0
  */
@@ -26,23 +26,33 @@ module com.sun.xml.ws {
     requires java.desktop;
     requires java.logging;
     requires java.management;
+    requires transitive java.xml;
     requires jdk.httpserver;
+    requires jdk.unsupported;
 
     requires transitive jakarta.activation;
-    requires java.annotation;
-    requires transitive java.jws;
-    requires transitive java.xml;
-    requires transitive java.xml.bind;
-    requires transitive java.xml.soap;
-    requires transitive java.xml.ws;
-    requires static java.servlet;
+    requires transitive jakarta.annotation;
+    requires jakarta.mail;
+    requires transitive jakarta.xml.bind;
+    requires transitive jakarta.xml.soap;
+    requires transitive jakarta.xml.ws;
+    requires static jakarta.servlet;
 
     requires org.jvnet.mimepull;
     requires transitive org.jvnet.staxex;
     requires transitive com.sun.xml.bind;
-    requires com.sun.xml.fastinfoset;
+    requires transitive com.sun.xml.fastinfoset;
     requires transitive com.sun.xml.streambuffer;
-    requires transitive com.sun.xml.ws.policy;
+    requires transitive gmbal;
+    requires transitive org.glassfish.ha.api;
+
+    exports com.sun.xml.ws.policy;
+    exports com.sun.xml.ws.policy.sourcemodel;
+    exports com.sun.xml.ws.policy.sourcemodel.attach /* TODO: to metro-wsit only ? */;
+    exports com.sun.xml.ws.policy.sourcemodel.wspolicy;
+    exports com.sun.xml.ws.policy.spi;
+    exports com.sun.xml.ws.policy.subject;
+    exports com.sun.xml.ws.policy.privateutil /* TODO: to metro-wsit only ! */;
 
     exports com.oracle.webservices.api;
     exports com.oracle.webservices.api.databinding;
@@ -71,7 +81,7 @@ module com.sun.xml.ws {
     exports com.sun.xml.ws.addressing;
     exports com.sun.xml.ws.addressing.policy; //wsit-impl
     exports com.sun.xml.ws.addressing.v200408;
-    exports com.sun.xml.ws.assembler to org.glassfish.metro.wsit.impl.module; //wsit-api
+    exports com.sun.xml.ws.assembler to org.glassfish.metro.wsit.impl; //wsit-api
     exports com.sun.xml.ws.assembler.dev; //wsit-api
     exports com.sun.xml.ws.binding;
     exports com.sun.xml.ws.client; //async transport
@@ -100,6 +110,7 @@ module com.sun.xml.ws {
     exports com.sun.xml.ws.streaming;
     exports com.sun.xml.ws.transport;
     exports com.sun.xml.ws.transport.http;
+    exports com.sun.xml.ws.transport.http.client;
     exports com.sun.xml.ws.util;
     exports com.sun.xml.ws.util.exception;
     exports com.sun.xml.ws.util.pipe;
@@ -117,37 +128,68 @@ module com.sun.xml.ws {
     exports com.sun.xml.ws.transport.http.servlet;
 
     // XML document content needs to be exported
-    opens com.sun.xml.ws.runtime.config to java.xml.bind;
+    opens com.sun.xml.ws.runtime.config to jakarta.xml.bind;
 
     // com.sun.xml.ws.fault.SOAPFaultBuilder uses JAXBContext.newInstance
-    opens com.sun.xml.ws.fault to java.xml.bind;
+    opens com.sun.xml.ws.fault to jakarta.xml.bind;
 
     // com.sun.xml.ws.addressing.WsaTubeHelperImpl uses JAXBContext.newInstance
-    opens com.sun.xml.ws.addressing to java.xml.bind;
+    opens com.sun.xml.ws.addressing to jakarta.xml.bind;
 
     // com.sun.xml.ws.addressing.v200408.WsaTubeHelperImpl uses JAXBContext.newInstance
-    opens com.sun.xml.ws.addressing.v200408 to java.xml.bind;
+    opens com.sun.xml.ws.addressing.v200408 to jakarta.xml.bind;
 
     // com.sun.xml.ws.developer.MemberSubmissionEndpointReference uses JAXBContext.newInstance
-    opens com.sun.xml.ws.developer to java.xml.bind;
+    opens com.sun.xml.ws.developer to jakarta.xml.bind;
 
     // com.sun.xml.ws.model.ExternalMetadataReader uses JAXBContext.newInstance
-    opens com.oracle.xmlns.webservices.jaxws_databinding to java.xml.bind;
+    opens com.oracle.xmlns.webservices.jaxws_databinding to jakarta.xml.bind;
 
+    opens com.sun.xml.ws.api.message;
 
-    uses javax.xml.ws.spi.Provider;
-    uses javax.xml.soap.MessageFactory;
-    uses javax.xml.soap.SAAJMetaFactory;
-    uses javax.xml.soap.SOAPConnectionFactory;
-    uses javax.xml.soap.SOAPFactory;
+    uses jakarta.xml.ws.spi.Provider;
+    uses jakarta.xml.soap.MessageFactory;
+    uses jakarta.xml.soap.SAAJMetaFactory;
+    uses jakarta.xml.soap.SOAPConnectionFactory;
+    uses jakarta.xml.soap.SOAPFactory;
 
     uses com.sun.xml.ws.policy.jaxws.spi.PolicyFeatureConfigurator;
     uses com.sun.xml.ws.policy.jaxws.spi.PolicyMapConfigurator;
 
-    provides javax.xml.ws.spi.Provider with
+    uses com.sun.xml.ws.policy.spi.LoggingProvider;
+    uses com.sun.xml.ws.policy.spi.PolicyAssertionValidator;
+    uses com.sun.xml.ws.policy.spi.PolicyAssertionCreator;
+    uses com.sun.xml.ws.policy.spi.PrefixMapper;
+
+    uses com.sun.xml.ws.api.wsdl.parser.MetadataResolverFactory;
+    uses com.sun.xml.ws.spi.db.DatabindingProvider;
+    uses com.sun.xml.ws.spi.db.BindingContextFactory;
+    uses com.oracle.webservices.impl.internalspi.encoding.StreamDecoder;
+    uses com.sun.xml.ws.api.message.saaj.SAAJFactory;
+    uses com.oracle.webservices.api.message.MessageContextFactory;
+    uses com.sun.xml.ws.api.BindingIDFactory;
+    uses com.sun.xml.ws.api.client.ServiceInterceptorFactory;
+    uses com.sun.xml.ws.api.policy.PolicyResolverFactory;
+    uses com.sun.xml.ws.api.pipe.TransportTubeFactory;
+    uses com.sun.xml.ws.api.pipe.TransportPipeFactory;
+    uses com.sun.xml.ws.api.pipe.TubelineAssemblerFactory;
+    uses com.sun.xml.ws.api.pipe.PipelineAssemblerFactory;
+    uses com.sun.xml.ws.api.server.ProviderInvokerTubeFactory;
+    uses com.sun.xml.ws.api.config.management.ManagedEndpointFactory;
+    uses com.sun.xml.ws.assembler.dev.TubelineAssemblyDecorator;
+    uses com.sun.xml.ws.api.wsdl.parser.WSDLParserExtension;
+    uses com.sun.xml.ws.api.wsdl.writer.WSDLGeneratorExtension;
+    uses com.sun.xml.ws.api.server.EndpointReferenceExtensionContributor;
+
+    provides jakarta.xml.ws.spi.Provider with
             com.sun.xml.ws.spi.ProviderImpl;
 
     provides com.sun.xml.ws.policy.spi.LoggingProvider with
             com.sun.xml.ws.policy.jaxws.XmlWsLoggingProvider;
 
+    provides com.sun.xml.ws.spi.db.DatabindingProvider with
+            com.sun.xml.ws.db.DatabindingProviderImpl;
+
+    provides com.sun.xml.ws.spi.db.BindingContextFactory with
+            com.sun.xml.ws.db.glassfish.JAXBRIContextFactory;
 }

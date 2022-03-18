@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,8 +21,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import javax.annotation.Resource;
-import javax.xml.ws.WebServiceException;
+import jakarta.annotation.Resource;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * Encapsulates which field/method the injection is done, and performs the
@@ -42,9 +42,7 @@ public abstract class InjectionPlan<T, R> {
     /**
      * Perform injection, but resource is only generated if injection is
      * necessary.
-     * 
-     * @param instance
-     * @param resource
+     *
      */
     public void inject(T instance, Callable<R> resource) {
         try {
@@ -65,8 +63,10 @@ public abstract class InjectionPlan<T, R> {
             this.field = field;
         }
 
+        @Override
         public void inject(final T instance, final R resource) {
-            AccessController.doPrivileged(new PrivilegedAction<Object>() {
+            AccessController.doPrivileged(new PrivilegedAction<>() {
+                @Override
                 public Object run() {
                     try {
                         if (!field.isAccessible()) {
@@ -93,6 +93,7 @@ public abstract class InjectionPlan<T, R> {
             this.method = method;
         }
 
+        @Override
         public void inject(T instance, R resource) {
             invokeMethod(method, instance, resource);
         }
@@ -104,15 +105,14 @@ public abstract class InjectionPlan<T, R> {
     private static void invokeMethod(final Method method, final Object instance, final Object... args) {
         if(method==null)    return;
         AccessController.doPrivileged(new PrivilegedAction<Void>() {
+            @Override
             public Void run() {
                 try {
                     if (!method.isAccessible()) {
                         method.setAccessible(true);
                     }
                     method.invoke(instance,args);
-                } catch (IllegalAccessException e) {
-                    throw new WebServiceException(e);
-                } catch (InvocationTargetException e) {
+                } catch (IllegalAccessException | InvocationTargetException e) {
                     throw new WebServiceException(e);
                 }
                 return null;
@@ -130,11 +130,13 @@ public abstract class InjectionPlan<T, R> {
             this.children = children;
         }
 
+        @Override
         public void inject(T instance, R res) {
             for (InjectionPlan<T, R> plan : children)
                 plan.inject(instance, res);
         }
         
+        @Override
         public void inject(T instance, Callable<R> resource) {
             if (!children.isEmpty()) {
                 super.inject(instance, resource);
@@ -151,7 +153,7 @@ public abstract class InjectionPlan<T, R> {
      */
     public static <T,R>
     InjectionPlan<T,R> buildInjectionPlan(Class<? extends T> clazz, Class<R> resourceType, boolean isStatic) {
-        List<InjectionPlan<T,R>> plan = new ArrayList<InjectionPlan<T,R>>();
+        List<InjectionPlan<T,R>> plan = new ArrayList<>();
 
         Class<?> cl = clazz;
         while(cl != Object.class) {
@@ -165,7 +167,7 @@ public abstract class InjectionPlan<T, R> {
                         if(isStatic && !Modifier.isStatic(field.getModifiers()))
                             throw new WebServiceException("Static resource "+resourceType+" cannot be injected to non-static "+field);
 
-                        plan.add(new FieldInjectionPlan<T,R>(field));
+                        plan.add(new FieldInjectionPlan<>(field));
                     }
                 }
             }
@@ -187,14 +189,14 @@ public abstract class InjectionPlan<T, R> {
                         if(isStatic && !Modifier.isStatic(method.getModifiers()))
                             throw new WebServiceException("Static resource "+resourceType+" cannot be injected to non-static "+method);
 
-                        plan.add(new MethodInjectionPlan<T,R>(method));
+                        plan.add(new MethodInjectionPlan<>(method));
                     }
                 }
             }
             cl = cl.getSuperclass();
         }
 
-        return new Compositor<T,R>(plan);
+        return new Compositor<>(plan);
     }
 
     /*

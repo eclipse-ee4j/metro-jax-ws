@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,8 +30,8 @@ import java.util.Map;
  * <ol>
  *  <li>Accepts Object[] that represents arguments for a Java method,
  *      and creates {@link com.sun.xml.ws.message.jaxb.JAXBMessage} that represents a request message.
- *  <li>Takes a {@link com.sun.xml.ws.api.message.Message] that represents a response,
- *      and extracts the return value (and updates {@link javax.xml.ws.Holder }s.)
+ *  <li>Takes a {@link com.sun.xml.ws.api.message.Message} that represents a response,
+ *      and extracts the return value (and updates {@link jakarta.xml.ws.Holder }s.)
  * </ol>
  *
  * <h2>Creating {@link com.sun.xml.ws.message.jaxb.JAXBMessage }</h2>
@@ -65,7 +65,7 @@ abstract class SEIMethodHandler extends MethodHandler {
         super(owner, null);
 
         //keep all the CheckedException model for the detail qname
-        this.checkedExceptions = new HashMap<QName, CheckedExceptionImpl>();
+        this.checkedExceptions = new HashMap<>();
         for(CheckedExceptionImpl ce : method.getCheckedExceptions()){
             checkedExceptions.put(ce.getBond().getTypeInfo().tagName, ce);
         }
@@ -81,7 +81,7 @@ abstract class SEIMethodHandler extends MethodHandler {
             List<ParameterImpl> rp = method.getRequestParameters();
 
             BodyBuilder tmpBodyBuilder = null;
-            List<MessageFiller> fillers = new ArrayList<MessageFiller>();
+            List<MessageFiller> fillers = new ArrayList<>();
 
             for (ParameterImpl param : rp) {
                 ValueGetter getter = getValueGetterFactory().get(param);
@@ -128,7 +128,7 @@ abstract class SEIMethodHandler extends MethodHandler {
             }
 
             this.bodyBuilder = tmpBodyBuilder;
-            this.inFillers = fillers.toArray(new MessageFiller[fillers.size()]);
+            this.inFillers = fillers.toArray(new MessageFiller[0]);
         }
 
         this.isOneWay = method.getMEP().isOneWay();
@@ -137,7 +137,7 @@ abstract class SEIMethodHandler extends MethodHandler {
     ResponseBuilder buildResponseBuilder(JavaMethodImpl method, ValueSetterFactory setterFactory) {
         // prepare objects for processing response
         List<ParameterImpl> rp = method.getResponseParameters();
-        List<ResponseBuilder> builders = new ArrayList<ResponseBuilder>();
+        List<ResponseBuilder> builders = new ArrayList<>();
 
         for( ParameterImpl param : rp ) {
             ValueSetter setter;

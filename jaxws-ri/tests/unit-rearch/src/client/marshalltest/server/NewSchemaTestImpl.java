@@ -12,18 +12,18 @@ package client.marshalltest.server;
 
 
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 import java.math.BigInteger;
 import java.math.BigDecimal;
-import javax.xml.soap.*;
+import jakarta.xml.soap.*;
 import javax.xml.datatype.*;
 
 import java.util.*;
 
 // Service Implementation Class - as outlined in JAX-RPC Specification
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 @WebService(
     serviceName="MarshallTestService",

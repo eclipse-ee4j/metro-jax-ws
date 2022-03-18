@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +14,7 @@ import com.sun.tools.ws.processor.model.java.JavaParameter;
 import com.sun.tools.ws.wsdl.framework.Entity;
 import com.sun.tools.ws.wsdl.document.MessagePart;
 
-import javax.jws.WebParam.Mode;
+import jakarta.jws.WebParam.Mode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,6 +99,7 @@ public class Parameter extends ModelObject {
         embedded = b;
     }
 
+    @Override
     public void accept(ModelVisitor visitor) throws Exception {
         visitor.visit(this);
     }
@@ -140,7 +141,7 @@ public class Parameter extends ModelObject {
         this.customName = customName;
     }
 
-    private List<String> annotations = new ArrayList<String>();
+    private List<String> annotations = new ArrayList<>();
 
     /**
      * @return Returns the annotations.

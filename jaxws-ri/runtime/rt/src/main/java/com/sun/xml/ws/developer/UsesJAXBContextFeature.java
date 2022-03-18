@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,14 +12,14 @@ package com.sun.xml.ws.developer;
 
 import com.sun.xml.ws.api.FeatureConstructor;
 import com.sun.xml.ws.api.model.SEIModel;
-import com.sun.xml.bind.api.JAXBRIContext;
-import com.sun.xml.bind.api.TypeReference;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.TypeReference;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -55,16 +55,12 @@ public class UsesJAXBContextFeature extends WebServiceFeature {
     public UsesJAXBContextFeature(@NotNull Class<? extends JAXBContextFactory> factoryClass) {
         try {
             factory = factoryClass.getConstructor().newInstance();
-        } catch (InstantiationException e) {
+        } catch (InstantiationException | InvocationTargetException e) {
             Error x = new InstantiationError(e.getMessage());
             x.initCause(e);
             throw x;
         } catch (IllegalAccessException e) {
             Error x = new IllegalAccessError(e.getMessage());
-            x.initCause(e);
-            throw x;
-        } catch (InvocationTargetException e) {
-            Error x = new InstantiationError(e.getMessage());
             x.initCause(e);
             throw x;
         } catch (NoSuchMethodException e) {
@@ -91,6 +87,7 @@ public class UsesJAXBContextFeature extends WebServiceFeature {
      */
     public UsesJAXBContextFeature(@Nullable final JAXBRIContext context) {
         this.factory = new JAXBContextFactory() {
+            @Override
             @NotNull
             public JAXBRIContext createJAXBContext(@NotNull SEIModel sei, @NotNull List<Class> classesToBind, @NotNull List<TypeReference> typeReferences) throws JAXBException {
                 return context;
@@ -109,6 +106,7 @@ public class UsesJAXBContextFeature extends WebServiceFeature {
         return factory;
     }
 
+    @Override
     @ManagedAttribute
     public String getID() {
         return ID;

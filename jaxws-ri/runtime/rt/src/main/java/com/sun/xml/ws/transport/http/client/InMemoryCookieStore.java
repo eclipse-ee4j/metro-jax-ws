@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2006, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -52,9 +52,9 @@ class InMemoryCookieStore implements CookieStore {
      * The default ctor
      */
     InMemoryCookieStore() {
-        cookieJar = new ArrayList<HttpCookie>();
-        domainIndex = new HashMap<String, List<HttpCookie>>();
-        uriIndex = new HashMap<URI, List<HttpCookie>>();
+        cookieJar = new ArrayList<>();
+        domainIndex = new HashMap<>();
+        uriIndex = new HashMap<>();
 
         lock = new ReentrantLock(false);
     }
@@ -105,7 +105,7 @@ class InMemoryCookieStore implements CookieStore {
             throw new NullPointerException("uri is null");
         }
 
-        List<HttpCookie> cookies = new ArrayList<HttpCookie>();
+        List<HttpCookie> cookies = new ArrayList<>();
         boolean secureLink = "https".equalsIgnoreCase(uri.getScheme());
         lock.lock();
         try {
@@ -129,12 +129,7 @@ class InMemoryCookieStore implements CookieStore {
 
         lock.lock();
         try {
-            Iterator<HttpCookie> it = cookieJar.iterator();
-            while (it.hasNext()) {
-                if (it.next().hasExpired()) {
-                    it.remove();
-                }
-            }
+            cookieJar.removeIf(HttpCookie::hasExpired);
             rt = Collections.unmodifiableList(cookieJar);
         } catch (Exception e) {
             rt = Collections.unmodifiableList(cookieJar);
@@ -160,15 +155,15 @@ class InMemoryCookieStore implements CookieStore {
             while (it.hasNext()) {
                 URI uri = it.next();
                 List<HttpCookie> cookies = uriIndex.get(uri);
-                if (cookies == null || cookies.size() == 0) {
+                if (cookies == null || cookies.isEmpty()) {
                     // no cookies list or an empty list associated with
                     // this uri entry, delete it
                     it.remove();
                 }
             }
-            uris = new ArrayList<URI>(uriIndex.keySet());
+            uris = new ArrayList<>(uriIndex.keySet());
         } catch (Exception e) {
-            uris = new ArrayList<URI>(uriIndex.keySet());
+            uris = new ArrayList<>(uriIndex.keySet());
             LOGGER.log(Level.INFO, null, e);
         } finally {
             lock.unlock();
@@ -278,14 +273,14 @@ class InMemoryCookieStore implements CookieStore {
             String host, boolean secureLink) {
         // Use a separate list to handle cookies that need to be removed so
         // that there is no conflict with iterators.
-        ArrayList<HttpCookie> toRemove = new ArrayList<HttpCookie>();
+        ArrayList<HttpCookie> toRemove = new ArrayList<>();
         for (Map.Entry<String, List<HttpCookie>> entry : cookieIndex.entrySet()) {
             String domain = entry.getKey();
             List<HttpCookie> lst = entry.getValue();
             for (HttpCookie c : lst) {
                 if ((c.getVersion() == 0 && netscapeDomainMatches(domain, host)) ||
                         (c.getVersion() == 1 && HttpCookie.domainMatches(domain, host))) {
-                    if ((cookieJar.indexOf(c) != -1)) {
+                    if ((cookieJar.contains(c))) {
                         // the cookie still in main cookie store
                         if (!c.hasExpired()) {
                             // don't add twice and make sure it's the proper
@@ -331,7 +326,7 @@ class InMemoryCookieStore implements CookieStore {
                     Iterator<HttpCookie> it = indexedCookies.iterator();
                     while (it.hasNext()) {
                         HttpCookie ck = it.next();
-                        if (cookieJar.indexOf(ck) != -1) {
+                        if (cookieJar.contains(ck)) {
                             // the cookie still in main cookie store
                             if (!ck.hasExpired()) {
                                 // don't add twice
@@ -367,7 +362,7 @@ class InMemoryCookieStore implements CookieStore {
 
                 cookies.add(cookie);
             } else {
-                cookies = new ArrayList<HttpCookie>();
+                cookies = new ArrayList<>();
                 cookies.add(cookie);
                 indexStore.put(index, cookies);
             }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,7 +40,7 @@ import java.util.Map;
  *  <li>Accepts Object[] that represents arguments for a Java method,
  *      and creates {@link com.sun.xml.ws.message.jaxb.JAXBMessage} that represents a request message.
  *  <li>Takes a {@link com.sun.xml.ws.api.message.Message} that represents a response,
- *      and extracts the return value (and updates {@link javax.xml.ws.Holder }s.)
+ *      and extracts the return value (and updates {@link jakarta.xml.ws.Holder }s.)
  * </ol>
  *
  * <h2>Creating {@link com.sun.xml.ws.message.jaxb.JAXBMessage }</h2>
@@ -68,7 +68,7 @@ public class StubHandler implements ClientCallBridge {
     
     public StubHandler(JavaMethodImpl method, MessageContextFactory mcf) {
         //keep all the CheckedException model for the detail qname
-        this.checkedExceptions = new HashMap<QName, CheckedExceptionImpl>();
+        this.checkedExceptions = new HashMap<>();
         for(CheckedExceptionImpl ce : method.getCheckedExceptions()){
             checkedExceptions.put(ce.getBond().getTypeInfo().tagName, ce);
         }
@@ -88,7 +88,7 @@ public class StubHandler implements ClientCallBridge {
             List<ParameterImpl> rp = method.getRequestParameters();
 
             BodyBuilder bodyBuilder = null;
-            List<MessageFiller> fillers = new ArrayList<MessageFiller>();
+            List<MessageFiller> fillers = new ArrayList<>();
 
             for (ParameterImpl param : rp) {
                 ValueGetter getter = getValueGetterFactory().get(param);
@@ -135,7 +135,7 @@ public class StubHandler implements ClientCallBridge {
             }
 
             this.bodyBuilder = bodyBuilder;
-            this.inFillers = fillers.toArray(new MessageFiller[fillers.size()]);
+            this.inFillers = fillers.toArray(new MessageFiller[0]);
         }
 
         this.isOneWay = method.getMEP().isOneWay();
@@ -145,7 +145,7 @@ public class StubHandler implements ClientCallBridge {
     ResponseBuilder buildResponseBuilder(JavaMethodImpl method, ValueSetterFactory setterFactory) {
         // prepare objects for processing response
         List<ParameterImpl> rp = method.getResponseParameters();
-        List<ResponseBuilder> builders = new ArrayList<ResponseBuilder>();
+        List<ResponseBuilder> builders = new ArrayList<>();
 
         for( ParameterImpl param : rp ) {
             ValueSetter setter;
@@ -198,6 +198,7 @@ public class StubHandler implements ClientCallBridge {
      * @param args proxy invocation arguments
      * @return Message for the arguments
      */
+    @Override
     public Packet createRequestPacket(JavaCallInfo args) {
         Message msg = bodyBuilder.createMessage(args.getParameters());
 
@@ -216,7 +217,8 @@ public class StubHandler implements ClientCallBridge {
         return ValueGetterFactory.SYNC;
     }
 
-	public JavaCallInfo readResponse(Packet p, JavaCallInfo call) throws Throwable {
+	@Override
+    public JavaCallInfo readResponse(Packet p, JavaCallInfo call) throws Throwable {
 		Message msg = p.getMessage();
         if(msg.isFault()) {
             SOAPFaultBuilder faultBuilder = SOAPFaultBuilder.create(msg);
@@ -247,10 +249,12 @@ public class StubHandler implements ClientCallBridge {
 	protected void initArgs(Object[] args) throws Exception {
 	}
 
-	public Method getMethod() {
+	@Override
+    public Method getMethod() {
 		return javaMethod.getMethod();
 	}
     
+    @Override
     public JavaMethod getOperationModel() {
         return javaMethod;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,16 +9,14 @@
  */
 
 package com.oracle.xmlns.webservices.jaxws_databinding;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.ws.Service;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.ws.Service;
 
 import java.lang.annotation.Annotation;
-
-import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 
 
 /**
@@ -44,7 +42,7 @@ import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "service-mode")
-public class XmlServiceMode implements javax.xml.ws.ServiceMode {
+public class XmlServiceMode implements jakarta.xml.ws.ServiceMode {
 
     @XmlAttribute(name = "value")
     protected String value;
@@ -79,11 +77,11 @@ public class XmlServiceMode implements javax.xml.ws.ServiceMode {
 
     @Override
     public Service.Mode value() {
-        return Service.Mode.valueOf(nullSafe(value, "PAYLOAD"));
+        return Service.Mode.valueOf(Util.nullSafe(value, "PAYLOAD"));
     }
 
     @Override
     public Class<? extends Annotation> annotationType() {
-        return javax.xml.ws.ServiceMode.class;
+        return jakarta.xml.ws.ServiceMode.class;
     }
 }

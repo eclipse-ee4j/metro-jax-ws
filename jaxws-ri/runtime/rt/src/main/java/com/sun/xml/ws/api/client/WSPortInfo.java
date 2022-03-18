@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,7 @@ import com.sun.xml.ws.api.WSService;
 import com.sun.xml.ws.api.model.wsdl.WSDLPort;
 import com.sun.xml.ws.policy.PolicyMap;
 
-import javax.xml.ws.handler.PortInfo;
+import jakarta.xml.ws.handler.PortInfo;
 
 /**
  * JAX-WS RI's extension to {@link PortInfo}.
@@ -57,5 +57,5 @@ public interface WSPortInfo extends PortInfo {
      * Do not use this method as the PolicyMap API is not final yet and might change in next few months.
      */
 
-    public PolicyMap getPolicyMap();
+    PolicyMap getPolicyMap();
 }

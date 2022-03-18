@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@ import java.awt.*;
 import java.util.*;
 import java.io.*;
 import java.awt.image.*;
-import javax.xml.soap.AttachmentPart;
+import jakarta.xml.soap.AttachmentPart;
 import javax.xml.transform.stream.StreamSource;
 import javax.imageio.ImageWriter;
 import javax.imageio.ImageIO;

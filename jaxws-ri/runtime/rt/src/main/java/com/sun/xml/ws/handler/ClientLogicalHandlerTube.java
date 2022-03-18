@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,10 +21,10 @@ import com.sun.xml.ws.binding.BindingImpl;
 import com.sun.xml.ws.model.AbstractSEIModelImpl;
 import com.sun.xml.ws.spi.db.BindingContext;
 
-import javax.xml.ws.handler.LogicalHandler;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.Handler;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.handler.LogicalHandler;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.Handler;
+import jakarta.xml.ws.WebServiceException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -72,15 +72,17 @@ public class ClientLogicalHandlerTube extends HandlerTube {
       super.initiateClosing(mc);  
     }
 
+    @Override
     public AbstractFilterTubeImpl copy(TubeCloner cloner) {
         return new ClientLogicalHandlerTube(this, cloner);
     }
 
+    @Override
     void setUpProcessor() {
     	if (handlers == null) {
 	        // Take a snapshot, User may change chain after invocation, Same chain
 	        // should be used for the entire MEP
-	        handlers = new ArrayList<Handler>();
+	        handlers = new ArrayList<>();
 	        WSBinding binding = getBinding();
 	        List<LogicalHandler> logicalSnapShot= ((BindingImpl) binding).getHandlerConfig().getLogicalHandlers();
 	        if (!logicalSnapShot.isEmpty()) {
@@ -97,6 +99,7 @@ public class ClientLogicalHandlerTube extends HandlerTube {
     }
 
 
+    @Override
     MessageUpdatableContext getContext(Packet packet) {
         return new LogicalMessageContextImpl(getBinding(), getBindingContext(), packet);
     }    
@@ -106,7 +109,8 @@ public class ClientLogicalHandlerTube extends HandlerTube {
         	((AbstractSEIModelImpl)seiModel).getBindingContext() : null;
 	}
 
-	boolean callHandlersOnRequest(MessageUpdatableContext context, boolean isOneWay) {
+	@Override
+    boolean callHandlersOnRequest(MessageUpdatableContext context, boolean isOneWay) {
 
         boolean handlerResult;
         try {
@@ -129,6 +133,7 @@ public class ClientLogicalHandlerTube extends HandlerTube {
         return handlerResult;
     }
 
+    @Override
     void callHandlersOnResponse(MessageUpdatableContext context, boolean handleFault) {
         try {
 
@@ -144,6 +149,7 @@ public class ClientLogicalHandlerTube extends HandlerTube {
 
         }
     }
+    @Override
     void closeHandlers(MessageContext mc) {
         closeClientsideHandlers(mc);
 

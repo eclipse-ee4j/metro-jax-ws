@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,7 +22,6 @@ import com.sun.xml.ws.message.jaxb.JAXBMessage;
 import com.sun.xml.ws.message.FaultMessage;
 import com.sun.xml.ws.model.CheckedExceptionImpl;
 import com.sun.xml.ws.model.JavaMethodImpl;
-import com.sun.xml.ws.spi.db.WrapperComposite;
 import com.sun.xml.ws.spi.db.XMLBridge;
 import com.sun.xml.ws.util.DOMUtil;
 import com.sun.xml.ws.util.StringUtils;
@@ -30,22 +29,20 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.XmlTransient;
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPFault;
-import javax.xml.soap.Detail;
-import javax.xml.soap.DetailEntry;
+import jakarta.xml.soap.SOAPFault;
+import jakarta.xml.soap.Detail;
+import jakarta.xml.soap.DetailEntry;
 import javax.xml.transform.dom.DOMResult;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
@@ -247,8 +244,9 @@ public abstract class SOAPFaultBuilder {
             ExceptionBean.marshal(t,d);
 
             DetailType detail = getDetail();
-            if(detail==null)
-            setDetail(detail=new DetailType());
+            if (detail == null) {
+                setDetail(detail = new DetailType());
+            }
 
             detail.getDetails().add(d.getDocumentElement());
         } catch (JAXBException e) {
@@ -328,7 +326,7 @@ public abstract class SOAPFaultBuilder {
         if (ce.getExceptionClass().equals(detailBean)) return exception;
         Field[] fields = detailBean.getDeclaredFields();
         try {
-            Object detail = detailBean.newInstance();
+            Object detail = detailBean.getConstructor().newInstance();
             for (Field f : fields) {
                 Method em = exception.getClass().getMethod(getReadMethod(f));
                 try {
@@ -359,7 +357,7 @@ public abstract class SOAPFaultBuilder {
         Throwable cause = e.getCause();
         if (e instanceof SOAPFaultException) {
             soapFaultException = (SOAPFaultException) e;
-        } else if (cause != null && cause instanceof SOAPFaultException) {
+        } else if (cause instanceof SOAPFaultException) {
             soapFaultException = (SOAPFaultException) e.getCause();
         }
         if (soapFaultException != null) {
@@ -432,7 +430,7 @@ public abstract class SOAPFaultBuilder {
         Throwable cause = e.getCause();
         if (e instanceof SOAPFaultException) {
             soapFaultException = (SOAPFaultException) e;
-        } else if (cause != null && cause instanceof SOAPFaultException) {
+        } else if (cause instanceof SOAPFaultException) {
             soapFaultException = (SOAPFaultException) e.getCause();
         }
         if (soapFaultException != null) {
@@ -441,11 +439,11 @@ public abstract class SOAPFaultBuilder {
             if(soapFaultCode != null){
                 faultCode = soapFaultCode;
                 code = new CodeType(faultCode);
-                Iterator iter = fault.getFaultSubcodes();
+                Iterator<QName> iter = fault.getFaultSubcodes();
                 boolean first = true;
                 SubcodeType subcode = null;
                 while(iter.hasNext()){
-                    QName value = (QName)iter.next();
+                    QName value = iter.next();
                     if(first){
                         SubcodeType sct = new SubcodeType(value);
                         code.setSubcode(sct);
@@ -549,31 +547,10 @@ public abstract class SOAPFaultBuilder {
     }
 
     private static JAXBContext createJAXBContext() {
-
-        // in jdk runtime doPrivileged is necessary since JAX-WS internal classes are in restricted packages
-        if (isJDKRuntime()) {
-            return AccessController.doPrivileged(
-                    new PrivilegedAction<JAXBContext>() {
-                        @Override
-                        public JAXBContext run() {
-                            try {
-                                return JAXBContext.newInstance(SOAP11Fault.class, SOAP12Fault.class);
-                            } catch (JAXBException e) {
-                                throw new Error(e);
-                            }
-                        }
-                    });
-
-        } else {
-            try {
-                return JAXBContext.newInstance(SOAP11Fault.class, SOAP12Fault.class);
-            } catch (JAXBException e) {
-                throw new Error(e);
-            }
+        try {
+            return JAXBContext.newInstance(SOAP11Fault.class, SOAP12Fault.class);
+        } catch (JAXBException e) {
+            throw new Error(e);
         }
-    }
-
-    private static boolean isJDKRuntime() {
-        return SOAPFaultBuilder.class.getName().contains("internal");
     }
 }

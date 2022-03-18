@@ -10,7 +10,7 @@
 
 package fromjava.nosei_apt.server;
 
-@javax.xml.ws.WebFault(name="fault1",
+@jakarta.xml.ws.WebFault(name="fault1",
     targetNamespace="urn:test:types")
 public class Fault1 extends Exception {
     private FooException faultInfo;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,7 +19,7 @@ import com.sun.xml.ws.api.server.WebServiceContextDelegate;
 import com.sun.xml.ws.transport.http.WSHTTPConnection;
 import com.sun.xml.ws.util.ByteArrayBuffer;
 
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.MessageContext;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
@@ -60,10 +60,12 @@ final class LocalConnectionImpl extends WSHTTPConnection implements WebServiceCo
         this.callback = callback;
     }
 
+    @Override
     public @NotNull InputStream getInput() {
         return baos.newInputStream();
     }
 
+    @Override
     public @NotNull OutputStream getOutput() {
         baos = new ByteArrayBuffer();
         return baos;
@@ -73,22 +75,27 @@ final class LocalConnectionImpl extends WSHTTPConnection implements WebServiceCo
         return baos.toString();
     }
 
+    @Override
     public @NotNull WebServiceContextDelegate getWebServiceContextDelegate() {
         return this;
     }
 
+    @Override
     public Principal getUserPrincipal(Packet request) {
         return null;   // not really supported
     }
 
+    @Override
     public boolean isUserInRole(Packet request, String role) {
         return false;   // not really supported
     }
 
+    @Override
     public @NotNull String getEPRAddress(Packet request, WSEndpoint endpoint) {
         return baseURI.resolve("?"+endpoint.getPortName().getLocalPart()).toString();
     }
 
+    @Override
     public String getWSDLAddress(@NotNull Packet request, @NotNull WSEndpoint endpoint) {
         ServiceDefinition sd = endpoint.getServiceDefinition();
         if(sd != null) {
@@ -97,6 +104,7 @@ final class LocalConnectionImpl extends WSHTTPConnection implements WebServiceCo
             return null;
     }
 
+    @Override
     @Property(MessageContext.HTTP_REQUEST_METHOD)
     public @NotNull String getRequestMethod() {
         return "POST";   // not really supported
@@ -107,11 +115,13 @@ final class LocalConnectionImpl extends WSHTTPConnection implements WebServiceCo
         return false;   // not really supported
     }
 
+    @Override
     @Property(MessageContext.QUERY_STRING)
     public String getQueryString() {
         return null;   // not really supported
     }
 
+    @Override
     @Property(MessageContext.PATH_INFO)
     public String getPathInfo() {
         return null;   // not really supported
@@ -122,11 +132,13 @@ final class LocalConnectionImpl extends WSHTTPConnection implements WebServiceCo
         return null;    // not really supported
     }
 
+    @Override
     @Property(MessageContext.HTTP_RESPONSE_CODE)
     public int getStatus () {
         return statusCode;
     }
 
+    @Override
     public void setStatus (int statusCode) {
         this.statusCode = statusCode;
     }
@@ -135,16 +147,18 @@ final class LocalConnectionImpl extends WSHTTPConnection implements WebServiceCo
     @Property({MessageContext.HTTP_RESPONSE_HEADERS, Packet.OUTBOUND_TRANSPORT_HEADERS})
     public @Nullable Map<String, List<String>> getResponseHeaders() {
         if(rspHeaders==null)
-            rspHeaders = new HashMap<String,List<String>>();
+            rspHeaders = new HashMap<>();
 
         return rspHeaders;
     }
 
+    @Override
     @Property({MessageContext.HTTP_REQUEST_HEADERS,Packet.INBOUND_TRANSPORT_HEADERS})
     public @NotNull Map<String, List<String>> getRequestHeaders () {
         return reqHeaders;
     }
 
+    @Override
     public String getRequestHeader(String headerName) {
         List<String> values = getRequestHeaders().get(headerName);
         if(values==null || values.isEmpty())
@@ -156,7 +170,7 @@ final class LocalConnectionImpl extends WSHTTPConnection implements WebServiceCo
     @Override
 	public void setResponseHeader(String key, List<String> value) {
         if(rspHeaders==null)
-            rspHeaders = new HashMap<String,List<String>>();
+            rspHeaders = new HashMap<>();
 
         rspHeaders.put(key, value);
 	}
@@ -171,24 +185,22 @@ final class LocalConnectionImpl extends WSHTTPConnection implements WebServiceCo
 		return getRequestHeaders().get(headerName);
 	}
 
+    @Override
     public void setResponseHeaders(Map<String,List<String>> headers) {
         if(headers==null)
             // be defensive
-            this.rspHeaders = new HashMap<String,List<String>>();
+            this.rspHeaders = new HashMap<>();
         else {
-            this.rspHeaders = new HashMap<String, List<String>>(headers);
+            this.rspHeaders = new HashMap<>(headers);
 
-            for (Iterator<String> itr = rspHeaders.keySet().iterator(); itr.hasNext();) {
-                String key = itr.next();
-                if(key.equalsIgnoreCase("Content-Type") || key.equalsIgnoreCase("Content-Length"))
-                    itr.remove();
-            }
+            rspHeaders.keySet().removeIf(key -> key.equalsIgnoreCase("Content-Type") || key.equalsIgnoreCase("Content-Length"));
         }
     }
 
+    @Override
     public void setContentTypeResponseHeader(@NotNull String value) {
         if(rspHeaders==null)
-            rspHeaders = new HashMap<String,List<String>>();
+            rspHeaders = new HashMap<>();
 
         rspHeaders.put("Content-Type", Collections.singletonList(value));
     }
@@ -223,6 +235,7 @@ final class LocalConnectionImpl extends WSHTTPConnection implements WebServiceCo
         }
     }
 
+    @Override
     protected PropertyMap getPropertyMap() {
         return model;
     }

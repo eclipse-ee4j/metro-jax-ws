@@ -14,14 +14,14 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.Provider;
-import javax.xml.ws.Service;
-import javax.xml.ws.Service.Mode;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.Provider;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Service.Mode;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.WebServiceProvider;
+import jakarta.xml.ws.WebServiceProvider;
 
 @WebServiceProvider(
 	wsdlLocation="WEB-INF/wsdl/hello_literal.wsdl",
@@ -34,14 +34,14 @@ public class HelloImpl implements Provider<Source> {
     private int combo;
     private int bodyIndex;
 
-    public javax.xml.bind.JAXBContext getJAXBContext(){
+    public jakarta.xml.bind.JAXBContext getJAXBContext(){
         return jaxbContext;
     }
     
-    private static javax.xml.bind.JAXBContext createJAXBContext(){
+    private static jakarta.xml.bind.JAXBContext createJAXBContext(){
         try{
-            return javax.xml.bind.JAXBContext.newInstance(ObjectFactory.class);
-        }catch(javax.xml.bind.JAXBException e){
+            return jakarta.xml.bind.JAXBContext.newInstance(ObjectFactory.class);
+        }catch(jakarta.xml.bind.JAXBException e){
             throw new WebServiceException(e.getMessage(), e);
         }
     }

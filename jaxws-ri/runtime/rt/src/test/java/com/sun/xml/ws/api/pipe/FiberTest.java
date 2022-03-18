@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,8 +17,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceException;
 
 import com.sun.istack.NotNull;
 import com.sun.xml.ws.api.message.Packet;
@@ -1558,7 +1558,7 @@ public class FiberTest extends TestCase {
     }
     
     private static final Map<String,Integer> fiberNameToThreadLocalValueMap = new ConcurrentHashMap<String,Integer>();
-    private static final Integer retainMeInteger = new Integer(1001);
+    private static final Integer retainMeInteger = Integer.valueOf(1001);
     
     private static class MyFiberContextSwitchInterceptor implements FiberContextSwitchInterceptor {
         private String name = null;

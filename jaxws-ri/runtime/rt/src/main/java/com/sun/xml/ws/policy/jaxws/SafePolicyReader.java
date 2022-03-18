@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,7 @@ import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
 * Provides methods to unmarshal policies from a XMLStreamReader safely
@@ -37,9 +37,9 @@ public class SafePolicyReader {
    private static final PolicyLogger LOGGER = PolicyLogger.getLogger(SafePolicyReader.class);
 
    // urls of xml docs policies were read from
-   private final Set<String> urlsRead = new HashSet<String>();
+   private final Set<String> urlsRead = new HashSet<>();
 
-   private final Set<String> qualifiedPolicyUris = new HashSet<String>();
+   private final Set<String> qualifiedPolicyUris = new HashSet<>();
 
 
    public final class PolicyRecord {
@@ -109,7 +109,7 @@ public class SafePolicyReader {
        public String toString() {
            String result = uri;
            if (null!=next) {
-               result += "->" + next.toString();
+               result += "->" + next;
            }
            return result;
        }
@@ -131,7 +131,7 @@ public class SafePolicyReader {
        if ((null == reader) || (!reader.isStartElement())) {
            return null;
        }
-       final StringBuffer elementCode = new StringBuffer();
+       final StringBuilder elementCode = new StringBuilder();
        final PolicyRecord policyRec = new PolicyRecord();
        final QName elementName = reader.getName();
        boolean insidePolicyReferenceAttr;
@@ -145,8 +145,8 @@ public class SafePolicyReader {
                        if (elementName.equals(curName)) {  // it is our element !
                            depth++;                        // we are then deeper
                        }
-                       final StringBuffer xmlnsCode = new StringBuffer();    // take care about namespaces as well
-                       final Set<String> tmpNsSet = new HashSet<String>();
+                       final StringBuilder xmlnsCode = new StringBuilder();    // take care about namespaces as well
+                       final Set<String> tmpNsSet = new HashSet<>();
                        if ((null == curName.getPrefix()) || ("".equals(curName.getPrefix()))) {           // no prefix
                            elementCode
                                    .append('<')                     // start tag
@@ -171,14 +171,14 @@ public class SafePolicyReader {
                            tmpNsSet.add(curName.getPrefix());
                        }
                        final int attrCount = reader.getAttributeCount();     // process element attributes
-                       final StringBuffer attrCode = new StringBuffer();
+                       final StringBuilder attrCode = new StringBuilder();
                        for (int i=0; i < attrCount; i++) {
                            boolean uriAttrFlg = false;
                            if (insidePolicyReferenceAttr && "URI".equals(
                                    reader.getAttributeName(i).getLocalPart())) { // PolicyReference found
                                uriAttrFlg = true;
                                if (null == policyRec.unresolvedURIs) { // first such URI found
-                                   policyRec.unresolvedURIs = new HashSet<String>(); // initialize URIs set
+                                   policyRec.unresolvedURIs = new HashSet<>(); // initialize URIs set
                                }
                                policyRec.unresolvedURIs.add(  // add the URI
                                        relativeToAbsoluteUrl(reader.getAttributeValue(i), baseUrl));
@@ -272,7 +272,7 @@ public class SafePolicyReader {
 
 
    /**
-    * Reads policy reference element <wsp:PolicyReference/> and returns referenced policy URI as String
+    * Reads policy reference element &lt;wsp:PolicyReference/&gt; and returns referenced policy URI as String
     *
     * @param reader The XMLStreamReader should be in START_ELEMENT state and point to the PolicyReference element.
     * @return The URI contained in the PolicyReference

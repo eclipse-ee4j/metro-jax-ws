@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2006, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,8 +25,8 @@ import com.sun.xml.ws.addressing.v200408.MemberSubmissionAddressingConstants;
  */
 public class NamespaceContextImpl implements NamespaceContext {
 
-    private static final Map<String, String> prefixToNSMap = new HashMap<String, String>();
-    private static final Map<String, String> nsToPrefixMap = new HashMap<String, String>();
+    private static final Map<String, String> prefixToNSMap = new HashMap<>();
+    private static final Map<String, String> nsToPrefixMap = new HashMap<>();
 
     public NamespaceContextImpl() {
         bindPrefixToNS("S11", WsaUtils.S11_NS);
@@ -41,6 +41,7 @@ public class NamespaceContextImpl implements NamespaceContext {
         nsToPrefixMap.put(namespaceURI, prefix);
     }
 
+    @Override
     public String getNamespaceURI(String prefix) {
         if (prefix == null) {
             throw new IllegalArgumentException(
@@ -57,11 +58,7 @@ public class NamespaceContextImpl implements NamespaceContext {
 
         // default
         if (prefix.equals(XMLConstants.DEFAULT_NS_PREFIX)) {
-            if (prefixToNSMap.containsKey(prefix)) {
-                return prefixToNSMap.get(prefix);
-            } else {
-                return XMLConstants.NULL_NS_URI;
-            }
+            return prefixToNSMap.getOrDefault(prefix, XMLConstants.NULL_NS_URI);
         }
 
         // bound
@@ -73,6 +70,7 @@ public class NamespaceContextImpl implements NamespaceContext {
         return XMLConstants.NULL_NS_URI;
     }
 
+    @Override
     public String getPrefix(String namespaceURI) {
         if (namespaceURI == null) {
             throw new IllegalArgumentException(
@@ -101,6 +99,7 @@ public class NamespaceContextImpl implements NamespaceContext {
         return null;
     }
 
+    @Override
     public Iterator getPrefixes(String namespaceURI) {
         return prefixToNSMap.keySet().iterator();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,17 +10,12 @@
 
 package com.sun.xml.ws.encoding;
 
-import com.sun.xml.stream.buffer.XMLStreamBuffer;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.WSBinding;
 import com.sun.xml.ws.api.WSFeatureList;
-import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.api.message.AttachmentSet;
 import com.sun.xml.ws.api.pipe.ContentType;
-import com.sun.xml.ws.message.stream.StreamHeader12;
-
-import javax.xml.stream.XMLStreamReader;
 import java.util.Collections;
 import java.util.List;
 import java.io.InputStream;
@@ -50,6 +45,7 @@ final class StreamSOAP12Codec extends StreamSOAPCodec {
         super(features);
     }
 
+    @Override
     public String getMimeType() {
         return SOAP12_MIME_TYPE;
     }
@@ -85,6 +81,7 @@ final class StreamSOAP12Codec extends StreamSOAPCodec {
         return soapAction;
     }
     
+    @Override
     protected List<String> getExpectedContentTypes() {
         return EXPECTED_CONTENT_TYPES;
     }

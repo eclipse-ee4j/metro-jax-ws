@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,18 +53,19 @@ public class WSDLGen {
         }
         String riFile = outputDir+"/WEB-INF/sun-jaxws.xml";
 
-        DeploymentDescriptorParser<WSEndpoint> parser = new DeploymentDescriptorParser<WSEndpoint>(
-            Thread.currentThread().getContextClassLoader(),
-            new FileSystemResourceLoader(new File(outputDir)), null,
-            new AdapterFactory<WSEndpoint>() {
-                public WSEndpoint createAdapter(String name, String urlPattern, WSEndpoint<?> endpoint) {
-                    return endpoint;
-                }
-            });
+        DeploymentDescriptorParser<WSEndpoint> parser = new DeploymentDescriptorParser<>(
+                Thread.currentThread().getContextClassLoader(),
+                new FileSystemResourceLoader(new File(outputDir)), null,
+                new AdapterFactory<>() {
+                    @Override
+                    public WSEndpoint createAdapter(String name, String urlPattern, WSEndpoint<?> endpoint) {
+                        return endpoint;
+                    }
+                });
 
         List<WSEndpoint> endpoints = parser.parse(new File(riFile));
 
-        final String addr = new File(outputDir).toURL().toExternalForm();
+        final String addr = new File(outputDir).toURI().toURL().toExternalForm();
         final String address = "local"+addr.substring(4);// file:// -> local://
         for(WSEndpoint endpoint : endpoints) {
 			ServiceDefinition def = endpoint.getServiceDefinition();
@@ -88,12 +89,14 @@ public class WSDLGen {
                 ByteArrayBuffer buffer = new ByteArrayBuffer();
                 doc.writeTo(
 					new PortAddressResolver() {
-						public String getAddressFor(QName serviceName, String portName) {
+						@Override
+                        public String getAddressFor(QName serviceName, String portName) {
 							return address;
 						}
 					},
 					new DocumentAddressResolver() {
-						public String getRelativeAddressFor(
+						@Override
+                        public String getRelativeAddressFor(
 							SDDocument current, SDDocument referenced) {
 							String rel = referenced.getURL().toExternalForm();
 							return rel.substring(6);	// remove file:/

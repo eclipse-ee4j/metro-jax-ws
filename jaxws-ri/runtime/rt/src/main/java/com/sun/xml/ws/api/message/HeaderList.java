@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,17 +9,6 @@
  */
 
 package com.sun.xml.ws.api.message;
-
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
-
-import javax.xml.namespace.QName;
-import javax.xml.ws.WebServiceException;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
@@ -33,7 +22,17 @@ import com.sun.xml.ws.api.pipe.Pipe;
 import com.sun.xml.ws.binding.SOAPBindingImpl;
 import com.sun.xml.ws.protocol.soap.ClientMUTube;
 import com.sun.xml.ws.protocol.soap.ServerMUTube;
+import jakarta.xml.ws.WebServiceException;
+
+import javax.xml.namespace.QName;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.BitSet;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 /**
  * A list of {@link Header}s on a {@link Message}.
@@ -51,8 +50,8 @@ import java.util.Arrays;
  * message as much as possible.
  *
  *
- * <a name="MU"></a>
- * <h3>MustUnderstand Processing</h3>
+ * <a id="MU"></a>
+ * <h2>MustUnderstand Processing</h2>
  * <p>
  * To perform SOAP mustUnderstang processing correctly, we need to keep
  * track of headers that are understood and headers that are not.
@@ -64,9 +63,9 @@ import java.util.Arrays;
  * (that is, if it did enough computing with the header to claim that
  * the header is understood), then it should mark the corresponding
  * header as "understood". For example, when a pipe that handles JAX-WSA
- * examins the &lt;wsa:To> header, it can claim that it understood the header.
+ * examins the &lt;wsa:To&gt; header, it can claim that it understood the header.
  * But for example, if a pipe that does the signature verification checks
- * &lt;wsa:To> for a signature, that would not be considered as "understood".
+ * &lt;wsa:To&gt; for a signature, that would not be considered as "understood".
  *
  * <p>
  * There are two ways to mark a header as understood:
@@ -77,7 +76,7 @@ import java.util.Arrays;
  *      Most often, a {@link Pipe} knows it's going to understand a header
  *      as long as it's present, so this is the easiest and thus the preferred way.
  *
- *      For example, if JAX-WSA looks for &lt;wsa:To>, then it can set
+ *      For example, if JAX-WSA looks for &lt;wsa:To&gt;, then it can set
  *      {@code markAsUnderstand} to true, to do the obtaining of a header
  *      and marking at the same time.
  *
@@ -115,19 +114,9 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     private BitSet moreUnderstoodBits = null;
 
     private SOAPVersion soapVersion;
-    
-    /**
-     * This method is deprecated - instead use this one: 
-     * public HeaderList(SOAPVersion)
-     * Creates an empty {@link HeaderList}.
-     */
-    @Deprecated
-    public HeaderList() {
-    }
 
     /**
      * Creates an empty {@link HeaderList} with the given soap version
-     * @param soapVersion
      */
     public HeaderList(SOAPVersion soapVersion) {
         this.soapVersion = soapVersion;
@@ -287,14 +276,6 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     }
 
     /**
-     * @deprecated
-     *      Use {@link #get(String, String, boolean)}
-     */
-    public Header get(String nsUri, String localName) {
-        return get(nsUri, localName, true);
-    }
-
-    /**
      * Gets the first {@link Header} of the specified name.
      *
      * @param markAsUnderstood
@@ -309,24 +290,6 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     }
 
     /**
-     * @deprecated
-     *      Use {@link #get(QName)}
-     */
-    public
-    @Nullable
-    Header get(@NotNull QName name) {
-        return get(name, true);
-    }
-
-    /**
-     * @deprecated
-     *      Use {@link #getHeaders(String, String, boolean)}
-     */
-    public Iterator<Header> getHeaders(final String nsUri, final String localName) {
-        return getHeaders(nsUri, localName, true);
-    }
-
-    /**
      * Gets all the {@link Header}s of the specified name,
      * including duplicates (if any.)
      *
@@ -336,11 +299,9 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
      *      from {@link Iterator#next()}.
      * @return empty iterator if not found.
      */
-    public
-    @NotNull
     @Override
-    Iterator<Header> getHeaders(@NotNull final String nsUri, @NotNull final String localName, final boolean markAsUnderstood) {
-        return new Iterator<Header>() {
+    public @NotNull Iterator<Header> getHeaders(@NotNull final String nsUri, @NotNull final String localName, final boolean markAsUnderstood) {
+        return new Iterator<>() {
 
             int idx = 0;
             Header next;
@@ -400,16 +361,6 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     }
 
     /**
-     * @deprecated
-     *      use {@link #getHeaders(String, boolean)}.
-     */
-    public
-    @NotNull
-    Iterator<Header> getHeaders(@NotNull final String nsUri) {
-        return getHeaders(nsUri, true);
-    }
-
-    /**
      * Gets an iteration of headers {@link Header} in the specified namespace,
      * including duplicates (if any.)
      *
@@ -424,7 +375,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     @NotNull
     @Override
     Iterator<Header> getHeaders(@NotNull final String nsUri, final boolean markAsUnderstood) {
-        return new Iterator<Header>() {
+        return new Iterator<>() {
 
             int idx = 0;
             Header next;
@@ -566,7 +517,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     /**
      * Creates a set of outbound WS-Addressing headers on the client with the
      * specified Action Message Addressing Property value.
-     * <p><p>
+     * <p>
      * This method needs to be invoked right after such a Message is
      * created which is error prone but so far only MEX, RM and JAX-WS
      * creates a request so this ugliness is acceptable. This method is also used
@@ -591,12 +542,12 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     /**
      * Creates a set of outbound WS-Addressing headers on the client with the
      * default Action Message Addressing Property value.
-     * <p><p>
+     * <p>
      * This method needs to be invoked right after such a Message is
      * created which is error prone but so far only MEX, RM and JAX-WS
      * creates a request so this ugliness is acceptable. If more components
      * are identified using this, then we may revisit this.
-     * <p><p>
+     * <p>
      * This method is used if default Action Message Addressing Property is to
      * be used. See
      * {@link #fillRequestAddressingHeaders(Packet, com.sun.xml.ws.api.addressing.AddressingVersion, com.sun.xml.ws.api.SOAPVersion, boolean, String)}
@@ -737,23 +688,23 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
         assert index < size();
 
         if (index < 32) {
-            /**
-             * Let
-             *   R be the bit to be removed
-             *   M be a more significant "upper" bit than bit R
-             *   L be a less significant "lower" bit than bit R
-             *
-             * Then following 3 lines of code produce these results:
-             *
-             *   old understoodBits = MMMMMMMMMMMMRLLLLLLLLLLLLLLLLLLL
-             *
-             *   shiftedUpperBits   = 0MMMMMMMMMMMM0000000000000000000
-             *
-             *   lowerBits          = 0000000000000LLLLLLLLLLLLLLLLLLL
-             *
-             *   new understoodBits = 0MMMMMMMMMMMMLLLLLLLLLLLLLLLLLLL
-             *
-             * The R bit is removed and all the upper bits are shifted right (unsigned)
+            /*
+              Let
+                R be the bit to be removed
+                M be a more significant "upper" bit than bit R
+                L be a less significant "lower" bit than bit R
+
+              Then following 3 lines of code produce these results:
+
+                old understoodBits = MMMMMMMMMMMMRLLLLLLLLLLLLLLLLLLL
+
+                shiftedUpperBits   = 0MMMMMMMMMMMM0000000000000000000
+
+                lowerBits          = 0000000000000LLLLLLLLLLLLLLLLLLL
+
+                new understoodBits = 0MMMMMMMMMMMMLLLLLLLLLLLLLLLLLLL
+
+              The R bit is removed and all the upper bits are shifted right (unsigned)
              */
             int shiftedUpperBits = understoodBits >>> -31 + index << index;
             int lowerBits = understoodBits << -index >>> 31 - index >>> 1;
@@ -793,7 +744,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
      * if the header list contains one or more such
      * headers.  Returns {@code true} if the list contained the
      * specified element (or equivalently, if the list changed as a
-     * result of the call).<p>
+     * result of the call).
      *
      * @param o element to be removed from this list, if present.
      * @return {@code true} if the list contained the specified element.
@@ -867,7 +818,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     
     @Override
     public Set<QName> getUnderstoodHeaders() {
-        Set<QName> understoodHdrs = new HashSet<QName>();
+        Set<QName> understoodHdrs = new HashSet<>();
         for (int i = 0; i < size(); i++) {
             if (isUnderstood(i)) {
                 Header header = get(i);
@@ -903,7 +854,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
     public Set<QName> getNotUnderstoodHeaders(Set<String> roles, Set<QName> knownHeaders, WSBinding binding) {
         Set<QName> notUnderstoodHeaders = null;
         if (roles == null) {
-            roles = new HashSet<String>();
+            roles = new HashSet<>();
         }
         SOAPVersion effectiveSoapVersion = getEffectiveSOAPVersion(binding);
         roles.add(effectiveSoapVersion.implicitRole);
@@ -917,7 +868,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
                         //know this header is not understood from the isUnderstood
                         //check above
                         if (notUnderstoodHeaders == null) {
-                            notUnderstoodHeaders = new HashSet<QName>();
+                            notUnderstoodHeaders = new HashSet<>();
                         }
                         notUnderstoodHeaders.add(qName);
                     } else {
@@ -926,7 +877,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
                             if (!knownHeaders.contains(qName)) {
                                 //logger.info("Element not understood=" + qName);
                                 if (notUnderstoodHeaders == null) {
-                                    notUnderstoodHeaders = new HashSet<QName>();
+                                    notUnderstoodHeaders = new HashSet<>();
                                 }
                                 notUnderstoodHeaders.add(qName);
                             }

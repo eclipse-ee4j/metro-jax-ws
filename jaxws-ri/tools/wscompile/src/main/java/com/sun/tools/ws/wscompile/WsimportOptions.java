@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,8 +23,8 @@ import com.sun.tools.xjc.api.XJC;
 import com.sun.tools.xjc.reader.Util;
 import com.sun.xml.ws.api.streaming.XMLStreamReaderFactory;
 import com.sun.xml.ws.streaming.XMLStreamReaderUtil;
-import com.sun.xml.ws.util.ServiceFinder;
 import com.sun.xml.ws.util.JAXWSUtils;
+import com.sun.xml.ws.util.ServiceFinder;
 import com.sun.xml.ws.util.xml.XmlUtil;
 import org.w3c.dom.Element;
 import org.xml.sax.EntityResolver;
@@ -46,7 +46,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.HashMap;
+import java.util.ServiceLoader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -151,7 +153,7 @@ public class WsimportOptions extends Options {
     /**
      * Additional arguments
      */
-    public HashMap<String, String> extensionOptions = new HashMap<String, String>();
+    public HashMap<String, String> extensionOptions = new HashMap<>();
 
     /**
      * All discovered {@link Plugin}s.
@@ -164,7 +166,7 @@ public class WsimportOptions extends Options {
     /**
      * {@link Plugin}s that are enabled in this compilation.
      */
-    public final List<Plugin> activePlugins = new ArrayList<Plugin>();
+    public final List<Plugin> activePlugins = new ArrayList<>();
 
     public JCodeModel getCodeModel() {
         if(codeModel == null)
@@ -181,8 +183,13 @@ public class WsimportOptions extends Options {
         return schemaCompiler;
     }
 
+    /**
+     * Sets the codeModel and includes the {@link classNameReplacer} in it.
+     * @param codeModel the new codeModel
+     */
     public void setCodeModel(JCodeModel codeModel) {
         this.codeModel = codeModel;
+        addClassReplacersInCodeModel();
     }
 
     private JCodeModel codeModel;
@@ -190,7 +197,7 @@ public class WsimportOptions extends Options {
     /**
      * This captures jars passed on the commandline and passes them to XJC and puts them in the classpath for compilation
      */
-    public List<String> cmdlineJars = new ArrayList<String>();
+    public List<String> cmdlineJars = new ArrayList<>();
 
     /**
      * Gets all the {@link Plugin}s discovered so far.
@@ -202,7 +209,7 @@ public class WsimportOptions extends Options {
      */
     public List<Plugin> getAllPlugins() {
         if(allPlugins==null) {
-            allPlugins = new ArrayList<Plugin>();
+            allPlugins = new ArrayList<>();
             allPlugins.addAll(Arrays.asList(findServices(Plugin.class, getClassLoader())));
         }
         return allPlugins;
@@ -263,6 +270,14 @@ public class WsimportOptions extends Options {
             destDir = new File(".");
         if(sourceDir == null)
             sourceDir = destDir;
+        addClassReplacersInCodeModel();
+    }
+
+    private void addClassReplacersInCodeModel() {
+        JCodeModel codeModel = getCodeModel();
+        for (Entry<String, String> pair : classNameReplacer.entrySet()) {
+            codeModel.addClassNameReplacer(pair.getKey(), pair.getValue());
+        }
     }
 
     /** -Xno-addressing-databinding option to disable addressing namespace data binding. This is
@@ -376,7 +391,7 @@ public class WsimportOptions extends Options {
         }
 
         // handle additional options
-        for (GeneratorExtension f:ServiceFinder.find(GeneratorExtension.class)) {
+        for (GeneratorExtension f: ServiceFinder.find(GeneratorExtension.class, ServiceLoader.load(GeneratorExtension.class))) {
             if (f.validateOption(args[i])) {
                 extensionOptions.put(args[i], requireArgument(args[i], args, ++i));
                 return 2;
@@ -423,12 +438,12 @@ public class WsimportOptions extends Options {
         addFile(arg, wsdls, ".wsdl");
     }
 
-    private final List<InputSource> wsdls = new ArrayList<InputSource>();
-    private final List<InputSource> schemas = new ArrayList<InputSource>();
-    private final List<InputSource> bindingFiles = new ArrayList<InputSource>();
-    private final List<InputSource> jaxwsCustomBindings = new ArrayList<InputSource>();
-    private final List<InputSource> jaxbCustomBindings = new ArrayList<InputSource>();
-    private final List<Element> handlerConfigs = new ArrayList<Element>();
+    private final List<InputSource> wsdls = new ArrayList<>();
+    private final List<InputSource> schemas = new ArrayList<>();
+    private final List<InputSource> bindingFiles = new ArrayList<>();
+    private final List<InputSource> jaxwsCustomBindings = new ArrayList<>();
+    private final List<InputSource> jaxbCustomBindings = new ArrayList<>();
+    private final List<Element> handlerConfigs = new ArrayList<>();
 
     /**
      * There is supposed to be one handler chain per generated SEI.
@@ -447,19 +462,19 @@ public class WsimportOptions extends Options {
     }
 
     public InputSource[] getWSDLs() {
-        return wsdls.toArray(new InputSource[wsdls.size()]);
+        return wsdls.toArray(new InputSource[0]);
     }
 
     public InputSource[] getSchemas() {
-        return schemas.toArray(new InputSource[schemas.size()]);
+        return schemas.toArray(new InputSource[0]);
     }
 
     public InputSource[] getWSDLBindings() {
-        return jaxwsCustomBindings.toArray(new InputSource[jaxwsCustomBindings.size()]);
+        return jaxwsCustomBindings.toArray(new InputSource[0]);
     }
 
     public InputSource[] getSchemaBindings() {
-        return jaxbCustomBindings.toArray(new InputSource[jaxbCustomBindings.size()]);
+        return jaxbCustomBindings.toArray(new InputSource[0]);
     }
 
     public void addWSDL(File source) {
@@ -480,7 +495,7 @@ public class WsimportOptions extends Options {
 
     private InputSource fileToInputSource(File source) {
         try {
-            String url = source.toURL().toExternalForm();
+            String url = source.toURI().toURL().toExternalForm();
             return new InputSource(Util.escapeSpace(url));
         } catch (MalformedURLException e) {
             return new InputSource(source.getPath());
@@ -522,7 +537,7 @@ public class WsimportOptions extends Options {
         // absolutize all the system IDs in the input,
         // so that we can map system IDs to DOM trees.
         try {
-            URL baseURL = new File(".").getCanonicalFile().toURL();
+            URL baseURL = new File(".").getCanonicalFile().toURI().toURL();
             is.setSystemId(new URL(baseURL, is.getSystemId()).toExternalForm());
         } catch (IOException e) {
             // ignore
@@ -588,6 +603,14 @@ public class WsimportOptions extends Options {
                 locator.setColumnNumber(reader.getLocation().getColumnNumber());
                 receiver.warning(locator, ConfigurationMessages.CONFIGURATION_NOT_BINDING_FILE(is.getSystemId()));
             }
+            if (is.getByteStream() != null) {
+                try {
+                    is.getByteStream().close();
+                    is.setByteStream(null);
+                } catch (IOException ex) {
+                    Logger.getLogger(WsimportOptions.class.getName()).log(Level.FINEST, null, ex);
+                }
+            }
         }
     }
  
@@ -634,8 +657,8 @@ public class WsimportOptions extends Options {
      * create one instance for each class name found inside this file.
      */
     private static <T> T[] findServices(Class<T> clazz, ClassLoader classLoader) {
-        ServiceFinder<T> serviceFinder = ServiceFinder.find(clazz, classLoader);
-        List<T> r = new ArrayList<T>();
+        ServiceFinder<T> serviceFinder = ServiceFinder.find(clazz, ServiceLoader.load(clazz, classLoader));
+        List<T> r = new ArrayList<>();
         for (T t : serviceFinder) {
             r.add(t);
         }

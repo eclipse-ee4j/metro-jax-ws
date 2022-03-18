@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 package com.sun.tools.ws.wsdl.parser;
 
-import com.sun.xml.bind.unmarshaller.DOMScanner;
+import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -96,17 +96,20 @@ public class DOMForestScanner {
          */
         private boolean inStart = false;
 
+        @Override
         public void setDocumentLocator(Locator locator) {
             // ignore one set by the parent.
 
             super.setDocumentLocator(this);
         }
 
+        @Override
         public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
             inStart = false;
             super.endElement(namespaceURI, localName, qName);
         }
 
+        @Override
         public void startElement(String namespaceURI, String localName, String qName, Attributes atts)
             throws SAXException {
             inStart = true;
@@ -133,24 +136,28 @@ public class DOMForestScanner {
         // Locator methods
         //
         //
+        @Override
         public int getColumnNumber() {
             Locator l = findLocator();
             if(l!=null)     return l.getColumnNumber();
             return          -1;
         }
 
+        @Override
         public int getLineNumber() {
             Locator l = findLocator();
             if(l!=null)     return l.getLineNumber();
             return          -1;
         }
 
+        @Override
         public String getPublicId() {
             Locator l = findLocator();
             if(l!=null)     return l.getPublicId();
             return          null;
         }
 
+        @Override
         public String getSystemId() {
             Locator l = findLocator();
             if(l!=null)     return l.getSystemId();

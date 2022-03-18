@@ -10,12 +10,12 @@
 
 package fromwsdl.header.rpclit.server;
 
-import javax.xml.ws.Holder;
-import javax.jws.WebMethod;
-import javax.jws.WebResult;
-import javax.jws.WebParam;
+import jakarta.xml.ws.Holder;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebResult;
+import jakarta.jws.WebParam;
 
-@javax.jws.WebService(endpointInterface="fromwsdl.header.rpclit.server.HelloPortType")
+@jakarta.jws.WebService(endpointInterface="fromwsdl.header.rpclit.server.HelloPortType")
 public class HelloPortTypeImpl
         implements HelloPortType {
     public void hello(HelloType param1, String param2,

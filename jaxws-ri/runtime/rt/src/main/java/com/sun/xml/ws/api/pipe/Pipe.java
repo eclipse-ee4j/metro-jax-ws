@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,14 +15,14 @@ import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.api.pipe.helper.AbstractFilterPipeImpl;
 import com.sun.xml.ws.api.pipe.helper.AbstractPipeImpl;
 
-import javax.annotation.PreDestroy;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Provider;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.handler.Handler;
-import javax.xml.ws.handler.LogicalHandler;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.soap.SOAPHandler;
+import jakarta.annotation.PreDestroy;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Provider;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.handler.Handler;
+import jakarta.xml.ws.handler.LogicalHandler;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.soap.SOAPHandler;
 
 /**
  * Abstraction of the intermediate layers in the processing chain
@@ -295,7 +295,8 @@ public interface Pipe {
      * is multi-threaded and need concurrent use of the same pipeline,
      * it can do so by creating copies through this method.
      *
-     * <h3>Implementation Note</h3>
+     * <p>
+     * <strong>Implementation Note</strong>
      * <p>
      * It is the implementation's responsibility to call
      * {@link PipeCloner#add(Pipe,Pipe)} to register the copied pipe

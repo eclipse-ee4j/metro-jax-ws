@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,17 +20,16 @@ import com.sun.xml.ws.server.EndpointFactory;
 import com.sun.xml.ws.streaming.XMLStreamReaderUtil;
 import com.sun.istack.NotNull;
 
-import javax.jws.HandlerChain;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPMessageHandlers;
+import jakarta.jws.HandlerChain;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPMessageHandlers;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import javax.xml.ws.Provider;
-import javax.xml.ws.Service;
+import jakarta.xml.ws.Provider;
+import jakarta.xml.ws.Service;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.logging.Logger;
 
 /**
@@ -104,10 +103,7 @@ public class HandlerAnnotationProcessor {
         try {
             reader.close();
             iStream.close();
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
-            throw new UtilException(e.getMessage());
-        } catch (IOException e) {
+        } catch (XMLStreamException | IOException e) {
             e.printStackTrace();
             throw new UtilException(e.getMessage());
         }
@@ -130,10 +126,7 @@ public class HandlerAnnotationProcessor {
         try {
             reader.close();
             iStream.close();
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
-            throw new UtilException(e.getMessage());
-        } catch (IOException e) {
+        } catch (XMLStreamException | IOException e) {
             e.printStackTrace();
             throw new UtilException(e.getMessage());
         }

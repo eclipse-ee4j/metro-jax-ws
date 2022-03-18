@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -60,7 +60,7 @@ public final class InVmServer {
      *
      */
     private static final Map<String, WeakReference<InVmServer>> servers =
-        new HashMap<String,WeakReference<InVmServer>>();
+            new HashMap<>();
 
     /**
      * Deploys a new server instance.
@@ -72,6 +72,7 @@ public final class InVmServer {
      * @param explodedWarDir
      *      The exploded war file image in the file system,
      *      where services are loaded from.
+     * @throws IOException for errors
      */
     public InVmServer(@NotNull String id, File explodedWarDir) throws IOException {
         this(id,LocalTransportFactory.parseEndpoints(explodedWarDir.getPath()));
@@ -81,10 +82,10 @@ public final class InVmServer {
         synchronized(servers) {
             if(servers.containsKey(id))
                 throw new IllegalArgumentException("InVmServer with id="+id+" is already running");
-            servers.put(id,new WeakReference<InVmServer>(this));
+            servers.put(id, new WeakReference<>(this));
         }
         this.id = id;
-        this.endpoints = new ArrayList<WSEndpoint>(endpoints);
+        this.endpoints = new ArrayList<>(endpoints);
     }
 
     public InVmServer(File explodedWarDir) throws IOException {
@@ -138,6 +139,8 @@ public final class InVmServer {
     /**
      * Obtains the running instance from the ID, or returns null
      * if not found.
+     * @param id ID
+     * @return running instance
      */
     public static @Nullable InVmServer get(String id) {
         synchronized(servers) {

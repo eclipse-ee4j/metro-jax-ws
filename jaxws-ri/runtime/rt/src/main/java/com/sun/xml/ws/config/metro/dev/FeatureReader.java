@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,8 +12,8 @@ package com.sun.xml.ws.config.metro.dev;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLEventReader;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceFeature;
 
 /**
  * Parses a XML fragment and is expected to return a corresponding WebServiceFeature.
@@ -22,11 +22,11 @@ import javax.xml.ws.WebServiceFeature;
  */
 public interface FeatureReader<T extends WebServiceFeature> {
 
-    public static final QName ENABLED_ATTRIBUTE_NAME = new QName("enabled");
+    QName ENABLED_ATTRIBUTE_NAME = new QName("enabled");
 
     /**
      * Parse an XML stream and return the corresponding WebServiceFeature instance.
      */
-    public T parse(XMLEventReader reader) throws WebServiceException;
+    T parse(XMLEventReader reader) throws WebServiceException;
 
 }

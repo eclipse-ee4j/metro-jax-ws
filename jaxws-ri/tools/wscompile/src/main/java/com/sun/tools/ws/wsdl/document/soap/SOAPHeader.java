@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,6 +38,7 @@ public class SOAPHeader extends ExtensionImpl {
         return _faults.iterator();
     }
 
+    @Override
     public QName getElementName() {
         return SOAPConstants.QNAME_HEADER;
     }
@@ -90,6 +91,7 @@ public class SOAPHeader extends ExtensionImpl {
         _part = s;
     }
 
+    @Override
     public void withAllSubEntitiesDo(EntityAction action) {
         super.withAllSubEntitiesDo(action);
 
@@ -98,6 +100,7 @@ public class SOAPHeader extends ExtensionImpl {
         }
     }
 
+    @Override
     public void withAllQNamesDo(QNameAction action) {
         super.withAllQNamesDo(action);
 
@@ -106,6 +109,7 @@ public class SOAPHeader extends ExtensionImpl {
         }
     }
 
+    @Override
     public void accept(ExtensionVisitor visitor) throws Exception {
         visitor.preVisit(this);
         for (Iterator iter = _faults.iterator(); iter.hasNext();) {
@@ -114,6 +118,7 @@ public class SOAPHeader extends ExtensionImpl {
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
         if (_message == null) {
             failValidation("validation.missingRequiredAttribute", "message");

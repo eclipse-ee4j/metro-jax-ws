@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,7 @@ public class Operation extends Entity implements TWSDLOperation {
 
     public Operation(Locator locator) {
         super(locator);
-        _faults = new ArrayList<Fault>();
+        _faults = new ArrayList<>();
         _helper = new ExtensibilityHelper();
     }
 
@@ -45,7 +45,7 @@ public class Operation extends Entity implements TWSDLOperation {
 
     public String getUniqueKey() {
         if (_uniqueKey == null) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             sb.append(_name);
             sb.append(' ');
             if (_input != null) {
@@ -115,6 +115,7 @@ public class Operation extends Entity implements TWSDLOperation {
         _parameterOrder = s;
     }
 
+    @Override
     public QName getElementName() {
         return WSDLConstants.QNAME_OPERATION;
     }
@@ -127,6 +128,7 @@ public class Operation extends Entity implements TWSDLOperation {
         _documentation = d;
     }
 
+    @Override
     public void withAllSubEntitiesDo(EntityAction action) {
         super.withAllSubEntitiesDo(action);
 
@@ -156,6 +158,7 @@ public class Operation extends Entity implements TWSDLOperation {
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
         if (_name == null) {
             failValidation("validation.missingRequiredAttribute", "name");
@@ -182,14 +185,17 @@ public class Operation extends Entity implements TWSDLOperation {
         }
     }
 
+    @Override
     public String getNameValue() {
         return getName();
     }
 
+    @Override
     public String getNamespaceURI() {
         return parent.getNamespaceURI();
     }
 
+    @Override
     public QName getWSDLElementName() {
         return getElementName();
     }
@@ -197,6 +203,7 @@ public class Operation extends Entity implements TWSDLOperation {
     /* (non-Javadoc)
     * @see TWSDLExtensible#addExtension(ExtensionImpl)
     */
+    @Override
     public void addExtension(TWSDLExtension e) {
         _helper.addExtension(e);
 
@@ -205,10 +212,12 @@ public class Operation extends Entity implements TWSDLOperation {
     /* (non-Javadoc)
      * @see TWSDLExtensible#extensions()
      */
+    @Override
     public Iterable<? extends TWSDLExtension> extensions() {
         return _helper.extensions();
     }
 
+    @Override
     public TWSDLExtensible getParent() {
         return parent;
     }
@@ -217,6 +226,7 @@ public class Operation extends Entity implements TWSDLOperation {
         this.parent = parent;
     }
 
+    @Override
     public Map<String, JClass> getFaults() {
         return unmodifiableFaultClassMap;
     }
@@ -235,6 +245,6 @@ public class Operation extends Entity implements TWSDLOperation {
     private String _parameterOrder;
     private String _uniqueKey;
     private ExtensibilityHelper _helper;
-    private final Map<String, JClass> faultClassMap = new HashMap<String, JClass>();
+    private final Map<String, JClass> faultClassMap = new HashMap<>();
     private final Map<String, JClass> unmodifiableFaultClassMap = Collections.unmodifiableMap(faultClassMap);
 }

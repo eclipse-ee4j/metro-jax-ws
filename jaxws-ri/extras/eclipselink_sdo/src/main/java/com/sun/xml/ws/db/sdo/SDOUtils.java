@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -66,11 +66,6 @@ import java.util.TimeZone;
 
 /**
  * A set of core utility methods that shapes the sdo databinding
- * Created by IntelliJ IDEA.
- * User: giglee
- * Date: May 13, 2009
- * Time: 10:21:12 AM
- * To change this template use File | Settings | File Templates.
  */
 public class SDOUtils {
 
@@ -147,13 +142,6 @@ public class SDOUtils {
     /**
      * Serialize a DataObject to the specified xml element in text xml
      *
-     * @param hc
-     * @param obj
-     * @param targetNamespace
-     * @param localName
-     * @return
-     * @throws ParserConfigurationException
-     * @throws IOException
      */
     public static Source sdoToXML(HelperContext hc, DataObject obj, String targetNamespace, String localName)
             throws ParserConfigurationException, IOException {
@@ -178,8 +166,6 @@ public class SDOUtils {
     /**
      * Register the types defined in the given schema with the given sdo helper context
      *
-     * @param context
-     * @param schemas
      */
     public static void registerSDOContext(HelperContext context, List<Source> schemas) {
         SDOXSDHelper xsdHelper = (SDOXSDHelper) context.getXSDHelper();
@@ -194,7 +180,7 @@ public class SDOUtils {
     public static List<Source> getSchemaClosureFromWSDL(Source wsdlSource) {
         String systemId = wsdlSource.getSystemId();
         Document wsdl = createDOM(wsdlSource);
-        List<Source> list = new ArrayList<Source>();
+        List<Source> list = new ArrayList<>();
         addSchemaFragmentSource(wsdl, systemId, list);
         return list;
     }
@@ -213,14 +199,13 @@ public class SDOUtils {
     }
 
     public static Map<String, Source> getMetadataClosure(List<Source> schemas) {
-        Map<String, Source> closureDocs = new HashMap<String, Source>();
-        Map<String, Source> currentDocs = new HashMap<String, Source>();
-        Set<String> remaining = new HashSet<String>();
+        Map<String, Source> closureDocs = new HashMap<>();
+        Map<String, Source> currentDocs = new HashMap<>();
         for (Source src : schemas) {
             currentDocs.put(src.getSystemId(), src);
         }
 
-        remaining.addAll(currentDocs.keySet());
+        Set<String> remaining = new HashSet<>(currentDocs.keySet());
 
         while (!remaining.isEmpty()) {
             Iterator<String> it = remaining.iterator();
@@ -231,7 +216,7 @@ public class SDOUtils {
                 currentDoc = loadSourceFromURL(current);
             }
 
-            Set<String> imports = new HashSet<String>();
+            Set<String> imports = new HashSet<>();
             currentDoc = getImports(currentDoc, imports);
             closureDocs.put(current, currentDoc);
             for (String importedDoc : imports) {
@@ -378,14 +363,14 @@ public class SDOUtils {
             TransformerFactory tf = XmlUtil.newTransformerFactory(false);
             Transformer trans = tf.newTransformer();
             trans.transform(src, sr);
-            System.out.println("**********\n" + bos.toString());
+            System.out.println("**********\n" + bos);
             bos.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static String dom2String(DOMSource domSrc) throws TransformerConfigurationException, TransformerException {
+    public static String dom2String(DOMSource domSrc) throws TransformerException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         StreamResult sr = new StreamResult(bos);
         TransformerFactory tf = XmlUtil.newTransformerFactory(false);
@@ -412,9 +397,6 @@ public class SDOUtils {
 
     /**
      * get the element name represented by this property
-     * @param context
-     * @param p
-     * @return
      */
     public static QName getPropertyElementName(HelperContext context, Property p) {
         XSDHelper helper = context.getXSDHelper();
@@ -451,9 +433,6 @@ public class SDOUtils {
     /**
      * Check whether a java class is supported
      * The builtin type includes all the default type mappings specified in the SDO Spec
-     * @param javaType
-     * @param qname
-     * @return
      */
     public static boolean validateBuiltinType(String javaType, QName qname) {
         return validateSupportedType(HelperProvider.getDefaultContext(), javaType, qname);
@@ -475,7 +454,7 @@ public class SDOUtils {
             try {
                 Class cls = Thread.currentThread().getContextClassLoader().loadClass(javaType);
                 Type type = typeHelper.getType(cls);
-                return type == null ? false : true;
+                return type != null;
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -485,17 +464,14 @@ public class SDOUtils {
 
     // all primitives listed here is supported
     private static boolean isPrimitive(String type) {
-        if (type.equals("int") ||
+        return type.equals("int") ||
                 type.equals("short") ||
                 type.equals("long") ||
                 type.equals("byte") ||
                 type.equals("float") ||
                 type.equals("double") ||
-                type.equals("boolean")) {
-            return true;
-        }
+                type.equals("boolean");
         // the rest we will let toplink handle it
-        return false;
     }
 
 
@@ -504,12 +480,12 @@ public class SDOUtils {
         try {
             fin = new FileInputStream(f);
             StreamSource source = new StreamSource(fin);
-            source.setSystemId(f.toURL().toExternalForm());
-            List<Source> main_schema = new ArrayList<Source>();
+            source.setSystemId(f.toURI().toURL().toExternalForm());
+            List<Source> main_schema = new ArrayList<>();
             main_schema.add(source);
             Map<String, Source> map = SDOUtils.getMetadataClosure(main_schema);
 
-            Set<SchemaInfo> schemas = new HashSet<SchemaInfo>();
+            Set<SchemaInfo> schemas = new HashSet<>();
             for (Map.Entry<String, Source> entry : map.entrySet()) {
                 SchemaInfo info = new SchemaInfo(entry.getKey(), null, entry.getValue());
                 schemas.add(info);
@@ -525,7 +501,7 @@ public class SDOUtils {
 
 
     public static Set<SchemaInfo> getSchemas(String filePath) throws Exception {
-        Set<SchemaInfo> schemas = new HashSet<SchemaInfo>();
+        Set<SchemaInfo> schemas = new HashSet<>();
 
         Document document = newDocumentBuilder().parse(new File(filePath));
         Element rootEl = document.getDocumentElement();
@@ -536,7 +512,7 @@ public class SDOUtils {
             Element types = null;
             Node n = rootEl.getFirstChild();
             while (types == null) {
-                if (n instanceof Element && ((Element)n).getLocalName().equals("types")) {
+                if (n instanceof Element && n.getLocalName().equals("types")) {
                     types = (Element)n;
                 } else {
                     n = n.getNextSibling();
@@ -545,8 +521,8 @@ public class SDOUtils {
             NodeList nl = types.getChildNodes();
             for (int i = 0; i < nl.getLength(); i++ ) {
                 Node x = nl.item(i);
-                if (x instanceof Element && ((Element)x).getLocalName().equals("schema")) {
-                    SchemaInfo info = new SchemaInfo(filePath, null, new DOMSource((Element)x));
+                if (x instanceof Element && x.getLocalName().equals("schema")) {
+                    SchemaInfo info = new SchemaInfo(filePath, null, new DOMSource(x));
                     schemas.add(info);
                 }
             }

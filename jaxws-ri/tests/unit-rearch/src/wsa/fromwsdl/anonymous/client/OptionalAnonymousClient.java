@@ -13,7 +13,7 @@ package wsa.fromwsdl.anonymous.client;
 import junit.framework.TestCase;
 import testutil.WsaUtils;
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * @author Arun Gupta

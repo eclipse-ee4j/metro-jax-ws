@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,9 +20,9 @@ import com.sun.xml.ws.transport.http.WSHTTPConnection;
 import com.sun.xml.ws.developer.JAXWSProperties;
 import com.sun.xml.ws.resources.WsservletMessages;
 
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.spi.http.HttpExchange;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.spi.http.HttpExchange;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -70,7 +70,7 @@ final class PortableConnectionImpl extends WSHTTPConnection implements WebServic
             List<String> values = entry.getValue();
             // ignore headers that interfere with our correct operations
             if (!name.equalsIgnoreCase("Content-Length") && !name.equalsIgnoreCase("Content-Type")) {
-                r.put(name,new ArrayList<String>(values));
+                r.put(name, new ArrayList<>(values));
             }
         }
     }
@@ -224,7 +224,7 @@ final class PortableConnectionImpl extends WSHTTPConnection implements WebServic
 
     @Override
     public String getRequestURI() {
-        return httpExchange.getRequestURI().toString();
+        return httpExchange.getRequestURI();
     }
 
     @Override

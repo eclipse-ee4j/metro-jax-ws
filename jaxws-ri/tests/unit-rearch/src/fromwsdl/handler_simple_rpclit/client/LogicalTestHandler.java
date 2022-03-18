@@ -12,7 +12,7 @@ package fromwsdl.handler_simple_rpclit.client;
 
 import java.util.Map;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -20,10 +20,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 
-import javax.xml.ws.LogicalMessage;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.LogicalHandler;
-import javax.xml.ws.handler.LogicalMessageContext;
+import jakarta.xml.ws.LogicalMessage;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.LogicalHandler;
+import jakarta.xml.ws.handler.LogicalMessageContext;
 
 import org.w3c.dom.Node;
 

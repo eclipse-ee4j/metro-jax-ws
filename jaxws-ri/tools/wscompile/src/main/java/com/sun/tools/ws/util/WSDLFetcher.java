@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,11 +54,7 @@ public class WSDLFetcher {
 
     /**
      *  Fetches the wsdls in the DOMForest to the options.destDir
-     * @param forest
      * @return location of fetched root WSDL document
-     * @throws IOException
-     * @throws XMLStreamException
-     * @throws FileNotFoundException
      */
     public String fetchWsdls(MetadataFinder forest) throws IOException, XMLStreamException {
         String rootWsdl = null;
@@ -118,7 +114,7 @@ public class WSDLFetcher {
 
     }
     private Map<String,String> createDocumentMap(MetadataFinder forest, File baseDir, final String rootWsdl, Set<String> externalReferences) {
-        Map<String,String> map = new HashMap<String,String>();
+        Map<String,String> map = new HashMap<>();
         String rootWsdlFileName = rootWsdl;
         String rootWsdlName;
 

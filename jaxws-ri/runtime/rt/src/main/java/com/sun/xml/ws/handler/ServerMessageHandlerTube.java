@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,10 +23,10 @@ import com.sun.xml.ws.binding.BindingImpl;
 import com.sun.xml.ws.client.HandlerConfiguration;
 import com.sun.xml.ws.message.DataHandlerAttachment;
 
-import javax.activation.DataHandler;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.Handler;
+import jakarta.activation.DataHandler;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.Handler;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -54,16 +54,17 @@ public class ServerMessageHandlerTube extends HandlerTube{
     }
 
     private void setUpHandlersOnce() {
-        handlers = new ArrayList<Handler>();
+        handlers = new ArrayList<>();
         HandlerConfiguration handlerConfig = ((BindingImpl) getBinding()).getHandlerConfig();
         List<MessageHandler> msgHandlersSnapShot= handlerConfig.getMessageHandlers();
         if (!msgHandlersSnapShot.isEmpty()) {
             handlers.addAll(msgHandlersSnapShot);
-            roles = new HashSet<String>();
+            roles = new HashSet<>();
             roles.addAll(handlerConfig.getRoles());
         }
     }
 
+    @Override
     void callHandlersOnResponse(MessageUpdatableContext context, boolean handleFault) {
         //Lets copy all the MessageContext.OUTBOUND_ATTACHMENT_PROPERTY to the message
         Map<String, DataHandler> atts = (Map<String, DataHandler>) context.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);        
@@ -80,15 +81,13 @@ public class ServerMessageHandlerTube extends HandlerTube{
             //SERVER-SIDE
             processor.callHandlersResponse(HandlerProcessor.Direction.OUTBOUND, context, handleFault);
 
-        } catch (WebServiceException wse) {
+        } catch (RuntimeException wse) {
             //no rewrapping
             throw wse;
-        } catch (RuntimeException re) {
-            throw re;
-
         }
     }
 
+    @Override
     boolean callHandlersOnRequest(MessageUpdatableContext context, boolean isOneWay) {
         boolean handlerResult;
         try {
@@ -106,20 +105,24 @@ public class ServerMessageHandlerTube extends HandlerTube{
         return handlerResult;
     }
 
+    @Override
     protected void resetProcessor() {
     	processor = null;
     }
     
+    @Override
     void setUpProcessor() {
         if(!handlers.isEmpty() && processor == null) {
             processor = new SOAPHandlerProcessor(false, this, getBinding(), handlers);
         }
     }
 
+    @Override
     void closeHandlers(MessageContext mc) {
         closeServersideHandlers(mc);
 
     }
+    @Override
     MessageUpdatableContext getContext(Packet packet) {
        MessageHandlerContextImpl context = new MessageHandlerContextImpl(seiModel, getBinding(), port, packet, roles);
        return context;
@@ -132,6 +135,7 @@ public class ServerMessageHandlerTube extends HandlerTube{
       super.initiateClosing(mc);  
     }
 
+   @Override
    public AbstractFilterTubeImpl copy(TubeCloner cloner) {
         return new ServerMessageHandlerTube(this, cloner);
     }

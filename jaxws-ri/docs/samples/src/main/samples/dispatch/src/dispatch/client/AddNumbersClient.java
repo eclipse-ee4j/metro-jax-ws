@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,20 +18,20 @@ import java.rmi.RemoteException;
 import java.util.concurrent.Future;
 import java.util.concurrent.ExecutionException;
 
-import javax.xml.ws.AsyncHandler;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.ProtocolException;
-import javax.xml.ws.Response;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.AsyncHandler;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.Response;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebServiceException;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
-import javax.xml.ws.soap.SOAPBinding;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.ws.soap.SOAPBinding;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
@@ -352,10 +352,10 @@ public class AddNumbersClient {
     }
 
 
-    private static javax.xml.bind.JAXBContext createJAXBContext() {
+    private static jakarta.xml.bind.JAXBContext createJAXBContext() {
         try {
-            return javax.xml.bind.JAXBContext.newInstance(dispatch.client.ObjectFactory.class);
-        } catch (javax.xml.bind.JAXBException e) {
+            return jakarta.xml.bind.JAXBContext.newInstance(dispatch.client.ObjectFactory.class);
+        } catch (jakarta.xml.bind.JAXBException e) {
             throw new WebServiceException(e.getMessage(), e);
         }
     }

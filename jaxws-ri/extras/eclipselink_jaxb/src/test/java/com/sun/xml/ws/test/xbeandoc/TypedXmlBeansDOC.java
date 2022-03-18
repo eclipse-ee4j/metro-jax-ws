@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,14 +10,14 @@
 
 package com.sun.xml.ws.test.xbeandoc;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebResult;
-import javax.jws.WebService;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.ws.Holder;
-import javax.xml.ws.RequestWrapper;
-import javax.xml.ws.ResponseWrapper;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebParam;
+import jakarta.jws.WebResult;
+import jakarta.jws.WebService;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.RequestWrapper;
+import jakarta.xml.ws.ResponseWrapper;
 
 
 /**
@@ -35,8 +35,6 @@ public interface TypedXmlBeansDOC {
 
     /**
      *
-     * @param param1
-     * @param countries
      * @return
      *     returns java.lang.String
      */
@@ -52,8 +50,6 @@ public interface TypedXmlBeansDOC {
 
     /**
      *
-     * @param param0
-     * @param param1
      * @return
      *     returns com.sun.xml.ws.test.xbeandoc.CountryInfoType
      */
@@ -69,8 +65,6 @@ public interface TypedXmlBeansDOC {
 
     /**
      *
-     * @param param1
-     * @param countries
      */
     @WebMethod(action = "http://www.openuri.org/addCountry")
     @RequestWrapper(localName = "addCountry", targetNamespace = "http://www.openuri.org/", className = "com.sun.xml.ws.test.xbeandoc.AddCountry")
@@ -83,8 +77,6 @@ public interface TypedXmlBeansDOC {
 
     /**
      *
-     * @param param1
-     * @param countries
      * @return
      *     returns java.lang.String
      */

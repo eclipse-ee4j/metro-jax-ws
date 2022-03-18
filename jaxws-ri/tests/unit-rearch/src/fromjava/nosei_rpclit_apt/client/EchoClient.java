@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,8 +16,8 @@ import junit.framework.TestSuite;
 import testutil.ClientServerTestUtil;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Holder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,9 +63,9 @@ public class EchoClient extends TestCase {
         assertTrue(stub.echoGenericString(var).getValue() == null);
 
         var.setValue(33);
-        assertTrue(stub.echoGenericInteger(var).getValue().equals(new Integer(33)));
+        assertTrue(stub.echoGenericInteger(var).getValue().equals(Integer.valueOf(33)));
 
-        assertTrue(stub.echoGenericObject(new Integer(66)).equals(new Integer(66)));
+        assertTrue(stub.echoGenericObject(Integer.valueOf(66)).equals(Integer.valueOf(66)));
         assertTrue(stub.echoGenericObject("bill").equals("bill"));
     }
 
@@ -167,7 +167,7 @@ public class EchoClient extends TestCase {
 
         assertTrue(stub.echoInHeader(33, 34L, "fred") == 34L);
 
-        Holder<Long> longHolder = new Holder<Long>(new Long(44));
+        Holder<Long> longHolder = new Holder<Long>(Long.valueOf(44));
         assertTrue(stub.echoInOutHeader(33, longHolder, "fred").equals("fred88"));
         assertTrue(longHolder.value == 88L);
 

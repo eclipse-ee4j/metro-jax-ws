@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,14 +9,12 @@
  */
 
 package com.oracle.xmlns.webservices.jaxws_databinding;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 import java.lang.annotation.Annotation;
-
-import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 
 
 /**
@@ -42,7 +40,7 @@ import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "soap-binding")
-public class XmlSOAPBinding implements javax.jws.soap.SOAPBinding {
+public class XmlSOAPBinding implements jakarta.jws.soap.SOAPBinding {
 
     @XmlAttribute(name = "style")
     protected SoapBindingStyle style;
@@ -137,21 +135,21 @@ public class XmlSOAPBinding implements javax.jws.soap.SOAPBinding {
 
     @Override
     public Style style() {
-        return nullSafe(style, Style.DOCUMENT);
+        return Util.nullSafe(style, Style.DOCUMENT);
     }
 
     @Override
     public Use use() {
-        return nullSafe(use, Use.LITERAL);
+        return Util.nullSafe(use, Use.LITERAL);
     }
 
     @Override
     public ParameterStyle parameterStyle() {
-        return nullSafe(parameterStyle, ParameterStyle.WRAPPED);
+        return Util.nullSafe(parameterStyle, ParameterStyle.WRAPPED);
     }
 
     @Override
     public Class<? extends Annotation> annotationType() {
-        return javax.jws.soap.SOAPBinding.class;
+        return jakarta.jws.soap.SOAPBinding.class;
     }
 }

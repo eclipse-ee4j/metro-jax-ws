@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,9 +30,10 @@ public class MIMEMultipartRelated extends ExtensionImpl {
 
     public MIMEMultipartRelated(Locator locator) {
         super(locator);
-        _parts = new ArrayList<MIMEPart>();
+        _parts = new ArrayList<>();
     }
 
+    @Override
     public QName getElementName() {
         return MIMEConstants.QNAME_MULTIPART_RELATED;
     }
@@ -45,6 +46,7 @@ public class MIMEMultipartRelated extends ExtensionImpl {
         return _parts;
     }
 
+    @Override
     public void withAllSubEntitiesDo(EntityAction action) {
         super.withAllSubEntitiesDo(action);
 
@@ -53,11 +55,13 @@ public class MIMEMultipartRelated extends ExtensionImpl {
         }
     }
 
+    @Override
     public void accept(ExtensionVisitor visitor) throws Exception {
         visitor.preVisit(this);
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
     }
 

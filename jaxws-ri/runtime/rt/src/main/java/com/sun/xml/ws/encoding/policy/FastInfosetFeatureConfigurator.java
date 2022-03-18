@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,8 +24,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import javax.xml.namespace.QName;
 
-import static com.sun.xml.ws.encoding.policy.EncodingConstants.OPTIMIZED_FI_SERIALIZATION_ASSERTION;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceFeature;
 
 /**
  * A configurator provider for FastInfoset policy assertions.
@@ -44,18 +43,19 @@ public class FastInfosetFeatureConfigurator implements PolicyFeatureConfigurator
      * @param policyMap the policy map.
      * @throws PolicyException If retrieving the policy triggered an exception.
      */
+     @Override
      public Collection<WebServiceFeature> getFeatures(final PolicyMapKey key, final PolicyMap policyMap) throws PolicyException {
-        final Collection<WebServiceFeature> features = new LinkedList<WebServiceFeature>();
+        final Collection<WebServiceFeature> features = new LinkedList<>();
         if ((key != null) && (policyMap != null)) {
             Policy policy = policyMap.getEndpointEffectivePolicy(key);
-            if (null!=policy && policy.contains(OPTIMIZED_FI_SERIALIZATION_ASSERTION)) {
+            if (null!=policy && policy.contains(EncodingConstants.OPTIMIZED_FI_SERIALIZATION_ASSERTION)) {
                 Iterator <AssertionSet> assertions = policy.iterator();
                 while(assertions.hasNext()){
                     AssertionSet assertionSet = assertions.next();
                     Iterator<PolicyAssertion> policyAssertion = assertionSet.iterator();
                     while(policyAssertion.hasNext()){
                         PolicyAssertion assertion = policyAssertion.next();
-                        if(OPTIMIZED_FI_SERIALIZATION_ASSERTION.equals(assertion.getName())){
+                        if(EncodingConstants.OPTIMIZED_FI_SERIALIZATION_ASSERTION.equals(assertion.getName())){
                             String value = assertion.getAttributeValue(enabled);
                             boolean isFastInfosetEnabled = Boolean.valueOf(value.trim());
                             features.add(new FastInfosetFeature(isFastInfosetEnabled));

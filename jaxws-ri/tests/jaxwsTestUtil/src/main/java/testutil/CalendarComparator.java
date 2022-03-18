@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -64,16 +64,16 @@ public class CalendarComparator extends junit.framework.Assert {
             return;
 
         if (cal1 == null) {
-            assertTrue("expected null calendar", cal2 == null);
+            assertNull("expected null calendar", cal2);
             return;
         } else {
-            assertTrue("expected non-null calendar", cal2 != null);
+            assertNotNull("expected non-null calendar", cal2);
         }
 
         String cal1String = getCalendarString(cal1);
         String cal2String = getCalendarString(cal2);
         if (!cal1String.equals(cal2String)) {
-            assertTrue("Excpected calendar: "+cal1String+" but got: "+cal2String, false);
+            fail("Excpected calendar: " + cal1String + " but got: " + cal2String);
         }
 
         Method getDSTSavingsMethod = TimeZone.getDefault().getClass().getMethod("getDSTSavings", null);
@@ -84,7 +84,7 @@ public class CalendarComparator extends junit.framework.Assert {
                 ((Integer)getDSTSavingsMethod.invoke(cal2.getTimeZone(), null)).intValue() : 0);
 */
         if (!cal1.getTime().equals(cal2.getTime())) {
-            assertTrue("Expected date of: "+cal1.getTime()+" but got: "+cal2.getTime(), false);
+            fail("Expected date of: " + cal1.getTime() + " but got: " + cal2.getTime());
         }
 /*        if (offset1 != offset2) {
             assertTrue("Expected an offset of: "+offset1+" but got: "+offset2, false);

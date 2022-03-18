@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,7 +53,7 @@ public class Service extends ModelObject {
         if (portsByName.size() != ports.size()) {
             initializePortsByName();
         }
-        return (Port) portsByName.get(n);
+        return portsByName.get(n);
     }
 
     /* serialization */
@@ -94,12 +94,13 @@ public class Service extends ModelObject {
         javaInterface = i;
     }
 
+    @Override
     public void accept(ModelVisitor visitor) throws Exception {
         visitor.visit(this);
     }
 
     private QName name;
     private List<Port> ports = new ArrayList();
-    private Map<QName, Port> portsByName = new HashMap<QName, Port>();
+    private Map<QName, Port> portsByName = new HashMap<>();
     private JavaInterface javaInterface;
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!--
 
-    Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2010, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,9 +15,18 @@
 
 <!ENTITY nbsp "&#xA0;">
 
-<!ENTITY jax-ws.release.spec.version "$release.spec.version">
-<!ENTITY jax-ws.release.impl.version "$release.impl.version">
+<!ENTITY metadata.spec.name "Jakarta Web Services Metadata">
 
-<!ENTITY jax-ws.product.name.short "JAX-WS RI">
-<!ENTITY jax-ws.product.name "&jax-ws.product.name.short; &jax-ws.release.impl.version;">
+<!ENTITY soap.spec.name "Jakarta SOAP with Attachments">
+
+<!ENTITY binding.spec.name "Jakarta XML Binding">
+<!ENTITY binding.spec.version "2.3">
+<!ENTITY binding.impl.name "Eclipse Implementation of JAXB">
+
+<!ENTITY ws.spec.name "Jakarta XML Web Services">
+<!ENTITY ws.spec.version "2.3">
+<!ENTITY ws.spec.name.full "&ws.spec.name; $ws.spec.version;">
+
+<!ENTITY ws.impl.name "Eclipse Implementation of XML Web Services">
+<!ENTITY ws.impl.name.full "&ws.impl.name; &version;">
 <!ENTITY jax-ws.home "JAXWS_HOME">

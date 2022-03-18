@@ -15,7 +15,7 @@ import static fromwsdl.handler_singlepipe.common.TestConstants.*;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import java.util.Arrays;
 import java.util.List;
 

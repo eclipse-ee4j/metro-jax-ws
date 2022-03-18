@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,16 +22,16 @@ import com.sun.xml.ws.policy.jaxws.spi.PolicyFeatureConfigurator;
 import com.sun.xml.ws.policy.privateutil.PolicyLogger;
 import com.sun.xml.ws.addressing.W3CAddressingMetadataConstants;
 import com.sun.xml.ws.resources.ModelerMessages;
-import com.sun.xml.bind.util.Which;
+import org.glassfish.jaxb.core.util.Which;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import javax.xml.namespace.QName;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.soap.AddressingFeature;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.AddressingFeature;
 
 /**
  * This Policy extension configures the WSDLModel with AddressingFeature when Addressing assertions are present in the
@@ -53,9 +53,10 @@ public class AddressingFeatureConfigurator implements PolicyFeatureConfigurator 
     public AddressingFeatureConfigurator() {
     }
 
+    @Override
     public Collection<WebServiceFeature> getFeatures(final PolicyMapKey key, final PolicyMap policyMap) throws PolicyException {
         LOGGER.entering(key, policyMap);
-        final Collection<WebServiceFeature> features = new LinkedList<WebServiceFeature>();
+        final Collection<WebServiceFeature> features = new LinkedList<>();
         if ((key != null) && (policyMap != null)) {
             final Policy policy = policyMap.getEndpointEffectivePolicy(key);
             for (QName addressingAssertionQName : ADDRESSING_ASSERTIONS) {

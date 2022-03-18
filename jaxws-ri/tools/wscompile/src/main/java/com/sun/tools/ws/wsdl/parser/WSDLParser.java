@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -56,6 +56,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.ServiceLoader;
 import org.w3c.dom.Node;
 
 /**
@@ -104,7 +105,7 @@ public class WSDLParser {
         register(new W3CAddressingMetadataExtensionHandler(extensionHandlers, errReceiver));
         register(new Policy12ExtensionHandler());
         register(new Policy15ExtensionHandler());
-        for (TWSDLExtensionHandler te : ServiceFinder.find(TWSDLExtensionHandler.class)) {
+        for (TWSDLExtensionHandler te : ServiceFinder.find(TWSDLExtensionHandler.class, ServiceLoader.load(TWSDLExtensionHandler.class))) {
             register(te);
         }
 
@@ -116,7 +117,7 @@ public class WSDLParser {
 
     public void addParserListener(ParserListener l) {
         if (listeners == null) {
-            listeners = new ArrayList<ParserListener>();
+            listeners = new ArrayList<>();
         }
         listeners.add(l);
     }
@@ -137,6 +138,13 @@ public class WSDLParser {
             }
 
             NodeList nl = binding.getElementsByTagNameNS(
+                "https://jakarta.ee/xml/ns/jakartaee", "handler-chains");
+            for(int i = 0; i < nl.getLength(); i++){
+                options.addHandlerChainConfiguration((Element) nl.item(i));
+            }
+
+            // fallback to pre-jakarta version
+            nl = binding.getElementsByTagNameNS(
                 "http://java.sun.com/xml/ns/javaee", "handler-chains");
             for(int i = 0; i < nl.getLength(); i++){
                 options.addHandlerChainConfiguration((Element) nl.item(i));
@@ -151,9 +159,9 @@ public class WSDLParser {
     }
 
     private WSDLDocument buildWSDLDocument(){
-        /**
-         * Currently we are working off first WSDL document
-         * TODO: add support of creating WSDLDocument from fromjava.collection of WSDL documents
+        /*
+          Currently we are working off first WSDL document
+          TODO: add support of creating WSDLDocument from fromjava.collection of WSDL documents
          */
 
         String location = forest.getRootWSDL();

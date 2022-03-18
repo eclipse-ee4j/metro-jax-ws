@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,14 +12,14 @@ package xop.hello.client;
 
 import testutil.AttachmentHelper;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.SOAPBinding;
 import java.awt.*;
 import java.io.InputStream;
 
@@ -35,9 +35,9 @@ public class DispatchTest extends TestCase {
         super(name);
     }
 
-    private static javax.xml.bind.JAXBContext createJAXBContext() {
+    private static jakarta.xml.bind.JAXBContext createJAXBContext() {
         try {
-            return javax.xml.bind.JAXBContext.newInstance(ObjectFactory.class);
+            return jakarta.xml.bind.JAXBContext.newInstance(ObjectFactory.class);
         } catch (Exception e) {
             throw new WebServiceException(e.getMessage(), e);
         }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,18 +27,18 @@
     <section xml:id="md-introduction">
         <title>Introduction</title>
 
-        <para>The JAX-WS reference implementation (RI) used to be dependent
-        on the JAXB RI for databinding. JAXB and JAX-WS implementations have 
+        <para>The &ws.impl.name; used to be dependent
+        on the &binding.impl.name; for databinding. &binding.spec.name; and &ws.spec.name; implementations have 
         been decoupled, and databinding is now modular.
-        The Eclipselink JAXB implementation, plus EclipseLink extensions,
+        The EclipseLink &binding.spec.name; implementation, plus EclipseLink extensions,
         is called MOXy. The <code>org.eclipse.persistence.moxy.jar</code> file 
-        is bundled with GlassFish Server, which supports the JAXB RI and MOXy 
+        is bundled with GlassFish Server, which supports the &binding.impl.name; and MOXy 
         as databinding providers.
         For standalone distributions, databinding plugins can be found in
         <code>lib/plugins</code> folder in the distribution. The MOXy
-        implementation (library) is not bundled with JAX-WS. It's expected from
+        implementation (library) is not bundled with &ws.impl.name;. It's expected from
         user to provide MOXy jars to classpath whenever MOXy databinding is 
-        required. EclipseLink JAXB compiler is not included as well, but can be 
+        required. EclipseLink &binding.spec.name; compiler is not included as well, but can be 
         used with GlassFish Server. Download the EclipseLink zip file at
         <link xlink:href="http://www.eclipse.org/eclipselink/downloads/">http://www.eclipse.org/eclipselink/downloads/</link>
         and unzip it.
@@ -55,11 +55,11 @@
         <itemizedlist>
             <listitem>
                 <emphasis role="bold"><code>com.sun.xml.ws.db.glassfish.JAXBRIContextFactory</code></emphasis>
-                Specifies the JAXB reference implementation. This is the default.
+                Specifies the &binding.spec.name; reference implementation. This is the default.
             </listitem>
             <listitem>
                 <emphasis role="bold"><code>com.sun.xml.ws.db.toplink.JAXBContextFactory</code></emphasis>
-                Specifies the EclipseLink MOXy JAXB binding.
+                Specifies the EclipseLink MOXy &binding.spec.name; binding.
             </listitem>
         </itemizedlist>
 
@@ -84,17 +84,17 @@
                 <itemizedlist>
                     <listitem>
                         <emphasis role="bold"><code>com.oracle.webservices.api.databinding.DatabindingModeFeature.GLASSFISH_JAXB</code></emphasis>
-                        Specifies the JAXB reference implementation. This is the default.
+                        Specifies the &binding.impl.name;. This is the default.
                     </listitem>
                     <listitem>
                         <emphasis role="bold"><code>com.sun.xml.ws.db.toplink.JAXBContextFactory.ECLIPSELINK_JAXB</code></emphasis>
-                        Specifies Eclipselink MOXy JAXB binding.
+                        Specifies Eclipselink MOXy &binding.spec.name; binding.
                     </listitem>
                 </itemizedlist>
 
                 For example:
                 <programlisting language="java" linenumbering="unnumbered">
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.WebServiceFeature;
 import com.oracle.webservices.api.databinding.DatabindingModeFeature;
 import com.sun.xml.ws.db.toplink.JAXBContextFactory;
 ...
@@ -107,7 +107,7 @@ WebServiceFeature[] features = { new DatabindingModeFeature(JAXBContextFactory.E
 
                 For example:
                 <programlisting language="java" linenumbering="unnumbered">
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 import com.oracle.webservices.api.databinding.DatabindingMode;
 import com.sun.xml.ws.db.toplink.JAXBContextFactory;
 ...

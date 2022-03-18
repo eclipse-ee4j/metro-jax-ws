@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,6 @@
 package com.sun.tools.ws.processor.modeler.wsdl;
 
 import com.sun.tools.ws.processor.generator.Names;
-import static com.sun.tools.ws.processor.modeler.wsdl.WSDLModelerBase.getExtensionOfType;
 import com.sun.tools.ws.wscompile.ErrorReceiver;
 import com.sun.tools.ws.wscompile.WsimportOptions;
 import com.sun.tools.ws.wscompile.Options;
@@ -27,6 +26,7 @@ import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.*;
 
@@ -41,30 +41,30 @@ public class PseudoSchemaBuilder {
     private final StringWriter buf = new StringWriter();
     private final WSDLDocument wsdlDocument;
     private WSDLModeler wsdlModeler;
-    private final List<InputSource> schemas = new ArrayList<InputSource>();
-    private final HashMap<QName, Port> bindingNameToPortMap = new HashMap<QName, Port>();
+    private final List<InputSource> schemas = new ArrayList<>();
+    private final HashMap<QName, Port> bindingNameToPortMap = new HashMap<>();
     private static final String w3ceprSchemaBinding = "<bindings\n" +
-            "  xmlns=\"http://java.sun.com/xml/ns/jaxb\"\n" +
+            "  xmlns=\"https://jakarta.ee/xml/ns/jaxb\"\n" +
             "  xmlns:wsa=\"http://www.w3.org/2005/08/addressing\"\n" +
             "  xmlns:xjc=\"http://java.sun.com/xml/ns/jaxb/xjc\"\n" +
-            "  version=\"2.1\">\n" +
+            "  version=\"3.0\">\n" +
             "  \n" +
             "  <bindings scd=\"x-schema::wsa\" if-exists=\"true\">\n" +
    //comment the following, otw JAXB won't generate ObjectFactory, classes from wsa schema. See JAX-WS-804
    //         "    <schemaBindings map=\"false\" />\n" +
             "    <bindings scd=\"wsa:EndpointReference\">\n" +
-            "      <class ref=\"javax.xml.ws.wsaddressing.W3CEndpointReference\" xjc:recursive=\"true\"/>\n" +
+            "      <class ref=\"jakarta.xml.ws.wsaddressing.W3CEndpointReference\" xjc:recursive=\"true\"/>\n" +
             "    </bindings>\n" +
             "    <bindings scd=\"~wsa:EndpointReferenceType\">\n" +
-            "      <class ref=\"javax.xml.ws.wsaddressing.W3CEndpointReference\" xjc:recursive=\"true\"/>\n" +
+            "      <class ref=\"jakarta.xml.ws.wsaddressing.W3CEndpointReference\" xjc:recursive=\"true\"/>\n" +
             "    </bindings>\n" +
             "  </bindings>\n" +
             "</bindings>";
 
     private static final String memberSubmissionEPR = "<bindings\n" +
-            "  xmlns=\"http://java.sun.com/xml/ns/jaxb\"\n" +
+            "  xmlns=\"https://jakarta.ee/xml/ns/jaxb\"\n" +
             "  xmlns:wsa=\"http://schemas.xmlsoap.org/ws/2004/08/addressing\"\n" +
-            "  version=\"2.1\">\n" +
+            "  version=\"3.0\">\n" +
             "  \n" +
             "  <bindings scd=\"x-schema::wsa\" if-exists=\"true\">\n" +
 //comment the following, otw JAXB won't generate ObjectFactory, classes from wsa schema. See JAX-WS-804
@@ -109,12 +109,7 @@ public class PseudoSchemaBuilder {
     }
 
     private static byte[] getUTF8Bytes(String w3ceprSchemaBinding1) {
-        try {
-            return w3ceprSchemaBinding1.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException unexpected) {
-            // should never happen
-            throw new IllegalStateException(unexpected);
-        }
+        return w3ceprSchemaBinding1.getBytes(StandardCharsets.UTF_8);
     }
 
 
@@ -140,12 +135,12 @@ public class PseudoSchemaBuilder {
         Binding binding = port.resolveBinding(wsdlDocument);
 
         SOAPBinding soapBinding =
-                    (SOAPBinding)getExtensionOfType(binding, SOAPBinding.class);
+                    (SOAPBinding) WSDLModelerBase.getExtensionOfType(binding, SOAPBinding.class);
         //lets try and see if its SOAP 1.2. dont worry about extension flag, its
         // handled much earlier
         if (soapBinding == null) {
                     soapBinding =
-                            (SOAPBinding)getExtensionOfType(binding, SOAP12Binding.class);
+                            (SOAPBinding) WSDLModelerBase.getExtensionOfType(binding, SOAP12Binding.class);
         }
         if(soapBinding == null)
             return;
@@ -177,9 +172,6 @@ public class PseudoSchemaBuilder {
     }
 
     /**
-     * @param portType
-     * @param operation
-     * @param bindingOperation
      */
     private void buildAsync(PortType portType, Operation operation, BindingOperation bindingOperation) {
         String operationName = getCustomizedOperationName(operation);//operation.getName();
@@ -189,7 +181,7 @@ public class PseudoSchemaBuilder {
         if(operation.getOutput() != null)
             outputMessage = operation.getOutput().resolveMessage(wsdlDocument);
         if(outputMessage != null){
-            List<MessagePart> allParts = new ArrayList<MessagePart>(outputMessage.getParts());
+            List<MessagePart> allParts = new ArrayList<>(outputMessage.getParts());
             if(options != null && options.additionalHeaders) {
                 List<MessagePart> addtionalHeaderParts = wsdlModeler.getAdditionHeaderParts(bindingOperation, outputMessage, false);
                 allParts.addAll(addtionalHeaderParts);
@@ -201,7 +193,7 @@ public class PseudoSchemaBuilder {
     }
 
     private String getCustomizedOperationName(Operation operation) {
-        JAXWSBinding jaxwsCustomization = (JAXWSBinding)getExtensionOfType(operation, JAXWSBinding.class);
+        JAXWSBinding jaxwsCustomization = (JAXWSBinding) WSDLModelerBase.getExtensionOfType(operation, JAXWSBinding.class);
         String operationName = (jaxwsCustomization != null)?((jaxwsCustomization.getMethodName() != null)?jaxwsCustomization.getMethodName().getName():null):null;
         if(operationName != null){
             if(Names.isJavaReservedWord(operationName)){
@@ -214,7 +206,7 @@ public class PseudoSchemaBuilder {
     }
 
     private void writeImports(QName elementName, List<MessagePart> parts){
-        Set<String> uris = new HashSet<String>();
+        Set<String> uris = new HashSet<>();
         for(MessagePart p:parts){
             String ns = p.getDescriptor().getNamespaceURI();
             if(!uris.contains(ns) && !ns.equals("http://www.w3.org/2001/XMLSchema") && !ns.equals(elementName.getNamespaceURI())){
@@ -229,10 +221,10 @@ public class PseudoSchemaBuilder {
 
         print(
                 "<xs:schema xmlns:xs=''http://www.w3.org/2001/XMLSchema''" +
-                "           xmlns:jaxb=''http://java.sun.com/xml/ns/jaxb''" +
+                "           xmlns:jaxb=''https://jakarta.ee/xml/ns/jaxb''" +
                 "           xmlns:xjc=''http://java.sun.com/xml/ns/jaxb/xjc''" +
                 "           jaxb:extensionBindingPrefixes=''xjc''" +
-                "           jaxb:version=''1.0''" +
+                "           jaxb:version=''3.0''" +
                 "           targetNamespace=''{0}''>",
                 elementName.getNamespaceURI());
 

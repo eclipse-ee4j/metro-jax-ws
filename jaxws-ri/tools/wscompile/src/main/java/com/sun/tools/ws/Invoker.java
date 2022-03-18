@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,10 +14,10 @@ import com.sun.istack.tools.MaskingClassLoader;
 import com.sun.istack.tools.ParallelWorldClassLoader;
 import com.sun.tools.ws.resources.WscompileMessages;
 import com.sun.tools.ws.wscompile.Options;
-import com.sun.xml.bind.util.Which;
+import org.glassfish.jaxb.core.util.Which;
 
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebServiceFeature;
 import javax.xml.namespace.QName;
 import java.io.OutputStream;
 import java.io.IOException;
@@ -52,6 +52,7 @@ public final class Invoker {
             "com.sun.relaxng.",
             "com.sun.xml.xsom.",
             "com.sun.xml.bind.",
+            "org.glassfish.jaxb.",
             "com.ctc.wstx.", //wsimport, wsgen ant task
             "org.codehaus.stax2.", //wsimport, wsgen ant task
             "com.sun.xml.messaging.saaj.", //wsgen ant task
@@ -90,9 +91,10 @@ public final class Invoker {
         ClassLoader oldcc = Thread.currentThread().getContextClassLoader();
         try {
             ClassLoader cl = Invoker.class.getClassLoader();
-            if(Arrays.asList(args).contains("-Xendorsed"))
-                cl = createClassLoader(cl); // perform JDK6 workaround hack
-            else {
+            //XXX - kept here for the future to resurect ability to run with older apis
+//            if(Arrays.asList(args).contains("-Xendorsed"))
+//                cl = createClassLoader(cl); // perform JDK6 workaround hack
+//            else {
                 int targetArgIndex = Arrays.asList(args).indexOf("-target"); 
                 Options.Target targetVersion;
                 if (targetArgIndex != -1) {
@@ -112,6 +114,11 @@ public final class Invoker {
                     return -1;
                 }
 
+//            }
+            //if loaded by bootstrap, cl can be null, let's use the loader
+            //we have in that case
+            if (cl == null) {
+                cl = oldcc;
             }
 
             Thread.currentThread().setContextClassLoader(cl);
@@ -124,9 +131,7 @@ public final class Invoker {
             return r ? 0 : 1;
         } catch (InvocationTargetException e) {
             throw e.getCause();
-        } catch(ClassNotFoundException e){
-            throw e;
-        }finally {
+        } finally {
             Thread.currentThread().setContextClassLoader(oldcc);
         }
     }
@@ -139,8 +144,7 @@ public final class Invoker {
             Service.class.getMethod("getPort",Class.class, WebServiceFeature[].class);
             // yup. things look good.
             return true;
-        } catch (NoSuchMethodException e) {
-        } catch (LinkageError e) {
+        } catch (NoSuchMethodException | LinkageError e) {
         }
         // nope
         return false;
@@ -154,8 +158,7 @@ public final class Invoker {
            Service.class.getMethod("create",java.net.URL.class, QName.class, WebServiceFeature[].class);
            // yup. things look good.
            return true;
-       } catch (NoSuchMethodException e) {
-       } catch (LinkageError e) {
+       } catch (NoSuchMethodException | LinkageError e) {
        }
        // nope
        return false;
@@ -172,11 +175,11 @@ public final class Invoker {
         if(urls.length==0)
             return cl;  // we seem to be able to load everything already. no need for the hack
 
-        List<String> mask = new ArrayList<String>(Arrays.asList(maskedPackages));
+        List<String> mask = new ArrayList<>(Arrays.asList(maskedPackages));
         if(urls.length>1) {
             // we need to load 2.1 API from side. so add them to the mask
-            mask.add("javax.xml.bind.");
-            mask.add("javax.xml.ws.");
+            mask.add("jakarta.xml.bind.");
+            mask.add("jakarta.xml.ws.");
         }
 
         // first create a protected area so that we load JAXB/WS 2.1 API
@@ -196,21 +199,21 @@ public final class Invoker {
      * Creates a class loader for loading JAXB/WS 2.2 jar
      */
     private static URL[] findIstack22APIs(ClassLoader cl) throws ClassNotFoundException, IOException {
-        List<URL> urls = new ArrayList<URL>();
+        List<URL> urls = new ArrayList<>();
 
         if(Service.class.getClassLoader()==null) {
             // JAX-WS API is loaded from bootstrap class loader
-            URL res = cl.getResource("javax/xml/ws/EndpointContext.class");
+            URL res = cl.getResource("jakarta/xml/ws/EndpointContext.class");
             if(res==null)
                 throw new ClassNotFoundException("There's no JAX-WS 2.2 API in the classpath");
             urls.add(ParallelWorldClassLoader.toJarUrl(res));
-            res = cl.getResource("javax/xml/bind/JAXBPermission.class");
+            res = cl.getResource("jakarta/xml/bind/JAXBPermission.class");
             if(res==null)
                 throw new ClassNotFoundException("There's no JAXB 2.2 API in the classpath");
             urls.add(ParallelWorldClassLoader.toJarUrl(res));
         }
 
-        return urls.toArray(new URL[urls.size()]);
+        return urls.toArray(new URL[0]);
     }
 
 }

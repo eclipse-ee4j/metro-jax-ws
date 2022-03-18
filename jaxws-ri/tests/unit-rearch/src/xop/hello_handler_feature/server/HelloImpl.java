@@ -13,14 +13,14 @@ package xop.hello_handler_feature.server;
 
 import com.sun.xml.ws.developer.JAXWSProperties;
 
-import javax.activation.DataHandler;
-import javax.annotation.Resource;
-import javax.jws.WebService;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.activation.DataHandler;
+import jakarta.annotation.Resource;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.handler.MessageContext;
 import java.awt.*;
 import java.io.IOException;
-import javax.xml.ws.*;
-import javax.xml.ws.soap.MTOM;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.soap.MTOM;
 import javax.xml.transform.Source;
 
 @WebService(endpointInterface = "xop.hello_handler_feature.server.Hello")

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,16 +10,14 @@
 
 package com.sun.xml.ws.test;
 
-import static javax.jws.soap.SOAPBinding.ParameterStyle.BARE;
-
-import javax.jws.WebParam;
-import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import javax.xml.ws.soap.MTOM;
+import jakarta.jws.WebParam;
+import jakarta.jws.WebService;
+import jakarta.jws.soap.SOAPBinding;
+import jakarta.xml.ws.soap.MTOM;
 
 
 @WebService(targetNamespace="http://www.oracle.com/j2ee.ws.jaxws.test/")
-@SOAPBinding(parameterStyle = BARE)
+@SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 @MTOM
 public class MtomSEB {
     public byte[] echoByteArray(byte[] b) {

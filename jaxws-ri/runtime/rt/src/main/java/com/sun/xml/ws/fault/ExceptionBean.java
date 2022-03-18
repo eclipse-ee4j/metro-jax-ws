@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,19 +10,19 @@
 
 package com.sun.xml.ws.fault;
 
-import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
+import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
 import com.sun.xml.ws.developer.ServerSideException;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.PropertyException;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.PropertyException;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +44,7 @@ final class ExceptionBean {
     public static void marshal( Throwable t, Node parent ) throws JAXBException {
         Marshaller m = JAXB_CONTEXT.createMarshaller();
         try {
-        	m.setProperty("com.sun.xml.bind.namespacePrefixMapper",nsp);
+            m.setProperty("org.glassfish.jaxb.runtime.namespacePrefixMapper",nsp);
         } catch (PropertyException pe) {}
         m.marshal(new ExceptionBean(t), parent );
     }
@@ -64,7 +64,7 @@ final class ExceptionBean {
     public String message;
     @XmlElementWrapper(namespace=NS,name="stackTrace")
     @XmlElement(namespace=NS,name="frame")
-    public List<StackFrame> stackTrace = new ArrayList<StackFrame>();
+    public List<StackFrame> stackTrace = new ArrayList<>();
     @XmlElement(namespace=NS,name="cause")
     public ExceptionBean cause;
 
@@ -175,6 +175,7 @@ final class ExceptionBean {
     }
 
     private static final NamespacePrefixMapper nsp = new NamespacePrefixMapper() {
+        @Override
         public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
             if (NS.equals(namespaceUri)) {
                 return "";

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,11 +21,11 @@ import com.sun.xml.ws.runtime.config.TubelineDefinition;
 import com.sun.xml.ws.runtime.config.TubelineMapping;
 import com.sun.xml.ws.util.xml.XmlUtil;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLInputFactory;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
@@ -46,7 +46,7 @@ import java.util.logging.Level;
  * then used in {@link TubelineAssemblyController} to construct the list of
  * {@link TubeCreator} objects that are used in the actual tubeline construction.
  *
- * @author Marek Potociar <marek.potociar at sun.com>
+ * @author Marek Potociar
  */
 // TODO Move the logic of this class directly into MetroConfig class.
 class MetroConfigLoader {
@@ -56,19 +56,21 @@ class MetroConfigLoader {
 
     private MetroConfigName defaultTubesConfigNames;
 
-    private static interface TubeFactoryListResolver {
+    private interface TubeFactoryListResolver {
 
         TubeFactoryList getFactories(TubelineDefinition td);
     }
 
     private static final TubeFactoryListResolver ENDPOINT_SIDE_RESOLVER = new TubeFactoryListResolver() {
 
+        @Override
         public TubeFactoryList getFactories(TubelineDefinition td) {
             return (td != null) ? td.getEndpointSide() : null;
         }
     };
     private static final TubeFactoryListResolver CLIENT_SIDE_RESOLVER = new TubeFactoryListResolver() {
 
+        @Override
         public TubeFactoryList getFactories(TubelineDefinition td) {
             return (td != null) ? td.getClientSide() : null;
         }
@@ -257,7 +259,7 @@ class MetroConfigLoader {
         if (isJDKInternal()) {
             // since jdk classes are repackaged, extra privilege is necessary to create JAXBContext
             return AccessController.doPrivileged(
-                    new PrivilegedExceptionAction<JAXBContext>() {
+                    new PrivilegedExceptionAction<>() {
                         @Override
                         public JAXBContext run() throws Exception {
                             return JAXBContext.newInstance(MetroConfig.class.getPackage().getName());
@@ -335,7 +337,7 @@ class MetroConfigLoader {
         private URL loadFromServletContext(String resource) throws RuntimeException {
             Object context = null;
             try {
-                final Class<?> contextClass = Class.forName("javax.servlet.ServletContext");
+                final Class<?> contextClass = Class.forName("jakarta.servlet.ServletContext");
                 context = container.getSPI(contextClass);
                 if (context != null) {
                     if (LOGGER.isLoggable(Level.FINE)) {
@@ -343,6 +345,7 @@ class MetroConfigLoader {
                     }
                     try {
                         final Method method = context.getClass().getMethod("getResource", String.class);
+                        method.setAccessible(true);
                         final Object result = method.invoke(context, "/WEB-INF/" + resource);
                         return URL.class.cast(result);
                     } catch (Exception e) {
@@ -351,7 +354,7 @@ class MetroConfigLoader {
                 }
             } catch (ClassNotFoundException e) {
                 if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.fine(TubelineassemblyMessages.MASM_0014_UNABLE_TO_LOAD_CLASS("javax.servlet.ServletContext"));
+                    LOGGER.fine(TubelineassemblyMessages.MASM_0014_UNABLE_TO_LOAD_CLASS("jakarta.servlet.ServletContext"));
                 }
             }
             return null;

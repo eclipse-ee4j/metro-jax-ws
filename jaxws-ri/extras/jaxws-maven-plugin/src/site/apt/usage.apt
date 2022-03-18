@@ -15,9 +15,9 @@
 
 Usage
 
-  This plugin runs the JAXWS WsImport compiler from Maven2. 
-  Please be aware this plugin requires a Java 5.0+ compiler.
-  
+  This plugin runs the WsImport compiler from Maven2.
+  Please be aware this plugin requires a Java SE 8+ compiler.
+
 +------------------------------------------+
 <project>
   ...
@@ -26,7 +26,7 @@ Usage
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
       <artifactId>jaxws-rt</artifactId>
-      <version>2.2.8</version>
+      <version>3.0.0</version>
     </dependency>
     ...
   </dependencies>
@@ -34,9 +34,9 @@ Usage
   <build>
     <plugins>
       <plugin>
-        <groupId>org.jvnet.jax-ws-commons</groupId>
+        <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
-        <version>2.3</version>
+        <version>3.0.0</version>
         <executions>
           <execution>
             <goals>
@@ -49,57 +49,14 @@ Usage
           <packageName>com.example.myservice</packageName>
         </configuration>
 
-        <!-- if you want to use a specific version of JAX-WS, you can do so like this -->
+        <!-- if you want to use a specific version of JAX-WS/Jakarta XML Web Services, you can do so like this -->
         <dependencies>
           <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-tools</artifactId>
-            <version>2.2.5</version>
+            <version>3.0.0-M2</version>
           </dependency>
         </dependencies>
-      </plugin>
-
-      <!-- Don't forget to use endorsed with JAX-WS 2.2 on Java 6 !! -->
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-          <compilerArguments>
-            <endorseddirs>${project.build.directory}/endorsed</endorseddirs>
-          </compilerArguments>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>2.3</version>
-        <executions>
-          <execution>
-            <phase>validate</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/endorsed</outputDirectory>
-              <silent>true</silent>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>javax.xml.bind</groupId>
-                  <artifactId>jaxb-api</artifactId>
-                  <version>2.2.7</version>
-                  <type>jar</type>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>javax.xml.ws</groupId>
-                  <artifactId>jaxws-api</artifactId>
-                  <version>2.2.9</version>
-                  <type>jar</type>
-                </artifactItem>
-              </artifactItems>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       ...
     </plugins>

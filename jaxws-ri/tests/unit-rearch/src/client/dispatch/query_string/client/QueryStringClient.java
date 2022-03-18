@@ -23,9 +23,9 @@ import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.ws.*;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.http.HTTPBinding;
 
 import testutil.ClientServerTestUtil;
 
@@ -59,7 +59,7 @@ public class QueryStringClient extends TestCase {
 
    public void xxtestCreateDispatch(URI uri) {
         // Create service and port to obtain Dispatch instance
-        Service s = javax.xml.ws.Service.create(
+        Service s = jakarta.xml.ws.Service.create(
                 new QName("http://hello.org", "hello"));
         QName portName = new QName("http://hello.org", "helloport");
         s.addPort(portName, HTTPBinding.HTTP_BINDING,
@@ -88,7 +88,7 @@ public class QueryStringClient extends TestCase {
 
     public void testCreateDispatchCase2(URI uri) {
            // Create service and port to obtain Dispatch instance
-           Service s = javax.xml.ws.Service.create(
+           Service s = jakarta.xml.ws.Service.create(
                    new QName("http://hello.org", "hello"));
            QName portName = new QName("http://hello.org", "helloport");
            s.addPort(portName, HTTPBinding.HTTP_BINDING,

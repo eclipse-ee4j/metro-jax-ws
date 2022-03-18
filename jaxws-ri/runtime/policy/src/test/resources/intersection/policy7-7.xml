@@ -1,0 +1,407 @@
+<!--
+
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<wsp:Policy 
+xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+xmlns:foo="http://schemas.foo.com/foo"
+xmlns:goo="http://schemas.goo.com/goo">
+  <wsp:ExactlyOne>
+    <wsp:All>
+      <foo:FooAssertionA>
+        <wsp:Policy>
+          <wsp:ExactlyOne>
+            <wsp:All>
+              <foo:FooAssertionB>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionC foo:attribute1="value1">
+                        <wsp:Policy>
+                          <wsp:ExactlyOne>
+                            <wsp:All>
+                              <foo:FooAssertionE />
+                            </wsp:All>
+                          </wsp:ExactlyOne>
+                        </wsp:Policy>
+                      </foo:FooAssertionC>
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionB>
+              <foo:FooAssertionD>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionC foo:attribute1="value2">
+                        <wsp:Policy>
+                          <wsp:ExactlyOne>
+                            <wsp:All>
+                              <foo:FooAssertionE />
+                            </wsp:All>
+                          </wsp:ExactlyOne>
+                        </wsp:Policy>
+                      </foo:FooAssertionC>
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionD>
+              <foo:FooAssertionF>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionG />
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionF>
+              <foo:FooAssertionH />
+              <foo:FooAssertionI />
+              <foo:FooAssertionJ>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionK />
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionJ>
+              <foo:FooAssertionM />
+            </wsp:All>
+          </wsp:ExactlyOne>
+        </wsp:Policy>
+      </foo:FooAssertionA>
+      <foo:FooAssertionA xmlns:foo="http://schemas.foo.com/foo">
+        <wsp:Policy>
+          <wsp:ExactlyOne>
+            <wsp:All>
+              <foo:FooAssertionB>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionC foo:attribute1="value1">
+                        <wsp:Policy>
+                          <wsp:ExactlyOne>
+                            <wsp:All>
+                              <foo:FooAssertionE />
+                            </wsp:All>
+                          </wsp:ExactlyOne>
+                        </wsp:Policy>
+                      </foo:FooAssertionC>
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionB>
+              <foo:FooAssertionD>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionC foo:attribute1="value2">
+                        <wsp:Policy>
+                          <wsp:ExactlyOne>
+                            <wsp:All>
+                              <foo:FooAssertionE />
+                            </wsp:All>
+                          </wsp:ExactlyOne>
+                        </wsp:Policy>
+                      </foo:FooAssertionC>
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionD>
+              <foo:FooAssertionF>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionG />
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionF>
+              <foo:FooAssertionH />
+              <foo:FooAssertionI />
+              <foo:FooAssertionJ>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionK />
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionJ>
+              <foo:FooAssertionM />
+            </wsp:All>
+          </wsp:ExactlyOne>
+        </wsp:Policy>
+      </foo:FooAssertionA>
+      <goo:GooAssertionA wsp:Ignorable="true"/>
+      <goo:GooAssertionA wsp:Ignorable="true"/>
+    </wsp:All>
+    <wsp:All>
+      <foo:FooAssertionA>
+        <wsp:Policy>
+          <wsp:ExactlyOne>
+            <wsp:All>
+              <foo:FooAssertionB>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionC foo:attribute1="value1">
+                        <wsp:Policy>
+                          <wsp:ExactlyOne>
+                            <wsp:All>
+                              <foo:FooAssertionE />
+                            </wsp:All>
+                          </wsp:ExactlyOne>
+                        </wsp:Policy>
+                      </foo:FooAssertionC>
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionB>
+              <foo:FooAssertionD>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionC foo:attribute1="value2">
+                        <wsp:Policy>
+                          <wsp:ExactlyOne>
+                            <wsp:All>
+                              <foo:FooAssertionE />
+                            </wsp:All>
+                          </wsp:ExactlyOne>
+                        </wsp:Policy>
+                      </foo:FooAssertionC>
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionD>
+              <foo:FooAssertionF>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionG />
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionF>
+              <foo:FooAssertionH />
+              <foo:FooAssertionI />
+              <foo:FooAssertionJ>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionL />
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionJ>
+              <foo:FooAssertionM />
+            </wsp:All>
+          </wsp:ExactlyOne>
+        </wsp:Policy>
+      </foo:FooAssertionA>
+      <foo:FooAssertionA>
+        <wsp:Policy>
+          <wsp:ExactlyOne>
+            <wsp:All>
+              <foo:FooAssertionB>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionC foo:attribute1="value1">
+                        <wsp:Policy>
+                          <wsp:ExactlyOne>
+                            <wsp:All>
+                              <foo:FooAssertionE />
+                            </wsp:All>
+                          </wsp:ExactlyOne>
+                        </wsp:Policy>
+                      </foo:FooAssertionC>
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionB>
+              <foo:FooAssertionD>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionC foo:attribute1="value2">
+                        <wsp:Policy>
+                          <wsp:ExactlyOne>
+                            <wsp:All>
+                              <foo:FooAssertionE />
+                            </wsp:All>
+                          </wsp:ExactlyOne>
+                        </wsp:Policy>
+                      </foo:FooAssertionC>
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionD>
+              <foo:FooAssertionF>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionG />
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionF>
+              <foo:FooAssertionH />
+              <foo:FooAssertionI />
+              <foo:FooAssertionJ>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionL />
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionJ>
+              <foo:FooAssertionM />
+            </wsp:All>
+          </wsp:ExactlyOne>
+        </wsp:Policy>
+      </foo:FooAssertionA>
+      <goo:GooAssertionA wsp:Ignorable="true"/>
+      <goo:GooAssertionA wsp:Ignorable="true"/>
+    </wsp:All>
+    <wsp:All>
+      <foo:FooAssertionA>
+        <wsp:Policy>
+          <wsp:ExactlyOne>
+            <wsp:All>
+              <foo:FooAssertionB>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionC foo:attribute1="value1">
+                        <wsp:Policy>
+                          <wsp:ExactlyOne>
+                            <wsp:All>
+                              <foo:FooAssertionE />
+                            </wsp:All>
+                          </wsp:ExactlyOne>
+                        </wsp:Policy>
+                      </foo:FooAssertionC>
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionB>
+              <foo:FooAssertionD>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionC foo:attribute1="value2">
+                        <wsp:Policy>
+                          <wsp:ExactlyOne>
+                            <wsp:All>
+                              <foo:FooAssertionE />
+                            </wsp:All>
+                          </wsp:ExactlyOne>
+                        </wsp:Policy>
+                      </foo:FooAssertionC>
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionD>
+              <foo:FooAssertionF>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionG />
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionF>
+              <foo:FooAssertionH />
+              <foo:FooAssertionI />
+              <foo:FooAssertionJ>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionK />
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionJ>
+            </wsp:All>
+          </wsp:ExactlyOne>
+        </wsp:Policy>
+      </foo:FooAssertionA>
+      <foo:FooAssertionA>
+        <wsp:Policy>
+          <wsp:ExactlyOne>
+            <wsp:All>
+              <foo:FooAssertionB>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionC foo:attribute1="value1">
+                        <wsp:Policy>
+                          <wsp:ExactlyOne>
+                            <wsp:All>
+                              <foo:FooAssertionE />
+                            </wsp:All>
+                          </wsp:ExactlyOne>
+                        </wsp:Policy>
+                      </foo:FooAssertionC>
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionB>
+              <foo:FooAssertionD>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionC foo:attribute1="value2">
+                        <wsp:Policy>
+                          <wsp:ExactlyOne>
+                            <wsp:All>
+                              <foo:FooAssertionE />
+                            </wsp:All>
+                          </wsp:ExactlyOne>
+                        </wsp:Policy>
+                      </foo:FooAssertionC>
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionD>
+              <foo:FooAssertionF>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionG />
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionF>
+              <foo:FooAssertionH />
+              <foo:FooAssertionI />
+              <foo:FooAssertionJ>
+                <wsp:Policy>
+                  <wsp:ExactlyOne>
+                    <wsp:All>
+                      <foo:FooAssertionK />
+                    </wsp:All>
+                  </wsp:ExactlyOne>
+                </wsp:Policy>
+              </foo:FooAssertionJ>
+            </wsp:All>
+          </wsp:ExactlyOne>
+        </wsp:Policy>
+      </foo:FooAssertionA>
+      <goo:GooAssertionA wsp:Ignorable="true"/>
+      <goo:GooAssertionA wsp:Ignorable="true"/>
+    </wsp:All>
+  </wsp:ExactlyOne>
+</wsp:Policy>

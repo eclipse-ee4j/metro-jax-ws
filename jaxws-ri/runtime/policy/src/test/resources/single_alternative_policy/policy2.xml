@@ -1,0 +1,50 @@
+<!--
+
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+  <sp:AsymmetricBinding>
+    <wsp:Policy>
+      <sp:RecipientToken>
+        <wsp:Policy>
+          <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never">  
+            <wsp:Policy>
+              <sp:WssX509V3Token10 />
+            </wsp:Policy>
+          </sp:X509Token>
+        </wsp:Policy>
+      </sp:RecipientToken>
+      <sp:InitiatorToken>
+        <wsp:Policy>
+          <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+            <wsp:Policy>
+              <sp:WssX509V3Token10 />
+            </wsp:Policy>
+          </sp:X509Token>
+        </wsp:Policy>
+      </sp:InitiatorToken>
+      <sp:Layout>
+        <wsp:Policy>
+          <sp:Lax />
+        </wsp:Policy>
+      </sp:Layout>
+      <sp:ProtectTokens />
+      <sp:OnlySignEntireHeadersAndBody />
+      <sp:IncludeTimestamp />
+      <sp:AlgorithmSuite>
+        <wsp:Policy>
+          <sp:Basic256Rsa15 />
+        </wsp:Policy>
+      </sp:AlgorithmSuite>
+    </wsp:Policy>
+  </sp:AsymmetricBinding>
+</wsp:Policy>
+

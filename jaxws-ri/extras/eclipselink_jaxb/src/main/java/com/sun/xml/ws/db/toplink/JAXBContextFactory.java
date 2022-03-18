@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,13 +23,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -40,7 +39,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 import org.eclipse.persistence.jaxb.JAXBContextProperties;
 import org.eclipse.persistence.jaxb.TypeMappingInfo;
@@ -92,7 +91,7 @@ public class JAXBContextFactory extends BindingContextFactory {
     @Override
     protected BindingContext newContext(BindingInfo bi) {
         Map<String, Source> extMapping = (Map<String, Source>) bi.properties().get(OXM_XML_OVERRIDE);
-        Map<String, Object> properties = new HashMap<String, Object>();
+        Map<String, Object> properties = new HashMap<>();
         Map<TypeInfo, TypeMappingInfo> map = createTypeMappings(bi.typeInfos());
         //chen workaround for document-literal wrapper - new feature on eclipselink API requested
         for (TypeInfo tinfo : map.keySet()) {
@@ -134,8 +133,8 @@ public class JAXBContextFactory extends BindingContextFactory {
 //	        }
 //		}
 
-        HashSet<Type> typeSet = new HashSet<Type>();
-        HashSet<TypeMappingInfo> typeList = new HashSet<TypeMappingInfo>();
+        HashSet<Type> typeSet = new HashSet<>();
+        HashSet<TypeMappingInfo> typeList = new HashSet<>();
         for (TypeMappingInfo tmi : map.values()) {
             typeList.add(tmi);
             typeSet.add(tmi.getType());
@@ -148,7 +147,7 @@ public class JAXBContextFactory extends BindingContextFactory {
                 typeList.add(tmi);
             }
         }
-        TypeMappingInfo[] types = typeList.toArray(new TypeMappingInfo[typeList.size()]);
+        TypeMappingInfo[] types = typeList.toArray(new TypeMappingInfo[0]);
         if (extMapping != null) {
             properties.put(OXM_XML_OVERRIDE, extMapping);
         }
@@ -256,8 +255,6 @@ public class JAXBContextFactory extends BindingContextFactory {
                     } else if (n instanceof Element) {
                         xmlbindings = (Element) n;
                     }
-                } catch (TransformerConfigurationException e) {
-                    throw new WebServiceException(e.getMessage(), e);
                 } catch (TransformerException e) {
                     throw new WebServiceException(e.getMessage(), e);
                 }
@@ -276,7 +273,7 @@ public class JAXBContextFactory extends BindingContextFactory {
     }
 
     static Map<TypeInfo, TypeMappingInfo> createTypeMappings(Collection<TypeInfo> col) {
-        Map<TypeInfo, TypeMappingInfo> refs = new HashMap<TypeInfo, TypeMappingInfo>();
+        Map<TypeInfo, TypeMappingInfo> refs = new HashMap<>();
         if (col == null || col.isEmpty()) {
             return refs;
         }
@@ -338,9 +335,9 @@ public class JAXBContextFactory extends BindingContextFactory {
                 tmi.setNillable(e.isNillable());
                 if (e.getGenericType() != null) {
                     String gts = e.getGenericType().toString();
-                    if (gts.startsWith("javax.xml.ws.Holder")) {
+                    if (gts.startsWith("jakarta.xml.ws.Holder")) {
                         tmi.setType(e.type);
-                    } else if (gts.startsWith("javax.xml.ws.Response")) {
+                    } else if (gts.startsWith("jakarta.xml.ws.Response")) {
                         tmi.setType(e.type);
                     } else if (gts.startsWith("java.util.concurrent.Future")) {
                         tmi.setType(e.type);
@@ -357,17 +354,17 @@ public class JAXBContextFactory extends BindingContextFactory {
                 // Filter out non-JAXB annotations.
                 Annotation[] aa = e.annotations;
                 if (aa != null && aa.length != 0) {
-                    List<Annotation> la = new ArrayList<Annotation>();
+                    List<Annotation> la = new ArrayList<>();
                     for (Annotation a : aa) {
                         for (Class<?> clz : a.getClass().getInterfaces()) {
                             if (clz.getName().startsWith(
-                                    "javax.xml.bind.annotation.")) {
+                                    "jakarta.xml.bind.annotation.")) {
                                 la.add(a);
                                 break;
                             }
                         }
                     }
-                    aa = la.toArray(new Annotation[la.size()]);
+                    aa = la.toArray(new Annotation[0]);
                     // System.out.println("filtered: " + la);
                 }
                 tmi.setAnnotations(aa);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,6 @@ package com.sun.xml.ws.model.wsdl;
 
 import com.sun.istack.NotNull;
 import com.sun.xml.ws.api.BindingID;
-import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.model.ParameterBinding;
 import com.sun.xml.ws.api.model.wsdl.WSDLBoundOperation;
 import com.sun.xml.ws.api.model.wsdl.WSDLBoundPortType;
@@ -24,12 +23,11 @@ import com.sun.xml.ws.resources.ClientMessages;
 import com.sun.xml.ws.util.QNameMap;
 import com.sun.xml.ws.util.exception.LocatableWebServiceException;
 
-import javax.jws.WebParam.Mode;
-import javax.jws.soap.SOAPBinding;
-import javax.jws.soap.SOAPBinding.Style;
+import jakarta.jws.WebParam.Mode;
+import jakarta.jws.soap.SOAPBinding;
+import jakarta.jws.soap.SOAPBinding.Style;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamReader;
-import javax.xml.ws.soap.MTOMFeature;
 
 /**
  * Implementation of {@link WSDLBoundPortType}
@@ -42,7 +40,7 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
     private EditableWSDLPortType portType;
     private BindingID bindingId;
     private final @NotNull EditableWSDLModel owner;
-    private final QNameMap<EditableWSDLBoundOperation> bindingOperations = new QNameMap<EditableWSDLBoundOperation>();
+    private final QNameMap<EditableWSDLBoundOperation> bindingOperations = new QNameMap<>();
 
     /**
      * Operations keyed by the payload tag name.
@@ -63,14 +61,17 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
         owner.addBinding(this);
     }
 
+    @Override
     public QName getName() {
         return name;
     }
 
+    @Override
     public @NotNull EditableWSDLModel getOwner() {
         return owner;
     }
 
+    @Override
     public EditableWSDLBoundOperation get(QName operationName) {
         return bindingOperations.get(operationName);
     }
@@ -82,28 +83,34 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
      * @param ptOp   Must be non-null
      * @throws NullPointerException if either opName or ptOp is null
      */
+    @Override
     public void put(QName opName, EditableWSDLBoundOperation ptOp) {
         bindingOperations.put(opName,ptOp);
     }
 
+    @Override
     public QName getPortTypeName() {
         return portTypeName;
     }
 
+    @Override
     public EditableWSDLPortType getPortType() {
         return portType;
     }
 
+    @Override
     public Iterable<EditableWSDLBoundOperation> getBindingOperations() {
         return bindingOperations.values();
     }
 
+    @Override
     public BindingID getBindingId() {
         //Should the default be SOAP1.1/HTTP binding? For now lets keep it for
         //JBI bug 6509800 
         return (bindingId==null)?BindingID.SOAP11_HTTP:bindingId;
     }
 
+    @Override
     public void setBindingId(BindingID bindingId) {
         this.bindingId = bindingId;
     }
@@ -112,10 +119,12 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
      * sets whether the {@link WSDLBoundPortType} is rpc or lit
      */
     private Style style = Style.DOCUMENT;
+    @Override
     public void setStyle(Style style){
         this.style = style;
     }
 
+    @Override
     public SOAPBinding.Style getStyle() {
         return style;
     }
@@ -137,6 +146,7 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
      * @param mode      {@link Mode#IN} or {@link Mode#OUT}. Must be non-null.
      * @return null if the binding could not be resolved for the part.
      */
+    @Override
     public ParameterBinding getBinding(QName operation, String part, Mode mode) {
         EditableWSDLBoundOperation op = get(operation);
         if (op == null) {
@@ -149,6 +159,7 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
             return op.getOutputBinding(part);
     }
 
+    @Override
     public EditableWSDLBoundOperation getOperation(String namespaceUri, String localName) {
         if(namespaceUri==null && localName == null)
             return emptyPayloadOperation;
@@ -157,6 +168,7 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
         }
     }
 
+    @Override
     public void freeze() {
         portType = owner.getPortType(portTypeName);
         if(portType == null){
@@ -175,12 +187,12 @@ public final class WSDLBoundPortTypeImpl extends AbstractFeaturedObjectImpl impl
 
     private void freezePayloadMap() {
         if(style== Style.RPC) {
-            payloadMap = new QNameMap<EditableWSDLBoundOperation>();
+            payloadMap = new QNameMap<>();
             for(EditableWSDLBoundOperation op : bindingOperations.values()){
                 payloadMap.put(op.getRequestPayloadName(), op);
             }
         } else {
-            payloadMap = new QNameMap<EditableWSDLBoundOperation>();
+            payloadMap = new QNameMap<>();
             // For doclit The tag will be the operation that has the same input part descriptor value
             for(EditableWSDLBoundOperation op : bindingOperations.values()){
                 QName name = op.getRequestPayloadName();

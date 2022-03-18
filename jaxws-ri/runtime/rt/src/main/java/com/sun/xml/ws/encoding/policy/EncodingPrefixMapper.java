@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class EncodingPrefixMapper implements PrefixMapper {
 
-    private static final Map<String, String> prefixMap = new HashMap<String, String>();
+    private static final Map<String, String> prefixMap = new HashMap<>();
 
     static {
         prefixMap.put(EncodingConstants.ENCODING_NS, "wspe");
@@ -29,6 +29,7 @@ public class EncodingPrefixMapper implements PrefixMapper {
         prefixMap.put(EncodingConstants.SUN_FI_SERVICE_NS, "fi");
     }
         
+    @Override
     public Map<String, String> getPrefixMap() {
         return prefixMap;
     }

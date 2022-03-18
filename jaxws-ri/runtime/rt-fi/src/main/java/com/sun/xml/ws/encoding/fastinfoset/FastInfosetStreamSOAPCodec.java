@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,7 @@ import com.sun.xml.ws.encoding.ContentTypeImpl;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.stream.XMLStreamReader;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import java.io.OutputStream;
 import java.io.InputStream;
 import java.io.IOException;
@@ -66,14 +66,17 @@ public abstract class FastInfosetStreamSOAPCodec implements Codec {
         this._defaultContentType = that._defaultContentType;
     }
     
+    @Override
     public String getMimeType() {
         return _defaultContentType.getContentType();
     }
     
+    @Override
     public ContentType getStaticContentType(Packet packet) {
         return getContentType(packet.soapAction);
     }
     
+    @Override
     public ContentType encode(Packet packet, OutputStream out) {
         if (packet.getMessage() != null) {
             final XMLStreamWriter writer = getXMLStreamWriter(out);
@@ -87,16 +90,19 @@ public abstract class FastInfosetStreamSOAPCodec implements Codec {
         return getContentType(packet.soapAction);
     }
     
+    @Override
     public ContentType encode(Packet packet, WritableByteChannel buffer) {
         //TODO: not yet implemented
         throw new UnsupportedOperationException();
     }
     
+    @Override
     public void decode(InputStream in, String contentType, Packet response) throws IOException {
         response.setMessage(
                 _soapCodec.decode(getXMLStreamReader(in)));
     }
     
+    @Override
     public void decode(ReadableByteChannel in, String contentType, Packet response) {
         throw new UnsupportedOperationException();
     }
@@ -132,6 +138,7 @@ public abstract class FastInfosetStreamSOAPCodec implements Codec {
     /**
      * Creates a new {@link FastInfosetStreamSOAPCodec} instance.
      *
+     * @param soapCodec codec
      * @param version the SOAP version of the codec.
      * @return a new {@link FastInfosetStreamSOAPCodec} instance.
      */
@@ -142,6 +149,7 @@ public abstract class FastInfosetStreamSOAPCodec implements Codec {
     /**
      * Creates a new {@link FastInfosetStreamSOAPCodec} instance.
      *
+     * @param soapCodec codec
      * @param version the SOAP version of the codec.
      * @param retainState if true the Codec should retain the state of
      *        vocabulary tables for multiple encode/decode invocations.

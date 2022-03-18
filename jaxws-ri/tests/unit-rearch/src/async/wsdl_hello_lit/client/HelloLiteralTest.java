@@ -13,10 +13,10 @@ package async.wsdl_hello_lit.client;
 import junit.framework.TestCase;
 import testutil.ClientServerTestUtil;
 
-import javax.xml.ws.AsyncHandler;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Holder;
-import javax.xml.ws.Response;
+import jakarta.xml.ws.AsyncHandler;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.Response;
 import javax.xml.namespace.QName;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;

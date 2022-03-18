@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class XmlUtil {
     private static final String DISABLE_XML_SECURITY = "com.sun.xml.ws.disableXmlSecurity";
 
     private static boolean XML_SECURITY_DISABLED = AccessController.doPrivileged(
-            new PrivilegedAction<Boolean>() {
+            new PrivilegedAction<>() {
                 @Override
                 public Boolean run() {
                     return Boolean.getBoolean(DISABLE_XML_SECURITY);
@@ -202,7 +203,7 @@ public class XmlUtil {
     public static InputStream getUTF8Stream(String s) {
         try {
             ByteArrayBuffer bab = new ByteArrayBuffer();
-            Writer w = new OutputStreamWriter(bab, "utf-8");
+            Writer w = new OutputStreamWriter(bab, StandardCharsets.UTF_8);
             w.write(s);
             w.close();
             return bab.newInputStream();
@@ -211,14 +212,14 @@ public class XmlUtil {
         }
     }
 
-    static final ContextClassloaderLocal<TransformerFactory> transformerFactory = new ContextClassloaderLocal<TransformerFactory>() {
+    static final ContextClassloaderLocal<TransformerFactory> transformerFactory = new ContextClassloaderLocal<>() {
         @Override
         protected TransformerFactory initialValue() throws Exception {
             return TransformerFactory.newInstance();
         }
     };
 
-    static final ContextClassloaderLocal<SAXParserFactory> saxParserFactory = new ContextClassloaderLocal<SAXParserFactory>() {
+    static final ContextClassloaderLocal<SAXParserFactory> saxParserFactory = new ContextClassloaderLocal<>() {
         @Override
         protected SAXParserFactory initialValue() throws Exception {
             SAXParserFactory factory = newSAXParserFactory(true);
@@ -229,7 +230,6 @@ public class XmlUtil {
 
     /**
      * Creates a new identity transformer.
-     * @return
      */
     public static Transformer newTransformer() {
         try {
@@ -241,14 +241,6 @@ public class XmlUtil {
 
     /**
      * Performs identity transformation.
-     * @param <T>
-     * @param src
-     * @param result
-     * @return
-     * @throws javax.xml.transform.TransformerException
-     * @throws java.io.IOException
-     * @throws org.xml.sax.SAXException
-     * @throws javax.xml.parsers.ParserConfigurationException
      */
     public static <T extends Result> T identityTransform(Source src, T result)
             throws TransformerException, SAXException, ParserConfigurationException, IOException {
@@ -280,8 +272,6 @@ public class XmlUtil {
     /**
      * Gets an EntityResolver using XML catalog
      *
-     * @param catalogUrl
-     * @return
      */
     public static EntityResolver createEntityResolver(@Nullable URL catalogUrl) {
         return XmlCatalogUtil.createEntityResolver(catalogUrl);
@@ -290,7 +280,6 @@ public class XmlUtil {
     /**
      * Gets a default EntityResolver for catalog at META-INF/jaxws-catalog.xml
      *
-     * @return
      */
     public static EntityResolver createDefaultCatalogResolver() {
         return XmlCatalogUtil.createDefaultCatalogResolver();

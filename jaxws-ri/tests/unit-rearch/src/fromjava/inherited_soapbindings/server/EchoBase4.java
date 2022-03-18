@@ -11,7 +11,7 @@
 package fromjava.inherited_soapbindings.server;
 
 import fromjava.inherited_soapbindings.server.base3.*;
-import javax.jws.*;
+import jakarta.jws.*;
 
 public class EchoBase4 extends EchoBase3 {
     @WebMethod

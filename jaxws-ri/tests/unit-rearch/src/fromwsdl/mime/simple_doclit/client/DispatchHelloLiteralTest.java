@@ -17,24 +17,24 @@ import org.xml.sax.SAXException;
 import testutil.AttachmentHelper;
 import testutil.ClientServerTestUtil;
 
-import javax.activation.DataHandler;
-import javax.xml.bind.JAXBContext;
+import jakarta.activation.DataHandler;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.soap.SOAPBinding;
 import java.awt.*;
 import java.io.*;
 import java.net.MalformedURLException;
@@ -200,10 +200,10 @@ public class DispatchHelloLiteralTest extends TestCase {
         return null;
     }
 
-    /*private static javax.xml.bind.JAXBContext createJAXBContext() {
+    /*private static jakarta.xml.bind.JAXBContext createJAXBContext() {
         try {
-            return javax.xml.bind.JAXBContext.newInstance(client.dispatch.wsdl_hello_lit.client.ObjectFactory.class);
-        } catch (javax.xml.bind.JAXBException e) {
+            return jakarta.xml.bind.JAXBContext.newInstance(client.dispatch.wsdl_hello_lit.client.ObjectFactory.class);
+        } catch (jakarta.xml.bind.JAXBException e) {
             throw new WebServiceException(e.getMessage(), e);
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,10 +14,10 @@ import com.sun.xml.ws.api.model.Parameter;
 import com.sun.xml.ws.model.ParameterImpl;
 import com.sun.xml.ws.spi.db.PropertyAccessor;
 
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceException;
 import javax.xml.namespace.QName;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 /**
  * Moves a Java value unmarshalled from a response message
@@ -84,6 +84,7 @@ public abstract class ValueSetter {
 
 
     private static final class ReturnValue extends ValueSetter {
+        @Override
         Object put(Object obj, Object[] args) {
             return obj;
         }
@@ -99,6 +100,7 @@ public abstract class ValueSetter {
             this.idx = idx;
         }
 
+        @Override
         Object put(Object obj, Object[] args) {
             Object arg = args[idx];
             if(arg!=null) {
@@ -128,6 +130,7 @@ public abstract class ValueSetter {
         /**
          * Set args[0] as the value
          */
+        @Override
         Object put(Object obj, Object[] args) {
             args[0] = obj;
             return null;
@@ -159,6 +162,7 @@ public abstract class ValueSetter {
          * @param args args[0] contains async bean instance
          * @return null always
          */
+        @Override
         Object put(Object obj, Object[] args) {
             assert args != null;
             assert args.length == 1;

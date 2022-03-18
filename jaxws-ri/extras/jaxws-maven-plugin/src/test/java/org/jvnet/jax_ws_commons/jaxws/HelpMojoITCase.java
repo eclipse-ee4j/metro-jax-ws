@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * Oracle licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -20,7 +20,7 @@ package org.jvnet.jax_ws_commons.jaxws;
 
 import java.io.File;
 import java.io.IOException;
-import static org.jvnet.jax_ws_commons.jaxws.Assertions.assertFileContains;
+
 import org.testng.annotations.Test;
 
 /**
@@ -36,11 +36,12 @@ public class HelpMojoITCase {
     public void testHelp() throws IOException {
         project = new File(PROJECTS_DIR, "help");
 
-        assertFileContains(project, "build.log", "This plugin has 5 goals:");
-        assertFileContains(project, "build.log", "jaxws:help");
-        assertFileContains(project, "build.log", "jaxws:wsgen");
-        assertFileContains(project, "build.log", "jaxws:wsimport");
-        assertFileContains(project, "build.log", "jaxws:wsgen-test");
-        assertFileContains(project, "build.log", "jaxws:wsimport-test");
+        Assertions.assertFileContains(project, "build.log", "This plugin has 6 goals:");
+        Assertions.assertFileContains(project, "build.log", "jaxws:help");
+        Assertions.assertFileContains(project, "build.log", "jaxws:wsdlgen");
+        Assertions.assertFileContains(project, "build.log", "jaxws:wsgen");
+        Assertions.assertFileContains(project, "build.log", "jaxws:wsimport");
+        Assertions.assertFileContains(project, "build.log", "jaxws:wsgen-test");
+        Assertions.assertFileContains(project, "build.log", "jaxws:wsimport-test");
     }
 }

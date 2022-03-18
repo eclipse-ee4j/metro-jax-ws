@@ -13,19 +13,19 @@ package xop.hello_handler.server;
 
 import com.sun.xml.ws.developer.JAXWSProperties;
 
-import javax.xml.ws.WebServiceException;
-import javax.activation.DataHandler;
-import javax.annotation.Resource;
-import javax.jws.WebService;
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.activation.DataHandler;
+import jakarta.annotation.Resource;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.handler.MessageContext;
 import java.awt.*;
 import java.util.Map;
 import java.util.List;
 import java.io.IOException;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.BindingType;
+import jakarta.xml.ws.soap.SOAPBinding;
 import javax.xml.transform.Source;
 
 

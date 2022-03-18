@@ -1,5 +1,5 @@
 ~~
-~~ Copyright 2013 Oracle
+~~ Copyright 2013-2020 Oracle
 ~~
 ~~ Licensed under the Apache License, Version 2.0 (the "License");
 ~~ you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 ~~
 
 Snapshot builds of current development version are regularly pushed to
-maven.java.net snapshots repository. In order to be able to use SNAPSHOT
+Jakarta snapshots repository. In order to be able to use SNAPSHOT
 version in your project, you need to add following pluginRepository
 definition to your pom.xml:
 
@@ -24,9 +24,8 @@ definition to your pom.xml:
   ...
   <pluginRepositories>
     <pluginRepository>
-      <!-- temporary definition for harness plugin to be found-->
-      <id>temp</id>
-      <url>https://maven.java.net/content/repositories/snapshots</url>
+      <id>jakarta-snapshots</id>
+      <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots/</url>
       <releases>
         <enabled>false</enabled>
         <updatePolicy>never</updatePolicy>

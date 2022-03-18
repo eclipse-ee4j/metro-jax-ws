@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,11 +12,11 @@ package com.sun.xml.ws.transport.http.servlet;
 
 import com.sun.istack.Nullable;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * The JAX-WS dispatcher servlet.
@@ -38,6 +38,7 @@ public class WSServlet extends HttpServlet {
     /**
      * Gets the {@link WSServletDelegate} that we will be forwarding the requests to.
      *
+     * @param servletConfig the ServletConfig object
      * @return
      *      null if the deployment have failed and we don't have the delegate.
      */

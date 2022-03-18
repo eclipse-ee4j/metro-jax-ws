@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,26 +26,26 @@
 
     <para>Web service client applications may choose to work at the XML
     message level by using the <literal>Dispatch&lt;T&gt;</literal> APIs. The
-    <literal>javax.xml.ws.Dispatch&lt;T&gt;</literal> interface provides
+    <literal>jakarta.xml.ws.Dispatch&lt;T&gt;</literal> interface provides
     support for the dynamic invocation of service endpoint operations.</para>
 
     <para>Four Message Exchange Protocols(MEP) are supported:
     request-response, one way, asynchronous polling, and callback. Each of
-    these invocation MEPs are required with JAXB data bound
+    these invocation MEPs are required with &binding.spec.name; data bound
     <literal>java.lang.Object</literal>,
     <literal>javax.xml.transform.Source</literal>,
-    <literal>javax.xml.soap.SOAPMessage</literal> and
-    <literal>javax.activation.DataSource</literal> object requests.</para>
+    <literal>jakarta.xml.soap.SOAPMessage</literal> and
+    <literal>jakarta.activation.DataSource</literal> object requests.</para>
 
-    <para>The <literal>javax.xml.ws.Service</literal> acts as a factory for
+    <para>The <literal>jakarta.xml.ws.Service</literal> acts as a factory for
     the creation of <literal>Dispatch&lt;T&gt;</literal> instances. In
     addition, a <literal>Dispatch&lt;T&gt;</literal> instance is created in
     either <literal>Service.Mode.PAYLOAD</literal> or
     <literal>Service.Mode.MESSAGE</literal> modes. A
-    <literal>javax.xml.soap.SOAPMessage</literal> request can only be used
+    <literal>jakarta.xml.soap.SOAPMessage</literal> request can only be used
     with a <literal>Dispatch&lt;T&gt;</literal> instance of
     <literal>Service.Mode.MESSAGE</literal> and using the SOAP Binding. A
-    <literal>javax.activation.DataSource</literal> request can only be used
+    <literal>jakarta.activation.DataSource</literal> request can only be used
     with a <literal>Dispatch&lt;T&gt;</literal> instance of
     <literal>Service.Mode.MESSAGE</literal> and using the XML/HTTP
     Binding.</para>
@@ -62,7 +62,7 @@
         <section xml:id="section-441203977673228">
             <title>Create a dynamic <literal>Service</literal>.</title>
 
-            <para>The <literal>javax.xml.ws.Service</literal> acts as a
+            <para>The <literal>jakarta.xml.ws.Service</literal> acts as a
             factory for the creation of a dynamic <literal>Service</literal>.
             When created for use with <literal>Dispatch&lt;T&gt;</literal>
             APIs the <literal>Service</literal> created can be either a
@@ -98,11 +98,11 @@ Service service = Service.create(URL wsdlLocation, QName serviceQName);]]></prog
 
             <para>Developers who have used web service applications in the
             past are familiar with the port <literal>QName</literal> and
-            endpoint address parameters of this method. &jax-ws.product.name;
+            endpoint address parameters of this method. &ws.impl.name.full;
             supports three <literal>Binding</literal> URI's, that of the SOAP
             1.1, the SOAP 1.2 and XML/HTTP Binding. For more information on
             SOAP 1.2 support please refer to the SOAP 1.2 documents. For the
-            XML/HTTP binding please see chapter 11 of the JAX-WS 2.0 PFD
+            XML/HTTP binding please see chapter 11 of the &ws.spec.name;
             Specification.</para>
 
             <para>The addition of the SOAP 1.1 port using the
@@ -148,26 +148,26 @@ Dispatch dispatch = service.createDispatch(QName portName,
         JAXBContext jaxbcontext, Service.Mode mode);]]></programlisting>
             </informalexample>
 
-            <para>For a <literal>javax.xml.transform.Source</literal> and JAXB
+            <para>For a <literal>javax.xml.transform.Source</literal> and &binding.spec.name;
             data binding <literal>java.lang.Object</literal>
             <literal>Dispatch&lt;T&gt;</literal> can be created in both
             <literal>Service.Mode.PAYLOAD</literal> and
             <literal>Service.Mode.MESSAGE</literal> modes. A
-            <literal>javax.xml.soap.SOAPMessage</literal> can only be created
+            <literal>jakarta.xml.soap.SOAPMessage</literal> can only be created
             in <literal>Service.Mode.MESSAGE</literal> mode. The first form of
             the <literal>createDispatch</literal> method is used to create a
             <literal>javax.xml.transform.Source</literal> or
-            <literal>javax.xml.soap.SOAPMessage</literal> specific to the
+            <literal>jakarta.xml.soap.SOAPMessage</literal> specific to the
             <literal>Dispatch&lt;T&gt;</literal> instance.</para>
 
-            <para>A JAXB object-specific instance can only be created using
+            <para>A &binding.spec.name; object-specific instance can only be created using
             the second method listed above.</para>
 
             <para>It is important to note that once the
             <literal>Dispatch&lt;T&gt;</literal> instance is created it is
             static. That is, its <literal>Service.Mode</literal> or request
             type can not be changed. The instance can be reused given the
-            caveat that if it is a JAXB-specific
+            caveat that if it is a &binding.spec.name;-specific
             <literal>Dispatch&lt;T&gt;</literal> it must be reused with
             objects known to the same <literal>JAXBContext</literal>.</para>
         </section>
@@ -177,11 +177,11 @@ Dispatch dispatch = service.createDispatch(QName portName,
             Object&gt;</literal> for the request.</title>
 
             <para>The <literal>Dispatch&lt;T&gt;</literal> interface extends
-            the <literal>javax.xml.ws.BindingProvider</literal> interface. The
+            the <literal>jakarta.xml.ws.BindingProvider</literal> interface. The
             <literal>BindingProvider</literal> interface defines accessor
             methods for the request and response context maps. Standard
             <literal>BindingProvider</literal> properties are defined by the
-            JAX-WS 2.0 specification and the client program may set and get
+            &ws.spec.name; specification and the client program may set and get
             these properties. The application may also define
             application-specific properties, but the specification discourages
             this for portability reasons.</para>
@@ -222,9 +222,9 @@ Future<?> response = dispatch.invokeAsync(T, AsyncHandler);]]></programlisting>
         the user immediately and may be polled for completion. In the
         meantime, the client program can do other work.</para>
 
-        <para>The <literal>javax.xml.ws.Response&lt;T&gt;</literal> implements
+        <para>The <literal>jakarta.xml.ws.Response&lt;T&gt;</literal> implements
         the <literal>java.util.concurrent.Future&lt;T&gt;</literal> interface
-        that is included in J2SE 5.0. The <literal>Response&lt;T&gt;</literal>
+        that is included in Java SE. The <literal>Response&lt;T&gt;</literal>
         object returns the actual response via its <literal>get</literal>
         method, which blocks if the response is not ready to be
         returned.</para>
@@ -243,7 +243,7 @@ Future<?> response = dispatch.invokeAsync(T, AsyncHandler);]]></programlisting>
 
         <para>For more information on the
         <literal>java.util.concurrent.Future&lt;?&gt;</literal> interface see
-        the J2SE 5.0 documentation.</para>
+        the Java SE documentation.</para>
 
         <informalexample>
             <programlisting language="java"><![CDATA[public interface Response<T> extends java.util.concurrent.Future<T> {
@@ -255,19 +255,19 @@ Future<?> response = dispatch.invokeAsync(T, AsyncHandler);]]></programlisting>
 
         <para>The second form of the <literal>invokeAsync</literal> method has
         a second parameter of type
-        <literal>javax.xml.ws.AsyncHandler</literal>. The purpose of the
+        <literal>jakarta.xml.ws.AsyncHandler</literal>. The purpose of the
         <literal>AsyncHandler</literal> is to get and handle the the response
         or any fault thrown in an application-specific way. The
         <literal>AsyncHandler</literal> has a method
         <literal>handleResponse(Response&lt;T&gt;)</literal> that takes a
-        <literal>javax.xml.ws.Response&lt;T&gt;</literal> parameter. This
+        <literal>jakarta.xml.ws.Response&lt;T&gt;</literal> parameter. This
         method gets the response or any faults and processes them according to
         behavior defined in the application. Note that it is the
         responsibility of the client program to implement the asynchronous
         handler.</para>
 
         <informalexample>
-            <programlisting language="java"><![CDATA[class ResponseHandler implements javax.xml.ws.AsyncHandler {
+            <programlisting language="java"><![CDATA[class ResponseHandler implements jakarta.xml.ws.AsyncHandler {
     
     public handleResponse(Response<T>);
     

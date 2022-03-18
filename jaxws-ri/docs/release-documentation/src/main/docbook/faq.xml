@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,17 +25,17 @@
     <title>FAQ</title>
 
     <section xml:id="section-jaxws-faq1">
-        <title>Does JAX-WS 2.0 support JAX-RPC 1.X?</title>
-        <para>No. Although, JAX-WS's roots come from JAX-RPC, JAX-WS is a 
+        <title>Does &ws.spec.name; 2.0 support JAX-RPC 1.X?</title>
+        <para>No. Although, &ws.spec.name;'s roots come from JAX-RPC, &ws.spec.name; is a 
                 completely different component than JAX-RPC.</para>
     </section>
 
     <section xml:id="section-jaxws-faq2">
-        <title>What is the difference between JAX-RPC and JAX-WS ?</title>
-        <para>One of the main difference between JAX-RPC and JAX-WS is the 
-            programming model. A JAX-WS based service uses annotations (such @WebService) 
+        <title>What is the difference between JAX-RPC and &ws.spec.name; ?</title>
+        <para>One of the main difference between JAX-RPC and &ws.spec.name; is the 
+            programming model. A &ws.spec.name; based service uses annotations (such @WebService) 
             to declare webservice endpoints. Use of these annotations obviates the need 
-            for deployment descriptors. With JAX-WS, you can have a webservice deployed 
+            for deployment descriptors. With &ws.spec.name;, you can have a webservice deployed 
             on a Java EE compliant application server without a single deployment descriptor. 
             Apart from these, other additional features (such asynchronous callbacks etc) 
             are also present.
@@ -43,7 +43,7 @@
     </section>
 
     <section xml:id="section-jaxws-faq3">
-        <title> Can a JAX-WS and a JAX-RPC based service co-exist?</title>
+        <title> Can a &ws.spec.name; and a JAX-RPC based service co-exist?</title>
         <para>Yes.</para>
     </section>
 
@@ -53,10 +53,10 @@
     </section>
 
     <section xml:id="section-jaxws-faq5">
-        <title>How do I find out which version of the JAX-WS RI I'm using?</title>
+        <title>How do I find out which version of the &ws.impl.name; I'm using?</title>
         <para>Run the following command
 <programlisting language="cli">$ wsgen or wsimport -version</programlisting>
-Alternatively, each JAX-WS jar has version information in its META-INF/MANIFEST.MF.
+Alternatively, each &ws.spec.name; jar has version information in its META-INF/MANIFEST.MF.
         </para>        
     </section>
     
@@ -69,7 +69,7 @@ Alternatively, each JAX-WS jar has version information in its META-INF/MANIFEST.
         </para>
     </section>
     <section xml:id="section-jaxws-faq8">
-        <title>How do I do basic authentication in JAX-WS ?</title>
+        <title>How do I do basic authentication in &ws.spec.name; ?</title>
         <para>
             You can do the following:
             <programlisting language="java">
@@ -90,7 +90,7 @@ Hello proxy = (service.getHelloPort());
     </section>
     
     <section xml:id="section-jaxws-faq9">
-        <title>Which standards are supported by JAXWS?</title>
+        <title>Which standards are supported by &ws.impl.name;?</title>
         <para>
             <itemizedlist>
                 <listitem>

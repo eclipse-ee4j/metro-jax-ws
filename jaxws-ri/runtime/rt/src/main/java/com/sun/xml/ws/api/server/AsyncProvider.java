@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,8 +12,8 @@ package com.sun.xml.ws.api.server;
 
 import com.sun.istack.NotNull;
 
-import javax.xml.ws.Provider;
-import javax.xml.ws.WebServiceContext;
+import jakarta.xml.ws.Provider;
+import jakarta.xml.ws.WebServiceContext;
 import java.util.concurrent.Executor;
 
 /**
@@ -44,10 +44,10 @@ import java.util.concurrent.Executor;
  *
  * <pre>
  * &#64;WebService
- * class MyAsyncEchoService implements AsyncProvider&lt;Source> {
+ * class MyAsyncEchoService implements AsyncProvider&lt;Source&gt; {
  *     private static final {@link Executor} exec = ...;
  *
- *     public void invoke( final Source request, final AsyncProviderCallback&lt;Source> callback, final WebServiceContext context) {
+ *     public void invoke( final Source request, final AsyncProviderCallback&lt;Source&gt; callback, final WebServiceContext context) {
  *         exec.execute(new {@link Runnable}() {
  *             public void run() {
  *                 Thread.sleep(1000);     // kill time.
@@ -94,8 +94,8 @@ public interface AsyncProvider<T> {
      *      The web service context instance that can be used to retrieve
      *      context information about the given request.
      */
-    public void invoke(
-        @NotNull T request,
-        @NotNull AsyncProviderCallback<T> callback,
-        @NotNull WebServiceContext context);
+    void invoke(
+            @NotNull T request,
+            @NotNull AsyncProviderCallback<T> callback,
+            @NotNull WebServiceContext context);
 }

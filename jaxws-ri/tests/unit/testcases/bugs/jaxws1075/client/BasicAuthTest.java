@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,9 +17,9 @@ import java.util.StringTokenizer;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.Service;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.Service;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -61,7 +61,7 @@ public class BasicAuthTest extends TestCase {
         } catch (Exception ex) {
           ex.printStackTrace();
           //exception must not be soapfault
-          assertTrue("The exception can not be soapfault exception", !(ex instanceof javax.xml.ws.ProtocolException));
+          assertTrue("The exception can not be soapfault exception", !(ex instanceof jakarta.xml.ws.ProtocolException));
         } finally{
            System.setErr(ps);
            System.setProperty(prop, oldV);

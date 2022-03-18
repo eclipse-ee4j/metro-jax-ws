@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,16 +15,15 @@ import com.sun.xml.ws.util.xml.XmlUtil;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
-import static javax.xml.stream.XMLStreamConstants.*;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.http.HTTPBinding;
-import javax.xml.ws.soap.MTOMFeature;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.soap.MTOMFeature;
+import jakarta.xml.ws.soap.SOAPBinding;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -47,19 +46,19 @@ public class DeploymentDescriptorParser<A> {
     private final ResourceLoader loader;
     private final AdapterFactory<A> adapterFactory;
 
-    // securite xml processing always enabled - parsing deployment descriptor ...
+    // secure xml processing always enabled - parsing deployment descriptor ...
     private static final XMLInputFactory xif = XmlUtil.newXMLInputFactory(true);
 
     /**
      * Endpoint names that are declared.
      * Used to catch double definitions.
      */
-    private final Set<String> names = new HashSet<String>();
+    private final Set<String> names = new HashSet<>();
 
     /**
      * WSDL/schema documents collected from /WEB-INF/wsdl. Keyed by the system ID.
      */
-    private final List<URL> docs = new ArrayList<URL>();
+    private final List<URL> docs = new ArrayList<>();
 
     /**
      *
@@ -91,10 +90,8 @@ public class DeploymentDescriptorParser<A> {
             }
             nextElementContent(reader);
             return parseAdapters(reader);
-        } catch(IOException e) {
+        } catch(IOException | XMLStreamException e) {
             throw new WebServiceException(e);
-        } catch(XMLStreamException xe) {
-            throw new WebServiceException(xe);
         } finally {
             if (reader != null) {
                 try {
@@ -114,7 +111,7 @@ public class DeploymentDescriptorParser<A> {
     private static int nextElementContent(XMLStreamReader reader) throws XMLStreamException {
         do {
             int state = reader.next();
-            if (state == START_ELEMENT || state == END_ELEMENT || state == END_DOCUMENT) {
+            if (state == XMLStreamConstants.START_ELEMENT || state == XMLStreamConstants.END_ELEMENT || state == XMLStreamConstants.END_DOCUMENT) {
                 return state;
             }
         } while(true);
@@ -134,7 +131,7 @@ public class DeploymentDescriptorParser<A> {
     }
 
     /**
-     * Get all the WSDL & schema documents recursively.
+     * Get all the WSDL and schema documents recursively.
      */
     private void collectDocs(String dirPath) throws IOException {
         Set<String> paths = loader.getResourcePaths(dirPath);
@@ -158,7 +155,7 @@ public class DeploymentDescriptorParser<A> {
             failWithFullName("runtime.parser.invalidElement", reader);
         }
 
-        List<A> adapters = new ArrayList<A>();
+        List<A> adapters = new ArrayList<>();
 
         String version = getMandatoryNonEmptyAttribute(reader, ATTR_VERSION);
         if (!version.equals(ATTRVALUE_VERSION_1_0)) {
@@ -181,7 +178,7 @@ public class DeploymentDescriptorParser<A> {
                 QName serviceName = getQNameAttribute(reader, ATTR_SERVICE);
                 QName portName = getQNameAttribute(reader, ATTR_PORT);
 
-                ArrayList<WebServiceFeature> features = new ArrayList<WebServiceFeature>();
+                ArrayList<WebServiceFeature> features = new ArrayList<>();
 
                 //get enable-mtom attribute value
                 String enable_mtom = getAttribute(reader, ATTR_ENABLE_MTOM);
@@ -189,7 +186,7 @@ public class DeploymentDescriptorParser<A> {
 
                 if (Boolean.valueOf(enable_mtom)) {
                     if (mtomThreshold != null) {
-                        features.add(new MTOMFeature(true, Integer.valueOf(mtomThreshold)));
+                        features.add(new MTOMFeature(true, Integer.parseInt(mtomThreshold)));
                     } else {
                         features.add(new MTOMFeature(true));
                     }
@@ -208,7 +205,7 @@ public class DeploymentDescriptorParser<A> {
                 nextElementContent(reader);
                 ensureNoContent(reader);
 
-                List<Source> metadata = new ArrayList<Source>();
+                List<Source> metadata = new ArrayList<>();
                 for(URL url : docs) {
                     Source source = new StreamSource(url.openStream(), url.toExternalForm());
                     metadata.add(source);
@@ -216,7 +213,7 @@ public class DeploymentDescriptorParser<A> {
 
                 adapters.add(adapterFactory.createAdapter(name, urlPattern,
                         implementorClass, serviceName, portName, bindingId,
-                        metadata, features.toArray(new WebServiceFeature[features.size()])));
+                        metadata, features.toArray(new WebServiceFeature[0])));
 
             } else {
                 failWithLocalName("runtime.parser.invalidElement", reader);
@@ -293,16 +290,17 @@ public class DeploymentDescriptorParser<A> {
      * @return returns corresponding API's binding ID or the same lexical
      */
     private static String getBindingIdForToken(String lexical) {
-        if (lexical.equals("##SOAP11_HTTP")) {
-            return SOAPBinding.SOAP11HTTP_BINDING;
-        } else if (lexical.equals("##SOAP11_HTTP_MTOM")) {
-            return SOAPBinding.SOAP11HTTP_MTOM_BINDING;
-        } else if (lexical.equals("##SOAP12_HTTP")) {
-            return SOAPBinding.SOAP12HTTP_BINDING;
-        } else if (lexical.equals("##SOAP12_HTTP_MTOM")) {
-            return SOAPBinding.SOAP12HTTP_MTOM_BINDING;
-        } else if (lexical.equals("##XML_HTTP")) {
-            return HTTPBinding.HTTP_BINDING;
+        switch (lexical) {
+            case "##SOAP11_HTTP":
+                return SOAPBinding.SOAP11HTTP_BINDING;
+            case "##SOAP11_HTTP_MTOM":
+                return SOAPBinding.SOAP11HTTP_MTOM_BINDING;
+            case "##SOAP12_HTTP":
+                return SOAPBinding.SOAP12HTTP_BINDING;
+            case "##SOAP12_HTTP_MTOM":
+                return SOAPBinding.SOAP12HTTP_MTOM_BINDING;
+            case "##XML_HTTP":
+                return HTTPBinding.HTTP_BINDING;
         }
         return lexical;
     }
@@ -314,7 +312,7 @@ public class DeploymentDescriptorParser<A> {
      * Normally 'A' would be {@link EndpointAdapter} or some derived class.
      * But the parser doesn't require that to be of any particular type.
      */
-    public static interface AdapterFactory<A> {
+    public interface AdapterFactory<A> {
         A createAdapter(String name, String urlPattern, Class implType,
             QName serviceName, QName portName, String bindingId,
             List<Source> metadata, WebServiceFeature... features);

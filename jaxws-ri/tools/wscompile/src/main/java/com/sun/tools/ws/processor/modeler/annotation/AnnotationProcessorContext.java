@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,7 @@ import java.util.Map;
  */
 public class AnnotationProcessorContext {
 
-    private Map<Name, SeiContext> seiContextMap = new HashMap<Name, SeiContext>();
+    private Map<Name, SeiContext> seiContextMap = new HashMap<>();
     private int round = 1;
     private boolean modelCompleted = false;
 
@@ -88,21 +88,20 @@ public class AnnotationProcessorContext {
 
     public static class SeiContext {
 
-        private Map<String, WrapperInfo> reqOperationWrapperMap = new HashMap<String, WrapperInfo>();
-        private Map<String, WrapperInfo> resOperationWrapperMap = new HashMap<String, WrapperInfo>();
-        private Map<Name, FaultInfo> exceptionBeanMap = new HashMap<Name, FaultInfo>();
+        private Map<String, WrapperInfo> reqOperationWrapperMap = new HashMap<>();
+        private Map<String, WrapperInfo> resOperationWrapperMap = new HashMap<>();
+        private Map<Name, FaultInfo> exceptionBeanMap = new HashMap<>();
 
         private Name seiImplName;
         private boolean implementsSei;
         private String namespaceUri;
 
-        public SeiContext() {};
-        
+        public SeiContext() {}
+
         /**
          * @deprecated use empty constructor, seiName value is ignored
-         * @param seiName 
          */
-        public SeiContext(Name seiName) {};
+        public SeiContext(Name seiName) {}
 
         public void setImplementsSei(boolean implementsSei) {
             this.implementsSei = implementsSei;

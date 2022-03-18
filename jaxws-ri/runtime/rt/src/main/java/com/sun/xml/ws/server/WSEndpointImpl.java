@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,12 +42,12 @@ import com.sun.xml.ws.wsdl.OperationDispatcher;
 import org.glassfish.gmbal.ManagedObjectManager;
 import org.w3c.dom.Element;
 
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.ws.EndpointReference;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.handler.Handler;
+import jakarta.xml.ws.EndpointReference;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.handler.Handler;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -87,7 +87,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
     private LazyMOMProvider.Scope lazyMOMProviderScope = LazyMOMProvider.Scope.STANDALONE;
     private final @NotNull ServerTubeAssemblerContext context;
 
-    private Map<QName, WSEndpointReference.EPRExtension> endpointReferenceExtensions = new HashMap<QName, WSEndpointReference.EPRExtension>();
+    private Map<QName, WSEndpointReference.EPRExtension> endpointReferenceExtensions = new HashMap<>();
     /**
      * Set to true once we start shutting down this endpoint. Used to avoid
      * running the clean up processing twice.
@@ -98,7 +98,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
     private final Class<T> implementationClass;
     private final @NotNull
     WSDLProperties wsdlProperties;
-    private final Set<Component> componentRegistry = new CopyOnWriteArraySet<Component>();
+    private final Set<Component> componentRegistry = new CopyOnWriteArraySet<>();
 
     protected WSEndpointImpl(@NotNull QName serviceName, @NotNull QName portName, WSBinding binding,
                    Container container, SEIModel seiModel, WSDLPort port,
@@ -175,7 +175,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
         engine = new Engine(toString(), container);
         wsdlProperties = (port == null) ? new WSDLDirectProperties(serviceName, portName, seiModel) : new WSDLPortProperties(port, seiModel);
 
-        Map<QName, WSEndpointReference.EPRExtension> eprExtensions = new HashMap<QName, WSEndpointReference.EPRExtension>();
+        Map<QName, WSEndpointReference.EPRExtension> eprExtensions = new HashMap<>();
         try {
             if (port != null) {
                 //gather EPR extrensions from WSDL Model
@@ -209,7 +209,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
 
   protected ServerTubeAssemblerContext createServerTubeAssemblerContext(
             EndpointAwareTube terminalTube, boolean isSynchronous) {
-    ServerTubeAssemblerContext ctx = new ServerPipeAssemblerContext(
+    ServerTubeAssemblerContext ctx = new ServerTubeAssemblerContext(
         seiModel, port, this, terminalTube, isSynchronous);
     return ctx;
   }
@@ -234,7 +234,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
         initManagedObjectManager();
 
         this.operationDispatcher = (port == null) ? null : new OperationDispatcher(port, binding, seiModel);
-            this.context = new ServerPipeAssemblerContext(
+            this.context = new ServerTubeAssemblerContext(
                 seiModel, port, this, null /* not known */, false);
 
                 tubePool = new TubePool(masterTubeline);
@@ -248,46 +248,53 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
     
     /**
      * Nullable when there is no associated WSDL Model
-     * @return
      */
+    @Override
     public @Nullable OperationDispatcher getOperationDispatcher() {
         return operationDispatcher;
     }
 
+    @Override
     public PolicyMap getPolicyMap() {
             return endpointPolicy;
     }
 
+    @Override
     public @NotNull Class<T> getImplementationClass() {
                 return implementationClass;
         }
 
+    @Override
     public @NotNull WSBinding getBinding() {
                 return binding;
         }
 
+    @Override
     public @NotNull Container getContainer() {
                 return container;
         }
 
-        public WSDLPort getPort() {
-                return port;
-        }
+    @Override
+    public WSDLPort getPort() {
+        return port;
+    }
 
-        @Override
+    @Override
     public @Nullable SEIModel getSEIModel() {
-                return seiModel;
-        }
+        return seiModel;
+    }
 
-        public void setExecutor(Executor exec) {
-                engine.setExecutor(exec);
-        }
-        
-        @Override
-        public Engine getEngine() {
-                return engine;
-        }
+    @Override
+    public void setExecutor(Executor exec) {
+        engine.setExecutor(exec);
+    }
 
+    @Override
+    public Engine getEngine() {
+        return engine;
+    }
+
+    @Override
     public void schedule(final Packet request, final CompletionCallback callback, FiberContextSwitchInterceptor interceptor) {
         processAsync(request, callback, interceptor, true);
     }
@@ -307,6 +314,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
             }
             final Tube tube = tubePool.take();
             Fiber.CompletionCallback cbak = new Fiber.CompletionCallback() {
+                @Override
                 public void onCompletion(@NotNull Packet response) {
                     ThrowableContainerPropertySet tc = response.getSatellite(ThrowableContainerPropertySet.class);
                     if (tc == null) {
@@ -328,6 +336,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
                     }
                 }
 
+                @Override
                 public void onCompletion(@NotNull Throwable error) {
                     // will never be called now that we are using
                     // fiber.setDeliverThrowableInPacket(true);
@@ -368,12 +377,13 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
         processAsync(request, callback, interceptor, false);
     }
 
-    public @NotNull
-    PipeHead createPipeHead() {
+    @Override
+    public @NotNull PipeHead createPipeHead() {
         return new PipeHead() {
             private final Tube tube = TubeCloner.clone(masterTubeline);
 
             public @NotNull
+            @Override
             Packet process(Packet request, WebServiceContextDelegate wscd,
                     TransportBackChannel tbc) {
                 Container old = ContainerResolver.getDefault().enterContainer(container);
@@ -406,145 +416,43 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
         };
     }
 
-        public synchronized void dispose() {
-            if (disposed) {
-                return;
+    @Override
+    public synchronized void dispose() {
+        if (disposed) {
+            return;
+        }
+        disposed = true;
+
+        masterTubeline.preDestroy();
+
+        for (Handler handler : binding.getHandlerChain()) {
+            for (Method method : handler.getClass().getMethods()) {
+                if (method.getAnnotation(PreDestroy.class) == null) {
+                    continue;
+                }
+                try {
+                    method.invoke(handler);
+                } catch (Exception e) {
+                    logger.log(Level.WARNING, HandlerMessages.HANDLER_PREDESTROY_IGNORE(e.getMessage()), e);
+                }
+                break;
             }
-            disposed = true;
-
-            masterTubeline.preDestroy();
-
-            for (Handler handler : binding.getHandlerChain()) {
-                for (Method method : handler.getClass().getMethods()) {
-                    if (method.getAnnotation(PreDestroy.class) == null) {
-                        continue;
-                    }
-                    try {
-                        method.invoke(handler);
-                    } catch (Exception e) {
-                        logger.log(Level.WARNING, HandlerMessages.HANDLER_PREDESTROY_IGNORE(e.getMessage()), e);
-                    }
-                    break;
-                }
-            }
-            closeManagedObjectManager();
-            LazyMOMProvider.INSTANCE.unregisterEndpoint(this);
         }
+        closeManagedObjectManager();
+        LazyMOMProvider.INSTANCE.unregisterEndpoint(this);
+    }
 
-        public ServiceDefinitionImpl getServiceDefinition() {
-                return serviceDef;
-        }
+    @Override
+    public ServiceDefinitionImpl getServiceDefinition() {
+        return serviceDef;
+    }
 
-        public Set<EndpointComponent> getComponentRegistry() {
-                Set<EndpointComponent> sec = new EndpointComponentSet();
-                for (Component c : componentRegistry) {
-                        sec.add(c instanceof EndpointComponentWrapper ?
-                                ((EndpointComponentWrapper) c).component :
-                                new ComponentWrapper(c));
-                }
-                return sec;
-        }
-        
-        private class EndpointComponentSet extends HashSet<EndpointComponent> {
+    @Override
+    public @NotNull Set<Component> getComponents() {
+        return componentRegistry;
+    }
 
-                @Override
-                public Iterator<EndpointComponent> iterator() {
-                        final Iterator<EndpointComponent> it = super.iterator();
-                        return new Iterator<EndpointComponent>() {
-                                private EndpointComponent last = null;
-                                
-                                public boolean hasNext() {
-                                        return it.hasNext();
-                                }
-
-                                public EndpointComponent next() {
-                                        last = it.next();
-                                        return last;
-                                }
-
-                                public void remove() {
-                                        it.remove();
-                                        if (last != null) {
-                                                componentRegistry.remove(last instanceof ComponentWrapper ?
-                                                                ((ComponentWrapper) last).component : 
-                                                                new EndpointComponentWrapper(last));
-                                        }
-                                        last = null;
-                                }
-                        };
-                }
-
-                @Override
-                public boolean add(EndpointComponent e) {
-                        boolean result = super.add(e);
-                        if (result) {
-                                componentRegistry.add(new EndpointComponentWrapper(e));
-                        }
-                        return result;
-                }
-
-                @Override
-                public boolean remove(Object o) {
-                        boolean result = super.remove(o);
-                        if (result) {
-                                componentRegistry.remove(o instanceof ComponentWrapper ?
-                                                ((ComponentWrapper) o).component : 
-                                                new EndpointComponentWrapper((EndpointComponent)o));
-                        }
-                        return result;
-                }
-                
-        }
-        
-        private static class ComponentWrapper implements EndpointComponent {
-                private final Component component;
-                
-                public ComponentWrapper(Component component) {
-                        this.component = component;
-                }
-
-                public <S> S getSPI(Class<S> spiType) {
-                        return component.getSPI(spiType);
-                }
-
-                @Override
-                public int hashCode() {
-                        return component.hashCode();
-                }
-
-                @Override
-                public boolean equals(Object obj) {
-                    return component.equals(obj);
-                }
-        }
-
-        private static class EndpointComponentWrapper implements Component {
-                private final EndpointComponent component;
-
-                public EndpointComponentWrapper(EndpointComponent component) {
-                        this.component = component;
-                }
-                
-                public <S> S getSPI(Class<S> spiType) {
-                        return component.getSPI(spiType);
-                }
-
-                @Override
-                public int hashCode() {
-                        return component.hashCode();
-                }
-
-                @Override
-                public boolean equals(Object obj) {
-                        return component.equals(obj);
-                }
-        }
-
-        @Override
-        public @NotNull Set<Component> getComponents() {
-                return componentRegistry;
-        }
-
+    @Override
     public <T extends EndpointReference> T getEndpointReference(Class<T> clazz, String address, String wsdlAddress, Element... referenceParameters) {
         List<Element> refParams = null;
         if (referenceParameters != null) {
@@ -553,6 +461,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
         return getEndpointReference(clazz, address, wsdlAddress, null, refParams);
     }
 
+    @Override
     public <T extends EndpointReference> T getEndpointReference(Class<T> clazz,
             String address, String wsdlAddress, List<Element> metadata,
             List<Element> referenceParameters) {
@@ -567,18 +476,20 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
 
     }
 
+    @Override
     public @NotNull QName getPortName() {
-                return portName;
-        }
+        return portName;
+    }
 
-
+    @Override
     public @NotNull Codec createCodec() {
-                return masterCodec.copy();
-        }
+        return masterCodec.copy();
+    }
 
+    @Override
     public @NotNull QName getServiceName() {
-                return serviceName;
-        }
+        return serviceName;
+    }
     
     private void initManagedObjectManager() {
         synchronized (managedObjectManagerLock) {
@@ -594,6 +505,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
         }
     }
 
+    @Override
     public @NotNull ManagedObjectManager getManagedObjectManager() {
         return managedObjectManager;
     }
@@ -615,6 +527,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
         return mOM;
     }
 
+    @Override
     public void scopeChanged(LazyMOMProvider.Scope scope) {
         synchronized (managedObjectManagerLock) {
             if (managedObjectManagerClosed) {
@@ -648,18 +561,15 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
     @Override
     public void closeManagedObjectManager() {
         synchronized (managedObjectManagerLock) {
-            if (managedObjectManagerClosed == true) {
+            if (managedObjectManagerClosed) {
                 return;
             }
             if (managedObjectManager != null) {
-                boolean close = true;
+                boolean close = !(managedObjectManager instanceof WSEndpointMOMProxy)
+                        || ((WSEndpointMOMProxy) managedObjectManager).isInitialized();
 
                 // ManagedObjectManager doesn't need to be closed because it exists only as a proxy
-                if (managedObjectManager instanceof WSEndpointMOMProxy
-                        && !((WSEndpointMOMProxy)managedObjectManager).isInitialized()) {
-                    close = false;
-                }
-                
+
                 if (close) {
                     try {
                         final ObjectName name = managedObjectManager.getObjectName(managedObjectManager.getRoot());
@@ -677,7 +587,8 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
         }
     }
 
-    public @NotNull @Override ServerTubeAssemblerContext getAssemblerContext() {
+    @Override
+    public @NotNull ServerTubeAssemblerContext getAssemblerContext() {
         return context;
     }
 }

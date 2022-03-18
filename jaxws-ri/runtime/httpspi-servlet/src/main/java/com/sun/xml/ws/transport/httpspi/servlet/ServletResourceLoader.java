@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,13 +10,13 @@
 
 package com.sun.xml.ws.transport.httpspi.servlet;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import java.net.URL;
 import java.net.MalformedURLException;
 import java.util.Set;
 
 /**
- * {@link ResourceLoader} backed by {@link javax.servlet.ServletContext}.
+ * {@link ResourceLoader} backed by {@link jakarta.servlet.ServletContext}.
  *
  * @author Kohsuke Kawaguchi
  */
@@ -27,14 +27,17 @@ public final class ServletResourceLoader implements ResourceLoader {
         this.context = context;
     }
 
+    @Override
     public URL getResource(String path) throws MalformedURLException {
         return context.getResource(path);
     }
 
+    @Override
     public URL getCatalogFile() throws MalformedURLException {
         return getResource("/WEB-INF/jax-ws-catalog.xml");
     }
 
+    @Override
     public Set<String> getResourcePaths(String path) {
         return context.getResourcePaths(path);
     }

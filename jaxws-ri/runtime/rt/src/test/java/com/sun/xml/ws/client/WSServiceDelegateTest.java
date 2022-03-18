@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,7 +19,10 @@ public class WSServiceDelegateTest extends TestCase {
         MyClassLoader loader1 = new MyClassLoader(loader2);
         ClassLoader result = invokeGetDelegatingLoader(loader1, loader2);
         assertEquals(loader1, result);
-        
+
+        result = invokeGetDelegatingLoader(loader1, loader1);
+        assertEquals(loader1, result);
+
         loader2 = new MyClassLoader();
         loader1 = new MyClassLoader();
         result = invokeGetDelegatingLoader(loader1, loader2);

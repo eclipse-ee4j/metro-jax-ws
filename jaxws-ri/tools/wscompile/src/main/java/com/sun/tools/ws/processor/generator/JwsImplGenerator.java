@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,8 +10,21 @@
 
 package com.sun.tools.ws.processor.generator;
 
-import com.sun.codemodel.*;
-import com.sun.tools.ws.processor.model.*;
+import com.sun.codemodel.ClassType;
+import com.sun.codemodel.JAnnotationUse;
+import com.sun.codemodel.JClass;
+import com.sun.codemodel.JClassAlreadyExistsException;
+import com.sun.codemodel.JCommentPart;
+import com.sun.codemodel.JDefinedClass;
+import com.sun.codemodel.JDocComment;
+import com.sun.codemodel.JMethod;
+import com.sun.codemodel.JMod;
+import com.sun.codemodel.JVar;
+import com.sun.tools.ws.processor.model.Fault;
+import com.sun.tools.ws.processor.model.Model;
+import com.sun.tools.ws.processor.model.Operation;
+import com.sun.tools.ws.processor.model.Port;
+import com.sun.tools.ws.processor.model.Service;
 import com.sun.tools.ws.processor.model.java.JavaInterface;
 import com.sun.tools.ws.processor.model.java.JavaMethod;
 import com.sun.tools.ws.processor.model.java.JavaParameter;
@@ -25,15 +38,14 @@ import com.sun.tools.ws.api.wsdl.TWSDLExtension;
 import com.sun.tools.ws.wscompile.ErrorReceiver;
 import com.sun.tools.ws.processor.model.ModelProperties;
 import com.sun.tools.ws.wscompile.WsimportOptions;
-import com.sun.codemodel.JClassAlreadyExistsException;
 import com.sun.xml.ws.api.SOAPVersion;
 
 import com.sun.xml.ws.util.ServiceFinder;
 
-import javax.jws.WebService;
-import javax.xml.ws.BindingType;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.BindingType;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -41,6 +53,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.ServiceLoader;
 
 /**
  * Generator for placeholder JWS implementations
@@ -48,15 +61,15 @@ import java.util.Map;
  * @since 2.2.6
  */
 public final class JwsImplGenerator extends GeneratorBase {
-	private static final Map<String, String> TRANSLATION_MAP = new HashMap<String, String>(
-      1);
+	private static final Map<String, String> TRANSLATION_MAP = new HashMap<>(
+			1);
 	static
   {
     TRANSLATION_MAP.put(SOAPConstants.URI_SOAP_TRANSPORT_HTTP,
-    		javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING);
+    		jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING);
   }
 	// save the generated impl files' info
-	private final List<String> implFiles = new ArrayList<String>();
+	private final List<String> implFiles = new ArrayList<>();
 
 	public static List<String> generate(Model model, WsimportOptions options,
 	    ErrorReceiver receiver) {
@@ -207,9 +220,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 				comment.add("\n\n");
 			}
 
-			for (String doc : getJAXWSClassComment()) {
-				comment.add(doc);
-			}
+			comment.addAll(getJAXWSClassComment());
 
 			// @WebService
 			JAnnotationUse webServiceAnn = cls.annotate(cm.ref(WebService.class));
@@ -220,7 +231,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 			writeBindingTypeAnnotation(port, bindingTypeAnn);
 
                         // extra annotation                  
-                        for( GeneratorExtension f : ServiceFinder.find(GeneratorExtension.class) ) {
+                        for( GeneratorExtension f : findService(GeneratorExtension.class)) {
         		    f.writeWebServiceAnnotation(model, cm, cls, port);
         		}
 
@@ -307,11 +318,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 	}
 
 	/**
-	 * 
-	 * @param service
-	 * @param port
-	 * @param webServiceAnn
-	 * @param options
+	 *
 	 */
 	private void writeWebServiceAnnotation(Service service, Port port,
 	    JAnnotationUse webServiceAnn) {
@@ -357,9 +364,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 
 	/**
 	 * TODO
-	 * 
-	 * @param port
-	 * @param bindingTypeAnn
+	 *
 	 */
 	private void writeBindingTypeAnnotation(Port port,
 	    JAnnotationUse bindingTypeAnn) {
@@ -381,30 +386,30 @@ public final class JwsImplGenerator extends GeneratorBase {
 	private String resolveBindingValue(TWSDLExtension wsdlext) {
 		if (wsdlext.getClass().equals(SOAPBinding.class)) {
 			SOAPBinding sb = (SOAPBinding) wsdlext;
-			if(javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING.equals(sb.getTransport()))
-				return javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING;
+			if(jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING.equals(sb.getTransport()))
+				return jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_MTOM_BINDING;
                         else {
-                            for(GeneratorExtension f : ServiceFinder.find(GeneratorExtension.class) ) {
+                            for(GeneratorExtension f : findService(GeneratorExtension.class) ) {
                                 String bindingValue = f.getBindingValue(sb.getTransport(), SOAPVersion.SOAP_11);
                                 if(bindingValue!=null) {
                                     return bindingValue;
                                 }
                             }
-                                return javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING;
+                                return jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING;
                         }
 		}
 		if (wsdlext.getClass().equals(SOAP12Binding.class)) {
 			SOAP12Binding sb = (SOAP12Binding) wsdlext;
-			if(javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_MTOM_BINDING.equals(sb.getTransport()))
-				return javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_MTOM_BINDING;
+			if(jakarta.xml.ws.soap.SOAPBinding.SOAP12HTTP_MTOM_BINDING.equals(sb.getTransport()))
+				return jakarta.xml.ws.soap.SOAPBinding.SOAP12HTTP_MTOM_BINDING;
 		    else {
-		        for(GeneratorExtension f : ServiceFinder.find(GeneratorExtension.class) ) {
+		        for(GeneratorExtension f : findService(GeneratorExtension.class) ) {
 		            String bindingValue = f.getBindingValue(sb.getTransport(), SOAPVersion.SOAP_12);
 		            if(bindingValue!=null) {
 		                return bindingValue;
 		            }
 		        }
-		            return javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING;
+		            return jakarta.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING;
 		    }
 		}
 		return null;
@@ -457,14 +462,14 @@ public final class JwsImplGenerator extends GeneratorBase {
 		return value;
 	}
 	
-  /**
-   * Since the SOAP 1.1 binding transport URI defined in WSDL 1.1 specification
-   * is different with the SOAPBinding URI defined by JAX-WS 2.0 specification.
-   * We must translate the wsdl version into JAX-WS version. If the given
-   * transport URI is NOT one of the predefined transport URIs, it is returned
-   * as is.
-   *
-   * @param transportURI
+  /*
+    Since the SOAP 1.1 binding transport URI defined in WSDL 1.1 specification
+    is different with the SOAPBinding URI defined by JAX-WS 2.0 specification.
+    We must translate the wsdl version into JAX-WS version. If the given
+    transport URI is NOT one of the predefined transport URIs, it is returned
+    as is.
+
+    @param transportURI
    *          retrieved from WSDL
    * @return Standard BindingType URI defined by JAX-WS 2.0 specification.
    */
@@ -497,7 +502,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 		}
 
 		public static List<ImplFile> toImplFiles(List<String> qualifiedClassNames) {
-			List<ImplFile> ret = new ArrayList<ImplFile>();
+			List<ImplFile> ret = new ArrayList<>();
 
 			for (String qualifiedClassName : qualifiedClassNames)
 				ret.add(new ImplFile(qualifiedClassName));
@@ -564,4 +569,8 @@ public final class JwsImplGenerator extends GeneratorBase {
 
 		return reqQN.equals(checkQN);
 	}
+
+        private static <S> ServiceFinder<S> findService(Class<S> type) {
+            return ServiceFinder.find(type, ServiceLoader.load(type));
+        }
 }

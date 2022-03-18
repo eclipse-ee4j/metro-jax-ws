@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 
 /**
  * Factory for Provider invoker tubes that know how to handle specific
- * types of Providers (i.e., javax.xml.ws.Provider).
+ * types of Providers (i.e., jakarta.xml.ws.Provider).
  *
  */
 
@@ -50,14 +50,6 @@ public abstract class ProviderInvokerTubeFactory<T> {
     }
 
     /**
-     * @param classLoader
-     * @param container
-     * @param implType
-     * @param invoker
-     * @param argsBuilder
-     * @param isAsync
-     * 
-     * @return
      */
     public static <T> ProviderInvokerTube<T> create(@Nullable final ClassLoader classLoader,
                                                     @NotNull  final Container container,

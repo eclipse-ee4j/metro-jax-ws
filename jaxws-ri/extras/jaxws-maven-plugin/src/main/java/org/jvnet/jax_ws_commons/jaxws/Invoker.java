@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * Oracle licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -50,7 +50,7 @@ public final class Invoker {
             c = p.getProperty("cp");
             idx = 3;
         }
-        List<URL> cp = new ArrayList<URL>();
+        List<URL> cp = new ArrayList<>();
         for (String s: c.split(File.pathSeparator)) {
             try {
                 URL f = new File(s).toURI().toURL();
@@ -59,7 +59,7 @@ public final class Invoker {
                 Logger.getLogger(Invoker.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        URLClassLoader cl = new URLClassLoader(cp.toArray(new URL[cp.size()]));
+        URLClassLoader cl = new URLClassLoader(cp.toArray(new URL[0]));
         String[] wsargs = new String[args.length - idx];
         System.arraycopy(args, idx, wsargs, 0, args.length - idx);
         ClassLoader orig = Thread.currentThread().getContextClassLoader();
@@ -72,17 +72,7 @@ public final class Invoker {
             Object tool = ctor.newInstance(System.out);
             Method runMethod = compileTool.getMethod("run", String[].class);
             System.exit((Boolean) runMethod.invoke(tool, new Object[]{wsargs}) ? 0 : 1);
-        } catch (NoSuchMethodException ex) {
-            Logger.getLogger(Invoker.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SecurityException ex) {
-            Logger.getLogger(Invoker.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Invoker.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Invoker.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Invoker.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalArgumentException ex) {
+        } catch (NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InstantiationException | ClassNotFoundException | SecurityException ex) {
             Logger.getLogger(Invoker.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvocationTargetException ex) {
             Exception rex = new RuntimeException();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,9 +27,9 @@
     <section xml:id="introduction-1">
         <title>Introduction</title>
 
-        <para>&jax-ws.product.name.short; has a vendor extension that allows
+        <para>&ws.impl.name; has a vendor extension that allows
         developers to bring back object state to the web service world.
-        Normally, &jax-ws.product.name.short; only creates one instance of a
+        Normally, &ws.impl.name; only creates one instance of a
         service class, and have it serve all incoming requests concurrently.
         This makes it essentially impossible to use instance fields of the
         service class for any meaningful purpose.</para>
@@ -39,8 +39,8 @@
         dispatch a request to the right instance of your real domain
         object.</para>
 
-        <para>The stateful web service support in &jax-ws.product.name.short;
-        resolves this problem by having &jax-ws.product.name.short; maintain
+        <para>The stateful web service support in &ws.impl.name;
+        resolves this problem by having &ws.impl.name; maintain
         multiple instances of a service. By using <xref
         linkend="users-guide-ws-addressing" xrefstyle="select:title" /> behind
         the scene, it provides a standard-based on-the-wire protocol and
@@ -101,7 +101,7 @@ class BankAccount {
         <para>Each instance of a stateful web service class is identified by
         an unique <literal>EndpointReference</literal>. Your application
         creates an instance of a class, then you'll have
-        &jax-ws.product.name.short; assign this unique EPR for the instance as
+        &ws.impl.name; assign this unique EPR for the instance as
         follows:</para>
 
         <informalexample>
@@ -121,7 +121,7 @@ class Bank { // this is ordinary stateless service
         </informalexample>
 
         <para>Typically you then pass this EPR to remote systems. When they
-        send messages to this EPR, &jax-ws.product.name.short; makes sure that
+        send messages to this EPR, &ws.impl.name; makes sure that
         the particular exported instance associated with that EPR will receive
         a service invocation.</para>
     </section>

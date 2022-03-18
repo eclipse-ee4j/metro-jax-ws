@@ -3,7 +3,7 @@
 
     DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-    Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved.
 
     Oracle licenses this file to You under the Apache License, Version 2.0
     (the "License"); you may not use this file except in compliance with
@@ -19,8 +19,8 @@
 
 -->
 
-<jaxws:bindings wsdlLocation="../AddService.wsdl" version="2.0"
-    xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<jaxws:bindings wsdlLocation="../AddService.wsdl" version="3.0"
+    xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
     <jaxws:bindings node="wsdl:definitions/wsdl:portType[@name='AddService']">
         <jaxws:class name="SumUtil">
             <jaxws:javadoc>Perform some operation</jaxws:javadoc>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,10 +13,10 @@ package com.sun.xml.ws.message;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPHeaderElement;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPHeader;
+import jakarta.xml.soap.SOAPHeaderElement;
 import javax.xml.namespace.QName;
 
 import com.sun.istack.Nullable;
@@ -48,23 +48,27 @@ public class FaultDetailHeader extends AbstractHeaderImpl {
         this.problemValue = problemValue;
     }
 
+    @Override
     public
     @NotNull
     String getNamespaceURI() {
         return av.nsUri;
     }
 
+    @Override
     public
     @NotNull
     String getLocalPart() {
         return av.faultDetailTag.getLocalPart();
     }
 
+    @Override
     @Nullable
     public String getAttribute(@NotNull String nsUri, @NotNull String localName) {
         return null;
     }
 
+    @Override
     public XMLStreamReader readHeader() throws XMLStreamException {
         MutableXMLStreamBuffer buf = new MutableXMLStreamBuffer();
         XMLStreamWriter w = buf.createFromXMLStreamWriter();
@@ -72,6 +76,7 @@ public class FaultDetailHeader extends AbstractHeaderImpl {
         return buf.readAsXMLStreamReader();
     }
 
+    @Override
     public void writeTo(XMLStreamWriter w) throws XMLStreamException {
         w.writeStartElement("", av.faultDetailTag.getLocalPart(), av.faultDetailTag.getNamespaceURI());
         w.writeDefaultNamespace(av.nsUri);
@@ -81,6 +86,7 @@ public class FaultDetailHeader extends AbstractHeaderImpl {
         w.writeEndElement();
     }
 
+    @Override
     public void writeTo(SOAPMessage saaj) throws SOAPException {
         SOAPHeader header = saaj.getSOAPHeader();
         if (header == null)
@@ -90,6 +96,7 @@ public class FaultDetailHeader extends AbstractHeaderImpl {
         she.addTextNode(problemValue);
     }
 
+    @Override
     public void writeTo(ContentHandler h, ErrorHandler errorHandler) throws SAXException {
         String nsUri = av.nsUri;
         String ln = av.faultDetailTag.getLocalPart();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,7 @@ public final class QNameMap<V> {
     /**
      * The maximum capacity, used if a higher value is implicitly specified
      * by either of the constructors with arguments.
-     * MUST be a power of two <= 1<<30.
+     * MUST be a power of two {@literal <= 1<<30}.
      */
     private static final int MAXIMUM_CAPACITY = 1 << 30;
 
@@ -208,7 +208,7 @@ public final class QNameMap<V> {
      */
     private void addEntry(int hash, String nsUri, String localName, V value, int bucketIndex) {
         Entry<V> e = table[bucketIndex];
-        table[bucketIndex] = new Entry<V>(hash, nsUri, localName, value, e);
+        table[bucketIndex] = new Entry<>(hash, nsUri, localName, value, e);
         if (size++ >= threshold)
             resize(2 * table.length);
     }
@@ -270,7 +270,7 @@ public final class QNameMap<V> {
     }
 
     public Collection<QName> keySet() {
-        Set<QName> r = new HashSet<QName>();
+        Set<QName> r = new HashSet<>();
         for (Entry<V> e : entrySet()) {
             r.add(e.createQName());
         }
@@ -281,7 +281,8 @@ public final class QNameMap<V> {
         return views;
     }
 
-    private transient Iterable<V> views = new Iterable<V>() {
+    private transient Iterable<V> views = new Iterable<>() {
+        @Override
         public Iterator<V> iterator() {
             return new ValueIterator();
         }
@@ -303,6 +304,7 @@ public final class QNameMap<V> {
             index = i;
         }
 
+        @Override
         public boolean hasNext() {
             return next != null;
         }
@@ -322,12 +324,14 @@ public final class QNameMap<V> {
             return e;
         }
 
+        @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }
     }
 
     private class ValueIterator extends HashIterator<V> {
+        @Override
         public V next() {
             return nextEntry().value;
         }
@@ -396,8 +400,7 @@ public final class QNameMap<V> {
             if (k1.equals(k2) && k3.equals(k4)) {
                 Object v1 = getValue();
                 Object v2 = e.getValue();
-                if (v1 == v2 || (v1 != null && v1.equals(v2)))
-                    return true;
+                return v1 == v2 || (v1 != null && v1.equals(v2));
             }
             return false;
         }
@@ -422,14 +425,17 @@ public final class QNameMap<V> {
     }
 
     private class EntryIterator extends HashIterator<Entry<V>> {
+        @Override
         public Entry<V> next() {
             return nextEntry();
         }
     }
     private class EntrySet extends AbstractSet<Entry<V>> {
+        @Override
         public Iterator<Entry<V>> iterator() {
             return newEntryIterator();
         }
+        @Override
         public boolean contains(Object o) {
             if (!(o instanceof Entry))
                 return false;
@@ -437,9 +443,11 @@ public final class QNameMap<V> {
             Entry<V> candidate = getEntry(e.nsUri,e.localName);
             return candidate != null && candidate.equals(e);
         }
+        @Override
         public boolean remove(Object o) {
             throw new UnsupportedOperationException();
         }
+        @Override
         public int size() {
             return size;
         }

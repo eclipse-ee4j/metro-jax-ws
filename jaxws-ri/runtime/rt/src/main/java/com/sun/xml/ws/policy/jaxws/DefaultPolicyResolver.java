@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,7 +22,7 @@ import com.sun.xml.ws.policy.PolicyMap;
 import com.sun.xml.ws.policy.spi.PolicyAssertionValidator.Fitness;
 import com.sun.xml.ws.resources.PolicyMessages;
 
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * This default implementation runs the policy validators on the server side and
@@ -33,6 +33,7 @@ import javax.xml.ws.WebServiceException;
  */
 public class DefaultPolicyResolver implements PolicyResolver {
 
+    @Override
     public PolicyMap resolve(ServerContext context) {
         PolicyMap map = context.getPolicyMap();
         if(map != null)
@@ -40,6 +41,7 @@ public class DefaultPolicyResolver implements PolicyResolver {
         return map;
     }
 
+    @Override
     public PolicyMap resolve(ClientContext context) {
         PolicyMap map = context.getPolicyMap();
         if(map != null)
@@ -80,8 +82,6 @@ public class DefaultPolicyResolver implements PolicyResolver {
     /**
      * Selects a best alternative if there are multiple policy alternatives.
      *
-     * @param policyMap
-     * @return
      */
     private PolicyMap doAlternativeSelection(PolicyMap policyMap) {
         final EffectivePolicyModifier modifier = EffectivePolicyModifier.createEffectivePolicyModifier();

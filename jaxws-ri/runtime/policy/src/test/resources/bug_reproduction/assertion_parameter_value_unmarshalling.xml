@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="WSHttpBinding_IPing_policy">
+    <wsp:ExactlyOne xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+        <wsp:All xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+            <wsrm:RMAssertion xmlns:wsrm="http://schemas.xmlsoap.org/ws/2005/02/rm/policy">
+                <wsrm:InactivityTimeout xmlns:wsrm="http://schemas.xmlsoap.org/ws/2005/02/rm/policy" Milliseconds="600000"></wsrm:InactivityTimeout>
+                <wsrm:AcknowledgementInterval xmlns:wsrm="http://schemas.xmlsoap.org/ws/2005/02/rm/policy" Milliseconds="200"></wsrm:AcknowledgementInterval>
+            </wsrm:RMAssertion>
+            <net:RmFlowControl xmlns:net="http://schemas.microsoft.com/net/2005/02/rm/policy">
+                <net:MaxReceiveBufferSize xmlns:net="http://schemas.microsoft.com/net/2005/02/rm/policy">32</net:MaxReceiveBufferSize>
+            </net:RmFlowControl>
+            <wspe:Utf816FFFECharacterEncoding xmlns:wspe="http://schemas.xmlsoap.org/ws/2004/09/policy/encoding"></wspe:Utf816FFFECharacterEncoding>
+            <wsap10:UsingAddressing xmlns:wsap10="http://www.w3.org/2006/05/addressing/wsdl"></wsap10:UsingAddressing>
+        </wsp:All>
+    </wsp:ExactlyOne>
+</wsp:Policy>

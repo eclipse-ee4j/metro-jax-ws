@@ -3,7 +3,7 @@
 
     DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     Oracle licenses this file to You under the Apache License, Version 2.0
     (the "License"); you may not use this file except in compliance with
@@ -27,15 +27,15 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jvnet.jax-ws-commons</groupId>
-    <artifactId>mojo.it.AWSECommerceService</artifactId>
+    <artifactId>mojo.it.Chebiwebservices.local</artifactId>
     <version>1.0-SNAPSHOT</version>
     
-    <name>Amazon AWSECommerceService</name>
+    <name>Chebiwebservices-local</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jaxws.plugin.version>2.3.2</jaxws.plugin.version>
-        <jaxws-ri.version>2.3.2</jaxws-ri.version>
+        <jaxws.plugin.version>3.0.0</jaxws.plugin.version>
+        <jaxws-ri.version>3.0.0</jaxws-ri.version>
     </properties>
 
     <dependencies>
@@ -53,7 +53,7 @@
          -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <phase>initialize</phase>
@@ -62,11 +62,10 @@
                         </goals>
                         <configuration>
                             <target>
-                                <setproxy proxyhost="www-proxy.us.oracle.com" proxyport="80"/>
                                 <delete dir="${project.build.directory}" />
                                 <mkdir dir="${project.build.directory}" />
-                                <get src="http://webservices.amazon.com/AWSECommerceService/AWSECommerceService.wsdl"
-                         dest="${project.build.directory}/AWSECommerceService.wsdl" />
+                                <get src="http://www.ebi.ac.uk/webservices/chebi/2.0/webservice?wsdl"
+                                     dest="${project.build.directory}/ebi.wsdl" />
                             </target>
                         </configuration>
                     </execution>
@@ -75,7 +74,7 @@
 
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
                     <release>8</release>
                 </configuration>
@@ -93,9 +92,8 @@
                         <configuration>
                             <wsdlDirectory>${project.build.directory}</wsdlDirectory>
                             <wsdlFiles>
-                                <wsdlFile>AWSECommerceService.wsdl</wsdlFile>
+                                <wsdlFile>ebi.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <!-- for JDK 6 compilation compatibility -->
                             <xnocompile>false</xnocompile>
                         </configuration>
                     </execution>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -92,7 +92,7 @@ public class ASCIIUtility {
     /**
      * Convert the bytes within the specified range of the given byte
      * array into a String. The range extends from <code>start</code>
-     * till, but not including <code>end</code>. <p>
+     * till, but not including <code>end</code>.
      */
     public static String toString(byte[] b, int start, int end) {
         int size = end - start;

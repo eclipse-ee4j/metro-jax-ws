@@ -12,20 +12,20 @@ package server.provider.xmlbind_ds.client;
 
 import junit.framework.*;
 import testutil.ClientServerTestUtil;
-import javax.xml.ws.Service;
+import jakarta.xml.ws.Service;
 import javax.xml.namespace.QName;
 import java.io.PrintStream;
-import javax.xml.ws.*;
-import javax.xml.ws.soap.*;
-import javax.xml.ws.http.*;
-import javax.xml.soap.*;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.soap.*;
+import jakarta.xml.ws.http.*;
+import jakarta.xml.soap.*;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.awt.Toolkit;
 import java.awt.Image;
 import java.net.URI;
-import javax.activation.DataSource;
+import jakarta.activation.DataSource;
 
 /**
  *

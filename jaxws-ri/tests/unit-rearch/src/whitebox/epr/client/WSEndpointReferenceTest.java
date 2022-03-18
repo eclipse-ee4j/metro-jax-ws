@@ -10,7 +10,7 @@
 
 package whitebox.epr.client;
 
-import com.sun.xml.bind.marshaller.XMLWriter;
+import org.glassfish.jaxb.core.marshaller.XMLWriter;
 import com.sun.xml.stream.buffer.XMLStreamBuffer;
 import com.sun.xml.stream.buffer.XMLStreamBufferException;
 import com.sun.xml.stream.buffer.stax.StreamReaderBufferProcessor;
@@ -28,7 +28,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;

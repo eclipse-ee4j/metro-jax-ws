@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,7 @@
 package com.sun.xml.ws.encoding;
 
 import com.sun.istack.NotNull;
-import com.sun.xml.bind.DatatypeConverterImpl;
+import org.glassfish.jaxb.runtime.DatatypeConverterImpl;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.WSFeatureList;
 import com.sun.xml.ws.api.message.Attachment;
@@ -29,7 +29,6 @@ import com.sun.xml.ws.util.ByteArrayDataSource;
 import com.sun.xml.ws.util.xml.NamespaceContextExAdaper;
 import com.sun.xml.ws.util.xml.XMLStreamReaderFilter;
 import com.sun.xml.ws.util.xml.XMLStreamWriterFilter;
-import com.sun.xml.ws.streaming.MtomStreamWriter;
 import com.sun.xml.ws.streaming.XMLStreamReaderUtil;
 import com.sun.xml.ws.server.UnsupportedMediaException;
 import org.jvnet.staxex.Base64Data;
@@ -37,21 +36,22 @@ import org.jvnet.staxex.NamespaceContextEx;
 import org.jvnet.staxex.XMLStreamReaderEx;
 import org.jvnet.staxex.XMLStreamWriterEx;
 
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.soap.MTOMFeature;
-import javax.xml.bind.attachment.AttachmentMarshaller;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.MTOMFeature;
+import jakarta.xml.bind.attachment.AttachmentMarshaller;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -151,7 +151,7 @@ public class MtomCodec extends MimeCodec {
                 writeMimeHeaders(soapXopContentType, rootId, out);
 
                 //mtom attachments that need to be written after the root part
-                List<ByteArrayBuffer> mtomAttachments = new ArrayList<ByteArrayBuffer>();
+                List<ByteArrayBuffer> mtomAttachments = new ArrayList<>();
                 MtomStreamWriterImpl writer = new MtomStreamWriterImpl(
                         XMLStreamWriterFactory.create(out, encoding), mtomAttachments, boundary, mtomFeature);
 
@@ -573,17 +573,13 @@ public class MtomCodec extends MimeCodec {
         }
 
         private String decodeCid(String cid) {
-            try {
-                cid = URLDecoder.decode(cid, "utf-8");
-            } catch (UnsupportedEncodingException e) {
-                //on recceiving side lets not fail now, try to look for it
-            }
+            cid = URLDecoder.decode(cid, StandardCharsets.UTF_8);
             return cid;
         }
 
         private Attachment getAttachment(String cid) throws IOException {
             if (cid.startsWith("cid:"))
-                cid = cid.substring(4, cid.length());
+                cid = cid.substring(4);
             if (cid.indexOf('%') != -1) {
                 cid = decodeCid(cid);
                 return mimeMP.getAttachmentPart(cid);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@ import com.sun.xml.ws.api.message.Packet;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.MessageContext;
 
 /**
  * The class represents a MessageContext(Properties) and also allows the Message to be modified.
@@ -64,60 +64,74 @@ public abstract class MessageUpdatableContext implements MessageContext {
         return ctxt;
     }
     
+    @Override
     public void setScope(String name, Scope scope) {
         ctxt.setScope(name, scope);
     }
 
+    @Override
     public Scope getScope(String name) {
         return ctxt.getScope(name);
     }
 
     /* java.util.Map methods below here */
 
+    @Override
     public void clear() {
         ctxt.clear();
     }
 
+    @Override
     public boolean containsKey(Object obj) {
         return ctxt.containsKey(obj);
     }
 
+    @Override
     public boolean containsValue(Object obj) {
         return ctxt.containsValue(obj);
     }
 
+    @Override
     public Set<Entry<String, Object>> entrySet() {
         return ctxt.entrySet();
     }
 
+    @Override
     public Object get(Object obj) {
         return ctxt.get(obj);
     }
 
+    @Override
     public boolean isEmpty() {
         return ctxt.isEmpty();
     }
 
+    @Override
     public Set<String> keySet() {
         return ctxt.keySet();
     }
 
+    @Override
     public Object put(String str, Object obj) {
         return ctxt.put(str, obj);
     }
 
-    public void putAll(Map<? extends String, ? extends Object> map) {
+    @Override
+    public void putAll(Map<? extends String, ?> map) {
         ctxt.putAll(map);
     }
 
+    @Override
     public Object remove(Object obj) {
         return ctxt.remove(obj);
     }
 
+    @Override
     public int size() {
         return ctxt.size();
     }
 
+    @Override
     public Collection<Object> values() {
         return ctxt.values();
     }

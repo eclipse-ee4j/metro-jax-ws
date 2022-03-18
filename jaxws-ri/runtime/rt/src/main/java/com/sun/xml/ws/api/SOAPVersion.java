@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,16 +10,16 @@
 
 package com.sun.xml.ws.api;
 
-import com.sun.xml.bind.util.Which;
+import org.glassfish.jaxb.core.util.Which;
 import com.sun.xml.ws.api.message.saaj.SAAJFactory;
 import com.sun.xml.ws.encoding.soap.SOAP12Constants;
 
 import javax.xml.namespace.QName;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPConstants;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPFactory;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.SOAPConstants;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPFactory;
+import jakarta.xml.ws.soap.SOAPBinding;
 
 import com.oracle.webservices.api.EnvelopeStyle;
 import com.oracle.webservices.api.EnvelopeStyleFeature;
@@ -62,7 +62,7 @@ public enum SOAPVersion {
             com.sun.xml.ws.encoding.soap.SOAPConstants.URI_ENVELOPE,
             "text/xml",
             SOAPConstants.URI_SOAP_ACTOR_NEXT, "actor",
-            javax.xml.soap.SOAPConstants.SOAP_1_1_PROTOCOL,
+            jakarta.xml.soap.SOAPConstants.SOAP_1_1_PROTOCOL,
             new QName(com.sun.xml.ws.encoding.soap.SOAPConstants.URI_ENVELOPE, "MustUnderstand"),
             "Client",
             "Server",
@@ -72,11 +72,11 @@ public enum SOAPVersion {
             SOAP12Constants.URI_ENVELOPE,
             "application/soap+xml",
             SOAPConstants.URI_SOAP_1_2_ROLE_ULTIMATE_RECEIVER, "role",
-            javax.xml.soap.SOAPConstants.SOAP_1_2_PROTOCOL,
+            jakarta.xml.soap.SOAPConstants.SOAP_1_2_PROTOCOL,
             new QName(com.sun.xml.ws.encoding.soap.SOAP12Constants.URI_ENVELOPE, "MustUnderstand"),
             "Sender",
             "Receiver",
-            new HashSet<String>(Arrays.asList(SOAPConstants.URI_SOAP_1_2_ROLE_NEXT,SOAPConstants.URI_SOAP_1_2_ROLE_ULTIMATE_RECEIVER)));
+            new HashSet<>(Arrays.asList(SOAPConstants.URI_SOAP_1_2_ROLE_NEXT, SOAPConstants.URI_SOAP_1_2_ROLE_ULTIMATE_RECEIVER)));
 
     /**
      * Binding ID for SOAP/HTTP binding of this SOAP version.
@@ -101,18 +101,6 @@ public enum SOAPVersion {
      * SOAP MustUnderstand FaultCode for this SOAP version
      */
     public final QName faultCodeMustUnderstand;
-
-    /**
-     * SAAJ {@link MessageFactory} for this SOAP version.
-     * @deprecated
-     */
-    public final MessageFactory saajMessageFactory;
-
-    /**
-     * SAAJ {@link SOAPFactory} for this SOAP version.
-     * @deprecated
-     */
-    public final SOAPFactory saajSoapFactory;
 
     private final String saajFactoryString;
     
@@ -156,17 +144,6 @@ public enum SOAPVersion {
         this.implicitRoleSet = Collections.singleton(implicitRole);
         this.roleAttributeName = roleAttributeName;
         this.saajFactoryString = saajFactoryString;
-        try {
-            saajMessageFactory = MessageFactory.newInstance(saajFactoryString);
-            saajSoapFactory = SOAPFactory.newInstance(saajFactoryString);
-        } catch (SOAPException e) {
-            throw new Error(e);
-        } catch (NoSuchMethodError e) {
-            // SAAJ 1.3 is not in the classpath
-            LinkageError x = new LinkageError("You are loading old SAAJ from "+ Which.which(MessageFactory.class));
-            x.initCause(e);
-            throw x;
-        }
         this.faultCodeMustUnderstand = faultCodeMustUnderstand;
         this.requiredRoles = requiredRoles;
         this.faultCodeClient = new QName(nsUri,faultCodeClientLocalName);
@@ -258,7 +235,7 @@ public enum SOAPVersion {
 
     public EnvelopeStyleFeature toFeature() {
         return SOAP_11.equals(this) ?
-            new EnvelopeStyleFeature(new EnvelopeStyle.Style[]{EnvelopeStyle.Style.SOAP11}) :
-            new EnvelopeStyleFeature(new EnvelopeStyle.Style[]{EnvelopeStyle.Style.SOAP12});
+            new EnvelopeStyleFeature(EnvelopeStyle.Style.SOAP11) :
+            new EnvelopeStyleFeature(EnvelopeStyle.Style.SOAP12);
     }
 }

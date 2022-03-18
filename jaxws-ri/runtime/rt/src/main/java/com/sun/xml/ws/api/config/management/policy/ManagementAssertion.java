@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,7 @@ import com.sun.xml.ws.resources.ManagementMessages;
 import java.util.Collection;
 import java.util.Iterator;
 import javax.xml.namespace.QName;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * Base class for the #ManagedClientAssertion and #ManagedServiceAssertion. Provides
@@ -156,7 +156,7 @@ public abstract class ManagementAssertion extends SimpleAssertion {
         final String monitoring = this.getAttributeValue(MONITORING_ATTRIBUTE_QNAME);
         Setting result = Setting.NOT_SET;
         if (monitoring != null) {
-            if (monitoring.trim().toLowerCase().equals("on")
+            if (monitoring.trim().equalsIgnoreCase("on")
                 || Boolean.parseBoolean(monitoring)) {
                 result = Setting.ON;
             }

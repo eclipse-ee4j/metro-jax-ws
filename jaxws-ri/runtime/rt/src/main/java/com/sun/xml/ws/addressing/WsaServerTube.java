@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,13 +30,11 @@ import com.sun.xml.ws.api.model.wsdl.WSDLPort;
 import com.sun.xml.ws.api.pipe.*;
 import com.sun.xml.ws.api.server.WSEndpoint;
 import com.sun.xml.ws.client.Stub;
-import com.sun.xml.ws.developer.JAXWSProperties;
-import com.sun.xml.ws.fault.SOAPFaultBuilder;
 import com.sun.xml.ws.message.FaultDetailHeader;
 import com.sun.xml.ws.resources.AddressingMessages;
 
-import javax.xml.soap.SOAPFault;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.soap.SOAPFault;
+import jakarta.xml.ws.WebServiceException;
 import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -182,7 +180,7 @@ public class WsaServerTube extends WsaTube {
 
     @Override
     public @NotNull NextAction processException(Throwable t) {
-    	final Packet response = Fiber.current().getPacket();
+        final Packet response = Fiber.current().getPacket();
         ThrowableContainerPropertySet tc = response.getSatellite(ThrowableContainerPropertySet.class);
         if (tc == null) {
             tc = new ThrowableContainerPropertySet(t);
@@ -269,9 +267,7 @@ public class WsaServerTube extends WsaTube {
         EndpointAddress adrs;
         try {
              adrs = new EndpointAddress(URI.create(target.getAddress()));
-        } catch (NullPointerException e) {
-            throw new WebServiceException(e);
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException | IllegalArgumentException e) {
             throw new WebServiceException(e);
         }
 
@@ -345,12 +341,6 @@ public class WsaServerTube extends WsaTube {
         */
 
     }
-    
-    /**
-     * @deprecated
-     *      Use {@link JAXWSProperties#ADDRESSING_MESSAGEID}.
-     */
-    public static final String REQUEST_MESSAGE_ID = "com.sun.xml.ws.addressing.request.messageID";
 
     private static final Logger LOGGER = Logger.getLogger(WsaServerTube.class.getName());
 }

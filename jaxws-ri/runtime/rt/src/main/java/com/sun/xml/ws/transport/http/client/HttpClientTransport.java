@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,11 +13,11 @@ package com.sun.xml.ws.transport.http.client;
 import com.sun.xml.ws.api.EndpointAddress;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.client.BindingProviderProperties;
-import static com.sun.xml.ws.client.BindingProviderProperties.*;
 import com.sun.xml.ws.client.ClientTransportException;
 import com.sun.xml.ws.resources.ClientMessages;
 import com.sun.xml.ws.transport.Headers;
 import com.sun.xml.ws.developer.JAXWSProperties;
+import com.sun.xml.ws.util.AuthUtil;
 import com.sun.istack.Nullable;
 import com.sun.istack.NotNull;
 
@@ -25,10 +25,10 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.handler.MessageContext;
 import java.io.FilterInputStream;
 import java.io.FilterOutputStream;
 import java.io.IOException;
@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.zip.GZIPOutputStream;
 import java.util.zip.GZIPInputStream;
+import java.net.Authenticator;
 
 /**
  *
@@ -198,19 +199,6 @@ public class HttpClientTransport {
     
     protected boolean checkHTTPS(HttpURLConnection connection) {
         if (connection instanceof HttpsURLConnection) {
-
-            // TODO The above property needs to be removed in future version as the semantics of this property are not preoperly defined.
-            // One should use JAXWSProperties.HOSTNAME_VERIFIER to control the behavior
-
-            // does the client want client hostname verification by the service
-            String verificationProperty =
-                (String) context.invocationProperties.get(HOSTNAME_VERIFICATION_PROPERTY);
-            if (verificationProperty != null) {
-                if (verificationProperty.equalsIgnoreCase("true")) {
-                    ((HttpsURLConnection) connection).setHostnameVerifier(new HttpClientVerifier());
-                }
-            }
-
             // Set application's HostNameVerifier for this connection
             HostnameVerifier verifier =
                 (HostnameVerifier) context.invocationProperties.get(JAXWSProperties.HOSTNAME_VERIFIER);
@@ -283,6 +271,11 @@ public class HttpClientTransport {
             httpConnection.setChunkedStreamingMode(chunkSize);
         }
 
+        Authenticator auth = (Authenticator)context.invocationProperties.get(JAXWSProperties.REQUEST_AUTHENTICATOR);
+        if ( auth != null ) {
+            AuthUtil.setAuthenticator(auth, httpConnection);
+        }
+
         // set the properties on HttpURLConnection
         for (Map.Entry<String, List<String>> entry : reqHeaders.entrySet()) {
             if ("Content-Length".equals(entry.getKey())) continue;
@@ -317,12 +310,14 @@ public class HttpClientTransport {
     // overide default SSL HttpClientVerifier to always return true
     // effectively overiding Hostname client verification when using SSL
     private static class HttpClientVerifier implements HostnameVerifier {
+        @Override
         public boolean verify(String s, SSLSession sslSession) {
             return true;
         }
     }
 
     private static class LocalhostHttpClientVerifier implements HostnameVerifier {
+        @Override
         public boolean verify(String s, SSLSession sslSession) {
             return "localhost".equalsIgnoreCase(s) || "127.0.0.1".equals(s);
         }
@@ -343,9 +338,9 @@ public class HttpClientTransport {
         }
 
         @Override
-        public void write(byte b[], int off, int len) throws IOException {
+        public void write(byte[] b, int off, int len) throws IOException {
             while(len > 0) {
-                int sent = (len > chunkSize) ? chunkSize : len;
+                int sent = Math.min(len, chunkSize);
                 out.write(b, off, sent);        // don't use super.write() as it writes byte-by-byte
                 len -= sent;
                 off += sent;

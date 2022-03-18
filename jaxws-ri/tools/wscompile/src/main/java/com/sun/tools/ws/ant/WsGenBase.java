@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,7 @@ class WsGenBase extends WsTask2 {
      * List of external metadata files; those are necessary if it's impossible to use/modify
      * annotations in ws implementation (for example only binaries are available)
      */
-    private final List<ExternalMetadata> externalMetadataFiles = new ArrayList<ExternalMetadata>();
+    private final List<ExternalMetadata> externalMetadataFiles = new ArrayList<>();
 
     /**
      * Gets the classpath.
@@ -80,7 +80,7 @@ class WsGenBase extends WsTask2 {
         createClasspath().setRefid(r);
     }
 
-    /*************************  -cp option *************************/
+    /************************  -cp option *************************/
     /**
      * Gets the classpath.
      *
@@ -237,6 +237,20 @@ class WsGenBase extends WsTask2 {
         this.portName = name;
     }
 
+    /* *********************** -Xnosource option used only with -wsdl option ************************ */
+    /**
+     * do not generate source files *
+     */
+    private boolean xnosource = false;
+
+    public boolean isXnosource() {
+        return xnosource;
+    }
+
+    public void setXnosource(boolean xnocompile) {
+        this.xnosource = xnocompile;
+    }
+
     private String sei;
 
     /**
@@ -286,6 +300,9 @@ class WsGenBase extends WsTask2 {
             }
             if (getInlineSchemas()) {
                 cmd.createArgument().setValue("-inlineSchemas");
+            }
+            if (isXnosource()) {
+                cmd.createArgument().setValue("-Xnosource");
             }
         }
 

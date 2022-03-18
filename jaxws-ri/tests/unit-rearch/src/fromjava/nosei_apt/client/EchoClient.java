@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,8 +16,8 @@ import junit.framework.TestSuite;
 import testutil.ClientServerTestUtil;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Holder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,7 +131,7 @@ public class EchoClient extends TestCase {
 
         EchoInOutHeader echoInOutHeader = new EchoInOutHeader();
         echoInOutHeader.setArg0(33);
-        Holder<Long> longHolder = new Holder<Long>(new Long(44));
+        Holder<Long> longHolder = new Holder<Long>(Long.valueOf(44));
         echoInOutHeader.setArg2("fred");
         EchoInOutHeaderResponse echoInOutHeaderResp = stub.echoInOutHeader(echoInOutHeader, longHolder);
         assertTrue(echoInOutHeaderResp.getReturn().equals("fred88"));

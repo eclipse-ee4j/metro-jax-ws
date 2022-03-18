@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,9 +13,9 @@ package com.sun.xml.ws.api.message;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
-import javax.xml.soap.SOAPMessage;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.soap.MTOMFeature;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.soap.MTOMFeature;
 
 import org.w3c.dom.Node;
 
@@ -29,8 +29,7 @@ public class PacketTest extends TestCase {
 	 * Tests that a server response Packet with MTOM feature, but
 	 * decoded from an InputStream with a user specified non-MTOM
 	 * content type, does NOT use MTOM when re-encoded
-	 * @throws Exception
-	 */
+     */
 	public void testEncodeDecodedPacketMtom() throws Exception {
 		String msg = "<?xml version='1.0' encoding='UTF-8'?>" +
 	"<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\">" +

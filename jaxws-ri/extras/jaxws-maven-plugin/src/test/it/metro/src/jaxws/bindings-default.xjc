@@ -3,7 +3,7 @@
 
     DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-    Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved.
 
     Oracle licenses this file to You under the Apache License, Version 2.0
     (the "License"); you may not use this file except in compliance with
@@ -19,9 +19,10 @@
 
 -->
 
-<jaxws:bindings wsdlLocation="https://raw.githubusercontent.com/eclipse-ee4j/metro-jax-ws/master/jaxws-ri/tests/unit/testcases/fromwsdl/additional_header/doclit/server/sample.wsdl" version="2.0" jaxb:version="2.0"
-    xmlns:jaxws="http://java.sun.com/xml/ns/jaxws" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<jaxws:bindings wsdlLocation="https://raw.githubusercontent.com/eclipse-ee4j/metro-jax-ws/master/jaxws-ri/tests/unit/testcases/fromwsdl/additional_header/doclit/server/sample.wsdl"
+                version="3.0" jaxb:version="3.0"
+    xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
     <jaxws:bindings node="wsdl:definitions/wsdl:portType[@name='HelloPortType']">
         <jaxws:class name="GreetersPortT"/>
     </jaxws:bindings>

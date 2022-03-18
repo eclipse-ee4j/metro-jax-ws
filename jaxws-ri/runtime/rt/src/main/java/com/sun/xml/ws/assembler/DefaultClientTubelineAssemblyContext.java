@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -8,10 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sun.xml.ws.assembler;
 
 import com.sun.istack.NotNull;
@@ -48,10 +44,12 @@ class DefaultClientTubelineAssemblyContext extends TubelineAssemblyContextImpl i
         this.policyMap = context.getPortInfo().getPolicyMap();
     }
 
+    @Override
     public PolicyMap getPolicyMap() {
         return policyMap;
     }
     
+    @Override
     public boolean isPolicyAvailable() {
         return policyMap != null && !policyMap.isEmpty();
     }
@@ -63,10 +61,12 @@ class DefaultClientTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * 
      * Replaces {@link com.sun.xml.ws.api.pipe.ClientTubeAssemblerContext#getWsdlModel()}
      */
+    @Override
     public WSDLPort getWsdlPort() {
         return wsdlPort;
     }
 
+    @Override
     public WSPortInfo getPortInfo() {
         return portInfo;
     }
@@ -76,6 +76,7 @@ class DefaultClientTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * from {@link com.sun.xml.ws.api.model.wsdl.WSDLPort} (even though there's {@link com.sun.xml.ws.api.model.wsdl.WSDLPort#getAddress()})
      * because sometimes WSDL is not available.
      */
+    @Override
     public @NotNull EndpointAddress getAddress() {
         return wrappedContext.getAddress();
     }
@@ -85,6 +86,7 @@ class DefaultClientTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * Always non-null. (To be precise, the newly created pipeline
      * is owned by a proxy or a dispatch created from this {@link com.sun.xml.ws.api.WSService}.)
      */
+    @Override
     public @NotNull WSService getService() {
         return wrappedContext.getService();
     }
@@ -92,6 +94,7 @@ class DefaultClientTubelineAssemblyContext extends TubelineAssemblyContextImpl i
     /**
      * The binding of the new pipeline to be created.
      */
+    @Override
     public @NotNull WSBinding getBinding() {
         return wrappedContext.getBinding();
     }
@@ -102,6 +105,7 @@ class DefaultClientTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * @return Null if the service doesn't have SEI model e.g. Dispatch,
      *         and otherwise non-null.
      */
+    @Override
     public @Nullable SEIModel getSEIModel() {
         return wrappedContext.getSEIModel();
     }
@@ -111,6 +115,7 @@ class DefaultClientTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      *
      * @return Container in which client is running
      */
+    @Override
     public Container getContainer() {
         return wrappedContext.getContainer();
     }       
@@ -121,6 +126,7 @@ class DefaultClientTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      *
      * @return codec to be used for web service requests
      */
+    @Override
     public @NotNull Codec getCodec() {
         return wrappedContext.getCodec();
     }
@@ -136,10 +142,12 @@ class DefaultClientTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      *
      * @param codec codec to be used for web service requests
      */
+    @Override
     public void setCodec(@NotNull Codec codec) {
         wrappedContext.setCodec(codec);
     }
     
+    @Override
     public ClientTubeAssemblerContext getWrappedContext() {
         return wrappedContext;
     }

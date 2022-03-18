@@ -3,7 +3,7 @@
 
     DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-    Copyright (c) 2011, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2011, 2021 Oracle and/or its affiliates. All rights reserved.
 
     Oracle licenses this file to You under the Apache License, Version 2.0
     (the "License"); you may not use this file except in compliance with
@@ -38,9 +38,9 @@
                     </snapshots>
                 </repository>
                 <repository>
-                    <id>sonatype-nexus-staging</id>
+                    <id>jakarta-sonatype-nexus-staging</id>
                     <name>Sonatype Nexus Staging</name>
-                    <url>https://oss.sonatype.org/content/repositories/staging</url>
+                    <url>https://jakarta.oss.sonatype.org/content/repositories/staging/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -49,9 +49,9 @@
                     </snapshots>
                 </repository>
                 <repository>
-                    <id>sonatype-nexus-snapshots</id>
+                    <id>jakarta-sonatype-nexus-snapshots</id>
                     <name>Sonatype Nexus Snapshots</name>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                    <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>
@@ -72,9 +72,9 @@
                     </snapshots>
                 </pluginRepository>
                 <pluginRepository>
-                    <id>sonatype-nexus-staging</id>
-                    <name>Sonatype Nexus Staging</name>
-                    <url>https://oss.sonatype.org/content/repositories/staging</url>
+                    <id>jakarta-sonatype-nexus-staging-plugins</id>
+                    <name>Sonatype Nexus Staging Plugins</name>
+                    <url>https://jakarta.oss.sonatype.org/content/repositories/staging/</url>
                     <releases>
                         <enabled>true</enabled>
                     </releases>
@@ -83,9 +83,9 @@
                     </snapshots>
                 </pluginRepository>
                 <pluginRepository>
-                    <id>sonatype-nexus-snapshots</id>
-                    <name>Sonatype Nexus Snapshots</name>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                    <id>jakarta-sonatype-nexus-snapshots</id>
+                    <name>Sonatype Nexus Snapshots Plugins</name>
+                    <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots</url>
                     <releases>
                         <enabled>false</enabled>
                     </releases>

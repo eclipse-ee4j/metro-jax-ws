@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,15 +14,15 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.SchemaOutputResolver;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.Unmarshaller;
 import javax.xml.namespace.QName;
-import com.sun.xml.bind.api.JAXBRIContext;
-import com.sun.xml.bind.api.TypeReference;
-import com.sun.xml.bind.v2.model.runtime.RuntimeTypeInfoSet;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.TypeReference;
+import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeTypeInfoSet;
 import com.sun.xml.ws.spi.db.BindingContext;
 import com.sun.xml.ws.spi.db.XMLBridge;
 import com.sun.xml.ws.spi.db.TypeInfo;
@@ -38,7 +38,7 @@ class JAXBRIContextWrapper implements BindingContext {
         context = cxt;
         typeRefs = refs;
         if (refs != null) {
-            typeInfos = new java.util.HashMap<TypeReference, TypeInfo>();
+            typeInfos = new java.util.HashMap<>();
             for (TypeInfo ti : refs.keySet()) {
                 typeInfos.put(typeRefs.get(ti), ti);
             }
@@ -100,7 +100,7 @@ class JAXBRIContextWrapper implements BindingContext {
         return context.getRuntimeTypeInfoSet();
     }
 
-    public QName getTypeName(com.sun.xml.bind.api.TypeReference tr) {
+    public QName getTypeName(org.glassfish.jaxb.runtime.api.TypeReference tr) {
         return context.getTypeName(tr);
     }
 
@@ -118,10 +118,7 @@ class JAXBRIContextWrapper implements BindingContext {
             return false;
         }
         final JAXBRIContextWrapper other = (JAXBRIContextWrapper) obj;
-        if (this.context != other.context && (this.context == null || !this.context.equals(other.context))) {
-            return false;
-        }
-        return true;
+        return this.context == other.context || (this.context != null && this.context.equals(other.context));
     }
 
     @Override
@@ -137,7 +134,7 @@ class JAXBRIContextWrapper implements BindingContext {
     @Override
     public XMLBridge createBridge(TypeInfo ti) {
         TypeReference tr = typeRefs.get(ti);
-        com.sun.xml.bind.api.Bridge b = context.createBridge(tr);
+        org.glassfish.jaxb.runtime.api.Bridge b = context.createBridge(tr);
         return WrapperComposite.class.equals(ti.type)
                 ? new WrapperBridge(this, b)
                 : new BridgeWrapper(this, b);
@@ -156,12 +153,12 @@ class JAXBRIContextWrapper implements BindingContext {
 
     @Override
     public XMLBridge createFragmentBridge() {
-        return new MarshallerBridge((com.sun.xml.bind.v2.runtime.JAXBContextImpl) context);
+        return new MarshallerBridge((org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl) context);
     }
 
     @Override
     public Object newWrapperInstace(Class<?> wrapperType)
-            throws InstantiationException, IllegalAccessException {
-        return wrapperType.newInstance();
+            throws ReflectiveOperationException {
+        return wrapperType.getConstructor().newInstance();
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,7 +28,7 @@ import org.xml.sax.SAXException;
 import javax.xml.transform.Source;
 import javax.xml.validation.Schema;
 import javax.xml.validation.Validator;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -78,10 +78,12 @@ public class ServerSchemaValidationTube extends AbstractSchemaValidationTube {
         validator = null;
     }
 
+    @Override
     protected Validator getValidator() {
         return validator;
     }
 
+    @Override
     protected boolean isNoValidation() {
         return noValidation;
     }
@@ -131,6 +133,7 @@ public class ServerSchemaValidationTube extends AbstractSchemaValidationTube {
         this.wsdlPort = that.wsdlPort;
     }
 
+    @Override
     public AbstractTubeImpl copy(TubeCloner cloner) {
         return new ServerSchemaValidationTube(this,cloner);
     }

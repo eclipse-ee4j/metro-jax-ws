@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,8 +10,8 @@
 
 package com.sun.xml.ws.message;
 
-import com.sun.xml.bind.api.Bridge;
-import com.sun.xml.bind.unmarshaller.DOMScanner;
+import org.glassfish.jaxb.runtime.api.Bridge;
+import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
 import com.sun.xml.ws.streaming.DOMStreamReader;
 import com.sun.xml.ws.util.DOMUtil;
 import org.w3c.dom.Element;
@@ -20,11 +20,11 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPHeader;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
@@ -49,28 +49,34 @@ public class DOMHeader<N extends Element> extends AbstractHeaderImpl {
     }
 
 
+    @Override
     public String getNamespaceURI() {
         return nsUri;
     }
 
+    @Override
     public String getLocalPart() {
         return localName;
     }
 
+    @Override
     public XMLStreamReader readHeader() throws XMLStreamException {
         DOMStreamReader r = new DOMStreamReader(node);
         r.nextTag();    // move ahead to the start tag
         return r;
     }
 
+    @Override
     public <T> T readAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         return (T) unmarshaller.unmarshal(node);
     }
     /** @deprecated */
+    @Override
     public <T> T readAsJAXB(Bridge<T> bridge) throws JAXBException {
         return bridge.unmarshal(node);
     }
 
+    @Override
     public void writeTo(XMLStreamWriter w) throws XMLStreamException {
         DOMUtil.serializeNode(node, w);
     }
@@ -80,17 +86,20 @@ public class DOMHeader<N extends Element> extends AbstractHeaderImpl {
         else            return "";
     }
 
+    @Override
     public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException {
         DOMScanner ds = new DOMScanner();
         ds.setContentHandler(contentHandler);
         ds.scan(node);
     }
 
+    @Override
     public String getAttribute(String nsUri, String localName) {
         if(nsUri.length()==0)   nsUri=null; // DOM wants null, not "".
         return node.getAttributeNS(nsUri,localName);
     }
 
+    @Override
     public void writeTo(SOAPMessage saaj) throws SOAPException {
         SOAPHeader header = saaj.getSOAPHeader();
         if(header == null)

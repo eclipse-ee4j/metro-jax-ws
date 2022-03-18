@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
  * Copyright 2006 Guillaume Nodet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,6 +36,12 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
  */
 @Mojo(name = "wsgen", defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.RUNTIME)
 public class MainWsGenMojo extends AbstractWsGenMojo {
+
+    /**
+     * Specify that a WSDL file should be generated in <code>${resourceDestDir}</code>.
+     */
+    @Parameter(defaultValue = "false")
+    protected boolean genWsdl;
 
     /**
      * Specify where to place output generated classes. Use <code>xnocompile</code>
@@ -83,11 +89,16 @@ public class MainWsGenMojo extends AbstractWsGenMojo {
     protected File getClassesDir() {
         return new File(project.getBuild().getOutputDirectory());
     }
-    
+
+    @Override
+    protected boolean getGenWSDL() {
+        return genWsdl;
+    }
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         super.execute();
-        if (genWsdl) {
+        if (getGenWSDL()) {
             try {
                 attachWsdl();
             } catch (IOException ex) {

@@ -10,12 +10,12 @@ to the user.
 
 Enabling MTOM in JAX-WS:
 By default MTOM encoding is disabled. One can enable MTOM on client-side by
-passing javax.xml.ws.MTOMFeature while creating the proxy.
-See javax.xml.ws.Service#getPort(Class<T> serviceEndpointInterface,WebServiceFeature... features)
+passing jakarta.xml.ws.MTOMFeature while creating the proxy.
+See jakarta.xml.ws.Service#getPort(Class<T> serviceEndpointInterface,WebServiceFeature... features)
 for more information on enabling/disabling Web Service features.
 Similarly, one can pass MTOMFeature while creating Dispatch client to enable MTOM.
 
-One the server-side, MTOM is enabled by using @javax.xml.ws.soap.MTOM on
+One the server-side, MTOM is enabled by using @jakarta.xml.ws.soap.MTOM on
 the endpoint implementation class.
 
 Mapping XML binary data to Java types:
@@ -30,7 +30,7 @@ There are 2 operations. The abstract definition of schema element data is
 annotated with xmime:expectedCotentTypes to demonstrates the corresponding
 mapping of it in the generated SEI on the client side.
     * upload - this operation uploads an Image to the endpoint using MTOM
-    * doanload - this operation downloads binary data using MTOM in streaming
+    * download - this operation downloads binary data using MTOM in streaming
       fashion
 
 * etc - configuration files

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,31 +9,30 @@
  */
 
 /**
- * <h1>JAX-WS 2.0.1 Server Runtime</h1>
  * <P>This document describes the architecture of server side 
  * JAX-WS 2.0.1 runtime. </p>
  *
- * <h3>JAX-WS 2.0.1 Server Runtime Sequence Diagram</h3>
+ * <h2>JAX-WS 2.0.1 Server Runtime Sequence Diagram</h2>
 
   * <img src='../../../../../jaxws/basic-server.seq.png' alt="Server Runtime Sequence Diagram">
  
  *
  *
- * <H3>Message Flow</H3>
+ * <H2>Message Flow</H2>
  * <P>A Web Service invocation starts with either the 
- * {@link com.sun.xml.ws.transport.http.servlet.WSServletDelegate WSServletDelegate}
- * or the {@link com.sun.xml.ws.transport.http.server.ServerConnectionImpl ServerConnectionImpl}.
- * Both of these classes find the appropriate {@link com.sun.xml.ws.server.RuntimeEndpointInfo RuntimeEndpointInfo}
- * and invokes the {@link com.sun.xml.ws.server.Tie#handle(com.sun.xml.ws.api.server.WSConnection,
+ * {@code com.sun.xml.ws.transport.http.servlet.WSServletDelegate}
+ * or the {@code com.sun.xml.ws.transport.http.server.ServerConnectionImpl}.
+ * Both of these classes find the appropriate {@code com.sun.xml.ws.server.RuntimeEndpointInfo}
+ * and invokes the {@code com.sun.xml.ws.server.Tie#handle(com.sun.xml.ws.api.server.WSConnection,
  * com.sun.xml.ws.spi.runtime.RuntimeEndpointInfo) Tie.handle}
- * method. This method first creates a {@link com.sun.pept.ept.MessageInfo MessageInfo}
- * used to gather inforrmation about the message to be received. A
- * {@link com.sun.xml.ws.server.RuntimeContext RuntimeContext}
+ * method. This method first creates a {@code com.sun.pept.ept.MessageInfo MessageInfo}
+ * used to gather information about the message to be received. A
+ * {@code com.sun.xml.ws.server.RuntimeContext RuntimeContext}
  * is then created with the MessageInfo and the {@link com.sun.xml.ws.api.model.SEIModel RuntimeModel}
  * retrieved from the RuntimeEndpointInfo. The RuntimeContext is then
- * stored in the MessageInfo. The {@link com.sun.pept.ept.EPTFactory EPTFactory}
- * is retrieved from the {@link com.sun.xml.ws.server.EPTFactoryFactoryBase EPTFactoryFactoryBase}
- * and also placed in the MessagInfo. A {@link com.sun.pept.protocol.MessageDispatcher MessageDispatcher}
+ * stored in the MessageInfo. The {@code com.sun.pept.ept.EPTFactory EPTFactory}
+ * is retrieved from the {@code com.sun.xml.ws.server.EPTFactoryFactoryBase EPTFactoryFactoryBase}
+ * and also placed in the MessagInfo. A {@code com.sun.pept.protocol.MessageDispatcher MessageDispatcher}
  * is then created and the receive method is invoked. There will be two
  * types of MessageDispatchers for JAX-WS 2.0.1, SOAPMessageDispatcher
  * (one for client and one for the server) and an XMLMessageDispatcher
@@ -56,22 +55,22 @@
  * MessageInfo and the SOAPMessage is returned over that WSConnection.</P>
  * <P><BR>
  * </P>
- * <H3>External Interactions</H3>
- * <H4>SAAJ API</H4>
+ * <H2>External Interactions</H2>
+ * <H3>SAAJ API</H3>
  * <UL>
- * 	<LI><P>JAX-WS creates SAAJ javax.xml.soap.SOAPMessage 
+ * 	<LI><P>JAX-WS creates SAAJ jakarta.xml.soap.SOAPMessage
  *      from the HttpServletRequest.
  * 	At present, JAX-WS reads all the bytes from the request stream and
  * 	then creates SOAPMessage along with the HTTP headers.</P>
  * </UL>
- * <P>javax.xml.soap.MessageFactory(binding).createMessage(MimeHeaders, InputStream)</P>
+ * <P>jakarta.xml.soap.MessageFactory(binding).createMessage(MimeHeaders, InputStream)</P>
  * <UL>
  * 	<LI><P>SOAPMessage parses the content from the stream including MIME
  * 	data</P>
  * 	<LI><P>com.sun.xml.ws.server.SOAPMessageDispatcher::checkHeadersPeekBody()</P>
  * 	<P>SOAPMessage.getSOAPHeader() is used for mustUnderstand processing
  * 	of headers. It further uses
- * 	javax.xml.soap.SOAPHeader.examineMustUnderstandHeaderElements(role)</P>
+ * 	jakarta.xml.soap.SOAPHeader.examineMustUnderstandHeaderElements(role)</P>
  * 	<P>SOAPMessage.getSOAPBody().getFistChild() is used for guessing the
  * 	MEP of the request</P>
  * 	<LI><P>com.sun.xml.ws.handler.HandlerChainCaller:insertFaultMessage()</P>
@@ -92,37 +91,37 @@
  * 	it writes into byte[] and this byte[] is written to
  * 	HttpServletResponse.</P>
  * </UL>
- * <H4>JAXB API</H4>
+ * <H3>JAXB API</H3>
  * <P>JAX-WS RI uses the JAXB API to marshall/unmarshall user created
- * JAXB objects with user created {@link javax.xml.bind.JAXBContext JAXBContext}. 
+ * JAXB objects with user created {@link jakarta.xml.bind.JAXBContext JAXBContext}.
  * Handler, Dispatch in JAX-WS API provide ways for the user to specify his/her own
- * JAXBContext. {@link com.sun.xml.ws.encoding.jaxb.JAXBTypeSerializer JAXBTypeSerializer} class uses all these methods.</P>
+ * JAXBContext. {@code com.sun.xml.ws.encoding.jaxb.JAXBTypeSerializer} class uses all these methods.</P>
  * <UL>
- * 	<LI><p>{@link javax.xml.bind.Marshaller#marshal(Object,XMLStreamWriter) Marshaller.marshal(Object,XMLStreamWriter)}</p>
- * 	<LI><P>{@link javax.xml.bind.Marshaller#marshal(Object,Result) Marshaller.marshal(Object, DomResult)}</P>
- * 	<LI><P>{@link javax.xml.bind.Unmarshaller#unmarshal(XMLStreamReader) Object Unmarshaller.unmarshal(XMLStreamReader)}</P>
- * 	<LI><P>{@link javax.xml.bind.Unmarshaller#unmarshal(Source) Object Unmarshaller.unmarshal(Source)}</P>
+ * 	<LI><p>{@link jakarta.xml.bind.Marshaller#marshal(Object,XMLStreamWriter) Marshaller.marshal(Object,XMLStreamWriter)}</p>
+ * 	<LI><P>{@link jakarta.xml.bind.Marshaller#marshal(Object,Result) Marshaller.marshal(Object, DomResult)}</P>
+ * 	<LI><P>{@link jakarta.xml.bind.Unmarshaller#unmarshal(XMLStreamReader) Object Unmarshaller.unmarshal(XMLStreamReader)}</P>
+ * 	<LI><P>{@link jakarta.xml.bind.Unmarshaller#unmarshal(Source) Object Unmarshaller.unmarshal(Source)}</P>
  * </UL>
  * The following two JAXB classes are implemented by JAX-WS to enable/implement MTOM and XOP
  * <UL>
- *      <LI><P>{@link javax.xml.bind.attachment.AttachmentMarshaller AttachmentMarshaller}</P>
- *      <LI><P>{@link javax.xml.bind.attachment.AttachmentUnmarshaller AttachmentUnmarshaller}</P>
+ *      <LI><P>{@link jakarta.xml.bind.attachment.AttachmentMarshaller AttachmentMarshaller}</P>
+ *      <LI><P>{@link jakarta.xml.bind.attachment.AttachmentUnmarshaller AttachmentUnmarshaller}</P>
  * </UL>
- * <H4>JAXB Runtime-API (private contract)</H4>
+ * <H3>JAXB Runtime-API (private contract)</H3>
  * <P>JAX-WS RI uses these private API for serialization/deserialization
  * purposes. This private API is used to serialize/deserialize method
  * parameters at the time of JAXBTypeSerializer class uses all
  * these methods.</P>
  * <UL>
- * 	<LI><P>{@link com.sun.xml.bind.api.Bridge#marshal(BridgeContext, Object, XMLStreamWriter) Bridge.marshal(BridgeContext, Object, XMLStreamWriter)}</P>
- * 	<LI><P>{@link com.sun.xml.bind.api.Bridge#marshal(BridgeContext, Object, Node) Bridge.marshal(BridgeContext, Object, Node)}</P>
- * 	<LI><P>{@link com.sun.xml.bind.api.Bridge#unmarshal(BridgeContext, XMLStreamReader) Object Bridge.unmarshal(BridgeContext, XMLStreamReader)}</P>
+ * 	<LI><P>{@link org.glassfish.jaxb.runtime.api.Bridge#marshal(BridgeContext, Object, XMLStreamWriter) Bridge.marshal(BridgeContext, Object, XMLStreamWriter)}</P>
+ * 	<LI><P>{@link org.glassfish.jaxb.runtime.api.Bridge#marshal(BridgeContext, Object, Node) Bridge.marshal(BridgeContext, Object, Node)}</P>
+ * 	<LI><P>{@link org.glassfish.jaxb.runtime.api.Bridge#unmarshal(BridgeContext, XMLStreamReader) Object Bridge.unmarshal(BridgeContext, XMLStreamReader)}</P>
  * </UL>
  * 
  **/
 package com.sun.xml.ws.server;
 
-import com.sun.xml.bind.api.BridgeContext;
+import org.glassfish.jaxb.runtime.api.BridgeContext;
 
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;

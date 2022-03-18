@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,10 +12,8 @@ package com.sun.xml.ws.client.sei;
 
 import java.lang.reflect.Method;
 
-import com.sun.xml.ws.api.databinding.ClientCallBridge;
-import com.sun.xml.ws.model.JavaMethodImpl;
-import javax.xml.ws.Response;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Response;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * {@link MethodHandler} that handles asynchronous invocations through {@link Response}.
@@ -31,6 +29,7 @@ final class PollingMethodHandler extends AsyncMethodHandler {
         super(owner, m);
     }
 
+    @Override
     Response<?> invoke(Object proxy, Object[] args) throws WebServiceException {
         return doInvoke(proxy,args,null);
     }

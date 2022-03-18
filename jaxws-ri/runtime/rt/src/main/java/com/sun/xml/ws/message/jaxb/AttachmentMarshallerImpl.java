@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,14 +15,15 @@ import com.sun.xml.ws.api.message.Attachment;
 import com.sun.xml.ws.api.message.AttachmentSet;
 import com.sun.xml.ws.message.DataHandlerAttachment;
 
-import javax.activation.DataHandler;
-import javax.xml.bind.attachment.AttachmentMarshaller;
-import javax.xml.ws.WebServiceException;
+import jakarta.activation.DataHandler;
+import jakarta.xml.bind.attachment.AttachmentMarshaller;
+import jakarta.xml.ws.WebServiceException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -83,11 +84,7 @@ final class AttachmentMarshallerImpl extends AttachmentMarshaller {
                 }
                 return null;
             } catch (MalformedURLException e) {
-                try {
-                    cid = URLEncoder.encode(ns, "UTF-8");
-                } catch (UnsupportedEncodingException e1) {
-                    throw new WebServiceException(e);
-                }
+                cid = URLEncoder.encode(ns, StandardCharsets.UTF_8);
             }
         }
         return name + cid;

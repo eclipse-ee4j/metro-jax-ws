@@ -13,8 +13,8 @@ package client.marshalltest.client;
 import junit.framework.TestCase;
 import testutil.ClientServerTestUtil;
 
-import javax.xml.ws.Service;
-import javax.xml.ws.BindingProvider;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.BindingProvider;
 import java.io.OutputStream;
 import java.math.BigInteger;
 

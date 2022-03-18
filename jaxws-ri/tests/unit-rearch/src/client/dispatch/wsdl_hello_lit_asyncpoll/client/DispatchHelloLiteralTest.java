@@ -15,21 +15,21 @@ import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import testutil.ClientServerTestUtil;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Response;
-import javax.xml.ws.Service;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Response;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.soap.SOAPBinding;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -71,9 +71,9 @@ public class DispatchHelloLiteralTest extends TestCase {
             endpointAddress = "http://localhost:8080/jaxrpc-client_dispatch_wsdl_hello_lit_asyncpoll/hello";
     }
 
-    private static javax.xml.bind.JAXBContext createJAXBContext()
+    private static jakarta.xml.bind.JAXBContext createJAXBContext()
         throws Exception {
-        return javax.xml.bind.JAXBContext.newInstance(client.dispatch.wsdl_hello_lit_asyncpoll.client.ObjectFactory.class);
+        return jakarta.xml.bind.JAXBContext.newInstance(client.dispatch.wsdl_hello_lit_asyncpoll.client.ObjectFactory.class);
     }
 
     private void createService() throws Exception {

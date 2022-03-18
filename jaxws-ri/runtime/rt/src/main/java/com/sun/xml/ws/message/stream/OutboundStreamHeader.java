@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,13 +20,13 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPHeader;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPHeader;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * Used to represent outbound header created from {@link XMLStreamBuffer}.
@@ -54,14 +54,17 @@ public final class OutboundStreamHeader extends AbstractHeaderImpl {
         this.localName = localName;
     }
 
+    @Override
     public @NotNull String getNamespaceURI() {
         return nsUri;
     }
 
+    @Override
     public @NotNull String getLocalPart() {
         return localName;
     }
 
+    @Override
     public String getAttribute(String nsUri, String localName) {
         if(attributes==null)
             parseAttributes();
@@ -83,7 +86,7 @@ public final class OutboundStreamHeader extends AbstractHeaderImpl {
         try {
             XMLStreamReader reader = readHeader();
 
-            attributes = new FinalArrayList<Attribute>();
+            attributes = new FinalArrayList<>();
 
             for (int i = 0; i < reader.getAttributeCount(); i++) {
                 final String localName = reader.getAttributeLocalName(i);
@@ -97,14 +100,17 @@ public final class OutboundStreamHeader extends AbstractHeaderImpl {
         }
     }
 
+    @Override
     public XMLStreamReader readHeader() throws XMLStreamException {
         return infoset.readAsXMLStreamReader();
     }
 
+    @Override
     public void writeTo(XMLStreamWriter w) throws XMLStreamException {
         infoset.writeToXMLStreamWriter(w,true);
     }
 
+    @Override
     public void writeTo(SOAPMessage saaj) throws SOAPException {
         try {
             SOAPHeader header = saaj.getSOAPHeader();
@@ -116,6 +122,7 @@ public final class OutboundStreamHeader extends AbstractHeaderImpl {
         }
     }
 
+    @Override
     public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException {
         infoset.writeTo(contentHandler,errorHandler);
     }

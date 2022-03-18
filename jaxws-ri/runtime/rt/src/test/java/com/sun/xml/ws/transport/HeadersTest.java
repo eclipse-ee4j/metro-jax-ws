@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2007, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,9 +10,7 @@
 
 package com.sun.xml.ws.transport;
 
-import com.sun.xml.ws.transport.Headers;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;

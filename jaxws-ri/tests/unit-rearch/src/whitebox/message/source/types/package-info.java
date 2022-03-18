@@ -15,5 +15,5 @@
 // Generated on: 2005.12.15 at 09:10:24 PM PST 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "urn:test:types")
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "urn:test:types")
 package whitebox.message.source.types;

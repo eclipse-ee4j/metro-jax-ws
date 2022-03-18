@@ -12,9 +12,9 @@ package fromjava.issue_563.server;
 import calculator.Query;
 import calculator.Result;
 import java.math.BigInteger;
-import javax.jws.WebMethod;
-import javax.jws.WebService;
-import javax.xml.ws.Endpoint;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.Endpoint;
 
 @WebService
 public class Calculator {

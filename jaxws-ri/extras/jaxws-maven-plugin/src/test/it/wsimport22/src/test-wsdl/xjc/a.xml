@@ -3,7 +3,7 @@
 
     DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-    Copyright (c) 2011, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2011, 2020 Oracle and/or its affiliates. All rights reserved.
 
     Oracle licenses this file to You under the Apache License, Version 2.0
     (the "License"); you may not use this file except in compliance with
@@ -19,7 +19,7 @@
 
 -->
 
-<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.1" xmlns:tns="http://jax_ws_commons.jvnet.org/wsimport/test">
+<bindings xmlns="https://jakarta.ee/xml/ns/jaxb" version="3.0" xmlns:tns="http://jax_ws_commons.jvnet.org/wsimport/test">
   <bindings scd="/type::tns:add">
     <class name="SumType"/>
   </bindings>

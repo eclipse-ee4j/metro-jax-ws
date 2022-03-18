@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,16 +11,15 @@
 package com.sun.xml.ws.api.model;
 
 import com.sun.istack.NotNull;
-import com.sun.xml.bind.api.Bridge;
-import com.sun.xml.bind.api.JAXBRIContext;
-import com.sun.xml.bind.api.TypeReference;
+import org.glassfish.jaxb.runtime.api.Bridge;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import com.sun.xml.ws.api.model.wsdl.WSDLPort;
 import com.sun.xml.ws.util.Pool;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Provider;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Provider;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
@@ -55,29 +54,29 @@ public interface SEIModel {
      */
     JAXBContext getJAXBContext();
 
-    /**
-     * Get the Bridge associated with the {@link TypeReference}
-     *
-     * @param type
+    /*
+      Get the Bridge associated with the {@link TypeReference}
+
+      @param type
      * @return the <code>{@link Bridge}</code> for the <code>type</code>
      */
 //    Bridge getBridge(TypeReference type);
 
-    /**
-     * Its a known fault if the exception thrown by {@link Method} is annotated with the
-     * {@link javax.xml.ws.WebFault#name()} thas equal to the name passed as parameter.
-     *
-     * @param name   is the qualified name of fault detail element as specified by wsdl:fault@element value.
+    /*
+      Its a known fault if the exception thrown by {@link Method} is annotated with the
+      {@link jakarta.xml.ws.WebFault#name()} thas equal to the name passed as parameter.
+
+      @param name   is the qualified name of fault detail element as specified by wsdl:fault@element value.
      * @param method is the Java {@link Method}
      * @return true if <code>name</code> is the name
      *         of a known fault name for the <code>method</code>
      */
 //    boolean isKnownFault(QName name, Method method);
 
-    /**
-     * Checks if the {@link JavaMethod} for the {@link Method} knowns the exception class.
-     *
-     * @param m  {@link Method} to pickup the right {@link JavaMethod} model
+    /*
+      Checks if the {@link JavaMethod} for the {@link Method} knowns the exception class.
+
+      @param m  {@link Method} to pickup the right {@link JavaMethod} model
      * @param ex exception class
      * @return true if <code>ex</code> is a Checked Exception
      *         for <code>m</code>
@@ -97,18 +96,16 @@ public interface SEIModel {
      * Gives a {@link JavaMethod} for a given {@link QName}. The {@link QName} will
      * be equivalent to the SOAP Body or Header block or can simply be the name of an
      * infoset that corresponds to the payload.
-     * @param name
      * @return the <code>JavaMethod</code> associated with the
      *         operation named name
      */
-    public JavaMethod getJavaMethod(QName name);
+    JavaMethod getJavaMethod(QName name);
 
     /**
      * Gives the JavaMethod associated with the wsdl operation
      * @param operationName QName of the wsdl operation
-     * @return
      */
-    public JavaMethod getJavaMethodForWsdlOperation(QName operationName);
+    JavaMethod getJavaMethodForWsdlOperation(QName operationName);
 
 
     /**
@@ -149,7 +146,6 @@ public interface SEIModel {
     /**
      * Value of wsdl:portType bound to the port associated with the {@link SEIModel}
      *
-     * @return
      */
     @NotNull QName getPortTypeName();
 

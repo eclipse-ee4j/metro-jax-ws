@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -79,6 +79,7 @@ public class MetroTubelineAssembler implements TubelineAssembler {
         return tubelineAssemblyController;
     }
 
+    @Override
     @NotNull
     public Tube createClient(@NotNull ClientTubeAssemblerContext jaxwsContext) {
         if (LOGGER.isLoggable(Level.FINER)) {
@@ -134,6 +135,7 @@ public class MetroTubelineAssembler implements TubelineAssembler {
         return decorator.decorateClientHead(context.getTubelineHead(), context);
     }
 
+    @Override
     @NotNull
     public Tube createServer(@NotNull ServerTubeAssemblerContext jaxwsContext) {
         if (LOGGER.isLoggable(Level.FINER)) {
@@ -197,15 +199,15 @@ public class MetroTubelineAssembler implements TubelineAssembler {
         // checking common properties
         Boolean value = getBooleanValue(COMMON_MESSAGE_DUMP_SYSTEM_PROPERTY_BASE);
         if (value != null) {
-            dumpBefore = value.booleanValue();
-            dumpAfter = value.booleanValue();
+            dumpBefore = value;
+            dumpAfter = value;
         }
 
         value = getBooleanValue(COMMON_MESSAGE_DUMP_SYSTEM_PROPERTY_BASE + ".before");
-        dumpBefore = (value != null) ? value.booleanValue() : dumpBefore;
+        dumpBefore = (value != null) ? value : dumpBefore;
 
         value = getBooleanValue(COMMON_MESSAGE_DUMP_SYSTEM_PROPERTY_BASE + ".after");
-        dumpAfter = (value != null) ? value.booleanValue() : dumpAfter;
+        dumpAfter = (value != null) ? value : dumpAfter;
 
         Level levelValue = getLevelValue(COMMON_MESSAGE_DUMP_SYSTEM_PROPERTY_BASE + ".level");
         if (levelValue != null) {
@@ -215,17 +217,17 @@ public class MetroTubelineAssembler implements TubelineAssembler {
         // narrowing to proper communication side on common properties
         value = getBooleanValue(COMMON_MESSAGE_DUMP_SYSTEM_PROPERTY_BASE + "." + side.toString());
         if (value != null) {
-            dumpBefore = value.booleanValue();
-            dumpAfter = value.booleanValue();
+            dumpBefore = value;
+            dumpAfter = value;
         }
 
-        value = getBooleanValue(COMMON_MESSAGE_DUMP_SYSTEM_PROPERTY_BASE + "." + side.toString() + ".before");
-        dumpBefore = (value != null) ? value.booleanValue() : dumpBefore;
+        value = getBooleanValue(COMMON_MESSAGE_DUMP_SYSTEM_PROPERTY_BASE + "." + side + ".before");
+        dumpBefore = (value != null) ? value : dumpBefore;
 
-        value = getBooleanValue(COMMON_MESSAGE_DUMP_SYSTEM_PROPERTY_BASE + "." + side.toString() + ".after");
-        dumpAfter = (value != null) ? value.booleanValue() : dumpAfter;
+        value = getBooleanValue(COMMON_MESSAGE_DUMP_SYSTEM_PROPERTY_BASE + "." + side + ".after");
+        dumpAfter = (value != null) ? value : dumpAfter;
 
-        levelValue = getLevelValue(COMMON_MESSAGE_DUMP_SYSTEM_PROPERTY_BASE + "." + side.toString() + ".level");
+        levelValue = getLevelValue(COMMON_MESSAGE_DUMP_SYSTEM_PROPERTY_BASE + "." + side + ".level");
         if (levelValue != null) {
             logLevel = levelValue;
         }
@@ -234,15 +236,15 @@ public class MetroTubelineAssembler implements TubelineAssembler {
         // checking general tube-specific properties
         value = getBooleanValue(msgDumpSystemPropertyBase);
         if (value != null) {
-            dumpBefore = value.booleanValue();
-            dumpAfter = value.booleanValue();
+            dumpBefore = value;
+            dumpAfter = value;
         }
 
         value = getBooleanValue(msgDumpSystemPropertyBase + ".before");
-        dumpBefore = (value != null) ? value.booleanValue() : dumpBefore;
+        dumpBefore = (value != null) ? value : dumpBefore;
 
         value = getBooleanValue(msgDumpSystemPropertyBase + ".after");
-        dumpAfter = (value != null) ? value.booleanValue() : dumpAfter;
+        dumpAfter = (value != null) ? value : dumpAfter;
 
         levelValue = getLevelValue(msgDumpSystemPropertyBase + ".level");
         if (levelValue != null) {
@@ -250,19 +252,19 @@ public class MetroTubelineAssembler implements TubelineAssembler {
         }
 
         // narrowing to proper communication side on tube-specific properties
-        msgDumpSystemPropertyBase += "." + side.toString();
+        msgDumpSystemPropertyBase += "." + side;
 
         value = getBooleanValue(msgDumpSystemPropertyBase);
         if (value != null) {
-            dumpBefore = value.booleanValue();
-            dumpAfter = value.booleanValue();
+            dumpBefore = value;
+            dumpAfter = value;
         }
 
         value = getBooleanValue(msgDumpSystemPropertyBase + ".before");
-        dumpBefore = (value != null) ? value.booleanValue() : dumpBefore;
+        dumpBefore = (value != null) ? value : dumpBefore;
 
         value = getBooleanValue(msgDumpSystemPropertyBase + ".after");
-        dumpAfter = (value != null) ? value.booleanValue() : dumpAfter;
+        dumpAfter = (value != null) ? value : dumpAfter;
 
         levelValue = getLevelValue(msgDumpSystemPropertyBase + ".level");
         if (levelValue != null) {

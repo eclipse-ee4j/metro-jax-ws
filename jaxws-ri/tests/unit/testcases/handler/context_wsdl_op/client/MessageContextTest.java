@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,9 +12,9 @@ package handler.context_wsdl_op.client;
 
 import junit.framework.TestCase;
 
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Binding;
-import javax.xml.ws.handler.Handler;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.Binding;
+import jakarta.xml.ws.handler.Handler;
 import java.util.ArrayList;
 import java.util.List;
 

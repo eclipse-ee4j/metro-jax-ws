@@ -16,18 +16,18 @@ import junit.framework.TestSuite;
 import testutil.ClientServerTestUtil;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Holder;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.ws.Endpoint;
+import jakarta.xml.ws.Endpoint;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import java.net.URL;
 import java.net.URLConnection;
 import java.io.*;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.soap.SOAPBinding;
 
 
 /**
@@ -121,11 +121,11 @@ public class EndpointWsdlLocationTester extends TestCase {
     }
 
 
-    @javax.jws.WebService(name="RpcLit", serviceName="RpcLitEndpoint",
+    @jakarta.jws.WebService(name="RpcLit", serviceName="RpcLitEndpoint",
         portName="RpcLitPort", targetNamespace="http://echo.org/",
         endpointInterface="whitebox.endpoint.client.RpcLitEndpointIF", 
         wsdlLocation="WEB-INF/wsdl/RpcLitEndpoint.wsdl")
-    @javax.jws.soap.SOAPBinding(style=javax.jws.soap.SOAPBinding.Style.RPC)
+    @jakarta.jws.soap.SOAPBinding(style=jakarta.jws.soap.SOAPBinding.Style.RPC)
     public static class RpcLitEndpointWsdlLocation {
 
         public int echoInteger(int arg0) {

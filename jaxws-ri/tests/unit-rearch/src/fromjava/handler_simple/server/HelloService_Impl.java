@@ -10,13 +10,13 @@
 
 package fromjava.handler_simple.server;
 
-import javax.jws.*;
-import javax.jws.soap.SOAPBinding;
+import jakarta.jws.*;
+import jakarta.jws.soap.SOAPBinding;
 
 
 /**
  */
-@javax.jws.HandlerChain(
+@jakarta.jws.HandlerChain(
     name="",
     file="Hello_handler.xml"
 )

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,11 +39,11 @@ import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.http.HTTPBinding;
-import javax.xml.ws.soap.MTOMFeature;
-import javax.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.soap.MTOMFeature;
+import jakarta.xml.ws.soap.SOAPBinding;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -99,7 +99,7 @@ public class DeploymentDescriptorParser<A> {
     public static final String ATTR_BINDING = "binding";
     public static final String ATTR_DATABINDING = "databinding";
 
-    public static final List<String> ATTRVALUE_SUPPORTED_VERSIONS = Arrays.asList("2.0", "2.1");
+    public static final List<String> ATTRVALUE_SUPPORTED_VERSIONS = Arrays.asList("3.0", "2.0", "2.1");
 
     private static final Logger logger = Logger.getLogger(com.sun.xml.ws.util.Constants.LoggingDomain + ".server.http");
 
@@ -112,12 +112,12 @@ public class DeploymentDescriptorParser<A> {
      * Endpoint names that are declared.
      * Used to catch double definitions.
      */
-    private final Set<String> names = new HashSet<String>();
+    private final Set<String> names = new HashSet<>();
 
     /**
      * WSDL/schema documents collected from /WEB-INF/wsdl. Keyed by the system ID.
      */
-    private final Map<String, SDDocumentSource> docs = new HashMap<String, SDDocumentSource>();
+    private final Map<String, SDDocumentSource> docs = new HashMap<>();
 
     /**
      * @param cl             Used to load service implementations.
@@ -168,16 +168,13 @@ public class DeploymentDescriptorParser<A> {
      * a set of {@link HttpAdapter}s.
      */
     public @NotNull List<A> parse(File f) throws IOException {
-        FileInputStream in = new FileInputStream(f);
-        try {
+        try (FileInputStream in = new FileInputStream(f)) {
             return parse(f.getPath(), in);
-        } finally {
-            in.close();
         }
     }
 
     /**
-     * Get all the WSDL & schema documents recursively.
+     * Get all the WSDL and schema documents recursively.
      */
     private void collectDocs(String dirPath) throws MalformedURLException {
         Set<String> paths = loader.getResourcePaths(dirPath);
@@ -202,7 +199,7 @@ public class DeploymentDescriptorParser<A> {
             failWithFullName("runtime.parser.invalidElement", reader);
         }
 
-        List<A> adapters = new ArrayList<A>();
+        List<A> adapters = new ArrayList<>();
 
         Attributes attrs = XMLStreamReaderUtil.getAttributes(reader);
         String version = getMandatoryNonEmptyAttribute(reader, attrs, ATTR_VERSION);
@@ -300,7 +297,7 @@ public class DeploymentDescriptorParser<A> {
         if (mtomEnabled != null) {
             if (mtomThreshold != null) {
                 mtomfeature = new MTOMFeature(Boolean.valueOf(mtomEnabled),
-                        Integer.valueOf(mtomThreshold));
+                        Integer.parseInt(mtomThreshold));
             } else {
                 mtomfeature = new MTOMFeature(Boolean.valueOf(mtomEnabled));
             }
@@ -350,16 +347,17 @@ public class DeploymentDescriptorParser<A> {
      * @return returns corresponding API's binding ID or the same lexical
      */
     public static @NotNull String getBindingIdForToken(@NotNull String lexical) {
-        if (lexical.equals("##SOAP11_HTTP")) {
-            return SOAPBinding.SOAP11HTTP_BINDING;
-        } else if (lexical.equals("##SOAP11_HTTP_MTOM")) {
-            return SOAPBinding.SOAP11HTTP_MTOM_BINDING;
-        } else if (lexical.equals("##SOAP12_HTTP")) {
-            return SOAPBinding.SOAP12HTTP_BINDING;
-        } else if (lexical.equals("##SOAP12_HTTP_MTOM")) {
-            return SOAPBinding.SOAP12HTTP_MTOM_BINDING;
-        } else if (lexical.equals("##XML_HTTP")) {
-            return HTTPBinding.HTTP_BINDING;
+        switch (lexical) {
+            case "##SOAP11_HTTP":
+                return SOAPBinding.SOAP11HTTP_BINDING;
+            case "##SOAP11_HTTP_MTOM":
+                return SOAPBinding.SOAP11HTTP_MTOM_BINDING;
+            case "##SOAP12_HTTP":
+                return SOAPBinding.SOAP12HTTP_BINDING;
+            case "##SOAP12_HTTP_MTOM":
+                return SOAPBinding.SOAP12HTTP_MTOM_BINDING;
+            case "##XML_HTTP":
+                return HTTPBinding.HTTP_BINDING;
         }
         return lexical;
     }
@@ -370,12 +368,12 @@ public class DeploymentDescriptorParser<A> {
      * Normally 'A' would be {@link HttpAdapter} or some derived class.
      * But the parser doesn't require that to be of any particular type.
      */
-    public static interface AdapterFactory<A> {
+    public interface AdapterFactory<A> {
         A createAdapter(String name, String urlPattern, WSEndpoint<?> endpoint);
     }
 
     /**
-     * Checks the deployment descriptor or {@link @WebServiceProvider} annotation
+     * Checks the deployment descriptor or {@link jakarta.xml.ws.WebServiceProvider} annotation
      * to see if it points to any WSDL. If so, returns the {@link SDDocumentSource}.
      *
      * @return The pointed WSDL, if any. Otherwise null.
@@ -477,7 +475,7 @@ public class DeploymentDescriptorParser<A> {
      * Parses the handler and role information and sets it
      * on the {@link WSBinding}.
      *
-     * @return true if <handler-chains> element present in DD
+     * @return true if &lt;handler-chains&gt; element present in DD
      *         false otherwise.
      */
     protected boolean setHandlersAndRoles(WSBinding binding, XMLStreamReader reader, QName serviceName, QName portName) {

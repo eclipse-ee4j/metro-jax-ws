@@ -10,11 +10,11 @@
 
 package fromwsdl.handler_simple_rpclit.server;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 /**
  */
-@javax.jws.WebService(endpointInterface="fromwsdl.handler_simple_rpclit.server.Hello12")
+@jakarta.jws.WebService(endpointInterface="fromwsdl.handler_simple_rpclit.server.Hello12")
 public class HelloService12_Impl implements Hello12 {
     
     public int hello12(int x) {

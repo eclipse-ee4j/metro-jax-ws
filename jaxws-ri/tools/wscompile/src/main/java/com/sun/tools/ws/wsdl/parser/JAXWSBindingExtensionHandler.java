@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,7 @@ import java.util.Map;
 public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
 
     // xml security enabled always, xpath used for parsing "part" attribute
-    private static final ContextClassloaderLocal<XPathFactory> xpf = new ContextClassloaderLocal<XPathFactory>() {
+    private static final ContextClassloaderLocal<XPathFactory> xpf = new ContextClassloaderLocal<>() {
         @Override
         protected XPathFactory initialValue() throws Exception {
             return XmlUtil.newXPathFactory(false);
@@ -61,9 +61,6 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
     }
 
     /**
-     * @param context
-     * @param parent
-     * @param e
      */
     private boolean parseGlobalJAXWSBindings(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         context.push();
@@ -135,9 +132,6 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
     }
 
     /**
-     * @param context
-     * @param parent
-     * @param e
      */
     private void parseProvider(com.sun.tools.ws.api.wsdl.TWSDLParserContext context, JAXWSBinding parent, Element e) {
         String val = e.getTextContent();
@@ -145,29 +139,23 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
             return;
         }
         if (val.equals("false") || val.equals("0")) {
-            ((JAXWSBinding)parent).setProvider(Boolean.FALSE);
+            parent.setProvider(Boolean.FALSE);
         } else if(val.equals("true") || val.equals("1")) {
-            ((JAXWSBinding)parent).setProvider(Boolean.TRUE);
+            parent.setProvider(Boolean.TRUE);
         }
 
     }
 
     /**
-     * @param context
-     * @param parent
-     * @param e
      */
     private void parsePackage(com.sun.tools.ws.api.wsdl.TWSDLParserContext context, JAXWSBinding parent, Element e) {
         //System.out.println("In handlePackageExtension: " + e.getNodeName());
         String packageName = XmlUtil.getAttributeOrNull(e, JAXWSBindingsConstants.NAME_ATTR);
-        JAXWSBinding binding = (JAXWSBinding)parent;
+        JAXWSBinding binding = parent;
         binding.setJaxwsPackage(new CustomName(packageName, getJavaDoc(e)));
     }
 
     /**
-     * @param context
-     * @param parent
-     * @param e
      */
     private void parseWrapperStyle(com.sun.tools.ws.api.wsdl.TWSDLParserContext context, JAXWSBinding parent, Element e) {
         //System.out.println("In handleWrapperStyleExtension: " + e.getNodeName());
@@ -176,14 +164,14 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
             return;
         }
         if (val.equals("false") || val.equals("0")) {
-            ((JAXWSBinding) parent).setEnableWrapperStyle(Boolean.FALSE);
+            parent.setEnableWrapperStyle(Boolean.FALSE);
         } else if (val.equals("true") || val.equals("1")) {
-            ((JAXWSBinding) parent).setEnableWrapperStyle(Boolean.TRUE);
+            parent.setEnableWrapperStyle(Boolean.TRUE);
         }
     }
 
-    /**
-     * @param context
+    /*
+      @param context
      * @param parent
      * @param e
      */
@@ -200,9 +188,6 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
 //    }
 
     /**
-     * @param context
-     * @param parent
-     * @param e
      */
     private void parseAsynMapping(com.sun.tools.ws.api.wsdl.TWSDLParserContext context, JAXWSBinding parent, Element e) {
         //System.out.println("In handleAsynMappingExtension: " + e.getNodeName());
@@ -211,16 +196,13 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
             return;
         }
         if (val.equals("false") || val.equals("0")) {
-            ((JAXWSBinding) parent).setEnableAsyncMapping(Boolean.FALSE);
+            parent.setEnableAsyncMapping(Boolean.FALSE);
         } else if (val.equals("true") || val.equals("1")) {
-            ((JAXWSBinding) parent).setEnableAsyncMapping(Boolean.TRUE);
+            parent.setEnableAsyncMapping(Boolean.TRUE);
         }
     }
 
     /**
-     * @param context
-     * @param parent
-     * @param e
      */
     private void parseMimeContent(com.sun.tools.ws.api.wsdl.TWSDLParserContext context, JAXWSBinding parent, Element e) {
         //System.out.println("In handleMimeContentExtension: " + e.getNodeName());
@@ -229,16 +211,13 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
             return;
         }
         if (val.equals("false") || val.equals("0")) {
-            ((JAXWSBinding) parent).setEnableMimeContentMapping(Boolean.FALSE);
+            parent.setEnableMimeContentMapping(Boolean.FALSE);
         } else if (val.equals("true") || val.equals("1")) {
-            ((JAXWSBinding) parent).setEnableMimeContentMapping(Boolean.TRUE);
+            parent.setEnableMimeContentMapping(Boolean.TRUE);
         }
     }
 
     /**
-     * @param context
-     * @param jaxwsBinding
-     * @param e
      */
     private void parseMethod(com.sun.tools.ws.api.wsdl.TWSDLParserContext context, JAXWSBinding jaxwsBinding, Element e) {
         String methodName = XmlUtil.getAttributeOrNull(e, JAXWSBindingsConstants.NAME_ATTR);
@@ -248,9 +227,6 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
     }
 
     /**
-     * @param context
-     * @param jaxwsBinding
-     * @param e
      */
     private void parseParameter(com.sun.tools.ws.api.wsdl.TWSDLParserContext context, JAXWSBinding jaxwsBinding, Element e) {
         String part = XmlUtil.getAttributeOrNull(e, JAXWSBindingsConstants.PART_ATTR);
@@ -305,9 +281,6 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
     }
 
     /**
-     * @param context
-     * @param jaxwsBinding
-     * @param e
      */
     private void parseClass(com.sun.tools.ws.api.wsdl.TWSDLParserContext context, JAXWSBinding jaxwsBinding, Element e) {
         String className = XmlUtil.getAttributeOrNull(e, JAXWSBindingsConstants.NAME_ATTR);

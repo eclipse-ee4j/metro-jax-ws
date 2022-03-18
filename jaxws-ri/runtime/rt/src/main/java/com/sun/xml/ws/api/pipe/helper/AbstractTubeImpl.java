@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -102,6 +102,7 @@ public abstract class AbstractTubeImpl implements Tube, Pipe {
      * "Dual stack" compatibility mechanism.
      * Allows {@link Tube} to be invoked from a {@link Pipe}.
      */
+    @Override
     public Packet process(Packet p) {
         return Fiber.current().runSync(this,p);
     }
@@ -110,9 +111,11 @@ public abstract class AbstractTubeImpl implements Tube, Pipe {
      * Needs to be implemented by the derived class, but we can't make it abstract
      * without upsetting javac.
      */
+    @Override
     public final AbstractTubeImpl copy(PipeCloner cloner) {
         return copy((TubeCloner)cloner);
     }
 
+    @Override
     public abstract AbstractTubeImpl copy(TubeCloner cloner);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,8 +11,8 @@
 package com.sun.xml.ws.transport.httpspi.servlet;
 
 
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.ws.spi.http.HttpExchange;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.xml.ws.spi.http.HttpExchange;
 import java.util.*;
 
 /**

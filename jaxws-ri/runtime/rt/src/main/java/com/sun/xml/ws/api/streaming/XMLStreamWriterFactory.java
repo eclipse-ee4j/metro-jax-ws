@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +23,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import java.io.OutputStream;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
@@ -51,51 +51,51 @@ public abstract class XMLStreamWriterFactory {
      * Singleton instance.
      */
     private static volatile ContextClassloaderLocal<XMLStreamWriterFactory> writerFactory =
-            new ContextClassloaderLocal<XMLStreamWriterFactory>() {
+            new ContextClassloaderLocal<>() {
 
-        @Override
-        protected XMLStreamWriterFactory initialValue() {
-            XMLOutputFactory  xof = null;
-            if (Boolean.getBoolean(XMLStreamWriterFactory.class.getName()+".woodstox")) {
-                try {
-                    xof = (XMLOutputFactory)Class.forName("com.ctc.wstx.stax.WstxOutputFactory").newInstance();
-                } catch (Exception e) {
-                    // Ignore and fallback to default XMLOutputFactory
-                }
-            }
-            if (xof == null) {
-                xof = XMLOutputFactory.newInstance();
-            }
-
-            XMLStreamWriterFactory f=null;
-
-            // this system property can be used to disable the pooling altogether,
-            // in case someone hits an issue with pooling in the production system.
-            if (!MrJarUtil.getNoPoolProperty(XMLStreamWriterFactory.class.getName())) {
-                try {
-                    Class<?> clazz = xof.createXMLStreamWriter(new StringWriter()).getClass();
-                    if (clazz.getName().startsWith("com.sun.xml.stream.")) {
-                        f =  new Zephyr(xof,clazz);
+                @Override
+                protected XMLStreamWriterFactory initialValue() {
+                    XMLOutputFactory xof = null;
+                    if (Boolean.getBoolean(XMLStreamWriterFactory.class.getName() + ".woodstox")) {
+                        try {
+                            xof = (XMLOutputFactory) Class.forName("com.ctc.wstx.stax.WstxOutputFactory").getConstructor().newInstance();
+                        } catch (Exception e) {
+                            // Ignore and fallback to default XMLOutputFactory
+                        }
                     }
-                } catch (XMLStreamException ex) {
-                    Logger.getLogger(XMLStreamWriterFactory.class.getName()).log(Level.INFO, null, ex);
-                }
-            }
+                    if (xof == null) {
+                        xof = XMLOutputFactory.newInstance();
+                    }
 
-            if(f==null) {
-                // is this Woodstox?
-                if(xof.getClass().getName().equals("com.ctc.wstx.stax.WstxOutputFactory"))
-                    f = new NoLock(xof);
-            }
-            if (f == null)
-                f = new Default(xof);
-    
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.log(Level.FINE, "XMLStreamWriterFactory instance is = {0}", f);
-            }
-            return f;
-        }
-    };
+                    XMLStreamWriterFactory f = null;
+
+                    // this system property can be used to disable the pooling altogether,
+                    // in case someone hits an issue with pooling in the production system.
+                    if (!MrJarUtil.getNoPoolProperty(XMLStreamWriterFactory.class.getName())) {
+                        try {
+                            Class<?> clazz = xof.createXMLStreamWriter(new StringWriter()).getClass();
+                            if (clazz.getName().startsWith("com.sun.xml.stream.")) {
+                                f = new Zephyr(xof, clazz);
+                            }
+                        } catch (XMLStreamException ex) {
+                            Logger.getLogger(XMLStreamWriterFactory.class.getName()).log(Level.INFO, null, ex);
+                        }
+                    }
+
+                    if (f == null) {
+                        // is this Woodstox?
+                        if (xof.getClass().getName().equals("com.ctc.wstx.stax.WstxOutputFactory"))
+                            f = new NoLock(xof);
+                    }
+                    if (f == null)
+                        f = new Default(xof);
+
+                    if (LOGGER.isLoggable(Level.FINE)) {
+                        LOGGER.log(Level.FINE, "XMLStreamWriterFactory instance is = {0}", f);
+                    }
+                    return f;
+                }
+            };
 
     /**
      * See {@link #create(OutputStream)} for the contract.
@@ -186,30 +186,6 @@ public abstract class XMLStreamWriterFactory {
     }
 
     /**
-     * @deprecated
-     *      Use {@link #create(OutputStream)}
-     */
-    public static XMLStreamWriter createXMLStreamWriter(OutputStream out) {
-        return create(out);
-    }
-
-    /**
-     * @deprecated
-     *      Use {@link #create(OutputStream, String)}
-     */
-    public static XMLStreamWriter createXMLStreamWriter(OutputStream out, String encoding) {
-        return create(out, encoding);
-    }
-
-    /**
-     * @deprecated
-     *      Use {@link #create(OutputStream, String)}. The boolean flag was unused anyway.
-     */
-    public static XMLStreamWriter createXMLStreamWriter(OutputStream out, String encoding, boolean declare) {
-        return create(out,encoding);
-    }
-
-    /**
      * Default {@link XMLStreamWriterFactory} implementation
      * that can work with any {@link XMLOutputFactory}.
      *
@@ -253,7 +229,7 @@ public abstract class XMLStreamWriterFactory {
      */
     public static final class Zephyr extends XMLStreamWriterFactory {
         private final XMLOutputFactory xof;
-        private final ThreadLocal<XMLStreamWriter> pool = new ThreadLocal<XMLStreamWriter>();
+        private final ThreadLocal<XMLStreamWriter> pool = new ThreadLocal<>();
         private final Method resetMethod;
         private final Method setOutputMethod;
         private final Class zephyrClass;
@@ -281,7 +257,7 @@ public abstract class XMLStreamWriterFactory {
 
         private static Method getMethod(final Class<?> c, final String methodname, final Class<?>... params) {
             return AccessController.doPrivileged(
-                    new PrivilegedAction<Method>() {
+                    new PrivilegedAction<>() {
                         @Override
                         public Method run() {
                             try {
@@ -318,9 +294,7 @@ public abstract class XMLStreamWriterFactory {
                 try {
                     resetMethod.invoke(xsw);
                     setOutputMethod.invoke(xsw,new StreamResult(out),encoding);
-                } catch (IllegalAccessException e) {
-                    throw new XMLReaderException("stax.cantCreate",e);
-                } catch (InvocationTargetException e) {
+                } catch (IllegalAccessException | InvocationTargetException e) {
                     throw new XMLReaderException("stax.cantCreate",e);
                 }
             } else {

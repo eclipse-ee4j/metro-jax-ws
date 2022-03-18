@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -101,7 +101,7 @@ public class LocalConfigFileTransformer {
             String wsdl = endpoint.getAttributeNode("wsdl").getValue();
             
             // remove the leading "/" from "/WEB-INF/filename.wsdl
-            map.put(urlpattern, wsdl.substring(1, wsdl.length()));
+            map.put(urlpattern, wsdl.substring(1));
         }
         return map;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,12 +10,12 @@
 
 package com.sun.xml.ws.transport.httpspi.servlet;
 
-import javax.xml.ws.spi.http.HttpExchange;
-import javax.xml.ws.spi.http.HttpContext;
-import javax.xml.ws.handler.MessageContext;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.ServletContext;
+import jakarta.xml.ws.spi.http.HttpExchange;
+import jakarta.xml.ws.spi.http.HttpContext;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -33,7 +33,7 @@ final class EndpointHttpExchange extends HttpExchange {
     private final ExchangeResponseHeaders resHeaders;
     private final ServletContext servletContext;
     private final HttpContext httpContext;
-    private static final Set<String> attributes = new HashSet<String>();
+    private static final Set<String> attributes = new HashSet<>();
     static {
         attributes.add(MessageContext.SERVLET_CONTEXT);
         attributes.add(MessageContext.SERVLET_REQUEST);
@@ -128,14 +128,16 @@ final class EndpointHttpExchange extends HttpExchange {
 
     @Override
     public Object getAttribute(String name) {
-        if (name.equals(MessageContext.SERVLET_CONTEXT)) {
-            return servletContext;
-        } else if (name.equals(MessageContext.SERVLET_REQUEST)) {
-            return req;
-        } else if (name.equals(MessageContext.SERVLET_RESPONSE)) {
-            return res;
+        switch (name) {
+            case MessageContext.SERVLET_CONTEXT:
+                return servletContext;
+            case MessageContext.SERVLET_REQUEST:
+                return req;
+            case MessageContext.SERVLET_RESPONSE:
+                return res;
+            default:
+                return null;
         }
-        return null;
     }
 
     @Override

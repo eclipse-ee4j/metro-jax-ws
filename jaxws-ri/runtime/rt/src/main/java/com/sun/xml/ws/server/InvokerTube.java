@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,8 +20,8 @@ import com.sun.xml.ws.resources.ServerMessages;
 import com.sun.xml.ws.server.provider.ProviderInvokerTube;
 import com.sun.xml.ws.server.sei.SEIInvokerTube;
 
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.WebServiceException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -42,9 +42,11 @@ public abstract class InvokerTube<T> extends com.sun.xml.ws.server.sei.InvokerTu
         super(invoker);
     }
 
+    @Override
     public void setEndpoint(WSEndpoint endpoint) {
         this.endpoint = endpoint;
         WSWebServiceContext webServiceContext = new AbstractWebServiceContext(endpoint) {
+            @Override
             public @Nullable Packet getRequestPacket() {
                 Packet p = packets.get();
                 return p;
@@ -57,7 +59,7 @@ public abstract class InvokerTube<T> extends com.sun.xml.ws.server.sei.InvokerTu
         return endpoint;
     }
 
-    /**
+    /*
      * Returns the application object that serves the request.
      *
     public final @NotNull T getServant(Packet request) {
@@ -70,6 +72,7 @@ public abstract class InvokerTube<T> extends com.sun.xml.ws.server.sei.InvokerTu
     /**
      * Returns the {@link Invoker} object that serves the request.
      */
+    @Override
     public final @NotNull Invoker getInvoker(Packet request) {
         return wrapper;
     }
@@ -79,11 +82,13 @@ public abstract class InvokerTube<T> extends com.sun.xml.ws.server.sei.InvokerTu
      * while processing the request. {@link InvokerTube} is stateless and terminal,
      * so no need to create copies.
      */
+    @Override
     public final AbstractTubeImpl copy(TubeCloner cloner) {
         cloner.add(this,this);
         return this;
     }
 
+    @Override
     public void preDestroy() {
         invoker.dispose();
     }
@@ -92,7 +97,7 @@ public abstract class InvokerTube<T> extends com.sun.xml.ws.server.sei.InvokerTu
      * Heart of {@link WebServiceContext}.
      * Remembers which thread is serving which packet.
      */
-    private static final ThreadLocal<Packet> packets = new ThreadLocal<Packet>();
+    private static final ThreadLocal<Packet> packets = new ThreadLocal<>();
 
     /**
      * This method can be called while the user service is servicing the request

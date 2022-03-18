@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,7 @@
   </service>
 
   <pre-client>
-      import javax.xml.ws.soap.SOAPBinding;
+      import jakarta.xml.ws.soap.SOAPBinding;
       import testutil.ClientServerTestUtil;
       import org.w3c.dom.Node;
       private int getIntFromResponse(Source source) throws Exception {
@@ -289,7 +289,7 @@
         // create service with just qname - no handlers in that case
         QName serviceQName = new QName("urn:test", "Hello");
         Service service = Service.create(serviceQName);
-        service.addPort(portQName, javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING, helloPortAddress.toString());
+        service.addPort(portQName, jakarta.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING, helloPortAddress.toString());
         Dispatch dispatch = service.createDispatch(portQName, SOAPMessage.class , Service.Mode.MESSAGE);
         MessageFactory messageFactory = MessageFactory.newInstance();
         MimeHeaders headers = new MimeHeaders();

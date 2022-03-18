@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,7 @@ public class JAXWSBinding extends ExtensionImpl {
      */
     public JAXWSBinding(Locator locator){
         super(locator);
-        jaxbBindings = new HashSet<Element>();
+        jaxbBindings = new HashSet<>();
         // TODO Auto-generated constructor stub
     }
 
@@ -39,6 +39,7 @@ public class JAXWSBinding extends ExtensionImpl {
     /* (non-Javadoc)
      * @see Entity#validateThis()
      */
+    @Override
     public void validateThis(){
         // TODO Auto-generated method stub
 
@@ -47,6 +48,7 @@ public class JAXWSBinding extends ExtensionImpl {
     /* (non-Javadoc)
      * @see Elemental#getElementName()
      */
+    @Override
     public QName getElementName(){
         // TODO Auto-generated method stub
         return JAXWSBindingsConstants.JAXWS_BINDINGS;
@@ -243,7 +245,7 @@ public class JAXWSBinding extends ExtensionImpl {
      */
     public void addParameter(Parameter parameter) {
         if(parameters == null)
-            parameters = new ArrayList<Parameter>();
+            parameters = new ArrayList<>();
         parameters.add(parameter);
     }
 

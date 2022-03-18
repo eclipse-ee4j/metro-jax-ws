@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,7 +32,7 @@ class PolicyMapBuilder {
     /**
      * policyBuilders should contain list of registered PolicyBuilders
      */
-    private List<BuilderHandler> policyBuilders = new LinkedList<BuilderHandler>();
+    private List<BuilderHandler> policyBuilders = new LinkedList<>();
         
     /**
      * Creates a new instance of PolicyMapBuilder
@@ -68,7 +68,7 @@ class PolicyMapBuilder {
      * with the newly created map.
      */
     private PolicyMap getNewPolicyMap(final PolicyMapMutator... externalMutators) throws PolicyException{
-        final HashSet<PolicyMapMutator> mutators = new HashSet<PolicyMapMutator>();
+        final HashSet<PolicyMapMutator> mutators = new HashSet<>();
         final PolicyMapExtender myExtender = PolicyMapExtender.createPolicyMapExtender();
         mutators.add(myExtender);
         if (null != externalMutators) {

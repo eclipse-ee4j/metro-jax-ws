@@ -10,9 +10,9 @@
 
 package fromjava.pkg_customization.server;
 import fromjava.pkg_customization.server.types.*;
-import javax.jws.*;
-import javax.xml.ws.*;
-import javax.annotation.Resource;
+import jakarta.jws.*;
+import jakarta.xml.ws.*;
+import jakarta.annotation.Resource;
 
 @WebService(name ="EchoIF", portName="EchoImplPort",targetNamespace = "http://example.org/")
 public class EchoImpl  {

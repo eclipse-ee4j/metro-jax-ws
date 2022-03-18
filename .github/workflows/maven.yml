@@ -1,0 +1,88 @@
+#
+# Copyright (c) 2021, 2022 Contributors to the Eclipse Foundation
+#
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License v. 2.0 which is available at
+# http://www.eclipse.org/legal/epl-2.0,
+# or the Eclipse Distribution License v. 1.0 which is available at
+# http://www.eclipse.org/org/documents/edl-v10.php.
+#
+# SPDX-License-Identifier: EPL-2.0 OR BSD-3-Clause
+#
+
+name: JAXWS RI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Test on JDK ${{ matrix.java_version }} 
+    runs-on: ubuntu-latest
+    outputs:
+      jdk: ${{ steps.build.outputs.jdk }}
+    strategy:
+      matrix:
+        java_version: [ 17 ]
+
+    steps:
+      - name: Cancel previous runs of this workflow
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          all_but_latest: true
+          access_token: ${{ github.token }}
+      - name: Checkout for build
+        uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: ${{ matrix.java_version }}
+          cache: maven
+      - name: Verify
+        id: build
+        run: |
+          cd jaxws-ri
+          mvn -B -V -U -C -Pstaging,oss-release clean verify org.glassfish.copyright:glassfish-copyright-maven-plugin:check -Dgpg.skip=true -Doss.disallow.snapshots=false -Dittest=true
+          cd ..
+          echo "::set-output name=jdk::${{ matrix.java_version }}"
+      - name: Upload binary image
+        uses: actions/upload-artifact@v2
+        if: success()
+        with:
+          name: binary
+          path: jaxws-ri/bundles/jaxws-ri/target/jaxws-ri.zip
+
+  test:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        test_suite:
+#          - IN_VM (runs as part of the build)
+          - TOMCAT
+    name: Tests ${{ matrix.test_suite }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: ${{ needs.build.outputs.jdk }}
+      - name: Checkout tests
+        uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0
+      - name: Download binaries
+        uses: actions/download-artifact@v2
+        with:
+          name: binary
+      - name: Test
+        run: |
+          export ROOT=`pwd`
+          unzip -q -d image jaxws-ri.zip
+          wget -q -O tomcat.zip https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.0-M12/bin/apache-tomcat-10.1.0-M12.zip
+          unzip -q tomcat.zip
+          cd jaxws-ri
+          mvn -B -V -U -C -am clean verify -Poss-release,staging -Dgpg.skip=true -Doss.disallow.snapshots=false -pl :jaxws-unit -Dtomcat.home=$ROOT/apache-tomcat-10.1.0-M12 -Dws.transport=${{ matrix.test_suite }} -Dws.localImage=$ROOT/image

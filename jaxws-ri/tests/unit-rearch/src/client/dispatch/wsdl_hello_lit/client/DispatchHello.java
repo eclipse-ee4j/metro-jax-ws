@@ -13,22 +13,22 @@ package client.dispatch.wsdl_hello_lit.client;
 import client.common.client.DispatchTestCase;
 import testutil.ClientServerTestUtil;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.Source;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Response;
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.handler.Handler;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.soap.SOAPMessageContext;
-import javax.xml.ws.handler.soap.SOAPHandler;
-import javax.xml.ws.soap.SOAPBinding;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Response;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.handler.Handler;
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.soap.SOAPMessageContext;
+import jakarta.xml.ws.handler.soap.SOAPHandler;
+import jakarta.xml.ws.soap.SOAPBinding;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -202,10 +202,10 @@ public class DispatchHello extends DispatchTestCase {
         return createDispatchSOAPMessageSource();
     }
 
-    private static javax.xml.bind.JAXBContext createJAXBContext() {
+    private static jakarta.xml.bind.JAXBContext createJAXBContext() {
         try {
-            return javax.xml.bind.JAXBContext.newInstance(client.dispatch.wsdl_hello_lit.client.ObjectFactory.class);
-        } catch (javax.xml.bind.JAXBException e) {
+            return jakarta.xml.bind.JAXBContext.newInstance(client.dispatch.wsdl_hello_lit.client.ObjectFactory.class);
+        } catch (jakarta.xml.bind.JAXBException e) {
             throw new WebServiceException(e.getMessage(), e);
         }
     }
@@ -417,7 +417,7 @@ public class DispatchHello extends DispatchTestCase {
         try {
 
             // give dispatch bad JAXBContext
-            JAXBContext context = javax.xml.bind.JAXBContext.newInstance(ClientServerTestUtil.class);
+            JAXBContext context = jakarta.xml.bind.JAXBContext.newInstance(ClientServerTestUtil.class);
 
             hello.setArgument("foo");
             hello.setExtra("Test ");

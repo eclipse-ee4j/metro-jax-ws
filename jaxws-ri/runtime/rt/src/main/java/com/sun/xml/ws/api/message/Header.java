@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,7 @@ package com.sun.xml.ws.api.message;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import com.sun.xml.bind.api.Bridge;
+import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.addressing.AddressingVersion;
 import com.sun.xml.ws.api.addressing.WSEndpointReference;
@@ -23,15 +23,15 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 import java.util.Set;
 
 
@@ -111,7 +111,7 @@ public interface Header {
      *      true if no error needs to be reported. False if an error needs to be raised.
      *      See the method javadoc for more discussion.
      */
-    public boolean isIgnorable(@NotNull SOAPVersion soapVersion, @NotNull Set<String> roles);
+    boolean isIgnorable(@NotNull SOAPVersion soapVersion, @NotNull Set<String> roles);
 
     /**
      * Gets the value of the soap:role attribute (or soap:actor for SOAP 1.1).
@@ -127,7 +127,7 @@ public interface Header {
      * @return
      *      never null. This string need not be interned.
      */
-    public @NotNull String getRole(@NotNull SOAPVersion soapVersion);
+    @NotNull String getRole(@NotNull SOAPVersion soapVersion);
 
     /**
      * True if this header is to be relayed if not processed.
@@ -137,7 +137,8 @@ public interface Header {
      * IOW, this method returns true if there's @soap:relay='true'
      * is present.
      *
-     * <h3>Implementation Note</h3>
+     * <p>
+     * <strong>Implementation Note</strong>
      * <p>
      * The implementation needs to check for both "true" and "1",
      * but because attribute values are normalized, it doesn't have
@@ -146,7 +147,7 @@ public interface Header {
      * @return
      *      false.
      */
-    public boolean isRelay();
+    boolean isRelay();
 
     /**
      * Gets the namespace URI of this header element.
@@ -154,7 +155,7 @@ public interface Header {
      * @return
      *      this string must be interned.
      */
-    public @NotNull String getNamespaceURI();
+    @NotNull String getNamespaceURI();
 
     /**
      * Gets the local name of this header element.
@@ -162,7 +163,7 @@ public interface Header {
      * @return
      *      this string must be interned.
      */
-    public @NotNull String getLocalPart();
+    @NotNull String getLocalPart();
 
     /**
      * Gets the attribute value on the header element.
@@ -202,7 +203,8 @@ public interface Header {
      * (IOW, {@link XMLStreamReader#getEventType()} would return
      * {@link XMLStreamReader#START_ELEMENT}.
      *
-     * <h3>Performance Expectation</h3>
+     * <p>
+     * <strong>Performance Expectation</strong>
      * <p>
      * For some {@link Header} implementations, this operation
      * is a non-trivial operation. Therefore, use of this method
@@ -222,23 +224,23 @@ public interface Header {
      * @return
      *      must not null.
      */
-    public XMLStreamReader readHeader() throws XMLStreamException;
+    XMLStreamReader readHeader() throws XMLStreamException;
 
     /**
      * Reads the header as a JAXB object by using the given unmarshaller.
      */
-    public <T> T readAsJAXB(Unmarshaller unmarshaller) throws JAXBException;
+    <T> T readAsJAXB(Unmarshaller unmarshaller) throws JAXBException;
 
     /**
      * Reads the header as a JAXB object by using the given unmarshaller.
      * @deprecated
      */
-    public <T> T readAsJAXB(Bridge<T> bridge) throws JAXBException;
+    <T> T readAsJAXB(Bridge<T> bridge) throws JAXBException;
     
     /**
      * Reads the header as a data-bond object
      */
-    public <T> T readAsJAXB(XMLBridge<T> bridge) throws JAXBException;
+    <T> T readAsJAXB(XMLBridge<T> bridge) throws JAXBException;
     
     /**
      * Reads this header as an {@link WSEndpointReference}.
@@ -251,7 +253,7 @@ public interface Header {
      * @return
      *      On a successful return, this method never returns null.
      */
-    public @NotNull WSEndpointReference readAsEPR(AddressingVersion expected) throws XMLStreamException;
+    @NotNull WSEndpointReference readAsEPR(AddressingVersion expected) throws XMLStreamException;
 
     /**
      * Writes out the header as a fragment.
@@ -260,7 +262,7 @@ public interface Header {
      *      if the operation fails for some reason. This leaves the
      *      writer to an undefined state.
      */
-    public void writeTo(XMLStreamWriter w) throws XMLStreamException;
+    void writeTo(XMLStreamWriter w) throws XMLStreamException;
 
     /**
      * Writes out the header to the given SOAPMessage.
@@ -274,7 +276,7 @@ public interface Header {
      *      if the operation fails for some reason. This leaves the
      *      writer to an undefined state.
      */
-    public void writeTo(SOAPMessage saaj) throws SOAPException;
+    void writeTo(SOAPMessage saaj) throws SOAPException;
 
     /**
      * Writes out the header as SAX events.
@@ -301,7 +303,7 @@ public interface Header {
      * @param errorHandler
      *      The {@link ErrorHandler} that receives parsing errors.
      */
-    public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException;
+    void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException;
 
     /**
      * Used to obtain value XYZ from a header that looks like
@@ -315,5 +317,5 @@ public interface Header {
      * @return
      *      Can be empty but always non-null.
      */
-    public @NotNull String getStringContent();
+    @NotNull String getStringContent();
 }

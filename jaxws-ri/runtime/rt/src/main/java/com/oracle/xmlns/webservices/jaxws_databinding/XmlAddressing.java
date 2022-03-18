@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,15 +10,13 @@
 
 package com.oracle.xmlns.webservices.jaxws_databinding;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.ws.soap.AddressingFeature;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.ws.soap.AddressingFeature;
 import java.lang.annotation.Annotation;
-
-import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 
 
 /**
@@ -41,7 +39,7 @@ import static com.oracle.xmlns.webservices.jaxws_databinding.Util.nullSafe;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "addressing")
-public class XmlAddressing implements javax.xml.ws.soap.Addressing {
+public class XmlAddressing implements jakarta.xml.ws.soap.Addressing {
 
     @XmlAttribute(name = "enabled")
     protected Boolean enabled;
@@ -67,12 +65,12 @@ public class XmlAddressing implements javax.xml.ws.soap.Addressing {
 
     @Override
     public boolean enabled() {
-        return nullSafe(enabled, true);
+        return Util.nullSafe(enabled, true);
     }
 
     @Override
     public boolean required() {
-        return nullSafe(required, false);
+        return Util.nullSafe(required, false);
     }
 
     @Override
@@ -82,6 +80,6 @@ public class XmlAddressing implements javax.xml.ws.soap.Addressing {
 
     @Override
     public Class<? extends Annotation> annotationType() {
-        return javax.xml.ws.soap.Addressing.class;
+        return jakarta.xml.ws.soap.Addressing.class;
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -57,18 +57,22 @@ public class Port extends GlobalEntity implements TWSDLExtensible {
         }
     }
 
+    @Override
     public Kind getKind() {
         return Kinds.PORT;
     }
 
+    @Override
     public String getNameValue() {
         return getName();
     }
 
+    @Override
     public String getNamespaceURI() {
         return getDefining().getTargetNamespaceURI();
     }
 
+    @Override
     public QName getWSDLElementName() {
         return WSDLConstants.QNAME_PORT;
     }
@@ -81,6 +85,7 @@ public class Port extends GlobalEntity implements TWSDLExtensible {
         _documentation = d;
     }
 
+    @Override
     public void withAllQNamesDo(QNameAction action) {
         super.withAllQNamesDo(action);
 
@@ -89,6 +94,7 @@ public class Port extends GlobalEntity implements TWSDLExtensible {
         }
     }
 
+    @Override
     public void withAllEntityReferencesDo(EntityReferenceAction action) {
         super.withAllEntityReferencesDo(action);
         if (_binding != null) {
@@ -102,6 +108,7 @@ public class Port extends GlobalEntity implements TWSDLExtensible {
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
         if (getName() == null) {
             failValidation("validation.missingRequiredAttribute", "name");
@@ -111,14 +118,17 @@ public class Port extends GlobalEntity implements TWSDLExtensible {
         }
     }
 
+    @Override
     public void addExtension(TWSDLExtension e) {
         _helper.addExtension(e);
     }
 
+    @Override
     public Iterable<TWSDLExtension> extensions() {
         return _helper.extensions();
     }
 
+    @Override
     public TWSDLExtensible getParent() {
         return parent;
     }
@@ -127,6 +137,7 @@ public class Port extends GlobalEntity implements TWSDLExtensible {
         this.parent = parent;
     }
 
+    @Override
     public void withAllSubEntitiesDo(EntityAction action) {
         _helper.withAllSubEntitiesDo(action);
     }
@@ -136,6 +147,7 @@ public class Port extends GlobalEntity implements TWSDLExtensible {
     private Service _service;
     private QName _binding;
 
+    @Override
     public QName getElementName() {
         return getWSDLElementName();
     }

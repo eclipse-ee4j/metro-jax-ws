@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,7 +36,7 @@
         </para>
 
         <para>The <command>javac</command> generates the portable artifacts
-        used in JAX-WS services.</para>
+        used in &ws.spec.name; services.</para>
     </section>
 
     <section xml:id="javac-annotation-processing-syntax">
@@ -157,12 +157,12 @@
             xlink:href="http://docs.oracle.com/javase/6/docs/technotes/tools/windows/javac.html">here</link>.
         </para>
 
-        <para>It is important when using <command>javac</command> with JAX-WS to
-        specify all of the JAR files in the distributed JAX-WS bundle in the
-        classpath passed to <command>javac</command>. As JAX-WS annotation processor you have to specify
+        <para>It is important when using <command>javac</command> with &ws.spec.name; to
+        specify all of the JAR files in the distributed &ws.spec.name; bundle in the
+        classpath passed to <command>javac</command>. As &ws.spec.name; annotation processor you have to specify
         <literal>com.sun.tools.ws.processor.modeler.annotation.WebServiceAp</literal>. The
         <literal>-sourcepath &lt;path&gt;</literal> option must also be provided so that
-        <command>javac</command> and the JAX-WS annotation processor can find
+        <command>javac</command> and the &ws.spec.name; annotation processor can find
         all types referenced by a web service endpoint implementation
         class. In case you don't have additional annotation processors it's recommended to use
         <xref linkend="tools-annotation-processing-ant-task" xrefstyle="select:title"/>.

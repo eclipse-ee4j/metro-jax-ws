@@ -13,8 +13,8 @@ package server.provider.wsdl_hello_lit_context.client;
 import javax.xml.namespace.QName;
 import junit.framework.*;
 import testutil.ClientServerTestUtil;
-import javax.xml.ws.*;
-import javax.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.*;
+import jakarta.xml.ws.handler.MessageContext;
 import java.util.Map;
 import java.util.List;
 

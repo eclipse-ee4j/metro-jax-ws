@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,10 +10,10 @@
 
 package com.sun.xml.ws.api.model;
 
-import com.sun.xml.bind.api.Bridge;
+import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.spi.db.TypeInfo;
 
-import javax.xml.ws.WebFault;
+import jakarta.xml.ws.WebFault;
 
 /**
  * This class provides abstractio to the  the exception class
@@ -51,7 +51,7 @@ public interface CheckedException {
 
     /**
      * The detail bean is serialized inside the detail entry in the SOAP message.
-     * This must be known to the {@link javax.xml.bind.JAXBContext} inorder to get
+     * This must be known to the {@link jakarta.xml.bind.JAXBContext} inorder to get
      * marshalled/unmarshalled.
      *
      * @return the detail bean
@@ -59,7 +59,7 @@ public interface CheckedException {
     Class getDetailBean();
 
     /**
-     * Gives the {@link com.sun.xml.bind.api.Bridge} associated with the detail
+     * Gives the {@link org.glassfish.jaxb.runtime.api.Bridge} associated with the detail
      * @deprecated Why do you need this?
      */
     Bridge getBridge();

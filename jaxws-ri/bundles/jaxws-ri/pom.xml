@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,27 +18,19 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>bundles</artifactId>
-        <version>2.4.0-SNAPSHOT</version>
+        <version>4.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-ri</artifactId>
-    <version>2.4.0-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     <name>JAX-WS RI Standalone Zipped Bundle</name>
-    <description>Open source Reference Implementation of JSR-224: Java API for XML Web Services Distribution Bundle</description>
+    <description>Open source Compatible Implementation of Jakarta XML Web Services Distribution</description>
 
     <dependencies>
-<!--        <dependency>
-            <groupId>jakarta.annotation</groupId>
-            <artifactId>jakarta.annotation-api</artifactId>
-        </dependency>-->
-        <dependency>
-            <groupId>com.sun.org.apache.xml.internal</groupId>
-            <artifactId>resolver</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jaxws-rt</artifactId>
@@ -148,50 +140,4 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
-        <profile>
-            <id>coverage</id>
-            <activation>
-                <property>
-                    <name>cobertura-build</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>instrument-dist-zip</id>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <target>
-                                        <taskdef classpathref="maven.test.classpath" resource="tasks.properties" />
-                                        <property name="jaxws-ri.instr.dir" location="${project.build.directory}/jaxws-ri-instrumented"/>
-                                        <property name="jaxws-ri.instr.full.name" location="${project.build.directory}/jaxws-ri-instrumented-full.zip"/>
-                                        <unzip src="${project.build.directory}/jaxws-ri.zip" dest="${jaxws-ri.instr.dir}"/>
-                                        <cobertura-instrument datafile="${jaxws-ri.instr.dir}/jaxws-ri/cobertura/cobertura.ser">
-                                            <includeClasses regex=".*" />
-                                            <fileset dir="${jaxws-ri.instr.dir}/jaxws-ri/lib">
-                                                <include name="jaxws-rt.jar" />
-                                                <include name="jaxws-tools.jar" />
-                                                <include name="plugins/*-plugin.jar" />
-                                            </fileset>
-                                        </cobertura-instrument>
-                                        <attachartifact file="${jaxws-ri.instr.dir}/jaxws-ri/cobertura/cobertura.ser" classifier="cobertura" type="ser"/>
-                                        <zip destfile="${jaxws-ri.instr.full.name}" basedir="${project.build.directory}/jaxws-ri-instrumented"/>
-                                        <attachartifact file="${jaxws-ri.instr.full.name}" classifier="instrumented" type="zip"/>
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

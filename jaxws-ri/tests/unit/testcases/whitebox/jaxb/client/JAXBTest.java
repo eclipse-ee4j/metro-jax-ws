@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,35 +11,22 @@
 package whitebox.jaxb.client;
 
 import junit.framework.TestCase;
-import com.sun.xml.bind.api.JAXBRIContext;
-import com.sun.xml.bind.v2.runtime.MarshallerImpl;
-import com.sun.xml.ws.streaming.XMLStreamWriterUtil;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import com.sun.xml.ws.streaming.XMLStreamReaderUtil;
 import com.sun.xml.stream.buffer.XMLStreamBufferResult;
 import com.sun.xml.stream.buffer.XMLStreamBuffer;
 
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.stream.XMLStreamWriter;
-import javax.xml.stream.XMLOutputFactory;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
 import javax.xml.stream.XMLStreamReader;
 import static javax.xml.stream.XMLStreamConstants.START_DOCUMENT;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPFault;
-import javax.xml.soap.SOAPFactory;
-import javax.xml.soap.Detail;
-import javax.xml.soap.SOAPElement;
+import jakarta.xml.soap.SOAPFault;
+import jakarta.xml.soap.SOAPFactory;
+import jakarta.xml.soap.Detail;
+import jakarta.xml.soap.SOAPElement;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import java.io.OutputStream;
 
 /**
  * Tests for JAXB.

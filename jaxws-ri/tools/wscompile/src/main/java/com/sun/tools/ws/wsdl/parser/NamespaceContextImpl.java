@@ -17,11 +17,11 @@
  */
 package com.sun.tools.ws.wsdl.parser;
 
-import com.sun.xml.bind.v2.WellKnownNamespace;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import java.util.Iterator;
 
@@ -33,12 +33,13 @@ public class NamespaceContextImpl implements NamespaceContext {
         this.e = e;
     }
 
+    @Override
     public String getNamespaceURI(String prefix) {
         Node parent = e;
         String namespace = null;
 
         if (prefix.equals("xml")) {
-            namespace = WellKnownNamespace.XML_NAMESPACE_URI;
+            namespace = XMLConstants.XML_NS_URI;
         } else {
             int type;
 
@@ -75,10 +76,12 @@ public class NamespaceContextImpl implements NamespaceContext {
         return namespace;
     }
 
+    @Override
     public String getPrefix(String namespaceURI) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Iterator getPrefixes(String namespaceURI) {
         throw new UnsupportedOperationException();
     }

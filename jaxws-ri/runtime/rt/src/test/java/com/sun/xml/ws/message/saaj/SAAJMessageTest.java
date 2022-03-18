@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,21 +20,21 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.UUID;
 
-import javax.activation.DataHandler;
-import javax.xml.bind.attachment.AttachmentMarshaller;
+import jakarta.activation.DataHandler;
+import jakarta.xml.bind.attachment.AttachmentMarshaller;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.soap.AttachmentPart;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPBody;
-import javax.xml.soap.SOAPBodyElement;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.AttachmentPart;
+import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPBody;
+import jakarta.xml.soap.SOAPBodyElement;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.soap.MTOMFeature;
+import jakarta.xml.ws.soap.MTOMFeature;
 
 import com.sun.xml.ws.api.message.saaj.SaajStaxWriter;
 import junit.framework.TestCase;
@@ -190,7 +190,7 @@ public class SAAJMessageTest extends TestCase {
             cid1 = att.getContentId();
             counter++;
         }
-        assertTrue(counter == 1);    
+        assertEquals(1, counter);
         
         //SAAJFactory:
         SOAPVersion soapVersion = packet.getMessage().getSOAPVersion();
@@ -209,7 +209,7 @@ public class SAAJMessageTest extends TestCase {
             counter++;
             cid2 = a.getContentId();
         }
-        assertTrue(writer.ma.size() == counter);  
+        assertEquals(writer.ma.size(), counter);
         StreamingDataHandler sdh = (StreamingDataHandler)writer.ma.get(0);
         assertEquals(cid1, sdh.getHrefCid());
         assertEquals(cid2, sdh.getHrefCid());
@@ -242,7 +242,7 @@ public class SAAJMessageTest extends TestCase {
             hredCid = ((StreamingDataHandler)a.asDataHandler()).getHrefCid();
             counter++;
         }
-        assertTrue(writer.ma.size() == counter);  
+        assertEquals(writer.ma.size(), counter);
         AttachmentPart ap = null;
 //        for (Iterator<AttachmentPart> itr = saajMsg.getAttachments(); itr.hasNext(); ) {
 //            System.out.println("\r\n itr.next().getContentId()  " + itr.next().getContentId() );            

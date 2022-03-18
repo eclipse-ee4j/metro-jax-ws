@@ -10,7 +10,7 @@
 
 package fromjava.absseiimpl.server;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 @WebService(endpointInterface="fromjava.absseiimpl.server.EchoIF", portName="EchoPort")
 public class EchoImpl implements EchoIF {

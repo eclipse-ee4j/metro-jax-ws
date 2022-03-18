@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.Collections;
@@ -29,9 +30,9 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.ws.Binding;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.http.HTTPBinding;
+import jakarta.xml.ws.Binding;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.http.HTTPBinding;
 
 import com.oracle.webservices.api.message.PropertySet;
 import com.sun.istack.NotNull;
@@ -158,7 +159,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
     /**
      * Fill in WSDL map.
      *
-     * @param sdef service definition
+     * @param serviceDefinition service definition
      */
     public final void initWSDLMap(final ServiceDefinition serviceDefinition) {
         this.serviceDefinition = serviceDefinition;
@@ -166,17 +167,17 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
             wsdls = Collections.emptyMap();
             revWsdls = Collections.emptyMap();
         } else {
-            wsdls = new AbstractMap<String, SDDocument>() {
+            wsdls = new AbstractMap<>() {
                 private Map<String, SDDocument> delegate = null;
-                
+
                 private synchronized Map<String, SDDocument> delegate() {
                     if (delegate != null)
                         return delegate;
-                    
-                    delegate = new HashMap<String, SDDocument>();  // wsdl=1 --> Doc
+
+                    delegate = new HashMap<>();  // wsdl=1 --> Doc
                     // Sort WSDL, Schema documents based on SystemId so that the same
                     // document gets wsdl=x mapping
-                    Map<String, SDDocument> systemIds = new TreeMap<String, SDDocument>();
+                    Map<String, SDDocument> systemIds = new TreeMap<>();
                     for (SDDocument sdd : serviceDefinition) {
                         if (sdd == serviceDefinition.getPrimary()) { // No sorting for Primary WSDL
                             delegate.put("wsdl", sdd);
@@ -191,10 +192,10 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
                     for (Entry<String, SDDocument> e : systemIds.entrySet()) {
                         SDDocument sdd = e.getValue();
                         if (sdd.isWSDL()) {
-                            delegate.put("wsdl="+(wsdlnum++),sdd);
+                            delegate.put("wsdl=" + (wsdlnum++), sdd);
                         }
                         if (sdd.isSchema()) {
-                            delegate.put("xsd="+(xsdnum++),sdd);
+                            delegate.put("xsd=" + (xsdnum++), sdd);
                         }
                     }
 
@@ -263,20 +264,20 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
                 }
             };
             
-            revWsdls = new AbstractMap<SDDocument, String>() {
+            revWsdls = new AbstractMap<>() {
                 private Map<SDDocument, String> delegate = null;
 
                 private synchronized Map<SDDocument, String> delegate() {
                     if (delegate != null)
                         return delegate;
-                    
-                    delegate = new HashMap<SDDocument,String>();    // Doc --> wsdl=1
-                    for (Entry<String,SDDocument> e : wsdls.entrySet()) {
+
+                    delegate = new HashMap<>();    // Doc --> wsdl=1
+                    for (Entry<String, SDDocument> e : wsdls.entrySet()) {
                         if (!e.getKey().equals("WSDL")) {           // map Doc --> wsdl, not WSDL
-                            delegate.put(e.getValue(),e.getKey());
+                            delegate.put(e.getValue(), e.getKey());
                         }
                     }
-                    
+
                     return delegate;
                 }
 
@@ -508,7 +509,6 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
     /**
      * This method is added for the case of the sub-class wants to override the method to
      * print details. E.g. convert soapfault as HTML msg for 403 error connstatus.
-     * @param os
      */
     protected void writeClientError(int connStatus, @NotNull OutputStream os, @NotNull Packet packet) throws IOException {
     	//do nothing
@@ -945,7 +945,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
         con.setStatus(HttpURLConnection.HTTP_NOT_FOUND);
         con.setContentTypeResponseHeader("text/html; charset=utf-8");
 
-        PrintWriter out = new PrintWriter(new OutputStreamWriter(con.getOutput(),"UTF-8"));
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(con.getOutput(), StandardCharsets.UTF_8));
         out.println("<html>");
         out.println("<head><title>");
         out.println(WsservletMessages.SERVLET_HTML_TITLE());
@@ -993,6 +993,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
             pw.println(WsservletMessages.MESSAGE_TOO_LONG(HttpAdapter.class.getName() + ".dumpTreshold"));
         } else {
             buf.writeTo(baos);
+            pw.println();
         }
         pw.println("--------------------");
 
@@ -1021,7 +1022,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
         con.setStatus(WSHTTPConnection.OK);
         con.setContentTypeResponseHeader("text/html; charset=utf-8");
 
-        PrintWriter out = new PrintWriter(new OutputStreamWriter(con.getOutput(),"UTF-8"));
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(con.getOutput(), StandardCharsets.UTF_8));
         out.println("<html>");
         out.println("<head><title>");
         // out.println("Web Services");
@@ -1126,6 +1127,13 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
 
     public static void setDump(boolean dumpMessages) {
         HttpAdapter.dump = dumpMessages;
+    }
+
+    public static void setDumpTreshold(int treshold) {
+        if (treshold < 0) {
+            throw new IllegalArgumentException("Treshold must be positive number");
+        }
+        HttpAdapter.dump_threshold = treshold;
     }
 }
 

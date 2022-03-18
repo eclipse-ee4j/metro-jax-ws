@@ -25,9 +25,9 @@ import org.xml.sax.SAXException;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.Dispatch;
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.transform.stream.StreamSource;
 import java.net.URL;
 import java.net.MalformedURLException;

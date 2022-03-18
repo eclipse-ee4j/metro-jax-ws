@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -127,7 +127,7 @@ public class ProviderImpl implements Provider<Source> {
             <programlisting language="xml"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <bindings
         ...
-        wsdlLocaption="AddNumbers.wsdl"xmlns="http://java.sun.com/xml/ns/jaxws">
+        wsdlLocaption="AddNumbers.wsdl"xmlns="https://jakarta.ee/xml/ns/jaxws">
     <bindings node="wsdl:definitions">
         <package name="provider.server"/>
         <provider>true</provider>
@@ -168,7 +168,7 @@ public class ProviderImpl implements Provider<Source> {
         <title>Provider and Binding</title>
 
         <para>Provider endpoint can be configured for different bindings using
-        binding ids. These binding ids are defined in JAX-WS API and endpoint
+        binding ids. These binding ids are defined in &ws.spec.name; API and endpoint
         can be configured by specifying <literal>@BindingType</literal>
         annotation or using binding attribute in sun-jaxws.xml. sun-jaxws.xml
         overwrites binding defined by <literal>@BindingType</literal>
@@ -265,7 +265,7 @@ public class ProviderImpl implements Provider<Source> {
         <informalexample>
             <programlisting language="xml"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime'
-        xmlns:javaee="http://java.sun.com/xml/ns/javaee" version='2.0'>
+        xmlns:javaee="https://jakarta.ee/xml/ns/jakartaee" version='2.0'>
     <endpoint name='AddNumbers'
             implementation='provider.server.AddNumbersImpl'
             wsdl='WEB-INF/wsdl/AddNumbers.wsdl'

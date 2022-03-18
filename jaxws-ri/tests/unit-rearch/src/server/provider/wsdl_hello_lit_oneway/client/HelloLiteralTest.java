@@ -12,7 +12,7 @@ package server.provider.wsdl_hello_lit_oneway.client;
 
 import junit.framework.*;
 import testutil.ClientServerTestUtil;
-import javax.xml.ws.Service;
+import jakarta.xml.ws.Service;
 import javax.xml.namespace.QName;
 import java.io.PrintStream;
 

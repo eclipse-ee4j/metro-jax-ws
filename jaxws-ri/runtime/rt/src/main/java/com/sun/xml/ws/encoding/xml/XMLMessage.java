@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,7 @@
 package com.sun.xml.ws.encoding.xml;
 
 import com.sun.istack.NotNull;
-import com.sun.xml.bind.api.Bridge;
+import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.WSFeatureList;
 import com.sun.xml.ws.api.message.*;
@@ -32,17 +32,17 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
-import javax.activation.DataSource;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
+import jakarta.activation.DataSource;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -172,7 +172,7 @@ public final class XMLMessage {
         String lowerType = type.toLowerCase();
         return lowerType.startsWith("text/xml")
                 || lowerType.startsWith("application/xml")
-                || (lowerType.startsWith("application/") && (lowerType.indexOf("+xml") != -1));
+                || (lowerType.startsWith("application/") && (lowerType.contains("+xml")));
     }
 
     protected static boolean isFastInfosetType(String primary, String sub) {
@@ -192,7 +192,7 @@ public final class XMLMessage {
      * <p>
      * TODO: consider putting as part of the API.
      */
-    public static interface MessageDataSource {
+    public interface MessageDataSource {
         /**
          * Check if the data source has been consumed.
          * @return true of the data source has been consumed, otherwise false.
@@ -236,84 +236,104 @@ public final class XMLMessage {
             return delegate;
         }
 
+        @Override
         public boolean hasUnconsumedDataSource() {
             return !dataSource.consumed()&&!consumed;
         }
 
+        @Override
         public DataSource getDataSource() {
             return hasUnconsumedDataSource() ? dataSource :
                 XMLMessage.getDataSource(getMessage(), features);
         }
 
+        @Override
         public boolean hasHeaders() {
             return false;
         }
 
+        @Override
         public @NotNull MessageHeaders getHeaders() {
             return headerList;
         }
 
+        @Override
         public String getPayloadLocalPart() {
             return getMessage().getPayloadLocalPart();
         }
 
+        @Override
         public String getPayloadNamespaceURI() {
             return getMessage().getPayloadNamespaceURI();
         }
 
+        @Override
         public boolean hasPayload() {
             return true;
         }
 
+        @Override
         public boolean isFault() {
             return false;
         }
 
+        @Override
         public Source readEnvelopeAsSource() {
             return getMessage().readEnvelopeAsSource();
         }
 
+        @Override
         public Source readPayloadAsSource() {
             return getMessage().readPayloadAsSource();
         }
 
+        @Override
         public SOAPMessage readAsSOAPMessage() throws SOAPException {
             return getMessage().readAsSOAPMessage();
         }
 
+        @Override
         public SOAPMessage readAsSOAPMessage(Packet packet, boolean inbound) throws SOAPException {
             return getMessage().readAsSOAPMessage(packet, inbound);
         }
 
+        @Override
         public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
-            return (T)getMessage().readPayloadAsJAXB(unmarshaller);
+            return getMessage().readPayloadAsJAXB(unmarshaller);
         }
         /** @deprecated */
+        @Override
         public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
             return getMessage().readPayloadAsJAXB(bridge);
         }
 
+        @Override
         public XMLStreamReader readPayload() throws XMLStreamException {
             return getMessage().readPayload();
         }
 
 
+        @Override
         public void writePayloadTo(XMLStreamWriter sw) throws XMLStreamException {
             getMessage().writePayloadTo(sw);
         }
 
+        @Override
         public void writeTo(XMLStreamWriter sw) throws XMLStreamException {
             getMessage().writeTo(sw);
         }
 
+        @Override
         public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException {
             getMessage().writeTo(contentHandler, errorHandler);
         }
 
+        @Override
         public Message copy() {
             return getMessage().copy().copyFrom(getMessage());
         }
 
+        @Override
         protected void writePayloadTo(ContentHandler contentHandler, ErrorHandler errorHandler, boolean fragment) throws SAXException {
             throw new UnsupportedOperationException();
         }
@@ -360,83 +380,103 @@ public final class XMLMessage {
             return delegate;
         }
 
+        @Override
         public boolean hasUnconsumedDataSource() {
             return delegate == null;
         }
 
+        @Override
         public DataSource getDataSource() {
             return hasUnconsumedDataSource() ? dataSource :
                 XMLMessage.getDataSource(getMessage(), features);
         }
 
+        @Override
         public boolean hasHeaders() {
             return false;
         }
 
+        @Override
         public @NotNull MessageHeaders getHeaders() {
             return headerList;
         }
 
+        @Override
         public String getPayloadLocalPart() {
             return getMessage().getPayloadLocalPart();
         }
 
+        @Override
         public String getPayloadNamespaceURI() {
             return getMessage().getPayloadNamespaceURI();
         }
 
+        @Override
         public boolean hasPayload() {
             return true;
         }
 
+        @Override
         public boolean isFault() {
             return false;
         }
 
+        @Override
         public Source readEnvelopeAsSource() {
             return getMessage().readEnvelopeAsSource();
         }
 
+        @Override
         public Source readPayloadAsSource() {
             return getMessage().readPayloadAsSource();
         }
 
+        @Override
         public SOAPMessage readAsSOAPMessage() throws SOAPException {
             return getMessage().readAsSOAPMessage();
         }
 
+        @Override
         public SOAPMessage readAsSOAPMessage(Packet packet, boolean inbound) throws SOAPException {
             return getMessage().readAsSOAPMessage(packet, inbound);
         }
 
+        @Override
         public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
-            return (T)getMessage().readPayloadAsJAXB(unmarshaller);
+            return getMessage().readPayloadAsJAXB(unmarshaller);
         }
 
+        @Override
         public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
             return getMessage().readPayloadAsJAXB(bridge);
         }
 
+        @Override
         public XMLStreamReader readPayload() throws XMLStreamException {
             return getMessage().readPayload();
         }
 
+        @Override
         public void writePayloadTo(XMLStreamWriter sw) throws XMLStreamException {
             getMessage().writePayloadTo(sw);
         }
 
+        @Override
         public void writeTo(XMLStreamWriter sw) throws XMLStreamException {
             getMessage().writeTo(sw);
         }
 
+        @Override
         public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException {
             getMessage().writeTo(contentHandler, errorHandler);
         }
 
+        @Override
         public Message copy() {
             return getMessage().copy().copyFrom(getMessage());
         }
 
+        @Override
         protected void writePayloadTo(ContentHandler contentHandler, ErrorHandler errorHandler, boolean fragment) throws SAXException {
             throw new UnsupportedOperationException();
         }
@@ -446,6 +486,7 @@ public final class XMLMessage {
             return false;
         }
 
+        @Override
         public @NotNull AttachmentSet getAttachments() {
             return getMessage().getAttachments();
         }
@@ -495,56 +536,69 @@ public final class XMLMessage {
             this.copyFrom(that);
         }
 
+        @Override
         public boolean hasUnconsumedDataSource() {
             return true;
         }
 
+        @Override
         public DataSource getDataSource() {
             assert ds != null;
             return ds;
         }
 
-        protected void writePayloadTo(ContentHandler contentHandler, 
-                ErrorHandler errorHandler, boolean fragment) throws SAXException {
+        @Override
+        protected void writePayloadTo(ContentHandler contentHandler,
+                                      ErrorHandler errorHandler, boolean fragment) throws SAXException {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public boolean hasHeaders() {
             return false;
         }
         
+        @Override
         public boolean isFault() {
             return false;
         }
 
+        @Override
         public MessageHeaders getHeaders() {
             return headerList;
         }
 
+        @Override
         public String getPayloadLocalPart() {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String getPayloadNamespaceURI() {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public boolean hasPayload() {
             return false;
         }
 
+        @Override
         public Source readPayloadAsSource() {
             return null;
         }
 
+        @Override
         public XMLStreamReader readPayload() throws XMLStreamException {
             throw new WebServiceException("There isn't XML payload. Shouldn't come here.");
         }
 
+        @Override
         public void writePayloadTo(XMLStreamWriter sw) throws XMLStreamException {
             // No XML. Nothing to do
         }
 
+        @Override
         public Message copy() {
             return new UnknownContent(this).copyFrom(this);
         }
@@ -602,19 +656,23 @@ public final class XMLMessage {
             return consumed;
         }
 
+        @Override
         public InputStream getInputStream() {
             consumed = !consumed;
             return is;
         }
 
+        @Override
         public OutputStream getOutputStream() {
             return null;
         }
 
+        @Override
         public String getContentType() {
             return contentType;
         }
 
+        @Override
         public String getName() {
             return "";
         }

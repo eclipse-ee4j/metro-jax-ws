@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,26 +62,32 @@ public class TWSDLParserContextImpl implements TWSDLParserContext {
         _followImports = b;
     }
 
+    @Override
     public void push() {
         _nsSupport.pushContext();
     }
 
+    @Override
     public void pop() {
         _nsSupport.popContext();
     }
 
+    @Override
     public String getNamespaceURI(String prefix) {
         return _nsSupport.getURI(prefix);
     }
 
+    @Override
     public Iterable<String> getPrefixes() {
         return _nsSupport.getPrefixes();
     }
 
+    @Override
     public String getDefaultNamespaceURI() {
         return getNamespaceURI("");
     }
 
+    @Override
     public void registerNamespaces(Element e) {
         for (Iterator iter = XmlUtil.getAllAttributes(e); iter.hasNext();) {
             Attr a = (Attr) iter.next();
@@ -99,6 +105,7 @@ public class TWSDLParserContextImpl implements TWSDLParserContext {
         }
     }
 
+    @Override
     public Locator getLocation(Element e) {
         return forest.locatorTable.getStartLocation(e);
     }

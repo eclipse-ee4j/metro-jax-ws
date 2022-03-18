@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,9 +18,9 @@ import com.sun.xml.ws.api.WSFeatureList;
 import com.sun.xml.ws.api.WSService;
 import com.sun.xml.ws.developer.WSBindingProvider;
 
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.WebServiceFeature;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -89,18 +89,21 @@ public abstract class ServiceInterceptor {
         if(interceptors.length==1)
             return interceptors[0];
         return new ServiceInterceptor() {
+            @Override
             public List<WebServiceFeature> preCreateBinding(@NotNull WSPortInfo port, @Nullable Class<?> portInterface, @NotNull WSFeatureList defaultFeatures) {
-                List<WebServiceFeature> r = new ArrayList<WebServiceFeature>();
+                List<WebServiceFeature> r = new ArrayList<>();
                 for (ServiceInterceptor si : interceptors)
                     r.addAll(si.preCreateBinding(port,portInterface,defaultFeatures));
                 return r;
             }
 
+            @Override
             public void postCreateProxy(@NotNull WSBindingProvider bp, @NotNull Class<?> serviceEndpointInterface) {
                 for (ServiceInterceptor si : interceptors)
                     si.postCreateProxy(bp,serviceEndpointInterface);
             }
 
+            @Override
             public void postCreateDispatch(@NotNull WSBindingProvider bp) {
                 for (ServiceInterceptor si : interceptors)
                     si.postCreateDispatch(bp);

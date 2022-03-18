@@ -1,6 +1,7 @@
 /MANIFEST.MF
 /META-INF/services/
 /README
+.apt
 .gif
 .jpg
 .jpeg
@@ -27,6 +28,7 @@
 .sh
 .policy
 .md
+.iml
 /copyright-exclude
 /work/
 /LICENSE.txt
@@ -40,17 +42,12 @@ eclipselink_jaxb/src/test/resources/etc/attach.text
 /ant/resources/TWSDLExtensionHandler
 /package-list
 /jsr181.pom
-/bom/
 NamespaceContextImpl.java
-.svnignore
-.svn
 rt/src/test/resources/etc/testMtomMessage_osb_disi.msg
 rt/src/test/resources/etc/testMtomMessageReload_01.msg
 rt/src/test/resources/etc/testMtomMessageReload_02.msg
 rt/src/test/resources/etc/EchoService.wsdl
 gpsXml.xml
-boms/bom/pom.xml
-boms/bom-ext/pom.xml
 tests/unit/testcases/fromwsdl/mime/simple_doclit/server/Catalog.wsdl
 tests/unit/testcases/fromwsdl/mime/simple_doclit/server/WS-ISwA.xsd
 tests/unit/testcases/fromwsdl/mime/simple_rpclit/server/Catalog.wsdl
@@ -62,4 +59,3 @@ tests/unit-rearch/src/fromwsdl/mime/simple_doclit/config/WS-ISwA.xsd
 tests/unit-rearch/src/fromjava/handler_simple/a
 tests/unit-rearch/src/fromwsdl/handler/config/handler_setup.sxd
 tests/unit-rearch/src/whitebox/mex/resolver/com.sun.xml.ws.api.wsdl.parser.MetadataResolverFactory
-/jaxws-maven-plugin/

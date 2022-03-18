@@ -13,7 +13,7 @@ package benchmark.rpclit.server;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 /**

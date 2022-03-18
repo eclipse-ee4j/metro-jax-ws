@@ -12,9 +12,9 @@ package client.dispatch.wsdl_hello_lit_asynchandler.client;
 
 import junit.framework.Assert;
 
-import javax.xml.ws.Response;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.soap.SOAPFaultException;
+import jakarta.xml.ws.Response;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import java.util.concurrent.ExecutionException;
 import junit.framework.TestCase;
 
@@ -25,7 +25,7 @@ import junit.framework.TestCase;
  * Time: 3:51:11 PM
  */
 
-public class JAXBAsyncHandlerRTEX implements javax.xml.ws.AsyncHandler {
+public class JAXBAsyncHandlerRTEX implements jakarta.xml.ws.AsyncHandler {
 
     Hello_Type hello;
     VoidTestResponse voidTest;

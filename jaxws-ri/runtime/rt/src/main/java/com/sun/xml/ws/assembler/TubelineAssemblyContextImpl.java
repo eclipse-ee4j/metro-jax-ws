@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,12 +27,12 @@ import java.util.logging.Level;
  *
  * @author Marek Potociar (marek.potociar at sun.com)
  */
-class TubelineAssemblyContextImpl implements TubelineAssemblyContext {
+public class TubelineAssemblyContextImpl implements TubelineAssemblyContext {
     private static final Logger LOGGER = Logger.getLogger(TubelineAssemblyContextImpl.class);
 
     private Tube head;
     private Pipe adaptedHead;
-    private List<Tube> tubes = new LinkedList<Tube>();
+    private List<Tube> tubes = new LinkedList<>();
 
     @Override
     public Tube getTubelineHead() {
@@ -47,7 +47,7 @@ class TubelineAssemblyContextImpl implements TubelineAssemblyContext {
         return adaptedHead;
     }
 
-    boolean setTubelineHead(Tube newHead) {
+    public boolean setTubelineHead(Tube newHead) {
         if (newHead == head || newHead == adaptedHead) {
             return false;
         }
@@ -57,7 +57,7 @@ class TubelineAssemblyContextImpl implements TubelineAssemblyContext {
         adaptedHead = null;
         
         if (LOGGER.isLoggable(Level.FINER)) {
-            LOGGER.finer(MessageFormat.format("Added '{0}' tube instance to the tubeline.", (newHead == null) ? null : newHead.getClass().getName()));
+            LOGGER.finer(MessageFormat.format("Added ''{0}'' tube instance to the tubeline.", (newHead == null) ? null : newHead.getClass().getName()));
         }
 
         return true;

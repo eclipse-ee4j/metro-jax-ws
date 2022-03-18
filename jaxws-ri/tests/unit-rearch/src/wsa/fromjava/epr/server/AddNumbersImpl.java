@@ -10,10 +10,10 @@
 
 package wsa.fromjava.epr.server;
 
-import javax.annotation.Resource;
-import javax.jws.WebService;
-import javax.xml.ws.WebServiceContext;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.annotation.Resource;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.WebServiceContext;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 
 @WebService(name="AddNumbers",
     portName="AddNumbersPort",

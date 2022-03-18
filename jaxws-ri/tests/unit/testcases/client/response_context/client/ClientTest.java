@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,12 +12,12 @@ package client.response_context.client;
 
 import junit.framework.TestCase;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.Service;
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.Service;
 import java.util.Map;
 
 /**
@@ -66,8 +66,8 @@ public class ClientTest extends TestCase {
         } catch (Exception e) {
             Map rc = ((BindingProvider) helloPort).getResponseContext();
             assertNotNull(rc);
-            assertNotNull(rc.get(javax.xml.ws.handler.MessageContext.HTTP_RESPONSE_CODE));
-            assertEquals(200,rc.get(javax.xml.ws.handler.MessageContext.HTTP_RESPONSE_CODE));
+            assertNotNull(rc.get(jakarta.xml.ws.handler.MessageContext.HTTP_RESPONSE_CODE));
+            assertEquals(200,rc.get(jakarta.xml.ws.handler.MessageContext.HTTP_RESPONSE_CODE));
         }
     }
 
@@ -88,7 +88,7 @@ public class ClientTest extends TestCase {
             dispatch.invoke(req);
         } catch (Exception e) {
             Map rc = dispatch.getResponseContext();
-            assertEquals(200,rc.get(javax.xml.ws.handler.MessageContext.HTTP_RESPONSE_CODE));
+            assertEquals(200,rc.get(jakarta.xml.ws.handler.MessageContext.HTTP_RESPONSE_CODE));
         }
     }
 

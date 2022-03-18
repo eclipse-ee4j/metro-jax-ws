@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,22 +38,26 @@ public final class WSDLServiceImpl extends AbstractExtensibleImpl implements Edi
         super(xsr);
         this.parent = parent;
         this.name = name;
-        ports = new LinkedHashMap<QName, EditableWSDLPort>();
+        ports = new LinkedHashMap<>();
     }
 
+    @Override
     public @NotNull
     EditableWSDLModel getParent() {
         return parent;
     }
 
+    @Override
     public QName getName() {
         return name;
     }
 
+    @Override
     public EditableWSDLPort get(QName portName) {
         return ports.get(portName);
     }
 
+    @Override
     public EditableWSDLPort getFirstPort() {
         if(ports.isEmpty())
             return null;
@@ -61,6 +65,7 @@ public final class WSDLServiceImpl extends AbstractExtensibleImpl implements Edi
             return ports.values().iterator().next();
     }
 
+    @Override
     public Iterable<EditableWSDLPort> getPorts(){
         return ports.values();
     }
@@ -68,6 +73,7 @@ public final class WSDLServiceImpl extends AbstractExtensibleImpl implements Edi
     /**
     * gets the first port in this service which matches the portType
     */
+    @Override
     public @Nullable
     EditableWSDLPort getMatchingPort(QName portTypeName){
         for(EditableWSDLPort port : getPorts()){
@@ -86,12 +92,14 @@ public final class WSDLServiceImpl extends AbstractExtensibleImpl implements Edi
      * @param port     Must be non-null
      * @throws NullPointerException if either opName or ptOp is null
      */
+    @Override
     public void put(QName portName, EditableWSDLPort port) {
         if (portName == null || port == null)
             throw new NullPointerException();
         ports.put(portName, port);
     }
 
+    @Override
     public void freeze(EditableWSDLModel root) {
         for (EditableWSDLPort port : ports.values()) {
             port.freeze(root);

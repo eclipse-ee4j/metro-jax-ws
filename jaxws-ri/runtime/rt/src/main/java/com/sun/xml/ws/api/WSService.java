@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,20 +18,18 @@ import com.sun.xml.ws.api.server.ContainerResolver;
 import com.sun.xml.ws.api.server.WSEndpoint;
 import com.sun.xml.ws.client.WSServiceDelegate;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Dispatch;
-import javax.xml.ws.EndpointReference;
-import javax.xml.ws.Service;
-import javax.xml.ws.Service.Mode;
-import javax.xml.ws.WebServiceException;
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.spi.ServiceDelegate;
+import jakarta.xml.ws.Dispatch;
+import jakarta.xml.ws.EndpointReference;
+import jakarta.xml.ws.Service;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.spi.ServiceDelegate;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -55,7 +53,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author Kohsuke Kawaguchi
  */
 public abstract class WSService extends ServiceDelegate implements ComponentRegistry {
-	private final Set<Component> components = new CopyOnWriteArraySet<Component>();
+	private final Set<Component> components = new CopyOnWriteArraySet<>();
 	
 	protected WSService() {
     }
@@ -67,13 +65,13 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
     public abstract <T> T getPort(WSEndpointReference epr, Class<T> portInterface, WebServiceFeature... features);
 
     /**
-     * Works like {@link #createDispatch(javax.xml.ws.EndpointReference, java.lang.Class, javax.xml.ws.Service.Mode, javax.xml.ws.WebServiceFeature[])}
+     * Works like {@link #createDispatch(jakarta.xml.ws.EndpointReference, java.lang.Class, jakarta.xml.ws.Service.Mode, jakarta.xml.ws.WebServiceFeature[])}
      * but it takes the port name separately, so that EPR without embedded metadata can be used.
      */
     public abstract <T> Dispatch<T> createDispatch(QName portName, WSEndpointReference wsepr, Class<T> aClass, Service.Mode mode, WebServiceFeature... features);
 
     /**
-     * Works like {@link #createDispatch(javax.xml.ws.EndpointReference, javax.xml.bind.JAXBContext, javax.xml.ws.Service.Mode, javax.xml.ws.WebServiceFeature[])}
+     * Works like {@link #createDispatch(jakarta.xml.ws.EndpointReference, jakarta.xml.bind.JAXBContext, jakarta.xml.ws.Service.Mode, jakarta.xml.ws.WebServiceFeature[])}
      * but it takes the port name separately, so that EPR without embedded metadata can be used.
      */
     public abstract Dispatch<Object> createDispatch(QName portName, WSEndpointReference wsepr, JAXBContext jaxbContext, Service.Mode mode, WebServiceFeature... features);
@@ -91,6 +89,7 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
      */
     public abstract @NotNull Container getContainer();
 
+    @Override
     public @Nullable <S> S getSPI(@NotNull Class<S> spiType) {
     	for (Component c : components) {
     		S s = c.getSPI(spiType);
@@ -101,6 +100,7 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
     	return getContainer().getSPI(spiType);
     }
     
+    @Override
     public @NotNull Set<Component> getComponents() {
     	return components;
     }
@@ -163,7 +163,7 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
      * To create a {@link Service}, we need to go through the API that doesn't let us
      * pass parameters, so as a hack we use thread local.
      */
-    protected static final ThreadLocal<InitParams> INIT_PARAMS = new ThreadLocal<InitParams>();
+    protected static final ThreadLocal<InitParams> INIT_PARAMS = new ThreadLocal<>();
 
     /**
      * Used as a immutable constant so that we can avoid null check. 
@@ -209,13 +209,14 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
      *      if the given service object is not from the JAX-WS RI.
      */
     public static WSService unwrap(final Service svc) {
-        return AccessController.doPrivileged(new PrivilegedAction<WSService>() {
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
+            @Override
             public WSService run() {
                 try {
                     Field f = svc.getClass().getField("delegate");
                     f.setAccessible(true);
                     Object delegate = f.get(svc);
-                    if(!(delegate instanceof WSService))
+                    if (!(delegate instanceof WSService))
                         throw new IllegalArgumentException();
                     return (WSService) delegate;
                 } catch (NoSuchFieldException e) {

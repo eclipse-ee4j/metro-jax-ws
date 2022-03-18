@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,12 +20,11 @@ import com.sun.xml.ws.message.jaxb.JAXBMessage;
 import com.sun.xml.ws.model.JavaMethodImpl;
 import com.sun.xml.ws.resources.DispatchMessages;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.ws.Holder;
-import javax.xml.ws.WebServiceException;
+import jakarta.xml.ws.Holder;
+import jakarta.xml.ws.WebServiceException;
 
-import java.lang.reflect.Method;
 
 /**
  * {@link MethodHandler} that handles synchronous method invocations.
@@ -35,7 +34,7 @@ import java.lang.reflect.Method;
  * <ol>
  *  <li>Accepts Object[] that represents arguments for a Java method,
  *      and creates {@link JAXBMessage} that represents a request message.
- *  <li>Takes a {@link Message] that represents a response,
+ *  <li>Takes a {@link Message} that represents a response,
  *      and extracts the return value (and updates {@link Holder}s.)
  * </ol>
  *
@@ -58,6 +57,7 @@ final class SyncMethodHandler extends MethodHandler {
         isOneway = jm.getMEP().isOneWay();
     }
 
+    @Override
     Object invoke(Object proxy, Object[] args) throws Throwable {
         return invoke(proxy,args,owner.requestContext,owner);
     }

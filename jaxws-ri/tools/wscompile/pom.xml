@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,20 +16,22 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>2.4.0-SNAPSHOT</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>wscompile</artifactId>
-    <version>2.4.0-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
 
     <name>JAX-WS RI Tools (wscompile)</name>
     <description>JAX-WS RI Tools</description>
 
     <properties>
         <spotbugs.exclude>${project.basedir}/exclude.xml</spotbugs.exclude>
+        <!-- too many to fix -->
+        <jdoc.doclint>-missing</jdoc.doclint>
     </properties>
 
     <dependencies>
@@ -54,11 +56,11 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.xml.bind</groupId>
+            <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-jxc</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.sun.xml.bind</groupId>
+            <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-xjc</artifactId>
         </dependency>
 
@@ -110,8 +112,8 @@
                         <configuration>
                             <rules>
                                 <requireProperty>
-                                    <property>jaxb-api.version</property>
-                                    <message>Property not imported!</message>
+                                    <property>xml.bind-api.version</property>
+                                    <message>Property xml.bind-api.version not imported or set!</message>
                                 </requireProperty>
                             </rules>
                             <fail>true</fail>
@@ -153,11 +155,6 @@
                                     <artifactId>jakarta.annotation-api</artifactId>
                                     <type>jar</type>
                                 </artifactItem>
-                                <artifactItem>
-                                    <groupId>jakarta.jws</groupId>
-                                    <artifactId>jakarta.jws-api</artifactId>
-                                    <type>jar</type>
-                                </artifactItem>
                             </artifactItems>
                         </configuration>
                     </execution>
@@ -169,7 +166,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <excludeArtifactIds>jakarta.activation-api,ant-launcher,ant-nodeps,cobertura,cobertura-runtime</excludeArtifactIds>
+                            <excludeArtifactIds>ant-launcher,ant-nodeps</excludeArtifactIds>
                             <excludeScope>system</excludeScope>
                         </configuration>
                     </execution>
@@ -181,7 +178,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib/ant</outputDirectory>
-                            <includeArtifactIds>ant,ant-launcher,ant-nodeps,cobertura</includeArtifactIds>
+                            <includeArtifactIds>ant,ant-launcher,ant-nodeps</includeArtifactIds>
                         </configuration>
                     </execution>
                 </executions>
@@ -196,20 +193,8 @@
                                 <arg>--add-reads</arg>
                                 <arg>com.sun.tools.ws.wscompile=ALL-UNNAMED</arg>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.tools.xjc=ALL-UNNAMED</arg>
+                                <arg>com.sun.istack.tools=ALL-UNNAMED</arg>
                             </compilerArgs>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-compile-mr</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <compileSourceRoots>
-                                <compileSourceRoot>${project.basedir}/src/main/java-mr</compileSourceRoot>
-                            </compileSourceRoots>
-                            <outputDirectory>${project.build.outputDirectory}/META-INF/versions/9</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -234,11 +219,10 @@
                     <systemPropertyVariables>
                         <java.io.tmpdir>${project.build.directory}/test-antprojects</java.io.tmpdir>
                         <bin.folder>${project.build.directory}</bin.folder>
-                        <jaxb-api.version>${jaxb-api.version}</jaxb-api.version>
-                        <javax.jws-api.version>${javax.jws-api.version}</javax.jws-api.version>
-                        <javax.annotation-api.version>${javax.annotation-api.version}</javax.annotation-api.version>
+                        <xml.bind-api.version>${xml.bind-api.version}</xml.bind-api.version>
+                        <jakarta.annotation-api.version>${jakarta.annotation-api.version}</jakarta.annotation-api.version>
                         <jaxws-api.version>${jaxws-api.version}</jaxws-api.version>
-                        <net.sourceforge.cobertura.datafile>${net.sourceforge.cobertura.datafile}</net.sourceforge.cobertura.datafile>
+                        <coverage>${coverage}</coverage>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>
@@ -271,9 +255,9 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
-                        <manifestEntries>
-                            <Multi-Release>true</Multi-Release>
-                        </manifestEntries>
+                        <manifest>
+                            <addDefaultEntries>false</addDefaultEntries>
+                        </manifest>
                     </archive>
                 </configuration>
             </plugin>
@@ -326,170 +310,52 @@
                 </executions>
             </plugin> -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>add-mr-resource</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>add-resource</goal>
-                        </goals>
-                        <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>${project.basedir}/src/main/java-mr</directory>
-                                    <targetPath>META-INF/versions/9</targetPath>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Multi-Release>true</Multi-Release>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <additionalOptions>
                         --add-reads com.sun.tools.ws.wscompile=ALL-UNNAMED
-                        --add-reads com.sun.tools.xjc=ALL-UNNAMED
+                        --add-reads com.sun.istack.tools=ALL-UNNAMED
                     </additionalOptions>
                 </configuration>
             </plugin>
-            <!--
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>osgi-bundle</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>bundle</goal>
-                        </goals>
-                        <configuration>
-                            <instructions>
-                                <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
-                                <Export-Package>
-                                    com.sun.istack;version=${project.version},
-                                    com.sun.tools.ws.ant;version=${project.version},
-                                    com.sun.tools.ws.api.wsdl;version=${project.version},
-                                    com.sun.tools.ws.processor.generator;version=${project.version},
-                                    com.sun.tools.ws.processor.model.exporter;version=${project.version},
-                                    com.sun.tools.ws.processor.model.java;version=${project.version},
-                                    com.sun.tools.ws.processor.model.jaxb;version=${project.version},
-                                    com.sun.tools.ws.processor.modeler.annotation;version=${project.version},
-                                    com.sun.tools.ws.processor.modeler.wsdl;version=${project.version},
-                                    com.sun.tools.ws.processor.util;version=${project.version},
-                                    com.sun.tools.ws.resources;version=${project.version},
-                                    com.sun.tools.ws.spi;version=${project.version},
-                                    com.sun.tools.ws.util.xml;version=${project.version},
-                                    com.sun.tools.ws.wscompile.plugin.at_generated;version=${project.version},
-                                    com.sun.tools.ws.wsdl.document.http;version=${project.version},
-                                    com.sun.tools.ws.wsdl.document.jaxws;version=${project.version},
-                                    com.sun.tools.ws.wsdl.document.mime;version=${project.version},
-                                    com.sun.tools.ws.wsdl.document.schema;version=${project.version},
-                                    com.sun.tools.ws.wsdl.document.soap;version=${project.version},
-                                    com.sun.tools.ws.wsdl.framework;version=${project.version},
-                                    com.sun.tools.ws.wsdl.parser;version=${project.version}
-                                </Export-Package>
-                                <Import-Package>
-                                    com.sun.codemodel;version=${jaxb-xjc.version},
-                                    com.sun.codemodel.writer;version=${jaxb-xjc.version},
-                                    com.sun.istack;version=${jaxb-impl.version},
-                                    com.sun.istack.localization;version=${jaxb-impl.version},
-                                    com.sun.istack.tools;version=${jaxb-xjc.version},
-                                    com.sun.tools.javac,
-                                    com.sun.tools.javac.processing,
-                                    com.sun.tools.javac.util,
-                                    com.sun.tools.jxc.ap;version=${jaxb-xjc.version},
-                                    com.sun.tools.jxc.model.nav;version=${jaxb-xjc.version},
-                                    com.sun.tools.xjc;version=${jaxb-xjc.version},
-                                    com.sun.tools.xjc.api;version=${jaxb-xjc.version},
-                                    com.sun.tools.xjc.api.util;version=${jaxb-xjc.version},
-                                    com.sun.tools.xjc.reader;version=${jaxb-xjc.version},
-                                    com.sun.tools.xjc.reader.internalizer;version=${jaxb-xjc.version},
-                                    com.sun.tools.xjc.util;version=${jaxb-xjc.version},
-                                    com.sun.xml.bind;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.marshaller;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.unmarshaller;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.util;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.v2.model.annotation;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.v2.model.nav;version=${jaxb-impl.version},
-                                    com.sun.xml.bind.v2.util;version=${jaxb-impl.version},
-                                    com.sun.xml.txw2;version=${jaxb-impl.version},
-                                    com.sun.xml.txw2.annotation;version=${jaxb-impl.version},
-                                    com.sun.xml.txw2.output;version=${jaxb-impl.version},
-                                    com.sun.xml.ws.addressing;version=${project.version},
-                                    com.sun.xml.ws.addressing.v200408;version=${project.version},
-                                    com.sun.xml.ws.api;version=${project.version},
-                                    com.sun.xml.ws.api.addressing;version=${project.version},
-                                    com.sun.xml.ws.api.databinding;version=${project.version},
-                                    com.sun.xml.ws.api.model;version=${project.version},
-                                    com.sun.xml.ws.api.server;version=${project.version},
-                                    com.sun.xml.ws.api.streaming;version=${project.version},
-                                    com.sun.xml.ws.api.wsdl.parser;version=${project.version},
-                                    com.sun.xml.ws.api.wsdl.writer;version=${project.version},
-                                    com.sun.xml.ws.binding;version=${project.version},
-                                    com.sun.xml.ws.db;version=${project.version},
-                                    com.sun.xml.ws.model;version=${project.version},
-                                    com.sun.xml.ws.policy.sourcemodel.wspolicy;version=${project.version},
-                                    com.sun.xml.ws.spi.db;version=${project.version},
-                                    com.sun.xml.ws.streaming;version=${project.version},
-                                    com.sun.xml.ws.util;version=${project.version},
-                                    com.sun.xml.ws.util.exception;version=${project.version},
-                                    com.sun.xml.ws.util.xml;version=${project.version},
-                                    com.sun.xml.ws.wsdl.parser;version=${project.version},
-                                    com.sun.xml.ws.wsdl.writer;version=${project.version},
-                                    com.sun.xml.xsom.parser;version=${jaxb-xjc.version},
-                                    javax.activation,
-                                    javax.annotation.processing,
-                                    javax.jws,
-                                    javax.jws.soap,
-                                    javax.lang.model,
-                                    javax.lang.model.element,
-                                    javax.lang.model.type,
-                                    javax.lang.model.util,
-                                    javax.net.ssl,
-                                    javax.tools,
-                                    javax.xml.bind;version=${jaxb-api.version},
-                                    javax.xml.bind.annotation;version=${jaxb-api.version},
-                                    javax.xml.bind.annotation.adapters;version=${jaxb-api.version},
-                                    javax.xml.namespace,
-                                    javax.xml.parsers,
-                                    javax.xml.stream,
-                                    javax.xml.transform,
-                                    javax.xml.transform.dom,
-                                    javax.xml.transform.sax,
-                                    javax.xml.transform.stream,
-                                    javax.xml.ws;version=${jaxws-api.osgiVersion},
-                                    javax.xml.xpath,
-                                    org.apache.tools.ant;optional=true,
-                                    org.apache.tools.ant.taskdefs;optional=true,
-                                    org.apache.tools.ant.types;optional=true,
-                                    org.w3c.dom,
-                                    org.xml.sax,
-                                    org.xml.sax.ext,
-                                    org.xml.sax.helpers
-                                </Import-Package>
-                            </instructions>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>coverage</id>
+            <activation>
+                <property>
+                    <name>jacoco-build</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-prepare-agent-for-ant</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                                <configuration>
+                                    <propertyName>coverage</propertyName>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>default-report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

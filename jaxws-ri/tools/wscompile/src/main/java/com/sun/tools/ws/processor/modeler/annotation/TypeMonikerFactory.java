@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -50,13 +50,14 @@ public class TypeMonikerFactory {
             arrayType = TypeMonikerFactory.getTypeMoniker(type.getComponentType());
         }
 
+        @Override
         public TypeMirror create(ProcessingEnvironment apEnv) {
             return apEnv.getTypeUtils().getArrayType(arrayType.create(apEnv));
         }
     }
     static class DeclaredTypeMoniker implements TypeMoniker {
         private Name typeDeclName;
-        private Collection<TypeMoniker> typeArgs = new ArrayList<TypeMoniker>();
+        private Collection<TypeMoniker> typeArgs = new ArrayList<>();
 
         public DeclaredTypeMoniker(DeclaredType type) {
             typeDeclName = ((TypeElement) type.asElement()).getQualifiedName();
@@ -64,6 +65,7 @@ public class TypeMonikerFactory {
                 typeArgs.add(TypeMonikerFactory.getTypeMoniker(arg));
         }
 
+        @Override
         public TypeMirror create(ProcessingEnvironment apEnv) {
             TypeElement typeDecl = apEnv.getElementUtils().getTypeElement(typeDeclName);
             TypeMirror[] tmpArgs = new TypeMirror[typeArgs.size()];
@@ -81,6 +83,7 @@ public class TypeMonikerFactory {
             kind = type.getKind();
         }
 
+        @Override
         public TypeMirror create(ProcessingEnvironment apEnv) {
             return apEnv.getTypeUtils().getPrimitiveType(kind);
         }
@@ -92,6 +95,7 @@ public class TypeMonikerFactory {
             this.typeName = typeName;
         }
 
+        @Override
         public TypeMirror create(ProcessingEnvironment apEnv) {
             return apEnv.getTypeUtils().getDeclaredType(apEnv.getElementUtils().getTypeElement(typeName));
         }

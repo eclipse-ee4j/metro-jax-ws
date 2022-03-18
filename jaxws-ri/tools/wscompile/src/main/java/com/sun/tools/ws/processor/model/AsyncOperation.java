@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,7 +36,6 @@ public class AsyncOperation extends Operation {
     }
 
     /**
-     * @param operation
      */
     public AsyncOperation(Operation operation, Entity entity) {
         super(operation, entity);
@@ -44,7 +43,6 @@ public class AsyncOperation extends Operation {
     }
 
     /**
-     * @param name
      */
     public AsyncOperation(QName name, Entity entity) {
         super(name, entity);
@@ -81,7 +79,7 @@ public class AsyncOperation extends Operation {
             JClass future = cm.ref(java.util.concurrent.Future.class).narrow(cm.ref(Object.class).wildcard());
             return new JavaSimpleType(new JAXBTypeAndAnnotation(future));
         }else if(_asyncOpType.equals(AsyncOperationType.POLLING)){
-            JClass polling = cm.ref(javax.xml.ws.Response.class).narrow(_responseBean.getJavaType().getType().getType().boxify());
+            JClass polling = cm.ref(jakarta.xml.ws.Response.class).narrow(_responseBean.getJavaType().getType().getType().boxify());
             return new JavaSimpleType(new JAXBTypeAndAnnotation(polling));
         }
         return null;
@@ -90,7 +88,7 @@ public class AsyncOperation extends Operation {
     public JavaType getCallBackType(){
         if(_asyncOpType.equals(AsyncOperationType.CALLBACK)){
             JCodeModel cm = _responseBean.getJavaType().getType().getType().owner();
-            JClass cb = cm.ref(javax.xml.ws.AsyncHandler.class).narrow(_responseBean.getJavaType().getType().getType().boxify());
+            JClass cb = cm.ref(jakarta.xml.ws.AsyncHandler.class).narrow(_responseBean.getJavaType().getType().getType().boxify());
             return new JavaSimpleType(new JAXBTypeAndAnnotation(cb));
 
         }

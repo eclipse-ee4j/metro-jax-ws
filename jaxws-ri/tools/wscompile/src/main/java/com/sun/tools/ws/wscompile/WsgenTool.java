@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,7 +33,6 @@ import com.sun.xml.ws.model.AbstractSEIModelImpl;
 import com.sun.xml.ws.util.ServiceFinder;
 import org.xml.sax.SAXParseException;
 
-import javax.tools.DiagnosticCollector;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
@@ -41,7 +40,7 @@ import javax.tools.ToolProvider;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -54,7 +53,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ServiceLoader;
+import javax.tools.Diagnostic;
+import javax.tools.DiagnosticListener;
+import org.xml.sax.ext.Locator2Impl;
 
 /**
  * @author Vivek Pandey
@@ -121,54 +125,88 @@ public class WsgenTool {
 
     /**
      *
-     * @param endpoint
-     * @param listener
-     * @return
-     * @throws BadCommandLineException
      */
     public boolean buildModel(String endpoint, Listener listener) throws BadCommandLineException {
         final ErrorReceiverFilter errReceiver = new ErrorReceiverFilter(listener);
 
-        List<String> args = new ArrayList<String>(6 + (options.nocompile ? 1 : 0)
-                + (options.encoding != null ? 2 : 0));
+        if (!options.nosource) {
+            List<String> args = new ArrayList<>(6 + (options.nocompile ? 1 : 0)
+                    + (options.encoding != null ? 2 : 0));
 
-        args.add("-d");
-        args.add(options.destDir.getAbsolutePath());
-        args.add("-classpath");
-        args.add(options.classpath);
-        args.add("-s");
-        args.add(options.sourceDir.getAbsolutePath());
-        if (options.nocompile) {
-            args.add("-proc:only");
-        }
-        if (options.encoding != null) {
-            args.add("-encoding");
-            args.add(options.encoding);
-        }
-        if (options.javacOptions != null) {
-            args.addAll(options.getJavacOptions(args, listener));
-        }
+            args.add("-d");
+            args.add(options.destDir.getAbsolutePath());
+            args.add("-classpath");
+            args.add(options.classpath);
+            args.add("-s");
+            args.add(options.sourceDir.getAbsolutePath());
+            if (options.nocompile) {
+                args.add("-proc:only");
+            }
+            if (options.encoding != null) {
+                args.add("-encoding");
+                args.add(options.encoding);
+            }
+            if (options.javacOptions != null) {
+                args.addAll(options.getJavacOptions(args, listener));
+            }
 
-        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-        if (compiler == null) {
-            out.println(WscompileMessages.WSCOMPILE_CANT_GET_COMPILER(property("java.home"), property("java.version"), property("java.vendor")));
-            return false;
-        }
-        DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
-        StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null);
-        JavaCompiler.CompilationTask task = compiler.getTask(
-                null,
-                fileManager,
-                diagnostics,
-                args,
-                Collections.singleton(endpoint.replaceAll("\\$", ".")),
-                null);
-        task.setProcessors(Collections.singleton(new WebServiceAp(options, out)));
-        boolean result = task.call();
+            JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+            if (compiler == null) {
+                out.println(WscompileMessages.WSCOMPILE_CANT_GET_COMPILER(property("java.home"), property("java.version"), property("java.vendor")));
+                return false;
+            }
+            DiagnosticListener<JavaFileObject> diagnostics = new DiagnosticListener<>() {
+                @Override
+                public void report(Diagnostic<? extends JavaFileObject> diagnostic) {
+                    boolean fromFile = diagnostic.getSource() != null;
+                    StringBuilder message = new StringBuilder();
+                    if (fromFile) {
+                        message.append(diagnostic.getSource().getName());
+                    }
+                    message.append(diagnostic.getMessage(Locale.getDefault()));
+                    if (fromFile) {
+                        message.append("");
+                    }
+                    switch (diagnostic.getKind()) {
+                        case ERROR:
+                            Locator2Impl l = new Locator2Impl();
+                            if (fromFile) {
+                                l.setSystemId(diagnostic.getSource().getName());
+                            } else {
+                                l.setSystemId(null);
+                            }
+                            l.setLineNumber((int) diagnostic.getLineNumber());
+                            l.setColumnNumber((int) diagnostic.getColumnNumber());
+                            SAXParseException ex = new SAXParseException(message.toString(), l);
+                            listener.error(ex);
+                            break;
+                        case MANDATORY_WARNING:
+                        case WARNING:
+                            listener.message(message.toString());
+                            break;
+                        default:
+                            if (options.verbose) {
+                                listener.message(message.toString());
+                            }
+                    }
+                }
+            };
 
-        if (!result) {
-            out.println(WscompileMessages.WSCOMPILE_ERROR(WscompileMessages.WSCOMPILE_COMPILATION_FAILED()));
-            return false;
+            StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null);
+            JavaCompiler.CompilationTask task = compiler.getTask(
+                    null,
+                    fileManager,
+                    diagnostics,
+                    args,
+                    Collections.singleton(endpoint.replaceAll("\\$", ".")),
+                    null);
+            task.setProcessors(Collections.singleton(new WebServiceAp(options, out)));
+            boolean result = task.call();
+
+            if (!result) {
+                out.println(WscompileMessages.WSCOMPILE_ERROR(WscompileMessages.WSCOMPILE_COMPILATION_FAILED()));
+                return false;
+            }
         }
         if (options.genWsdl) {
             DatabindingConfig config = new DatabindingConfig();
@@ -209,7 +247,7 @@ public class WsgenTool {
             com.sun.xml.ws.db.DatabindingImpl rt = (com.sun.xml.ws.db.DatabindingImpl) fac.createRuntime(config);
 
             final File[] wsdlFileName = new File[1]; // used to capture the generated WSDL file.
-            final Map<String, File> schemaFiles = new HashMap<String, File>();
+            final Map<String, File> schemaFiles = new HashMap<>();
 
             WSDLGenInfo wsdlGenInfo = new WSDLGenInfo();
             wsdlGenInfo.setSecureXmlProcessingDisabled(disableXmlSecurity);
@@ -260,7 +298,7 @@ public class WsgenTool {
                     });
 
             wsdlGenInfo.setContainer(container);
-            wsdlGenInfo.setExtensions(ServiceFinder.find(WSDLGeneratorExtension.class).toArray());
+            wsdlGenInfo.setExtensions(ServiceFinder.find(WSDLGeneratorExtension.class, ServiceLoader.load(WSDLGeneratorExtension.class)).toArray());
             wsdlGenInfo.setInlineSchemas(options.inlineSchemas);
             rt.generateWSDL(wsdlGenInfo);
 
@@ -281,7 +319,7 @@ public class WsgenTool {
     }
 
     private List<File> getExternalFiles(List<String> exts) {
-        List<File> files = new ArrayList<File>();
+        List<File> files = new ArrayList<>();
         for (String ext : exts) {
             // first try absolute path ...
             File file = new File(ext);
@@ -342,7 +380,7 @@ public class WsgenTool {
             QualifiedName port();
 
             /**
-             * Name of the class that has {@link javax.jws.WebService}.
+             * Name of the class that has {@link jakarta.jws.WebService}.
              */
             @XmlElement
             void implClass(String name);

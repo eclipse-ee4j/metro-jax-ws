@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,13 +10,14 @@
 
 package com.sun.xml.ws.api.client;
 
-import javax.xml.ws.WebServiceFeature;
-import javax.xml.ws.Dispatch;
+import com.sun.xml.ws.api.message.Packet;
+import jakarta.xml.ws.WebServiceFeature;
+import jakarta.xml.ws.Dispatch;
 
 import com.sun.xml.ws.api.pipe.ThrowableContainerPropertySet;
 
 /**
- * When using {@link Dispatch}<{@link Packet}> and the invocation completes with a Throwable, it is
+ * When using {@link Dispatch}&lt;{@link Packet}&gt; and the invocation completes with a Throwable, it is
  * useful to be able to inspect the Packet in addition to the Throwable as the Packet contains 
  * meta-data about the request and/or response.  However, the default behavior is that the caller
  * only receives the Throwable.

@@ -8,7 +8,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import javax.jws.WebService;
+import jakarta.jws.WebService;
 
 @WebService(name="Echo", serviceName="EchoService", targetNamespace="http://echo.org/")
 

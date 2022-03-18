@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,8 +13,8 @@ package com.sun.xml.ws.util;
 import com.sun.xml.ws.api.pipe.Tube;
 import com.sun.xml.ws.api.pipe.TubeCloner;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.lang.ref.SoftReference; 
@@ -64,8 +64,8 @@ public abstract class Pool<T> {
         }
 
         // overwrite the queue
-        ConcurrentLinkedQueue<T> d = new ConcurrentLinkedQueue<T>();
-        queue = new SoftReference<ConcurrentLinkedQueue<T>>(d);
+        ConcurrentLinkedQueue<T> d = new ConcurrentLinkedQueue<>();
+        queue = new SoftReference<>(d);
 
         return d;
     }
@@ -92,9 +92,9 @@ public abstract class Pool<T> {
 
 
     /**
-     * JAXB {@link javax.xml.bind.Marshaller} pool.
+     * JAXB {@link jakarta.xml.bind.Marshaller} pool.
      */
-    public static final class Marshaller extends Pool<javax.xml.bind.Marshaller> {
+    public static final class Marshaller extends Pool<jakarta.xml.bind.Marshaller> {
         private final JAXBContext context;
 
         public Marshaller(JAXBContext context) {
@@ -102,7 +102,7 @@ public abstract class Pool<T> {
         }
 
         @Override
-        protected javax.xml.bind.Marshaller create() {
+        protected jakarta.xml.bind.Marshaller create() {
             try {
                 return context.createMarshaller();
             } catch (JAXBException e) {
@@ -113,9 +113,9 @@ public abstract class Pool<T> {
     }
 
     /**
-     * JAXB {@link javax.xml.bind.Marshaller} pool.
+     * JAXB {@link jakarta.xml.bind.Marshaller} pool.
      */
-    public static final class Unmarshaller extends Pool<javax.xml.bind.Unmarshaller> {
+    public static final class Unmarshaller extends Pool<jakarta.xml.bind.Unmarshaller> {
         private final JAXBContext context;
 
         public Unmarshaller(JAXBContext context) {
@@ -123,7 +123,7 @@ public abstract class Pool<T> {
         }
 
         @Override
-        protected javax.xml.bind.Unmarshaller create() {
+        protected jakarta.xml.bind.Unmarshaller create() {
             try {
                 return context.createUnmarshaller();
             } catch (JAXBException e) {
@@ -156,7 +156,7 @@ public abstract class Pool<T> {
          * tubeline is required and safe, such as Stub.close()."
          */
         @Deprecated()
-        public final Tube takeMaster() {
+        public Tube takeMaster() {
             return master;
         }
         

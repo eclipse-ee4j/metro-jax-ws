@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,10 +15,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>project</artifactId>
         <groupId>com.sun.xml.ws</groupId>
-        <version>2.4.0-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
+        <artifactId>bundles</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -69,9 +69,9 @@
     </dependencies>
 
     <properties>
-        <spotbugs.skip>true</spotbugs.skip>
         <dep.sources>${project.build.directory}/generated-sources/dependencies</dep.sources>
-        <dep.sources.mr>${project.build.directory}/generated-sources/dependencies-mr</dep.sources.mr>
+        <!-- too many to fix -->
+        <jdoc.doclint>-missing</jdoc.doclint>
     </properties>
 
     <build>
@@ -93,22 +93,6 @@
                             <excludeTransitive>true</excludeTransitive>
                             <excludes>module-info.*,META-INF/versions/**, META-INF/MANIFEST.MF</excludes>
                             <outputDirectory>${dep.sources}</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unpack-sources-mr</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeGroupIds>${project.groupId}</includeGroupIds>
-                            <includeArtifactIds>wscompile</includeArtifactIds>
-                            <includeScope>provided</includeScope>
-                            <classifier>sources</classifier>
-                            <excludeTransitive>true</excludeTransitive>
-                            <includes>META-INF/versions/9/**</includes>
-                            <outputDirectory>${dep.sources.mr}</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -154,20 +138,6 @@
                             </sources>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>add-mr-resource</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>add-resource</goal>
-                        </goals>
-                        <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>${dep.sources.mr}</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -185,18 +155,6 @@
                             </compilerArgs>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>default-compile-mr</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <compileSourceRoots>
-                                <compileSourceRoot>${dep.sources.mr}/META-INF/versions/9</compileSourceRoot>
-                            </compileSourceRoots>
-                            <outputDirectory>${project.build.outputDirectory}/META-INF/versions/9</outputDirectory>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -211,15 +169,9 @@
                         </goals>
                         <configuration>
                             <instructions>
-                                <_removeheaders>Bnd-LastModified,Include-Resource,Private-Package</_removeheaders>
                                 <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
-                                <Export-Package>
-                                    !META-INF.*,
-                                    *
-                                </Export-Package>
                                 <Class-Path>jaxws-rt.jar jaxb-xjc.jar jaxb-jxc.jar</Class-Path>
                                 <Extension-Name>com.sun.tools.jaxws</Extension-Name>
-                                <Multi-Release>true</Multi-Release>
                             </instructions>
                         </configuration>
                     </execution>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -70,7 +70,7 @@
             try {
                 faultPort.echo("NullPointerException");
                 fail("no exception was received");
-            } catch (javax.xml.ws.ProtocolException e) {
+            } catch (jakarta.xml.ws.ProtocolException e) {
                 System.out.println("Expected exception received: " + e.getMessage());
             }
     </client>
@@ -82,7 +82,7 @@
             try {
                 faultPort.echo("SOAPFaultException");
                 fail("no exception was received");
-            } catch (javax.xml.ws.ProtocolException e) {
+            } catch (jakarta.xml.ws.ProtocolException e) {
                 if (e instanceof SOAPFaultException) {
                     System.out.println("Expected exception received: " + e.getMessage());
                     SOAPFaultException sfe = (SOAPFaultException)e;
@@ -112,7 +112,7 @@
             try {
                 faultPort.echo("ProtocolException");
                 fail("no exception was received");
-            } catch (javax.xml.ws.ProtocolException e) {
+            } catch (jakarta.xml.ws.ProtocolException e) {
                 // pass if ProtocolException received
             }
     </client>
@@ -124,7 +124,7 @@
         try {
             faultPort.echo("ProtocolException2");
             fail("no exception was received");
-        } catch (javax.xml.ws.ProtocolException e) {
+        } catch (jakarta.xml.ws.ProtocolException e) {
             assertNotNull("message in exception is null", e.getMessage());
             System.out.println("Expected exception received: " + e.getMessage());
             if (e.getMessage().indexOf("FaultImpl") == -1) {

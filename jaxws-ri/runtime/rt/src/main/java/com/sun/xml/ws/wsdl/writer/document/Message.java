@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,9 +25,9 @@ public interface Message
 
 
     @XmlAttribute
-    public com.sun.xml.ws.wsdl.writer.document.Message name(String value);
+    com.sun.xml.ws.wsdl.writer.document.Message name(String value);
 
     @XmlElement
-    public Part part();
+    Part part();
 
 }

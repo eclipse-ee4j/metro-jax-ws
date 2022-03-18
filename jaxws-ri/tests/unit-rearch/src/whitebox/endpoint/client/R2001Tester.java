@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import javax.xml.namespace.QName;
-import javax.xml.ws.*;
+import jakarta.xml.ws.*;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 import java.net.URL;

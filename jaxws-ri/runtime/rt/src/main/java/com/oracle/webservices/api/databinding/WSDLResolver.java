@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,7 @@
 package com.oracle.webservices.api.databinding;
 
 import javax.xml.transform.Result;
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 
 /**
  * WSDLResolver is used by WSDLGenerator while generating WSDL and its associated
@@ -29,7 +29,7 @@ public interface WSDLResolver {
      *
      * @return Result for the concrete WSDL
      */
-    public Result getWSDL(String suggestedFilename);
+    Result getWSDL(String suggestedFilename);
 
     /**
      * Create a Result object into which abstract WSDL is to be generated. If the the
@@ -41,7 +41,7 @@ public interface WSDLResolver {
      *
      * @return null if abstract WSDL need not be generated
      */
-    public Result getAbstractWSDL(Holder<String> filename);
+    Result getAbstractWSDL(Holder<String> filename);
 
     /**
      * Create a Result object into which schema doc is to be generated. Typically if
@@ -53,6 +53,6 @@ public interface WSDLResolver {
      *
      * @return null if schema need not be generated
      */
-    public Result getSchemaOutput(String namespace, Holder<String> filename);
+    Result getSchemaOutput(String namespace, Holder<String> filename);
 
 }

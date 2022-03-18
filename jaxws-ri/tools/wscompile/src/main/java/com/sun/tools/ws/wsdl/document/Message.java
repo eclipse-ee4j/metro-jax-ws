@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,8 +28,8 @@ public class Message extends GlobalEntity {
 
     public Message(Defining defining, Locator locator, ErrorReceiver errReceiver) {
         super(defining, locator, errReceiver);
-        _parts = new ArrayList<MessagePart>();
-        _partsByName = new HashMap<String, MessagePart>();
+        _parts = new ArrayList<>();
+        _partsByName = new HashMap<>();
     }
 
     public void add(MessagePart part) {
@@ -61,10 +61,12 @@ public class Message extends GlobalEntity {
         return _parts.size();
     }
 
+    @Override
     public Kind getKind() {
         return Kinds.MESSAGE;
     }
 
+    @Override
     public QName getElementName() {
         return WSDLConstants.QNAME_MESSAGE;
     }
@@ -77,6 +79,7 @@ public class Message extends GlobalEntity {
         _documentation = d;
     }
 
+    @Override
     public void withAllSubEntitiesDo(EntityAction action) {
         super.withAllSubEntitiesDo(action);
 
@@ -93,6 +96,7 @@ public class Message extends GlobalEntity {
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
         if (getName() == null) {
             errorReceiver.error(getLocator(), WsdlMessages.VALIDATION_MISSING_REQUIRED_ATTRIBUTE("name", "wsdl:message"));
