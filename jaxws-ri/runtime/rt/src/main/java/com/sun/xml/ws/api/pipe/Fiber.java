@@ -102,6 +102,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
          * @since 2.2.6
          * @deprecated Use {@link NextAction#suspend(Runnable)}
          */
+    @Deprecated
     public interface Listener {
         /**
          * Fiber has been suspended.  Implementations of this callback may resume the Fiber.
@@ -124,6 +125,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
      * @since 2.2.6
      * @deprecated
      */
+    @Deprecated
     public void addListener(Listener listener) {
         synchronized(_listeners) {
             if (!_listeners.contains(listener)) {
@@ -138,6 +140,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
      * @since 2.2.6
      * @deprecated
      */
+    @Deprecated
     public void removeListener(Listener listener) {
         synchronized(_listeners) {
             _listeners.remove(listener);

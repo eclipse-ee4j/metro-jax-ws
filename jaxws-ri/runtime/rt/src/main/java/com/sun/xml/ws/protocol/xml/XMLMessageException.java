@@ -18,6 +18,8 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  */
 public class XMLMessageException extends JAXWSExceptionBase {
 
+    private static final long serialVersionUID = 918497924897686976L;
+
     public XMLMessageException(String key, Object... args) {
         super(key, args);
     }

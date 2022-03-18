@@ -34,6 +34,7 @@ import java.io.OutputStream;
  * @deprecated
  * @author Kohsuke Kawaguchi
  */
+@Deprecated
 final class MarshallerBridge extends Bridge {
     public MarshallerBridge(JAXBRIContext context) {
         super((JAXBContextImpl)context);

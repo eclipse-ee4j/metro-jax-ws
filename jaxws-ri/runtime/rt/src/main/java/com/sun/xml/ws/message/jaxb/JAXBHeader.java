@@ -153,6 +153,7 @@ public final class JAXBHeader extends AbstractHeaderImpl {
         }
     }
     /** @deprecated */
+    @Deprecated
     @Override
     public <T> T readAsJAXB(Bridge<T> bridge) throws JAXBException {
         return bridge.unmarshal(new JAXBBridgeSource(this.bridge,jaxbObject));

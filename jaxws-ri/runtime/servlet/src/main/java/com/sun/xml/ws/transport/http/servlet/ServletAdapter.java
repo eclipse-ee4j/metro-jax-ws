@@ -225,6 +225,7 @@ public class ServletAdapter extends HttpAdapter implements BoundEndpoint {
      * @deprecated
      *      Use {@link #handle(ServletContext, HttpServletRequest, HttpServletResponse)}
      */
+    @Deprecated
     public void publishWSDL(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws IOException {
         WSHTTPConnection connection = new ServletConnectionImpl(this,context,request,response);
         super.handle(connection);

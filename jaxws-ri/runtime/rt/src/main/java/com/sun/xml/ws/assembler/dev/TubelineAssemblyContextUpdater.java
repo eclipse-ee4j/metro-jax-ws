@@ -14,7 +14,7 @@ import jakarta.xml.ws.WebServiceException;
 
 /**
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public interface TubelineAssemblyContextUpdater {
     /**

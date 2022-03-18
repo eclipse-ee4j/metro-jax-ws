@@ -22,6 +22,8 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  */
 public class ProcessorException extends JAXWSExceptionBase {
 
+    private static final long serialVersionUID = -3521729994453882680L;
+
     public ProcessorException(String key, Object... args) {
         super(key, args);
     }

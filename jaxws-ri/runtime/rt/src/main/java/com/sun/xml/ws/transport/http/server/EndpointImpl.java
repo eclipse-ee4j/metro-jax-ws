@@ -120,6 +120,7 @@ public class EndpointImpl extends Endpoint {
      * @param serverContext supported http context
      * @deprecated This is a backdoor method. Don't use it unless you know what you are doing.
      */
+    @Deprecated
     public EndpointImpl(WSEndpoint wse, Object serverContext) {
     	this(wse, serverContext, null);
     }
@@ -133,6 +134,7 @@ public class EndpointImpl extends Endpoint {
      * @param ctxt endpoint context
      * @deprecated This is a backdoor method. Don't use it unless you know what you are doing.
      */
+    @Deprecated
     public EndpointImpl(WSEndpoint wse, Object serverContext, EndpointContext ctxt) {
     	endpointContext = ctxt;
         actualEndpoint = new HttpEndpoint(null, getAdapter(wse, ""));
@@ -151,6 +153,7 @@ public class EndpointImpl extends Endpoint {
      * @param address endpoint address
      * @deprecated This is a backdoor method. Don't use it unless you know what you are doing.
      */
+    @Deprecated
     public EndpointImpl(WSEndpoint wse, String address) {
     	this(wse, address, null);
     }
@@ -165,6 +168,7 @@ public class EndpointImpl extends Endpoint {
      * @param ctxt endpoint context
      * @deprecated This is a backdoor method. Don't use it unless you know what you are doing.
      */
+    @Deprecated
     public EndpointImpl(WSEndpoint wse, String address, EndpointContext ctxt) {
         URL url;
         try {

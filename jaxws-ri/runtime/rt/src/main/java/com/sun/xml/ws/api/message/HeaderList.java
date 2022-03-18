@@ -240,6 +240,7 @@ public class HeaderList extends ArrayList<Header> implements MessageHeaders {
      *      if the given header is not {@link #contains(Object) contained}
      *      in this header.
      */
+    @Deprecated
     @Override
     public void understood(@NotNull Header header) {
         int sz = size();

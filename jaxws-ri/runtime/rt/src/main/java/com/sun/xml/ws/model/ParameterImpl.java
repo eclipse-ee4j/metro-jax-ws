@@ -47,6 +47,7 @@ public class ParameterImpl implements Parameter {
     private final int index;
     private final Mode mode;
     /** @deprecated */
+    @Deprecated
     private TypeReference typeReference;
     private TypeInfo typeInfo;
     private QName name;
@@ -108,11 +109,13 @@ public class ParameterImpl implements Parameter {
     }
 
     /**  @deprecated  */
+    @Deprecated
     @Override
     public Bridge getBridge() {
         return getOwner().getBridge(typeReference);
     }
     /**  @deprecated  */
+    @Deprecated
     protected Bridge getBridge(TypeReference typeRef) {
         return getOwner().getBridge(typeRef);
     }
@@ -123,6 +126,7 @@ public class ParameterImpl implements Parameter {
      * @deprecated use getTypeInfo
      * @return Returns the TypeReference associated with this Parameter
      */
+    @Deprecated
     public TypeReference getTypeReference() {
         return typeReference;
     }
@@ -135,6 +139,7 @@ public class ParameterImpl implements Parameter {
      * @see AbstractSEIModelImpl#applyRpcLitParamBinding(JavaMethodImpl, WrapperParameter, WSDLBoundPortType, WebParam.Mode)
      * @deprecated 
      */
+    @Deprecated
     void setTypeReference(TypeReference type){
         typeReference = type;
         name = type.tagName;

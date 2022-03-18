@@ -12,7 +12,7 @@ package com.sun.xml.ws.policy.sourcemodel.wspolicy;
 
 /**
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public enum XmlToken {
     Policy("Policy", true),

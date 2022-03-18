@@ -20,6 +20,8 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  */
 public class ParseException extends JAXWSExceptionBase {
 
+    private static final long serialVersionUID = -7989101117666409466L;
+
     public ParseException(String key, Object... args) {
         super(key, args);
     }

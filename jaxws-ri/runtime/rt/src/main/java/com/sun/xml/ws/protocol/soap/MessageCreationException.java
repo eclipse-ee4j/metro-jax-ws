@@ -25,6 +25,8 @@ import javax.xml.namespace.QName;
  */
 public class MessageCreationException extends ExceptionHasMessage {
 
+    private static final long serialVersionUID = 5601588245037620362L;
+
     private final SOAPVersion soapVersion;
 
     public MessageCreationException(SOAPVersion soapVersion, Object... args) {

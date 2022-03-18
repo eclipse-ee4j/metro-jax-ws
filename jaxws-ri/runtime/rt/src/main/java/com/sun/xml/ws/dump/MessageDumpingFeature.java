@@ -21,7 +21,7 @@ import java.util.logging.Level;
 
 /**
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 @ManagedData
 public final class MessageDumpingFeature extends WebServiceFeature {

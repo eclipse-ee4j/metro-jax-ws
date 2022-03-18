@@ -17,6 +17,8 @@ package com.sun.tools.ws.wsdl.framework;
  */
 public class DuplicateEntityException extends ValidationException {
 
+    private static final long serialVersionUID = 4349547177012667763L;
+
     public DuplicateEntityException(GloballyKnown entity) {
         super(
             "entity.duplicateWithType",

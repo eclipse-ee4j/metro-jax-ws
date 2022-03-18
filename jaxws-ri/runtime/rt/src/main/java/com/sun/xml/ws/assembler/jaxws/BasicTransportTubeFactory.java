@@ -21,7 +21,7 @@ import jakarta.xml.ws.WebServiceException;
 /**
  * TubeFactory implementation creating one of the standard JAX-WS RI tubes
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public final class BasicTransportTubeFactory implements TubeFactory {
 

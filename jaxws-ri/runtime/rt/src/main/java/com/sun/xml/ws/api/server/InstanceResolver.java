@@ -109,6 +109,7 @@ public abstract class InstanceResolver<T> {
      * @deprecated
      *      Use {@link #start(WSWebServiceContext,WSEndpoint)}.
      */
+    @Deprecated
     public void start(@NotNull WebServiceContext wsc) {}
 
     /**
@@ -141,6 +142,7 @@ public abstract class InstanceResolver<T> {
      *      with this signature. Please do not use this. Will be removed
      *      after the next GF integration.
      */
+    @Deprecated
     public static <T> InstanceResolver<T> createDefault(@NotNull Class<T> clazz, boolean bool) {
         return createDefault(clazz);
     }

@@ -23,6 +23,8 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  */
 public class XMLReaderException extends JAXWSExceptionBase {
 
+    private static final long serialVersionUID = 527187762101195480L;
+
     public XMLReaderException(String key, Object... args) {
         super(key, args);
     }

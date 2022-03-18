@@ -310,7 +310,7 @@ public class SAAJMessageTest extends TestCase {
                 public String getPrefix(String namespaceURI) {
                     return currentElement.lookupPrefix(namespaceURI);
                 }
-                public Iterator getPrefixes(final String namespaceURI) {
+                public Iterator<String> getPrefixes(final String namespaceURI) {
                     return new Iterator() {
                         String prefix = getPrefix(namespaceURI);
                         public boolean hasNext() {

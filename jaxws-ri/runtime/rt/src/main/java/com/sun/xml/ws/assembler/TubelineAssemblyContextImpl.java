@@ -25,7 +25,7 @@ import java.util.logging.Level;
  * A base tubeline assembly context class providing common methods for both
  * client and server assembly context classes.
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public class TubelineAssemblyContextImpl implements TubelineAssemblyContext {
     private static final Logger LOGGER = Logger.getLogger(TubelineAssemblyContextImpl.class);

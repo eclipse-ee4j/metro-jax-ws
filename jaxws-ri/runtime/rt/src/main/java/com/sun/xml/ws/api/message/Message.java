@@ -568,6 +568,7 @@ public abstract class Message {
      * @throws JAXBException
      *      If JAXB reports an error during the processing.
      */
+    @Deprecated
     public abstract <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException;
 
     /**

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -148,6 +148,7 @@ public final class NextAction {
      * Once {@link Fiber#resume(Packet) resumed}, return the response processing.
      * @deprecated Use variants that pass {@link Runnable}
      */
+    @Deprecated
     public void suspend() {
         suspend(null, null);
     }
@@ -172,6 +173,7 @@ public final class NextAction {
      * {@link Tube#processRequest(Packet)} on the given next tube.
      * @deprecated Use variants that pass {@link Runnable}
      */
+    @Deprecated
     public void suspend(Tube next) {
         suspend(next, null);
     }

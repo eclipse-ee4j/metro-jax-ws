@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,6 +53,8 @@ import java.util.TreeMap;
  */
 public class Headers extends TreeMap<String,List<String>> {
 
+    private static final long serialVersionUID = -8661300222069744942L;
+
     public Headers() {
         super(INSTANCE);
     }
@@ -61,6 +63,9 @@ public class Headers extends TreeMap<String,List<String>> {
 
     // case-insensitive string comparison of HTTP header names.
     private static final class InsensitiveComparator implements Comparator<String>, Serializable {
+
+        private static final long serialVersionUID = -6135680289896849318L;
+
         @Override
         public int compare(String o1, String o2) {
             if (o1 == null && o2 == null)

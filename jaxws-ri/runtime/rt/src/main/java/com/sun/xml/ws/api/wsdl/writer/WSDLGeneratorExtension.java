@@ -49,6 +49,7 @@ public abstract class WSDLGeneratorExtension {
      *                  TODO: think about tool side
      * @deprecated
      */
+    @Deprecated
     public void start(@NotNull TypedXmlWriter root, @NotNull SEIModel model, @NotNull WSBinding binding, @NotNull Container container) {
     }
 

@@ -17,6 +17,8 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
   */
 public class WSDLParseException extends JAXWSExceptionBase {
 
+    private static final long serialVersionUID = -221204250739166481L;
+
     public WSDLParseException(String key, Object... args) {
         super(key, args);
     }

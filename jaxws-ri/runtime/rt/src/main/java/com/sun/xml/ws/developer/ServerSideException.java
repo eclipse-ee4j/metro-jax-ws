@@ -22,6 +22,9 @@ package com.sun.xml.ws.developer;
  * @since 2.1
  */
 public class ServerSideException extends Exception {
+
+    private static final long serialVersionUID = 3454927391766553274L;
+
     private final String className;
 
     public ServerSideException(String className, String message) {

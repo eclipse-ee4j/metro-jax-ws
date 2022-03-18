@@ -23,6 +23,9 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  * @author WS Development Team
  */
 public class HandlerException extends JAXWSExceptionBase {
+
+    private static final long serialVersionUID = -7422630213068664522L;
+
     public HandlerException(String key, Object... args) {
         super(key, args);
     }

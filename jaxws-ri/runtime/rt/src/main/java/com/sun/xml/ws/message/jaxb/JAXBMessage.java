@@ -131,6 +131,7 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
         return create(context,jaxbObject,soapVersion,null,null);
     }
     /** @deprecated */ 
+    @Deprecated
     public static Message create(JAXBContext context, Object jaxbObject, SOAPVersion soapVersion) {
         return create(BindingContextFactory.create(context),jaxbObject,soapVersion,null,null);
     }
@@ -141,6 +142,7 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
      * for he JAXBContext parameter.
      * 
      */ 
+    @Deprecated
     public static Message createRaw(JAXBContext context, Object jaxbObject, SOAPVersion soapVersion) {
         return new JAXBMessage(context,jaxbObject,soapVersion,null,null);
     }

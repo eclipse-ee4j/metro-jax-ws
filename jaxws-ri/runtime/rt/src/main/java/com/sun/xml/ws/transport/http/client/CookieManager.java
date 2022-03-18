@@ -405,6 +405,9 @@ public class CookieManager extends CookieHandler
     }
 
     static class CookiePathComparator implements Comparator<HttpCookie>, Serializable {
+
+        private static final long serialVersionUID = -7493008818901962320L;
+
         @Override
         public int compare(HttpCookie c1, HttpCookie c2) {
             if (c1 == c2) return 0;

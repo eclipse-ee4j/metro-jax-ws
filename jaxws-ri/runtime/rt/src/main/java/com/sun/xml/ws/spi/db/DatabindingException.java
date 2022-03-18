@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,6 +16,9 @@ package com.sun.xml.ws.spi.db;
  * @author shih-chang.chen@oracle.com
  */
 public class DatabindingException extends RuntimeException {
+
+    private static final long serialVersionUID = 2508170393900316912L;
+
 	public DatabindingException() {}
     public DatabindingException(String message) { super(message); }
     public DatabindingException(Throwable cause) { super(cause); }

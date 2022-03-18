@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 
 /**
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public class PolicyUtilsTest extends TestCase {
 

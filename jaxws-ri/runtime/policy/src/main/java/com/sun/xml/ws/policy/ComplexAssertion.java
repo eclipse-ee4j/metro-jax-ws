@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +17,7 @@ import java.util.Collection;
  * Complex assertion is an abstract class that serves as a base class for any assertion
  * that <b>MAY</b> contain nested policies.
  * 
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public abstract class ComplexAssertion extends PolicyAssertion {
 

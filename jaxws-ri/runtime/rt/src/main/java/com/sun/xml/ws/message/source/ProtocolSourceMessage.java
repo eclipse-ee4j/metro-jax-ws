@@ -115,6 +115,7 @@ public class ProtocolSourceMessage extends Message {
         return sm.readPayloadAsJAXB(unmarshaller);
     }
     /** @deprecated */
+    @Deprecated
     @Override
     public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
         return sm.readPayloadAsJAXB(bridge);

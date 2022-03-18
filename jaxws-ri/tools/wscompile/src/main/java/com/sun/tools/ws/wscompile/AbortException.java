@@ -19,6 +19,9 @@ package com.sun.tools.ws.wscompile;
  * @author Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 public class AbortException extends RuntimeException {
+
+    private static final long serialVersionUID = -5787052686999838093L;
+
     public AbortException() {
     }
 }

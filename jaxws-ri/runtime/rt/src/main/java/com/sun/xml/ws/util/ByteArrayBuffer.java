@@ -150,6 +150,7 @@ public class ByteArrayBuffer extends OutputStream {
      *      this method causes a buffer reallocation. Use it only when
      *      you have to.
      */
+    @Deprecated
     public final byte[] toByteArray() {
         byte[] newbuf = new byte[count];
         System.arraycopy(buf, 0, newbuf, 0, count);

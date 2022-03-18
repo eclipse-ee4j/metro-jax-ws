@@ -606,7 +606,7 @@ public class DOMStreamReader implements XMLStreamReader, NamespaceContext {
     }
 
     @Override
-    public Iterator getPrefixes(String nsUri) {
+    public Iterator<String> getPrefixes(String nsUri) {
         // This is an incorrect implementation,
         // but AFAIK it's not used in the JAX-WS runtime
         String prefix = getPrefix(nsUri);

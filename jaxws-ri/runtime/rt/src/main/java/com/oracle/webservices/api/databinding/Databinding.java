@@ -52,59 +52,59 @@ import com.oracle.webservices.api.message.MessageContext;
  * @author shih-chang.chen@oracle.com
  */
 public interface Databinding {
-	
-	/**
-	 * Creates a new instance of a <code>JavaCallInfo</code>.
-	 * 
+
+    /**
+     * Creates a new instance of a <code>JavaCallInfo</code>.
+     *
      * @param method The JAVA method
      * @param args The parameter objects
-	 * 
-	 * @return New instance of a <code>JavaCallInfo</code>
-	 */
-	JavaCallInfo createJavaCallInfo(Method method, Object[] args);
-	
-	/**
-	 * Serializes a JavaCallInfo instance representing a JAVA method call to a
-	 * request XML(SOAP) message.
-	 * 
-	 * @param call The JavaCallInfo representing a method call
-	 * 
-	 * @return The request XML(SOAP) message
-	 */
-	MessageContext serializeRequest(JavaCallInfo call);
-	
-	/**
-	 * Deserializes a response XML(SOAP) message to a JavaCallInfo instance
-	 * representing the return value or exception of a JAVA method call.
-	 * 
-	 * @param message The response message
-	 * @param call The JavaCallInfo instance to be updated
-	 * 
-	 * @return The JavaCallInfo updated with the return value or exception of a
-	 *         JAVA method call
-	 */
-	JavaCallInfo deserializeResponse(MessageContext message, JavaCallInfo call);
+     *
+     * @return New instance of a <code>JavaCallInfo</code>
+     */
+    JavaCallInfo createJavaCallInfo(Method method, Object[] args);
 
-	/**
-	 * Deserializes a request XML(SOAP) message to a JavaCallInfo instance
-	 * representing a JAVA method call.
-	 * 
-	 * @param message The request message
-	 * 
-	 * @return The JavaCallInfo representing a method call
-	 */
-	JavaCallInfo deserializeRequest(MessageContext message);
-	
-	/**
-	 * Serializes a JavaCallInfo instance representing the return value or
-	 * exception of a JAVA method call to a response XML(SOAP) message.
-	 * 
-	 * @param call The JavaCallInfo representing the return value or exception 
-	 *             of a JAVA method call
-	 * 
-	 * @return The response XML(SOAP) message
-	 */
-	MessageContext serializeResponse(JavaCallInfo call);
+    /**
+     * Serializes a JavaCallInfo instance representing a JAVA method call to a
+     * request XML(SOAP) message.
+     *
+     * @param call The JavaCallInfo representing a method call
+     *
+     * @return The request XML(SOAP) message
+     */
+    MessageContext serializeRequest(JavaCallInfo call);
+
+    /**
+     * Deserializes a response XML(SOAP) message to a JavaCallInfo instance
+     * representing the return value or exception of a JAVA method call.
+     *
+     * @param message The response message
+     * @param call The JavaCallInfo instance to be updated
+     *
+     * @return The JavaCallInfo updated with the return value or exception of a
+     *         JAVA method call
+     */
+    JavaCallInfo deserializeResponse(MessageContext message, JavaCallInfo call);
+
+    /**
+     * Deserializes a request XML(SOAP) message to a JavaCallInfo instance
+     * representing a JAVA method call.
+     *
+     * @param message The request message
+     *
+     * @return The JavaCallInfo representing a method call
+     */
+    JavaCallInfo deserializeRequest(MessageContext message);
+
+    /**
+     * Serializes a JavaCallInfo instance representing the return value or
+     * exception of a JAVA method call to a response XML(SOAP) message.
+     *
+     * @param call The JavaCallInfo representing the return value or exception
+     *             of a JAVA method call
+     *
+     * @return The response XML(SOAP) message
+     */
+    MessageContext serializeResponse(JavaCallInfo call);
 
     /*
       Gets the MessageContextFactory
@@ -113,120 +113,123 @@ public interface Databinding {
      */
 //Wait for WLS/src1212 - wls.jaxrpc wrapper
 //	MessageContextFactory getMessageContextFactory();
-	
-	/**
-	 * {@code Databinding.Builder}, created from the DatabindingFactory, is used to 
-	 * configure how a Databinding instance is to be built from this builder. 
-	 * 
+
+    /**
+     * {@code Databinding.Builder}, created from the DatabindingFactory, is used to
+     * configure how a Databinding instance is to be built from this builder.
+     *
      * @see com.oracle.webservices.api.databinding.DatabindingFactory
-	 * @author shih-chang.chen@oracle.com
-	 */
+     * @author shih-chang.chen@oracle.com
+     */
     interface Builder {
-		
-		/**
-		 * Sets the targetNamespace of the WSDL
-		 * 
-		 * @param targetNamespace The targetNamespace to set 
-		 * 
-         * @return this Builder instance
-		 */
-		Builder targetNamespace(String targetNamespace);
 
-		/**
-		 * Sets the service name of the WSDL
-		 * 
-		 * @param serviceName The serviceName to set
-		 * 
+        /**
+         * Sets the targetNamespace of the WSDL
+         *
+         * @param targetNamespace The targetNamespace to set
+         *
          * @return this Builder instance
-		 */
-		Builder serviceName(QName serviceName);
+         */
+        Builder targetNamespace(String targetNamespace);
 
-		/**
-		 * Sets the port name of the WSDL
-		 * 
-		 * @param portName The portName to set
-		 * 
+        /**
+         * Sets the service name of the WSDL
+         *
+         * @param serviceName The serviceName to set
+         *
          * @return this Builder instance
-		 */
-		Builder portName(QName portName);
-		
-		/**
-                 * @deprecated - no replacement - this was never implemented
-                 *
-		 * Sets the WSDL URL where the WSDL can be read from
-		 * 
-		 * @param wsdlURL The wsdlURL to set
-		 * 
-         * @return this Builder instance
-		 */
-		Builder wsdlURL(URL wsdlURL);
+         */
+        Builder serviceName(QName serviceName);
 
-		/**
-                 * @deprecated - no replacement - this was never implemented
-                 *
-		 * Sets the WSDL Source where the WSDL can be read from
-		 * 
-		 * @param wsdlSource The wsdlSource to set
-		 * 
+        /**
+         * Sets the port name of the WSDL
+         *
+         * @param portName The portName to set
+         *
          * @return this Builder instance
-		 */
-		Builder wsdlSource(Source wsdlSource);
+         */
+        Builder portName(QName portName);
 
-		/**
-                 * @deprecated - no replacement - this was never implemented
-                 *
-		 * Sets the {@link EntityResolver} for reading the WSDL
-		 * 
-		 * @param entityResolver The {@link EntityResolver} to set
-		 * 
+        /**
+         * @deprecated - no replacement - this was never implemented
+         *
+         * Sets the WSDL URL where the WSDL can be read from
+         *
+         * @param wsdlURL The wsdlURL to set
+         *
          * @return this Builder instance
-		 */
-		Builder entityResolver(EntityResolver entityResolver);
-		
-		/**
-		 * Sets the ClassLoader which is used to load the service endpoint 
-		 * interface, implementation bean, and all the value types. If this 
-		 * value is not set, the default it uses contractClass.getClassLoader().
-		 * 
-		 * @param classLoader The classLoader to set
-		 * 
-         * @return this Builder instance
-		 */
-		Builder classLoader(ClassLoader classLoader);
-		
-		/**
-		 * Sets A list of WebServiceFeatures 
-		 * 
-		 * @param features The list of WebServiceFeatures 
-		 * 
-         * @return this Builder instance
-		 */
-		Builder feature(WebServiceFeature... features);
+         */
+        @Deprecated
+        Builder wsdlURL(URL wsdlURL);
 
-		/**
-		 * Sets A property of the Databinding object to be created
-		 * 
-		 * @param name The name of the property
-		 * @param value The value of the property
-		 * 
+        /**
+         * @deprecated - no replacement - this was never implemented
+         *
+         * Sets the WSDL Source where the WSDL can be read from
+         *
+         * @param wsdlSource The wsdlSource to set
+         *
          * @return this Builder instance
-		 */
-		Builder property(String name, Object value);
+         */
+        @Deprecated
+        Builder wsdlSource(Source wsdlSource);
 
-		/**
-		 * Builds a new Databinding instance
-		 *  
+        /**
+         * @deprecated - no replacement - this was never implemented
+         *
+         * Sets the {@link EntityResolver} for reading the WSDL
+         *
+         * @param entityResolver The {@link EntityResolver} to set
+         *
+         * @return this Builder instance
+         */
+        @Deprecated
+        Builder entityResolver(EntityResolver entityResolver);
+
+        /**
+         * Sets the ClassLoader which is used to load the service endpoint
+         * interface, implementation bean, and all the value types. If this
+         * value is not set, the default it uses contractClass.getClassLoader().
+         *
+         * @param classLoader The classLoader to set
+         *
+         * @return this Builder instance
+         */
+        Builder classLoader(ClassLoader classLoader);
+
+        /**
+         * Sets A list of WebServiceFeatures
+         *
+         * @param features The list of WebServiceFeatures
+         *
+         * @return this Builder instance
+         */
+        Builder feature(WebServiceFeature... features);
+
+        /**
+         * Sets A property of the Databinding object to be created
+         *
+         * @param name The name of the property
+         * @param value The value of the property
+         *
+         * @return this Builder instance
+         */
+        Builder property(String name, Object value);
+
+        /**
+         * Builds a new Databinding instance
+         *
          * @return The Builder instance
-		 */
-		Databinding build();
-	    
-	    /**
-	     * Creates the WSDLGenerator which can be used to generate the WSDL
-	     * representation of the service endpoint interface of this Databinding
-	     * object.
-	     * 
-	     * @return WSDLGenerator The WSDLGenerator
-	     */
-		com.oracle.webservices.api.databinding.WSDLGenerator createWSDLGenerator();	
-	}
+         */
+        Databinding build();
+
+        /**
+         * Creates the WSDLGenerator which can be used to generate the WSDL
+         * representation of the service endpoint interface of this Databinding
+         * object.
+         *
+         * @return WSDLGenerator The WSDLGenerator
+         */
+        com.oracle.webservices.api.databinding.WSDLGenerator createWSDLGenerator();
+    }
 }

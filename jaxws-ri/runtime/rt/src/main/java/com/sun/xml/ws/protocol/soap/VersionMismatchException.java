@@ -28,6 +28,8 @@ import javax.xml.namespace.QName;
  */
 public class VersionMismatchException extends ExceptionHasMessage {
 
+    private static final long serialVersionUID = 5886839865338269183L;
+
     private final SOAPVersion soapVersion;
 
     public VersionMismatchException(SOAPVersion soapVersion, Object... args) {

@@ -82,6 +82,7 @@ public final class CheckedExceptionImpl implements CheckedException {
         return (Class) detail.type;
     }
     /** @deprecated */
+    @Deprecated
     @Override
     public Bridge getBridge() {
 //TODO        return getOwner().getBridge(detail);

@@ -82,6 +82,7 @@ public interface EditableWSDLModel extends WSDLModel {
     /**
      * @deprecated
      */
+    @Deprecated
     void setPolicyMap(PolicyMap policyMap);
 
     /**

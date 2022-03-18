@@ -235,6 +235,7 @@ public interface Header {
      * Reads the header as a JAXB object by using the given unmarshaller.
      * @deprecated
      */
+    @Deprecated
     <T> T readAsJAXB(Bridge<T> bridge) throws JAXBException;
     
     /**

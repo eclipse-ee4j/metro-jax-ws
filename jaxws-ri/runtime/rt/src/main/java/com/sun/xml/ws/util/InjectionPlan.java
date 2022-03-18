@@ -151,8 +151,7 @@ public abstract class InjectionPlan<T, R> {
      *      Only look for static field/method
      *
      */
-    public static <T,R>
-    InjectionPlan<T,R> buildInjectionPlan(Class<? extends T> clazz, Class<R> resourceType, boolean isStatic) {
+    public static <T,R> InjectionPlan<T,R> buildInjectionPlan(Class<? extends T> clazz, Class<R> resourceType, boolean isStatic) {
         List<InjectionPlan<T,R>> plan = new ArrayList<>();
 
         Class<?> cl = clazz;

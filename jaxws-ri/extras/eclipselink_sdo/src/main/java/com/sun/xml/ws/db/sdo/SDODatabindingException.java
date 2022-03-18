@@ -22,6 +22,8 @@ package com.sun.xml.ws.db.sdo;
 public class SDODatabindingException extends RuntimeException {
     //constructors to defer to base class
 
+    private static final long serialVersionUID = -2242010537128229085L;
+
     /**
      * Default constructor.
      */

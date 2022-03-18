@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,6 +27,7 @@ import java.io.PrintStream;
  * @author Jitendra Kotamraju
  * @deprecated Use {@link ServerTubeAssemblerContext}.
  */
+@Deprecated
 public final class ServerPipeAssemblerContext extends ServerTubeAssemblerContext {
 
     public ServerPipeAssemblerContext(@Nullable SEIModel seiModel, @Nullable WSDLPort wsdlModel, @NotNull WSEndpoint endpoint, @NotNull Tube terminal, boolean isSynchronous) {

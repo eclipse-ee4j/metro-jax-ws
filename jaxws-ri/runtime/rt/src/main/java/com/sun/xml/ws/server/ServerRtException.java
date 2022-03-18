@@ -17,6 +17,8 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  */
 public class ServerRtException extends JAXWSExceptionBase {
 
+    private static final long serialVersionUID = 6733047469014038310L;
+
     public ServerRtException(String key, Object... args) {
         super(key, args);
     }

@@ -17,7 +17,7 @@ import javax.xml.namespace.QName;
 
 /**
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public enum NamespaceVersion {
     v1_2("http://schemas.xmlsoap.org/ws/2004/09/policy", "wsp1_2", XmlToken.Policy,

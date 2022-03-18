@@ -17,6 +17,9 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  * @author WS Development Team
  */
 final class WSServletException extends JAXWSExceptionBase {
+
+    private static final long serialVersionUID = 7953997988740525579L;
+
     public WSServletException(String key, Object... args) {
         super(key, args);
     }

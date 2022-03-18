@@ -22,7 +22,7 @@ import java.io.Serializable;
 /**
  * Singleton high-availability provider for Metro
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public enum HighAvailabilityProvider {
     INSTANCE;

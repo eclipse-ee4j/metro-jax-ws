@@ -21,7 +21,7 @@ import java.util.ServiceLoader;
 /**
  * Provides methods for assertion validation.
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  * @author Fabian Ritzmann
  */
 public class AssertionValidationProcessor {

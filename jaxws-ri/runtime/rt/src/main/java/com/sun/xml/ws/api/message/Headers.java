@@ -62,6 +62,7 @@ public abstract class Headers {
      * @deprecated
      *      Use {@link #create(BindingContext, Object)} instead.
      */
+    @Deprecated
     public static Header create(SOAPVersion soapVersion, Marshaller m, Object o) {
         return new JAXBHeader(BindingContextFactory.getBindingContext(m),o);
     }
@@ -96,6 +97,7 @@ public abstract class Headers {
      * Creates a {@link Header} backed a by a JAXB bean.
      * @deprecated
      */
+    @Deprecated
     public static Header create(Bridge bridge, Object jaxbObject) {
         return new JAXBHeader(new com.sun.xml.ws.db.glassfish.BridgeWrapper(null,bridge), jaxbObject);
     }
@@ -122,7 +124,8 @@ public abstract class Headers {
      * @deprecated
      *      Use {@link #create(Element)}
      */
-    public static Header create( SOAPVersion soapVersion, Element node ) {
+    @Deprecated
+    public static Header create(SOAPVersion soapVersion, Element node ) {
         return create(node);
     }
 

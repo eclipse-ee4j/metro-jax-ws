@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
  * is made within a <code>get...</code> call on {@link PolicyMap}, before the actual scope map search is performed.
  * 
  * 
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  * @author Fabian Ritzmann
  */
 final public class PolicyMapKey  {

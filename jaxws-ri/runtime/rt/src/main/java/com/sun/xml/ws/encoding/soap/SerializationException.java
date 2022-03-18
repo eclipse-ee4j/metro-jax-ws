@@ -23,6 +23,8 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  */
 public class SerializationException extends JAXWSExceptionBase {
 
+    private static final long serialVersionUID = -7892436885781704629L;
+
     public SerializationException(String key, Object... args) {
         super(key, args);
     }

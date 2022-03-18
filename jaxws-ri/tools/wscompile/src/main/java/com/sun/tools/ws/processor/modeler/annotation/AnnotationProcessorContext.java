@@ -98,11 +98,6 @@ public class AnnotationProcessorContext {
 
         public SeiContext() {}
 
-        /**
-         * @deprecated use empty constructor, seiName value is ignored
-         */
-        public SeiContext(Name seiName) {}
-
         public void setImplementsSei(boolean implementsSei) {
             this.implementsSei = implementsSei;
         }

@@ -27,6 +27,8 @@ import jakarta.xml.ws.soap.SOAPFaultException;
  */
 public class ServerSOAPFaultException extends SOAPFaultException {
 
+    private static final long serialVersionUID = -6700520853613189089L;
+
     public ServerSOAPFaultException(SOAPFault soapFault) {
         super(soapFault);
     }

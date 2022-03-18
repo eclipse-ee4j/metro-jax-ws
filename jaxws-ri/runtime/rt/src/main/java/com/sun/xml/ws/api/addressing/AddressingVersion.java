@@ -531,6 +531,7 @@ public enum AddressingVersion {
      *     TODO  why are we exposing implementation specificc class through api?
      *     TODO  Remove it if no one elase uses it. 
      */
+    @Deprecated
     public abstract WsaTubeHelper getWsaHelper(WSDLPort wsdlPort, SEIModel seiModel, WSBinding binding);
 
     /**

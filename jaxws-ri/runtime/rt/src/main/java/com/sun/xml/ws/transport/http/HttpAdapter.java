@@ -132,6 +132,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
      * @param endpoint web service endpoint
      * @param owner list of related adapters
      */
+    @Deprecated
     protected HttpAdapter(WSEndpoint endpoint,
                           HttpAdapterList<? extends HttpAdapter> owner) {
         this(endpoint,owner,null);

@@ -108,7 +108,8 @@ abstract public class BindingContextFactory {
 	/**
 	 * @deprecated - Does jaxws need this?
 	 */
-	abstract protected BindingContext getContext(Marshaller m);
+	@Deprecated
+    abstract protected BindingContext getContext(Marshaller m);
 
     static private BindingContextFactory getFactory(String mode) {
         for (BindingContextFactory f: factories()) {
@@ -232,7 +233,8 @@ abstract public class BindingContextFactory {
 	/**
 	 * @deprecated - Does jaxws need this?
 	 */
-	static public BindingContext getBindingContext(Marshaller m) {
+	@Deprecated
+    static public BindingContext getBindingContext(Marshaller m) {
 		return getJAXBFactory(m).getContext(m);
 	}
 }

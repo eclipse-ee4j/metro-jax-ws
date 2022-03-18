@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 final class MessageDumpingTube extends AbstractFilterTubeImpl {
     static final String DEFAULT_MSGDUMP_LOGGING_ROOT = com.sun.xml.ws.util.Constants.LoggingDomain + ".messagedump";
