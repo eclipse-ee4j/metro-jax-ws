@@ -34,7 +34,9 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.Authenticator;
 import java.net.HttpURLConnection;
+import java.net.PasswordAuthentication;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.GZIPOutputStream;
@@ -58,6 +60,8 @@ public class HttpClientTransport {
         }
     }
 
+    private final Authenticator auth;
+
     /*package*/ int statusCode;
     /*package*/ String statusMessage;
     /*package*/ int contentLength;
@@ -72,11 +76,17 @@ public class HttpClientTransport {
     private final Integer chunkSize;
 
 
-    public HttpClientTransport(@NotNull Packet packet, @NotNull Map<String,List<String>> reqHeaders) {
+    public HttpClientTransport(@NotNull Packet packet, @NotNull Map<String, List<String>> reqHeaders) {
+        this(packet, reqHeaders, null);
+    }
+
+    public HttpClientTransport(@NotNull Packet packet, @NotNull Map<String, List<String>> reqHeaders,
+                               @Nullable  Authenticator auth) {
         endpoint = packet.endpointAddress;
         context = packet;
         this.reqHeaders = reqHeaders;
         chunkSize = (Integer)context.invocationProperties.get(JAXWSProperties.HTTP_CLIENT_STREAMING_CHUNK_SIZE);
+        this.auth = auth;
     }
 
     /*
@@ -213,13 +223,17 @@ public class HttpClientTransport {
 
     	if (httpConnection == null)
     		httpConnection = (HttpURLConnection) endpoint.openConnection();
-    	
+
+        if (auth != null) {
+            httpConnection.setAuthenticator(auth);
+        }
         String scheme = endpoint.getURI().getScheme();
         if (scheme.equals("https")) {
             https = true;
         }
         if (checkHTTPS(httpConnection))
         	https = true;
+
 
         // allow interaction with the web page - user may have to supply
         // username, password id web page is accessed from web browser
