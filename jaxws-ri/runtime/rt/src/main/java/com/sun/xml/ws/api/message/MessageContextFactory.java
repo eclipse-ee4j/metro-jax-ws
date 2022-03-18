@@ -18,7 +18,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.sun.xml.ws.transport.http.HttpAdapter;
 import jakarta.xml.soap.MimeHeader;
 import jakarta.xml.soap.MimeHeaders;
 import jakarta.xml.soap.SOAPMessage;
@@ -108,20 +107,6 @@ public class MessageContextFactory extends com.oracle.webservices.api.message.Me
         return p;
     }
 
-    /**
-     * @deprecated http://java.net/jira/browse/JAX_WS-1077
-     */
-    @Override
-    @Deprecated
-    public com.oracle.webservices.api.message.MessageContext createContext(InputStream in, MimeHeaders headers) throws IOException {
-        String contentType = getHeader(headers, "Content-Type");
-        Packet packet = (Packet) createContext(in, contentType);
-        packet.acceptableMimeTypes = getHeader(headers, "Accept");
-        packet.soapAction = HttpAdapter.fixQuotesAroundSoapAction(getHeader(headers, "SOAPAction"));
-//      packet.put(Packet.INBOUND_TRANSPORT_HEADERS, toMap(headers));
-        return packet;
-    }
-    
     static String getHeader(MimeHeaders headers, String name) {
         String[] values = headers.getHeader(name);
         return (values != null && values.length > 0) ? values[0] : null;
@@ -161,21 +146,5 @@ public class MessageContextFactory extends com.oracle.webservices.api.message.Me
         if (message == null) {
             throw new IllegalArgumentException("null messages are not allowed.  Consider using MessageContextFactory.createContext()");
         }
-    }
-
-    @Override
-    @Deprecated
-    public com.oracle.webservices.api.message.MessageContext doCreate() {
-        return packet(null);
-    }
-    @Override
-    @Deprecated
-    public com.oracle.webservices.api.message.MessageContext doCreate(SOAPMessage m) {
-        return createContext(m);
-    }
-    @Override
-    @Deprecated
-    public com.oracle.webservices.api.message.MessageContext doCreate(Source x, SOAPVersion soapVersion) {
-        return packet(Messages.create(x, soapVersion));
     }
 }
