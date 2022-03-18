@@ -41,6 +41,7 @@ import java.io.PrintWriter;
 import java.net.Authenticator;
 import java.net.CookieHandler;
 import java.net.HttpURLConnection;
+import java.net.PasswordAuthentication;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
