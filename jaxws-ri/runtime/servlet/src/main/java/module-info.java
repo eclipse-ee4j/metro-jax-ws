@@ -16,7 +16,7 @@
 module com.sun.xml.ws.servlet {
     requires transitive com.sun.xml.ws.rt;
     requires java.logging;
-    requires jakarta.servlet;
+    requires transitive jakarta.servlet;
 
     exports com.sun.xml.ws.developer.servlet;
     exports com.sun.xml.ws.server.servlet;

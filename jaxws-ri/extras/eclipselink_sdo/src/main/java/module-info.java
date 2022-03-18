@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,7 @@
 module com.sun.xml.ws.sdo {
 
     requires java.logging;
-    requires com.sun.xml.ws;
+    requires transitive com.sun.xml.ws;
 
     exports com.sun.xml.ws.db.sdo;
 

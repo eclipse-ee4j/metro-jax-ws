@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpServletRequest;
 /**
  * @author Rama Pulavarthi
  */
-public class WSAsyncListener {
+class WSAsyncListener {
     final private WSHTTPConnection con;
     final private HttpAdapter.CompletionCallback callback;
 
@@ -32,7 +32,7 @@ public class WSAsyncListener {
         this.callback = callback;
     }
 
-    public void addListenerTo(AsyncContext context, final ServletAdapter.AsyncCompletionCheck completionCheck) {
+    void addListenerTo(AsyncContext context, final ServletAdapter.AsyncCompletionCheck completionCheck) {
         context.addListener(new AsyncListener() {
 
             @Override
