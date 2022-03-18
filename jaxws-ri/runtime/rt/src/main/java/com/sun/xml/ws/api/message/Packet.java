@@ -411,6 +411,7 @@ public final class Packet
      *      {@link #endpointAddress}. This is for JAX-WS client applications
      *      that access this property via {@link BindingProvider#ENDPOINT_ADDRESS_PROPERTY}.
      */
+    @Deprecated
     @Property(BindingProvider.ENDPOINT_ADDRESS_PROPERTY)
     public String getEndPointAddressString() {
         if (endpointAddress == null) {
@@ -775,6 +776,7 @@ public final class Packet
      *      Use {@link #getHandlerScopePropertyNames(boolean)}.
      *      To be removed once Tango components are updated.
      */
+    @Deprecated
     public Set<String> getApplicationScopePropertyNames(boolean readOnly) {
         assert false;
         return new HashSet<>();

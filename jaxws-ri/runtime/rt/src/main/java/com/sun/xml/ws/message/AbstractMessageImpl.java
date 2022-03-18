@@ -124,6 +124,7 @@ public abstract class AbstractMessageImpl extends Message {
         }
     }
     /** @deprecated */
+    @Deprecated
     @Override
     public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
         return bridge.unmarshal(readPayloadAsSource(),

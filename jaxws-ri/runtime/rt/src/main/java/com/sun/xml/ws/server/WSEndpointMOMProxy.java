@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,13 +48,13 @@ import org.w3c.dom.Element;
  * method from {@link ManagedObjectManager} is invoked on it. In this case a real instance of ManagedObjectManager is
  * obtained from WSEndpointImpl and the method is rather invoked on this object.
  */
-public class WSEndpointMOMProxy extends WSEndpoint implements ManagedObjectManager {
+public class WSEndpointMOMProxy<T> extends WSEndpoint<T> implements ManagedObjectManager {
 
     private final @NotNull
-    WSEndpointImpl wsEndpoint;
+    WSEndpointImpl<T> wsEndpoint;
     private ManagedObjectManager managedObjectManager;
 
-    WSEndpointMOMProxy(@NotNull WSEndpointImpl wsEndpoint) {
+    WSEndpointMOMProxy(@NotNull WSEndpointImpl<T> wsEndpoint) {
         this.wsEndpoint = wsEndpoint;
     }
 
@@ -85,7 +85,7 @@ public class WSEndpointMOMProxy extends WSEndpoint implements ManagedObjectManag
         return this.managedObjectManager != null;
     }
 
-    public WSEndpointImpl getWsEndpoint() {
+    public WSEndpointImpl<T> getWsEndpoint() {
         return wsEndpoint;
     }
 
@@ -245,7 +245,7 @@ public class WSEndpointMOMProxy extends WSEndpoint implements ManagedObjectManag
     }
 
     @Override
-    public boolean equalsProxiedInstance(WSEndpoint endpoint) {
+    public boolean equalsProxiedInstance(WSEndpoint<?> endpoint) {
         if (wsEndpoint == null) {
             return (endpoint == null);
         }
@@ -335,12 +335,12 @@ public class WSEndpointMOMProxy extends WSEndpoint implements ManagedObjectManag
     }
 
     @Override
-    public EndpointReference getEndpointReference(Class clazz, String address, String wsdlAddress, Element... referenceParameters) {
+    public <T extends EndpointReference> T getEndpointReference(Class<T> clazz, String address, String wsdlAddress, Element... referenceParameters) {
         return wsEndpoint.getEndpointReference(clazz, address, wsdlAddress, referenceParameters);
     }
 
     @Override
-    public EndpointReference getEndpointReference(Class clazz, String address, String wsdlAddress, List metadata, List referenceParameters) {
+    public <T extends EndpointReference> T getEndpointReference(Class<T> clazz, String address, String wsdlAddress, List<Element> metadata, List<Element> referenceParameters) {
         return wsEndpoint.getEndpointReference(clazz, address, wsdlAddress, metadata, referenceParameters);
     }
 

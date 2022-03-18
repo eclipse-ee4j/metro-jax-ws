@@ -18,6 +18,9 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  * @author WS Development Team
  */
 public class ClientTransportException extends JAXWSExceptionBase {
+
+    private static final long serialVersionUID = 3301389425545203915L;
+
     public ClientTransportException(Localizable msg) {
         super(msg);
     }

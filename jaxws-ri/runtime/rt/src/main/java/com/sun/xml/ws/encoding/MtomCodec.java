@@ -467,7 +467,7 @@ public class MtomCodec extends MimeCodec {
             }
 
             @Override
-            public Iterator getPrefixes(String namespaceURI) {
+            public Iterator<String> getPrefixes(String namespaceURI) {
                 return nsContext.getPrefixes(namespaceURI);
             }
         }

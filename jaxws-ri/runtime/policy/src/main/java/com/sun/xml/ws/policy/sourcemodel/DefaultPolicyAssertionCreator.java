@@ -23,7 +23,7 @@ import java.util.Collection;
  * {@code getSupportedDomainNamespaceUri()} must not return empty String without causing PolicyAssertionCreator registration
  * fail.
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 class DefaultPolicyAssertionCreator implements PolicyAssertionCreator {    
     private static final class DefaultPolicyAssertion extends PolicyAssertion {

@@ -52,6 +52,7 @@ public abstract class Invoker extends com.sun.xml.ws.server.sei.Invoker {
      * @deprecated
      *      Use {@link #start(WSWebServiceContext,WSEndpoint)}
      */
+    @Deprecated
     public void start(@NotNull WebServiceContext wsc) {
         throw new IllegalStateException("deprecated version called");
     }

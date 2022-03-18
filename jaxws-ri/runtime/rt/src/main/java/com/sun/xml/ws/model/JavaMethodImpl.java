@@ -164,6 +164,7 @@ public final class JavaMethodImpl implements JavaMethod {
      * @deprecated
      * @return the WSDLBoundOperation for this JavaMethod
      */
+    @Deprecated
     public WSDLBoundOperation getOperation() {
 //        assert wsdlOperation != null;
         return wsdlOperation;
@@ -263,6 +264,7 @@ public final class JavaMethodImpl implements JavaMethod {
      *
      * @deprecated no longer use in the new architecture
      */
+    @Deprecated
     public int getInputParametersCount() {
         int count = 0;
         for (ParameterImpl param : requestParams) {
@@ -331,6 +333,7 @@ public final class JavaMethodImpl implements JavaMethod {
      * @return Gets the CheckedException corresponding to detailType. Returns
      *         null if no CheckedExcpetion with the detailType found.
      */
+    @Deprecated
     public CheckedExceptionImpl getCheckedException(TypeReference detailType) {
         for (CheckedExceptionImpl ce : exceptions) {
             TypeInfo actual = ce.getDetailType();

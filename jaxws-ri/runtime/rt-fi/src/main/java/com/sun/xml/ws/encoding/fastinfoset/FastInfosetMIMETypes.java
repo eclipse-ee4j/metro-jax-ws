@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,6 +16,11 @@ package com.sun.xml.ws.encoding.fastinfoset;
  * @author Paul.Sandoz@Sun.Com
  */
 public final class FastInfosetMIMETypes {
+
+    private FastInfosetMIMETypes() {
+        //no instance
+    }
+
     /**
      * MIME type for a generic Infoset encoded as a fast infoset document.
      */

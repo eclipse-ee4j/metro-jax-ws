@@ -140,6 +140,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
      * @return the <code>Bridge</code> for the <code>type</code>
      * @deprecated use getBond
      */
+    @Deprecated
     public final Bridge getBridge(TypeReference type) {
         Bridge b = bridgeMap.get(type);
         assert b!=null; // we should have created Bridge for all TypeReferences known to this model
@@ -499,6 +500,7 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
     /**
      * @deprecated
      */
+    @Deprecated
     protected JAXBRIContext jaxbContext;
     protected BindingContext bindingContext;
     private String wsdlLocation;

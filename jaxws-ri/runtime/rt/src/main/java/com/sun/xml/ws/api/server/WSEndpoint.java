@@ -430,6 +430,7 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
      * @deprecated
      * Do not use this method as the PolicyMap API is not final yet and might change in next few months.
      */
+    @Deprecated
     public abstract PolicyMap getPolicyMap();
 
     /**
@@ -668,7 +669,7 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
      * Used for managed endpoints infrastructure to compare equality of proxies vs proxied endpoints.
      * @return true if the proxied endpoint instance held by this instance equals to 'endpoint', otherwise return false.
      */
-    public boolean equalsProxiedInstance(WSEndpoint endpoint) {
+    public boolean equalsProxiedInstance(WSEndpoint<?> endpoint) {
         if (endpoint == null) return false;
         return this.equals(endpoint);
     }

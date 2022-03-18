@@ -24,7 +24,7 @@ import com.sun.xml.ws.policy.PolicyMap;
 /**
  * The context is a wrapper around the existing JAX-WS {@link ServerTubeAssemblerContext} with additional features
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl implements ServerTubelineAssemblyContext  {
 

@@ -18,6 +18,8 @@ import com.sun.tools.ws.processor.ProcessorException;
  */
 public class GeneratorException extends ProcessorException {
 
+    private static final long serialVersionUID = 1459715621872011795L;
+
     public GeneratorException(String key, Object... args) {
         super(key, args);
     }

@@ -18,6 +18,9 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  * @author WS Development Team
  */
 public class SenderException extends JAXWSExceptionBase {
+
+    private static final long serialVersionUID = -6573488585920260849L;
+
     public SenderException(String key, Object... args) {
         super(key, args);
     }

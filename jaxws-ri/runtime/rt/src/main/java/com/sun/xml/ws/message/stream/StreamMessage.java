@@ -310,6 +310,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         }
     }
     /** @deprecated */
+    @Deprecated
     @Override
     public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
         if(!hasPayload())

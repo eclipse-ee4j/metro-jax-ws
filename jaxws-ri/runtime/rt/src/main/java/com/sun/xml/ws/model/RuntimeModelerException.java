@@ -22,6 +22,8 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  */
 public class RuntimeModelerException extends JAXWSExceptionBase {
 
+    private static final long serialVersionUID = 6859121794804496804L;
+
     public RuntimeModelerException(String key, Object... args) {
         super(key, args);
     }

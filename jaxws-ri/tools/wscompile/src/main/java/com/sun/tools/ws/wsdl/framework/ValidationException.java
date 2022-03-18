@@ -19,6 +19,8 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  */
 public class ValidationException extends JAXWSExceptionBase {
 
+    private static final long serialVersionUID = -660518203027991638L;
+
     public ValidationException(String key, Object... args) {
         super(key, args);
     }

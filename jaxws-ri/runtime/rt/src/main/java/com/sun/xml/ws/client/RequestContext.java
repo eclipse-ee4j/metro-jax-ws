@@ -95,6 +95,7 @@ public final class RequestContext extends BaseDistributedPropertySet {
      * @deprecated
      *      always access {@link #endpointAddress}.
      */
+    @Deprecated
     @Property(BindingProvider.ENDPOINT_ADDRESS_PROPERTY)
     public String getEndPointAddressString() {
         return endpointAddress != null ? endpointAddress.toString() : null;

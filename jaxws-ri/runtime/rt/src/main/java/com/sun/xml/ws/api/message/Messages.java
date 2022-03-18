@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -89,6 +89,7 @@ public abstract class Messages {
      * @param soapVersion
      *      The SOAP version of the message. Must not be null.
      */
+    @Deprecated
     public static Message create(JAXBContext context, Object jaxbObject, SOAPVersion soapVersion) {
         return JAXBMessage.create(context,jaxbObject,soapVersion);
     }
@@ -324,6 +325,7 @@ public abstract class Messages {
      * @deprecated
      *      Use {@link #createAddressingFaultMessage(WSBinding, Packet, QName)}
      */
+    @Deprecated
     public static Message createAddressingFaultMessage(WSBinding binding, QName missingHeader) {
         return createAddressingFaultMessage(binding,null,missingHeader);
     }

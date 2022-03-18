@@ -180,6 +180,7 @@ public class PortInfo implements WSPortInfo {
      *      Only meant to be used via {@link jakarta.xml.ws.handler.PortInfo}.
      *      Use {@link WSServiceDelegate#getServiceName()}.
      */
+    @Deprecated
     @Override
     public QName getServiceName() {
         return owner.getServiceName();
@@ -199,6 +200,7 @@ public class PortInfo implements WSPortInfo {
      *      Only meant to be used via {@link jakarta.xml.ws.handler.PortInfo}.
      *      Use {@link #bindingId}.
      */
+    @Deprecated
     @Override
     public String getBindingID() {
         return bindingId.toString();

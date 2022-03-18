@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,8 +19,10 @@ import com.sun.xml.ws.policy.sourcemodel.AssertionData;
  * @author Marek Potociar
  */
 public final class AssertionCreationException extends PolicyException {
-    
-    private final AssertionData assertionData; 
+
+    private static final long serialVersionUID = 5068862049321097539L;
+
+    private final AssertionData assertionData;
     
     /**
      * Constructs a new assertion creation exception with the specified detail message and cause.  

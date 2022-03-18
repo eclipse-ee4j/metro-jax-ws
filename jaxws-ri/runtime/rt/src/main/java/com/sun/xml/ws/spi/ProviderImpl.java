@@ -85,12 +85,12 @@ public class ProviderImpl extends Provider {
     }
 
     @Override
-    public ServiceDelegate createServiceDelegate( URL wsdlDocumentLocation, QName serviceName, Class serviceClass) {
+    public ServiceDelegate createServiceDelegate( URL wsdlDocumentLocation, QName serviceName, Class<? extends Service> serviceClass) {
          return new WSServiceDelegate(wsdlDocumentLocation, serviceName, serviceClass);
     }
 
     @Override
-    public ServiceDelegate createServiceDelegate(URL wsdlDocumentLocation, QName serviceName, Class serviceClass,
+    public ServiceDelegate createServiceDelegate(URL wsdlDocumentLocation, QName serviceName, Class<? extends Service> serviceClass,
                                                  WebServiceFeature ... features) {
         for (WebServiceFeature feature : features) {
             if (!(feature instanceof ServiceSharedFeatureMarker))
@@ -99,7 +99,7 @@ public class ProviderImpl extends Provider {
         return new WSServiceDelegate(wsdlDocumentLocation, serviceName, serviceClass, features);
     }
 
-    public ServiceDelegate createServiceDelegate( Source wsdlSource, QName serviceName, Class serviceClass) {
+    public ServiceDelegate createServiceDelegate( Source wsdlSource, QName serviceName, Class<? extends Service> serviceClass) {
         return new WSServiceDelegate(wsdlSource, serviceName, serviceClass);
    }
 
@@ -185,7 +185,7 @@ public class ProviderImpl extends Provider {
                 if (module != null) {
                     List<BoundEndpoint> beList = module.getBoundEndpoints();
                     for (BoundEndpoint be : beList) {
-                        WSEndpoint wse = be.getEndpoint();
+                        WSEndpoint<?> wse = be.getEndpoint();
                         if (wse.getServiceName().equals(serviceName) && wse.getPortName().equals(portName)) {
                             try {
                                 address = be.getAddress().toString();

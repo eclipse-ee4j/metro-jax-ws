@@ -129,6 +129,7 @@ public class FilterMessageImpl extends Message {
         return delegate.readPayloadAsJAXB(unmarshaller);
     }
     /** @deprecated */ 
+    @Deprecated
     @Override
     public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
         return delegate.readPayloadAsJAXB(bridge);

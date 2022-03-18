@@ -51,6 +51,7 @@ public class WrapperParameter extends ParameterImpl {
      * @deprecated
      *      Why are you calling a method that always return true?
      */
+    @Deprecated
     @Override
     public boolean isWrapperStyle() {
         return true;

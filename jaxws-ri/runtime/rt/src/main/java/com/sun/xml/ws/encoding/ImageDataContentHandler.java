@@ -32,6 +32,8 @@ import java.util.Arrays;
 public class ImageDataContentHandler extends Component
     implements DataContentHandler {
 
+    private static final long serialVersionUID = 130664531531627353L;
+
     private static final Logger log = Logger.getLogger(ImageDataContentHandler.class.getName());
     private final ActivationDataFlavor[] flavor;
 

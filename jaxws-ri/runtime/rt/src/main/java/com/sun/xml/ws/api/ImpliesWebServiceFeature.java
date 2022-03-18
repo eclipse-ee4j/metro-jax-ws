@@ -25,6 +25,7 @@ package com.sun.xml.ws.api;
  * @since 2.2.6
  * @deprecated use {@link FeatureListValidatorAnnotation}
  */
+@Deprecated
 public interface ImpliesWebServiceFeature {
 	/**
 	 * Callback that may inspect the current feature list and add additional features

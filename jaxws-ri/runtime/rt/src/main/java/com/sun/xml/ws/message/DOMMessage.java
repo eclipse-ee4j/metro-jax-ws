@@ -112,6 +112,7 @@ public final class DOMMessage extends AbstractMessageImpl {
         }
     }
     /** @deprecated */
+    @Deprecated
     @Override
     public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
         return bridge.unmarshal(payload,

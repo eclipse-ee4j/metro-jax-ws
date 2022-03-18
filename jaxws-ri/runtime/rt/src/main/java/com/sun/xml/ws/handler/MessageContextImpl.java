@@ -102,6 +102,7 @@ class MessageContextImpl implements MessageContext {
         //add the attachments from the Message to the corresponding attachment property
         if(key.equals(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS) ||
             key.equals(MessageContext.INBOUND_MESSAGE_ATTACHMENTS)){
+            @SuppressWarnings({"unchecked"})
             Map<String, DataHandler> atts = (Map<String, DataHandler>) value;
             if(atts == null)
                 atts = new HashMap<>();

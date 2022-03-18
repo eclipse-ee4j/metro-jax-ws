@@ -264,6 +264,7 @@ public abstract class StreamSOAPCodec implements com.sun.xml.ws.api.pipe.StreamS
      * 
      * @deprecated use {@link #create(WSFeatureList)}
      */
+    @Deprecated
     public static StreamSOAPCodec create(WSBinding binding) {
         SOAPVersion version = binding.getSOAPVersion();
         if(version==null)

@@ -26,7 +26,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 final class TubelineAssemblyController {
 

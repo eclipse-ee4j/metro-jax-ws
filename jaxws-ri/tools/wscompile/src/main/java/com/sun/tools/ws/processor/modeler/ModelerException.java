@@ -23,6 +23,8 @@ import com.sun.tools.ws.processor.ProcessorException;
 */
 public class ModelerException extends ProcessorException {
 
+    private static final long serialVersionUID = -1191365913783884819L;
+
     public ModelerException(String key) {
         super(key);
     }

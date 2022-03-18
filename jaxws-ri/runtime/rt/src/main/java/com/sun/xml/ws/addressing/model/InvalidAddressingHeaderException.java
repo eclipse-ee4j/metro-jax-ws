@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,6 +22,9 @@ import javax.xml.namespace.QName;
  * @author Rama Pulavarthi
  */
 public class InvalidAddressingHeaderException extends WebServiceException {
+
+    private static final long serialVersionUID = 9168453942992509037L;
+
     private QName problemHeader;
     private QName subsubcode;
 

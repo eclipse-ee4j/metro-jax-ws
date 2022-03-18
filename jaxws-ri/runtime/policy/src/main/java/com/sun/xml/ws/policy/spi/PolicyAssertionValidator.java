@@ -15,7 +15,7 @@ import com.sun.xml.ws.policy.PolicyAssertion;
 /**
  *
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public interface PolicyAssertionValidator {
     

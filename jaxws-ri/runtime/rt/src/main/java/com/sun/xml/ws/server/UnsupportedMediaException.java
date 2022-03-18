@@ -24,6 +24,8 @@ import java.util.List;
  */
 public final class UnsupportedMediaException extends JAXWSExceptionBase {
 
+    private static final long serialVersionUID = -6909196265080209905L;
+
     public UnsupportedMediaException( @NotNull String contentType, List<String> expectedContentTypes) {
         super(ServerMessages.localizableUNSUPPORTED_CONTENT_TYPE(contentType, expectedContentTypes));
     }

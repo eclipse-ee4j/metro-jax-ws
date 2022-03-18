@@ -57,5 +57,6 @@ public interface WSPortInfo extends PortInfo {
      * Do not use this method as the PolicyMap API is not final yet and might change in next few months.
      */
 
+    @Deprecated
     PolicyMap getPolicyMap();
 }

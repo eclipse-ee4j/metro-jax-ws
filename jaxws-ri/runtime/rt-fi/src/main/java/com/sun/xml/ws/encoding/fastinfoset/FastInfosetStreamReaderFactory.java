@@ -23,7 +23,9 @@ public final class FastInfosetStreamReaderFactory extends XMLStreamReaderFactory
     private static final FastInfosetStreamReaderFactory factory = new FastInfosetStreamReaderFactory();
     
     private ThreadLocal<StAXDocumentParser> pool = new ThreadLocal<>();
-    
+
+    private FastInfosetStreamReaderFactory() {}
+
     public static FastInfosetStreamReaderFactory getInstance() {
         return factory;
     }

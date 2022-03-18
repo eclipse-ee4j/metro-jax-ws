@@ -52,6 +52,7 @@ public interface SEIModel {
      * @return the <code>{@link JAXBRIContext}</code>
      * @deprecated Why do you need this?
      */
+    @Deprecated
     JAXBContext getJAXBContext();
 
     /*

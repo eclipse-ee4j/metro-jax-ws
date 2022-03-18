@@ -37,7 +37,7 @@ import javax.xml.namespace.QName;
  * the default behavior of {@link #validateClientSide(PolicyAssertion)} and 
  * {@link #validateServerSide(PolicyAssertion)} methods.
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public abstract class AbstractQNameValidator implements PolicyAssertionValidator {
     private final Set<String> supportedDomains = new HashSet<>();

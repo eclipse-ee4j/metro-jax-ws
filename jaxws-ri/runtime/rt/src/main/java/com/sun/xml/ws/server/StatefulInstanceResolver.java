@@ -90,6 +90,9 @@ public final class StatefulInstanceResolver<T> extends AbstractMultiInstanceReso
     // Keep this a static class, otherwise enclosed object will be pulled in
     // during serialization
     private static final class HAInstance<T> implements Storeable {
+
+        private static final long serialVersionUID = -8237131444531203708L;
+
         transient @NotNull T instance;
         private byte[] buf;
 

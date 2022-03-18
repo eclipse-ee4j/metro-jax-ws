@@ -19,6 +19,8 @@ import javax.xml.namespace.QName;
  */
 public class NoSuchEntityException extends ValidationException {
 
+    private static final long serialVersionUID = -6791592153955732867L;
+
     public NoSuchEntityException(QName name) {
         super(
             "entity.notFoundByQName",

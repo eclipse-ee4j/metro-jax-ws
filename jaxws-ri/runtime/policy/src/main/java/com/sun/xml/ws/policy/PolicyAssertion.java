@@ -27,7 +27,7 @@ import com.sun.xml.ws.policy.sourcemodel.ModelNode;
  * NOTE: Assertion implementers should not extend this class directly. {@link SimpleAssertion} 
  * or {@link ComplexAssertion} should be used as a base class instead.
  * 
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  * @author Fabian Ritzmann
  */
 public abstract class PolicyAssertion {

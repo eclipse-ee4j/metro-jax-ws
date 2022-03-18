@@ -22,6 +22,9 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  * @author JAX-WS Development Team
  */
 public class UtilException extends JAXWSExceptionBase {
+
+    private static final long serialVersionUID = 9031642926843523469L;
+
     public UtilException(String key, Object... args) {
         super(key, args);
     }

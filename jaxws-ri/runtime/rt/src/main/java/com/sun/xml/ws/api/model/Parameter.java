@@ -51,6 +51,7 @@ public interface Parameter {
      * Gives the {@link Bridge} associated with this Parameter
      * @deprecated 
      */
+    @Deprecated
     Bridge getBridge();
 
     /**

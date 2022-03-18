@@ -419,7 +419,9 @@ public class Options {
     /**
      * Used to signal that we've finished processing.
      */
-    public static final class WeAreDone extends BadCommandLineException {}
+    public static final class WeAreDone extends BadCommandLineException {
+        private static final long serialVersionUID = -6884985421553580631L;
+    }
 
     /**
      * Get a URLClassLoader from using the classpath

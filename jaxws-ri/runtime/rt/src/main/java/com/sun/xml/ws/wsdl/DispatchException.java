@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,6 +21,9 @@ import com.sun.xml.ws.api.message.Message;
  * @author Kohsuke Kawaguchi
  */
 public final class DispatchException extends Exception {
+
+    private static final long serialVersionUID = 4853394475519450701L;
+
     public final Message fault;
 
     public DispatchException(Message fault) {
