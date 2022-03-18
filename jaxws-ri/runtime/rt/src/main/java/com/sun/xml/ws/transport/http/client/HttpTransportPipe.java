@@ -38,7 +38,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.Authenticator;
 import java.net.CookieHandler;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -130,8 +129,8 @@ public class HttpTransportPipe extends AbstractTubeImpl {
         return doReturnWith(response);
     }
 
-    protected HttpClientTransport getTransport(Packet request, Map<String, List<String>> reqHeaders,  Authenticator authenticator) {
-        return new HttpClientTransport(request, reqHeaders, authenticator);
+    protected HttpClientTransport getTransport(Packet request, Map<String, List<String>> reqHeaders) {
+        return new HttpClientTransport(request, reqHeaders);
     }
 
     @Override
@@ -155,12 +154,10 @@ public class HttpTransportPipe extends AbstractTubeImpl {
                 reqHeaders.put("User-Agent", USER_AGENT);
             }
 
+            addBasicAuth(request, reqHeaders);
             addCookies(request, reqHeaders);
 
-            final Authenticator authentication = getAuthentication(request);
-
-
-            con = getTransport(request, reqHeaders,  authentication);
+            con = getTransport(request, reqHeaders);
             request.addSatellite(new HttpResponseProperties(con));
 
             ContentType ct = codec.getStaticContentType(request);
@@ -217,23 +214,6 @@ public class HttpTransportPipe extends AbstractTubeImpl {
         } catch(Exception ex) {
             throw new WebServiceException(ex);
         }
-    }
-
-    private Authenticator getAuthentication(Packet request) {
-        String user = (String) request.invocationProperties.get(BindingProvider.USERNAME_PROPERTY);
-        if (user != null) {
-            String pw = (String) request.invocationProperties.get(BindingProvider.PASSWORD_PROPERTY);
-            if (pw != null) {
-                return new Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(user, pw.toCharArray());
-                    }
-                };
-
-            }
-        }
-        return null;
     }
 
     private Packet createResponsePacket(Packet request, HttpClientTransport con) throws IOException {
@@ -392,7 +372,19 @@ public class HttpTransportPipe extends AbstractTubeImpl {
         }
     }
 
-
+    private void addBasicAuth(Packet context, Map<String, List<String>> reqHeaders) {
+        String user = (String) context.invocationProperties.get(BindingProvider.USERNAME_PROPERTY);
+        if (user != null) {
+            String pw = (String) context.invocationProperties.get(BindingProvider.PASSWORD_PROPERTY);
+            if (pw != null) {
+                StringBuilder buf = new StringBuilder(user);
+                buf.append(":");
+                buf.append(pw);
+                String creds = DatatypeConverter.printBase64Binary(buf.toString().getBytes());
+                reqHeaders.put("Authorization", Collections.singletonList("Basic "+creds));
+            }
+        }
+    }
 
     /*
      * write SOAPAction header if the soapAction parameter is non-null or BindingProvider properties set.
