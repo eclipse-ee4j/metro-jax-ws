@@ -13,7 +13,7 @@ module com.sun.xml.ws.eclipselink {
     requires java.desktop;
     requires jakarta.mail;
 
-    requires com.sun.xml.ws;
+    requires transitive com.sun.xml.ws;
     requires org.eclipse.persistence.moxy;
 
     exports com.sun.xml.ws.db.toplink;

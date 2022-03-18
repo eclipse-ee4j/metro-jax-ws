@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,7 +38,7 @@ module com.sun.xml.ws {
     requires transitive jakarta.xml.ws;
     requires static jakarta.servlet;
 
-    requires org.jvnet.mimepull;
+    requires transitive org.jvnet.mimepull;
     requires transitive org.jvnet.staxex;
     requires transitive com.sun.xml.bind;
     requires transitive com.sun.xml.fastinfoset;
