@@ -31,6 +31,7 @@
 
     <properties>
         <www.upload.dir>${project.build.directory}/www-stage</www.upload.dir>
+        <jacoco.skip>false</jacoco.skip>
     </properties>
 
     <modules>
