@@ -14,7 +14,7 @@ following is a summary of the TCK results for releases of Eclipse Implementation
 - [x] Specification Name, Version and download URL:
    [Jakarta XML Web Services 4.0](https://jakarta.ee/specifications/xml-web-services/4.0/)
 - [x] TCK Version, digital SHA-256 fingerprint and download URL:
-  [Jakarta XML Web Services TCK 4.0.0](https://download.eclipse.org/jakartaee/xml-web-services/4.0/jakarta-xml-ws-tck-4.0.0.zip), SHA-256: TBD
+  [Jakarta XML Web Services TCK 4.0.0](https://download.eclipse.org/jakartaee/xml-web-services/4.0/jakarta-xml-ws-tck-4.0.0.zip), SHA-256: fceaf20e7da6cc898ce46941b5f324968cef53f621c2e36ca5dea1ba616ddcb7
 - [x] Public URL of TCK Results Summary:
   [TCK results summary](https://eclipse-ee4j.github.io/metro-jax-ws/TCK-Results.html)
 - [x] Any Additional Specification Certification Requirements:
