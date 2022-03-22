@@ -116,21 +116,9 @@
  *      <LI><P>{@link jakarta.xml.bind.attachment.AttachmentMarshaller AttachmentMarshaller}</P>
  *      <LI><P>{@link jakarta.xml.bind.attachment.AttachmentUnmarshaller AttachmentUnmarshaller}</P>
  * </UL>
- * <H4>JAXB Runtime-API (private contract)</H4>
- * <P>JAX-WS RI uses these private API for serialization/deserialization
- * purposes. This private API is used to serialize/deserialize method
- * parameters at the time of JAXBTypeSerializer class uses all
- * these methods.</P>
- * <UL>
- * 	<LI><P>{@link org.glassfish.jaxb.runtime.api.Bridge#marshal(BridgeContext, Object, XMLStreamWriter) Bridge.marshal(BridgeContext, Object, XMLStreamWriter)}</P>
- * 	<LI><P>{@link org.glassfish.jaxb.runtime.api.Bridge#marshal(BridgeContext, Object, Node) Bridge.marshal(BridgeContext, Object, Node)}</P>
- * 	<LI><P>{@link org.glassfish.jaxb.runtime.api.Bridge#unmarshal(BridgeContext, XMLStreamReader) Object Bridge.unmarshal(BridgeContext, XMLStreamReader)}</P>
- * </UL>
- * 
+ *
  **/
 package com.sun.xml.ws.client;
-
-import org.glassfish.jaxb.runtime.api.BridgeContext;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -107,21 +107,9 @@
  *      <LI><P>{@link jakarta.xml.bind.attachment.AttachmentMarshaller AttachmentMarshaller}</P>
  *      <LI><P>{@link jakarta.xml.bind.attachment.AttachmentUnmarshaller AttachmentUnmarshaller}</P>
  * </UL>
- * <H3>JAXB Runtime-API (private contract)</H3>
- * <P>JAX-WS RI uses these private API for serialization/deserialization
- * purposes. This private API is used to serialize/deserialize method
- * parameters at the time of JAXBTypeSerializer class uses all
- * these methods.</P>
- * <UL>
- * 	<LI><P>{@link org.glassfish.jaxb.runtime.api.Bridge#marshal(BridgeContext, Object, XMLStreamWriter) Bridge.marshal(BridgeContext, Object, XMLStreamWriter)}</P>
- * 	<LI><P>{@link org.glassfish.jaxb.runtime.api.Bridge#marshal(BridgeContext, Object, Node) Bridge.marshal(BridgeContext, Object, Node)}</P>
- * 	<LI><P>{@link org.glassfish.jaxb.runtime.api.Bridge#unmarshal(BridgeContext, XMLStreamReader) Object Bridge.unmarshal(BridgeContext, XMLStreamReader)}</P>
- * </UL>
- * 
+ *
  **/
 package com.sun.xml.ws.server;
-
-import org.glassfish.jaxb.runtime.api.BridgeContext;
 
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;

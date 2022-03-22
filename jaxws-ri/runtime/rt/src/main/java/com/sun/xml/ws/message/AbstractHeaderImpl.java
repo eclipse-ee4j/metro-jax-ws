@@ -12,7 +12,6 @@ package com.sun.xml.ws.message;
 
 import com.sun.istack.NotNull;
 import org.glassfish.jaxb.runtime.api.Bridge;
-import org.glassfish.jaxb.runtime.api.BridgeContext;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.addressing.AddressingVersion;
 import com.sun.xml.ws.api.addressing.WSEndpointReference;
@@ -41,14 +40,6 @@ import java.util.Set;
 public abstract class AbstractHeaderImpl implements Header {
 
     protected AbstractHeaderImpl() {
-    }
-
-    /**
-     * @deprecated
-     */
-    @Deprecated
-    public final <T> T readAsJAXB(Bridge<T> bridge, BridgeContext context) throws JAXBException {
-        return readAsJAXB(bridge);
     }
 
     @Override

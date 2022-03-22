@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,8 +26,6 @@ import javax.xml.transform.Source;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import org.glassfish.jaxb.runtime.api.BridgeContext;
-import org.glassfish.jaxb.runtime.v2.runtime.BridgeContextImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 
 import org.w3c.dom.Node;
@@ -85,10 +83,6 @@ public abstract class OldBridge<T> {
         context.marshallerPool.recycle(m);
     }
 
-    public final void marshal(@NotNull BridgeContext context,T object,XMLStreamWriter output) throws JAXBException {
-        marshal( ((BridgeContextImpl)context).marshaller, object, output );
-    }
-
     public abstract void marshal(@NotNull Marshaller m,T object,XMLStreamWriter output) throws JAXBException;
 
 
@@ -119,10 +113,6 @@ public abstract class OldBridge<T> {
         context.marshallerPool.recycle(m);
     }
 
-    public final void marshal(@NotNull BridgeContext context,T object,OutputStream output, NamespaceContext nsContext) throws JAXBException {
-        marshal( ((BridgeContextImpl)context).marshaller, object, output, nsContext );
-    }
-
     public abstract void marshal(@NotNull Marshaller m,T object,OutputStream output, NamespaceContext nsContext) throws JAXBException;
 
 
@@ -130,10 +120,6 @@ public abstract class OldBridge<T> {
         Marshaller m = context.marshallerPool.take();
         marshal(m,object,output);
         context.marshallerPool.recycle(m);
-    }
-
-    public final void marshal(@NotNull BridgeContext context,T object,Node output) throws JAXBException {
-        marshal( ((BridgeContextImpl)context).marshaller, object, output );
     }
 
     public abstract void marshal(@NotNull Marshaller m,T object,Node output) throws JAXBException;
@@ -155,9 +141,7 @@ public abstract class OldBridge<T> {
         m.setAttachmentMarshaller(null);
         context.marshallerPool.recycle(m);
     }
-    public final void marshal(@NotNull BridgeContext context,T object, ContentHandler contentHandler) throws JAXBException {
-        marshal( ((BridgeContextImpl)context).marshaller, object, contentHandler );
-    }
+
     public abstract void marshal(@NotNull Marshaller m,T object, ContentHandler contentHandler) throws JAXBException;
 
     /**
@@ -168,9 +152,7 @@ public abstract class OldBridge<T> {
         marshal(m,object,result);
         context.marshallerPool.recycle(m);
     }
-    public final void marshal(@NotNull BridgeContext context,T object, Result result) throws JAXBException {
-        marshal( ((BridgeContextImpl)context).marshaller, object, result );
-    }
+
     public abstract void marshal(@NotNull Marshaller m,T object, Result result) throws JAXBException;
 
 
@@ -208,9 +190,7 @@ public abstract class OldBridge<T> {
         u.setAttachmentUnmarshaller(au);
         return exit(unmarshal(u,in),u);
     }
-    public final @NotNull T unmarshal(@NotNull BridgeContext context, @NotNull XMLStreamReader in) throws JAXBException {
-        return unmarshal( ((BridgeContextImpl)context).unmarshaller, in );
-    }
+
     public abstract @NotNull T unmarshal(@NotNull Unmarshaller u, @NotNull XMLStreamReader in) throws JAXBException;
 
     /**
@@ -240,9 +220,7 @@ public abstract class OldBridge<T> {
         u.setAttachmentUnmarshaller(au);
         return exit(unmarshal(u,in),u);
     }
-    public final @NotNull T unmarshal(@NotNull BridgeContext context, @NotNull Source in) throws JAXBException {
-        return unmarshal( ((BridgeContextImpl)context).unmarshaller, in );
-    }
+
     public abstract @NotNull T unmarshal(@NotNull Unmarshaller u, @NotNull Source in) throws JAXBException;
 
     /**
@@ -265,9 +243,7 @@ public abstract class OldBridge<T> {
         Unmarshaller u = context.unmarshallerPool.take();
         return exit(unmarshal(u,in),u);
     }
-    public final @NotNull T unmarshal(@NotNull BridgeContext context, @NotNull InputStream in) throws JAXBException {
-        return unmarshal( ((BridgeContextImpl)context).unmarshaller, in );
-    }
+
     public abstract @NotNull T unmarshal(@NotNull Unmarshaller u, @NotNull InputStream in) throws JAXBException;
 
     /**
@@ -295,9 +271,7 @@ public abstract class OldBridge<T> {
         u.setAttachmentUnmarshaller(au);
         return exit(unmarshal(u,n),u);
     }
-    public final @NotNull T unmarshal(@NotNull BridgeContext context, @NotNull Node n) throws JAXBException {
-        return unmarshal( ((BridgeContextImpl)context).unmarshaller, n );
-    }
+
     public abstract @NotNull T unmarshal(@NotNull Unmarshaller context, @NotNull Node n) throws JAXBException;
 
     /**
