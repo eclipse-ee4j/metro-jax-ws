@@ -35,20 +35,20 @@ import java.util.Map;
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
- * <pre>
- * &lt;complexType name="tubelineDefinitionCType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="client-side" type="{http://java.sun.com/xml/ns/metro/config}tubeFactoryListCType" minOccurs="0"/>
- *         &lt;element name="endpoint-side" type="{http://java.sun.com/xml/ns/metro/config}tubeFactoryListCType" minOccurs="0"/>
- *         &lt;any/>
- *       &lt;/sequence>
- *       &lt;attribute name="name" type="{http://www.w3.org/2001/XMLSchema}ID" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ * <pre>{@code
+ * <complexType name="tubelineDefinitionCType">
+ *   <complexContent>
+ *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       <sequence>
+ *         <element name="client-side" type="{http://java.sun.com/xml/ns/metro/config}tubeFactoryListCType" minOccurs="0"/>
+ *         <element name="endpoint-side" type="{http://java.sun.com/xml/ns/metro/config}tubeFactoryListCType" minOccurs="0"/>
+ *         <any/>
+ *       </sequence>
+ *       <attribute name="name" type="{http://www.w3.org/2001/XMLSchema}ID" />
+ *     </restriction>
+ *   </complexContent>
+ * </complexType>
+ * }</pre>
  * 
  * 
  */

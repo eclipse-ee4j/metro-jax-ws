@@ -29,19 +29,19 @@ import java.util.List;
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
- * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://xmlns.oracle.com/webservices/jaxws-databinding}fault-action" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="input" type="{http://www.w3.org/2001/XMLSchema}string" default="" />
- *       &lt;attribute name="output" type="{http://www.w3.org/2001/XMLSchema}string" default="" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ * <pre>{@code
+ * <complexType>
+ *   <complexContent>
+ *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       <sequence>
+ *         <element ref="{http://xmlns.oracle.com/webservices/jaxws-databinding}fault-action" maxOccurs="unbounded" minOccurs="0"/>
+ *       </sequence>
+ *       <attribute name="input" type="{http://www.w3.org/2001/XMLSchema}string" default="" />
+ *       <attribute name="output" type="{http://www.w3.org/2001/XMLSchema}string" default="" />
+ *     </restriction>
+ *   </complexContent>
+ * </complexType>
+ * }</pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {

@@ -32,29 +32,29 @@ import java.util.Iterator;
 /**
  * SOAP 1.2 Fault class that can be marshalled/unmarshalled by JAXB
  * <br>
- * <pre>
  * Example:
- * &lt;env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope"
+ * <pre>{@code
+ * <env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope"
  *            xmlns:m="http://www.example.org/timeouts"
  *            xmlns:xml="http://www.w3.org/XML/1998/namespace">
- * &lt;env:Body>
- *     &lt;env:Fault>
- *         &lt;env:Code>
- *             &lt;env:Value>env:Sender* &lt;/env:Value>
- *             &lt;env:Subcode>
- *                 &lt;env:Value>m:MessageTimeout* &lt;/env:Value>
- *             &lt;/env:Subcode>
- *         &lt;/env:Code>
- *         &lt;env:Reason>
- *             &lt;env:Text xml:lang="en">Sender Timeout* &lt;/env:Text>
- *         &lt;/env:Reason>
- *         &lt;env:Detail>
- *             &lt;m:MaxTime>P5M* &lt;/m:MaxTime>
- *         &lt;/env:Detail>
- *     &lt;/env:Fault>
- * &lt;/env:Body>
- * &lt;/env:Envelope>
- * </pre>
+ * <env:Body>
+ *     <env:Fault>
+ *         <env:Code>
+ *             <env:Value>env:Sender* </env:Value>
+ *             <env:Subcode>
+ *                 <env:Value>m:MessageTimeout* </env:Value>
+ *             </env:Subcode>
+ *         </env:Code>
+ *         <env:Reason>
+ *             <env:Text xml:lang="en">Sender Timeout* </env:Text>
+ *         </env:Reason>
+ *         <env:Detail>
+ *             <m:MaxTime>P5M* </m:MaxTime>
+ *         </env:Detail>
+ *     </env:Fault>
+ * </env:Body>
+ * </env:Envelope>
+ * }</pre>
  *
  * @author Vivek Pandey
  */

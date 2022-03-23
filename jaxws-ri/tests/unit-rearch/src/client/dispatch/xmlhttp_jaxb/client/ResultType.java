@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,26 +29,26 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
- * <pre>
- * &lt;complexType name="ResultType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Title" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="Summary" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="Url" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="ClickUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="NewsSource" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="NewsSourceUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="Language" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="PublishDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="Thumbnail" type="{urn:yahoo:yn}ImageType" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ * <pre>{@code
+ * <complexType name="ResultType">
+ *   <complexContent>
+ *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       <sequence>
+ *         <element name="Title" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         <element name="Summary" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         <element name="Url" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         <element name="ClickUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         <element name="NewsSource" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         <element name="NewsSourceUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         <element name="Language" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         <element name="PublishDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         <element name="ModificationDate" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         <element name="Thumbnail" type="{urn:yahoo:yn}ImageType" minOccurs="0"/>
+ *       </sequence>
+ *     </restriction>
+ *   </complexContent>
+ * </complexType>
+ * }</pre>
  * 
  * 
  */

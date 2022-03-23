@@ -45,7 +45,7 @@ final class WSDLGenResolver implements com.oracle.webservices.api.databinding.WS
     private SDDocumentImpl concreteWsdl;
 
     /**
-     * targetNS -> schema documents.
+     * targetNS {@literal ->} schema documents.
      */
     private final Map<String, List<SDDocumentImpl>> nsMapping = new HashMap<>();
 

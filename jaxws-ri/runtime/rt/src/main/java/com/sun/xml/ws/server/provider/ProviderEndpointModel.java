@@ -48,7 +48,7 @@ public final class ProviderEndpointModel<T> {
      */
     @NotNull final Service.Mode mode;
     /**
-     * T of {@link Provider}&lt;T>.
+     * T of {@link Provider}{@literal <T>}.
      */
     @NotNull final Class datatype;
     /**

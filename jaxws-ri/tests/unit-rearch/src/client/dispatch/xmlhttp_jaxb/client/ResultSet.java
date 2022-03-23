@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,22 +34,22 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
- * <pre>
- * &lt;element name="ResultSet">
- *   &lt;complexType>
- *     &lt;complexContent>
- *       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *         &lt;sequence>
- *           &lt;element name="Result" type="{urn:yahoo:yn}ResultType" maxOccurs="50" minOccurs="0"/>
- *         &lt;/sequence>
- *         &lt;attribute name="firstResultPosition" type="{http://www.w3.org/2001/XMLSchema}integer" />
- *         &lt;attribute name="totalResultsAvailable" type="{http://www.w3.org/2001/XMLSchema}integer" />
- *         &lt;attribute name="totalResultsReturned" type="{http://www.w3.org/2001/XMLSchema}integer" />
- *       &lt;/restriction>
- *     &lt;/complexContent>
- *   &lt;/complexType>
- * &lt;/element>
- * </pre>
+ * <pre>{@code
+ * <element name="ResultSet">
+ *   <complexType>
+ *     <complexContent>
+ *       <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *         <sequence>
+ *           <element name="Result" type="{urn:yahoo:yn}ResultType" maxOccurs="50" minOccurs="0"/>
+ *         </sequence>
+ *         <attribute name="firstResultPosition" type="{http://www.w3.org/2001/XMLSchema}integer" />
+ *         <attribute name="totalResultsAvailable" type="{http://www.w3.org/2001/XMLSchema}integer" />
+ *         <attribute name="totalResultsReturned" type="{http://www.w3.org/2001/XMLSchema}integer" />
+ *       </restriction>
+ *     </complexContent>
+ *   </complexType>
+ * </element>
+ * }</pre>
  * 
  * 
  */

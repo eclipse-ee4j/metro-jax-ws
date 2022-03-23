@@ -120,6 +120,7 @@ module com.sun.xml.ws.rt {
     exports com.sun.xml.ws.wsdl.writer.document;
     exports com.sun.xml.ws.wsdl.writer.document.soap;
     exports com.sun.xml.ws.wsdl.writer.document.soap12;
+    exports com.sun.xml.ws.wsdl.writer.document.xsd;
 
     exports com.sun.xml.ws.spi to jakarta.xml.ws;
 

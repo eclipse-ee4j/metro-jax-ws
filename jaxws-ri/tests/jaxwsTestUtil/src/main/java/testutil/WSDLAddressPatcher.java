@@ -74,7 +74,7 @@ public class WSDLAddressPatcher extends Task {
     /**
      *
      * @param portName
-     *      If this is inside &lt;wsdl:port>, the port name.
+     *      If this is inside {@code <wsdl:port>}, the port name.
      *      Otherwise null
      * @param e
      *      Element that we are visiting.
