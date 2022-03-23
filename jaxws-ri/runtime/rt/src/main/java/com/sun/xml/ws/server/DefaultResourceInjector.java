@@ -24,6 +24,12 @@ import jakarta.xml.ws.WebServiceContext;
  * @author Kohsuke Kawaguchi
  */
 public final class DefaultResourceInjector extends ResourceInjector {
+
+    /**
+     * Default constructor.
+     */
+    public DefaultResourceInjector() {}
+
     @Override
     public void inject(@NotNull WSWebServiceContext context, @NotNull Object instance) {
         InjectionPlan.<Object, WebServiceContext>buildInjectionPlan(

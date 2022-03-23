@@ -37,6 +37,12 @@ import java.util.List;
  * @see ServiceInterceptorFactory
  */
 public abstract class ServiceInterceptor {
+
+    /**
+     * Default constructor.
+     */
+    protected ServiceInterceptor() {}
+
     /**
      * Called before {@link WSBinding} is created, to allow interceptors
      * to add {@link WebServiceFeature}s to the created {@link WSBinding}.

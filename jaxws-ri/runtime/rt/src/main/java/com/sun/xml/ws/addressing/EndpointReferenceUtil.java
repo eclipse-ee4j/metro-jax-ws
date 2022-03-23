@@ -36,7 +36,9 @@ import java.util.Map;
  * @author Rama Pulavarthi
  */
 
-public class EndpointReferenceUtil {
+public final class EndpointReferenceUtil {
+
+    private EndpointReferenceUtil() {}
     /**
      * Gives the EPR based on the clazz. It may need to perform tranformation from
      * W3C EPR to MS EPR or vise-versa.

@@ -30,6 +30,12 @@ import com.sun.xml.ws.api.server.WSEndpoint;
  * <a href="http://txw.java.net">http://txw.java.net</a>.
  */
 public abstract class WSDLGeneratorExtension {
+
+    /**
+     * Default constructor.
+     */
+    protected WSDLGeneratorExtension() {}
+
     /**
      * Called at the very beginning of the process.
      * <br>

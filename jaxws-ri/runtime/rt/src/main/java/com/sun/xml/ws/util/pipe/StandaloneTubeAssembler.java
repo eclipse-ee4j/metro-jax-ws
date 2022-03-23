@@ -25,6 +25,11 @@ import com.sun.xml.ws.api.pipe.TubelineAssembler;
  */
 public class StandaloneTubeAssembler implements TubelineAssembler {
 
+    /**
+     * Default constructor.
+     */
+    public StandaloneTubeAssembler() {}
+
     @Override
     @NotNull
     public Tube createClient(ClientTubeAssemblerContext context) {

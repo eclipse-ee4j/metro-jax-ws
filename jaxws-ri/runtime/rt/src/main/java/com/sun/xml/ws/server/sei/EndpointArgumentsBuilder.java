@@ -62,6 +62,12 @@ import java.util.Map;
  * @author Jitendra Kotamraju
  */
 public abstract class EndpointArgumentsBuilder {
+
+    /**
+     * Default constructor.
+     */
+    protected EndpointArgumentsBuilder() {}
+
     /**
      * Reads a request {@link Message}, disassembles it, and moves obtained
      * Java values to the expected places.
@@ -156,7 +162,7 @@ public abstract class EndpointArgumentsBuilder {
         }
     }
     
-    protected Map<QName,WrappedPartBuilder> wrappedParts = null;
+    Map<QName,WrappedPartBuilder> wrappedParts = null;
 
     protected void readWrappedRequest(Message msg, Object[] args) throws JAXBException, XMLStreamException {
         if (!msg.hasPayload()) {

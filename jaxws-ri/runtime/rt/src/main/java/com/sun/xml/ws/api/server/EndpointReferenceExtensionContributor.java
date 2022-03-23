@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,6 +24,10 @@ import javax.xml.namespace.QName;
  * @author Rama Pulavarthi
  */
 public abstract class EndpointReferenceExtensionContributor {
+    /**
+     * Default constructor.
+     */
+    protected EndpointReferenceExtensionContributor() {}
     /**
      *
      * @param extension EPRExtension is passed if an extension with same QName is already configured on the endpoint

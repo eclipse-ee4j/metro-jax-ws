@@ -37,7 +37,7 @@ import java.lang.reflect.Type;
  * @author Jitendra Kotamraju
  * @author Kohsuke Kawaguchi
  */
-final class ProviderEndpointModel<T> {
+public final class ProviderEndpointModel<T> {
     /**
      * True if this is {@link AsyncProvider}.
      */

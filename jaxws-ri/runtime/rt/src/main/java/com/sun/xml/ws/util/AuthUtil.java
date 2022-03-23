@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,12 +20,12 @@ import java.net.Authenticator;
  * @author Nancy Bosecker
  *
  */
-public class AuthUtil {
+public final class AuthUtil {
+
+	private AuthUtil() {}
 
 	/**
 	 * Sets the authenticator on the {@link HttpURLConnection} by invoking {@link HttpURLConnection#setAuthenticator(Authenticator)}.
-	 *
-	 * Version for {@code runtime >= 9}.
 	 */
 	public static void setAuthenticator(Authenticator authenticator, HttpURLConnection httpConnection) {
 		httpConnection.setAuthenticator(authenticator);

@@ -60,6 +60,7 @@ public class StreamAttachment implements Attachment {
 
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public byte[] asByteArray() {
         //we got to reallocate and give the exact byte[]
         return byteArrayBuffer.toByteArray();

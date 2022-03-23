@@ -48,6 +48,11 @@ public class DatabindingConfig {
     protected Source wsdlSource;
     protected EntityResolver entityResolver;
 
+    /**
+     * Default constructor.
+     */
+    public DatabindingConfig() {}
+
     public Class getContractClass() {
         return contractClass;
     }

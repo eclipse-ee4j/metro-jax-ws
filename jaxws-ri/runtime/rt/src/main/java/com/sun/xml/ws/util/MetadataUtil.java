@@ -21,7 +21,9 @@ import java.util.*;
  *
  * @author Jitendra Kotamraju
  */
-public class MetadataUtil {
+public final class MetadataUtil {
+
+    private MetadataUtil() {}
 
     /**
      * Gets closure of all the referenced documents from the primary document(typically

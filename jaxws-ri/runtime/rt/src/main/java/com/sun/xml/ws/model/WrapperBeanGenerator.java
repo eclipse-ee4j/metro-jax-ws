@@ -49,7 +49,7 @@ import java.io.IOException;
  *
  * @author Jitendra Kotamraju
  */
-public class WrapperBeanGenerator {
+public final class WrapperBeanGenerator {
 
     private static final Logger LOGGER = Logger.getLogger(WrapperBeanGenerator.class.getName());
 
@@ -95,6 +95,8 @@ public class WrapperBeanGenerator {
             return new Field(paramName, paramType, getASMType(paramType), jaxb);
         }
     }
+
+    private WrapperBeanGenerator() {}
 
     // Creates class's bytes
     private static byte[] createBeanImage(String className,

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,6 +32,11 @@ public abstract class ContainerResolver {
     private static final ThreadLocalContainerResolver DEFAULT = new ThreadLocalContainerResolver();
 
     private static volatile ContainerResolver theResolver = DEFAULT;
+
+    /**
+     * Default constructor.
+     */
+    protected ContainerResolver() {}
 
     /**
      * Sets the custom container resolver which can be used to get client's

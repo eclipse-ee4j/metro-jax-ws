@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,12 @@ import com.sun.xml.ws.util.xml.XmlUtil;
  */
 public class SAAJFactory {
 	private static final SAAJFactory instance = new SAAJFactory();
-	
+
+    /**
+     * Default constructor.
+     */
+    public SAAJFactory() {}
+
     /**
      * Creates a new <code>MessageFactory</code> object that is an instance
      * of the specified implementation.  May be a dynamic message factory,

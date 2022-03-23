@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,6 +24,11 @@ import jakarta.servlet.http.HttpServletRequest;
  * @author Jitendra Kotamraju
  */
 public abstract class ServletModule extends WebModule {
+
+    /**
+     * Default constructor.
+     */
+    protected ServletModule() {}
 
     /**
      * Gets the host, port, and context path portion of this module using

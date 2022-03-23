@@ -34,7 +34,12 @@ import java.util.Map;
  */
 public abstract class DatabindingFactory {
 
-  /**
+	/**
+	 * Default constructor.
+	 */
+	protected DatabindingFactory() {}
+
+	/**
    * Creates a new instance of a <code>Databinding.Builder</code> which is 
    * initialized with the specified contractClass and endpointClass. The most 
    * importance initial states of a Builder object is the contract class which 

@@ -28,6 +28,11 @@ public // TODO need this in the factory
 abstract class ProviderArgumentsBuilder<T> {
 
     /**
+     * Default constructor.
+     */
+    protected ProviderArgumentsBuilder() {}
+
+    /**
      * Creates a fault {@link Message} from method invocation's exception
      */
     protected abstract Message getResponseMessage(Exception e);

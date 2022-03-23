@@ -14,7 +14,9 @@ package com.sun.xml.ws.util;
  *
  * @author WS Development Team
  */
-public class StringUtils {
+public final class StringUtils {
+
+    private StringUtils() {}
 
     /**
      * Utility method to take a string and convert it to normal Java variable

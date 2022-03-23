@@ -30,9 +30,11 @@ import java.util.List;
 /**
  * @author JAXWS Development Team
  */
-public class DOMUtil {
+public final class DOMUtil {
 
     private static DocumentBuilder db;
+
+    private DOMUtil() {}
 
     /**
      * Creates a new DOM document.

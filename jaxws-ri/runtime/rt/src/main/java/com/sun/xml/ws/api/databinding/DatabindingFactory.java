@@ -42,6 +42,11 @@ import java.util.Map;
  */
 public abstract class DatabindingFactory extends com.oracle.webservices.api.databinding.DatabindingFactory {
 
+	/**
+	 * Default constructor.
+	 */
+	protected DatabindingFactory() {}
+
   /*
     Creates a new instance of a <code>WsTool</code>.
 

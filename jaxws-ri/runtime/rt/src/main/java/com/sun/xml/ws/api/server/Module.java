@@ -45,6 +45,12 @@ import java.util.List;
  * @since 2.1 EA3
  */
 public abstract class Module implements Component {
+
+    /**
+     * Default constructor.
+     */
+    protected Module() {}
+
     /**
      * Gets the list of {@link BoundEndpoint} deployed in this module.
      *

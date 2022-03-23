@@ -32,6 +32,12 @@ import java.lang.reflect.Method;
  * @author Kohsuke Kawaguchi
  */
 public abstract class Invoker extends com.sun.xml.ws.server.sei.Invoker {
+
+    /**
+     * Default constructor.
+     */
+    public Invoker() {}
+
     /**
      * Called by {@link WSEndpoint} when it's set up.
      *

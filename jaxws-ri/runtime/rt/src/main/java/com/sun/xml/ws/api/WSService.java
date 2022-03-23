@@ -146,6 +146,7 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
      */
     public static final class InitParams {
         private Container container;
+        private InitParams() {}
         /**
          * Sets the {@link Container} object used by the created service.
          * This allows the client to use a specific {@link Container} instance

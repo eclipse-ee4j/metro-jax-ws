@@ -39,6 +39,11 @@ public class MtomPolicyMapConfigurator implements PolicyMapConfigurator {
     
     private static final PolicyLogger LOGGER = PolicyLogger.getLogger(MtomPolicyMapConfigurator.class);
 
+    /**
+     * Default constructor.
+     */
+    public MtomPolicyMapConfigurator() {}
+
     static class MtomAssertion extends PolicyAssertion {
 
         private static final AssertionData mtomData;

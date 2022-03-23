@@ -53,10 +53,12 @@ import java.util.logging.Logger;
  *
  * @author JAX-WS Development Team
  */
-public class HandlerAnnotationProcessor {
+public final class HandlerAnnotationProcessor {
 
     private static final Logger logger = Logger.getLogger(
         com.sun.xml.ws.util.Constants.LoggingDomain + ".util");
+
+    private HandlerAnnotationProcessor() {}
 
     /**
      * <p>This method is called by

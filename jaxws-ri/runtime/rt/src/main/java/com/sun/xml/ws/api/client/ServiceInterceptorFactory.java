@@ -41,6 +41,12 @@ import java.util.Set;
  * @see ServiceInterceptor
  */
 public abstract class ServiceInterceptorFactory {
+
+    /**
+     * Default constructor.
+     */
+    protected ServiceInterceptorFactory() {}
+
     public abstract ServiceInterceptor create(@NotNull WSService service);
 
     /**

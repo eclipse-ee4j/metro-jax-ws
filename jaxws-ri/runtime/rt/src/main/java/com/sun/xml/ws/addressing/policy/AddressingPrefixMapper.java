@@ -32,7 +32,12 @@ public class AddressingPrefixMapper implements PrefixMapper {
         prefixMap.put(AddressingVersion.MEMBER.nsUri, "wsa");
         prefixMap.put(W3CAddressingMetadataConstants.WSAM_NAMESPACE_NAME,W3CAddressingMetadataConstants.WSAM_PREFIX_NAME);
     }
-        
+
+    /**
+     * Default constructor.
+     */
+    public AddressingPrefixMapper() {}
+
     @Override
     public Map<String, String> getPrefixMap() {
         return prefixMap;

@@ -28,9 +28,12 @@ import java.util.logging.Logger;
  */
 
 public abstract class ProviderInvokerTubeFactory<T> {
+
     /**
-     *
+     * Default constructor.
      */
+    protected ProviderInvokerTubeFactory() {}
+
     protected abstract ProviderInvokerTube<T> doCreate(@NotNull final Class<T> implType,
                                                        @NotNull final Invoker invoker,
                                                        @NotNull final ProviderArgumentsBuilder<?> argsBuilder,

@@ -21,6 +21,8 @@ import java.util.StringTokenizer;
 
 public final class VersionUtil {
 
+    private VersionUtil() {}
+
     public static boolean isVersion20(String version) {
         return JAXWS_VERSION_20.equals(version);
     }

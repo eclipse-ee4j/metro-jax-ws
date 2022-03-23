@@ -20,7 +20,12 @@ import jakarta.xml.ws.WebServiceException;
  */
 public abstract class PropertyGetterBase implements PropertyGetter {
     protected Class type;
-    
+
+    /**
+     * Default constructor.
+     */
+    protected PropertyGetterBase() {}
+
     @Override
     public Class getType() {
         return type;

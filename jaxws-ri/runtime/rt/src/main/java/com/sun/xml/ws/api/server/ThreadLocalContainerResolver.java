@@ -37,7 +37,12 @@ public class ThreadLocalContainerResolver extends ContainerResolver {
             return Container.NONE;
         }
     };
-    
+
+    /**
+     * Default constructor.
+     */
+    public ThreadLocalContainerResolver() {}
+
     @Override
     public Container getContainer() {
         return containerThreadLocal.get();

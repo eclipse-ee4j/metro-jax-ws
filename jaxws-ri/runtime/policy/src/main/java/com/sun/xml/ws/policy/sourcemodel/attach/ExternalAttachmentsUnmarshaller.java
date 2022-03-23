@@ -81,6 +81,8 @@ public class ExternalAttachmentsUnmarshaller {
     private URI currentUri = null;
     private Policy currentPolicy = null;
 
+    private ExternalAttachmentsUnmarshaller() {}
+
     public static Map<URI, Policy> unmarshal(final Reader source) throws PolicyException {
         LOGGER.entering(source);
         try {

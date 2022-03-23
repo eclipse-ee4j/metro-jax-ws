@@ -59,6 +59,10 @@ public class AddressingPolicyMapConfigurator implements PolicyMapConfigurator {
         }
     }
 
+    /**
+     * Default constructor.
+     */
+    public AddressingPolicyMapConfigurator() {}
 
     /**
      * Puts an addressing policy into the PolicyMap if the addressing feature was set.

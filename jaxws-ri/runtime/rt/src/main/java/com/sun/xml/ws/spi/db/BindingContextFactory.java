@@ -35,6 +35,11 @@ abstract public class BindingContextFactory {
     public static final String JAXB_CONTEXT_FACTORY_PROPERTY = BindingContextFactory.class.getName();
     public static final Logger LOGGER = Logger.getLogger(BindingContextFactory.class.getName());
 
+    /**
+     * Default constructor.
+     */
+    protected BindingContextFactory() {}
+
     // This iterator adds exception checking for proper logging.
     public static Iterator<BindingContextFactory> serviceIterator() {
         final ServiceFinder<BindingContextFactory> sf = ServiceFinder

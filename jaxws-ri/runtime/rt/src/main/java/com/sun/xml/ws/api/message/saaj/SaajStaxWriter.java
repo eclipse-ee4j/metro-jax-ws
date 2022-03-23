@@ -386,14 +386,14 @@ public class SaajStaxWriter implements XMLStreamWriter {
      *
      * @author ondrej.cerny@oracle.com
      */
-    static class DeferredElement {
+    public static class DeferredElement {
         private String prefix;
         private String localName;
         private String namespaceUri;
         private final Map<String, String> namespaceDeclarations;
         private final List<AttributeDeclaration> attributeDeclarations;
 
-        DeferredElement() {
+        private DeferredElement() {
             this.namespaceDeclarations = new HashMap<>();
             this.attributeDeclarations = new LinkedList<>();
             reset();

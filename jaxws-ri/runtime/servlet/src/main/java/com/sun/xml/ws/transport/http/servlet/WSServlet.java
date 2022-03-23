@@ -32,6 +32,11 @@ public class WSServlet extends HttpServlet {
 
     private transient WSServletDelegate delegate = null;
 
+    /**
+     * Default constructor.
+     */
+    public WSServlet() {}
+
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);

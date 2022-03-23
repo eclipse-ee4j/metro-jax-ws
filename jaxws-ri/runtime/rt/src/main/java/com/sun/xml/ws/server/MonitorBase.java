@@ -49,6 +49,11 @@ public abstract class MonitorBase {
         com.sun.xml.ws.util.Constants.LoggingDomain + ".monitoring");
 
     /**
+     * Default constructor.
+     */
+    protected MonitorBase() {}
+
+    /**
      * Endpoint monitoring is ON by default.
      *
      * prop    |  no assert | assert/no mon | assert/mon off | assert/mon on

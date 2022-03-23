@@ -34,7 +34,12 @@ import jakarta.xml.ws.WebServiceFeature;
  */
 public class SelectOptimalEncodingFeatureConfigurator implements PolicyFeatureConfigurator {
     public static final QName enabled = new QName("enabled");
-    
+
+    /**
+     * Default constructor.
+     */
+    public SelectOptimalEncodingFeatureConfigurator() {}
+
     /**
      * Process SelectOptimalEncoding policy assertions.
      *

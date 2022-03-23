@@ -41,6 +41,12 @@ import java.util.logging.Logger;
  */
 @Deprecated
 public abstract class PipelineAssemblerFactory {
+
+    /**
+     * Default constructor.
+     */
+    protected PipelineAssemblerFactory() {}
+
     /**
      * Creates a {@link PipelineAssembler} applicable for the given binding ID.
      *

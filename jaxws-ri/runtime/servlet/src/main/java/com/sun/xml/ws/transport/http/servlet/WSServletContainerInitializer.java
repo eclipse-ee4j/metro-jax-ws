@@ -24,6 +24,12 @@ import java.util.Set;
  */
 @HandlesTypes({WebService.class, WebServiceProvider.class})
 public class WSServletContainerInitializer implements ServletContainerInitializer {
+
+    /**
+     * Default constructor.
+     */
+    public WSServletContainerInitializer() {}
+
     @Override
     public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException {
         //Called with null, when there are no matching classes as per Servlet 3.0 spec

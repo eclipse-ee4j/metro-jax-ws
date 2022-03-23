@@ -31,6 +31,11 @@ import java.util.logging.Logger;
 public class W3CAddressingMetadataWSDLGeneratorExtension extends
         WSDLGeneratorExtension {
 
+    /**
+     * Default constructor.
+     */
+    public W3CAddressingMetadataWSDLGeneratorExtension() {}
+
     @Override
     public void start(WSDLGenExtnContext ctxt) {
         TypedXmlWriter root = ctxt.getRoot();

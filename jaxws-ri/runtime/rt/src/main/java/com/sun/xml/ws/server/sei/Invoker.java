@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,6 +22,12 @@ import java.lang.reflect.Method;
  * @since 2.2.6
  */
 public abstract class Invoker {
+
+    /**
+     * Default constructor.
+     */
+    public Invoker() {}
+
     /**
      * Wrapper for reflection invoke that allows containers to adapt
      */

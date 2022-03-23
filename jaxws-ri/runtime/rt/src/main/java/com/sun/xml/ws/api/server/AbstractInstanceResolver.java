@@ -29,6 +29,11 @@ import java.security.PrivilegedAction;
  */
 public abstract class AbstractInstanceResolver<T> extends InstanceResolver<T> {
 
+    /**
+     * Default constructor.
+     */
+    public AbstractInstanceResolver() {}
+
     protected static ResourceInjector getResourceInjector(WSEndpoint endpoint) {
         ResourceInjector ri = endpoint.getContainer().getSPI(ResourceInjector.class);
         if(ri==null)

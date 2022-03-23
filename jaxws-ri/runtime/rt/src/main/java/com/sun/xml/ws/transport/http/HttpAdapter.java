@@ -813,7 +813,8 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
         }
     }
 
-    final class HttpToolkit extends Adapter.Toolkit {
+    public final class HttpToolkit extends Adapter.Toolkit {
+        private HttpToolkit() {};
         public void handle(WSHTTPConnection con) throws IOException {
             try {
                 boolean invoke = false;

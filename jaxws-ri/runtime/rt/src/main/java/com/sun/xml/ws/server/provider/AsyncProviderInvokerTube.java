@@ -80,7 +80,7 @@ class AsyncProviderInvokerTube<T> extends ProviderInvokerTube<T> {
         }
     }
     
-    private interface Resumer {
+    public interface Resumer {
     	void onResume(Packet response);
     }
     

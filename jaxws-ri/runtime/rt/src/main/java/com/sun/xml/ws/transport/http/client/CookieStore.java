@@ -26,7 +26,7 @@ import java.util.List;
  * @author Edward Wang
  * @since 1.6
  */
-interface CookieStore {
+public interface CookieStore {
     /**
      * Adds one HTTP cookie to the store. This is called for every
      * incoming HTTP response.

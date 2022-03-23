@@ -27,7 +27,9 @@ import org.xml.sax.EntityResolver;
  *
  * @author lukas
  */
-public class XmlCatalogUtil {
+public final class XmlCatalogUtil {
+
+    private XmlCatalogUtil() {}
 
     // Cache CatalogFeatures instance for future usages.
     // Resolve feature is set to "continue" value for backward compatibility.

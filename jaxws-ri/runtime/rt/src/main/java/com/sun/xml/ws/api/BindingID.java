@@ -75,6 +75,11 @@ import java.util.Map;
 public abstract class BindingID {
 
     /**
+     * Default constructor.
+     */
+    protected BindingID() {}
+
+    /**
      * Creates an instance of {@link WSBinding} (which is conceptually an "use"
      * of {@link BindingID}) from a {@link BindingID}.
      *
@@ -259,7 +264,7 @@ public abstract class BindingID {
     /**
      * Parses parameter portion and returns appropriately populated {@link SOAPHTTPImpl}
      */
-    private static SOAPHTTPImpl customize(String lexical, SOAPHTTPImpl base) {
+    private static BindingID customize(String lexical, BindingID base) {
         if(lexical.equals(base.toString()))
             return base;
 
@@ -306,29 +311,29 @@ public abstract class BindingID {
      * Constant that represents implementation specific SOAP1.2/HTTP which is
      * used to generate non-standard WSDLs
      */
-    public static final SOAPHTTPImpl X_SOAP12_HTTP = new SOAPHTTPImpl(
+    public static final BindingID X_SOAP12_HTTP = new SOAPHTTPImpl(
         SOAPVersion.SOAP_12, SOAPBindingImpl.X_SOAP12HTTP_BINDING, true);
     
     /**
      * Constant that represents SOAP1.2/HTTP.
      */
-    public static final SOAPHTTPImpl SOAP12_HTTP = new SOAPHTTPImpl(
+    public static final BindingID SOAP12_HTTP = new SOAPHTTPImpl(
         SOAPVersion.SOAP_12, SOAPBinding.SOAP12HTTP_BINDING, true);
     /**
      * Constant that represents SOAP1.1/HTTP.
      */
-    public static final SOAPHTTPImpl SOAP11_HTTP = new SOAPHTTPImpl(
+    public static final BindingID SOAP11_HTTP = new SOAPHTTPImpl(
         SOAPVersion.SOAP_11, SOAPBinding.SOAP11HTTP_BINDING, true);
 
     /**
      * Constant that represents SOAP1.2/HTTP.
      */
-    public static final SOAPHTTPImpl SOAP12_HTTP_MTOM = new SOAPHTTPImpl(
+    public static final BindingID SOAP12_HTTP_MTOM = new SOAPHTTPImpl(
         SOAPVersion.SOAP_12, SOAPBinding.SOAP12HTTP_MTOM_BINDING, true, true);
     /**
      * Constant that represents SOAP1.1/HTTP.
      */
-    public static final SOAPHTTPImpl SOAP11_HTTP_MTOM = new SOAPHTTPImpl(
+    public static final BindingID SOAP11_HTTP_MTOM = new SOAPHTTPImpl(
         SOAPVersion.SOAP_11, SOAPBinding.SOAP11HTTP_MTOM_BINDING, true, true);
     
     

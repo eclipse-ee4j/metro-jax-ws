@@ -31,7 +31,9 @@ import com.sun.xml.ws.api.WSFeatureList;
  * @author Jitendra Kotamraju
  * @author Kohsuke Kawaguchi
  */
-public abstract class Codecs {
+public final class Codecs {
+
+    private Codecs() {}
 
     /**
      * This creates a full {@link Codec} for SOAP binding.

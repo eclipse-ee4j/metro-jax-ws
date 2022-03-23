@@ -57,6 +57,11 @@ import java.util.logging.Logger;
 public abstract class SOAPFaultBuilder {
 
     /**
+     * Default constructor.
+     */
+    protected SOAPFaultBuilder() {}
+
+    /**
      * Gives the {@link DetailType} for a Soap 1.1 or Soap 1.2 message that can be used to create either a checked exception or
      * a protocol specific exception
      */

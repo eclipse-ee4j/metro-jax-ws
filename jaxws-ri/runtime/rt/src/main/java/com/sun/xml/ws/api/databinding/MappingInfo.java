@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,12 @@ public class MappingInfo {
 	protected QName serviceName;
 	protected QName portName;
 	protected String defaultSchemaNamespaceSuffix;
-	
+
+	/**
+	 * Default constructor.
+	 */
+	public MappingInfo() {}
+
     public String getTargetNamespace() {
 		return targetNamespace;
 	}

@@ -109,6 +109,11 @@ import java.util.concurrent.Executor;
 public abstract class WSEndpoint<T> implements ComponentRegistry {
 
     /**
+     * Default constructor.
+     */
+    protected WSEndpoint() {}
+
+    /**
      * Gets the Endpoint's codec that is used to encode/decode {@link Message}s. This is a
      * copy of the master codec and it shouldn't be shared across two requests running
      * concurrently(unless it is stateless).

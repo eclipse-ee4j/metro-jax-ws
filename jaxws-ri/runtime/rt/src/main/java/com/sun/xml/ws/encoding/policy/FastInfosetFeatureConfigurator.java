@@ -37,6 +37,11 @@ public class FastInfosetFeatureConfigurator implements PolicyFeatureConfigurator
     public static final QName enabled = new QName("enabled");
 
     /**
+     * Default constructor.
+     */
+    public FastInfosetFeatureConfigurator() {}
+
+    /**
      * Process FastInfoset policy assertions.
      *
      * @param key Key to identify the endpoint scope.

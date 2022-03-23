@@ -181,6 +181,11 @@ import java.util.UUID;
  */
 public abstract class Message {
 
+    /**
+     * Default constructor.
+     */
+    protected Message() {}
+
     // See Packet for doc.
     private boolean isProtocolMessage = false;
     // next two are package protected - should only be used from Packet

@@ -28,7 +28,12 @@ public class EncodingPrefixMapper implements PrefixMapper {
         prefixMap.put(EncodingConstants.SUN_ENCODING_CLIENT_NS, "cenc");
         prefixMap.put(EncodingConstants.SUN_FI_SERVICE_NS, "fi");
     }
-        
+
+    /**
+     * Default constructor.
+     */
+    public EncodingPrefixMapper() {}
+
     @Override
     public Map<String, String> getPrefixMap() {
         return prefixMap;

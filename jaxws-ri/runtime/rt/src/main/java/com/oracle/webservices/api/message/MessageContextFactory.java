@@ -24,6 +24,11 @@ import jakarta.xml.ws.WebServiceFeature;
 
 public abstract class MessageContextFactory {
 
+    /**
+     * Default constructor.
+     */
+    public MessageContextFactory() {}
+
     protected com.sun.xml.ws.api.message.saaj.SAAJFactory saajFactory = null;
 
     protected abstract MessageContextFactory newFactory(WebServiceFeature ... f);

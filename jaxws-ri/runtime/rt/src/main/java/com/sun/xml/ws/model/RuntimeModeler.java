@@ -420,7 +420,7 @@ public class RuntimeModeler {
             }
             isWrapped = soapBinding.parameterStyle()== SOAPBinding.ParameterStyle.WRAPPED;
         }
-        defaultBinding = createBinding(soapBinding);
+        defaultBinding = (SOAPBindingImpl) createBinding(soapBinding);
         /*
          * if clazz != portClass then there is an SEI.  If there is an
          * SEI, then all methods should be processed.  However, if there is
@@ -517,7 +517,7 @@ public class RuntimeModeler {
      * @param soapBinding the <code>jakarta.jws.soap.SOAPBinding</code> to model
      * @return returns the runtime model SOAPBinding corresponding to <code>soapBinding</code>
      */
-    protected SOAPBindingImpl createBinding(SOAPBinding soapBinding) {
+    protected com.sun.xml.ws.api.model.soap.SOAPBinding createBinding(SOAPBinding soapBinding) {
         SOAPBindingImpl rtSOAPBinding = new SOAPBindingImpl();
         Style style = soapBinding!=null ? soapBinding.style() : Style.DOCUMENT;
         rtSOAPBinding.setStyle(style);
@@ -673,7 +673,7 @@ public class RuntimeModeler {
         boolean methodIsWrapped = isWrapped;
         Style style = defaultBinding.getStyle();
         if (methodBinding != null) {
-            SOAPBindingImpl mySOAPBinding = createBinding(methodBinding);
+            SOAPBindingImpl mySOAPBinding = (SOAPBindingImpl) createBinding(methodBinding);
             style = mySOAPBinding.getStyle();
             if (action != null)
                 mySOAPBinding.setSOAPAction(action);
