@@ -25,17 +25,17 @@ import java.lang.annotation.Annotation;
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
- * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="style" type="{http://xmlns.oracle.com/webservices/jaxws-databinding}soap-binding-style" default="DOCUMENT" />
- *       &lt;attribute name="use" type="{http://xmlns.oracle.com/webservices/jaxws-databinding}soap-binding-use" default="LITERAL" />
- *       &lt;attribute name="parameter-style" type="{http://xmlns.oracle.com/webservices/jaxws-databinding}soap-binding-parameter-style" default="WRAPPED" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ * <pre>{@code
+ * <complexType>
+ *   <complexContent>
+ *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       <attribute name="style" type="{http://xmlns.oracle.com/webservices/jaxws-databinding}soap-binding-style" default="DOCUMENT" />
+ *       <attribute name="use" type="{http://xmlns.oracle.com/webservices/jaxws-databinding}soap-binding-use" default="LITERAL" />
+ *       <attribute name="parameter-style" type="{http://xmlns.oracle.com/webservices/jaxws-databinding}soap-binding-parameter-style" default="WRAPPED" />
+ *     </restriction>
+ *   </complexContent>
+ * </complexType>
+ * }</pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")

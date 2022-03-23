@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,14 +19,14 @@ import jakarta.xml.bind.annotation.XmlTransient;
 import javax.xml.namespace.QName;
 
 /**
- * <pre>
- *      &lt;env:Subcode>
- *          &lt;env:Value>m:MessageTimeout1&lt;/env:Value>
- *          &lt;env:Subcode>
- *              &lt;env:Value>m:MessageTimeout2&lt;/env:Value>
- *          &lt;/env:Subcode>
- *      &lt;/env:Subcode>
- *  </pre>
+ * <pre>{@code
+ *      <env:Subcode>
+ *          <env:Value>m:MessageTimeout1</env:Value>
+ *          <env:Subcode>
+ *              <env:Value>m:MessageTimeout2</env:Value>
+ *          </env:Subcode>
+ *      </env:Subcode>
+ *  }</pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SubcodeType", namespace = "http://www.w3.org/2003/05/soap-envelope", propOrder = {

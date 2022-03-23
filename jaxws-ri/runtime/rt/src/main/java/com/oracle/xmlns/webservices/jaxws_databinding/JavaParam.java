@@ -34,19 +34,19 @@ import java.util.Map;
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
- * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;group ref="{http://xmlns.oracle.com/webservices/jaxws-databinding}param-annotation" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="java-type" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;anyAttribute processContents='skip' namespace='##other'/>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ * <pre>{@code
+ * <complexType>
+ *   <complexContent>
+ *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       <sequence>
+ *         <group ref="{http://xmlns.oracle.com/webservices/jaxws-databinding}param-annotation" maxOccurs="unbounded" minOccurs="0"/>
+ *       </sequence>
+ *       <attribute name="java-type" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       <anyAttribute processContents='skip' namespace='##other'/>
+ *     </restriction>
+ *   </complexContent>
+ * </complexType>
+ * }</pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {

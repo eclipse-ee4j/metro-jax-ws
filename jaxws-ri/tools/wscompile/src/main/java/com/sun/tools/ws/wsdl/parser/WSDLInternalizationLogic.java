@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,7 @@ import org.xml.sax.helpers.XMLFilterImpl;
 public class WSDLInternalizationLogic implements InternalizationLogic{
 
     /**
-     * This filter looks for &lt;xs:import> and &lt;xs:include>
+     * This filter looks for {@code <xs:import>} and {@code <xs:include>}
      * and parses those documents referenced by them.
      */
     private static final class ReferenceFinder extends AbstractReferenceFinderImpl {

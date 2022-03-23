@@ -37,21 +37,21 @@ import java.util.Map;
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
- * <pre>
- * &lt;element name="metro">
- *   &lt;complexType>
- *     &lt;complexContent>
- *       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *         &lt;sequence>
- *           &lt;element ref="{http://java.sun.com/xml/ns/metro/config}tubelines" minOccurs="0"/>
- *           &lt;any/>
- *         &lt;/sequence>
- *         &lt;attribute name="version" use="required" type="{http://java.sun.com/xml/ns/metro/config}metroConfigVersionSType" />
- *       &lt;/restriction>
- *     &lt;/complexContent>
- *   &lt;/complexType>
- * &lt;/element>
- * </pre>
+ * <pre>{@code
+ * <element name="metro">
+ *   <complexType>
+ *     <complexContent>
+ *       <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *         <sequence>
+ *           <element ref="{http://java.sun.com/xml/ns/metro/config}tubelines" minOccurs="0"/>
+ *           <any/>
+ *         </sequence>
+ *         <attribute name="version" use="required" type="{http://java.sun.com/xml/ns/metro/config}metroConfigVersionSType" />
+ *       </restriction>
+ *     </complexContent>
+ *   </complexType>
+ * </element>
+ * }</pre>
  * 
  * 
  */

@@ -28,7 +28,7 @@ import java.util.Set;
  * Builds DOM while keeping the location information.
  *
  * <p>
- * This class also looks for outer most &lt;jaxws:bindings>
+ * This class also looks for outer most {@code <jaxws:bindings>}
  * customizations.
  *
  * @author

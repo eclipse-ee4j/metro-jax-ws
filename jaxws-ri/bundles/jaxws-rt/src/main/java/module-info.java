@@ -126,6 +126,7 @@ module com.sun.xml.ws {
     exports com.sun.xml.ws.wsdl.writer.document;
     exports com.sun.xml.ws.wsdl.writer.document.soap;
     exports com.sun.xml.ws.wsdl.writer.document.soap12;
+    exports com.sun.xml.ws.wsdl.writer.document.xsd;
 
 
     exports com.sun.xml.ws.encoding.fastinfoset; //wsit

@@ -67,7 +67,7 @@ public class Internalizer {
         }
     };
     /**
-     * Validates attributes of a &lt;JAXWS:bindings> element.
+     * Validates attributes of a {@code <JAXWS:bindings>} element.
      */
     private void validate(Element bindings) {
         NamedNodeMap atts = bindings.getAttributes();
@@ -303,9 +303,9 @@ public class Internalizer {
     /**
      * Moves the "decl" node under the "target" node.
      *
-     * @param decl   A JAXWS customization element (e.g., &lt;JAXWS:class>)
+     * @param decl   A JAXWS customization element (e.g., {@code <JAXWS:class>})
      * @param target XML wsdl element under which the declaration should move.
-     *               For example, &lt;xs:element>
+     *               For example, {@code <xs:element>}
      */
     private void moveUnder(Element decl, Element target) {
 

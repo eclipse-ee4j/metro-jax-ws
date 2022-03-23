@@ -27,28 +27,24 @@ import java.util.Iterator;
 /**
  * This class represents SOAP1.1 Fault. This class will be used to marshall/unmarshall a soap fault using JAXB.
  * <br>
- * <pre>
  * Example:
- * <br>
- *     &lt;soap:Fault xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>
- *         &lt;faultcode>soap:Client&lt;/faultcode>
- *         &lt;faultstring>Invalid message format&lt;/faultstring>
- *         &lt;faultactor>http://example.org/someactor&lt;/faultactor>
- *         &lt;detail>
- *             &lt;m:msg xmlns:m='http://example.org/faults/exceptions'>
+ * <pre>{@code
+ *     <soap:Fault xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>
+ *         <faultcode>soap:Client</faultcode>
+ *         <faultstring>Invalid message format</faultstring>
+ *         <faultactor>http://example.org/someactor</faultactor>
+ *         <detail>
+ *             <m:msg xmlns:m='http://example.org/faults/exceptions'>
  *                 Test message
- *             &lt;/m:msg>
- *         &lt;/detail>
- *     &lt;/soap:Fault>
- * <br>
+ *             </m:msg>
+ *         </detail>
+ *     </soap:Fault>
+ * }</pre>
  * Above, m:msg, if a known fault (described in the WSDL), IOW, if m:msg is known by JAXBContext it should be unmarshalled into a
  * Java object otherwise it should be deserialized as {@link jakarta.xml.soap.Detail}
- * </pre>
- * <br>
  *
  * @author Vivek Pandey
  */
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
         "faultcode",

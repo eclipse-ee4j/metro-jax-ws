@@ -33,19 +33,19 @@ import java.util.Map;
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
- * <pre>
- * &lt;complexType name="tubelineMappingCType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="endpoint-ref" type="{http://www.w3.org/2001/XMLSchema}anyURI"/>
- *         &lt;element name="tubeline-ref" type="{http://www.w3.org/2001/XMLSchema}anyURI"/>
- *         &lt;any/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ * <pre>{@code
+ * <complexType name="tubelineMappingCType">
+ *   <complexContent>
+ *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       <sequence>
+ *         <element name="endpoint-ref" type="{http://www.w3.org/2001/XMLSchema}anyURI"/>
+ *         <element name="tubeline-ref" type="{http://www.w3.org/2001/XMLSchema}anyURI"/>
+ *         <any/>
+ *       </sequence>
+ *     </restriction>
+ *   </complexContent>
+ * </complexType>
+ * }</pre>
  * 
  * 
  */

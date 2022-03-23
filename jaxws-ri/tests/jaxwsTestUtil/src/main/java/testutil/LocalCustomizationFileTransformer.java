@@ -8,10 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-/*
- * $Id: LocalCustomizationFileTransformer.java,v 1.1 2005/10/07 22:46:09 kk122374 Exp $
- */
-
 package testutil;
 
 import java.io.File;
@@ -208,7 +204,7 @@ public class LocalCustomizationFileTransformer {
     /**
      *
      * @param dirName path to /x/y/z/WEB-INF/wsdl
-     * @return Map is query-->path e.g: wsdl=sub/a.wsdl --> /WEB-INF/wsdl/sub/a.wsdl
+     * @return Map is query{@literal -->}path e.g: wsdl=sub/a.wsdl {@literal -->} /WEB-INF/wsdl/sub/a.wsdl
      */
     private static Map<String, String> buildMap(String dirName, String primaryWsdl)
     throws Exception {

@@ -88,7 +88,7 @@
         <comp.xlint>-Xlint:all,-rawtypes,-unchecked</comp.xlint>
         <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
         <comp.xdoclint>-Xdoclint:all,-missing</comp.xdoclint>
-        <warn.limit>1500000</warn.limit>
+        <warn.limit>150</warn.limit>
         <!-- not interested in warnings from tests (yet) -->
         <comp.test.xlint>-Xlint:none</comp.test.xlint>
         <comp.test.xdoclint>-Xdoclint:none</comp.test.xdoclint>
