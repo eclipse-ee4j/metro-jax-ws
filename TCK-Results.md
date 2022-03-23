@@ -26,6 +26,13 @@ following is a summary of the TCK results for releases of Eclipse Implementation
 - [x] By checking this box I acknowledge that the Organization I represent accepts the terms of the [EFTL](https://www.eclipse.org/legal/tck.php).
 - [x] By checking this box I attest that all TCK requirements have been met, including any compatibility rules.
 
+```
+***                        TCK results summary                                  ***
+[javatest.batch] Number of Tests Passed      = 954
+[javatest.batch] Number of Tests Failed      = 0
+[javatest.batch] Number of Tests with Errors = 0
+```
+
 # 3.0.1 Certification Request
 
 - [x] Organization Name ("Organization") and, if applicable, URL:<br/>
