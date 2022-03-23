@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,6 +19,10 @@ import com.sun.istack.NotNull;
  * @since 2.1 EA3
  */
 public abstract class WebModule extends Module {
+    /**
+     * Default constructor.
+     */
+    protected WebModule() {}
     /**
      * Gets the host, port, and context path portion of this module.
      *

@@ -27,11 +27,12 @@ import javax.xml.namespace.QName;
  * Wrapper utility class to be used from the generated code or run time.
  */
 public final class JAXWSUtils {
+
+    private JAXWSUtils() {}
+
     public static String getUUID(){
          return UUID.randomUUID().toString();
     }
-
-
 
     public static String getFileOrURLName(String fileOrURL) {
         try{

@@ -45,12 +45,15 @@ public interface ContentType {
      */
     String getAcceptHeader();
     
-    class Builder {
+    public class Builder {
         private String contentType;
         private String soapAction;
         private String accept;
         private String charset;
-        
+        /**
+         * Default constructor.
+         */
+        public Builder() {}
         public Builder contentType(String s) {contentType = s; return this; }
         public Builder soapAction (String s) {soapAction = s;  return this; }
         public Builder accept     (String s) {accept = s;      return this; }

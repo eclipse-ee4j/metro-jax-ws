@@ -21,7 +21,9 @@ import java.security.PrivilegedAction;
  *
  * Version for {@code runtime >= 9}.
  */
-public class MrJarUtil {
+public final class MrJarUtil {
+
+    private MrJarUtil() {}
 
     /**
      * Get property used for disabling instance pooling of xml readers / writers.

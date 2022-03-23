@@ -21,6 +21,12 @@ import com.sun.xml.ws.api.pipe.Tube;
  * @since 2.2.7
  */
 public class TubelineAssemblyDecorator {
+
+    /**
+     * Default constructor.
+     */
+    public TubelineAssemblyDecorator() {}
+
     /**
      * Composite decorator
      * @param decorators decorators

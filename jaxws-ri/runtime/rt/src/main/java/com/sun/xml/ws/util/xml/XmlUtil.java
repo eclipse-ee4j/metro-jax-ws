@@ -88,6 +88,8 @@ public class XmlUtil {
             }
     );
 
+    protected XmlUtil() {}
+
     public static String getPrefix(String s) {
         int i = s.indexOf(':');
         if (i == -1)

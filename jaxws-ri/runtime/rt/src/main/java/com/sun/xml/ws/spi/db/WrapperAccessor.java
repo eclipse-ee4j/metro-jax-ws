@@ -22,8 +22,13 @@ import javax.xml.namespace.QName;
 public abstract class WrapperAccessor {
 	protected Map<Object, PropertySetter> propertySetters;
 	protected Map<Object, PropertyGetter> propertyGetters;
-	protected boolean elementLocalNameCollision; 
-	
+	protected boolean elementLocalNameCollision;
+
+	/**
+	 * Default constructor.
+	 */
+	protected WrapperAccessor() {}
+
 	protected PropertySetter getPropertySetter(QName name) {
         Object key = (elementLocalNameCollision) ? name : name.getLocalPart();
         return propertySetters.get(key);

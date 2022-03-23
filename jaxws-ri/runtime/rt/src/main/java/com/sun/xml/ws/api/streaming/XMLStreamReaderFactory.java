@@ -52,6 +52,11 @@ public abstract class XMLStreamReaderFactory {
     private static final String CLASS_NAME_OF_WSTXINPUTFACTORY = "com.ctc.wstx.stax.WstxInputFactory";
 
     /**
+     * Default constructor.
+     */
+    protected XMLStreamReaderFactory() {}
+
+    /**
      * Singleton instance.
      */
     private static volatile ContextClassloaderLocal<XMLStreamReaderFactory> streamReader =
@@ -357,6 +362,11 @@ public abstract class XMLStreamReaderFactory {
                 return getXMLInputFactory();
             }
         };
+
+        /**
+         * Default constructor.
+         */
+        public Default() {}
 
         @Override
         public XMLStreamReader doCreate(String systemId, InputStream in, boolean rejectDTDs) {

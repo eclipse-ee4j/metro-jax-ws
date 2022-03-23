@@ -40,6 +40,11 @@ public abstract class Pool<T> {
     private volatile SoftReference<ConcurrentLinkedQueue<T>> queue;
 
     /**
+     * Default constructor.
+     */
+    protected Pool() {}
+
+    /**
      * Gets a new object from the pool.
      *
      * <p>

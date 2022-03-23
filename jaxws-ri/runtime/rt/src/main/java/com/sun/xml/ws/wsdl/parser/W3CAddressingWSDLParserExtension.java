@@ -30,6 +30,12 @@ import jakarta.xml.ws.soap.AddressingFeature;
  * @author Arun Gupta
  */
 public class W3CAddressingWSDLParserExtension extends WSDLParserExtension {
+
+    /**
+     * Default constructor.
+     */
+    protected W3CAddressingWSDLParserExtension() {}
+
     @Override
     public boolean bindingElements(EditableWSDLBoundPortType binding, XMLStreamReader reader) {
         return addressibleElement(reader, binding);

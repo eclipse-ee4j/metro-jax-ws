@@ -54,6 +54,12 @@ import java.util.logging.Logger;
  * @author Kohsuke Kawaguchi
  */
 public abstract class InstanceResolver<T> {
+
+    /**
+     * Default constructor.
+     */
+    protected InstanceResolver() {}
+
     /**
      * Decides which instance of 'T' serves the given request message.
      *

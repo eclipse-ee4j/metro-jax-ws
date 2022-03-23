@@ -28,7 +28,12 @@ import com.sun.xml.ws.spi.db.DatabindingProvider;
 public class DatabindingProviderImpl implements DatabindingProvider {
     static final private String CachedDatabinding = "com.sun.xml.ws.db.DatabindingProviderImpl";
 	Map<String, Object> properties;
-	
+
+    /**
+     * Default constructor.
+     */
+    public DatabindingProviderImpl() {}
+
 	@Override
     public void init(Map<String, Object> p) {
             properties = p;

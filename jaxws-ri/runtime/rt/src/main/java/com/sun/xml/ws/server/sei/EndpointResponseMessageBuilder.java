@@ -34,6 +34,12 @@ import java.util.List;
  * @author Jitendra Kotamraju
  */
 public abstract class EndpointResponseMessageBuilder {
+
+    /**
+     * Default constructor.
+     */
+    protected EndpointResponseMessageBuilder() {}
+
     public abstract Message createMessage(Object[] methodArgs, Object returnValue);
 
     public static final EndpointResponseMessageBuilder EMPTY_SOAP11 = new Empty(SOAPVersion.SOAP_11);

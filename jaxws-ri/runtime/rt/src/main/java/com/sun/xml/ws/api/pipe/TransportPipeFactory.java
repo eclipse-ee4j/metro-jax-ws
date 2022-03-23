@@ -62,6 +62,12 @@ import jakarta.xml.ws.WebServiceException;
  * @see StandalonePipeAssembler
  */
 public abstract class TransportPipeFactory {
+
+    /**
+     * Default constructor.
+     */
+    public TransportPipeFactory() {}
+
     /**
      * Creates a transport {@link Pipe} for the given port, if this factory can do so,
      * or return null.

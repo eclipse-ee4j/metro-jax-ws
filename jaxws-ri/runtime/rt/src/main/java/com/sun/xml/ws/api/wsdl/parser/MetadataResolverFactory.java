@@ -27,11 +27,15 @@ import org.xml.sax.EntityResolver;
  * @see com.sun.xml.ws.api.wsdl.parser.MetaDataResolver#resolve(java.net.URI)
  */
 public abstract class MetadataResolverFactory {
+
+    /**
+     * Default constructor.
+     */
+    protected MetadataResolverFactory() {}
+
     /**
      * Gets a {@link com.sun.xml.ws.api.wsdl.parser.MetaDataResolver}
      *
      */
-    public abstract
-    @NotNull
-    MetaDataResolver metadataResolver(@Nullable EntityResolver resolver);
+    public abstract @NotNull MetaDataResolver metadataResolver(@Nullable EntityResolver resolver);
 }

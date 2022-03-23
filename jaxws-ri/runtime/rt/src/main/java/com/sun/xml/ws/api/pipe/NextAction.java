@@ -46,7 +46,12 @@ public final class NextAction {
     // Used to switch a tubeline from synchronous to asynchronous execution
     // with respect to the thread that started this tubeline.
     static final int INVOKE_ASYNC = 7;
-    
+
+    /**
+     * Default constructor.
+     */
+    public NextAction() {}
+
   private void set(int k, Tube v, Packet p, Throwable t) {
         this.kind = k;
         this.next = v;

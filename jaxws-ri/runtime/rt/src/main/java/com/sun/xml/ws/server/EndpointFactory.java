@@ -94,7 +94,9 @@ import java.util.logging.Logger;
  */
 public class EndpointFactory {
 	private static final EndpointFactory instance = new EndpointFactory();
-	
+
+    private EndpointFactory() {}
+
 	public static EndpointFactory getInstance() {
 		return instance;
 	}

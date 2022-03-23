@@ -29,6 +29,12 @@ import jakarta.xml.ws.WebServiceException;
  * injection.
  */
 public abstract class InjectionPlan<T, R> {
+
+    /**
+     * Default constructor.
+     */
+    protected InjectionPlan() {}
+
     /**
      * Perform injection
      * 

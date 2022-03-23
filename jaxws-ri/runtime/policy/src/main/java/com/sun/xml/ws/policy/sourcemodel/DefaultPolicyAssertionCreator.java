@@ -27,6 +27,7 @@ import java.util.Collection;
  */
 class DefaultPolicyAssertionCreator implements PolicyAssertionCreator {    
     private static final class DefaultPolicyAssertion extends PolicyAssertion {
+        @SuppressWarnings({"deprecation"})
         DefaultPolicyAssertion(AssertionData data, Collection<PolicyAssertion> assertionParameters, AssertionSet nestedAlternative) {
             super (data, assertionParameters, nestedAlternative);
         }

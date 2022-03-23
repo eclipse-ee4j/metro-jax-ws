@@ -20,7 +20,12 @@ import java.util.Map;
  */
 public abstract class PropertySetterBase implements PropertySetter {
     protected Class type;
-    
+
+    /**
+     * Default constructor.
+     */
+    protected PropertySetterBase() {}
+
     @Override
     public Class getType() {
         return type;

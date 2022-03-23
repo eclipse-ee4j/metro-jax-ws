@@ -54,6 +54,11 @@ public final class EPRRecipe {
     private final List<Source> metadata = new ArrayList<>();
 
     /**
+     * Default constructor.
+     */
+    public EPRRecipe() {}
+
+    /**
      * Gets all the reference parameters added so far.
      */
     public @NotNull List<Header> getReferenceParameters() {

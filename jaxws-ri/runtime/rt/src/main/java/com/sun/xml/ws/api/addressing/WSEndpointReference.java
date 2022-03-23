@@ -1000,6 +1000,7 @@ public final class WSEndpointReference  implements WSDLExtension {
      * Represents an extensibility element inside an EndpointReference
      */
     public static abstract class EPRExtension {
+        protected EPRExtension() {}
         public abstract XMLStreamReader readAsXMLStreamReader() throws XMLStreamException;
 
         public abstract QName getQName();

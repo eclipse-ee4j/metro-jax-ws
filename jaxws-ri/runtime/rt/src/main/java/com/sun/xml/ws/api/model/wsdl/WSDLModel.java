@@ -126,6 +126,7 @@ public interface WSDLModel extends WSDLExtensible {
      * Main purpose of this class is to  parsing of a WSDL and get the {@link WSDLModel} from it.
      */
     class WSDLParser{
+        private WSDLParser() {}
        /**
          * Parses WSDL from the given wsdlLoc and gives a {@link WSDLModel} built from it.
          *

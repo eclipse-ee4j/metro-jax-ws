@@ -129,7 +129,9 @@ public class EffectiveAlternativeSelector {
     }
     
     private static final PolicyLogger LOGGER = PolicyLogger.getLogger(EffectiveAlternativeSelector.class);
-    
+
+    protected EffectiveAlternativeSelector() {}
+
     /**
      * Does the selection for policy map bound to given modifier.
      *

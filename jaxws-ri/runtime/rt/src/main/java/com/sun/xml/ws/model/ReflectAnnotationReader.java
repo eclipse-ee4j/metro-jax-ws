@@ -24,7 +24,13 @@ import com.sun.xml.ws.api.databinding.MetadataReader;
  * @author shih-chang.chen@oracle.com
  */
 public class ReflectAnnotationReader implements MetadataReader {
-//getAnnotationOnImpl SEIorIMpl
+
+    /**
+     * Default constructor.
+     */
+    public ReflectAnnotationReader() {}
+
+    //getAnnotationOnImpl SEIorIMpl
 	@Override
     public Annotation[] getAnnotations(Method m) {
 		return m.getAnnotations();

@@ -33,6 +33,12 @@ import java.net.URL;
  * @author Kohsuke Kawaguchi
  */
 public abstract class SDDocumentSource {
+
+    /**
+     * Default constructor.
+     */
+    protected SDDocumentSource() {}
+
     /**
      * Returns the {@link XMLStreamReader} that reads the document.
      *

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,7 +32,10 @@ import com.sun.xml.ws.message.StringHeader;
 import com.sun.xml.ws.resources.AddressingMessages;
 import com.sun.xml.ws.resources.ClientMessages;
 
-public class AddressingUtils {
+public final class AddressingUtils {
+
+    private AddressingUtils() {}
+
     //TODO is MessageHeaders to be implicitly assumed? Or moved to utility class and taken out from interface?
     public static void fillRequestAddressingHeaders(MessageHeaders headers, Packet packet, AddressingVersion av, SOAPVersion sv, boolean oneway, String action) {
         fillRequestAddressingHeaders(headers, packet, av, sv, oneway, action, false);

@@ -48,6 +48,11 @@ public abstract class XMLStreamWriterFactory {
     private static final Logger LOGGER = Logger.getLogger(XMLStreamWriterFactory.class.getName());
 
     /**
+     * Default constructor.
+     */
+    protected XMLStreamWriterFactory() {}
+
+    /**
      * Singleton instance.
      */
     private static volatile ContextClassloaderLocal<XMLStreamWriterFactory> writerFactory =

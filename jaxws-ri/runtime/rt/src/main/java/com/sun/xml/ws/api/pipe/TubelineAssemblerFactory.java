@@ -36,6 +36,10 @@ import java.util.logging.Logger;
  */
 public abstract class TubelineAssemblerFactory {
     /**
+     * Default constructor.
+     */
+    protected TubelineAssemblerFactory() {}
+    /**
      * Creates a {@link TubelineAssembler} applicable for the given binding ID.
      *
      * @param bindingId The binding ID for which a tubeline will be created,

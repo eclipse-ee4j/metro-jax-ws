@@ -55,6 +55,12 @@ public abstract class BasePropertySet implements PropertySet {
     protected static class PropertyMap extends HashMap<String,Accessor> {
 
         private static final long serialVersionUID = 2640743517567338373L;
+
+        /**
+         * Default constructor.
+         */
+        protected PropertyMap() {}
+
         // the entries are often being iterated through so performance can be improved
         // by their caching instead of iterating through the original (immutable) map each time
         transient PropertyMapEntry[] cachedEntries = null;

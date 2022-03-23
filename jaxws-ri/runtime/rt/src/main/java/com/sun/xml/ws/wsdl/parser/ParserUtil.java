@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,10 @@ import javax.xml.stream.XMLStreamReader;
  * TODO: made public just for now
  * @author WS Development Team
  */
-public class ParserUtil {
+public final class ParserUtil {
+
+    private ParserUtil() {}
+
     public static String getAttribute(XMLStreamReader reader, String name) {
         return reader.getAttributeValue(null, name);
     }

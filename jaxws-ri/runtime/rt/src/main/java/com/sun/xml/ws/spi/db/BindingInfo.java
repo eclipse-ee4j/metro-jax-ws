@@ -35,6 +35,11 @@ public class BindingInfo {
     private SEIModel seiModel;
     private URL wsdlURL;
 
+	/**
+	 * Default constructor.
+	 */
+	public BindingInfo() {}
+
     public String getDatabindingMode() {
 		return databindingMode;
 	}

@@ -54,6 +54,11 @@ public abstract class WSHTTPConnection extends BasePropertySet {
     public static final int INTERNAL_ERR=500;
 
     /**
+     * Default constructor.
+     */
+    protected WSHTTPConnection() {}
+
+    /**
      * Overwrites all the HTTP response headers written thus far.
      *
      * <p>

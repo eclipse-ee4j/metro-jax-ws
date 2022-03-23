@@ -44,7 +44,7 @@ import java.util.UUID;
  *
  * @author Kohsuke Kawaguchi
  */
-abstract class MimeCodec implements Codec {
+public abstract class MimeCodec implements Codec {
     
     public static final String MULTIPART_RELATED_MIME_TYPE = "multipart/related";
     

@@ -44,6 +44,11 @@ public final class WSServletContextListener
 
     private static final String WSSERVLET_CONTEXT_LISTENER_INVOKED="com.sun.xml.ws.transport.http.servlet.WSServletContextListener.Invoked";
 
+    /**
+     * Default constructor.
+     */
+    public WSServletContextListener() {}
+
     @Override
     public void attributeAdded(ServletContextAttributeEvent event) {
     }

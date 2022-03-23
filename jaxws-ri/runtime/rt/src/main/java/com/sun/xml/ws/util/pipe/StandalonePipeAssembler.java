@@ -26,6 +26,11 @@ import com.sun.xml.ws.api.pipe.ServerPipeAssemblerContext;
  */
 public class StandalonePipeAssembler implements PipelineAssembler {
 
+    /**
+     * Default constructor.
+     */
+    public StandalonePipeAssembler() {}
+
     @Override
     @NotNull
     public Pipe createClient(ClientPipeAssemblerContext context) {

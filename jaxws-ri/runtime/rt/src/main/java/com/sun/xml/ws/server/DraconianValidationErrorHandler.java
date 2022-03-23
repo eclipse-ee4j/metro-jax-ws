@@ -22,6 +22,11 @@ import org.xml.sax.SAXException;
  */
 public class DraconianValidationErrorHandler extends ValidationErrorHandler {
 
+    /**
+     * Default constructor.
+     */
+    public DraconianValidationErrorHandler() {}
+
     @Override
     public void warning(SAXParseException e) throws SAXException {
         // noop

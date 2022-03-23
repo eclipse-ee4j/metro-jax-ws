@@ -141,6 +141,11 @@ public abstract class PolicyModelGenerator {
     protected static class PolicySourceModelCreator {
 
         /**
+         * Default constructor.
+         */
+        protected PolicySourceModelCreator() {}
+
+        /**
          * Create an instance of the PolicySourceModel.
          *
          * @param policy The policy that underlies the created PolicySourceModel.

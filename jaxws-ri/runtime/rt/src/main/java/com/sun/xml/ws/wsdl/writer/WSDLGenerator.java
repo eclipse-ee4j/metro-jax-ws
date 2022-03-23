@@ -1160,9 +1160,10 @@ public class WSDLGenerator {
     /**
      * Implements the SchemaOutputResolver used by JAXB to
      */
-    protected class JAXWSOutputSchemaResolver extends SchemaOutputResolver {
+    private class JAXWSOutputSchemaResolver extends SchemaOutputResolver {
         ArrayList<DOMResult> nonGlassfishSchemas = null;
 
+        private JAXWSOutputSchemaResolver() {}
         /**
          * Creates the {@link Result} object used by JAXB to generate a schema for the
          * namesapceUri namespace.

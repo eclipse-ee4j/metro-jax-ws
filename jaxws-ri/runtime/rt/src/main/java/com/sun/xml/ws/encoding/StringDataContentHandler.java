@@ -27,6 +27,11 @@ public class StringDataContentHandler implements DataContentHandler {
     private static final ActivationDataFlavor myDF = new ActivationDataFlavor(
             java.lang.String.class, "text/plain", "Text String");
 
+    /**
+     * Default constructor.
+     */
+    public StringDataContentHandler() {}
+
     protected ActivationDataFlavor getDF() {
         return myDF;
     }

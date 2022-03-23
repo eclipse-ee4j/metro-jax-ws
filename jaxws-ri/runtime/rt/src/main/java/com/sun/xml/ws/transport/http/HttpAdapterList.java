@@ -43,6 +43,11 @@ public abstract class HttpAdapterList<T extends HttpAdapter> extends AbstractLis
     private final List<T> adapters = new ArrayList<>();
     private final Map<PortInfo, String> addressMap = new HashMap<>();
 
+    /**
+     * Default constructor.
+     */
+    public HttpAdapterList() {}
+
     // TODO: documented because it's used by AS
     @Override
     public T createAdapter(String name, String urlPattern, WSEndpoint<?> endpoint) {

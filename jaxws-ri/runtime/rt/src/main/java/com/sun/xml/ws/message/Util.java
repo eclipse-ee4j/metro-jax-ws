@@ -15,7 +15,10 @@ import com.sun.xml.ws.api.message.Message;
 /**
  * Utility code for the {@link Message} implementation.
  */
-public abstract class Util {
+public final class Util {
+
+    private Util() {}
+
     /**
      * Parses a stringthat represents a boolean into boolean.
      * This method assumes that the whilespace normalization has already taken place.

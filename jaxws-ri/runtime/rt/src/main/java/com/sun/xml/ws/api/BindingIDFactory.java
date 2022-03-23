@@ -28,6 +28,12 @@ import jakarta.xml.ws.WebServiceException;
  * @see BindingID#parse(String) 
  */
 public abstract class BindingIDFactory {
+
+    /**
+     * Default constructor.
+     */
+    public BindingIDFactory() {}
+
     /**
      * Parses a binding ID string into {@link BindingID} if possible.
      *

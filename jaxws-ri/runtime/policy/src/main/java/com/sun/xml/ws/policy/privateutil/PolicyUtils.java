@@ -41,6 +41,7 @@ public final class PolicyUtils {
     private PolicyUtils() { }
 
     public static class Commons {
+        private Commons() {}
         /**
          * Method returns the name of the method that is on the {@code methodIndexInStack}
          * position in the call stack of the current {@link Thread}.
@@ -72,6 +73,7 @@ public final class PolicyUtils {
     public static class IO {
         private static final PolicyLogger LOGGER = PolicyLogger.getLogger(PolicyUtils.IO.class);
 
+        private IO () {}
         /**
          * If the {@code resource} is not {@code null}, this method will try to close the
          * {@code resource} instance and log warning about any unexpected
@@ -117,6 +119,7 @@ public final class PolicyUtils {
          */
         public final static String NEW_LINE = System.getProperty("line.separator");
 
+        private Text() {}
         /**
          * Method creates indent string consisting of as many {@code TAB} characters as specified by {@code indentLevel} parameter
          *
@@ -132,6 +135,7 @@ public final class PolicyUtils {
     }
 
     public static class Comparison {
+        private Comparison() {}
         /**
          * The comparator comapres QName objects according to their publicly accessible attributes, in the following
          * order of attributes:
@@ -181,6 +185,7 @@ public final class PolicyUtils {
 
     public static class Collections {
         private static final PolicyLogger LOGGER = PolicyLogger.getLogger(PolicyUtils.Collections.class);
+        private Collections() {}
         /**
          * TODO javadocs
          *
@@ -269,6 +274,7 @@ public final class PolicyUtils {
     static class Reflection {
         private static final PolicyLogger LOGGER = PolicyLogger.getLogger(PolicyUtils.Reflection.class);
 
+        private Reflection() {}
         /**
          * Reflectively invokes specified method on the specified target
          */
@@ -312,6 +318,7 @@ public final class PolicyUtils {
     }
 
     public static class ConfigFile {
+        private ConfigFile() {}
         /**
          * Generates a config file resource name from provided config file identifier.
          * The generated file name can be transformed into a URL instance using
@@ -367,6 +374,7 @@ public final class PolicyUtils {
     public static class Rfc2396 {
 
         private static final PolicyLogger LOGGER = PolicyLogger.getLogger(PolicyUtils.Reflection.class);
+        private Rfc2396() {}
 
         // converts "hello%20world" into "hello world"
         public static String unquote(final String quoted) {
