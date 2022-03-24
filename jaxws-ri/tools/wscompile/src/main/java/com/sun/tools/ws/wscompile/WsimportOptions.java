@@ -669,6 +669,7 @@ public class WsimportOptions extends Options {
      * Looks for all "META-INF/services/[className]" files and
      * create one instance for each class name found inside this file.
      */
+    @SuppressWarnings({"unchecked"})
     private static <T> T[] findServices(Class<T> clazz, ClassLoader classLoader) {
         ServiceFinder<T> serviceFinder = ServiceFinder.find(clazz, ServiceLoader.load(clazz, classLoader));
         List<T> r = new ArrayList<>();

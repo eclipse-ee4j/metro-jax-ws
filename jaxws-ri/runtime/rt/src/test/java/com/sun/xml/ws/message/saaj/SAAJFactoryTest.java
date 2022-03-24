@@ -234,7 +234,7 @@ public class SAAJFactoryTest extends TestCase {
         SAAJFactory factory = new SAAJFactory();
         SOAPMessage saajMessage = factory.readAsSOAPMessage(SOAPVersion.SOAP_11, message);
 
-        AttachmentPart ap = (AttachmentPart) saajMessage.getAttachments().next();
+        AttachmentPart ap = saajMessage.getAttachments().next();
         Iterator it = ap.getAllMimeHeaders();
         int countContentID = 0;
         while (it.hasNext()) {

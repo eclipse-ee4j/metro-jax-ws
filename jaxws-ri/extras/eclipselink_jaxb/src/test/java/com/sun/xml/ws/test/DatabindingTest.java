@@ -80,6 +80,7 @@ public class DatabindingTest extends TestCase {
       builder.property("com.sun.xml.ws.api.message.MessageContextFactory", mcf);
       com.oracle.webservices.api.databinding.Databinding db = builder.build();
         Assert.assertSame(((com.sun.xml.ws.api.databinding.Databinding) db).getMessageContextFactory(), mcf);
+      @SuppressWarnings({"rawtypes"})
       Class[] paramType = {String.class};
       Object[] params = { "echoResponse" };
       com.oracle.webservices.api.databinding.JavaCallInfo call = 

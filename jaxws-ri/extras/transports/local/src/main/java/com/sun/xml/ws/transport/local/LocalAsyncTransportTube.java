@@ -192,6 +192,7 @@ final class LocalAsyncTransportTube extends AbstractTubeImpl {
 
         // get transport headers from message
         reqHeaders.clear();
+        @SuppressWarnings({"unchecked"})
         Map<String, List<String>> rh = (Map<String, List<String>>) request.invocationProperties.get(MessageContext.HTTP_REQUEST_HEADERS);
         //assign empty map if its null
         if(rh != null){

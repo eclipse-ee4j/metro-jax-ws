@@ -67,7 +67,7 @@ final class LocalTransportTube extends AbstractTubeImpl {
     // but nevertheless we do it as an experiement.
     private final Map<String, List<String>> reqHeaders = new HashMap<>();
 
-    public LocalTransportTube(URI baseURI, WSEndpoint endpoint, Codec codec) {
+    public LocalTransportTube(URI baseURI, WSEndpoint<?> endpoint, Codec codec) {
         this(baseURI,HttpAdapter.createAlone(endpoint),codec);
     }
 
@@ -99,6 +99,7 @@ final class LocalTransportTube extends AbstractTubeImpl {
 
             // get transport headers from message
             reqHeaders.clear();
+            @SuppressWarnings({"unchecked"})
             Map<String, List<String>> rh = (Map<String, List<String>>) request.invocationProperties.get(MessageContext.HTTP_REQUEST_HEADERS);
             //assign empty map if its null
             if(rh != null){

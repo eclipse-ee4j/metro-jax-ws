@@ -534,6 +534,7 @@ public abstract class Message {
         return getTransportHeaders(packet, packet.getState().isInbound());
     }
 
+    @SuppressWarnings({"unchecked"})
     public static Map<String, List<String>> getTransportHeaders(Packet packet, boolean inbound) {
         Map<String, List<String>> headers = null;
         String key = inbound ? Packet.INBOUND_TRANSPORT_HEADERS : Packet.OUTBOUND_TRANSPORT_HEADERS;

@@ -299,6 +299,7 @@ public class SAAJMessage extends Message {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         access();
         if (payload != null) {

@@ -57,7 +57,7 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
 
     public void testAttachmentContentId() throws Exception {
         WSDLPort wsdlPort = getWSDLPort(getResource("WSW2JDLSwaTestService.wsdl"));
-        Class proxySEIClass = SwaTest1.class;
+        Class<SwaTest1> proxySEIClass = SwaTest1.class;
         WebServiceFeature[] f = { databindingMode() };
         
         DatabindingConfig cliConfig = new DatabindingConfig();
@@ -96,6 +96,7 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
         Packet cliSoapReq = (Packet)cli.serializeRequest(cliCall);
 
         SOAPMessageContextImpl smc = new SOAPMessageContextImpl(null, cliSoapReq, null);
+        @SuppressWarnings({"unchecked"})
         Map<String, DataHandler> smcAtts1 = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
         smc.put(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS, smcAtts1);
         Assert.assertEquals( 5, smcAtts1.size() );
@@ -123,6 +124,7 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
 //        }
 
 
+        @SuppressWarnings({"unchecked"})
         Map<String, DataHandler> smcAtts2 = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
         Assert.assertEquals( 5, smcAtts1.size() );
         for (String cid : smcAtts2.keySet()) Assert.assertTrue(cid.charAt(0)!='<');
@@ -131,7 +133,7 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
 
     public void testCustomAttachmentContentId() throws Exception {
         WSDLPort wsdlPort = getWSDLPort(getResource("WSW2JDLSwaTestService.wsdl"));
-        Class proxySEIClass = SwaTest1.class;
+        Class<SwaTest1> proxySEIClass = SwaTest1.class;
         WebServiceFeature[] f = { databindingMode() };
         
         DatabindingConfig cliConfig = new DatabindingConfig();
@@ -175,12 +177,14 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
         cliSoapReq.invocationProperties.put(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS, attMap);
 
         SOAPMessageContextImpl smc = new SOAPMessageContextImpl(null, cliSoapReq, null);
+        @SuppressWarnings({"unchecked"})
         Map<String, DataHandler> smcAtts1 = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
 
         Assert.assertEquals( 6, smcAtts1.size() );
         Assert.assertNotNull(smcAtts1.get(customContentId));
         
         {//ClientSOAPHandlerTube.callHandlersOnRequest
+            @SuppressWarnings({"unchecked"})
             Map<String, DataHandler> atts = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
             AttachmentSet attSet = cliSoapReq.getMessage().getAttachments();
             for(String cid : atts.keySet()){
@@ -207,6 +211,7 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
             attCountSaaj++;
         }
         Assert.assertEquals( 6, attCountSaaj);
+        @SuppressWarnings({"unchecked"})
         Map<String, DataHandler> smcAtts2 = (Map<String, DataHandler>) smc.get(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS);
         Assert.assertEquals( 6, smcAtts2.size() );
 //        System.out.println(smcAtts2.size() + " " + smcAtts2);
@@ -217,8 +222,8 @@ public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
         WSDLPort wsdlPort = getWSDLPort(getResource("WSW2JDLSwaTestService.wsdl"));
 
 
-        Class endpointClass = SwaTestImpl1.class;
-        Class proxySEIClass = SwaTest1.class;
+        Class<SwaTestImpl1> endpointClass = SwaTestImpl1.class;
+        Class<SwaTest1> proxySEIClass = SwaTest1.class;
         DatabindingConfig srvConfig = new DatabindingConfig();
         srvConfig.setEndpointClass(endpointClass);
 //        srvConfig.setMetadataReader(new DummyAnnotations());

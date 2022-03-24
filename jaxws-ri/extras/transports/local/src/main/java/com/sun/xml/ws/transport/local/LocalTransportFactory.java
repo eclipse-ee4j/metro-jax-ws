@@ -65,14 +65,14 @@ public final class LocalTransportFactory extends TransportTubeFactory {
      * @param adrs URI
      * @return deployed WSEndpoint
      */
-    protected static WSEndpoint createServerService(URI adrs) {
+    protected static WSEndpoint<?> createServerService(URI adrs) {
         try {
             String outputDir = adrs.getPath();
-            List<WSEndpoint> endpoints = parseEndpoints(outputDir);
+            List<WSEndpoint<?>> endpoints = parseEndpoints(outputDir);
 
-            WSEndpoint endpoint = endpoints.get(0);
+            WSEndpoint<?> endpoint = endpoints.get(0);
             if (endpoints.size() > 1) {
-                for (WSEndpoint rei : endpoints) {
+                for (WSEndpoint<?> rei : endpoints) {
                     //TODO: for now just compare local part
                     if(rei.getPortName().getLocalPart().equals(adrs.getQuery())) {
                         endpoint = rei;
@@ -87,14 +87,14 @@ public final class LocalTransportFactory extends TransportTubeFactory {
         }
     }
 
-    protected static List<WSEndpoint> parseEndpoints(String outputDir) throws IOException {
+    protected static List<WSEndpoint<?>> parseEndpoints(String outputDir) throws IOException {
         String riFile = outputDir+"/WEB-INF/sun-jaxws.xml";
-        DeploymentDescriptorParser<WSEndpoint> parser = new DeploymentDescriptorParser<>(
+        DeploymentDescriptorParser<WSEndpoint<?>> parser = new DeploymentDescriptorParser<>(
                 Thread.currentThread().getContextClassLoader(),
                 new FileSystemResourceLoader(new File(outputDir)), null,
                 new AdapterFactory<>() {
                     @Override
-                    public WSEndpoint createAdapter(String name, String urlPattern, WSEndpoint<?> endpoint) {
+                    public WSEndpoint<?> createAdapter(String name, String urlPattern, WSEndpoint<?> endpoint) {
                         return endpoint;
                     }
                 });

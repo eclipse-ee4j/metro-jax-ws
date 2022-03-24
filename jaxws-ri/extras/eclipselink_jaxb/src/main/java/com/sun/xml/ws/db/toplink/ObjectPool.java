@@ -25,6 +25,11 @@ public abstract class ObjectPool<T> {
 	private volatile SoftReference<ConcurrentLinkedQueue<T>> queueRef;
 
 	/**
+	 * Default constructor.
+	 */
+	protected ObjectPool() {}
+
+	/**
 	 * Allocate an object from the pool or create a new one if we cannot get one
 	 * from the queue.
 	 * 

@@ -43,6 +43,7 @@ public abstract class AbstractHeaderImpl implements Header {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public <T> T readAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         try {
             return (T)unmarshaller.unmarshal(readHeader());

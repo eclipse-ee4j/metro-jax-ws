@@ -105,7 +105,7 @@ abstract public class WsDatabindingTestBase extends TestCase {
 
     static public void assertEqualCollection(Collection<?> c1, Collection<?> c2) {
         Assert.assertEquals(c1.size(), c2.size());
-        for (Iterator i = c1.iterator(); i.hasNext(); ) {
+        for (Iterator<?> i = c1.iterator(); i.hasNext(); ) {
             Assert.assertTrue(c2.contains(i.next()));
         }
     }
@@ -141,7 +141,7 @@ abstract public class WsDatabindingTestBase extends TestCase {
         Databinding srv;
         Class<?> serviceBeanType;
 
-        WsDatabindingTestFacade(Databinding client, Databinding server, Class endpoint) {
+        WsDatabindingTestFacade(Databinding client, Databinding server, Class<?> endpoint) {
             cli = client;
             srv = server;
             serviceBeanType = endpoint;

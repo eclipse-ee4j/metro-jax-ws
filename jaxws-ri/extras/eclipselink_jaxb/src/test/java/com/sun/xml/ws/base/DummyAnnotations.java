@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,6 +39,7 @@ public class DummyAnnotations implements MetadataReader {
 	public <A extends Annotation> A getAnnotation(Class<A> annType, Class<?> cls) {
 		if (Object.class.equals(cls)) return null;
 		if (WebService.class.equals(annType)) {
+			@SuppressWarnings({"rawtypes"})
 			Class[] intf = { annType };
 			Object dummy = Proxy.newProxyInstance(annType.getClassLoader(), intf, new DummyAnnotation());
 			return annType.cast(dummy);

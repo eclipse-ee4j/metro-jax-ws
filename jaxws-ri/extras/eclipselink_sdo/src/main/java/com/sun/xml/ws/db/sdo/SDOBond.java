@@ -65,6 +65,7 @@ public class SDOBond<T> implements XMLBridge<T> {
     TransformerFactory tf = XmlUtil.newTransformerFactory(false);
     DocumentBuilderFactory dbf = XmlUtil.newDocumentBuilderFactory(false);
 
+    @SuppressWarnings({"unchecked"})
     public SDOBond(SDOContextWrapper parent, TypeInfo ti) {
         this.parent = parent;
         this.ti = ti;
@@ -90,6 +91,7 @@ public class SDOBond<T> implements XMLBridge<T> {
         return javaType;
     }
 
+    @SuppressWarnings({"unchecked"})
     private T deserialize(Source src, jakarta.xml.bind.attachment.AttachmentUnmarshaller au) {
         try {
             if (!commonj.sdo.DataObject.class.isAssignableFrom(javaType) && !javaType.isInterface()) {

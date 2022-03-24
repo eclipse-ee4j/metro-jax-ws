@@ -114,6 +114,7 @@ public abstract class AbstractMessageImpl extends Message {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         if(hasAttachments())
             unmarshaller.setAttachmentUnmarshaller(new AttachmentUnmarshallerImpl(getAttachments()));

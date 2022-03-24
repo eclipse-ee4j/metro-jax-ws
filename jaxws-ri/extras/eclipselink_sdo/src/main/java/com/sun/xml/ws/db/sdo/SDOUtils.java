@@ -67,7 +67,7 @@ import java.util.TimeZone;
 /**
  * A set of core utility methods that shapes the sdo databinding
  */
-public class SDOUtils {
+public final class SDOUtils {
 
     public static final String NS_XMLNS = "http://www.w3.org/2001/XMLSchema";
     public static final String NS_WSDL = "http://schemas.xmlsoap.org/wsdl/";
@@ -78,6 +78,8 @@ public class SDOUtils {
 
     static volatile TransformerFactory transformerFactory = null;
     static volatile DocumentBuilderFactory dbf = null;
+
+    private SDOUtils() {}
 
     public static Transformer newTransformer() {
         if (transformerFactory == null) {
@@ -323,8 +325,8 @@ public class SDOUtils {
 
     private static void patchDOMFragment(NamespaceSupport nss, Element elem) {
         NamedNodeMap atts = elem.getAttributes();
-        for (Enumeration en = nss.getPrefixes(); en.hasMoreElements();) {
-            String prefix = (String) en.nextElement();
+        for (Enumeration<String> en = nss.getPrefixes(); en.hasMoreElements();) {
+            String prefix = en.nextElement();
 
             for (int i = 0; i < atts.getLength(); i++) {
                 Attr a = (Attr) atts.item(i);
@@ -407,7 +409,8 @@ public class SDOUtils {
 
 
     // used by tests
-    public static List defineSchema(HelperContext hc, File f) throws Exception {
+    @SuppressWarnings({"unchecked"})
+    public static List<SDOType> defineSchema(HelperContext hc, File f) throws Exception {
         FileInputStream fin = null;
         try {
             fin = new FileInputStream(f);
@@ -452,7 +455,7 @@ public class SDOUtils {
                 return true;
             }
             try {
-                Class cls = Thread.currentThread().getContextClassLoader().loadClass(javaType);
+                Class<?> cls = Thread.currentThread().getContextClassLoader().loadClass(javaType);
                 Type type = typeHelper.getType(cls);
                 return type != null;
             } catch (Exception e) {

@@ -138,7 +138,7 @@ abstract public class SDODatabindingTestBase extends TestCase {
         public Packet requestMessage;
         public Packet responseMessage;
         
-        WsDatabindingTestFacade(Databinding client, Databinding server, Class endpoint) {
+        WsDatabindingTestFacade(Databinding client, Databinding server, Class<?> endpoint) {
             cli = client;
             srv = server;
             serviceBeanType = endpoint;
@@ -222,7 +222,7 @@ abstract public class SDODatabindingTestBase extends TestCase {
 
     static public void assertEqualCollection(Collection<?> c1, Collection<?> c2) {
         Assert.assertEquals(c1.size(), c2.size());
-        for (Iterator i = c1.iterator(); i.hasNext();) {
+        for (Iterator<?> i = c1.iterator(); i.hasNext();) {
             Assert.assertTrue(c2.contains(i.next()));
         }        
     }
@@ -263,15 +263,16 @@ abstract public class SDODatabindingTestBase extends TestCase {
         return config;
     }
     
-    protected WebServiceFeature[] invmSetup(final URL wsdlURL, final Class sei, final Class seb, final QName serviceName, final QName portName) {
+    protected <T> WebServiceFeature[] invmSetup(final URL wsdlURL, final Class<?> sei, final Class<T> seb, final QName serviceName, final QName portName) {
         DatabindingModeFeature dbmf = new DatabindingModeFeature("eclipselink.sdo");
-        Class implementorClass = seb;
+        Class<T> implementorClass = seb;
         boolean handlersSetInDD = false;
         Container container = Container.NONE; 
         Map<String, SDDocumentSource> docs = new HashMap<String, SDDocumentSource>();
         SDDocumentSource primaryWSDL = SDDocumentSource.create(wsdlURL);
         docs.put(wsdlURL.toString(), primaryWSDL);
         ExternalMetadataFeature exm = ExternalMetadataFeature.builder().setReader( new com.sun.xml.ws.model.ReflectAnnotationReader() {
+            @SuppressWarnings({"unchecked"})
             public <A extends Annotation> A getAnnotation(final Class<A> annType, final Class<?> cls) {
                 if (WebService.class.equals(annType)) {
                     final WebService ws = cls.getAnnotation(WebService.class);
@@ -310,13 +311,14 @@ abstract public class SDODatabindingTestBase extends TestCase {
         }).build();
         BindingID bindingID = BindingID.parse(implementorClass);
         WSBinding binding = bindingID.createBinding(dbmf, exm);
-        final WSEndpoint<?> endpoint = WSEndpoint.create(
+        final WSEndpoint<T> endpoint = WSEndpoint.create(
                 implementorClass, !handlersSetInDD,
                 null,
                 serviceName, portName, container, binding,
                 primaryWSDL, docs.values(), XmlUtil.createEntityResolver(null), false
         );   
         ComponentFeature cf = new ComponentFeature( new com.sun.xml.ws.api.Component() {
+            @SuppressWarnings({"unchecked"})
             public <S> S getSPI(Class<S> spiType) {
                 if (TransportTubeFactory.class.equals(spiType)) return (S) new TransportTubeFactory() {
                     public Tube doCreate( ClientTubeAssemblerContext context) {

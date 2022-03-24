@@ -89,9 +89,9 @@ public final class SDOWrapperAccessor extends WrapperAccessor {
             PropertyGetter, PropertySetter {
 
         private QName qname;
-        private Class type;
+        private Class<?> type;
 
-        public SDOPropertyBuilder(QName qname, Class type) {
+        public SDOPropertyBuilder(QName qname, Class<?> type) {
             this.qname = qname;
             this.type = type;
         }

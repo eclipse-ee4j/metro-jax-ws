@@ -78,6 +78,7 @@ public final class SDOContextWrapper implements BindingContext {
 
     private BindingInfo bindingInfo;
 
+    @SuppressWarnings({"unchecked"})
     public SDOContextWrapper(BindingInfo bi) {
         this.properties = bi.properties();
         bindingInfo = bi;
@@ -200,10 +201,11 @@ public final class SDOContextWrapper implements BindingContext {
 
     @Override
     public XMLBridge createFragmentBridge() {
-        return new SDOBond(this, null);
+        return new SDOBond<>(this, null);
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public <B, V> PropertyAccessor<B, V> getElementPropertyAccessor(
             Class<B> wrapperBean, String nsUri, String localName)
             throws JAXBException {
