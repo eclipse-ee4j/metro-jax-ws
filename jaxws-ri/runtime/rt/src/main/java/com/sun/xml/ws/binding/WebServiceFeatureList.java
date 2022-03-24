@@ -330,8 +330,8 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
     }
 
     @Override
-    public @Nullable
-	<F extends WebServiceFeature> F get(@NotNull Class<F> featureType) {
+    @SuppressWarnings({"unchecked"})
+    public @Nullable <F extends WebServiceFeature> F get(@NotNull Class<F> featureType) {
         WebServiceFeature f = featureType.cast(wsfeatures.get(featureType));
         if (f == null && parent != null) {
             return parent.getFeatures().get(featureType);
@@ -487,6 +487,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         this.parent = parent;
     }
 
+    @SuppressWarnings({"unchecked"})
     public static @Nullable <F extends WebServiceFeature> F getFeature(@NotNull WebServiceFeature[] features,
                                                                        @NotNull Class<F> featureType) {
         for (WebServiceFeature f : features) {

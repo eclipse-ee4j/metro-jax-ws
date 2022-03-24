@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -86,8 +86,8 @@ public abstract class BasicDatabindingTestBase extends WsDatabindingTestBase  {
      * Test topdown xbean TypedXmlBeansDOC
      */
     public void testGlobalElementParamXmlBeansTopdown() throws Exception {
-        Class endpointClass =  TypedXmlBeansDOCImpl.class;
-        Class proxySEIClass =  TypedXmlBeansDOC.class;
+        Class<TypedXmlBeansDOCImpl> endpointClass =  TypedXmlBeansDOCImpl.class;
+        Class<TypedXmlBeansDOC> proxySEIClass =  TypedXmlBeansDOC.class;
         DatabindingConfig srvConfig = new DatabindingConfig();
         srvConfig.setEndpointClass(endpointClass);
         DatabindingModeFeature dbf = databindingMode();

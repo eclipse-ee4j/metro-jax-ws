@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,7 +51,7 @@ public class WSIDLSwaTestService
   @WebEndpoint(name="SwaTestOnePort")
   public SwaTest1 getSwaTestOnePort()
   {
-    return (SwaTest1) super.getPort(new QName("http://SwaTestService.org/wsdl", 
+    return super.getPort(new QName("http://SwaTestService.org/wsdl",
                                               "SwaTestOnePort"), 
                                     SwaTest1.class);
   }
@@ -59,7 +59,7 @@ public class WSIDLSwaTestService
   @WebEndpoint(name="SwaTestTwoPort")
   public SwaTest2 getSwaTestTwoPort()
   {
-    return (SwaTest2) super.getPort(new QName("http://SwaTestService.org/wsdl", 
+    return super.getPort(new QName("http://SwaTestService.org/wsdl",
                                               "SwaTestTwoPort"), 
                                     SwaTest2.class);
   }

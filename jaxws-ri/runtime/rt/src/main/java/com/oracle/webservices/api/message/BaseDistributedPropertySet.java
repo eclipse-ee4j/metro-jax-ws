@@ -103,6 +103,7 @@ public abstract class BaseDistributedPropertySet extends BasePropertySet impleme
     
     @Override
     public @Nullable <T extends com.oracle.webservices.api.message.PropertySet> T getSatellite(Class<T> satelliteClass) {
+        @SuppressWarnings({"unchecked"})
         T satellite = (T) satellites.get(satelliteClass);
         if (satellite != null) {
             return satellite;

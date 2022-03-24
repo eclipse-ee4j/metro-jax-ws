@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,8 +39,8 @@ public class JAXBRIBasicTest extends BasicDatabindingTestBase {
     }
 
     public void testHelloEchoNoMode() throws Exception {
-        Class endpointClass = HelloImpl.class;
-        Class proxySEIClass = HelloPort.class;
+        Class<HelloImpl> endpointClass = HelloImpl.class;
+        Class<HelloPort> proxySEIClass = HelloPort.class;
         DatabindingConfig srvConfig = new DatabindingConfig();
         srvConfig.setEndpointClass(endpointClass);
         srvConfig.setMetadataReader(new DummyAnnotations());
@@ -62,8 +62,8 @@ public class JAXBRIBasicTest extends BasicDatabindingTestBase {
     }
 
     public void testHelloEchoInvalidDB() throws Exception {
-        Class endpointClass = HelloImpl.class;
-        Class proxySEIClass = HelloPort.class;
+        Class<HelloImpl> endpointClass = HelloImpl.class;
+        Class<HelloPort> proxySEIClass = HelloPort.class;
         DatabindingConfig srvConfig = new DatabindingConfig();
         srvConfig.setEndpointClass(endpointClass);
         srvConfig.setMetadataReader(new DummyAnnotations());

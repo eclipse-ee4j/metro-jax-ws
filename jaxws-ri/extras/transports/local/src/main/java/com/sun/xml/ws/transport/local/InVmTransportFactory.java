@@ -40,7 +40,7 @@ public final class InVmTransportFactory extends TransportTubeFactory {
         InVmServer server = InVmServer.get(serverId);
         if(server==null)
             throw new WebServiceException("No such server is running: "+adrs);
-        WSEndpoint endpoint;
+        WSEndpoint<?> endpoint;
         if(server.getEndpoints().size()==1)
             endpoint = server.getEndpoints().get(0);
         else

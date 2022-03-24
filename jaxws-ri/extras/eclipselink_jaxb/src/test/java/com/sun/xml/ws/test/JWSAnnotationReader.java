@@ -214,8 +214,8 @@ public class JWSAnnotationReader extends ReflectAnnotationReader {
 //    }
     
     static QName getGlobalElementName(Class<?> cls) {
-        XmlRootElement xre = (XmlRootElement) cls.getAnnotation(XmlRootElement.class);
-        XmlType xt = (XmlType) cls.getAnnotation(XmlType.class);
+        XmlRootElement xre = cls.getAnnotation(XmlRootElement.class);
+        XmlType xt = cls.getAnnotation(XmlType.class);
         if (xt != null && xt.name() != null && !"".equals(xt.name())) return null;
         if (xre != null) {
             String lp = xre.name();

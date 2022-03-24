@@ -113,6 +113,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
                         marshaller.marshal(jte, output, mappingInfo);
                     }
                 } else {
+                    @SuppressWarnings({"unchecked"})
                     JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) typeInfo.type, object);
@@ -159,6 +160,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
                     marshaller.marshal(jte, new StreamResult(output),
                             mappingInfo);
                 } else {
+                    @SuppressWarnings({"unchecked"})
                     JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) mappingInfo.getType(), object);
@@ -193,6 +195,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
                             (ParameterizedType) mappingInfo.getType());
                     marshaller.marshal(jte, new DOMResult(output), mappingInfo);
                 } else {
+                    @SuppressWarnings({"unchecked"})
                     JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) mappingInfo.getType(), object);
@@ -227,6 +230,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
                     marshaller.marshal(jte, new SAXResult(contentHandler),
                             mappingInfo);
                 } else {
+                    @SuppressWarnings({"unchecked"})
                     JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) mappingInfo.getType(), object);
@@ -264,6 +268,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
                             (ParameterizedType) mappingInfo.getType());
                     marshaller.marshal(jte, result, mappingInfo);
                 } else {
+                    @SuppressWarnings({"unchecked"})
                     JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) mappingInfo.getType(), object);
@@ -302,6 +307,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
 
     // This is used in RPC
     @Override
+    @SuppressWarnings({"unchecked"})
     public T unmarshal(XMLStreamReader in, AttachmentUnmarshaller au)
             throws JAXBException {
         JAXBUnmarshaller unmarshaller = null;
@@ -350,6 +356,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public T unmarshal(Source in, AttachmentUnmarshaller au)
             throws JAXBException {
         JAXBUnmarshaller unmarshaller = null;
@@ -376,6 +383,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public T unmarshal(InputStream in) throws JAXBException {
         JAXBUnmarshaller unmarshaller = null;
         try {
@@ -399,6 +407,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public T unmarshal(Node in, AttachmentUnmarshaller au) throws JAXBException {
         JAXBUnmarshaller unmarshaller = null;
         try {
@@ -430,7 +439,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
         return false;
     }
 
-    public static class CustomXMLStreamReaderReader extends XMLStreamReaderReader {
+    private static class CustomXMLStreamReaderReader extends XMLStreamReaderReader {
 
         @Override
         protected void parseCharactersEvent(XMLStreamReader xmlStreamReader)
@@ -466,7 +475,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
         }
     }
 
-    public static class NewStreamWriterRecord extends XMLStreamWriterRecord {
+    private static class NewStreamWriterRecord extends XMLStreamWriterRecord {
 
         private transient XMLStreamWriterEx xsw;
 

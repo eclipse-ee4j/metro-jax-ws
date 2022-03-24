@@ -69,6 +69,11 @@ public class JAXBContextFactory extends BindingContextFactory {
     static final public String OXM_XML_OVERRIDE = JAXBContextProperties.OXM_METADATA_SOURCE;
     static final public String OXM_XML_ELEMENT = JAXBContextProperties.DEFAULT_TARGET_NAMESPACE;
 
+    /**
+     * Default constructor.
+     */
+    public JAXBContextFactory() {}
+
     @Override
     protected boolean isFor(String str) {
         return (str.equals("toplink.jaxb")
@@ -90,6 +95,7 @@ public class JAXBContextFactory extends BindingContextFactory {
 
     @Override
     protected BindingContext newContext(BindingInfo bi) {
+        @SuppressWarnings({"unchecked"})
         Map<String, Source> extMapping = (Map<String, Source>) bi.properties().get(OXM_XML_OVERRIDE);
         Map<String, Object> properties = new HashMap<>();
         Map<TypeInfo, TypeMappingInfo> map = createTypeMappings(bi.typeInfos());
@@ -163,7 +169,7 @@ public class JAXBContextFactory extends BindingContextFactory {
         }
     }
 
-    private String getFieldName(ParameterImpl p, Class wrpCls) {
+    private String getFieldName(ParameterImpl p, Class<?> wrpCls) {
         for (Field f : wrpCls.getFields()) {
             XmlElement xe = f.getAnnotation(XmlElement.class);
             if (xe != null && p.getName().getLocalPart().equals(xe.name())) {

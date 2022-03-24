@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -320,7 +320,7 @@ public class StreamMessageTest extends TestCase {
             mh.addHeader("Content-Type", ctype);
             SOAPMessage sm = mf.createMessage(mh, bais);
             assertEquals("wrong attachment count", 1, sm.countAttachments());
-            AttachmentPart ap = (AttachmentPart) sm.getAttachments().next();
+            AttachmentPart ap = sm.getAttachments().next();
             assertEquals("wrong attachemnt Content-Id",
                     "<534475ae-bdab-4594-9f97-c09908bacfbd>", ap.getContentId());
             NodeList nl = sm.getSOAPBody().getElementsByTagNameNS(
@@ -384,7 +384,7 @@ public class StreamMessageTest extends TestCase {
             mh.addHeader("Content-Type", ctype);
             SOAPMessage sm = mf.createMessage(mh, bais);
             assertEquals("wrong attachment count", 1, sm.countAttachments());
-            AttachmentPart ap = (AttachmentPart) sm.getAttachments().next();
+            AttachmentPart ap = sm.getAttachments().next();
             assertEquals("wrong attachemnt Content-Id", "<testAttachmentContentId>", ap.getContentId());
             NodeList nl = sm.getSOAPBody().getElementsByTagNameNS(MtomCodec.XOP_NAMESPACEURI, MtomCodec.XOP_LOCALNAME);
             assertEquals(MtomCodec.XOP_NAMESPACEURI + ":" + MtomCodec.XOP_LOCALNAME + " not found", 1, nl.getLength());
@@ -436,7 +436,7 @@ public class StreamMessageTest extends TestCase {
         mh.addHeader("Content-Type", ctype);
         SOAPMessage sm = mf.createMessage(mh, bais);
         assertEquals("wrong attachment count", 1, sm.countAttachments());
-        AttachmentPart ap = (AttachmentPart) sm.getAttachments().next();
+        AttachmentPart ap = sm.getAttachments().next();
         assertEquals("wrong attachemnt Content-Id", "<testAttachmentContentId>", ap.getContentId());
 //        NodeList nl = sm.getSOAPBody().getElementsByTagNameNS(MtomCodec.XOP_NAMESPACEURI, MtomCodec.XOP_LOCALNAME);
     }

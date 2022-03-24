@@ -77,6 +77,7 @@ public abstract class Invoker extends com.sun.xml.ws.server.sei.Invoker {
     /**
      * Invokes {@link Provider#invoke(Object)}
      */
+    @SuppressWarnings({"unchecked"})
     public <T> T invokeProvider( @NotNull Packet p, T arg ) throws IllegalAccessException, InvocationTargetException {
         // default slow implementation that delegates to the other invoke method.
         return (T)invoke(p,invokeMethod,arg);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -89,17 +89,17 @@ public class HRAppService_Service
   @WebEndpoint(name = "HRAppServiceSoapHttpPort")
   public com.sun.xml.ws.sdo.sample.service.HRAppService getHRAppServiceSoapHttpPort()
   {
-    return (com.sun.xml.ws.sdo.sample.service.HRAppService) super.getPort(new QName("http://sdo.sample.service/",
+    return super.getPort(new QName("http://sdo.sample.service/",
                                                                      "HRAppServiceSoapHttpPort"),
-                                                                     com.sun.xml.ws.sdo.sample.service.HRAppService.class);
+                                                                     HRAppService.class);
   }
 
   @WebEndpoint(name = "HRAppServiceSoapHttpPort")
   public com.sun.xml.ws.sdo.sample.service.HRAppService getHRAppServiceSoapHttpPort(WebServiceFeature... features)
   {
-    return (com.sun.xml.ws.sdo.sample.service.HRAppService) super.getPort(new QName("http://sdo.sample.service/",
+    return super.getPort(new QName("http://sdo.sample.service/",
                                                                      "HRAppServiceSoapHttpPort"),
-                                                                     com.sun.xml.ws.sdo.sample.service.HRAppService.class,
+                                                                     HRAppService.class,
                                                            features);
   }
 }

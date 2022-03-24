@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,6 +61,7 @@ public class WrapperBond<T> implements XMLBridge<T> {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public final void marshal(T object, ContentHandler contentHandler, AttachmentMarshaller am) throws JAXBException {
         WrapperComposite w = (WrapperComposite) object;
         Attributes att = new Attributes() {
@@ -116,6 +117,7 @@ public class WrapperBond<T> implements XMLBridge<T> {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public final void marshal(T object, XMLStreamWriter output, AttachmentMarshaller am) throws JAXBException {
         WrapperComposite w = (WrapperComposite) object;
         try {

@@ -45,7 +45,7 @@ public final class InVmServer {
     /**
      * Services that are running.
      */
-    private final List<WSEndpoint> endpoints;
+    private final List<WSEndpoint<?>> endpoints;
 
     /**
      * Unique name that distinguishes this in-VM server among other running servers.
@@ -78,7 +78,7 @@ public final class InVmServer {
         this(id,LocalTransportFactory.parseEndpoints(explodedWarDir.getPath()));
     }
 
-    public InVmServer(@NotNull String id, List<WSEndpoint> endpoints) throws IOException {
+    public InVmServer(@NotNull String id, List<WSEndpoint<?>> endpoints) throws IOException {
         synchronized(servers) {
             if(servers.containsKey(id))
                 throw new IllegalArgumentException("InVmServer with id="+id+" is already running");
@@ -96,7 +96,7 @@ public final class InVmServer {
      * Finds the {@link WSEndpoint} that matches the given port name.
      */
     @Nullable
-    WSEndpoint getByPortName(String portLocalName) {
+    WSEndpoint<?> getByPortName(String portLocalName) {
         for (WSEndpoint ep : endpoints) {
             if(ep.getPortName().getLocalPart().equals(portLocalName))
                 return ep;
@@ -107,7 +107,7 @@ public final class InVmServer {
     /**
      * Gets all the {@link WSEndpoint}s.
      */
-    List<WSEndpoint> getEndpoints() {
+    List<WSEndpoint<?>> getEndpoints() {
         return Collections.unmodifiableList(endpoints);
     }
 
@@ -127,7 +127,7 @@ public final class InVmServer {
      * required by the JAX-WS specification.
      */
     public void undeploy() {
-        for (WSEndpoint ep : endpoints)
+        for (WSEndpoint<?> ep : endpoints)
             ep.dispose();
         endpoints.clear();
         synchronized(servers) {

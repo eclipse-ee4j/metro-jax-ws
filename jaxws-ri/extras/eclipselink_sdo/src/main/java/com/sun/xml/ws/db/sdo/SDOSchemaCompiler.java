@@ -99,6 +99,7 @@ public class SDOSchemaCompiler {
         List<SDOType> types = new ArrayList<>();
         SDODatabindingSchemaResolver schemaResolver = new SDODatabindingSchemaResolver(schemas, entityResolver);
         for (Source schema : schemas) {
+            @SuppressWarnings({"unchecked"})
             List<SDOType> list = ((SDOXSDHelper) hc.getXSDHelper()).define(schema, schemaResolver);
             types.addAll(list);
         }
