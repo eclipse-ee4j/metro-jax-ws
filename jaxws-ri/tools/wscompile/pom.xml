@@ -215,6 +215,8 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <!-- M5 fails to find junit.jar -->
+                <version>3.0.0-M4</version>
                 <configuration>
                     <systemPropertyVariables>
                         <java.io.tmpdir>${project.build.directory}/test-antprojects</java.io.tmpdir>

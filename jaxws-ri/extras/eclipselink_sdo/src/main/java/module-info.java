@@ -12,6 +12,10 @@ module com.sun.xml.ws.sdo {
 
     requires java.logging;
     requires transitive com.sun.xml.ws;
+    requires transitive org.eclipse.persistence.sdo;
+
+    //TODO: why do we need this? sdo/moxy do have xjc as static dep
+    requires com.sun.tools.xjc;
 
     exports com.sun.xml.ws.db.sdo;
 

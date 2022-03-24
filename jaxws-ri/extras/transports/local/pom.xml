@@ -38,45 +38,33 @@
 
     <build>
         <finalName>${project.artifactId}</finalName>
-    </build>
-    <profiles>
-        <profile>
-            <id>osgi-bundle</id>
-            <activation>
-                <property>
-                    <name>!jacoco-build</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.felix</groupId>
-                        <artifactId>maven-bundle-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>osgi-bundle</id>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>manifest</goal>
-                                </goals>
-                                <configuration>
-                                    <instructions>
-                                        <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
-                                    </instructions>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-jar-plugin</artifactId>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>osgi-bundle</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
                         <configuration>
-                            <archive>
-                                <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                            </archive>
+                            <instructions>
+                                <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+                            </instructions>
                         </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
