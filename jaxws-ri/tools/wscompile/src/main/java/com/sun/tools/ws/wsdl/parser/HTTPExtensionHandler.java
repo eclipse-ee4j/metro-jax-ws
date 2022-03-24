@@ -23,8 +23,8 @@ import java.util.Map;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class HTTPExtensionHandler extends AbstractExtensionHandler {
-
 
     public HTTPExtensionHandler(Map<String, AbstractExtensionHandler> extensionHandlerMap) {
         super(extensionHandlerMap);

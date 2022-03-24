@@ -24,6 +24,7 @@ import java.util.Map;
  *
  * @author Vivek Pandey
  */
+@SuppressWarnings({"deprecation"})
 public abstract class AbstractExtensionHandler extends TWSDLExtensionHandler {
     private final Map<String, AbstractExtensionHandler> extensionHandlers;
     private final Map<String, AbstractExtensionHandler> unmodExtenHandlers;

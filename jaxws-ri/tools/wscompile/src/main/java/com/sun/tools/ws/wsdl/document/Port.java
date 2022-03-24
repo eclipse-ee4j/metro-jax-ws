@@ -25,6 +25,7 @@ import javax.xml.namespace.QName;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class Port extends GlobalEntity implements TWSDLExtensible {
 
     public Port(Defining defining, Locator locator, ErrorReceiver errReceiver) {

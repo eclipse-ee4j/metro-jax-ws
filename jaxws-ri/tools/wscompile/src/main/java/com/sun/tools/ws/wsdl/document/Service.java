@@ -26,6 +26,7 @@ import java.util.List;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class Service extends GlobalEntity implements TWSDLExtensible {
 
     public Service(Defining defining, Locator locator, ErrorReceiver errReceiver) {

@@ -24,6 +24,7 @@ import java.util.*;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class PortType extends GlobalEntity implements TWSDLExtensible {
 
     public PortType(Defining defining, Locator locator, ErrorReceiver errReceiver) {

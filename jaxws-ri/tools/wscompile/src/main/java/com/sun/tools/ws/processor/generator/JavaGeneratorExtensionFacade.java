@@ -17,6 +17,7 @@ import com.sun.tools.ws.api.wsdl.TWSDLOperation;
 /**
  * @author Arun Gupta
  */
+@SuppressWarnings({"deprecation"})
 public final class JavaGeneratorExtensionFacade extends TJavaGeneratorExtension {
     private final TJavaGeneratorExtension[] extensions;
 
@@ -26,6 +27,7 @@ public final class JavaGeneratorExtensionFacade extends TJavaGeneratorExtension 
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public void writeMethodAnnotations(TWSDLOperation wsdlOperation, JMethod jMethod) {
         for (TJavaGeneratorExtension e : extensions) {
             e.writeMethodAnnotations(wsdlOperation, jMethod);

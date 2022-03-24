@@ -431,6 +431,7 @@ public class WsimportTool {
         if( !options.quiet )
             listener.message(WscompileMessages.WSIMPORT_GENERATING_CODE());
 
+        @SuppressWarnings({"deprecation"})
         TJavaGeneratorExtension[] genExtn = ServiceFinder.find(TJavaGeneratorExtension.class, ServiceLoader.load(TJavaGeneratorExtension.class)).toArray();
         CustomExceptionGenerator.generate(wsdlModel,  options, receiver);
         SeiGenerator.generate(wsdlModel, options, receiver, genExtn);

@@ -24,6 +24,7 @@ import javax.xml.namespace.QName;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class MIMEPart extends ExtensionImpl implements TWSDLExtensible {
 
     public MIMEPart(Locator locator) {

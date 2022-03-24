@@ -383,6 +383,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 
 	}
 
+	@SuppressWarnings({"deprecation"})
 	private String resolveBindingValue(TWSDLExtension wsdlext) {
 		if (wsdlext.getClass().equals(SOAPBinding.class)) {
 			SOAPBinding sb = (SOAPBinding) wsdlext;
@@ -415,6 +416,7 @@ public final class JwsImplGenerator extends GeneratorBase {
 		return null;
 	}
 
+	@SuppressWarnings({"deprecation"})
 	private String getBindingType(QName bName) {
 
 		String value = null;

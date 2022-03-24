@@ -21,6 +21,7 @@ public class ValidationException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = -660518203027991638L;
 
+    @SuppressWarnings({"deprecation"})
     public ValidationException(String key, Object... args) {
         super(key, args);
     }

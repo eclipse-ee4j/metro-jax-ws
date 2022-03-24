@@ -38,7 +38,9 @@ import java.util.List;
 import org.xml.sax.Locator;
 
 public class SeiGenerator extends GeneratorBase {
+    @SuppressWarnings({"deprecation"})
     private TJavaGeneratorExtension extension;
+    @SuppressWarnings({"deprecation"})
     private List<TJavaGeneratorExtension> extensionHandlers;
 
     /**
@@ -46,12 +48,14 @@ public class SeiGenerator extends GeneratorBase {
      */
     public SeiGenerator() {}
 
+    @SuppressWarnings({"deprecation"})
     public static void generate(Model model, WsimportOptions options, ErrorReceiver receiver, TJavaGeneratorExtension... extensions){
         SeiGenerator seiGenerator = new SeiGenerator();
         seiGenerator.init(model, options, receiver, extensions);
         seiGenerator.doGeneration();
     }
 
+    @SuppressWarnings({"deprecation"})
     public void init(Model model, WsimportOptions options, ErrorReceiver receiver, TJavaGeneratorExtension... extensions) {
         init(model, options, receiver);
         extensionHandlers = new ArrayList<>();
@@ -473,6 +477,7 @@ public class SeiGenerator extends GeneratorBase {
         write(port);
     }
 
+    @SuppressWarnings({"deprecation"})
     private void register(TJavaGeneratorExtension h) {
         extensionHandlers.add(h);
     }

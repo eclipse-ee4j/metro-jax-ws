@@ -25,6 +25,7 @@ import javax.xml.namespace.QName;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class Input extends Entity implements TWSDLExtensible {
 
     public Input(Locator locator, ErrorReceiver errReceiver) {

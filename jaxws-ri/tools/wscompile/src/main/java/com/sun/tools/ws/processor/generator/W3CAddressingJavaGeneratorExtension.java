@@ -29,6 +29,7 @@ import java.util.Map;
  *
  * @author Arun Gupta
  */
+@SuppressWarnings({"deprecation"})
 public class W3CAddressingJavaGeneratorExtension extends TJavaGeneratorExtension {
 
     /**
@@ -37,6 +38,7 @@ public class W3CAddressingJavaGeneratorExtension extends TJavaGeneratorExtension
     public W3CAddressingJavaGeneratorExtension() {}
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public void writeMethodAnnotations(TWSDLOperation two, JMethod jMethod) {
         JAnnotationUse actionAnn = null;
 

@@ -22,9 +22,11 @@ public class ExtensionVisitorBase implements ExtensionVisitor {
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public void preVisit(TWSDLExtension extension) throws Exception {
     }
     @Override
+    @SuppressWarnings({"deprecation"})
     public void postVisit(TWSDLExtension extension) throws Exception {
     }
 }

@@ -43,6 +43,7 @@ public class W3CAddressingExtensionHandler extends AbstractExtensionHandler {
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public boolean handleBindingExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         /*
             context.push();
@@ -58,6 +59,7 @@ public class W3CAddressingExtensionHandler extends AbstractExtensionHandler {
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public boolean handlePortExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         return handleBindingExtension(context, parent, e);
     }

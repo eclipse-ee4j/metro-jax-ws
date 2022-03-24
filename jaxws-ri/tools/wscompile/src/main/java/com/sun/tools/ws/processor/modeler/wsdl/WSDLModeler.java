@@ -1244,6 +1244,7 @@ public class WSDLModeler extends WSDLModelerBase {
             headerName = part.getDescriptor();
             jaxbType = getJAXBType(part);
             headerBlock = new Block(headerName, jaxbType, part);
+            @SuppressWarnings({"deprecation"})
             TWSDLExtensible ext;
             if (processRequest) {
                 ext = info.bindingOperation.getInput();
@@ -1548,6 +1549,7 @@ public class WSDLModeler extends WSDLModelerBase {
         return headerParts;
     }
 
+    @SuppressWarnings({"deprecation"})
     private Message getHeaderMessage(MessagePart part, TWSDLExtensible ext) {
         Iterator<SOAPHeader> headers = getHeaderExtensions(ext).iterator();
         while (headers.hasNext()) {
@@ -1569,6 +1571,7 @@ public class WSDLModeler extends WSDLModelerBase {
     }
 
     private List<MessagePart> getHeaderParts(BindingOperation bindingOperation, boolean isInput) {
+        @SuppressWarnings({"deprecation"})
         TWSDLExtensible ext;
         if (isInput) {
             ext = bindingOperation.getInput();
@@ -1985,6 +1988,7 @@ public class WSDLModeler extends WSDLModelerBase {
     /**
      * @param wrapperStyle TODO
      */
+    @SuppressWarnings({"deprecation"})
     private void setCustomizedParameterName(TWSDLExtensible extension, Message msg, MessagePart part, Parameter param, boolean wrapperStyle) {
         JAXWSBinding jaxwsBinding = (JAXWSBinding) getExtensionOfType(extension, JAXWSBinding.class);
         if (jaxwsBinding == null) {

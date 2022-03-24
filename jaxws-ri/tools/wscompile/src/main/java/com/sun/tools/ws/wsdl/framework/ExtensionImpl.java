@@ -19,6 +19,7 @@ import org.xml.sax.Locator;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public abstract class ExtensionImpl extends Entity implements TWSDLExtension {
 
     public ExtensionImpl(Locator locator) {
