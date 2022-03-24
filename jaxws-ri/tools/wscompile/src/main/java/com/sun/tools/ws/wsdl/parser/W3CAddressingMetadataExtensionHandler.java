@@ -33,6 +33,7 @@ import org.xml.sax.Locator;
  *
  * @author Rama Pulavarthi
  */
+@SuppressWarnings({"deprecation"})
 public class W3CAddressingMetadataExtensionHandler extends AbstractExtensionHandler {
     private ErrorReceiver errReceiver;
     public W3CAddressingMetadataExtensionHandler(Map<String, AbstractExtensionHandler> extensionHandlerMap, ErrorReceiver errReceiver) {

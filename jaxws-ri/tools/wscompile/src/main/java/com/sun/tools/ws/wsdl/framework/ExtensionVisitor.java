@@ -17,6 +17,7 @@ import com.sun.tools.ws.api.wsdl.TWSDLExtension;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public interface ExtensionVisitor {
     void preVisit(TWSDLExtension extension) throws Exception;
     void postVisit(TWSDLExtension extension) throws Exception;

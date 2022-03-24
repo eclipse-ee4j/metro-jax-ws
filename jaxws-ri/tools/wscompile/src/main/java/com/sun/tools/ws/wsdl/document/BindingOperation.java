@@ -26,6 +26,7 @@ import java.util.List;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class BindingOperation extends Entity implements TWSDLExtensible {
 
     public BindingOperation(Locator locator) {

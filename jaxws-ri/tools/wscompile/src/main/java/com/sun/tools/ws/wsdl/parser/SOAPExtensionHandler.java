@@ -27,6 +27,7 @@ import java.util.Map;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class SOAPExtensionHandler extends AbstractExtensionHandler {
 
     public SOAPExtensionHandler(Map<String, AbstractExtensionHandler> extensionHandlerMap) {

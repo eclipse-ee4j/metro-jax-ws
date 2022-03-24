@@ -26,7 +26,7 @@ import org.w3c.dom.Element;
  * @author Jakub Podlesak (jakub.podlesak at sun.com)
  * @author Fabian Ritzmann
  */
-
+@SuppressWarnings({"deprecation"})
 public class Policy15ExtensionHandler extends TWSDLExtensionHandler {
 
     /**

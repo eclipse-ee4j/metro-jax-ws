@@ -24,6 +24,7 @@ import javax.xml.namespace.QName;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class BindingFault extends Entity implements TWSDLExtensible {
 
     public BindingFault(Locator locator) {

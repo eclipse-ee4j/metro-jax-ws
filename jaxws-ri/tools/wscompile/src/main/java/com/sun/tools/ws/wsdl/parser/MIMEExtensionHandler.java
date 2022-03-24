@@ -25,6 +25,7 @@ import java.util.Map;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class MIMEExtensionHandler extends AbstractExtensionHandler {
 
     public MIMEExtensionHandler(Map<String, AbstractExtensionHandler> extensionHandlerMap) {

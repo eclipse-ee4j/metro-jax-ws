@@ -251,7 +251,9 @@ public class WsimportOptions extends Options {
 
                     try {
                 cmdlineJars.add(args[i]);
-                schemaCompiler.getOptions().scanEpisodeFile(new File(args[i]));
+                @SuppressWarnings({"deprecation"})
+                com.sun.tools.xjc.Options jaxbOptions = schemaCompiler.getOptions();
+                jaxbOptions.scanEpisodeFile(new File(args[i]));
 
             } catch (com.sun.tools.xjc.BadCommandLineException e) {
                 //Driver.usage(jaxbOptions,false);
@@ -263,12 +265,16 @@ public class WsimportOptions extends Options {
             }
         }
 
-        if (encoding != null && schemaCompiler.getOptions().encoding == null) {
-            try {
-                schemaCompiler.getOptions().parseArgument(
-                        new String[] {"-encoding", encoding}, 0);
-            } catch (com.sun.tools.xjc.BadCommandLineException ex) {
-                Logger.getLogger(WsimportOptions.class.getName()).log(Level.SEVERE, null, ex);
+        if (encoding != null) {
+            @SuppressWarnings({"deprecation"})
+            com.sun.tools.xjc.Options jaxbOptions = schemaCompiler.getOptions();
+            if (jaxbOptions.encoding == null) {
+                try {
+                    jaxbOptions.parseArgument(
+                            new String[]{"-encoding", encoding}, 0);
+                } catch (com.sun.tools.xjc.BadCommandLineException ex) {
+                    Logger.getLogger(WsimportOptions.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
 
@@ -355,6 +361,7 @@ public class WsimportOptions extends Options {
             System.arraycopy(args,i,subCmd,0,subCmd.length);
             subCmd[0] = subCmd[0].substring(2); // trim off the first "-B"
 
+            @SuppressWarnings({"deprecation"})
             com.sun.tools.xjc.Options jaxbOptions = schemaCompiler.getOptions();
             try {
                 int r = jaxbOptions.parseArgument(subCmd, 0);
@@ -806,6 +813,7 @@ public class WsimportOptions extends Options {
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     protected void disableXmlSecurity() {
         super.disableXmlSecurity();
         schemaCompiler.getOptions().disableXmlSecurity = true;

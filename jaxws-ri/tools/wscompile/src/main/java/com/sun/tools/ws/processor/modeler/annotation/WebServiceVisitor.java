@@ -36,8 +36,8 @@ import javax.lang.model.type.NoType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.ElementFilter;
-import javax.lang.model.util.SimpleElementVisitor6;
-import javax.lang.model.util.SimpleTypeVisitor6;
+import javax.lang.model.util.SimpleElementVisitor9;
+import javax.lang.model.util.SimpleTypeVisitor9;
 import javax.lang.model.util.Types;
 import java.lang.annotation.Annotation;
 import java.util.Collection;
@@ -49,7 +49,7 @@ import java.util.Stack;
 /**
  * @author WS Development Team
  */
-public abstract class WebServiceVisitor extends SimpleElementVisitor6<Void, Object> {
+public abstract class WebServiceVisitor extends SimpleElementVisitor9<Void, Object> {
 
     protected ModelBuilder builder;
     protected String wsdlNamespace;
@@ -724,7 +724,7 @@ public abstract class WebServiceVisitor extends SimpleElementVisitor6<Void, Obje
         return soapStyle.equals(SOAPStyle.DOCUMENT) && wrapped;
     }
 
-    private static final class NoTypeVisitor extends SimpleTypeVisitor6<Boolean, Void> {
+    private static final class NoTypeVisitor extends SimpleTypeVisitor9<Boolean, Void> {
 
         @Override
         public Boolean visitNoType(NoType t, Void o) {

@@ -24,6 +24,7 @@ public class ProcessorException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = -3521729994453882680L;
 
+    @SuppressWarnings({"deprecation"})
     public ProcessorException(String key, Object... args) {
         super(key, args);
     }

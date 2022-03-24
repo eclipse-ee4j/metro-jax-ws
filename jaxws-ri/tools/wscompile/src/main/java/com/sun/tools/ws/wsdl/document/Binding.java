@@ -28,6 +28,7 @@ import java.util.List;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class Binding extends GlobalEntity implements TWSDLExtensible {
 
     public Binding(Defining defining, Locator locator, ErrorReceiver receiver) {

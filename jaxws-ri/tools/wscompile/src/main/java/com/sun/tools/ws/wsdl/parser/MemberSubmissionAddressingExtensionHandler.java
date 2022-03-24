@@ -53,12 +53,14 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public boolean handlePortExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         // ignore any extension elements
         return false;
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public boolean handleInputExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         if (extensionModeOn) {
             warn(context.getLocation(e));
@@ -87,6 +89,7 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public boolean handleOutputExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         if (extensionModeOn) {
             warn(context.getLocation(e));
@@ -102,6 +105,7 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public boolean handleFaultExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         if (extensionModeOn) {
             warn(context.getLocation(e));
@@ -117,6 +121,7 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
         }
     }
 
+    @SuppressWarnings({"deprecation"})
     private boolean warnEmptyAction(TWSDLExtensible parent, Locator pos) {
         errReceiver.warning(pos, WsdlMessages.WARNING_INPUT_OUTPUT_EMPTY_ACTION(parent.getWSDLElementName().getLocalPart(), parent.getParent().getNameValue()));
         return false;

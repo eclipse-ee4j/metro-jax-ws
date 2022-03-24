@@ -24,6 +24,7 @@ import java.util.*;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class Definitions extends Entity implements Defining, TWSDLExtensible {
 
     public Definitions(AbstractDocument document, Locator locator) {

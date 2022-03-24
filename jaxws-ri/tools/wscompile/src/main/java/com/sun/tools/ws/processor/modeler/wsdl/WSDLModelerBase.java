@@ -106,6 +106,7 @@ public abstract class WSDLModelerBase implements Modeler {
         return requestBody;
     }
 
+    @SuppressWarnings({"deprecation"})
     protected boolean isRequestMimeMultipart() {
         for (TWSDLExtension extension: info.bindingOperation.getInput().extensions()) {
             if (extension.getClass().equals(MIMEMultipartRelated.class)) {
@@ -115,6 +116,7 @@ public abstract class WSDLModelerBase implements Modeler {
         return false;
     }
 
+    @SuppressWarnings({"deprecation"})
     protected boolean isResponseMimeMultipart() {
         for (TWSDLExtension extension: info.bindingOperation.getOutput().extensions()) {
             if (extension.getClass().equals(MIMEMultipartRelated.class)) {
@@ -123,9 +125,6 @@ public abstract class WSDLModelerBase implements Modeler {
         }
         return false;
     }
-
-
-
 
     protected SOAPBody getSOAPResponseBody() {
         SOAPBody responseBody =
@@ -205,6 +204,7 @@ public abstract class WSDLModelerBase implements Modeler {
     /**
      * @return MessageParts referenced by the mime:content
      */
+    @SuppressWarnings({"deprecation"})
     protected List<MessagePart> getMimeContentParts(Message message, TWSDLExtensible ext) {
         ArrayList<MessagePart> mimeContentParts = new ArrayList<>();
 
@@ -217,8 +217,7 @@ public abstract class WSDLModelerBase implements Modeler {
         return mimeContentParts;
     }
 
-    /**
-     */
+    @SuppressWarnings({"deprecation"})
     protected boolean validateMimeParts(Iterable<MIMEPart> mimeParts) {
         boolean gotRootPart = false;
         List<MIMEContent> mimeContents = new ArrayList<>();
@@ -286,6 +285,7 @@ public abstract class WSDLModelerBase implements Modeler {
         return true;
     }
 
+    @SuppressWarnings({"deprecation"})
     protected Iterable<MIMEPart> getMimeParts(TWSDLExtensible ext) {
         MIMEMultipartRelated multiPartRelated =
             (MIMEMultipartRelated) getAnyExtensionOfType(ext,
@@ -297,6 +297,7 @@ public abstract class WSDLModelerBase implements Modeler {
     }
 
     //returns MIMEContents
+    @SuppressWarnings({"deprecation"})
     protected List<MIMEContent> getMimeContents(MIMEPart part) {
         List<MIMEContent> mimeContents = new ArrayList<>();
         for (TWSDLExtension mimeContent : part.extensions()) {
@@ -382,6 +383,7 @@ public abstract class WSDLModelerBase implements Modeler {
     /**
      * @return List of SOAPHeader extensions
      */
+    @SuppressWarnings({"deprecation"})
     protected List<SOAPHeader> getHeaderExtensions(TWSDLExtensible extensible) {
         List<SOAPHeader> headerList = new ArrayList<>();
         for (TWSDLExtension extension : extensible.extensions()) {
@@ -409,6 +411,7 @@ public abstract class WSDLModelerBase implements Modeler {
     /**
      * @return true if part is the Root part
      */
+    @SuppressWarnings({"deprecation"})
     private boolean isRootPart(MIMEPart part) {
         for (TWSDLExtension twsdlExtension : part.extensions()) {
             if (twsdlExtension instanceof SOAPBody) {
@@ -526,6 +529,7 @@ public abstract class WSDLModelerBase implements Modeler {
     /**
      * @return List of MimeContents from ext
      */
+    @SuppressWarnings({"deprecation"})
     protected List<MIMEContent> getMimeContents(TWSDLExtensible ext, Message message, String name) {
         for (MIMEPart mimePart : getMimeParts(ext)) {
             List<MIMEContent> mimeContents = getMimeContents(mimePart);
@@ -568,6 +572,7 @@ public abstract class WSDLModelerBase implements Modeler {
             entity.getName());
     }
 
+    @SuppressWarnings({"deprecation"})
     protected static TWSDLExtension getExtensionOfType(
             TWSDLExtensible extensible,
             Class type) {
@@ -580,6 +585,7 @@ public abstract class WSDLModelerBase implements Modeler {
         return null;
     }
 
+    @SuppressWarnings({"deprecation"})
     protected TWSDLExtension getAnyExtensionOfType(
         TWSDLExtensible extensible,
         Class type) {

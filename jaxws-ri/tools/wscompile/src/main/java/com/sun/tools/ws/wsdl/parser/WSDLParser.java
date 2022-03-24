@@ -79,6 +79,7 @@ public class WSDLParser {
     private MetadataFinder forest;
     private ArrayList<ParserListener> listeners;
 
+    @SuppressWarnings({"deprecation"})
     public WSDLParser(WsimportOptions options, ErrorReceiverFilter errReceiver, MetadataFinder forest) {
         this.extensionHandlers = new HashMap();
         this.options = options;
@@ -111,6 +112,7 @@ public class WSDLParser {
 
     }
 
+    @SuppressWarnings({"deprecation"})
     private void register(TWSDLExtensionHandler h) {
         extensionHandlers.put(h.getNamespaceURI(), h);
     }
@@ -1024,6 +1026,7 @@ public class WSDLParser {
     }
 
 
+    @SuppressWarnings({"deprecation"})
     private boolean handleExtension(
         TWSDLParserContextImpl context,
         TWSDLExtensible entity,
@@ -1039,6 +1042,7 @@ public class WSDLParser {
         }
     }
 
+    @SuppressWarnings({"deprecation"})
     private boolean handleExtension(
         TWSDLParserContextImpl context,
         TWSDLExtensible entity,

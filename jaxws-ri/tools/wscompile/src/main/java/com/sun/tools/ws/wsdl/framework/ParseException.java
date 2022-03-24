@@ -22,10 +22,12 @@ public class ParseException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = -7989101117666409466L;
 
+    @SuppressWarnings({"deprecation"})
     public ParseException(String key, Object... args) {
         super(key, args);
     }
 
+    @SuppressWarnings({"deprecation"})
     public ParseException(Localizable message){
         super("localized.error", message);
     }

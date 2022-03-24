@@ -19,6 +19,7 @@ public class WSDLParseException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = -221204250739166481L;
 
+    @SuppressWarnings({"deprecation"})
     public WSDLParseException(String key, Object... args) {
         super(key, args);
     }

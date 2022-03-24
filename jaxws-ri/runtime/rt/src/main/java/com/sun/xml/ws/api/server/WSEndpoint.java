@@ -575,28 +575,8 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
     }
 
     /**
-     * Deprecated version that assumes {@code isTransportSynchronous==false}
-     */
-    @Deprecated
-    public static <T> WSEndpoint<T> create(
-        @NotNull Class<T> implType,
-        boolean processHandlerAnnotation,
-        @Nullable Invoker invoker,
-        @Nullable QName serviceName,
-        @Nullable QName portName,
-        @Nullable Container container,
-        @Nullable WSBinding binding,
-        @Nullable SDDocumentSource primaryWsdl,
-        @Nullable Collection<? extends SDDocumentSource> metadata,
-        @Nullable EntityResolver resolver) {
-        return create(implType,processHandlerAnnotation,invoker,serviceName,portName,container,binding,primaryWsdl,metadata,resolver,false);
-    }
-
-
-    /**
-     * The same as
-     * {@link #create(Class, boolean, Invoker, QName, QName, Container, WSBinding, SDDocumentSource, Collection, EntityResolver)}
-     * except that this version takes an url of the {@code jax-ws-catalog.xml}.
+     * Takes an url of the {@code jax-ws-catalog.xml}.
+     * Assumes {@code isTransportSynchronous==false}
      *
      * @param catalogUrl
      *      if not null, an {@link EntityResolver} is created from it and used.

@@ -133,7 +133,7 @@ public final class Util {
             try {
                 base = new URL(baseSystemId);
             } catch (MalformedURLException e) {
-                base = new File(baseSystemId).toURL();
+                base = new File(baseSystemId).toURI().toURL();
             }
 
             try {

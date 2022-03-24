@@ -30,6 +30,7 @@ import java.util.List;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class TWSDLParserContextImpl implements TWSDLParserContext {
 
     private final static String PREFIX_XMLNS = "xmlns";

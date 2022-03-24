@@ -26,6 +26,7 @@ public class ExtensibilityHelper {
     public ExtensibilityHelper() {
     }
 
+    @SuppressWarnings({"deprecation"})
     public void addExtension(TWSDLExtension e) {
         if (_extensions == null) {
             _extensions = new ArrayList();
@@ -33,6 +34,7 @@ public class ExtensibilityHelper {
         _extensions.add(e);
     }
 
+    @SuppressWarnings({"deprecation"})
     public Iterable<TWSDLExtension> extensions() {
         if (_extensions == null) {
             return new ArrayList<>();
@@ -57,5 +59,6 @@ public class ExtensibilityHelper {
         }
     }
 
+    @SuppressWarnings({"deprecation"})
     private List<TWSDLExtension> _extensions;
 }

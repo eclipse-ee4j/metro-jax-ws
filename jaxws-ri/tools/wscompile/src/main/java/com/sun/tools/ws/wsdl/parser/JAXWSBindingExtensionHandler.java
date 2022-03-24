@@ -36,6 +36,7 @@ import java.util.Map;
  * jaxws:bindings exension handler.
  *
  */
+@SuppressWarnings({"deprecation"})
 public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
 
     // xml security enabled always, xpath used for parsing "part" attribute
@@ -62,6 +63,7 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
 
     /**
      */
+    @SuppressWarnings({"deprecation"})
     private boolean parseGlobalJAXWSBindings(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         context.push();
         context.registerNamespaces(e);

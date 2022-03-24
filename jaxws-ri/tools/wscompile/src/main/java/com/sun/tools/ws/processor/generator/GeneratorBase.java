@@ -199,7 +199,7 @@ public abstract class GeneratorBase implements ModelVisitor {
             if (filer != null) { 
                 jfo = filer.createResource(StandardLocation.SOURCE_OUTPUT, 
                         Names.getPackageName(name), getHandlerConfigFileName(name));
-                options.addGeneratedFile(new File(jfo.toUri()));
+                options.addGeneratedFile(jfo);
                 p = new IndentingWriter(new OutputStreamWriter(jfo.openOutputStream()));
             } else { // leave for backw. compatibility now
                 String hcName = getHandlerConfigFileName(name);

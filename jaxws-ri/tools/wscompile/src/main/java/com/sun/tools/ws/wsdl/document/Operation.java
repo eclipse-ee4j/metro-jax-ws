@@ -27,6 +27,7 @@ import java.util.*;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class Operation extends Entity implements TWSDLOperation {
 
     public Operation(Locator locator) {
