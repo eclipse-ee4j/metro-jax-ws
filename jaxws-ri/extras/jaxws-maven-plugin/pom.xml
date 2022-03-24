@@ -33,7 +33,7 @@
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
-    <name>Maven JAXWS 3.x Plugin</name>
+    <name>JAX-WS RI Maven Plugin</name>
     <description>Maven plugin for JAX-WS RI</description>
     <version>4.0.0-SNAPSHOT</version>
 
@@ -73,44 +73,43 @@
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-plugin-api</artifactId>
-                <version>3.5.4</version>
+                <version>3.8.4</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-core</artifactId>
-                <version>3.5.4</version>
+                <version>3.8.4</version>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-utils</artifactId>
-                <version>3.3.0</version>
+                <version>3.4.1</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven.plugin-tools</groupId>
                 <artifactId>maven-plugin-annotations</artifactId>
-                <version>3.6.2</version>
-                <scope>provided</scope>
+                <version>3.6.4</version>
             </dependency>
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>6.14.2</version>
+                <version>7.5</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-settings</artifactId>
-                <version>3.5.4</version>
+                <version>3.8.4</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven.resolver</groupId>
                 <artifactId>maven-resolver-api</artifactId>
-                <version>1.7.2</version>
+                <version>1.7.3</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven.resolver</groupId>
                 <artifactId>maven-resolver-util</artifactId>
-                <version>1.7.2</version>
+                <version>1.7.3</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -124,6 +123,7 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
@@ -132,6 +132,7 @@
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
@@ -140,10 +141,12 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-core</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-settings</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.resolver</groupId>
@@ -166,14 +169,17 @@
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
         <spotbugs.version>4.5.3.0</spotbugs.version>
+        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.testRelease>11</maven.compiler.testRelease>
         <!-- exclude big groups from the Xlint -->
-        <comp.xlint>-Xlint:all,-rawtypes,-unchecked,-serial</comp.xlint>
+        <comp.xlint>-Xlint:all</comp.xlint>
         <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
-        <comp.xdoclint>-Xdoclint:none</comp.xdoclint>
+        <comp.xdoclint>-Xdoclint:all,-missing</comp.xdoclint>
         <warn.limit>150</warn.limit>
+        <jdoc.doclint>-missing</jdoc.doclint>
 
 <!--        <jaxws-tools.version>${project.version}</jaxws-tools.version>-->
-        <jaxws-tools.version>3.0.2</jaxws-tools.version>
+        <jaxws-tools.version>4.0.0-M3</jaxws-tools.version>
     </properties>
 
     <build>
@@ -262,9 +268,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <release>8</release>
-                    <testRelease>8</testRelease>
-                    <compilerArgs combine.children="append">
+                    <compilerArgs>
                         <arg>${comp.xlint}</arg>
                         <arg>${comp.xdoclint}</arg>
                         <arg>-Xmaxwarns</arg>
@@ -272,15 +276,9 @@
                         <arg>-Xmaxerrs</arg>
                         <arg>${warn.limit}</arg>
                     </compilerArgs>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>base-compile</id>
-                        <configuration>
-                            <skipMain>true</skipMain>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -299,8 +297,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <release>11</release>
-                    <detectOfflineLinks>false</detectOfflineLinks>
+                    <notimestamp>true</notimestamp>
+                    <doclint>${jdoc.doclint}</doclint>
                 </configuration>
             </plugin>
         </plugins>
@@ -370,14 +368,14 @@
                             <version>1.5</version>
                             <dependencies>
                                 <dependency>
-                                    <groupId>org.codehaus.groovy</groupId>
+                                    <groupId>org.apache.groovy</groupId>
                                     <artifactId>groovy</artifactId>
-                                    <version>3.0.8</version>
+                                    <version>4.0.1</version>
                                 </dependency>
                                 <dependency>
-                                    <groupId>org.codehaus.groovy</groupId>
+                                    <groupId>org.apache.groovy</groupId>
                                     <artifactId>groovy-xml</artifactId>
-                                    <version>3.0.8</version>
+                                    <version>4.0.1</version>
                                 </dependency>
                             </dependencies>
                         </plugin>
@@ -416,16 +414,15 @@
                         <configuration>
                             <debug>${ittest.debug}</debug>
                             <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
-<!--                            <streamLogs>true</streamLogs>-->
+                            <streamLogs>true</streamLogs>
                             <addTestClassPath>true</addTestClassPath>
                             <settingsFile>${project.build.directory}/it-settings.xml</settingsFile>
                             <mavenOpts>${ittest-proxy} -Djavax.xml.accessExternalSchema=all</mavenOpts>
                             <filterProperties>
                                 <jaxws.plugin.version>${project.version}</jaxws.plugin.version>
                                 <jaxws-ri.version>${jaxws-tools.version}</jaxws-ri.version>
-                                <jws.api.version>3.0.0</jws.api.version>
-                                <xml.ws.api.version>3.0.1</xml.ws.api.version>
-                                <metro.version>3.0.2</metro.version>
+                                <xml.ws.api.version>4.0.0</xml.ws.api.version>
+                                <metro.version>4.0.0-M3</metro.version>
                             </filterProperties>
                             <properties>
                                 <javax.xml.accessExternalSchema>all</javax.xml.accessExternalSchema>

@@ -39,7 +39,6 @@
 
     <properties>
         <xml.ws.api.version>@xml.ws.api.version@</xml.ws.api.version>
-        <jws.api.version>@jws.api.version@</jws.api.version>
         <jaxws-ri.version>@jaxws-ri.version@</jaxws-ri.version>
         <metro.version>@metro.version@</metro.version>
         <jaxws.plugin.version>@project.version@</jaxws.plugin.version>
@@ -50,11 +49,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>jakarta.jws</groupId>
-                <artifactId>jakarta.jws-api</artifactId>
-                <version>${jws.api.version}</version>
-            </dependency>
             <dependency>
                 <groupId>jakarta.xml.ws</groupId>
                 <artifactId>jakarta.xml.ws-api</artifactId>
@@ -91,12 +85,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>3.3.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
+                    <version>3.10.1</version>
                 </plugin>
                 <plugin>
                     <groupId>com.sun.xml.ws</groupId>

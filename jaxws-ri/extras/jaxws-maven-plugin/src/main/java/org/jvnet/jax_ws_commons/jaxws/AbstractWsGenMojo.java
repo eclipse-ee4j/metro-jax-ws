@@ -37,8 +37,8 @@ import org.codehaus.plexus.util.FileUtils;
 /**
  *
  *
- * @author gnodet <gnodet@apache.org>
- * @author dantran <dantran@apache.org>
+ * @author gnodet (gnodet at apache.org>
+ * @author dantran (dantran at apache.org)
  * @version $Id: WsGenMojo.java 3169 2007-01-22 02:51:29Z dantran $
  */
 abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
@@ -57,7 +57,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     private String sei;
 
     /**
-     * Used in conjunction with <code>genWsdl<code> to specify the protocol to use in the
+     * Used in conjunction with <code>genWsdl</code> to specify the protocol to use in the
      * <code>wsdl:binding</code>. Valid values are "<code>soap1.1</code>" or "<code>Xsoap1.2</code>",
      * default is "<code>soap1.1</code>". "<code>Xsoap1.2</code>" is not standard
      * and can only be used in conjunction with the <code>extension</code> option.
