@@ -24,6 +24,12 @@ import java.net.URI;
  * "in-vm://<i>inVmServerId</i>[?<i>portLocalName</i>]".
  */
 public final class InVmTransportFactory extends TransportTubeFactory {
+
+    /**
+     * Default constructor.
+     */
+    public InVmTransportFactory() {}
+
     @Override
     public Tube doCreate(@NotNull ClientTubeAssemblerContext context) {
         URI adrs = context.getAddress().getURI();

@@ -24,7 +24,9 @@ import java.util.Collection;
 /**
  * @author dkohlert
  */
-public class TypeMonikerFactory {
+public final class TypeMonikerFactory {
+
+    private TypeMonikerFactory() {}
 
     public static TypeMoniker getTypeMoniker(TypeMirror typeMirror) {
         if (typeMirror == null)

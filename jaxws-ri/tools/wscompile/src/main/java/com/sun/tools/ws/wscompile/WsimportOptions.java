@@ -168,6 +168,12 @@ public class WsimportOptions extends Options {
      */
     public final List<Plugin> activePlugins = new ArrayList<>();
 
+
+    /**
+     * Default constructor.
+     */
+    public WsimportOptions() {}
+
     public JCodeModel getCodeModel() {
         if(codeModel == null)
             codeModel = new JCodeModel();

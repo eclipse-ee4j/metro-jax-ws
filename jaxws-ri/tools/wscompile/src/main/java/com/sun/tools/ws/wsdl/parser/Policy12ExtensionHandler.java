@@ -28,7 +28,12 @@ import org.w3c.dom.Element;
  */
 
 public class Policy12ExtensionHandler extends TWSDLExtensionHandler {
-       
+
+    /**
+     * Default constructor.
+     */
+    public Policy12ExtensionHandler() {}
+
     @Override
     public String getNamespaceURI() {
         return NamespaceVersion.v1_2.toString();

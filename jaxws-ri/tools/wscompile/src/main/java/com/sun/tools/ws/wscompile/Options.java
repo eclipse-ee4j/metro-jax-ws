@@ -186,6 +186,10 @@ public class Options {
     private final List<File> generatedFiles = new ArrayList<>();
     private ClassLoader classLoader;
 
+    /**
+     * Default constructor.
+     */
+    public Options() {}
 
     /**
      * Remember info on generated source file so that it
@@ -421,6 +425,7 @@ public class Options {
      */
     public static final class WeAreDone extends BadCommandLineException {
         private static final long serialVersionUID = -6884985421553580631L;
+        private WeAreDone() {}
     }
 
     /**

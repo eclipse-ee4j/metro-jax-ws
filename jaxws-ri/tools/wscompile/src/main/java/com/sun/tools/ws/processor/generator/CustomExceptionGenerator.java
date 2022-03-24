@@ -40,6 +40,11 @@ import java.util.Map;
 public class CustomExceptionGenerator extends GeneratorBase {
     private Map<String, JClass> faults = new HashMap<>();
 
+    /**
+     * Default constructor.
+     */
+    public CustomExceptionGenerator() {}
+
     public static void generate(Model model,
         WsimportOptions options,
         ErrorReceiver receiver){

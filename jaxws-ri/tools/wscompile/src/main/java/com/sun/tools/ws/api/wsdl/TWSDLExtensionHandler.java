@@ -22,6 +22,12 @@ import org.w3c.dom.Element;
  */
 @Deprecated
 public abstract class TWSDLExtensionHandler {
+
+    /**
+     * Default constructor.
+     */
+    protected TWSDLExtensionHandler() {}
+
     /**
      * Gives the namespace of an extensibility element.
      * <br>

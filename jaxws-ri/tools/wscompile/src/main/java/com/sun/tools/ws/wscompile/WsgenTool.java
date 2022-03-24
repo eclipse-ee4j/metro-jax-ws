@@ -126,7 +126,7 @@ public class WsgenTool {
     /**
      *
      */
-    public boolean buildModel(String endpoint, Listener listener) throws BadCommandLineException {
+    public boolean buildModel(String endpoint, WsimportListener listener) throws BadCommandLineException {
         final ErrorReceiverFilter errReceiver = new ErrorReceiverFilter(listener);
 
         if (!options.nosource) {

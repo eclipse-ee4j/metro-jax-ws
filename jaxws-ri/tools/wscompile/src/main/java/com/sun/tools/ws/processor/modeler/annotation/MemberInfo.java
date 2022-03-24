@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,12 +19,12 @@ import java.util.List;
  * Note: this class has a natural ordering that is inconsistent with equals.
  * @author  WS Development Team
  */
-final class MemberInfo implements Comparable<MemberInfo> {
+public final class MemberInfo implements Comparable<MemberInfo> {
     private final TypeMirror paramType;
     private final String paramName;
     private final List<Annotation> jaxbAnnotations;
 
-    public MemberInfo(TypeMirror paramType, String paramName, List<Annotation> jaxbAnnotations) {
+    MemberInfo(TypeMirror paramType, String paramName, List<Annotation> jaxbAnnotations) {
         this.paramType = paramType;
         this.paramName = paramName;
         this.jaxbAnnotations = jaxbAnnotations;

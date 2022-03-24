@@ -25,6 +25,11 @@ import org.xml.sax.helpers.XMLFilterImpl;
 public class WSDLInternalizationLogic implements InternalizationLogic{
 
     /**
+     * Default constructor.
+     */
+    public WSDLInternalizationLogic() {}
+
+    /**
      * This filter looks for {@code <xs:import>} and {@code <xs:include>}
      * and parses those documents referenced by them.
      */

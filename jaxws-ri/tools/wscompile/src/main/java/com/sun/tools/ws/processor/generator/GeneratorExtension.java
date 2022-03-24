@@ -24,7 +24,12 @@ import com.sun.xml.ws.api.SOAPVersion;
  * @see JwsImplGenerator
  */
 public abstract class GeneratorExtension {
-    
+
+    /**
+     * Default constructor.
+     */
+    protected GeneratorExtension() {}
+
     /**
      * Derive  Binding ID based on transport and SOAP version 
      * @return BindingID

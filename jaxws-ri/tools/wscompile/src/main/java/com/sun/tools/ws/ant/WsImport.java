@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,4 +15,10 @@ package com.sun.tools.ws.ant;
  *
  * @author Kohsuke Kawaguchi
  */
-public class WsImport extends WrapperTask {}
+public class WsImport extends WrapperTask {
+    /**
+     * Default constructor.
+     */
+    public WsImport() {}
+
+}

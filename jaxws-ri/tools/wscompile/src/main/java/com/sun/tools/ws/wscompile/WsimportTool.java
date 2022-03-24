@@ -69,8 +69,13 @@ public class WsimportTool {
         this.container = container;
     }
 
-    protected class Listener extends WsimportListener {
+    public class Listener extends WsimportListener {
         ConsoleErrorReporter cer = new ConsoleErrorReporter(out == null ? new PrintStream(new NullStream()) : out);
+
+        /**
+         * Default constructor.
+         */
+        public Listener() {}
 
         @Override
         public void generatedFile(String fileName) {

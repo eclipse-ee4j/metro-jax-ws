@@ -42,6 +42,11 @@ import org.xml.sax.SAXParseException;
  */
 public abstract class ErrorReceiver  implements ErrorHandler, ErrorListener {
 
+    /**
+     * Default constructor.
+     */
+    protected ErrorReceiver() {}
+
 //
 //
 // convenience methods for callers

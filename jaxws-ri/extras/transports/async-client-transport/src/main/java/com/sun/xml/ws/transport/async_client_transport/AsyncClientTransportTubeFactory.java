@@ -19,6 +19,12 @@ import com.sun.istack.NotNull;
  * @author Rama.Pulavarthi@sun.com
  */
 public class AsyncClientTransportTubeFactory extends TransportTubeFactory {
+
+    /**
+     * Default constructor.
+     */
+    public AsyncClientTransportTubeFactory() {}
+
     @Override
     public Tube doCreate(@NotNull ClientTubeAssemblerContext context) {
         if (context.getBinding().getAddressingVersion() == null ||!context.getBinding().isFeatureEnabled(AsyncClientTransportFeature.class)) {

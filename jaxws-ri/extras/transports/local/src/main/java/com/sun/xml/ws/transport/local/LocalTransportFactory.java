@@ -40,6 +40,12 @@ import java.util.List;
  * @author Kohsuke Kawaguchi
  */
 public final class LocalTransportFactory extends TransportTubeFactory {
+
+    /**
+     * Default constructor.
+     */
+    public LocalTransportFactory() {}
+
     @Override
     public Tube doCreate(@NotNull ClientTubeAssemblerContext context) {
         URI adrs = context.getAddress().getURI();

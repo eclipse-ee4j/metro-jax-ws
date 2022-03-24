@@ -45,6 +45,11 @@ import javax.tools.ToolProvider;
 public class Apt extends Task {
 
     /**
+     * Default constructor.
+     */
+    public Apt() {}
+
+    /**
      * -classpath option
      */
     protected Path compileClasspath = null;
@@ -600,6 +605,7 @@ public class Apt extends Task {
         protected String key;
         protected String value;
 
+        public Option() {}
         public String getKey() {
             return key;
         }
@@ -621,6 +627,7 @@ public class Apt extends Task {
 
         protected String value;
 
+        public Jvmarg() {}
         public String getValue() {
             return value;
         }

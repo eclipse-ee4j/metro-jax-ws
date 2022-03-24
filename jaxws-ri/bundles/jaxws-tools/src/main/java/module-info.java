@@ -32,14 +32,22 @@ module com.sun.tools.ws {
     exports com.sun.tools.ws.api;
     exports com.sun.tools.ws.api.wsdl;
     exports com.sun.tools.ws.processor;
+    exports com.sun.tools.ws.processor.generator;
+    exports com.sun.tools.ws.processor.model;
+    exports com.sun.tools.ws.processor.model.java;
+    exports com.sun.tools.ws.processor.model.jaxb;
     exports com.sun.tools.ws.processor.modeler;
     exports com.sun.tools.ws.processor.modeler.annotation;
     exports com.sun.tools.ws.processor.modeler.wsdl;
+    exports com.sun.tools.ws.processor.util;
     exports com.sun.tools.ws.spi;
     exports com.sun.tools.ws.util;
     exports com.sun.tools.ws.util.xml;
     exports com.sun.tools.ws.wscompile;
     exports com.sun.tools.ws.wsdl.document;
+    exports com.sun.tools.ws.wsdl.document.mime;
+    exports com.sun.tools.ws.wsdl.document.soap;
+    exports com.sun.tools.ws.wsdl.framework;
     exports com.sun.tools.ws.wsdl.parser;
 
     uses com.sun.xml.ws.api.wsdl.parser.MetadataResolverFactory;

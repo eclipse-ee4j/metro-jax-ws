@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,6 +24,11 @@ import org.xml.sax.SAXException;
  * @since 2.2.6
  */
 public abstract class Plugin {
+
+    /**
+     * Default constructor.
+     */
+    protected Plugin() {}
 
     /**
      * Gets the option name to turn on this add-on.
