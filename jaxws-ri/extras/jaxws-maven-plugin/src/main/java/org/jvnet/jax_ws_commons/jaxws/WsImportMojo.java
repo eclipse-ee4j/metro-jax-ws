@@ -47,8 +47,8 @@ import org.apache.maven.settings.Settings;
 
 /**
  * 
- * @author gnodet <gnodet@apache.org>
- * @author dantran <dantran@apache.org>
+ * @author gnodet (gnodet at apache.org)
+ * @author dantran (dantran at apache.org)
  * @version $Id: WsImportMojo.java 3169 2007-01-22 02:51:29Z dantran $
  */
 abstract class WsImportMojo extends AbstractJaxwsMojo
@@ -118,23 +118,22 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
      * </p>
      *
      * <p>Example:
-     * <pre>
+     * <pre>{@code
      *  ...
-     *  &lt;configuration>
-     *      &lt;wsdlDirectory>src/mywsdls&lt;/wsdlDirectory>
-     *      &lt;wsdlFiles>
-     *          &lt;wsdlFile>a.wsdl&lt;/wsdlFile>
-     *          &lt;wsdlFile>b/b.wsdl&lt;/wsdlFile>
-     *          &lt;wsdlFile>${basedir}/src/mywsdls/c.wsdl&lt;/wsdlFile>
-     *      &lt;/wsdlFiles>
-     *      &lt;wsdlLocation>http://example.com/mywebservices/*&lt;/wsdlLocation>
-     *  &lt;/configuration>
+     *  <configuration>
+     *      <wsdlDirectory>src/mywsdls</wsdlDirectory>
+     *      <wsdlFiles>
+     *          <wsdlFile>a.wsdl</wsdlFile>
+     *          <wsdlFile>b/b.wsdl</wsdlFile>
+     *          <wsdlFile>${basedir}/src/mywsdls/c.wsdl</wsdlFile>
+     *      </wsdlFiles>
+     *      <wsdlLocation>http://example.com/mywebservices/*</wsdlLocation>
+     *  </configuration>
      *  ...
-     * </pre>
+     * }</pre>
      * wsdlLocation for <code>a.wsdl</code> will be http://example.com/mywebservices/a.wsdl<br/>
      * wsdlLocation for <code>b/b.wsdl</code> will be http://example.com/mywebservices/b/b.wsdl<br/>
      * wsdlLocation for <code>${basedir}/src/mywsdls/c.wsdl</code> will be file://absolute/path/to/c.wsdl
-     * </p>
      *
      * <p>
      * Note: External binding files cannot be used if asterisk notation is in place.
@@ -499,7 +498,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
      */
     private URL[] getWSDLFiles() throws MojoExecutionException {
         List<URL> files = new ArrayList<>();
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("deprecation")
         Set<Artifact> dependencyArtifacts = project.getDependencyArtifacts();
         List<URL> urlCpath = new ArrayList<>(dependencyArtifacts.size());
         for (Artifact a: dependencyArtifacts) {

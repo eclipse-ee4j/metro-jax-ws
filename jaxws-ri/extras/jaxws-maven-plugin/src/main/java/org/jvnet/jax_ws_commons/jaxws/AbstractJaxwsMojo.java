@@ -59,7 +59,7 @@ import org.eclipse.aether.util.graph.visitor.PreorderNodeListGenerator;
 
 /**
  *
- * @author dantran <dantran@apache.org>
+ * @author dantran (dantran at apache.org)
  * @version $Id: AbstractJaxwsMojo.java 3240 2007-02-04 07:13:21Z dantran $ *
  */
 abstract class AbstractJaxwsMojo extends AbstractMojo {
