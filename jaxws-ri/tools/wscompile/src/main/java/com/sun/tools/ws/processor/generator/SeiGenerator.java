@@ -41,6 +41,11 @@ public class SeiGenerator extends GeneratorBase {
     private TJavaGeneratorExtension extension;
     private List<TJavaGeneratorExtension> extensionHandlers;
 
+    /**
+     * Default constructor.
+     */
+    public SeiGenerator() {}
+
     public static void generate(Model model, WsimportOptions options, ErrorReceiver receiver, TJavaGeneratorExtension... extensions){
         SeiGenerator seiGenerator = new SeiGenerator();
         seiGenerator.init(model, options, receiver, extensions);

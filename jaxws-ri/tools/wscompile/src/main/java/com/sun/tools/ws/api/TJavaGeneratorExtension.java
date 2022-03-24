@@ -23,6 +23,12 @@ import com.sun.tools.ws.processor.generator.JavaGeneratorExtensionFacade;
  */
 @Deprecated
 public abstract class TJavaGeneratorExtension {
+
+    /**
+     * Default constructor.
+     */
+    protected TJavaGeneratorExtension() {}
+
     /**
      * This method should be used to write annotations on {@link JMethod}.
      *

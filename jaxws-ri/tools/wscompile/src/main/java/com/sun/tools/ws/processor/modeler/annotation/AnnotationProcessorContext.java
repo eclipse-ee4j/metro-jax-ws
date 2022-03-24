@@ -35,6 +35,11 @@ public class AnnotationProcessorContext {
     private int round = 1;
     private boolean modelCompleted = false;
 
+    /**
+     * Default constructor.
+     */
+    /* package */ AnnotationProcessorContext() {}
+
     public void addSeiContext(Name seiName, SeiContext seiContext) {
         seiContextMap.put(seiName, seiContext);
     }

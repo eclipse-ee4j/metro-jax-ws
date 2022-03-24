@@ -29,6 +29,11 @@ import org.w3c.dom.Element;
 
 public class Policy15ExtensionHandler extends TWSDLExtensionHandler {
 
+    /**
+     * Default constructor.
+     */
+    public Policy15ExtensionHandler() {}
+
     @Override
     public String getNamespaceURI() {
         return NamespaceVersion.v1_5.toString();

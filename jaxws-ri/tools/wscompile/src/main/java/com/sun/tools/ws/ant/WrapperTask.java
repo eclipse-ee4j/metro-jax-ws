@@ -34,6 +34,11 @@ public abstract class WrapperTask extends ProtectedTask {
      */
     private boolean doEndorsedMagic = false;
 
+    /**
+     * Default constructor.
+     */
+    protected WrapperTask() {}
+
     @Override
     protected String getCoreClassName() {
         return getClass().getName()+'2';

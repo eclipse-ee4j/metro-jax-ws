@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,4 +26,9 @@ package com.sun.tools.ws.api;
  * @see WsgenProtocol
  */
 public abstract class WsgenExtension {
+
+    /**
+     * Default constructor.
+     */
+    protected WsgenExtension() {}
 }

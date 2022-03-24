@@ -819,7 +819,7 @@ public abstract class WebServiceVisitor extends SimpleElementVisitor6<Void, Obje
         return null;
     }
 
-    protected static class MySoapBinding implements SOAPBinding {
+    private static class MySoapBinding implements SOAPBinding {
 
         @Override
         public Style style() {

@@ -34,6 +34,11 @@ import org.apache.tools.ant.types.XMLCatalog;
  */
 public class WsImportBase extends WsTask2 {
 
+    /**
+     * Default constructor.
+     */
+    public WsImportBase() {}
+
     private final Commandline extraArgs = new Commandline();
 
     /** Additional command line arguments for XJC. The equivalent of the -B option. */

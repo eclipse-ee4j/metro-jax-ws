@@ -28,7 +28,9 @@ import java.util.Iterator;
  *
  * @author WS Development Team
  */
-public class Util {
+public final class Util {
+
+    private Util() {}
 
     public static String getRequiredAttribute(Element element, String name) {
         String result = XmlUtil.getAttributeOrNull(element, name);

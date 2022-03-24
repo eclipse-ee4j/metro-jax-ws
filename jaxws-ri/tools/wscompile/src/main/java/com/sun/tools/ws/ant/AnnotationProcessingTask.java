@@ -47,6 +47,11 @@ public class AnnotationProcessingTask extends Javac {
     private static final Pattern VERSION_PATTERN = Pattern.compile("^\\D+(\\d+(\\.?\\d+)?)$");
 
     /**
+     * Default constructor.
+     */
+    public AnnotationProcessingTask() {}
+
+    /**
      * Get the sourceDestDir attribute (-s javac parameter)
      * The default value is null.
      *

@@ -77,6 +77,8 @@ public final class Invoker {
         }
     }
 
+    private Invoker() {}
+
     static int invoke(String mainClass, String[] args) throws Throwable {
         // use the platform default proxy if available.
         // see sun.net.spi.DefaultProxySelector for details.
