@@ -36,12 +36,12 @@ public final class EndpointAdapterFactory implements DeploymentDescriptorParser.
     }
 
     @Override
-    public EndpointAdapter createAdapter(String name, String urlPattern, Class implType,
+    public EndpointAdapter createAdapter(String name, String urlPattern, Class<?> implType,
         QName serviceName, QName portName, String bindingId,
         List<Source> metadata, WebServiceFeature... features) {
 
         LOGGER.info("Creating Endpoint using JAX-WS 2.2 HTTP SPI");
-        InvokerImpl endpointInvoker = new InvokerImpl(implType);
+        InvokerImpl<?> endpointInvoker = new InvokerImpl<>(implType);
         Endpoint endpoint = Provider.provider().createEndpoint(bindingId, implType, endpointInvoker, features);
         appContext.add(endpoint);
         endpoint.setEndpointContext(appContext);

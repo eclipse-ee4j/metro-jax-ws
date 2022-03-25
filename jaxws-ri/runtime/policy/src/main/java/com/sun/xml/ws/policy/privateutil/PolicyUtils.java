@@ -278,6 +278,7 @@ public final class PolicyUtils {
         /**
          * Reflectively invokes specified method on the specified target
          */
+        @SuppressWarnings({"rawtypes"})
         static <T> T invoke(final Object target, final String methodName,
                 final Class<T> resultClass, final Object... parameters) throws RuntimePolicyUtilsException {
             Class[] parameterTypes;
@@ -298,7 +299,7 @@ public final class PolicyUtils {
          * Reflectively invokes specified method on the specified target
          */
         public static <T> T invoke(final Object target, final String methodName, final Class<T> resultClass,
-                final Object[] parameters, final Class[] parameterTypes) throws RuntimePolicyUtilsException {
+                final Object[] parameters, final Class<?>[] parameterTypes) throws RuntimePolicyUtilsException {
             try {
                 final Method method = target.getClass().getMethod(methodName, parameterTypes);
                 final Object result = MethodUtil.invoke(target, method,parameters);

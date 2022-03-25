@@ -73,6 +73,7 @@ public class XmlHandlerChain implements jakarta.jws.HandlerChain {
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public String name() {
         return ""; // deprecated, so let's ignore it ...
     }

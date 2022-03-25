@@ -57,7 +57,7 @@
                                 <dependency>
                                     <groupId>com.sun.istack</groupId>
                                     <artifactId>istack-commons-soimp</artifactId>
-                                    <version>${istack.version}</version>
+                                    <version>${istack.plugin.version}</version>
                                 </dependency>
                                 <dependency>
                                     <groupId>args4j</groupId>

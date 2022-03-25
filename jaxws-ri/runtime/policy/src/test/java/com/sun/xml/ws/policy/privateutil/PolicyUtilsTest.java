@@ -309,6 +309,7 @@ public class PolicyUtilsTest extends TestCase {
     }
 
     public static class NamedObject {
+        public NamedObject() {}
         public String hum() { return "hum"; };
     }
 

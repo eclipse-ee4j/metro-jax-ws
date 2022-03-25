@@ -91,10 +91,10 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
-        <spotbugs.version>4.5.3.0</spotbugs.version>
+        <spotbugs.version>4.6.0.0</spotbugs.version>
 
         <maven.compiler.release>11</maven.compiler.release>
-        <maven.compiler.testRelease>11</maven.compiler.testRelease>
+        <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
         <!-- exclude big groups from the Xlint -->
         <comp.xlint>-Xlint:all,-rawtypes,-unchecked</comp.xlint>
         <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
@@ -128,7 +128,7 @@
                 <plugin>
                     <groupId>com.sun.istack</groupId>
                     <artifactId>import-properties-plugin</artifactId>
-                    <version>${istack.version}</version>
+                    <version>${istack.plugin.version}</version>
                     <executions>
                         <execution>
                             <phase>validate</phase>
@@ -243,7 +243,7 @@
                 <plugin>
                     <groupId>com.sun.istack</groupId>
                     <artifactId>istack-commons-maven-plugin</artifactId>
-                    <version>${istack.version}</version>
+                    <version>${istack.plugin.version}</version>
                     <executions>
                         <execution>
                             <id>rs-gen</id>
@@ -628,7 +628,7 @@
             <extension>
                 <groupId>com.sun.istack</groupId>
                 <artifactId>import-properties-plugin</artifactId>
-                <version>${istack.version}</version>
+                <version>${istack.plugin.version}</version>
             </extension>
         </extensions-->
     </build>

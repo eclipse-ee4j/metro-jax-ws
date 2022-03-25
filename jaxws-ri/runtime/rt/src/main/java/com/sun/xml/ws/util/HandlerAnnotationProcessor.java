@@ -92,7 +92,9 @@ public final class HandlerAnnotationProcessor {
                 return null;
         }
 
-        if (clazz.getAnnotation(SOAPMessageHandlers.class) != null) {
+        @SuppressWarnings({"deprecation"})
+        final SOAPMessageHandlers sa = clazz.getAnnotation(SOAPMessageHandlers.class);
+        if (sa != null) {
             throw new UtilException(
                 "util.handler.cannot.combine.soapmessagehandlers");
         }

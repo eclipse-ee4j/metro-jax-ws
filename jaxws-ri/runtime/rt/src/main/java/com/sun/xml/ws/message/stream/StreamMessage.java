@@ -292,7 +292,8 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
     }
 
     @Override
-    public Object readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
+    @SuppressWarnings({"unchecked"})
+    public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         if(!hasPayload())
             return null;
         assert unconsumed();
@@ -300,7 +301,7 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
         if(hasAttachments())
             unmarshaller.setAttachmentUnmarshaller(new AttachmentUnmarshallerImpl(getAttachments()));
         try {
-            return unmarshaller.unmarshal(reader);
+            return (T) unmarshaller.unmarshal(reader);
         } finally{
             unmarshaller.setAttachmentUnmarshaller(null);
             XMLStreamReaderUtil.readRest(reader);

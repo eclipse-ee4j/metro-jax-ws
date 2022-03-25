@@ -186,9 +186,9 @@ public class XmlPolicyModelUnmarshaller extends PolicyModelUnmarshaller {
         boolean optional = false;
         boolean ignorable = false;
         
-        final Iterator iterator = childElement.getAttributes();
+        final Iterator<Attribute> iterator = childElement.getAttributes();
         while (iterator.hasNext()) {
-            final Attribute nextAttribute = (Attribute) iterator.next();
+            final Attribute nextAttribute = iterator.next();
             final QName name = nextAttribute.getName();
             if (attributeMap.containsKey(name)) {
                 throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0059_MULTIPLE_ATTRS_WITH_SAME_NAME_DETECTED_FOR_ASSERTION(nextAttribute.getName(), childElement.getName())));
@@ -223,9 +223,9 @@ public class XmlPolicyModelUnmarshaller extends PolicyModelUnmarshaller {
         // try to find the attribute without a prefix.
         if (attribute == null) {
             final String localAttributeName = attributeName.getLocalPart();
-            final Iterator iterator = element.getAttributes();
+            final Iterator<Attribute> iterator = element.getAttributes();
             while (iterator.hasNext()) {
-                final Attribute nextAttribute = (Attribute) iterator.next();
+                final Attribute nextAttribute = iterator.next();
                 final QName aName = nextAttribute.getName();
                 final boolean attributeFoundByWorkaround = aName.equals(attributeName) || (aName.getLocalPart().equals(localAttributeName) && (aName.getPrefix() == null || "".equals(aName.getPrefix())));
                 if (attributeFoundByWorkaround) {

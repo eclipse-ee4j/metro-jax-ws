@@ -268,7 +268,7 @@ public class WSEndpointMOMProxy<T> extends WSEndpoint<T> implements ManagedObjec
     }
 
     @Override
-    public Class getImplementationClass() {
+    public Class<T> getImplementationClass() {
         return this.wsEndpoint.getImplementationClass();
     }
 
