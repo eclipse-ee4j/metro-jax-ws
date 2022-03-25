@@ -106,15 +106,6 @@ public abstract class Messages {
     }
 
     /**
-     * @deprecated
-     *      Use {@link #create(jakarta.xml.bind.JAXBContext, java.lang.Object, com.sun.xml.ws.api.SOAPVersion)}
-     */
-    @Deprecated
-    public static Message create(Marshaller marshaller, Object jaxbObject, SOAPVersion soapVersion) {
-        return create(BindingContextFactory.getBindingContext(marshaller).getJAXBContext(),jaxbObject,soapVersion);
-    }
-
-    /**
      * Creates a {@link Message} backed by a SAAJ {@link SOAPMessage} object.
      *
      * <p>

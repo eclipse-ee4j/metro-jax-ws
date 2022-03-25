@@ -11,7 +11,6 @@
 package com.sun.xml.ws.model;
 
 import com.sun.istack.NotNull;
-import org.glassfish.jaxb.runtime.api.Bridge;
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import org.glassfish.jaxb.runtime.api.TypeReference;
 import com.sun.xml.ws.api.BindingID;
@@ -136,17 +135,6 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
         return knownNamespaceURIs;
     }
 
-    /**
-     * @return the <code>Bridge</code> for the <code>type</code>
-     * @deprecated use getBond
-     */
-    @Deprecated
-    public final Bridge getBridge(TypeReference type) {
-        Bridge b = bridgeMap.get(type);
-        assert b!=null; // we should have created Bridge for all TypeReferences known to this model
-        return b;
-    }
-    
     public final XMLBridge getXMLBridge(TypeInfo type) {
         XMLBridge b = xmlBridgeMap.get(type);
         assert b!=null; // we should have created Bridge for all TypeReferences known to this model
@@ -200,7 +188,6 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
                     return bc;
                 }
             });
-//          createBridgeMap(types);
             createBondMap(types);
         } catch (PrivilegedActionException e) {
             throw new WebServiceException(ModelerMessages.UNABLE_TO_CREATE_JAXB_CONTEXT(), e);
@@ -230,12 +217,6 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
         return types;
     }
 
-    private void createBridgeMap(List<TypeReference> types) {
-        for (TypeReference type : types) {
-            Bridge bridge = jaxbContext.createBridge(type);
-            bridgeMap.put(type, bridge);
-        }
-    }
     private void createBondMap(List<TypeInfo> types) {
         for (TypeInfo type : types) {
             XMLBridge binding = bindingContext.createBridge(type);
@@ -518,7 +499,6 @@ public abstract class AbstractSEIModelImpl implements SEIModel {
     private Map<QName, JavaMethodImpl> wsdlOpToJM = new HashMap<>();
 
     private List<JavaMethodImpl> javaMethods = new ArrayList<>();
-    private final Map<TypeReference, Bridge> bridgeMap = new HashMap<>();
     private final Map<TypeInfo, XMLBridge> xmlBridgeMap = new HashMap<>();
     protected final QName emptyBodyName = new QName("");
     private String targetNamespace = "";

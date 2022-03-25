@@ -83,12 +83,6 @@ public class JAXBContextFactory extends BindingContextFactory {
     }
 
     @Override
-    protected BindingContext getContext(Marshaller m) {
-        //org.eclipse.persistence.jaxb.JAXBMarshaller jm = (org.eclipse.persistence.jaxb.JAXBMarshaller) m;
-        return null;
-    }
-
-    @Override
     protected BindingContext newContext(JAXBContext context) {
         return new JAXBContextWrapper(context, null, null);
     }

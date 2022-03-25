@@ -11,7 +11,6 @@
 package com.sun.xml.ws.message;
 
 import com.sun.istack.NotNull;
-import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.addressing.AddressingVersion;
 import com.sun.xml.ws.api.addressing.WSEndpointReference;
@@ -48,16 +47,6 @@ public abstract class AbstractHeaderImpl implements Header {
         try {
             return (T)unmarshaller.unmarshal(readHeader());
         } catch (Exception e) {
-            throw new JAXBException(e);
-        }
-    }
-    /** @deprecated */
-    @Deprecated
-    @Override
-    public <T> T readAsJAXB(Bridge<T> bridge) throws JAXBException {
-        try {
-            return bridge.unmarshal(readHeader());
-        } catch (XMLStreamException e) {
             throw new JAXBException(e);
         }
     }

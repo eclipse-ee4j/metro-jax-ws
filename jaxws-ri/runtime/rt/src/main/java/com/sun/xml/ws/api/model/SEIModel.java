@@ -11,7 +11,6 @@
 package com.sun.xml.ws.api.model;
 
 import com.sun.istack.NotNull;
-import org.glassfish.jaxb.runtime.api.Bridge;
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import com.sun.xml.ws.api.model.wsdl.WSDLPort;
 import com.sun.xml.ws.util.Pool;
@@ -33,7 +32,7 @@ import java.util.Collection;
  *
  * <P>
  * It also retains information about the databinding done for a SEI;
- * such as {@link JAXBRIContext} and {@link Bridge}.
+ * such as {@link JAXBRIContext}.
  *
  * <p>
  * This model is constructed only when there is a Java SEI. Therefore it's
@@ -54,14 +53,6 @@ public interface SEIModel {
      */
     @Deprecated
     JAXBContext getJAXBContext();
-
-    /*
-      Get the Bridge associated with the {@link TypeReference}
-
-      @param type
-     * @return the <code>{@link Bridge}</code> for the <code>type</code>
-     */
-//    Bridge getBridge(TypeReference type);
 
     /*
       Its a known fault if the exception thrown by {@link Method} is annotated with the

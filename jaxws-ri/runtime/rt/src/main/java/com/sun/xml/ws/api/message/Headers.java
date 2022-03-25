@@ -11,7 +11,6 @@
 package com.sun.xml.ws.api.message;
 
 import com.sun.istack.NotNull;
-import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.pipe.Pipe;
 import com.sun.xml.ws.message.DOMHeader;
@@ -59,15 +58,6 @@ public abstract class Headers {
     private Headers() {}
 
     /**
-     * @deprecated
-     *      Use {@link #create(BindingContext, Object)} instead.
-     */
-    @Deprecated
-    public static Header create(SOAPVersion soapVersion, Marshaller m, Object o) {
-        return new JAXBHeader(BindingContextFactory.getBindingContext(m),o);
-    }
-
-    /**
      * Creates a {@link Header} backed a by a JAXB bean.
      */
     public static Header create(JAXBContext context, Object o) {
@@ -78,30 +68,6 @@ public abstract class Headers {
         return new JAXBHeader(context,o);
     }
 
-    /**
-     * Creates a {@link Header} backed a by a JAXB bean, with the given tag name.
-     *
-     * See {@link #create(SOAPVersion, Marshaller, Object)} for the meaning
-     * of other parameters.
-     *
-     * @param tagName
-     *      The name of the newly created header. Must not be null.
-     * @param o
-     *      The JAXB bean that represents the contents of the header. Must not be null.
-     */
-    public static Header create(SOAPVersion soapVersion, Marshaller m, QName tagName, Object o) {
-        return create(soapVersion,m,new JAXBElement(tagName,o.getClass(),o));
-    }
-
-    /**
-     * Creates a {@link Header} backed a by a JAXB bean.
-     * @deprecated
-     */
-    @Deprecated
-    public static Header create(Bridge bridge, Object jaxbObject) {
-        return new JAXBHeader(new com.sun.xml.ws.db.glassfish.BridgeWrapper(null,bridge), jaxbObject);
-    }
-    
     public static Header create(XMLBridge bridge, Object jaxbObject) {
         return new JAXBHeader(bridge, jaxbObject);
     }
@@ -118,15 +84,6 @@ public abstract class Headers {
      */
     public static Header create( Element node ) {
         return new DOMHeader<>(node);
-    }
-
-    /**
-     * @deprecated
-     *      Use {@link #create(Element)}
-     */
-    @Deprecated
-    public static Header create(SOAPVersion soapVersion, Element node ) {
-        return create(node);
     }
 
     /**

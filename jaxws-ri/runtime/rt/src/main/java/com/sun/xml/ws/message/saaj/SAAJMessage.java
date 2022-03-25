@@ -13,7 +13,6 @@ import com.sun.istack.FragmentContentHandler;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 import com.sun.istack.XMLStreamException2;
-import org.glassfish.jaxb.runtime.api.Bridge;
 import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.message.*;
@@ -308,19 +307,6 @@ public class SAAJMessage extends Message {
             }
             return (T) unmarshaller.unmarshal(payload);
 
-        }
-        return null;
-    }
-
-    /**
-     * @deprecated
-     */
-    @Deprecated
-    @Override
-    public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
-        access();
-        if (payload != null) {
-            return bridge.unmarshal(payload, hasAttachments() ? new AttachmentUnmarshallerImpl(getAttachments()) : null);
         }
         return null;
     }

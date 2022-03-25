@@ -11,7 +11,6 @@
 package com.sun.xml.ws.message;
 
 import com.sun.istack.FragmentContentHandler;
-import org.glassfish.jaxb.runtime.api.Bridge;
 import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.message.HeaderList;
@@ -110,13 +109,6 @@ public final class DOMMessage extends AbstractMessageImpl {
         } finally{
             unmarshaller.setAttachmentUnmarshaller(null);
         }
-    }
-    /** @deprecated */
-    @Deprecated
-    @Override
-    public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
-        return bridge.unmarshal(payload,
-            hasAttachments()? new AttachmentUnmarshallerImpl(getAttachments()) : null);
     }
 
     @Override

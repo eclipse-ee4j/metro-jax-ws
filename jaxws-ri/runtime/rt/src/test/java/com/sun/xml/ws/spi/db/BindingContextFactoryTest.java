@@ -186,10 +186,6 @@ public class BindingContextFactoryTest extends TestCase {
             return false;
         }
 
-        @Override
-        protected BindingContext getContext(Marshaller m) {
-            throw new IllegalStateException();
-        }
     }
 
     private static class JaxbWithException extends BindingContextFactory {
@@ -203,11 +199,6 @@ public class BindingContextFactoryTest extends TestCase {
         @Override
         protected BindingContext newContext(BindingInfo bi) {
             throw new IllegalStateException("Bad context");
-        }
-
-        @Override
-        protected BindingContext getContext(Marshaller m) {
-            return null;
         }
 
         @Override
@@ -239,10 +230,6 @@ public class BindingContextFactoryTest extends TestCase {
             return false;
         }
 
-        @Override
-        protected BindingContext getContext(Marshaller m) {
-            return null;
-        }
     }
 
     private static class Jaxb extends Good {

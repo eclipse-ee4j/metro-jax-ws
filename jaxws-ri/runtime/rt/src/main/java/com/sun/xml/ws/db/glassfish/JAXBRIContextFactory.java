@@ -16,14 +16,12 @@ import java.util.List;
 import java.util.Map;
 import java.lang.reflect.Type;
 import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.Marshaller;
 
 import org.glassfish.jaxb.runtime.api.TypeReference;
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import org.glassfish.jaxb.runtime.api.CompositeStructure;
 import org.glassfish.jaxb.runtime.v2.ContextFactory;
 import org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeAnnotationReader;
-import org.glassfish.jaxb.runtime.v2.runtime.MarshallerImpl;
 import com.sun.xml.ws.developer.JAXBContextFactory;
 import com.sun.xml.ws.spi.db.BindingContext;
 import com.sun.xml.ws.spi.db.BindingContextFactory;
@@ -97,11 +95,6 @@ public class JAXBRIContextFactory extends BindingContextFactory {
             map.put(ti, tr);
         }
         return map;
-    }
-
-    @Override
-    protected BindingContext getContext(Marshaller m) {
-        return newContext(((MarshallerImpl) m).getContext());
     }
 
     @Override

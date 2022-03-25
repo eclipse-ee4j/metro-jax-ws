@@ -10,7 +10,6 @@
 
 package com.sun.xml.ws.model;
 
-import org.glassfish.jaxb.runtime.api.Bridge;
 import org.glassfish.jaxb.runtime.api.TypeReference;
 import com.sun.xml.ws.api.model.JavaMethod;
 import com.sun.xml.ws.api.model.Parameter;
@@ -108,20 +107,8 @@ public class ParameterImpl implements Parameter {
         return  itemTypeInfo;
     }
 
-    /**  @deprecated  */
-    @Deprecated
-    @Override
-    public Bridge getBridge() {
-        return getOwner().getBridge(typeReference);
-    }
-    /**  @deprecated  */
-    @Deprecated
-    protected Bridge getBridge(TypeReference typeRef) {
-        return getOwner().getBridge(typeRef);
-    }
-
     /**
-     * TODO: once the model gets JAXBContext, shouldn't {@link Bridge}s
+     * TODO: once the model gets JAXBContext, shouldn't {@code Bridge}s
      * be made available from model objects?
      * @deprecated use getTypeInfo
      * @return Returns the TypeReference associated with this Parameter

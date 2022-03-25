@@ -12,7 +12,6 @@ package com.sun.xml.ws.api.message;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.api.BindingID;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.WSBinding;
@@ -562,20 +561,6 @@ public abstract class Message {
      *      If JAXB reports an error during the processing.
      */
     public abstract <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException;
-
-    /**
-     * Reads the payload as a JAXB object according to the given {@link Bridge}.
-     *
-     * This consumes the message.
-     *
-     * @deprecated
-     * @return null
-     *      if there's no payload.
-     * @throws JAXBException
-     *      If JAXB reports an error during the processing.
-     */
-    @Deprecated
-    public abstract <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException;
 
     /**
      * Reads the payload as a Data-Bond object

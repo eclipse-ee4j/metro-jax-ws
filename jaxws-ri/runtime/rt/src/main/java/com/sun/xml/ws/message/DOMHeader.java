@@ -10,7 +10,6 @@
 
 package com.sun.xml.ws.message;
 
-import org.glassfish.jaxb.runtime.api.Bridge;
 import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
 import com.sun.xml.ws.streaming.DOMStreamReader;
 import com.sun.xml.ws.util.DOMUtil;
@@ -69,12 +68,6 @@ public class DOMHeader<N extends Element> extends AbstractHeaderImpl {
     @Override
     public <T> T readAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         return (T) unmarshaller.unmarshal(node);
-    }
-    /** @deprecated */
-    @Deprecated
-    @Override
-    public <T> T readAsJAXB(Bridge<T> bridge) throws JAXBException {
-        return bridge.unmarshal(node);
     }
 
     @Override

@@ -10,7 +10,6 @@
 
 package com.sun.xml.ws.message.source;
 
-import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.pipe.Codecs;
 import com.sun.xml.ws.api.pipe.StreamSOAPCodec;
@@ -114,12 +113,7 @@ public class ProtocolSourceMessage extends Message {
     public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         return sm.readPayloadAsJAXB(unmarshaller);
     }
-    /** @deprecated */
-    @Deprecated
-    @Override
-    public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
-        return sm.readPayloadAsJAXB(bridge);
-    }
+
     @Override
     public <T> T readPayloadAsJAXB(XMLBridge<T> bridge) throws JAXBException {
         return sm.readPayloadAsJAXB(bridge);

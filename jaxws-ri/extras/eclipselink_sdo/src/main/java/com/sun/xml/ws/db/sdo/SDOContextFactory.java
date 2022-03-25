@@ -42,10 +42,4 @@ public class SDOContextFactory extends BindingContextFactory {
                 str.equals("org.eclipse.persistence.sdo"));
     }
 
-    @Override
-    protected BindingContext getContext(Marshaller m) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

@@ -12,7 +12,6 @@ package com.sun.xml.ws.api.message;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.WSBinding;
 import com.sun.xml.ws.api.addressing.AddressingVersion;
@@ -128,13 +127,7 @@ public class FilterMessageImpl extends Message {
     public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         return delegate.readPayloadAsJAXB(unmarshaller);
     }
-    /** @deprecated */ 
-    @Deprecated
-    @Override
-    public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
-        return delegate.readPayloadAsJAXB(bridge);
-    }
-    
+
     @Override
     public <T> T readPayloadAsJAXB(XMLBridge<T> bridge) throws JAXBException {
         return delegate.readPayloadAsJAXB(bridge);
