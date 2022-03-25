@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2011, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2011, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,7 +62,6 @@
             wsdl="${wsdl}"
             extension="true"
             verbose="true"
-            xendorsed="true"
             xnocompile="false">
         </wsimport>
     </target>
@@ -75,7 +74,6 @@
             module="my.module"
             extension="true"
             verbose="true"
-            xendorsed="true"
             xnocompile="false">
         </wsimport>
     </target>
@@ -95,7 +93,6 @@
             wsdl="${jar.url.prefix}${wsdl.jar}!/hello.wsdl"
             extension="true"
             verbose="true"
-            xendorsed="true"
             xnocompile="false">
         </wsimport>
     </target>
@@ -107,7 +104,6 @@
             wsdl="${wsdl}"
             extension="true"
             verbose="true"
-            xendorsed="true"
             encoding="UTF-8"
             package="client.utf8"
             xnocompile="true">
@@ -118,7 +114,6 @@
             wsdl="${wsdl}"
             extension="true"
             verbose="true"
-            xendorsed="true"
             encoding="UTF-16LE"
             package="client.utf16LE"
             xnocompile="false">
@@ -129,7 +124,6 @@
             wsdl="${wsdl}"
             extension="true"
             verbose="true"
-            xendorsed="true"
             encoding="utf-74"
             package="client.invalid"
             xnocompile="true">
@@ -142,7 +136,6 @@
             destdir="${build.dir}"
             wsdl="${wsdl}"
             extension="true"
-            xendorsed="true"
             xnocompile="true">
         </wsimport>
         <wsimport
@@ -150,7 +143,6 @@
             destdir="${build.dir}"
             wsdl="${wsdl}"
             extension="true"
-            xendorsed="true"
             xnocompile="true">
                 <arg line="-mark-generated"/>
         </wsimport>

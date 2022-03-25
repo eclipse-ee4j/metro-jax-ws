@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,7 +62,7 @@ public class WsImportTaskTest extends WsAntTaskTestBase {
             return;
         }
         tryDelete = true;
-        assertEquals(0, AntExecutor.exec(script, apiDir, "wsimport-client", "clean"));
+        assertEquals(0, AntExecutor.exec(script, "wsimport-client", "clean"));
         List<String> files = listDirs(apiDir, libDir);
         assertTrue("Locked jars: " + files, files.isEmpty());
     }
@@ -87,14 +87,14 @@ public class WsImportTaskTest extends WsAntTaskTestBase {
             return;
         }
         tryDelete = true;
-        assertEquals(0, AntExecutor.exec(script, apiDir, "wsimport-client-jarurl", "clean"));
+        assertEquals(0, AntExecutor.exec(script, "wsimport-client-jarurl", "clean"));
         List<String> files = listDirs(apiDir, libDir);
         assertTrue("Locked jars: " + files, files.isEmpty());
     }
 
     public void testEncoding() throws IOException {
         //this fails because one task uses invalid attributte
-        assertEquals(1, AntExecutor.exec(script, apiDir, "wsimport-client-encoding"));
+        assertEquals(1, AntExecutor.exec(script, "wsimport-client-encoding"));
         //UTF-8
         File f = new File(buildDir, "client/utf8/Hello.java");
         FileInputStream fis = new FileInputStream(f);
@@ -118,7 +118,7 @@ public class WsImportTaskTest extends WsAntTaskTestBase {
     }
 
     public void testPlugin() throws IOException {
-        assertEquals(0, AntExecutor.exec(script, apiDir, "wsimport-plugin"));
+        assertEquals(0, AntExecutor.exec(script, "wsimport-plugin"));
         File f = new File(buildDir, "test/Hello_Service.java");
         BufferedReader br = new BufferedReader(new FileReader(f));
         String line;
@@ -146,7 +146,7 @@ public class WsImportTaskTest extends WsAntTaskTestBase {
     public void testFork() throws FileNotFoundException, IOException {
         copy(pkg,  "MyExtension.java", WsImportTaskTest.class.getResourceAsStream("resources/MyExtension.java_"));
         copy(buildDir,  "META-INF/com.sun.tools.ws.api.wsdl.TWSDLExtensionHandler", WsImportTaskTest.class.getResourceAsStream("resources/TWSDLExtensionHandler"));
-        assertEquals(0, AntExecutor.exec(script, apiDir, "wsimport-fork"));
+        assertEquals(0, AntExecutor.exec(script, "wsimport-fork"));
     }
 
     //TODO: FIXME
@@ -159,7 +159,7 @@ public class WsImportTaskTest extends WsAntTaskTestBase {
 //    }
 
     public void testJavac() throws IOException {
-        assertEquals(0, AntExecutor.exec(script, apiDir, "wsimport-javac"));
+        assertEquals(0, AntExecutor.exec(script, "wsimport-javac"));
         //wsimport compiled classes should be valid for java 5
         File f = new File(buildDir, "test/types/HelloType.class");
         DataInputStream in = new DataInputStream(new FileInputStream(f));

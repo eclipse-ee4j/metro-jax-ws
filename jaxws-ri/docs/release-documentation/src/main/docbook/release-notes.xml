@@ -97,18 +97,6 @@
         directory of the &ws.impl.name.full; bundle.</para>
     </section>
 
-    <section xml:id="running-on-top-of-jdk-8">
-        <title>Running on top of JDK 8</title>
-
-        <para>JDK includes &ws.spec.name; and JAXB API and RI.
-        &ws.impl.name.full; includes RI of &ws.spec.name;/JAXB 2.3. In order to run
-        &ws.impl.name.full; you would need to specify ONLY
-        <filename>jakarta.xml.ws-api.jar</filename>, and
-        <filename>jakarta.xml.bind-api.jar</filename> jars using the <link
-        xlink:href="https://docs.oracle.com/javase/8/docs/technotes/guides/standards/">Java
-        Endorsed Standards Override Mechanism</link></para>
-    </section>
-
     <section xml:id="jar-dependency">
         <title>Jar dependency</title>
 

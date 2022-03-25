@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 
-    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,6 @@
     <property name="tomcat.home" value="\${env.CATALINA_HOME}"/>
     <property name="catalina.home" value="\${tomcat.home}"/>
     <property name="catalina.lib.home" value="\${catalina.home}/shared/lib"/>
-    <property name="catalina.endorsed" value="\${catalina.home}/common/endorsed"/>
     <property name="java.home" value="\${env.JAVA_HOME}"/>
 
     <target name="glassfish-message">

@@ -11,13 +11,12 @@
 package com.sun.tools.ws.ant;
 
 import com.sun.istack.tools.ProtectedTask;
-import com.sun.tools.ws.Invoker;
-import com.sun.tools.ws.wscompile.Options;
 import com.sun.tools.ws.resources.WscompileMessages;
-import org.glassfish.jaxb.core.util.Which;
-import org.apache.tools.ant.BuildException;
-
+import com.sun.tools.ws.wscompile.Options;
 import jakarta.xml.ws.Service;
+import org.apache.tools.ant.BuildException;
+import org.glassfish.jaxb.core.util.Which;
+
 import java.io.IOException;
 
 /**
@@ -27,12 +26,6 @@ import java.io.IOException;
  * @author Kohsuke Kawaguchi
  */
 public abstract class WrapperTask extends ProtectedTask {
-
-    /**
-     * Set to true to perform the endorsed directory override so that
-     * Ant tasks can run on JavaSE 6.
-     */
-    private boolean doEndorsedMagic = false;
 
     /**
      * Default constructor.
@@ -52,34 +45,24 @@ public abstract class WrapperTask extends ProtectedTask {
         super.setDynamicAttribute(name,value);
         if(name.equals("target"))
             targetVersionAttribute = value;
-        else if(name.equals("xendorsed"))
-            this.doEndorsedMagic = Boolean.parseBoolean(value);
 
     }
 
     @Override
     protected ClassLoader createClassLoader() throws ClassNotFoundException, IOException {
         ClassLoader cl = getClass().getClassLoader();
-        if (doEndorsedMagic) {
-            return Invoker.createClassLoader(cl);
+        Options.Target targetVersion;
+        if (targetVersionAttribute != null) {
+            targetVersion = Options.Target.parse(targetVersionAttribute);
         } else {
-            Options.Target targetVersion;
-            if (targetVersionAttribute != null) {
-                targetVersion = Options.Target.parse(targetVersionAttribute);
-            } else {
-                targetVersion = Options.Target.getDefault();
-            }
-            Options.Target loadedVersion = Options.Target.getLoadedAPIVersion();
-            //Check if the target version is supported by the loaded API version
-            if (loadedVersion.isLaterThan(targetVersion)) {
-                return cl;
-            } else {
-                if (Service.class.getClassLoader() == null)
-                    throw new BuildException(WscompileMessages.WRAPPER_TASK_NEED_ENDORSED(loadedVersion.getVersion(), targetVersion.getVersion()));
-                else {
-                    throw new BuildException(WscompileMessages.WRAPPER_TASK_LOADING_INCORRECT_API(loadedVersion.getVersion(), Which.which(Service.class), targetVersion.getVersion()));
-                }
-            }
+            targetVersion = Options.Target.getDefault();
+        }
+        Options.Target loadedVersion = Options.Target.getLoadedAPIVersion();
+        //Check if the target version is supported by the loaded API version
+        if (loadedVersion.isLaterThan(targetVersion)) {
+            return cl;
+        } else {
+            throw new BuildException(WscompileMessages.WRAPPER_TASK_LOADING_INCORRECT_API(loadedVersion.getVersion(), Which.which(Service.class), targetVersion.getVersion()));
         }
     }
 }
