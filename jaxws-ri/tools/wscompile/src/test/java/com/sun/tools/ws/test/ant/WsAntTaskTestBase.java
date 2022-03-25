@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,6 @@ public abstract class WsAntTaskTestBase extends TestCase {
     protected File srcDir;
     protected File buildDir;
     protected File script;
-    protected boolean tryDelete = false;
 
     public abstract String getBuildScript();
 
@@ -54,17 +53,6 @@ public abstract class WsAntTaskTestBase extends TestCase {
         assertFalse("project dir exists", projectDir.exists() && projectDir.isDirectory());
         assertTrue("project dir created", projectDir.mkdirs());
         script = copy(projectDir, getBuildScript(), WsAntTaskTestBase.class.getResourceAsStream("resources/" + getBuildScript()));
-
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        if (tryDelete) {
-            delDirs(apiDir, srcDir, buildDir, libDir);
-            script.delete();
-            assertTrue("project dir exists", projectDir.delete());
-        }
     }
 
     protected static File copy(File dest, String name, InputStream is) throws FileNotFoundException, IOException {
@@ -86,58 +74,5 @@ public abstract class WsAntTaskTestBase extends TestCase {
         w.close();
         is.close();
         return destFile;
-    }
-
-    protected static List<String> listDirs(File... dirs) {
-        List<String> existingFiles = new ArrayList<>();
-        for (File dir : dirs) {
-            if (!dir.exists() || dir.isFile()) {
-                continue;
-            }
-            existingFiles.addAll(Arrays.asList(dir.list()));
-        }
-        return existingFiles;
-    }
-
-    protected static void delDirs(File... dirs) {
-        for (File dir : dirs) {
-            if (!dir.exists()) {
-                continue;
-            }
-            if (dir.isDirectory()) {
-                for (File f : dir.listFiles()) {
-                    delDirs(f);
-                }
-                dir.delete();
-            } else {
-                dir.delete();
-            }
-        }
-    }
-
-    protected boolean isOldJDK() {
-        try {
-            float version = Float.parseFloat(System.getProperty("java.specification.version"));
-            return version < 1.6;
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-    }
-
-    protected boolean isAntPre18() {
-        try {
-            Properties p = new Properties();
-            p.load(WsAntTaskTestBase.class.getResourceAsStream("/org/apache/tools/ant/version.txt"));
-            String vString = p.getProperty("VERSION");
-            int version = Integer.parseInt(vString.substring(2, vString.indexOf('.', 2)));
-            return version < 8;
-        } catch (Exception e) {
-            Logger.getLogger(WsAntTaskTestBase.class.getName()).warning("Cannot detect Ant version.");
-            return true;
-        }
-    }
-
-    static boolean is9() {
-        return true;
     }
 }

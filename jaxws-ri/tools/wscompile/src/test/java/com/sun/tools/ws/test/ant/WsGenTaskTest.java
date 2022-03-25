@@ -41,34 +41,6 @@ public class WsGenTaskTest extends WsAntTaskTestBase {
         assertTrue(generated.mkdirs());
     }
 
-    @Override
-    protected void tearDown() throws Exception {
-        if (tryDelete) {
-            delDirs(generated);
-        }
-        super.tearDown();
-    }
-
-    public void testWsGenLockJars() throws IOException, URISyntaxException {
-        if (isOldJDK()) {
-            Logger.getLogger(WsGenTaskTest.class.getName()).warning("Old JDK - 6+ is required - skipping jar locking test");
-            return;
-        }
-        if (is9()) {
-            Logger.getLogger(WsGenTaskTest.class.getName()).warning("New JDK - <9 is required - skipping jar locking test");
-            return;
-        }
-        if (isAntPre18()) {
-            Logger.getLogger(WsGenTaskTest.class.getName()).warning("Old Ant - 1.8+ is required - skipping jar locking test");
-            return;
-        }
-        tryDelete = true;
-        copy(pkg, "TestWs.java", WsGenTaskTest.class.getResourceAsStream("resources/TestWs.java_"));
-        assertEquals(0, AntExecutor.exec(script, "wsgen-server", "clean"));
-        List<String> files = listDirs(apiDir, libDir);
-        assertTrue("Locked jars: " + files, files.isEmpty());
-    }
-
     public void testEncoding() throws IOException, URISyntaxException {
         //UTF-16BE
         String enc = "UTF-16BE";

@@ -54,26 +54,6 @@
         </taskdef>
     </target>
 
-    <target name="wsgen-server" depends="wsgen-init">
-        <javac srcdir="${src.dir}" destdir="${src.dir}" fork="true">
-            <classpath refid="task.cp"/>
-        </javac>
-
-        <wsgen
-            sei="test.TestWs"
-            resourcedestdir="${build.dir}"
-            destdir="${build.dir}"
-            sourcedestdir="${src.dir}"
-            genwsdl="true"
-            keep="true"
-            verbose="true"
-            inlineSchemas="true">
-            <classpath>
-                <pathelement location="${src.dir}"/>
-            </classpath>
-        </wsgen>
-    </target>
-
     <target name="wsgen-server-utf16be" depends="wsgen-init">
         <javac srcdir="${src.dir}" destdir="${src.dir}" fork="true" encoding="UTF-16BE">
             <classpath refid="task.cp"/>

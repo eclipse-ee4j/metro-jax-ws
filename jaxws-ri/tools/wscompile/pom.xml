@@ -201,12 +201,8 @@
                         <id>default-testCompile</id>
                         <configuration>
                             <compilerArgs>
-                                <arg>--add-modules</arg>
-                                <arg>junit,ant</arg>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.tools.ws.wscompile.test=junit</arg>
-                                <arg>--add-reads</arg>
-                                <arg>com.sun.tools.ws.wscompile=ant</arg>
+                                <arg>com.sun.tools.ws.wscompile=ALL-UNNAMED</arg>
                             </compilerArgs>
                         </configuration>
                     </execution>
@@ -215,8 +211,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <!-- M5 fails to find junit.jar -->
-                <version>3.0.0-M4</version>
                 <configuration>
                     <systemPropertyVariables>
                         <java.io.tmpdir>${project.build.directory}/test-antprojects</java.io.tmpdir>
@@ -234,6 +228,11 @@
                             <excludes>
                                 <exclude>com.sun.tools.ws.test.wsdl.parser.WSImportSec2Test</exclude>
                             </excludes>
+                            <argLine>
+                                --add-reads com.sun.tools.ws.wscompile=ant
+                                --add-opens com.sun.tools.ws.wscompile/com.sun.tools.ws.ant=com.sun.tools.ws.wscompile.test
+                                --add-opens com.sun.tools.ws.wscompile/com.sun.tools.ws.wscompile=com.sun.tools.ws.wscompile.test
+                            </argLine>
                         </configuration>
                     </execution>
                     <execution>
