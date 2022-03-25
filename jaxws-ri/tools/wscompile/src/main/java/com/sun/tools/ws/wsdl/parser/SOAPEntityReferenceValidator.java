@@ -49,13 +49,13 @@ public class SOAPEntityReferenceValidator implements EntityReferenceValidator {
         }
     }
 
-    private static final Set _validTypes;
-    private static final Set _validElements;
-    private static final Set _validAttributes;
+    private static final Set<QName> _validTypes;
+    private static final Set<QName> _validElements;
+    private static final Set<QName> _validAttributes;
 
     static {
         // add all XML Schema and SOAP types
-        _validTypes = new HashSet();
+        _validTypes = new HashSet<>();
         _validTypes.add(SOAPConstants.QNAME_TYPE_ARRAY);
         _validTypes.add(SchemaConstants.QNAME_TYPE_STRING);
         _validTypes.add(SchemaConstants.QNAME_TYPE_NORMALIZED_STRING);
@@ -150,7 +150,7 @@ public class SOAPEntityReferenceValidator implements EntityReferenceValidator {
         _validTypes.add(SchemaConstants.QNAME_TYPE_LANGUAGE);
 
         // add all SOAP encoding elements
-        _validElements = new HashSet();
+        _validElements = new HashSet<>();
         _validElements.add(SOAPConstants.QNAME_ELEMENT_STRING);
         _validElements.add(SOAPConstants.QNAME_ELEMENT_NORMALIZED_STRING);
         _validElements.add(SOAPConstants.QNAME_ELEMENT_TOKEN);
@@ -195,7 +195,7 @@ public class SOAPEntityReferenceValidator implements EntityReferenceValidator {
         _validElements.add(SOAPConstants.QNAME_ELEMENT_NMTOKEN);
         _validElements.add(SOAPConstants.QNAME_ELEMENT_NMTOKENS);
 
-        _validAttributes = new HashSet();
+        _validAttributes = new HashSet<>();
         _validAttributes.add(SOAPConstants.QNAME_ATTR_ARRAY_TYPE);
         _validAttributes.add(SOAPConstants.QNAME_ATTR_OFFSET);
         _validAttributes.add(SOAPConstants.QNAME_ATTR_POSITION);

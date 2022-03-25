@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@
  *
  * <p>
  * This package glues together the servlet API and
- * {@link com.sun.xml.ws.api.server the JAX-WS hosting API}.
+ * the JAX-WS hosting API ({@code com.sun.xml.ws.api.server}).
  *
  * <h2>Compatibility</h2>
  * <p>

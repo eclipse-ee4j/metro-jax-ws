@@ -156,7 +156,7 @@ class MessageWrapper extends StreamMessage {
     }
 
     @Override
-    public Object readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
+    public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         return delegate.readPayloadAsJAXB(unmarshaller);
     }
 

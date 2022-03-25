@@ -26,13 +26,13 @@ import java.security.PrivilegedAction;
 /**
  * @author Jitendra Kotamraju
  */
-class InvokerImpl extends Invoker {
-    private final Class implType;
-    private final Object impl;
+class InvokerImpl<T> extends Invoker {
+    private final Class<T> implType;
+    private final T impl;
     private final Method postConstructMethod;
 //    private final Method preDestroyMethod;
 
-    InvokerImpl(Class implType) {
+    InvokerImpl(Class<T> implType) {
         this.implType = implType;
         postConstructMethod = findAnnotatedMethod(implType, PostConstruct.class);
 //        preDestroyMethod = findAnnotatedMethod(implType, PreDestroy.class);
@@ -80,7 +80,7 @@ class InvokerImpl extends Invoker {
      * Finds the method that has the given annotation, while making sure that
      * there's only at most one such method.
      */
-    private static Method findAnnotatedMethod(Class clazz, Class<? extends Annotation> annType) {
+    private static Method findAnnotatedMethod(Class<?> clazz, Class<? extends Annotation> annType) {
         boolean once = false;
         Method r = null;
         for(Method method : clazz.getDeclaredMethods()) {

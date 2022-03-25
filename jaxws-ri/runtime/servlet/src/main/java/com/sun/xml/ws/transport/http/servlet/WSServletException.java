@@ -10,6 +10,7 @@
 
 package com.sun.xml.ws.transport.http.servlet;
 
+import com.sun.istack.localization.Localizable;
 import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
 
 /**
@@ -20,8 +21,8 @@ final class WSServletException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = 7953997988740525579L;
 
-    public WSServletException(String key, Object... args) {
-        super(key, args);
+    public WSServletException(Localizable loc) {
+        super(loc);
     }
 
     public WSServletException(Throwable throwable) {

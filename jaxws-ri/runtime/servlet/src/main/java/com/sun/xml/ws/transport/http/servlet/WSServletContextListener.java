@@ -117,7 +117,7 @@ public final class WSServletContextListener
             logger.log(Level.SEVERE,
                 WsservletMessages.LISTENER_PARSING_FAILED(e),e);
             context.removeAttribute(WSServlet.JAXWS_RI_RUNTIME_INFO);
-            throw new WSServletException("listener.parsingFailed", e);
+            throw new WSServletException(WsservletMessages.localizableLISTENER_PARSING_FAILED(e));
         }
 
     }
@@ -139,8 +139,6 @@ public final class WSServletContextListener
     }
 
     private void registerWSServlet(List<ServletAdapter> adapters, ServletContext context) {
-        if ( !ServletUtil.isServlet30Based())
-            return;
         Set<String> unregisteredUrlPatterns = new HashSet<>();
         try {
             Collection<? extends ServletRegistration> registrations = context.getServletRegistrations().values();

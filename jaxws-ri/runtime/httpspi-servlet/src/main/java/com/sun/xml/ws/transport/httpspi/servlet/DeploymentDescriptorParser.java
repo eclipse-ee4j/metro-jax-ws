@@ -313,7 +313,7 @@ public class DeploymentDescriptorParser<A> {
      * But the parser doesn't require that to be of any particular type.
      */
     public interface AdapterFactory<A> {
-        A createAdapter(String name, String urlPattern, Class implType,
+        A createAdapter(String name, String urlPattern, Class<?> implType,
             QName serviceName, QName portName, String bindingId,
             List<Source> metadata, WebServiceFeature... features);
     }
@@ -480,23 +480,13 @@ public class DeploymentDescriptorParser<A> {
         throw new WebServiceException(msg);
     }
 
-    protected Class loadClass(String name) {
-        try {
-            return Class.forName(name, true, classLoader);
-        } catch (ClassNotFoundException e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-            throw new WebServiceException(e);
-        }
-    }
-
-
     /**
      * Loads the class of the given name.
      *
      * @param xsr
      *      Used to report the source location information if there's any error.
      */
-    private Class getImplementorClass(String name, XMLStreamReader xsr) {
+    private Class<?> getImplementorClass(String name, XMLStreamReader xsr) {
         try {
             return Class.forName(name, true, classLoader);
         } catch (ClassNotFoundException e) {

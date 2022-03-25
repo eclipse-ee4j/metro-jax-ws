@@ -68,18 +68,19 @@ public class ServletConnectionImpl extends WSHTTPConnection implements WebServic
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     @Property({MessageContext.HTTP_REQUEST_HEADERS, Packet.INBOUND_TRANSPORT_HEADERS})
     public @NotNull Map<String,List<String>> getRequestHeaders() {
         if (requestHeaders == null) {
             requestHeaders = new Headers();
-            Enumeration enums = request.getHeaderNames();
+            Enumeration<String> enums = request.getHeaderNames();
             while (enums.hasMoreElements()) {
-                String headerName = (String) enums.nextElement();
-                Enumeration e = request.getHeaders(headerName);
+                String headerName = enums.nextElement();
+                Enumeration<String> e = request.getHeaders(headerName);
                 if (e != null) {
                     List<String> values = requestHeaders.get(headerName);
                     while(e.hasMoreElements()) {
-                        String headerValue = (String)e.nextElement();
+                        String headerValue = e.nextElement();
                         if (values == null) {
                             values = new ArrayList<>();
                             requestHeaders.put(headerName, values);
@@ -93,6 +94,7 @@ public class ServletConnectionImpl extends WSHTTPConnection implements WebServic
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public Set<String> getRequestHeaderNames() {
     	return getRequestHeaders().keySet();
     }

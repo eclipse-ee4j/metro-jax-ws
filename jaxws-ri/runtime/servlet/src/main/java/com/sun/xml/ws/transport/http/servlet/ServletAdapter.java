@@ -49,8 +49,7 @@ import java.util.logging.Logger;
 public class ServletAdapter extends HttpAdapter implements BoundEndpoint {
     final String name;
 
-    @SuppressWarnings("unchecked")
-	protected ServletAdapter(String name, String urlPattern, WSEndpoint endpoint, ServletAdapterList owner) {
+	protected ServletAdapter(String name, String urlPattern, WSEndpoint<?> endpoint, ServletAdapterList owner) {
         super(endpoint, owner, urlPattern);
         this.name = name;
         // registers itself with the container
@@ -165,17 +164,7 @@ public class ServletAdapter extends HttpAdapter implements BoundEndpoint {
                 return;
             }
 
-            boolean asyncRequest = false;
-            try {
-                asyncRequest = isServlet30Based && request.isAsyncSupported() && !request.isAsyncStarted();
-            } catch (Throwable t) {
-                //this happens when the loaded Servlet API is 3.0, but the impl is not, ending up as AbstractMethodError
-                LOGGER.log(Level.INFO, request.getClass().getName() + " does not support Async API, Continuing with synchronous processing", t);
-                //Continue with synchronous processing and don't repeat the check for processing further requests
-                isServlet30Based = false;
-            }
-
-            if (asyncRequest) {
+            if (request.isAsyncSupported() && !request.isAsyncStarted()) {
                 final jakarta.servlet.AsyncContext asyncContext = request.startAsync(request, response);
                 final AsyncCompletionCheck completionCheck = new AsyncCompletionCheck();
                 new WSAsyncListener(connection, callback).addListenerTo(asyncContext,completionCheck);
@@ -237,7 +226,5 @@ public class ServletAdapter extends HttpAdapter implements BoundEndpoint {
     }
 
     private static final Logger LOGGER = Logger.getLogger(ServletAdapter.class.getName());
-
-    private boolean isServlet30Based = ServletUtil.isServlet30Based();
 
 }
