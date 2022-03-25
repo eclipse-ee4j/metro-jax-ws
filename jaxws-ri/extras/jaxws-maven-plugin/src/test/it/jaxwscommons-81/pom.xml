@@ -125,31 +125,32 @@
                             <executable>${tool.wsimport}</executable>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>id5</id>
-                        <goals>
-                            <goal>wsimport</goal>
-                        </goals>
-                        <configuration>
-                            <executable>${tool.wsimport}</executable>
-                            <wsdlUrls>
-                                <wsdlUrl>https://raw.githubusercontent.com/eclipse-ee4j/metro-jax-ws/master/jaxws-ri/tests/unit/testcases/fromwsdl/additional_header/doclit/server/sample.wsdl</wsdlUrl>
-                            </wsdlUrls>
-                            <packageName>org.jvnet.jaxwsri.sample</packageName>
-                            <wsdlLocation>http://example.com:43210/my?wsdl</wsdlLocation>
-                            <xadditionalHeaders>true</xadditionalHeaders>
-                            <destDir>${project.build.directory}/custom/classes</destDir>
-                            <sourceDestDir>${project.build.directory}/custom/sources</sourceDestDir>
-                            <target>3.0</target>
-                            <xnocompile>false</xnocompile>
-                            <xdebug>true</xdebug>
-                            <bindingFiles>
-                                <bindingFile>${basedir}/src/remote-xjc/bindings.xjc</bindingFile>
-                                <bindingFile>bindings-default.xjc</bindingFile>
-                            </bindingFiles>
-                            <wsdlDirectory>${project.build.directory}</wsdlDirectory>
-                        </configuration>
-                    </execution>
+                    <!-- unstable on public infra -->
+<!--                    <execution>-->
+<!--                        <id>id5</id>-->
+<!--                        <goals>-->
+<!--                            <goal>wsimport</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <executable>${tool.wsimport}</executable>-->
+<!--                            <wsdlUrls>-->
+<!--                                <wsdlUrl>https://raw.githubusercontent.com/eclipse-ee4j/metro-jax-ws/master/jaxws-ri/tests/unit/testcases/fromwsdl/additional_header/doclit/server/sample.wsdl</wsdlUrl>-->
+<!--                            </wsdlUrls>-->
+<!--                            <packageName>org.jvnet.jaxwsri.sample</packageName>-->
+<!--                            <wsdlLocation>http://example.com:43210/my?wsdl</wsdlLocation>-->
+<!--                            <xadditionalHeaders>true</xadditionalHeaders>-->
+<!--                            <destDir>${project.build.directory}/custom/classes</destDir>-->
+<!--                            <sourceDestDir>${project.build.directory}/custom/sources</sourceDestDir>-->
+<!--                            <target>3.0</target>-->
+<!--                            <xnocompile>false</xnocompile>-->
+<!--                            <xdebug>true</xdebug>-->
+<!--                            <bindingFiles>-->
+<!--                                <bindingFile>${basedir}/src/remote-xjc/bindings.xjc</bindingFile>-->
+<!--                                <bindingFile>bindings-default.xjc</bindingFile>-->
+<!--                            </bindingFiles>-->
+<!--                            <wsdlDirectory>${project.build.directory}</wsdlDirectory>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
                     <execution>
                         <id>id6-test</id>
                         <goals>
