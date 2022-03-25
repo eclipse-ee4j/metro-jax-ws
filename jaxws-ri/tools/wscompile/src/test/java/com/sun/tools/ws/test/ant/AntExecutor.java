@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,7 +28,7 @@ public class AntExecutor {
     private static String DEBUG_PORT = "5432";
     private static boolean PROFILE = Boolean.getBoolean("anttasks.profile");
 
-    public static int exec(File script, File endorsedDir, String... targets) throws IOException {
+    public static int exec(File script, String... targets) throws IOException {
         File heapDump = null;
         List<String> cmd = new ArrayList<String>();
         cmd.add("java");
@@ -39,9 +39,6 @@ public class AntExecutor {
         } else if (PROFILE) {
             heapDump = File.createTempFile(script.getName(), ".hprof", new File(System.getProperty("user.home")));
             cmd.add("-agentlib:hprof=heap=dump,file=" + heapDump.getAbsolutePath() + ",format=b");
-        }
-        if (!WsAntTaskTestBase.is9()) {
-            cmd.add("-Djava.endorsed.dirs=" + endorsedDir.getAbsolutePath());
         }
         cmd.add("-Dbin.folder=" + System.getProperty("bin.folder"));
 //        cmd.add("-Djaxp.debug=true");

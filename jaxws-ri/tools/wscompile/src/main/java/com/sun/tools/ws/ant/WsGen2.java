@@ -10,8 +10,6 @@
 
 package com.sun.tools.ws.ant;
 
-import org.apache.tools.ant.Project;
-
 /**
  *
  * @author lukas
@@ -22,11 +20,4 @@ public class WsGen2 extends WsGenBase {
      * Default constructor.
      */
     public WsGen2() {}
-
-    @Override
-    public void setXendorsed(boolean xendorsed) {
-        log("xendorsed attribute not supported", Project.MSG_WARN);
-        //no-op
-    }
-
 }
