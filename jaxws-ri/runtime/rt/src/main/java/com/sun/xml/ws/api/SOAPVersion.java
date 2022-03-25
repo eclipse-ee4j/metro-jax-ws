@@ -10,7 +10,6 @@
 
 package com.sun.xml.ws.api;
 
-import org.glassfish.jaxb.core.util.Which;
 import com.sun.xml.ws.api.message.saaj.SAAJFactory;
 import com.sun.xml.ws.encoding.soap.SOAP12Constants;
 
@@ -155,11 +154,6 @@ public enum SOAPVersion {
 	    	return SAAJFactory.getSOAPFactory(saajFactoryString);
         } catch (SOAPException e) {
             throw new Error(e);
-        } catch (NoSuchMethodError e) {
-            // SAAJ 1.3 is not in the classpath
-            LinkageError x = new LinkageError("You are loading old SAAJ from "+ Which.which(MessageFactory.class));
-            x.initCause(e);
-            throw x;
         }
     }
 
@@ -168,11 +162,6 @@ public enum SOAPVersion {
 	    	return SAAJFactory.getMessageFactory(saajFactoryString); 
         } catch (SOAPException e) {
             throw new Error(e);
-        } catch (NoSuchMethodError e) {
-            // SAAJ 1.3 is not in the classpath
-            LinkageError x = new LinkageError("You are loading old SAAJ from "+ Which.which(MessageFactory.class));
-            x.initCause(e);
-            throw x;
         }
     }
 

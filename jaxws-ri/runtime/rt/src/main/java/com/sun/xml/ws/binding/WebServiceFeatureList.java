@@ -24,7 +24,6 @@ import com.sun.xml.ws.api.model.wsdl.WSDLPort;
 import com.sun.xml.ws.api.model.wsdl.WSDLFeaturedObject;
 import com.sun.xml.ws.model.RuntimeModelerException;
 import com.sun.xml.ws.resources.ModelerMessages;
-import org.glassfish.jaxb.core.util.Which;
 
 import jakarta.xml.ws.RespectBinding;
 import jakarta.xml.ws.RespectBindingFeature;
@@ -150,12 +149,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
             ftr = null;
         } else if (a instanceof Addressing) {
             Addressing addAnn = (Addressing) a;
-            try {
-                ftr = new AddressingFeature(addAnn.enabled(), addAnn.required(),addAnn.responses());
-            } catch(NoSuchMethodError e) {
-                //throw error. We can't default to Responses.ALL as we dont know if the user has not used 2.2 annotation with responses.
-                throw new RuntimeModelerException(ModelerMessages.RUNTIME_MODELER_ADDRESSING_RESPONSES_NOSUCHMETHOD(toJar(Which.which(Addressing.class))));
-            }
+            ftr = new AddressingFeature(addAnn.enabled(), addAnn.required(),addAnn.responses());
         } else if (a instanceof MTOM) {
             MTOM mtomAnn = (MTOM) a;
             ftr = new MTOMFeature(mtomAnn.enabled(), mtomAnn.threshold());
@@ -188,16 +182,6 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
                 add(ftr);
             }
         }
-    }
-
-    /**
-     * Given the URL String inside jar, returns the URL to the jar itself.
-     */
-    private static String toJar(String url) {
-        if(!url.startsWith("jar:"))
-            return url;
-        url = url.substring(4); // cut off jar:
-        return url.substring(0,url.lastIndexOf('!'));    // cut off everything after '!'
     }
 
     private static WebServiceFeature getWebServiceFeatureBean(Annotation a) {
