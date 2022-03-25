@@ -91,9 +91,7 @@ public class WsAntToolsTest extends TestCase {
     }
 
     private void verifyCommand(String command) {
-        if (!WsAntTaskTestBase.is9()) {
-            Assert.assertTrue("-Xbootclasspath/p not set: " + command, command.contains("-Xbootclasspath/p"));
-        }
+        Assert.assertFalse("-Xbootclasspath/p set: " + command, command.contains("-Xbootclasspath/p"));
 
         String v = System.getProperty("jaxb-api.version");
         String jar = v != null ? "jakarta.xml.bind-api-" + v + ".jar" : "jakarta.xml.bind-api.jar";
