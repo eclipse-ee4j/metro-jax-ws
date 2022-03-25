@@ -12,7 +12,6 @@ package com.sun.xml.ws.message.jaxb;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.XMLStreamException2;
-import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.stream.buffer.MutableXMLStreamBuffer;
 import com.sun.xml.stream.buffer.XMLStreamBuffer;
 import com.sun.xml.ws.api.message.Header;
@@ -68,7 +67,6 @@ public final class JAXBHeader extends AbstractHeaderImpl {
 
     public JAXBHeader(BindingContext context, Object jaxbObject) {
         this.jaxbObject = jaxbObject;
-//        this.bridge = new MarshallerBridge(context);
         this.bridge = context.createFragmentBridge();
 
         if (jaxbObject instanceof JAXBElement) {
@@ -152,14 +150,8 @@ public final class JAXBHeader extends AbstractHeaderImpl {
             throw new JAXBException(e);
         }
     }
-    /** @deprecated */
-    @Deprecated
-    @Override
-    public <T> T readAsJAXB(Bridge<T> bridge) throws JAXBException {
-        return bridge.unmarshal(new JAXBBridgeSource(this.bridge,jaxbObject));
-    }
 
-	@Override
+    @Override
     public <T> T readAsJAXB(XMLBridge<T> bond) throws JAXBException {
         return bond.unmarshal(new JAXBBridgeSource(this.bridge,jaxbObject),null);
 	}

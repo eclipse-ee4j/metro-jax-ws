@@ -10,8 +10,6 @@
 
 package com.sun.xml.ws.api.model;
 
-import org.glassfish.jaxb.runtime.api.Bridge;
-
 import javax.xml.namespace.QName;
 import jakarta.xml.ws.Holder;
 import jakarta.jws.WebParam;
@@ -46,13 +44,6 @@ public interface Parameter {
      * @return Returns the {@link QName} of the payload/infoset of a SOAP body or header.
      */
     QName getName();
-
-    /**
-     * Gives the {@link Bridge} associated with this Parameter
-     * @deprecated 
-     */
-    @Deprecated
-    Bridge getBridge();
 
     /**
      * @return Returns the mode, such as IN, OUT or INOUT.

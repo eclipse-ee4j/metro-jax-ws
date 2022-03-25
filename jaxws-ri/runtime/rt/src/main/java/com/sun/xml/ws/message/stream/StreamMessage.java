@@ -13,7 +13,6 @@ package com.sun.xml.ws.message.stream;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 import com.sun.istack.XMLStreamReaderToContentHandler;
-import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.stream.buffer.MutableXMLStreamBuffer;
 import com.sun.xml.stream.buffer.XMLStreamBuffer;
 import com.sun.xml.stream.buffer.XMLStreamBufferMark;
@@ -308,20 +307,6 @@ public class StreamMessage extends AbstractMessageImpl implements StreamingSOAP 
             XMLStreamReaderUtil.close(reader);
             XMLStreamReaderFactory.recycle(reader);
         }
-    }
-    /** @deprecated */
-    @Deprecated
-    @Override
-    public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
-        if(!hasPayload())
-            return null;
-        assert unconsumed();
-        T r = bridge.unmarshal(reader,
-            hasAttachments() ? new AttachmentUnmarshallerImpl(getAttachments()) : null);
-        XMLStreamReaderUtil.readRest(reader);
-        XMLStreamReaderUtil.close(reader);
-        XMLStreamReaderFactory.recycle(reader);
-        return r;
     }
 
     @Override

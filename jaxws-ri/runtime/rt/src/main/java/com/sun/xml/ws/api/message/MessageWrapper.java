@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,6 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
 import com.sun.istack.NotNull;
-import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.WSBinding;
 import com.sun.xml.ws.api.addressing.AddressingVersion;
@@ -159,11 +158,6 @@ class MessageWrapper extends StreamMessage {
     @Override
     public Object readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         return delegate.readPayloadAsJAXB(unmarshaller);
-    }
-
-    @Override
-    public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
-        return delegate.readPayloadAsJAXB(bridge);
     }
 
     @Override

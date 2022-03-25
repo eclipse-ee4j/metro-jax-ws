@@ -108,13 +108,7 @@ abstract public class BindingContextFactory {
 	 * String parameter can be the package name of the JAXBContext implementation as well.
 	 * @param databinding mode/flavor or the package name of the JAXBContext implementation.
      */
-	abstract protected boolean isFor(String databinding);		
-
-	/**
-	 * @deprecated - Does jaxws need this?
-	 */
-	@Deprecated
-    abstract protected BindingContext getContext(Marshaller m);
+	abstract protected boolean isFor(String databinding);
 
     static private BindingContextFactory getFactory(String mode) {
         for (BindingContextFactory f: factories()) {
@@ -234,12 +228,5 @@ abstract public class BindingContextFactory {
 		throw new DatabindingException("Unknown JAXBContext implementation: " + o.getClass());
 		
 	}
-	
-	/**
-	 * @deprecated - Does jaxws need this?
-	 */
-	@Deprecated
-    static public BindingContext getBindingContext(Marshaller m) {
-		return getJAXBFactory(m).getContext(m);
-	}
+
 }

@@ -149,7 +149,6 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
 
     private JAXBMessage( BindingContext context, Object jaxbObject, SOAPVersion soapVer, MessageHeaders headers, AttachmentSet attachments ) {
         super(soapVer);
-//        this.bridge = new MarshallerBridge(context);
         this.bridge = context.createFragmentBridge();
         this.rawContext = null;
         this.jaxbObject = jaxbObject;
@@ -159,7 +158,6 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
     
     private JAXBMessage( JAXBContext rawContext, Object jaxbObject, SOAPVersion soapVer, MessageHeaders headers, AttachmentSet attachments ) {
         super(soapVer);
-//        this.bridge = new MarshallerBridge(context);
         this.rawContext = rawContext;
         this.bridge = null;
         this.jaxbObject = jaxbObject;

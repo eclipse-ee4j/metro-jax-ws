@@ -12,7 +12,6 @@ package com.sun.xml.ws.model;
 
 import java.lang.reflect.Method;
 
-import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.api.model.CheckedException;
 import com.sun.xml.ws.api.model.ExceptionType;
 import com.sun.xml.ws.api.model.JavaMethod;
@@ -81,14 +80,7 @@ public final class CheckedExceptionImpl implements CheckedException {
     public Class getDetailBean() {
         return (Class) detail.type;
     }
-    /** @deprecated */
-    @Deprecated
-    @Override
-    public Bridge getBridge() {
-//TODO        return getOwner().getBridge(detail);
-        return null;
-    }
-    
+
     public XMLBridge getBond() {
         return getOwner().getXMLBridge(detail);
     }

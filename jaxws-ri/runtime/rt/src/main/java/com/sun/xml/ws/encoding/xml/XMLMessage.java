@@ -11,7 +11,6 @@
 package com.sun.xml.ws.encoding.xml;
 
 import com.sun.istack.NotNull;
-import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.WSFeatureList;
 import com.sun.xml.ws.api.message.*;
@@ -301,12 +300,6 @@ public final class XMLMessage {
         public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
             return getMessage().readPayloadAsJAXB(unmarshaller);
         }
-        /** @deprecated */
-        @Deprecated
-        @Override
-        public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
-            return getMessage().readPayloadAsJAXB(bridge);
-        }
 
         @Override
         public XMLStreamReader readPayload() throws XMLStreamException {
@@ -445,11 +438,6 @@ public final class XMLMessage {
         @Override
         public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
             return getMessage().readPayloadAsJAXB(unmarshaller);
-        }
-
-        @Override
-        public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
-            return getMessage().readPayloadAsJAXB(bridge);
         }
 
         @Override
