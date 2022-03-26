@@ -83,6 +83,14 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
     protected boolean keep;
 
     /**
+     * Disable XML security features when parsing XML documents.
+     *
+     * @since 4.0.0
+     */
+    @Parameter(defaultValue = "false")
+    private boolean disableXmlSecurity;
+
+    /**
      * Allow to use the JAXWS Vendor Extensions.
      */
     @Parameter(defaultValue = "false")
@@ -242,6 +250,9 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
             }
         }
 
+        if (disableXmlSecurity) {
+            commonArgs.add("-disableXmlSecurity");
+        }
         if (isExtensionOn()) {
             commonArgs.add("-extension");
         }
