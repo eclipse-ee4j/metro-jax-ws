@@ -126,6 +126,27 @@ abstract class WsTask2 extends MatchingTask {
     }
 
 
+    /* ****************** -disableXmlSecurity option ********************* */
+    private boolean disableXmlSecurity;
+
+    /**
+     * Gets the "disableXmlSecurity" flag.
+     *
+     * @return true if extension mode is on, false otherwise.
+     */
+    public boolean getDisableXmlSecurity() {
+        return disableXmlSecurity;
+    }
+
+    /**
+     * Sets the "disableXmlSecurity" flag.
+     *
+     * @param disableXmlSecurity true to disable XML security features when parsing XML documents, false otherwise.
+     */
+    public void setDisableXmlSecurity(boolean disableXmlSecurity) {
+        this.disableXmlSecurity = disableXmlSecurity;
+    }
+
     /* ****************** -extensions option ********************* */
     private boolean extension;
 
@@ -482,6 +503,10 @@ abstract class WsTask2 extends MatchingTask {
         if (null != getDestdir() && !getDestdir().getName().equals("")) {
             getCommandline().createArgument().setValue("-d");
             getCommandline().createArgument().setFile(getDestdir());
+        }
+        // disableXmlSecurity flag
+        if (getDisableXmlSecurity()) {
+            getCommandline().createArgument().setValue("-disableXmlSecurity");
         }
         // extension flag
         if (getExtension()) {

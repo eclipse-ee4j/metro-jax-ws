@@ -92,6 +92,8 @@ public class Options {
     public boolean nocompile;
 
     /**
+     *  -disableXmlSecurity
+     *  <p>
      * If true XML security features when parsing XML documents will be disabled.
      * The default value is false.
      *
