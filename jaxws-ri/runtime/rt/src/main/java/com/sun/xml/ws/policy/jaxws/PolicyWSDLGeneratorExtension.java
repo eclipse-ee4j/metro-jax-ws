@@ -321,7 +321,7 @@ public class PolicyWSDLGeneratorExtension extends WSDLGeneratorExtension {
      * @param scopeType The WSDL scope.
      * @param bindingName The WSDL binding name.
      */
-    private void selectAndProcessSubject(final TypedXmlWriter xmlWriter, final Class clazz, final ScopeType scopeType, final QName bindingName) {
+    private void selectAndProcessSubject(final TypedXmlWriter xmlWriter, final Class<?> clazz, final ScopeType scopeType, final QName bindingName) {
         LOGGER.entering(xmlWriter, clazz, scopeType, bindingName);
         if (bindingName == null) {
             selectAndProcessSubject(xmlWriter, clazz, scopeType, (String) null);
@@ -338,7 +338,7 @@ public class PolicyWSDLGeneratorExtension extends WSDLGeneratorExtension {
         LOGGER.exiting();
     }
 
-    private void selectAndProcessBindingSubject(final TypedXmlWriter xmlWriter, final Class clazz, final ScopeType scopeType, final QName bindingName) {
+    private void selectAndProcessBindingSubject(final TypedXmlWriter xmlWriter, final Class<?> clazz, final ScopeType scopeType, final QName bindingName) {
         LOGGER.entering(xmlWriter, clazz, scopeType, bindingName);
         if ((subjects != null) && (bindingName != null)) {
             for (PolicySubject subject : subjects) {
@@ -354,7 +354,7 @@ public class PolicyWSDLGeneratorExtension extends WSDLGeneratorExtension {
         LOGGER.exiting();
     }
 
-    private void selectAndProcessSubject(final TypedXmlWriter xmlWriter, final Class clazz, final ScopeType scopeType, final String wsdlName) {
+    private void selectAndProcessSubject(final TypedXmlWriter xmlWriter, final Class<?> clazz, final ScopeType scopeType, final String wsdlName) {
         LOGGER.entering(xmlWriter, clazz, scopeType, wsdlName);
         if (subjects != null) {
             for (PolicySubject subject : subjects) { // iterate over all subjects in policy map

@@ -14,6 +14,8 @@
 
 package testutil;
 
+import org.junit.Assert;
+
 import java.util.Date;
 import java.util.Calendar;
 import java.lang.reflect.*;
@@ -24,7 +26,7 @@ import java.text.SimpleDateFormat;
  *
  * @author JAX-RPC RI Development Team
  */
-public class CalendarComparator extends junit.framework.Assert {
+public class CalendarComparator extends Assert {
 
     public static boolean compareCalendars(Calendar cal1, Calendar cal2) throws Exception {
         if (cal1 == cal2)

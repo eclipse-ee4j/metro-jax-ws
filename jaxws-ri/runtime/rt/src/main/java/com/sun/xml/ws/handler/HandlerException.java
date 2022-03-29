@@ -26,6 +26,7 @@ public class HandlerException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = -7422630213068664522L;
 
+    @SuppressWarnings({"deprecation"})
     public HandlerException(String key, Object... args) {
         super(key, args);
     }
@@ -34,6 +35,7 @@ public class HandlerException extends JAXWSExceptionBase {
         super(throwable);
     }
 
+    @SuppressWarnings({"deprecation"})
     public HandlerException(Localizable arg) {
         super("handler.nestedError", arg);
     }

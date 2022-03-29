@@ -142,9 +142,10 @@ public class BenchmarkTests {
 		classType = "";
 	}
         String className = "benchmark." + testPackage + ".client." + classPrefix + classType + classSuffix;
-        Class classObject = Class.forName(className);
-        Constructor ctor = classObject.getConstructor(String.class);
-        Benchmark benchmark = (Benchmark)ctor.newInstance(className);
+        @SuppressWarnings({"unchecked"})
+        Class<? extends Benchmark> classObject = (Class<? extends Benchmark>) Class.forName(className);
+        Constructor<? extends Benchmark> ctor = classObject.getConstructor(String.class);
+        Benchmark benchmark = ctor.newInstance(className);
 
         double returnValue = run(benchmark,out);
 

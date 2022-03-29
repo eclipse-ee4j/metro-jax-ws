@@ -126,18 +126,6 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
         return new DummyList().createAdapter("","",endpoint);
     }
 
-    /**
-     * @deprecated
-     *      remove as soon as we can update the test util.
-     * @param endpoint web service endpoint
-     * @param owner list of related adapters
-     */
-    @Deprecated
-    protected HttpAdapter(WSEndpoint endpoint,
-                          HttpAdapterList<? extends HttpAdapter> owner) {
-        this(endpoint,owner,null);
-    }
-
     protected HttpAdapter(WSEndpoint endpoint,
                           HttpAdapterList<? extends HttpAdapter> owner,
                           String urlPattern) {

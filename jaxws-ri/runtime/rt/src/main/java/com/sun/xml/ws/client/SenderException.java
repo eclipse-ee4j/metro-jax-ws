@@ -21,6 +21,7 @@ public class SenderException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = -6573488585920260849L;
 
+    @SuppressWarnings({"deprecation"})
     public SenderException(String key, Object... args) {
         super(key, args);
     }
@@ -29,6 +30,7 @@ public class SenderException extends JAXWSExceptionBase {
         super(throwable);
     }
 
+    @SuppressWarnings({"deprecation"})
     public SenderException(Localizable arg) {
         super("sender.nestedError", arg);
     }

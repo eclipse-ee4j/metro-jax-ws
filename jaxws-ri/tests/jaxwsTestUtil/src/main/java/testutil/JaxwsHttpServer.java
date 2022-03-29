@@ -166,11 +166,9 @@ public class JaxwsHttpServer {
     }
 
     static final class Adapter extends HttpAdapter {
-        final String urlPattern;
 
         public Adapter(WSEndpoint endpoint, String urlPattern, AdapterList owner ) {
-            super(endpoint,owner);
-            this.urlPattern = urlPattern;
+            super(endpoint,owner, urlPattern);
         }
     }
 
@@ -216,6 +214,7 @@ public class JaxwsHttpServer {
         HttpContext context = appServer.createContext (contextRoot);
         
         // Creating endpoint from backdoor (and this publishes it, too)
+        @SuppressWarnings({"deprecation"})
         Endpoint endpoint = new EndpointImpl(adapter.getEndpoint(),context);
 
         //// set MTOM

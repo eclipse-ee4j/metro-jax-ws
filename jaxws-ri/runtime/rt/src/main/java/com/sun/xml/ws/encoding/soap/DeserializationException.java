@@ -25,6 +25,7 @@ public class DeserializationException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = 4324335381330106886L;
 
+    @SuppressWarnings({"deprecation"})
     public DeserializationException(String key, Object... args) {
         super(key, args);
     }
@@ -33,6 +34,7 @@ public class DeserializationException extends JAXWSExceptionBase {
         super(throwable);
     }
 
+    @SuppressWarnings({"deprecation"})
     public DeserializationException(Localizable arg) {
         super("nestedDeserializationError", arg);
     }

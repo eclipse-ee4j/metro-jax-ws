@@ -14,6 +14,8 @@ import com.sun.xml.ws.api.handler.MessageHandler;
 import com.sun.xml.ws.handler.HandlerException;
 
 import javax.xml.namespace.QName;
+
+import com.sun.xml.ws.resources.HandlerMessages;
 import jakarta.xml.ws.handler.Handler;
 import jakarta.xml.ws.handler.LogicalHandler;
 import jakarta.xml.ws.handler.soap.SOAPHandler;
@@ -69,8 +71,7 @@ public class HandlerConfiguration {
                     modHandlerKnownHeaders.addAll(headers);
                 }
             }else {
-                throw new HandlerException("handler.not.valid.type",
-                    handler.getClass());
+                throw new HandlerException(HandlerMessages.localizableHANDLER_NOT_VALID_TYPE(handler.getClass()));
             }
         }
         

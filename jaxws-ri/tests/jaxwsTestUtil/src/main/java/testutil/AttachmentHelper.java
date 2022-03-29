@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.w3c.dom.Node;
 
@@ -112,17 +113,17 @@ public class AttachmentHelper {
 
         boolean matched = false;
         Rectangle rect = new Rectangle(0, 0, convertToBufferedImage(image1).getWidth(), convertToBufferedImage(image1).getHeight());
-        Iterator iter1 = handlePixels(image1, rect);
-        Iterator iter2 = handlePixels(image2, rect);
+        Iterator<Pixel> iter1 = handlePixels(image1, rect);
+        Iterator<Pixel> iter2 = handlePixels(image2, rect);
 
         while (iter1.hasNext() && iter2.hasNext()) {
-            Pixel pixel = (Pixel) iter1.next();
-            matched = pixel.equals((Pixel) iter2.next());
+            Pixel pixel = iter1.next();
+            matched = pixel.equals(iter2.next());
         }
         return matched;
     }
 
-    private static Iterator handlePixels(Image img, Rectangle rect) {
+    private static Iterator<Pixel> handlePixels(Image img, Rectangle rect) {
         int x = rect.x;
         int y = rect.y;
         int w = rect.width;
@@ -140,7 +141,7 @@ public class AttachmentHelper {
             System.err.println("image fetch aborted or errored");
             return null;
         }
-        ArrayList tmpList = new ArrayList();
+        List<Pixel> tmpList = new ArrayList<>();
         for (int j = 0; j < h; j++) {
             for (int i = 0; i < w; i++) {
                 tmpList.add(handleSinglePixel(x + i, y + j, pixels[j * w + i]));

@@ -25,10 +25,12 @@ public class SerializationException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = -7892436885781704629L;
 
+    @SuppressWarnings({"deprecation"})
     public SerializationException(String key, Object... args) {
         super(key, args);
     }
 
+    @SuppressWarnings({"deprecation"})
     public SerializationException(Localizable arg) {
         super("nestedSerializationError", arg);
     }

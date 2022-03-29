@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,6 +12,7 @@ package com.sun.xml.ws.transport.http.server;
 
 import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpServer;
+import com.sun.xml.ws.resources.ServerMessages;
 import com.sun.xml.ws.server.ServerRtException;
 
 import java.net.InetSocketAddress;
@@ -122,7 +123,7 @@ final class ServerMgr {
             state.oneMoreContext(url.getPath());
             return context;
         } catch(Exception e) {
-            throw new ServerRtException("server.rt.err",e );
+            throw new ServerRtException(ServerMessages.localizableSERVER_RT_ERR(e), e);
         }
     }
     

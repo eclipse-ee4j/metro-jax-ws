@@ -25,6 +25,7 @@ public class XMLStreamWriterException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = 4568488681038250654L;
 
+    @SuppressWarnings({"deprecation"})
     public XMLStreamWriterException(String key, Object... args) {
         super(key, args);
     }
@@ -33,6 +34,7 @@ public class XMLStreamWriterException extends JAXWSExceptionBase {
         super(throwable);
     }
 
+    @SuppressWarnings({"deprecation"})
     public XMLStreamWriterException(Localizable arg) {
         super("xmlwriter.nestedError", arg);
     }

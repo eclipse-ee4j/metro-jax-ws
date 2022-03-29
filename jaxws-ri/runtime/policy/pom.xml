@@ -100,7 +100,7 @@
 
         <jaxb.version>4.0.0-M4</jaxb.version>
         <junit.version>4.13.2</junit.version>
-        <istack.plugin.version>4.1.0</istack.plugin.version>
+        <istack.plugin.version>4.1.1</istack.plugin.version>
     </properties>
 
     <dependencyManagement>
