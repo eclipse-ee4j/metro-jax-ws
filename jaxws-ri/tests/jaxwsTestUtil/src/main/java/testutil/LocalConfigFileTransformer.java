@@ -52,7 +52,7 @@ public class LocalConfigFileTransformer {
 
             // get wsdl file names from sun-jaxws.xml
             Document doc = builder.parse(tempdir + "WEB-INF/sun-jaxws.xml");
-            Map endpointMap = buildMap(doc.getElementsByTagName("endpoint"));
+            Map<String, String> endpointMap = buildMap(doc.getElementsByTagName("endpoint"));
 
             // make change in config file
             doc = builder.parse(oldConfig);
@@ -91,8 +91,8 @@ public class LocalConfigFileTransformer {
         }
     }
 
-    private static Map buildMap(NodeList nodeList) throws Exception {
-        Map map = new HashMap(nodeList.getLength());
+    private static Map<String, String> buildMap(NodeList nodeList) throws Exception {
+        Map<String, String> map = new HashMap<>(nodeList.getLength());
         Element endpoint = null;
         for (int i=0; i<nodeList.getLength(); i++) {
             endpoint = (Element) nodeList.item(i);

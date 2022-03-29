@@ -13,6 +13,7 @@ package com.sun.xml.ws.server;
 import com.sun.istack.Nullable;
 import com.sun.xml.ws.api.server.*;
 import com.sun.xml.ws.api.streaming.XMLStreamWriterFactory;
+import com.sun.xml.ws.resources.ServerMessages;
 import com.sun.xml.ws.streaming.XMLStreamReaderUtil;
 import com.sun.xml.ws.wsdl.SDDocumentResolver;
 import com.sun.xml.ws.util.RuntimeVersion;
@@ -162,7 +163,7 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
                 reader.close();
             }
         } catch (WebServiceException | XMLStreamException | IOException e) {
-            throw new ServerRtException("runtime.parser.wsdl", systemId,e);
+            throw new ServerRtException(ServerMessages.localizableRUNTIME_PARSER_WSDL(systemId), e);
         }
     }
 

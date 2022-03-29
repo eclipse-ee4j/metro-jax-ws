@@ -25,6 +25,7 @@ public class UtilException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = 9031642926843523469L;
 
+    @SuppressWarnings({"deprecation"})
     public UtilException(String key, Object... args) {
         super(key, args);
     }
@@ -33,6 +34,7 @@ public class UtilException extends JAXWSExceptionBase {
         super(throwable);
     }
 
+    @SuppressWarnings({"deprecation"})
     public UtilException(Localizable arg) {
         super("nestedUtilError", arg);
     }

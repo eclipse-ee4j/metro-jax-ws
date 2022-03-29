@@ -57,7 +57,7 @@ public class MtomPolicyMapConfigurator implements PolicyMapConfigurator {
         }
 
         MtomAssertion() {
-            super(mtomData, null, null);
+            super(mtomData, null);
 
         }
     }

@@ -19,6 +19,7 @@ public class ServerRtException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = 6733047469014038310L;
 
+    @SuppressWarnings({"deprecation"})
     public ServerRtException(String key, Object... args) {
         super(key, args);
     }
@@ -27,8 +28,13 @@ public class ServerRtException extends JAXWSExceptionBase {
         super(throwable);
     }
 
+    @SuppressWarnings({"deprecation"})
     public ServerRtException(Localizable arg) {
         super("server.rt.err", arg);
+    }
+
+    public ServerRtException(Localizable arg, Throwable t) {
+        super(arg, t);
     }
 
     @Override

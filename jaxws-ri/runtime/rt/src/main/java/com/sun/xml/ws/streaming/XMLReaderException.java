@@ -25,6 +25,7 @@ public class XMLReaderException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = 527187762101195480L;
 
+    @SuppressWarnings({"deprecation"})
     public XMLReaderException(String key, Object... args) {
         super(key, args);
     }
@@ -33,6 +34,7 @@ public class XMLReaderException extends JAXWSExceptionBase {
         super(throwable);
     }
 
+    @SuppressWarnings({"deprecation"})
     public XMLReaderException(Localizable arg) {
         super("xmlreader.nestedError", arg);
     }

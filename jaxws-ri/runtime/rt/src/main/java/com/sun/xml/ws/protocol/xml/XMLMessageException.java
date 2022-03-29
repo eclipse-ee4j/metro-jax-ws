@@ -20,6 +20,7 @@ public class XMLMessageException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = 918497924897686976L;
 
+    @SuppressWarnings({"deprecation"})
     public XMLMessageException(String key, Object... args) {
         super(key, args);
     }
@@ -28,6 +29,7 @@ public class XMLMessageException extends JAXWSExceptionBase {
         super(throwable);
     }
 
+    @SuppressWarnings({"deprecation"})
     public XMLMessageException(Localizable arg) {
         super("server.rt.err", arg);
     }

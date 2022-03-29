@@ -149,6 +149,7 @@ abstract public class SDODatabindingTestBase extends TestCase {
             } 
         }
 
+        @SuppressWarnings({"deprecation"})
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 //          JavaCallInfo cliCall = new JavaCallInfo();
 //          cliCall.setMethod(method);

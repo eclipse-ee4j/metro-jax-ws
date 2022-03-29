@@ -55,7 +55,7 @@ public class AddressingPolicyMapConfigurator implements PolicyMapConfigurator {
          *
          */
         AddressingAssertion(AssertionData assertionData) {
-            super(assertionData, null, null);
+            super(assertionData, null);
         }
     }
 

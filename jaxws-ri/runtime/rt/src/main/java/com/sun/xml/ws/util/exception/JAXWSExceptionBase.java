@@ -97,6 +97,7 @@ public abstract class JAXWSExceptionBase
         }
     }
 
+    @SuppressWarnings({"deprecation"})
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         // We have to call defaultReadObject first.
         in.defaultReadObject();

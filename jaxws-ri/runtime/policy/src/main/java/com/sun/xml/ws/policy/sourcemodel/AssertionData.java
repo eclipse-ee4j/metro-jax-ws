@@ -39,7 +39,7 @@ public final class AssertionData implements Cloneable, Serializable {
 
     private final QName name;
     private final String value;
-    private final Map<QName, String> attributes;
+    private transient final Map<QName, String> attributes;
     private ModelNode.Type type;
 
     private boolean optional;

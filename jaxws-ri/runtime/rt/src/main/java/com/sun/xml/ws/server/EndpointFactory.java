@@ -212,7 +212,7 @@ public class EndpointFactory {
             String serviceNS = serviceName.getNamespaceURI();
             String portNS = portName.getNamespaceURI();
             if (!serviceNS.equals(portNS)) {
-                throw new ServerRtException("wrong.tns.for.port",portNS, serviceNS);
+                throw new ServerRtException(ServerMessages.localizableWRONG_TNS_FOR_PORT(portNS, serviceNS));
             }
         }
 
@@ -642,7 +642,7 @@ public class EndpointFactory {
                                                Container container, Class implType) {
         BindingID bindingId = binding.getBindingId();
         if (!bindingId.canGenerateWSDL()) {
-            throw new ServerRtException("can.not.generate.wsdl", bindingId);
+            throw new ServerRtException(ServerMessages.localizableCAN_NOT_GENERATE_WSDL(bindingId));
         }
 
         if (bindingId.toString().equals(SOAPBindingImpl.X_SOAP12HTTP_BINDING)) {
@@ -770,13 +770,13 @@ public class EndpointFactory {
                 if (wsdlDoc.hasService()) {
                     primaryDoc = doc;
                     if (foundConcrete) {
-                        throw new ServerRtException("duplicate.primary.wsdl", doc.getSystemId() );
+                        throw new ServerRtException(ServerMessages.localizableDUPLICATE_PRIMARY_WSDL(doc.getSystemId()));
                     }
                     foundConcrete = true;
                 }
                 if (wsdlDoc.hasPortType()) {
                     if (foundAbstract) {
-                        throw new ServerRtException("duplicate.abstract.wsdl", doc.getSystemId());
+                        throw new ServerRtException(ServerMessages.localizableDUPLICATE_ABSTRACT_WSDL(doc.getSystemId()));
                     }
                     foundAbstract = true;
                 }
@@ -817,9 +817,9 @@ public class EndpointFactory {
             }
             return wsdlPort;
         } catch (IOException | ServiceConfigurationError | SAXException e) {
-            throw new ServerRtException("runtime.parser.wsdl", wsdlUrl,e);
+            throw new ServerRtException(ServerMessages.localizableRUNTIME_PARSER_WSDL(wsdlUrl), e);
         } catch (XMLStreamException e) {
-            throw new ServerRtException("runtime.saxparser.exception", e.getMessage(), e.getLocation(), e);
+            throw new ServerRtException(ServerMessages.localizableRUNTIME_SAXPARSER_EXCEPTION(e.getMessage(), e.getLocation()), e);
         }
     }
 

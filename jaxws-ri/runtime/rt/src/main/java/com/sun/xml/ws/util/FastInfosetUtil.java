@@ -54,7 +54,7 @@ public class FastInfosetUtil {
                 @Override
                 public XMLStreamReader createFIStreamReader(Source source) {
                     // no compatible implementation of FI was found
-                    throw new XMLReaderException("fastinfoset.noImplementation");
+                    throw new XMLReaderException(StreamingMessages.localizableFASTINFOSET_NO_IMPLEMENTATION());
                 }
 
                 @Override

@@ -566,9 +566,7 @@ public class DeploymentDescriptorParser<A> {
             return Class.forName(name, true, classLoader);
         } catch (ClassNotFoundException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
-            throw new ServerRtException(
-                    "runtime.parser.classNotFound",
-                    name);
+            throw new ServerRtException(ServerMessages.localizableRUNTIME_PARSER_CLASS_NOT_FOUND(name));
         }
     }
 

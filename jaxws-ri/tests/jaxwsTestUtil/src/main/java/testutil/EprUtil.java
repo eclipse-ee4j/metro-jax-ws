@@ -10,6 +10,7 @@
 
 package testutil;
 
+import org.junit.Assert;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -24,7 +25,7 @@ import com.sun.xml.ws.developer.MemberSubmissionEndpointReference;
  * @author Rama Pulavarthi
  */
 
-public class EprUtil extends junit.framework.Assert {
+public class EprUtil extends Assert {
     private static final String W3C_EPR_NS = "http://www.w3.org/2005/08/addressing";
     private static final String W3C_EPR_WSDLBINDING_NS = "http://www.w3.org/2006/05/addressing/wsdl";
     private static final String MS_EPR_NS = "http://schemas.xmlsoap.org/ws/2004/08/addressing";
@@ -35,25 +36,25 @@ public class EprUtil extends junit.framework.Assert {
     public static final String WSAM_WSDLI_ATTRIBUTE_LOCALNAME="wsdlLocation";
 
     @Deprecated
-    public static boolean validateEPR(Node node, Class epr, String endpointAddress, QName serviceName,
+    public static boolean validateEPR(Node node, Class<?> epr, String endpointAddress, QName serviceName,
                                       QName portName, QName portTypeName, boolean hasWSDL) {
         //Default validation is as per Metadata NS;
         return validateEPR(node,epr,endpointAddress,serviceName,portName, portTypeName,hasWSDL,false,null);
 
     }
 
-    public static boolean validateEPR(Node node, Class epr, String endpointAddress, QName serviceName,
+    public static boolean validateEPR(Node node, Class<?> epr, String endpointAddress, QName serviceName,
                                       QName portName, QName portTypeName, String wsdlLocation) {
         return validateEPR(node,epr,endpointAddress,serviceName,portName, portTypeName, wsdlLocation != null,false,wsdlLocation);
 
     }
-    public static boolean validateEPR(Node node, Class epr, String endpointAddress, QName serviceName,
+    public static boolean validateEPR(Node node, Class<?> epr, String endpointAddress, QName serviceName,
                                       QName portName, QName portTypeName, String wsdlLocation, boolean useWsdlBindingNS) {
         return validateEPR(node,epr,endpointAddress,serviceName,portName, portTypeName, wsdlLocation != null,false,wsdlLocation);
 
     }
 
-    private static boolean validateEPR(Node node, Class epr, String endpointAddress, QName serviceName,
+    private static boolean validateEPR(Node node, Class<?> epr, String endpointAddress, QName serviceName,
                                       QName portName, QName portTypeName, boolean hasWSDL, boolean useWsdlBindingNS, String wsdlLocation) {
         if (node.getNodeType() == Node.DOCUMENT_NODE)
             node = node.getFirstChild();

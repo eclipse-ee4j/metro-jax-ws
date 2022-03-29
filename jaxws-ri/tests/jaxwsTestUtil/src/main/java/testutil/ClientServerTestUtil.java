@@ -219,7 +219,7 @@ public class ClientServerTestUtil {
      * Convenient method to create a sei using service, sei class and port qname.
      *
      */
-    public static Object getPort(Service service, Class seiClass, QName port) throws Exception {
+    public static Object getPort(Service service, Class<?> seiClass, QName port) throws Exception {
         return service.getPort(port, seiClass);
     }
 

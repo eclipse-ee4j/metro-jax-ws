@@ -19,6 +19,7 @@ import com.sun.xml.ws.api.databinding.MetadataReader;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.binding.BindingImpl;
 import com.sun.xml.ws.api.server.*;
+import com.sun.xml.ws.resources.ServerMessages;
 import com.sun.xml.ws.server.EndpointFactory;
 import com.sun.xml.ws.server.ServerRtException;
 import com.sun.xml.ws.util.xml.XmlUtil;
@@ -345,7 +346,7 @@ public class EndpointImpl extends Endpoint {
 
                     r.add(SDDocumentSource.create(new URL(systemId), xsbr.getXMLStreamBuffer()));
                 } catch (TransformerException | IOException | SAXException | ParserConfigurationException te) {
-                    throw new ServerRtException("server.rt.err", te);
+                    throw new ServerRtException(ServerMessages.localizableSERVER_RT_ERR(te), te);
                 }
             }
         }

@@ -24,6 +24,7 @@ public class RuntimeModelerException extends JAXWSExceptionBase {
 
     private static final long serialVersionUID = 6859121794804496804L;
 
+    @SuppressWarnings({"deprecation"})
     public RuntimeModelerException(String key, Object... args) {
         super(key, args);
     }
@@ -32,6 +33,7 @@ public class RuntimeModelerException extends JAXWSExceptionBase {
         super(throwable);
     }
 
+    @SuppressWarnings({"deprecation"})
     public RuntimeModelerException(Localizable arg) {
         super("nestedModelerError", arg);
     }

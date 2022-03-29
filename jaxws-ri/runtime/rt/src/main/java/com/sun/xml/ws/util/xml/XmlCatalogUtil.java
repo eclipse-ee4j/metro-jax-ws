@@ -11,6 +11,7 @@
 package com.sun.xml.ws.util.xml;
 
 import com.sun.istack.Nullable;
+import com.sun.xml.ws.resources.ServerMessages;
 import com.sun.xml.ws.server.ServerRtException;
 import java.net.URI;
 import java.net.URL;
@@ -49,7 +50,7 @@ public final class XmlCatalogUtil {
         try {
             er = createCatalogResolver(urlsArray);
         } catch (Exception e) {
-            throw new ServerRtException("server.rt.err", e);
+            throw new ServerRtException(ServerMessages.localizableSERVER_RT_ERR(e), e);
         }
         return er;
     }

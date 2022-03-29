@@ -11,6 +11,7 @@
 package com.sun.xml.ws.streaming;
 
 import com.sun.xml.ws.api.streaming.XMLStreamReaderFactory;
+import com.sun.xml.ws.resources.StreamingMessages;
 import com.sun.xml.ws.util.FastInfosetUtil;
 import com.sun.xml.ws.util.xml.XmlUtil;
 
@@ -78,8 +79,7 @@ public final class SourceReaderFactory {
                         new DOMSource(domResult.getNode()),
                         rejectDTDs);
             } else {
-                throw new XMLReaderException("sourceReader.invalidSource",
-                        source.getClass().getName());
+                throw new XMLReaderException(StreamingMessages.localizableSOURCEREADER_INVALID_SOURCE(source.getClass().getName()));
             }
         } catch (Exception e) {
             throw new XMLReaderException(e);
