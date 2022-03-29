@@ -35,7 +35,7 @@
     <packaging>maven-plugin</packaging>
     <name>JAX-WS RI Maven Plugin</name>
     <description>Maven plugin for JAX-WS RI</description>
-    <version>4.0.0-M4</version>
+    <version>4.0.0-SNAPSHOT</version>
 
     <licenses>
         <license>
