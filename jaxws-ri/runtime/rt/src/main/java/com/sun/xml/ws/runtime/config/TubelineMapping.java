@@ -68,6 +68,9 @@ public class TubelineMapping {
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<>();
 
+    public TubelineMapping() {
+    }
+
     /**
      * Gets the value of the endpointRef property.
      * 

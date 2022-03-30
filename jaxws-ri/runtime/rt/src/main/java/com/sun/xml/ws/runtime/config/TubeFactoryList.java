@@ -62,6 +62,9 @@ public class TubeFactoryList {
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<>();
 
+    public TubeFactoryList() {
+    }
+
     /**
      * Gets the value of the tubeFactoryConfigs property.
      * 
