@@ -37,7 +37,7 @@ import org.codehaus.plexus.util.FileUtils;
 /**
  *
  *
- * @author gnodet (gnodet at apache.org>
+ * @author gnodet (gnodet at apache.org)
  * @author dantran (dantran at apache.org)
  * @version $Id: WsGenMojo.java 3169 2007-01-22 02:51:29Z dantran $
  */
