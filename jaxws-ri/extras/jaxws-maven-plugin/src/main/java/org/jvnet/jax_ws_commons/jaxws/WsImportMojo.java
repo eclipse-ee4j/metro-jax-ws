@@ -131,8 +131,8 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
      *  </configuration>
      *  ...
      * }</pre>
-     * wsdlLocation for <code>a.wsdl</code> will be http://example.com/mywebservices/a.wsdl<br/>
-     * wsdlLocation for <code>b/b.wsdl</code> will be http://example.com/mywebservices/b/b.wsdl<br/>
+     * wsdlLocation for <code>a.wsdl</code> will be http://example.com/mywebservices/a.wsdl<br>
+     * wsdlLocation for <code>b/b.wsdl</code> will be http://example.com/mywebservices/b/b.wsdl<br>
      * wsdlLocation for <code>${basedir}/src/mywsdls/c.wsdl</code> will be file://absolute/path/to/c.wsdl
      *
      * <p>
