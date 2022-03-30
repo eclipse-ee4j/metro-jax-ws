@@ -34,6 +34,9 @@ public class TubelineFeatureReader implements FeatureReader {
     private static final Logger LOGGER = Logger.getLogger(TubelineFeatureReader.class);
     private static final QName NAME_ATTRIBUTE_NAME = new QName("name");
 
+    public TubelineFeatureReader() {
+    }
+
     // TODO implement
     @Override
     public TubelineFeature parse(XMLEventReader reader) throws WebServiceException {

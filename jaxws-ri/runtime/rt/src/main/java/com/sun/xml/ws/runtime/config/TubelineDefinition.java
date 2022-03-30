@@ -74,6 +74,9 @@ public class TubelineDefinition {
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<>();
 
+    public TubelineDefinition() {
+    }
+
     /**
      * Gets the value of the clientSide property.
      * 

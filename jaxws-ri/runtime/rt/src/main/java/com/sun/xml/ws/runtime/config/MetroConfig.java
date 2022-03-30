@@ -71,6 +71,9 @@ public class MetroConfig {
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<>();
 
+    public MetroConfig() {
+    }
+
     /**
      * Gets the value of the tubelines property.
      * 

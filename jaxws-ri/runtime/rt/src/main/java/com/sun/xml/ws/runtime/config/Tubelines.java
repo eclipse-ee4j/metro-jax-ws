@@ -70,6 +70,9 @@ public class Tubelines {
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<>();
 
+    public Tubelines() {
+    }
+
     /**
      * Gets the value of the tubelineMappings property.
      * 
