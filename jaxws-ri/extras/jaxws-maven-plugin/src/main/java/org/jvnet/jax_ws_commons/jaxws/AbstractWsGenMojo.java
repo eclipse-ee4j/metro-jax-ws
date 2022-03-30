@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
  * Copyright 2006 Guillaume Nodet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,14 +20,11 @@ package org.jvnet.jax_ws_commons.jaxws;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.jws.WebService;
 import java.util.List;
 import org.apache.maven.artifact.Artifact;
@@ -40,11 +37,18 @@ import org.codehaus.plexus.util.FileUtils;
 /**
  *
  *
- * @author gnodet <gnodet@apache.org>
- * @author dantran <dantran@apache.org>
+ * @author gnodet (gnodet at apache.org)
+ * @author dantran (dantran at apache.org)
  * @version $Id: WsGenMojo.java 3169 2007-01-22 02:51:29Z dantran $
  */
 abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
+
+    /**
+     * Service endpoint implementation class names.
+     * @since 3.0.1
+     */
+    @Parameter
+    private List<String> seis;
 
     /**
      * Service endpoint implementation class name.
@@ -53,7 +57,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     private String sei;
 
     /**
-     * Used in conjunction with <code>genWsdl<code> to specify the protocol to use in the
+     * Used in conjunction with <code>genWsdl</code> to specify the protocol to use in the
      * <code>wsdl:binding</code>. Valid values are "<code>soap1.1</code>" or "<code>Xsoap1.2</code>",
      * default is "<code>soap1.1</code>". "<code>Xsoap1.2</code>" is not standard
      * and can only be used in conjunction with the <code>extension</code> option.
@@ -113,17 +117,23 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Set<String> seis = new HashSet<String>();
-        if (sei != null) {
-            seis.add(sei);
-        } else {
-            //find all SEIs within current classes
-            seis.addAll(getSEIs(getClassesDir()));
+        Set<String> allSeis = new HashSet<>();
+        if (seis != null && !seis.isEmpty()) {
+            allSeis.addAll(seis);
         }
-        if (seis.isEmpty()) {
+        if (sei != null) {
+            if (!allSeis.add(sei)) {
+                getLog().warn("'" + sei + "' was already added");
+            }
+        }
+        if (allSeis.isEmpty()) {
+            //find all SEIs within current classes
+            allSeis.addAll(getSEIs(getClassesDir()));
+        }
+        if (allSeis.isEmpty()) {
             throw new MojoFailureException("No @javax.jws.WebService found.");
         }
-        for (String aSei : seis) {
+        for (String aSei : allSeis) {
             processSei(aSei);
         }
     }
@@ -152,7 +162,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     protected String getExtraClasspath() {
         StringBuilder buf = new StringBuilder();
         buf.append(getClassesDir().getAbsolutePath());
-        for (Artifact a : (Set<Artifact>)project.getArtifacts()) {
+        for (Artifact a : project.getArtifacts()) {
             buf.append(File.pathSeparatorChar);
             buf.append(a.getFile().getAbsolutePath());
         }
@@ -166,12 +176,13 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
 
     /**
      * Construct wsgen arguments
+     * @param aSei web service
+     * @param attachResources true to attach resources to the project
      * @return a list of arguments
-     * @throws MojoExecutionException
+     * @throws MojoExecutionException for errors
      */
     protected List<String> getWsGenArgs(String aSei, boolean attachResources) throws MojoExecutionException {
-        List<String> args = new ArrayList<>();
-        args.addAll(getCommonArgs());
+        List<String> args = new ArrayList<>(getCommonArgs());
 
         if (getGenWSDL()) {
             if (this.protocol != null) {

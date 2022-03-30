@@ -100,6 +100,7 @@ module com.sun.xml.ws.rt {
     exports com.sun.xml.ws.policy.jaxws.spi; //wsit
     exports com.sun.xml.ws.protocol.soap; //wsit
     exports com.sun.xml.ws.resources;
+    exports com.sun.xml.ws.runtime.config; //wsit
     exports com.sun.xml.ws.server;
     exports com.sun.xml.ws.spi.db;
     exports com.sun.xml.ws.streaming;
