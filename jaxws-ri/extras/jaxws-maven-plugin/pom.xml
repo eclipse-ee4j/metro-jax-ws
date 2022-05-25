@@ -182,7 +182,7 @@
         <jdoc.doclint>-missing</jdoc.doclint>
 
 <!--        <jaxws-tools.version>${project.version}</jaxws-tools.version>-->
-        <jaxws-tools.version>4.0.0-M4</jaxws-tools.version>
+        <jaxws-tools.version>4.0.0</jaxws-tools.version>
     </properties>
 
     <build>
