@@ -38,6 +38,9 @@
                 <listitem><para>
                     <link xlink:href="https://github.com/eclipse-ee4j/metro-jax-ws/issues/250">#250</link>: Spell dumpThreshold correctly, keeping misspelled legacy option dumpTreshold as a fallback
                 </para></listitem>
+                <listitem><para>
+                    <link xlink:href="https://github.com/eclipse-ee4j/metro-jax-ws/issues/336">#336</link>: wsimport: -target option does not generate old javax.xml.ws package name
+                </para></listitem>
             </itemizedlist>
         </listitem>
 
