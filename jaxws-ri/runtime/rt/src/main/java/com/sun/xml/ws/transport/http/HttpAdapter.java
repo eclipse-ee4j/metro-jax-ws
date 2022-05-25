@@ -980,7 +980,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
             byte[] b = buf.getRawData();
             baos.write(b, 0, dump_threshold);
             pw.println();
-            pw.println(WsservletMessages.MESSAGE_TOO_LONG(HttpAdapter.class.getName() + ".dumpTreshold"));
+            pw.println(WsservletMessages.MESSAGE_TOO_LONG(HttpAdapter.class.getName() + ".dumpThreshold"));
         } else {
             buf.writeTo(baos);
             pw.println();
@@ -1096,11 +1096,19 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
             }
         }
         try {
-            dump_threshold = Integer.getInteger(HttpAdapter.class.getName() + ".dumpTreshold", 4096);
+            dump_threshold = Integer.getInteger(HttpAdapter.class.getName() + ".dumpThreshold", 4096);
+            if (System.getProperty(HttpAdapter.class.getName() + ".dumpTreshold") != null) {
+                if (LOGGER.isLoggable(Level.WARNING)) {
+                    LOGGER.log(Level.WARNING, "Using deprecated ''{0}'' property, use ''{1}'' instead.",
+                            new Object[] {HttpAdapter.class.getName() + ".dumpTreshold",
+                                    HttpAdapter.class.getName() + ".dumpThreshold"});
+                }
+                dump_threshold = Integer.getInteger(HttpAdapter.class.getName() + ".dumpTreshold", 4096);
+            }
         } catch (SecurityException se) {
             if (LOGGER.isLoggable(Level.CONFIG)) {
                 LOGGER.log(Level.CONFIG, "Cannot read ''{0}'' property, using defaults.",
-                        new Object[] {HttpAdapter.class.getName() + ".dumpTreshold"});
+                        new Object[] {HttpAdapter.class.getName() + ".dumpThreshold"});
             }
         }
         try {
@@ -1119,11 +1127,11 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
         HttpAdapter.dump = dumpMessages;
     }
 
-    public static void setDumpTreshold(int treshold) {
-        if (treshold < 0) {
-            throw new IllegalArgumentException("Treshold must be positive number");
+    public static void setDumpThreshold(int threshold) {
+        if (threshold < 0) {
+            throw new IllegalArgumentException("Threshold must be positive number");
         }
-        HttpAdapter.dump_threshold = treshold;
+        HttpAdapter.dump_threshold = threshold;
     }
 }
 
