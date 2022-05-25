@@ -235,6 +235,7 @@ public class DOMForest {
         }
 
         ContentHandler handler = new WhitespaceStripper(dombuilder, errorReceiver, entityResolver);
+        handler = new V2NSHandler(handler, errorReceiver, entityResolver);
         handler = new VersionChecker(handler, errorReceiver, entityResolver);
 
         // insert the reference finder so that
