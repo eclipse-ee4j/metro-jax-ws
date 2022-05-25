@@ -33,7 +33,6 @@ import org.xml.sax.helpers.LocatorImpl;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamReader;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -45,9 +44,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.HashMap;
 import java.util.ServiceLoader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -382,10 +381,11 @@ public class WsimportOptions extends Options {
             clientjar = requireArgument("-clientjar", args, ++i);
             return 2;
         } else if (args[i].equals("-implDestDir")) {
-        		implDestDir = new File(requireArgument("-implDestDir", args, ++i));
-            if (!implDestDir.exists())
-              throw new BadCommandLineException(WscompileMessages.WSCOMPILE_NO_SUCH_DIRECTORY(implDestDir.getPath()));
-        		return 2;
+            implDestDir = new File(requireArgument("-implDestDir", args, ++i));
+            if (!implDestDir.exists()) {
+                throw new BadCommandLineException(WscompileMessages.WSCOMPILE_NO_SUCH_DIRECTORY(implDestDir.getPath()));
+            }
+            return 2;
         } else if (args[i].equals("-implServiceName")) {
         	implServiceName = requireArgument("-implServiceName", args, ++i);
           return 2;
@@ -608,6 +608,15 @@ public class WsimportOptions extends Options {
             } else if (reader.getName().equals(JAXWSBindingsConstants.JAXB_BINDINGS) ||
                     reader.getName().equals(new QName(SchemaConstants.NS_XSD, "schema"))) {
                 jaxbCustomBindings.add(new RereadInputSource(is));
+            } else if ("http://java.sun.com/xml/ns/jaxws".equals(reader.getNamespaceURI()) && "bindings".equals(reader.getLocalName())) {
+                //handle pre-jakarta customizations
+                LocatorImpl locator = new LocatorImpl();
+                locator.setSystemId(reader.getLocation().getSystemId());
+                locator.setPublicId(reader.getLocation().getPublicId());
+                locator.setLineNumber(reader.getLocation().getLineNumber());
+                locator.setColumnNumber(reader.getLocation().getColumnNumber());
+                receiver.warning(locator, ConfigurationMessages.CONFIGURATION_OLD_BINDING_FILE(is.getSystemId()));
+                jaxwsCustomBindings.add(new RereadInputSource(is));
             } else {
                 LocatorImpl locator = new LocatorImpl();
                 locator.setSystemId(reader.getLocation().getSystemId());
