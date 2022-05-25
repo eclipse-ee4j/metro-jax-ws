@@ -98,7 +98,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <legal.doc.source>${project.basedir}/../../..</legal.doc.source>
 
-        <jaxb.version>4.0.0-M4</jaxb.version>
+        <jaxb.version>4.0.0</jaxb.version>
         <junit.version>4.13.2</junit.version>
         <istack.plugin.version>4.1.1</istack.plugin.version>
     </properties>
