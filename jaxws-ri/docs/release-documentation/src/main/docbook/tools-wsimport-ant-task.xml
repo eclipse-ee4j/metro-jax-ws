@@ -305,7 +305,7 @@
 
                             <entry>No. It default to the WSDL/Schema
                             targetNamespace to package mapping as defined by the
-                            &binding.spec.name; 2.1 spec.</entry>
+                            &binding.spec.name; 3.0 spec.</entry>
 
                             <entry><literal>-p</literal></entry>
                         </row>
@@ -313,11 +313,11 @@
                         <row>
                             <entry><literal>target</literal></entry>
 
-                            <entry>Generate code as per the given JAXWS
-                            specification version. For example, 2.0 value
-                            generates compliant code for JAXWS 2.0 spec.</entry>
+                            <entry>Generate code as per the given &ws.spec.name;
+                            specification version. For example, 3.0 value
+                            generates compliant code for &ws.spec.name; 3.0 spec.</entry>
 
-                            <entry>No. Defaults to 2.2.</entry>
+                            <entry>No. Defaults to 3.0.</entry>
 
                             <entry><literal>-target</literal></entry>
                         </row>

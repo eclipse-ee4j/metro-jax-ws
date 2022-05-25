@@ -35,10 +35,14 @@ import javax.tools.FileObject;
  */
 public class Options {
 
-    private static final String JAVAX = "javax.xml.bind";
-    private static final String JAKARTA = "jakarta.xml.bind";
+    private static final String JAVAX_XML_WS = "javax.xml.ws";
+    private static final String JAKARTA_XML_WS = "jakarta.xml.ws";
+    private static final String JAVAX_JWS = "javax.jws";
+    private static final String JAKARTA_JWS = "jakarta.jws";
+    private static final String JAVAX_XML_BIND = "javax.xml.bind";
+    private static final String JAKARTA_XML_BIND = "jakarta.xml.bind";
     private static final String JAXB_CORE = "org.glassfish.jaxb.core";
-    private static final String BIND = "com.sun.xml.bind";
+    private static final String JAXB_BIND = "com.sun.xml.bind";
 
     protected final Map<String, String> classNameReplacer = new HashMap<>();
 
@@ -375,8 +379,10 @@ public class Options {
 
     private void addClassNameReplacers(Target target) {
         if (target.ordinal() < Target.V3_0.ordinal()) {
-            classNameReplacer.put(JAKARTA, JAVAX);
-            classNameReplacer.put(JAXB_CORE, BIND);
+            classNameReplacer.put(JAKARTA_XML_BIND, JAVAX_XML_BIND);
+            classNameReplacer.put(JAXB_CORE, JAXB_BIND);
+            classNameReplacer.put(JAKARTA_XML_WS, JAVAX_XML_WS);
+            classNameReplacer.put(JAKARTA_JWS, JAVAX_JWS);
         }
     }
 

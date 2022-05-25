@@ -272,8 +272,8 @@
 
                         <entry>Generate code as per the given &ws.spec.name;
                         specification version. For example, "<literal>-target
-                        2.0</literal>" generates compliant code for &ws.spec.name; 2.0
-                        spec. Default value is 2.2.</entry>
+                        3.0</literal>" generates compliant code for &ws.spec.name; 3.0
+                        spec. Default value is 3.0.</entry>
                     </row>
 
                     <row>
