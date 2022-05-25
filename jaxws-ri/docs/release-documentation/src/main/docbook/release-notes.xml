@@ -30,17 +30,17 @@
 
         <itemizedlist>
             <listitem>
-                <para>Requires Java SE 8 or later</para>
+                <para>Requires Java SE 11 or later</para>
             </listitem>
 
             <listitem>
                 <para>Requires <link
                 xlink:href="http://ant.apache.org/bindownload.cgi">Ant
-                1.9.7</link> or later</para>
+                1.10.6</link> or later</para>
             </listitem>
 
             <listitem>
-                <para>Tested with GlassFish v5.x and Apache Tomcat 5.5.20</para>
+                <para>Tested with GlassFish v7.x and Apache Tomcat 10.1.x</para>
             </listitem>
         </itemizedlist>
     </section>
@@ -75,17 +75,12 @@
                         <listitem>
                             <para>Run <programlisting language="cli"><![CDATA[ant install]]></programlisting>This
                             essentially copies <filename>lib/*.jar</filename>
-                            from the root of &ws.impl.name;
-                            extracted bundle to
-                            <literal>$CATALINA_HOME/shared/lib</literal></para>
+                            from the root of &ws.impl.name; extracted bundle to
+                            <literal>$CATALINA_HOME/shared/lib</literal> and updates
+                            <literal>shared.loader</literal> property in
+                            <literal>$CATALINA_HOME/conf/catalina.properties</literal> file.</para>
                         </listitem>
 
-                        <listitem>
-                            <para>If you are running on top of JDK8, run
-                            <programlisting language="cli"><![CDATA[ant install-api]]></programlisting>or
-                            use <programlisting language="cli"><![CDATA[ant -help]]></programlisting>
-                            for detailed information.</para>
-                        </listitem>
                     </itemizedlist>
                 </para>
             </listitem>
@@ -103,42 +98,184 @@
         <table frame="all">
             <title>Jar dependencies summary</title>
 
-            <tgroup cols="2" colsep="1" rowsep="1">
-                <colspec />
-
-                <colspec colwidth="4*" />
-
+            <tgroup cols="3" colsep="1" rowsep="1">
+                <thead>
+                    <row>
+                        <entry><para>Use</para></entry>
+                        <entry><para>Description</para></entry>
+                        <entry><para>Jar</para></entry>
+                    </row>
+                </thead>
                 <tbody>
                     <row>
-                        <entry><para>Runtime Jars</para></entry>
-
-                        <entry><para><filename>FastInfoset.jar</filename>,
-                        <filename>jakarta.xml.bind-api.jar</filename>,
-                        <filename>jaxb-impl.jar</filename>,
-                        <filename>jakarta.xml.ws-api.jar</filename>,
-                        <filename>jakarta.annotation-api.jar</filename>,
-                        <filename>jaxws-rt.jar</filename>,
-                        <filename>mimepull.jar</filename>,
-                        <filename>javax.xml.soap-api.jar</filename>,
-                        <filename>saaj-impl.jar *</filename>,
-                        <filename>stax2-api.jar</filename>,
-                        <filename>woodstox-core.jar</filename>,
-                        <filename>stax-ex.jar</filename>,
-                        <filename>streambuffer.jar</filename>,
-                        <filename>policy.jar</filename>,
-                        <filename>gmbal.jar</filename>,
-                        <filename>management-api.jar</filename>,
-                        <filename>ha-api.jar</filename></para></entry>
-                        <filename>resolver.jar</filename>,
+                        <entry morerows="10" valign="top"><emphasis role="bold">Runtime</emphasis></entry>
+                        <entry morerows="10" valign="top"><para>Jars required to run Web Services</para></entry>
+                        <entry><para><filename>angus-activation.jar</filename>,
+                            <filename>angus-mail.jar</filename></para></entry>
                     </row>
+                    <row><entry><para><filename>FastInfoset.jar</filename>,
+                        <filename>gmbal-api-only.jar</filename></para></entry></row>
+                    <row><entry><para><filename>ha-api.jar</filename>,
+                        <filename>jakarta.activation-api.jar</filename></para></entry></row>
+                    <row><entry><para><filename>jakarta.annotation-api.jar</filename>,
+                        <filename>jakarta.mail-api.jar</filename></para></entry></row>
+                    <row><entry><para><filename>jakarta.xml.bind-api.jar</filename>,
+                        <filename>jakarta.xml.soap-api.jar</filename></para></entry></row>
+                    <row><entry><para><filename>jakarta.xml.ws-api.jar</filename>,
+                        <filename>jaxb-core.jar</filename></para></entry></row>
+                    <row><entry><para><filename>jaxb-impl.jar</filename>,
+                        <filename>jaxws-rt.jar</filename></para></entry></row>
+                    <row><entry><para><filename>management-api.jar</filename>,
+                        <filename>mimepull.jar</filename></para></entry></row>
+                    <row><entry><para><filename>saaj-impl.jar</filename>,
+                        <filename>stax2-api.jar</filename></para></entry></row>
+                    <row><entry><para><filename>stax-ex.jar</filename>,
+                        <filename>streambuffer.jar</filename></para></entry></row>
+                    <row><entry><para><filename>woodstox-core.jar</filename></para></entry></row>
 
                     <row>
-                        <entry><para>Tooltime Jars</para></entry>
+                        <entry morerows="2" valign="top"><emphasis role="bold">Tools</emphasis></entry>
+                        <entry morerows="2" valign="top"><para>Jars required to develop Web Services</para></entry>
+                        <entry><para><filename>jaxb-jxc.jar</filename>,
+                            <filename>jaxb-xjc.jar</filename></para></entry>
+                    </row>
+                    <row><entry><para><filename>jaxws-tools.jar</filename></para></entry></row>
+                    <row><entry><para><emphasis>+ all the runtime jars</emphasis></para></entry></row>
+                </tbody>
+            </tgroup>
+        </table>
 
-                        <entry><para>All the runtime jars +
-                        <filename>jaxb-xjc.jar</filename>,
-                        <filename>jaxb-jxc.jar</filename>,
-                        <filename>jaxws-tools.jar</filename></para></entry>
+        <table frame="all">
+            <title>JPMS module names</title>
+
+            <tgroup cols="3" colsep="1" rowsep="1">
+                <thead>
+                    <row>
+                        <entry><para>Jar</para></entry>
+                        <entry><para>Module name</para></entry>
+                        <entry><para>Maven GAV</para></entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><para><filename>angus-activation.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.activation.registries</literal></para></entry>
+                        <entry><para><literal>org.eclipse.angus:angus-activation</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>angus-mail.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.mail</literal></para></entry>
+                        <entry><para><literal>org.eclipse.angus:angus-mail</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>FastInfoset.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.xml.fastinfoset</literal></para></entry>
+                        <entry><para><literal>com.sun.xml.fastinfoset:FastInfoset</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>gmbal-api-only.jar</filename></para></entry>
+                        <entry><para><literal>gmbal</literal></para></entry>
+                        <entry><para><literal>org.glassfish.gmbal:gmbal-api-only</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>ha-api.jar</filename></para></entry>
+                        <entry><para><literal>org.glassfish.ha.api</literal></para></entry>
+                        <entry><para><literal>org.glassfish.ha:ha-api</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>jakarta.activation-api.jar</filename></para></entry>
+                        <entry><para><literal>jakarta.activation</literal></para></entry>
+                        <entry><para><literal>jakarta.activation:jakarta.activation-api</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>jakarta.annotation-api.jar</filename></para></entry>
+                        <entry><para><literal>jakarta.annotation</literal></para></entry>
+                        <entry><para><literal>jakarta.annotation:jakarta.annotation-api</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>jakarta.mail-api.jar</filename></para></entry>
+                        <entry><para><literal>jakarta.mail</literal></para></entry>
+                        <entry><para><literal>jakarta.mail:jakarta.mail-api</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>jakarta.xml.bind-api.jar</filename></para></entry>
+                        <entry><para><literal>jakarta.xml.bind</literal></para></entry>
+                        <entry><para><literal>jakarta.xml.bind:jakarta.xml.bind-api</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>jakarta.xml.soap-api.jar</filename></para></entry>
+                        <entry><para><literal>jakarta.xml.soap</literal></para></entry>
+                        <entry><para><literal>jakarta.xml.soap:jakarta.xml.soap-api</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>jakarta.xml.ws-api.jar</filename></para></entry>
+                        <entry><para><literal>jakarta.xml.ws</literal></para></entry>
+                        <entry><para><literal>jakarta.xml.ws:jakarta.xml.ws-api</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>jaxb-core.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.xml.bind.core</literal></para></entry>
+                        <entry><para><literal>com.sun.xml.bind:jaxb-core</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>jaxb-impl.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.xml.bind</literal></para></entry>
+                        <entry><para><literal>com.sun.xml.bind:jaxb-impl</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>jaxb-jxc.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.tools.jxc</literal></para></entry>
+                        <entry><para><literal>com.sun.xml.bind:jaxb-jxc</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>jaxb-xjc.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.tools.xjc</literal></para></entry>
+                        <entry><para><literal>com.sun.xml.bind:jaxb-xjc</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>jaxws-rt.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.xml.ws</literal></para></entry>
+                        <entry><para><literal>com.sun.xml.ws:jaxws-rt</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>jaxws-tools.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.tools.ws</literal></para></entry>
+                        <entry><para><literal>com.sun.xml.ws:jaxws-tools</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>management-api.jar</filename></para></entry>
+                        <entry><para><literal>org.glassfish.external.management.api</literal></para></entry>
+                        <entry><para><literal>org.glassfish.external:management-api</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>mimepull.jar</filename></para></entry>
+                        <entry><para><literal>org.jvnet.mimepull</literal></para></entry>
+                        <entry><para><literal>org.jvnet.mimepull:mimepull</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>saaj-impl.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.xml.messaging.saaj</literal></para></entry>
+                        <entry><para><literal>com.sun.xml.messaging.saaj:saaj-impl</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>stax2-api.jar</filename></para></entry>
+                        <entry><para><literal>org.codehaus.stax2</literal></para></entry>
+                        <entry><para><literal>org.codehaus.woodstox:stax2-api</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>stax-ex.jar</filename></para></entry>
+                        <entry><para><literal>org.jvnet.staxex</literal></para></entry>
+                        <entry><para><literal>org.jvnet.staxex:stax-ex</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>streambuffer.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.xml.streambuffer</literal></para></entry>
+                        <entry><para><literal>com.sun.xml.stream.buffer:streambuffer</literal></para></entry>
+                    </row>
+                    <row>
+                        <entry><para><filename>woodstox-core.jar</filename></para></entry>
+                        <entry><para><literal>com.ctc.wstx</literal></para></entry>
+                        <entry><para><literal>com.fasterxml.woodstox:woodstox-core</literal></para></entry>
                     </row>
                 </tbody>
             </tgroup>
