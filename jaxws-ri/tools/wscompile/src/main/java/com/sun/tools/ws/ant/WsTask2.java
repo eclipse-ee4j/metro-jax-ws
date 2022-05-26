@@ -441,7 +441,7 @@ abstract class WsTask2 extends MatchingTask {
         try {
             if (getVerbose()) {
                 log(ToolVersion.VERSION.BUILD_VERSION);
-                log("command line: " + tool
+                log("command line: " + tool + " "
                         + (getFork() ? getCommandline().getJavaCommand() : getCommandline()).toString());
             }
             if (getFork()) {

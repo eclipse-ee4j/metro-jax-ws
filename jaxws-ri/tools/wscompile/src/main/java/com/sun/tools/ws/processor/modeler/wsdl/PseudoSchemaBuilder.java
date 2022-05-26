@@ -92,7 +92,7 @@ public class PseudoSchemaBuilder {
             is.setSystemId(sysId+(i + 1));
         }
         //add w3c EPR binding
-        if(!(options.noAddressingBbinding) && options.target.isLaterThan(Options.Target.V2_1)){
+        if(!options.noAddressingBbinding){
             InputSource is = new InputSource(new ByteArrayInputStream(getUTF8Bytes(w3ceprSchemaBinding)));
             is.setSystemId(sysId+(++i +1));
             b.schemas.add(is);
