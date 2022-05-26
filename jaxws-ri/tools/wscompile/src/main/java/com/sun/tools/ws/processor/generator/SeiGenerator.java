@@ -63,10 +63,8 @@ public class SeiGenerator extends GeneratorBase {
         // register handlers for default extensions
 
         // 2.2 Spec requires generation of @Action when wsam:Action is explicitly stated in wsdl
-        if (options.target.isLaterThan(Options.Target.V2_2)) {
-           register(new W3CAddressingJavaGeneratorExtension());
-        }
-        
+        register(new W3CAddressingJavaGeneratorExtension());
+
         for (TJavaGeneratorExtension j : extensions) {
             register(j);
         }
@@ -130,9 +128,7 @@ public class SeiGenerator extends GeneratorBase {
         writeSOAPBinding(port, cls);
 
         //@XmlSeeAlso
-        if (options.target.isLaterThan(Options.Target.V2_1)) {
-            writeXmlSeeAlso(cls);
-        }
+        writeXmlSeeAlso(cls);
 
         for (Operation operation: port.getOperations()) {
             JavaMethod method = operation.getJavaMethod();
