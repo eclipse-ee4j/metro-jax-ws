@@ -10,6 +10,7 @@
 
 package com.sun.xml.ws.api.server;
 
+import java.lang.ref.WeakReference;
 import java.util.concurrent.Executor;
 
 /**
@@ -31,10 +32,10 @@ import java.util.concurrent.Executor;
  * @since 2.2.7
  */
 public class ThreadLocalContainerResolver extends ContainerResolver {
-    private ThreadLocal<Container> containerThreadLocal = new ThreadLocal<>() {
+    private ThreadLocal<WeakReference<Container>> containerThreadLocal = new ThreadLocal<>() {
         @Override
-        protected Container initialValue() {
-            return Container.NONE;
+        protected WeakReference<Container> initialValue() {
+            return new WeakReference<>(Container.NONE);
         }
     };
 
@@ -45,7 +46,7 @@ public class ThreadLocalContainerResolver extends ContainerResolver {
 
     @Override
     public Container getContainer() {
-        return containerThreadLocal.get();
+        return containerThreadLocal.get().get();
     }
     
     /**
@@ -54,8 +55,8 @@ public class ThreadLocalContainerResolver extends ContainerResolver {
      * @return Previous container; must be remembered and passed to exitContainer
      */
     public Container enterContainer(Container container) {
-        Container old = containerThreadLocal.get();
-        containerThreadLocal.set(container);
+        Container old = containerThreadLocal.get().get();
+        containerThreadLocal.set(new WeakReference<>(container));
         return old;
     }
     
@@ -64,7 +65,7 @@ public class ThreadLocalContainerResolver extends ContainerResolver {
      * @param old Container returned from enterContainer
      */
     public void exitContainer(Container old) {
-        containerThreadLocal.set(old);
+        containerThreadLocal.set(new WeakReference<>(old));
     }
     
     /**
