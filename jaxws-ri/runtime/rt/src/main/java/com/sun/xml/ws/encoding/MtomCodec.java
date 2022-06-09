@@ -221,7 +221,7 @@ public class MtomCodec extends MimeCodec {
         String cid = contentId;
         if(cid != null && cid.length() >0 && cid.charAt(0) != '<')
             cid = '<' + cid + '>';
-        writeln("Content-Id: " + cid, out);
+        writeln("Content-ID: " + cid, out);
         writeln("Content-Type: " + contentType, out);
         writeln("Content-Transfer-Encoding: binary", out);
         writeln(out);
