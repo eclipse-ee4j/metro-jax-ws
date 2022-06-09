@@ -280,7 +280,7 @@ public class SAAJMessage extends Message {
                 AttachmentEx.MimeHeader mh = allMimeHeaders.next();
                 String name = mh.getName();
                 if (!"Content-Type".equalsIgnoreCase(name)
-                        && !"Content-Id".equalsIgnoreCase(name)) {
+                        && !"Content-ID".equalsIgnoreCase(name)) {
                     part.addMimeHeader(name, mh.getValue());
                 }
             }
