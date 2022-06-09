@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -94,7 +94,7 @@ import java.util.logging.Logger;
  */
 public class EndpointFactory {
 	private static final EndpointFactory instance = new EndpointFactory();
-	
+
 	public static EndpointFactory getInstance() {
 		return instance;
 	}
@@ -304,7 +304,7 @@ public class EndpointFactory {
     }
     
     protected <T> WSEndpoint<T> create(QName serviceName, QName portName, WSBinding binding, Container container, SEIModel seiModel, WSDLPort wsdlPort, Class<T> implType, ServiceDefinitionImpl serviceDefinition, EndpointAwareTube terminal, boolean isTransportSynchronous, PolicyMap policyMap) {
-        return new WSEndpointImpl<T>(serviceName, portName, binding, container, seiModel, 
+        return new WSEndpointImpl<T>(serviceName, portName, binding, container, seiModel,
         		wsdlPort, implType, serviceDefinition, terminal, isTransportSynchronous, policyMap);
     }
 
@@ -357,24 +357,24 @@ public class EndpointFactory {
                                 break;
                             }
                         }
-                        
+
                         if (doc == null) {
                             // old metadata doesn't have this imported doc, may be external
-                                if (resolver != null) {
-                                        try {
-                                                InputSource source = resolver.resolveEntity(null, url);
-                                                if (source != null) {                                           
-                                                        MutableXMLStreamBuffer xsb = new MutableXMLStreamBuffer();
-                                                        XMLStreamReader reader = XmlUtil.newXMLInputFactory(true).createXMLStreamReader(source.getByteStream());
-                                                        xsb.createFromXMLStreamReader(reader);
-            
-                                                        SDDocumentSource sdocSource = SDDocumentImpl.create(new URL(url), xsb);
-                                                        doc = SDDocumentImpl.create(sdocSource, null, null);
-                                                } 
-                                        } catch (Exception ex) {
-                                                ex.printStackTrace();
-                                        }
-                                } 
+                            if (resolver != null) {
+                                try {
+                                    InputSource source = resolver.resolveEntity(null, url);
+                                    if (source != null) {
+                                        MutableXMLStreamBuffer xsb = new MutableXMLStreamBuffer();
+                                        XMLStreamReader reader = XmlUtil.newXMLInputFactory(false).createXMLStreamReader(source.getByteStream());
+                                        xsb.createFromXMLStreamReader(reader);
+
+                                        SDDocumentSource sdocSource = SDDocumentImpl.create(new URL(url), xsb);
+                                        doc = SDDocumentImpl.create(sdocSource, null, null);
+                                    }
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
                         }
                     }
                     // Check if new metadata already contains this doc
@@ -383,7 +383,7 @@ public class EndpointFactory {
                         remaining.addAll(doc.getImports());
                     }
                 }
-                
+
                 return newMap.values().iterator();
             }
 
@@ -881,7 +881,7 @@ public class EndpointFactory {
             final Iterator<Collection<? extends T>> colIt = cols.iterator();
             return new Iterator<T>() {
                 private Iterator<? extends T> current = null;
-                
+
                 @Override
                 public boolean hasNext() {
                     if (current == null || !current.hasNext()) {
