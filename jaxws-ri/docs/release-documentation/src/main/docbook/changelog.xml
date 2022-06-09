@@ -50,6 +50,9 @@
                 <listitem><para>
                     <link xlink:href="https://github.com/eclipse-ee4j/metro-jax-ws/issues/336">#336</link>: wsimport: -target option does not generate old javax.xml.ws package name
                 </para></listitem>
+                <listitem><para>
+                    <link xlink:href="https://github.com/eclipse-ee4j/metro-jax-ws/issues/597">#597</link>: impossible cast in spi/db/TypeInfo
+                </para></listitem>
             </itemizedlist>
         </listitem>
 
