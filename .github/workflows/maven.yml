@@ -29,11 +29,11 @@ jobs:
           all_but_latest: true
           access_token: ${{ github.token }}
       - name: Checkout for build
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Set up JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: ${{ matrix.java_version }}
@@ -64,12 +64,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: ${{ needs.build.outputs.jdk }}
       - name: Checkout tests
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Download binaries
@@ -80,7 +80,7 @@ jobs:
         run: |
           export ROOT=`pwd`
           unzip -q -d image jaxws-ri.zip
-          wget -q -O tomcat.zip https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.0-M15/bin/apache-tomcat-10.1.0-M15.zip
+          wget -q -O tomcat.zip https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.0-M16/bin/apache-tomcat-10.1.0-M16.zip
           unzip -q tomcat.zip
           cd jaxws-ri
-          mvn -B -V -U -C -am clean verify -Poss-release,staging -Dgpg.skip=true -Doss.disallow.snapshots=false -pl :jaxws-unit -Dtomcat.home=$ROOT/apache-tomcat-10.1.0-M15 -Dws.transport=${{ matrix.test_suite }} -Dws.localImage=$ROOT/image
+          mvn -B -V -U -C -am clean verify -Poss-release,staging -Dgpg.skip=true -Doss.disallow.snapshots=false -pl :jaxws-unit -Dtomcat.home=$ROOT/apache-tomcat-10.1.0-M16 -Dws.transport=${{ matrix.test_suite }} -Dws.localImage=$ROOT/image
