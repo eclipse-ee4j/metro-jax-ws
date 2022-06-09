@@ -99,7 +99,7 @@ public abstract class MimeCodec implements Codec {
                 String cid = att.getContentId();
                 if(cid != null && cid.length() >0 && cid.charAt(0) != '<')
                     cid = '<' + cid + '>';
-                writeln("Content-Id:" + cid, out);
+                writeln("Content-ID: " + cid, out);
                 writeln("Content-Type: " + att.getContentType(), out);
                 writeCustomMimeHeaders(att, out);
                 writeln("Content-Transfer-Encoding: binary", out);
@@ -121,7 +121,7 @@ public abstract class MimeCodec implements Codec {
                 AttachmentEx.MimeHeader mh = allMimeHeaders.next();
                 String name = mh.getName();
 
-                if (!"Content-Type".equalsIgnoreCase(name) && !"Content-Id".equalsIgnoreCase(name)) {
+                if (!"Content-Type".equalsIgnoreCase(name) && !"Content-ID".equalsIgnoreCase(name)) {
                     writeln(name +": " + mh.getValue(), out);
                 }
             }
