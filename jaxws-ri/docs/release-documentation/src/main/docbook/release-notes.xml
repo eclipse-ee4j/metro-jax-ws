@@ -290,7 +290,7 @@
             <listitem>
                 <para>The <literal>java.util.Collection</literal> classes
                 cannot be used with rpc/literal or document/literal
-                <literal>BARE</literal> style due to a limitation in JAXB.
+                <literal>BARE</literal> style due to a limitation in Jakarta XML Binding.
                 However, they do work in the default document/literal
                 <literal>WRAPPED</literal> style.</para>
             </listitem>
@@ -312,6 +312,14 @@
                 If and when this does occur, a developer would need to change
                 the filenames in their customization files to match the new
                 file names.</para>
+            </listitem>
+
+            <listitem>
+                <para>Running a web service on Java SE Lightweight HTTP Server on Linux
+                requires setting <command>-Dsun.net.httpserver.nodelay=true</command>
+                to avoid delays in response. See <link xlink:href="https://github.com/eclipse-ee4j/metro-jax-ws/issues/594">#594</link>
+                for more details.
+                </para>
             </listitem>
         </itemizedlist>
 
