@@ -162,7 +162,7 @@ public final class TypeInfo {
             Type componentType = ((Class)type).getComponentType();
             Type genericComponentType = null;
             if (genericType!= null && genericType instanceof GenericArrayType) {
-                GenericArrayType arrayType = (GenericArrayType) type;
+                GenericArrayType arrayType = (GenericArrayType) genericType;
                 genericComponentType = arrayType.getGenericComponentType();
                 componentType = arrayType.getGenericComponentType();
             }
