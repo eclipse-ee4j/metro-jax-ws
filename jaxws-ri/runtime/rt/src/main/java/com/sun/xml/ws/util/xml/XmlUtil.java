@@ -64,11 +64,7 @@ import org.xml.sax.XMLReader;
  */
 public class XmlUtil {
 
-    // not in older JDK, so must be duplicated here, otherwise javax.xml.XMLConstants should be used
-    private static final String ACCESS_EXTERNAL_SCHEMA = "http://javax.xml.XMLConstants/property/accessExternalSchema";
-
-    private final static String LEXICAL_HANDLER_PROPERTY =
-	"http://xml.org/sax/properties/lexical-handler";
+    private final static String LEXICAL_HANDLER_PROPERTY = "http://xml.org/sax/properties/lexical-handler";
 
     private static final String DISALLOW_DOCTYPE_DECL = "http://apache.org/xml/features/disallow-doctype-decl";
     private static final String EXTERNAL_GE = "http://xml.org/sax/features/external-general-entities";
@@ -131,34 +127,6 @@ public class XmlUtil {
             return null;
         return a.getValue();
     }
-
-/*    public static boolean matchesTagNS(Element e, String tag, String nsURI) {
-        try {
-            return e.getLocalName().equals(tag)
-                && e.getNamespaceURI().equals(nsURI);
-        } catch (NullPointerException npe) {
-
-            // localname not null since parsing would fail before here
-            throw new WSDLParseException(
-                "null.namespace.found",
-                e.getLocalName());
-        }
-    }
-
-    public static boolean matchesTagNS(
-        Element e,
-        javax.xml.namespace.QName name) {
-        try {
-            return e.getLocalName().equals(name.getLocalPart())
-                && e.getNamespaceURI().equals(name.getNamespaceURI());
-        } catch (NullPointerException npe) {
-
-            // localname not null since parsing would fail before here
-            throw new WSDLParseException(
-                "null.namespace.found",
-                e.getLocalName());
-        }
-    }*/
 
     public static Iterator getAllChildren(Element element) {
         return new NodeListIterator(element.getChildNodes());
@@ -375,7 +343,7 @@ public class XmlUtil {
 
     public static XMLInputFactory newXMLInputFactory(boolean disableSecurity)  {
         XMLInputFactory factory = XMLInputFactory.newInstance();
-        if (xmlSecurityDisabled(disableSecurity)) {
+        if (!xmlSecurityDisabled(disableSecurity)) {
             // TODO-Miran: are those apppropriate defaults?
             factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
             factory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
@@ -410,14 +378,14 @@ public class XmlUtil {
         }
 
         try {
-            sf.setProperty(ACCESS_EXTERNAL_SCHEMA, value);
+            sf.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, value);
             if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.log(Level.FINE, "Property \"{0}\" is supported and has been successfully set by used JAXP implementation.", new Object[]{ACCESS_EXTERNAL_SCHEMA});
+                LOGGER.log(Level.FINE, "Property \"{0}\" is supported and has been successfully set by used JAXP implementation.", new Object[]{XMLConstants.ACCESS_EXTERNAL_SCHEMA});
             }
         } catch (SAXException ignored) {
             // nothing to do; support depends on version JDK or SAX implementation
             if (LOGGER.isLoggable(Level.CONFIG)) {
-                LOGGER.log(Level.CONFIG, "Property \"{0}\" is not supported by used JAXP implementation.", new Object[]{ACCESS_EXTERNAL_SCHEMA});
+                LOGGER.log(Level.CONFIG, "Property \"{0}\" is not supported by used JAXP implementation.", new Object[]{XMLConstants.ACCESS_EXTERNAL_SCHEMA});
             }
         }
         return sf;

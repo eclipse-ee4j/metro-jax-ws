@@ -47,7 +47,7 @@ public class DeploymentDescriptorParser<A> {
     private final AdapterFactory<A> adapterFactory;
 
     // secure xml processing always enabled - parsing deployment descriptor ...
-    private static final XMLInputFactory xif = XmlUtil.newXMLInputFactory(true);
+    private static final XMLInputFactory xif = XmlUtil.newXMLInputFactory(false);
 
     /**
      * Endpoint names that are declared.

@@ -608,7 +608,7 @@ final public class PolicyWSDLParserExtension extends WSDLParserExtension {
         try {
             final URL xmlURL = new URL(fileUrl);
             ios = xmlURL.openStream();
-            reader = XmlUtil.newXMLInputFactory(true).createXMLStreamReader(ios);
+            reader = XmlUtil.newXMLInputFactory(false).createXMLStreamReader(ios);
             while (reader.hasNext()) {
                 if (reader.isStartElement() && NamespaceVersion.resolveAsToken(reader.getName()) == XmlToken.Policy) {
                     readSinglePolicy(policyReader.readPolicyElement(reader, fileUrl), false);

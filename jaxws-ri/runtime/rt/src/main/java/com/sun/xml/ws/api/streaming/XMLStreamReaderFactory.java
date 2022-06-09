@@ -104,7 +104,7 @@ public abstract class XMLStreamReaderFactory {
             }
         }
         if (xif == null) {
-             xif = XmlUtil.newXMLInputFactory(true);
+             xif = XmlUtil.newXMLInputFactory(false);
         }
         xif.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, true);
         xif.setProperty(XMLInputFactory.SUPPORT_DTD, false);
