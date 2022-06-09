@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,8 +47,8 @@ public class DeploymentDescriptorParser<A> {
     private final ResourceLoader loader;
     private final AdapterFactory<A> adapterFactory;
 
-    // securite xml processing always enabled - parsing deployment descriptor ...
-    private static final XMLInputFactory xif = XmlUtil.newXMLInputFactory(true);
+    // secure xml processing always enabled - parsing deployment descriptor ...
+    private static final XMLInputFactory xif = XmlUtil.newXMLInputFactory(false);
 
     /**
      * Endpoint names that are declared.

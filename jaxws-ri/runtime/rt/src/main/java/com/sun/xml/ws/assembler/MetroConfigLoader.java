@@ -225,7 +225,7 @@ class MetroConfigLoader {
         try (InputStream is = getConfigInputStream(resourceUrl)) {
             JAXBContext jaxbContext = createJAXBContext();
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            XMLInputFactory factory = XmlUtil.newXMLInputFactory(true);
+            XMLInputFactory factory = XmlUtil.newXMLInputFactory(false);
             JAXBElement<MetroConfig> configElement = unmarshaller.unmarshal(factory.createXMLStreamReader(is), MetroConfig.class);
             return configElement.getValue();
         } catch (Exception e) {
