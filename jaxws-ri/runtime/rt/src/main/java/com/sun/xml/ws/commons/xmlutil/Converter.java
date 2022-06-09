@@ -163,7 +163,7 @@ public final class Converter {
      * @return {@link com.sun.xml.ws.api.message.Message} object created from the data stream
      */
     public static Message toMessage(@NotNull InputStream dataStream, String encoding) throws XMLStreamException {
-        XMLStreamReader xsr = XmlUtil.newXMLInputFactory(true).createXMLStreamReader(dataStream, encoding);
+        XMLStreamReader xsr = XmlUtil.newXMLInputFactory(false).createXMLStreamReader(dataStream, encoding);
         return Messages.create(xsr);
     }
 

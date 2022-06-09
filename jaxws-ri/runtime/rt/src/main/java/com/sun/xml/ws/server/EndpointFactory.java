@@ -366,7 +366,7 @@ public class EndpointFactory {
                                     InputSource source = resolver.resolveEntity(null, url);
                                     if (source != null) {
                                         MutableXMLStreamBuffer xsb = new MutableXMLStreamBuffer();
-                                        XMLStreamReader reader = XmlUtil.newXMLInputFactory(true).createXMLStreamReader(source.getByteStream());
+                                        XMLStreamReader reader = XmlUtil.newXMLInputFactory(false).createXMLStreamReader(source.getByteStream());
                                         xsb.createFromXMLStreamReader(reader);
 
                                         SDDocumentSource sdocSource = SDDocumentImpl.create(new URL(url), xsb);
