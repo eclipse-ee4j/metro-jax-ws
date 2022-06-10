@@ -51,6 +51,9 @@
                     <link xlink:href="https://github.com/eclipse-ee4j/metro-jax-ws/issues/336">#336</link>: wsimport: -target option does not generate old javax.xml.ws package name
                 </para></listitem>
                 <listitem><para>
+                    <link xlink:href="https://github.com/eclipse-ee4j/metro-jax-ws/issues/562">#562</link>: JAXBWrapperAccessor fails to find getters/setters
+                </para></listitem>
+                <listitem><para>
                     <link xlink:href="https://github.com/eclipse-ee4j/metro-jax-ws/issues/582">#582</link>: Use 'Content-ID: ' header instead of ' Content-Id:'
                 </para></listitem>
                 <listitem><para>

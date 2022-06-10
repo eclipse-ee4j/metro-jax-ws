@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,36 +10,39 @@
 
 package com.sun.xml.ws.spi.db;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.List;
-
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.namespace.QName;
 import jakarta.xml.ws.WebServiceException;
-
-
 import junit.framework.TestCase;
 
-public class JAXBWrapperAccessorTest  extends TestCase {
-    public void testXmlElementWrapper() {
-    	JAXBWrapperAccessor jaxbWrapperAccessor = new JAXBWrapperAccessor(HelloRequest.class);
-    	assertNotNull(jaxbWrapperAccessor.getPropertySetter(new QName("names")));
-    }
-    
-    public void testAccessor() throws Exception {
+import javax.xml.namespace.QName;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.List;
 
+public class JAXBWrapperAccessorTest extends TestCase {
+
+    public void testXmlElementWrapperWithUpperCase() {
+        JAXBWrapperAccessor jaxbWrapperAccessor = new JAXBWrapperAccessor(UppercaseRequest.class);
+        assertNotNull(jaxbWrapperAccessor.getPropertySetter(new QName("myNames")));
+    }
+
+    public void testXmlElementWrapper() {
+        JAXBWrapperAccessor jaxbWrapperAccessor = new JAXBWrapperAccessor(HelloRequest.class);
+        assertNotNull(jaxbWrapperAccessor.getPropertySetter(new QName("names")));
+    }
+
+    public void testAccessor() throws Exception {
         try {
-            JAXBWrapperAccessor jaxbWrapperAccessor = new JAXBWrapperAccessor(System.class);;
+            JAXBWrapperAccessor jaxbWrapperAccessor = new JAXBWrapperAccessor(System.class);
             fail();
         } catch (WebServiceException e) {
             e.printStackTrace(System.out);
         }
-        
-        for(Field f : System.class.getDeclaredFields()) {
+
+        for (Field f : System.class.getDeclaredFields()) {
 //            System.out.println("try " + f);
             try {
                 FieldGetter getter = new FieldGetter(f);
@@ -52,7 +55,7 @@ public class JAXBWrapperAccessorTest  extends TestCase {
             } catch (WebServiceException e) {
             }
         }
-        for(Method m : System.class.getDeclaredMethods()) {
+        for (Method m : System.class.getDeclaredMethods()) {
 //            System.out.println("try " + m);
             try {
                 MethodGetter getter = new MethodGetter(m);
@@ -66,19 +69,34 @@ public class JAXBWrapperAccessorTest  extends TestCase {
             }
         }
     }
-    
-@XmlAccessorType(XmlAccessType.FIELD)
-class HelloRequest {
-	@XmlElementWrapper(name = "names")
-	@XmlElement(name = "name")
-	private List<String> names;
 
-	public List<String> getNames() {
-		return this.names;
-	}
+    @XmlAccessorType(XmlAccessType.FIELD)
+    class HelloRequest {
+        @XmlElementWrapper(name = "names")
+        @XmlElement(name = "name")
+        private List<String> names;
 
-	public void setNames(List<String> names) {
-		this.names = names;
-	}
-}    
+        public List<String> getNames() {
+            return this.names;
+        }
+
+        public void setNames(List<String> names) {
+            this.names = names;
+        }
+    }
+
+    @XmlAccessorType(XmlAccessType.FIELD)
+    class UppercaseRequest {
+        @XmlElementWrapper(name = "myNames")
+        @XmlElement(name = "myName")
+        private List<String> names;
+
+        public List<String> getMyNames() {
+            return this.names;
+        }
+
+        public void setMyNames(List<String> names) {
+            this.names = names;
+        }
+    }
 }
