@@ -154,8 +154,13 @@ public class JAXBWrapperAccessor extends WrapperAccessor {
 
     static private Method accessor(HashMap<String, Method> map, String fieldName, String localName) {
         Method a = map.get(fieldName);
-        if (a == null) a = map.get(localName);
-        if (a == null && fieldName.startsWith("_")) a = map.get(fieldName.substring(1));
+        if (a == null) {
+            //keys in the map are all lowercase
+            a = map.get(localName.toLowerCase());
+        }
+        if (a == null && fieldName.startsWith("_")) {
+            a = map.get(fieldName.substring(1));
+        }
         return a;
     }
 
