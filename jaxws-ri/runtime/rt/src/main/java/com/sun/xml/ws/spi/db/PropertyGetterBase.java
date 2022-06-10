@@ -49,7 +49,7 @@ public abstract class PropertyGetterBase implements PropertyGetter {
     
     static void verifyWrapperType(Class wrapperType) {
         String className = wrapperType.getName();
-        if (className.startsWith("java.") || className.startsWith("javax.")) {
+        if (className.startsWith("java.") || className.startsWith("javax.") || className.startsWith("jakarta.")) {
             throw new WebServiceException("Invalid wrapper type " + className);
         }
     }
