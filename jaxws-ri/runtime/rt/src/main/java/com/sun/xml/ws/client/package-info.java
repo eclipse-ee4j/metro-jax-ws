@@ -45,7 +45,7 @@
  * <p>
  * The MessageDispatcher uses ContactInfo to obtain
  * a {@code com.sun.xml.ws.encoding.soap.client.SOAPXMLEncoder} which converts 
- * the MessageInfo to {@code com.sun.xml.ws.encoding.soap.internal.InternalMessage}. 
+ * the MessageInfo to {@code com.sun.xml.ws.encoding.soap.InternalMessage}.
  * There will be two types of client-side SOAPXMLEncoder for JAX-WS 2.0.1, 
  * SOAPXMEncoder for SOAP 1.1 and {@code com.sun.xml.ws.encoding.soap.client.SOAP12XMLEncoder}
  * for SOAP 1.2. The MessageDispatcher invokes configured handlers and use the 
@@ -87,7 +87,7 @@
  * 	are made to create a fault in the SOAPMessage</P>
  * 	<LI><P>com.sun.xml.ws.handler.LogicalMessageImpl::getPayload()
  * 	interacts with SAAJ to get body from SOAPMessage</P>
- * 	<LI><P>com.sun.xml.ws.encoding.soap.SOAPEncoder.toSOAPMessage(com.sun.xml.ws.encoding.soap.internal.InternalMessage,
+ * 	<LI><P>com.sun.xml.ws.encoding.soap.SOAPEncoder.toSOAPMessage(com.sun.xml.ws.encoding.soap.InternalMessage,
  * 	SOAPMessage). There is a scenario where there is SOAPMessage and a
  * 	logical handler sets payload as Source. To write to the stream,
  * 	SOAPMessage.writeTo() is used but before that the body needs to be

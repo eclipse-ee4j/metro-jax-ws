@@ -33,12 +33,7 @@ final class TubeCreator {
     TubeCreator(TubeFactoryConfig config, ClassLoader tubeFactoryClassLoader) {
         String className = config.getClassName();
         try {
-            Class<?> factoryClass;
-            if (isJDKInternal(className)) {
-                factoryClass = Class.forName(className, true, TubeCreator.class.getClassLoader());
-            } else {
-                factoryClass = Class.forName(className, true, tubeFactoryClassLoader);
-            }
+            Class<?> factoryClass = Class.forName(className, true, tubeFactoryClassLoader);
             if (TubeFactory.class.isAssignableFrom(factoryClass)) {
                 // We can suppress "unchecked" warning here as we are checking for the correct type in the if statement above
                 @SuppressWarnings("unchecked")
@@ -77,11 +72,6 @@ final class TubeCreator {
 
     String getMessageDumpPropertyBase() {
         return msgDumpPropertyBase;
-    }
-
-    private boolean isJDKInternal(String className) {
-        // avoid repackaging
-        return className.startsWith("com." + "sun.xml.internal.ws");
     }
 
 }
