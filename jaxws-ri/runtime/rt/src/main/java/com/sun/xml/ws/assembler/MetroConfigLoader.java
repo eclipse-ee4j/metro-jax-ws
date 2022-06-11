@@ -256,25 +256,10 @@ class MetroConfigLoader {
     }
 
     private static JAXBContext createJAXBContext() throws Exception {
-        if (isJDKInternal()) {
-            // since jdk classes are repackaged, extra privilege is necessary to create JAXBContext
-            return AccessController.doPrivileged(
-                    new PrivilegedExceptionAction<>() {
-                        @Override
-                        public JAXBContext run() throws Exception {
-                            return JAXBContext.newInstance(MetroConfig.class.getPackage().getName());
-                        }
-                    });
-        } else {
-            // usage from JAX-WS/Metro/Glassfish
-            return JAXBContext.newInstance(MetroConfig.class.getPackage().getName());
-        }
+        // usage from JAX-WS/Metro/Glassfish
+        return JAXBContext.newInstance(MetroConfig.class.getPackage().getName());
     }
 
-    private static boolean isJDKInternal() {
-        // avoid "string repackaging"
-        return MetroConfigLoader.class.getName().startsWith("com." + "sun.xml.internal.ws");
-    }
 
     private static class MetroConfigUrlLoader extends ResourceLoader {
 
