@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
+import com.sun.xml.ws.db.sdo.SDOContextFactory;
 import jakarta.jws.WebService;
 import javax.xml.namespace.QName;
 import jakarta.xml.ws.WebServiceFeature;
@@ -61,7 +62,6 @@ import com.sun.xml.ws.db.sdo.SchemaInfo;
 import commonj.sdo.helper.HelperContext;
 
 public class SDOHRAppServiceTest extends SDODatabindingTestBase {
-    static public final String ECLIPSELINK_SDO = "eclipselink.sdo";
     boolean debug = false;
     
     public void testSDO_HRAppService() throws Exception {
@@ -73,7 +73,7 @@ public class SDOHRAppServiceTest extends SDODatabindingTestBase {
         SDOConfig sSdo = sdoConfig(schemas, true);
         srvConfig.setContractClass(sei);
         srvConfig.setEndpointClass(seb);
-        DatabindingModeFeature dbm = new DatabindingModeFeature("eclipselink.sdo");
+        DatabindingModeFeature dbm = new DatabindingModeFeature(SDOContextFactory.ECLIPSELINK_SDO);
         WebServiceFeature[] features = { dbm };
         srvConfig.setFeatures(features); 
         srvConfig.properties().put(SDOContextWrapper.SDO_SCHEMA_INFO, schemas);
@@ -178,7 +178,7 @@ public class SDOHRAppServiceTest extends SDODatabindingTestBase {
         SDOConfig sSdo = sdoConfig(schemas, true);
         srvConfig.setContractClass(sei);
         srvConfig.setEndpointClass(seb);
-        DatabindingModeFeature dbm = new DatabindingModeFeature("eclipselink.sdo");
+        DatabindingModeFeature dbm = new DatabindingModeFeature(SDOContextFactory.ECLIPSELINK_SDO);
         WebServiceFeature[] features = { dbm };
         srvConfig.setFeatures(features); 
         srvConfig.properties().put(SDOContextWrapper.SDO_SCHEMA_INFO, schemas);
@@ -260,7 +260,7 @@ public class SDOHRAppServiceTest extends SDODatabindingTestBase {
         SDOConfig sSdo = sdoConfig(schemas, true);
         srvConfig.setContractClass(sei);
         srvConfig.setEndpointClass(seb);
-        DatabindingModeFeature dbm = new DatabindingModeFeature("eclipselink.sdo");
+        DatabindingModeFeature dbm = new DatabindingModeFeature(SDOContextFactory.ECLIPSELINK_SDO);
         WebServiceFeature[] features = { dbm };
         srvConfig.setFeatures(features); 
         srvConfig.properties().put(SDOContextWrapper.SDO_SCHEMA_INFO, schemas);

@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.sun.xml.ws.db.sdo.SDOContextFactory;
 import jakarta.jws.WebService;
 import javax.xml.namespace.QName;
 import jakarta.xml.ws.WebServiceFeature;
@@ -265,7 +266,7 @@ abstract public class SDODatabindingTestBase extends TestCase {
     }
     
     protected <T> WebServiceFeature[] invmSetup(final URL wsdlURL, final Class<?> sei, final Class<T> seb, final QName serviceName, final QName portName) {
-        DatabindingModeFeature dbmf = new DatabindingModeFeature("eclipselink.sdo");
+        DatabindingModeFeature dbmf = new DatabindingModeFeature(SDOContextFactory.ECLIPSELINK_SDO);
         Class<T> implementorClass = seb;
         boolean handlersSetInDD = false;
         Container container = Container.NONE; 

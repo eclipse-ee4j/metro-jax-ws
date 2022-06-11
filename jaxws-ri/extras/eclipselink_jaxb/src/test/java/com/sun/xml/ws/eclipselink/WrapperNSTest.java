@@ -12,6 +12,7 @@ package com.sun.xml.ws.eclipselink;
 
 import java.lang.reflect.Method;
 
+import com.sun.xml.ws.db.toplink.JAXBContextFactory;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import javax.xml.namespace.QName;
@@ -45,7 +46,7 @@ public class WrapperNSTest extends TestCase {
     }
 
     @WebService(targetNamespace = "http://echo.org/")
-    @DatabindingMode(value = "eclipselink.jaxb")
+    @DatabindingMode(value = JAXBContextFactory.ECLIPSELINK_JAXB)
     static public class MyHelloClass {
         @ResponseWrapper(className = "response1", localName="gigi")
         @RequestWrapper(className = "request1")
@@ -57,7 +58,7 @@ public class WrapperNSTest extends TestCase {
         DatabindingFactory fac = DatabindingFactory.newInstance();
         Databinding.Builder b = fac.createBuilder(sei, null);
         DatabindingModeFeature dbf = new DatabindingModeFeature(
-                "eclipselink.jaxb");
+                JAXBContextFactory.ECLIPSELINK_JAXB);
         WebServiceFeature[] f = { dbf };
         b.feature(f);
         b.serviceName(new QName("http://echo.org/", "helloService"));
@@ -87,7 +88,7 @@ public class WrapperNSTest extends TestCase {
         DatabindingFactory fac = DatabindingFactory.newInstance();
         Databinding.Builder b = fac.createBuilder(sei, null);
         DatabindingModeFeature dbf = new DatabindingModeFeature(
-                "eclipselink.jaxb");
+                JAXBContextFactory.ECLIPSELINK_JAXB);
         WebServiceFeature[] f = { dbf };
 		DatabindingConfig config = new DatabindingConfig();
 		config.setFeatures(f);
@@ -107,8 +108,7 @@ public class WrapperNSTest extends TestCase {
         Class<?> sei = MyHelloRPC.class;
         DatabindingFactory fac = DatabindingFactory.newInstance();
         Databinding.Builder b = fac.createBuilder(sei, null);
-        DatabindingModeFeature dbf = new DatabindingModeFeature(
-                "glassfish.jaxb");
+        DatabindingModeFeature dbf = new DatabindingModeFeature(DatabindingModeFeature.GLASSFISH_JAXB);
         WebServiceFeature[] f = { dbf };
         b.feature(f);
         b.serviceName(new QName("http://echo.org/", "helloService"));

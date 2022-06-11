@@ -15,6 +15,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.lang.reflect.Type;
+
+import com.oracle.webservices.api.databinding.DatabindingModeFeature;
 import jakarta.xml.bind.JAXBContext;
 
 import org.glassfish.jaxb.runtime.api.TypeReference;
@@ -99,7 +101,7 @@ public class JAXBRIContextFactory extends BindingContextFactory {
 
     @Override
     protected boolean isFor(String str) {
-        return (str.equals("glassfish.jaxb")
+        return (DatabindingModeFeature.GLASSFISH_JAXB.equals(str)
                 || str.equals(this.getClass().getName())
                 || str.equals("org.glassfish.jaxb.runtime.v2.runtime"));
     }

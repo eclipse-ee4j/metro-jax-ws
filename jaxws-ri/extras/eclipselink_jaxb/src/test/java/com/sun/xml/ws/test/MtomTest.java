@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,6 +15,8 @@ import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Method;
 
 import javax.xml.namespace.QName;
+
+import com.sun.xml.ws.db.toplink.JAXBContextFactory;
 import jakarta.xml.soap.MessageFactory;
 import jakarta.xml.soap.SOAPException;
 import javax.xml.stream.XMLStreamReader;
@@ -47,8 +49,8 @@ public class MtomTest extends TestCase {
     String ns = "http://example.com/test";
 
     Class<MtomSEI> sei = MtomSEI.class;
-    Databinding dbE = dbf.createBuilder(sei, null).feature(new DatabindingModeFeature("eclipselink.jaxb")).serviceName(new QName(ns, "srv")).build();
-    Databinding dbG = dbf.createBuilder(sei, null).feature(new DatabindingModeFeature("glassfish.jaxb")).serviceName(new QName(ns, "srv")).build();
+    Databinding dbE = dbf.createBuilder(sei, null).feature(new DatabindingModeFeature(JAXBContextFactory.ECLIPSELINK_JAXB)).serviceName(new QName(ns, "srv")).build();
+    Databinding dbG = dbf.createBuilder(sei, null).feature(new DatabindingModeFeature(DatabindingModeFeature.GLASSFISH_JAXB)).serviceName(new QName(ns, "srv")).build();
 
     static MtomBean b = new MtomBean();
     static {

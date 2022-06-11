@@ -17,6 +17,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.sun.xml.ws.db.toplink.JAXBContextFactory;
 import jakarta.activation.CommandMap;
 import jakarta.activation.DataHandler;
 import jakarta.activation.MailcapCommandMap;
@@ -48,11 +49,9 @@ import com.sun.xml.ws.util.xml.XmlUtil;
 import com.sun.xml.ws.wsdl.parser.RuntimeWSDLParser;
 
 public class SwaMimeAttachmentTest extends WsDatabindingTestBase  {
-    static public final String ECLIPSELINK_JAXB = "eclipselink.jaxb";
-//    static public final String ECLIPSELINK_JAXB = "glassfish.jaxb";
-    
+
     protected DatabindingModeFeature databindingMode() {
-        return new DatabindingModeFeature(ECLIPSELINK_JAXB); 
+        return new DatabindingModeFeature(JAXBContextFactory.ECLIPSELINK_JAXB);
     }
 
     public void testAttachmentContentId() throws Exception {

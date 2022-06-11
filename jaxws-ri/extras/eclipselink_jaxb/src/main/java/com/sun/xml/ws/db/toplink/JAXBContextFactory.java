@@ -66,8 +66,15 @@ import com.sun.xml.ws.spi.db.WrapperComposite;
  */
 public class JAXBContextFactory extends BindingContextFactory {
 
-    static final public String OXM_XML_OVERRIDE = JAXBContextProperties.OXM_METADATA_SOURCE;
-    static final public String OXM_XML_ELEMENT = JAXBContextProperties.DEFAULT_TARGET_NAMESPACE;
+    public static final String ECLIPSELINK_JAXB = "eclipselink.jaxb";
+
+    private static DocumentBuilderFactory docBuilderFactory;
+    private static String OXMTNS = "http://www.eclipse.org/eclipselink/xsds/persistence/oxm";
+
+    static {
+        docBuilderFactory = XmlUtil.newDocumentBuilderFactory(true);
+        docBuilderFactory.setNamespaceAware(true);
+    }
 
     /**
      * Default constructor.
@@ -76,8 +83,8 @@ public class JAXBContextFactory extends BindingContextFactory {
 
     @Override
     protected boolean isFor(String str) {
-        return (str.equals("toplink.jaxb")
-                || str.equals("eclipselink.jaxb")
+        return (ECLIPSELINK_JAXB.equals(str)
+                || str.equals("toplink.jaxb")
                 || str.equals(this.getClass().getName())
                 || str.equals("org.eclipse.persistence.jaxb"));
     }
@@ -90,7 +97,7 @@ public class JAXBContextFactory extends BindingContextFactory {
     @Override
     protected BindingContext newContext(BindingInfo bi) {
         @SuppressWarnings({"unchecked"})
-        Map<String, Source> extMapping = (Map<String, Source>) bi.properties().get(OXM_XML_OVERRIDE);
+        Map<String, Source> extMapping = (Map<String, Source>) bi.properties().get(JAXBContextProperties.OXM_METADATA_SOURCE);
         Map<String, Object> properties = new HashMap<>();
         Map<TypeInfo, TypeMappingInfo> map = createTypeMappings(bi.typeInfos());
         //chen workaround for document-literal wrapper - new feature on eclipselink API requested
@@ -149,10 +156,10 @@ public class JAXBContextFactory extends BindingContextFactory {
         }
         TypeMappingInfo[] types = typeList.toArray(new TypeMappingInfo[0]);
         if (extMapping != null) {
-            properties.put(OXM_XML_OVERRIDE, extMapping);
+            properties.put(JAXBContextProperties.OXM_METADATA_SOURCE, extMapping);
         }
         if (bi.getDefaultNamespace() != null) {
-            properties.put(OXM_XML_ELEMENT, bi.getDefaultNamespace());
+            properties.put(JAXBContextProperties.DEFAULT_TARGET_NAMESPACE, bi.getDefaultNamespace());
         }
         try {
             org.eclipse.persistence.jaxb.JAXBContext jaxbContext = (org.eclipse.persistence.jaxb.JAXBContext) org.eclipse.persistence.jaxb.JAXBContextFactory
@@ -175,13 +182,6 @@ public class JAXBContextFactory extends BindingContextFactory {
             }
         }
         return null;
-    }
-    static DocumentBuilderFactory docBuilderFactory;
-    static String OXMTNS = "http://www.eclipse.org/eclipselink/xsds/persistence/oxm";
-
-    static {
-        docBuilderFactory = XmlUtil.newDocumentBuilderFactory(true);
-        docBuilderFactory.setNamespaceAware(true);
     }
 
     private Element javaAttributes(Class<?> wrpCls, Map<String, Source> extMapping) {
@@ -382,7 +382,7 @@ public class JAXBContextFactory extends BindingContextFactory {
     }
 
     private static Element findXmlElement(Map<String, Object> properties) {
-        return (Element) properties.get(OXM_XML_ELEMENT);
+        return (Element) properties.get(JAXBContextProperties.DEFAULT_TARGET_NAMESPACE);
     }
 
     private static TypeInfo repeatedWrapee(TypeInfo e, Element xmlAnn) {
