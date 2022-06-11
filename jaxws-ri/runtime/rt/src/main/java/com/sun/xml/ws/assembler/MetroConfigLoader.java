@@ -263,7 +263,6 @@ class MetroConfigLoader {
 
     private static class MetroConfigUrlLoader extends ResourceLoader {
 
-        Container container; // TODO remove the field together with the code path using it (see below)
         ResourceLoader parentLoader;
 
         MetroConfigUrlLoader(ResourceLoader parentLoader) {
@@ -272,7 +271,6 @@ class MetroConfigLoader {
 
         MetroConfigUrlLoader(Container container) {
             this((container != null) ? container.getSPI(ResourceLoader.class) : null);
-            this.container = container;
         }
 
         @Override
@@ -290,11 +288,6 @@ class MetroConfigLoader {
 
                 if (resourceUrl == null) {
                     resourceUrl = loadViaClassLoaders("META-INF/" + resource);
-                }
-
-                if (resourceUrl == null && container != null) {
-                    // TODO: we should remove this code path, the config file should be loaded using ResourceLoader only
-                    resourceUrl = loadFromServletContext(resource);
                 }
 
                 return resourceUrl;
@@ -317,32 +310,6 @@ class MetroConfigLoader {
 
         private static URL tryLoadFromClassLoader(final String resource, final ClassLoader loader) {
             return (loader != null) ? loader.getResource(resource) : null;
-        }
-
-        private URL loadFromServletContext(String resource) throws RuntimeException {
-            Object context = null;
-            try {
-                final Class<?> contextClass = Class.forName("jakarta.servlet.ServletContext");
-                context = container.getSPI(contextClass);
-                if (context != null) {
-                    if (LOGGER.isLoggable(Level.FINE)) {
-                        LOGGER.fine(TubelineassemblyMessages.MASM_0012_LOADING_VIA_SERVLET_CONTEXT(resource, context));
-                    }
-                    try {
-                        final Method method = context.getClass().getMethod("getResource", String.class);
-                        method.setAccessible(true);
-                        final Object result = method.invoke(context, "/WEB-INF/" + resource);
-                        return URL.class.cast(result);
-                    } catch (Exception e) {
-                        throw LOGGER.logSevereException(new RuntimeException(TubelineassemblyMessages.MASM_0013_ERROR_INVOKING_SERVLET_CONTEXT_METHOD("getResource()")), e);
-                    }
-                }
-            } catch (ClassNotFoundException e) {
-                if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.fine(TubelineassemblyMessages.MASM_0014_UNABLE_TO_LOAD_CLASS("jakarta.servlet.ServletContext"));
-                }
-            }
-            return null;
         }
     }
 
