@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
+
+import com.sun.xml.ws.db.sdo.SDOContextFactory;
 import jakarta.xml.ws.WebServiceFeature;
 
 import org.eclipse.persistence.sdo.helper.SDOHelperContext;
@@ -45,12 +47,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SDORuntimeBasicTest extends SDODatabindingTestBase {
-    static public final String ECLIPSELINK_SDO = "eclipselink.sdo";
-    
+
     static public DatabindingFactory factory  = DatabindingFactory.newInstance();
     
     protected DatabindingModeFeature databindingMode() {
-        return new DatabindingModeFeature(ECLIPSELINK_SDO); 
+        return new DatabindingModeFeature(SDOContextFactory.ECLIPSELINK_SDO);
     }
 
     public void testEchoSDO() throws Exception {

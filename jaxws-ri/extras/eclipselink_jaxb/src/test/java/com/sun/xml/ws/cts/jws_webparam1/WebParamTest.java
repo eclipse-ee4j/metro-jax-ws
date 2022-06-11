@@ -10,6 +10,7 @@
 
 package com.sun.xml.ws.cts.jws_webparam1;
 
+import com.sun.xml.ws.db.toplink.JAXBContextFactory;
 import jakarta.xml.ws.WebServiceFeature;
 
 import com.oracle.webservices.api.databinding.DatabindingModeFeature;
@@ -22,7 +23,7 @@ public class WebParamTest extends WsDatabindingTestBase {
     boolean debug = false;
     
     public void testWebParam1_toplink() throws Exception {
-        testWebParam1("eclipselink.jaxb");
+        testWebParam1(JAXBContextFactory.ECLIPSELINK_JAXB);
     }
     
     //TODO How does jaxb-ri defaultNamespaceRemap work?

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sun.xml.ws.db.toplink.JAXBContextFactory;
 import jakarta.xml.ws.WebServiceFeature;
 
 import com.oracle.webservices.api.databinding.DatabindingModeFeature;
@@ -31,10 +32,9 @@ import com.sun.xml.ws.test.CollectionMapImpl;
  * @author shih-chang.chen@oracle.com
  */
 public class EclipselinkJAXBBasicTest extends BasicDatabindingTestBase  {
-    static public final String ECLIPSELINK_JAXB = "eclipselink.jaxb";
-	
+
 	protected DatabindingModeFeature databindingMode() {
-		return new DatabindingModeFeature(ECLIPSELINK_JAXB); 
+		return new DatabindingModeFeature(JAXBContextFactory.ECLIPSELINK_JAXB);
 	}
 	
 	public void testHelloEcho() throws Exception {
@@ -46,7 +46,7 @@ public class EclipselinkJAXBBasicTest extends BasicDatabindingTestBase  {
 	    String propName = BindingContextFactory.JAXB_CONTEXT_FACTORY_PROPERTY;
 	    String oldProp = System.getProperty(propName);
 	    try {
-	        System.setProperty(propName, ECLIPSELINK_JAXB);
+	        System.setProperty(propName, JAXBContextFactory.ECLIPSELINK_JAXB);
 	        String wrapperName = _testHelloEcho();
 	        assertTrue(wrapperName != null && wrapperName.endsWith("JAXBContextWrapper"));
 	    } finally {
