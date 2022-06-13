@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,8 +24,10 @@ import com.sun.xml.ws.resources.WsservletMessages;
 import com.sun.xml.ws.transport.Headers;
 import com.sun.xml.ws.transport.http.HttpAdapter;
 import com.sun.xml.ws.util.ByteArrayBuffer;
+import com.sun.xml.ws.util.MessageWriter;
 import com.sun.xml.ws.util.RuntimeVersion;
 import com.sun.xml.ws.util.StreamUtils;
+import com.sun.xml.ws.util.UtilException;
 
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.ws.BindingProvider;
@@ -33,9 +35,17 @@ import javax.xml.ws.WebServiceException;
 import javax.xml.ws.WebServiceFeature;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.soap.SOAPBinding;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.CookieHandler;
 import java.net.HttpURLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -411,7 +421,7 @@ public class HttpTransportPipe extends AbstractTubeImpl {
 
     private void dump(ByteArrayBuffer buf, String caption, Map<String, List<String>> headers) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintWriter pw = new PrintWriter(baos, true);
+        MessageWriter pw = new MessageWriter(new OutputStreamWriter(baos), HttpAdapter.dump_threshold);
         pw.println("---["+caption +"]---");
         for (Entry<String,List<String>> header : headers.entrySet()) {
             if(header.getValue().isEmpty()) {
@@ -424,17 +434,19 @@ public class HttpTransportPipe extends AbstractTubeImpl {
                 }
             }
         }
+        pw.println("\n");
 
-        if (buf.size() > HttpAdapter.dump_threshold) {
-            byte[] b = buf.getRawData();
-            baos.write(b, 0, HttpAdapter.dump_threshold);
-            pw.println();
-            pw.println(WsservletMessages.MESSAGE_TOO_LONG(HttpAdapter.class.getName() + ".dumpTreshold"));
-        } else {
-            buf.writeTo(baos);
-            pw.println();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(buf.newInputStream()));
+        String line = reader.readLine();
+        try {
+            while (line != null) {
+                pw.write(line);
+                line = reader.readLine();
+            }
+        } catch (UtilException ue) {
+            baos.write(WsservletMessages.MESSAGE_TOO_LONG(HttpAdapter.class.getName() + ".dumpThreshold\n").getBytes(StandardCharsets.UTF_8));
         }
-        pw.println("--------------------");
+        baos.write("--------------------\n".getBytes(StandardCharsets.UTF_8));
 
         String msg = baos.toString();
         if (dump) {
