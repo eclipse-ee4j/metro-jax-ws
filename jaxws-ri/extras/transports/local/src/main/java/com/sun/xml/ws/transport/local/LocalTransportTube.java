@@ -24,10 +24,16 @@ import com.sun.xml.ws.client.ContentNegotiation;
 import com.sun.xml.ws.transport.http.HttpAdapter;
 import com.sun.xml.ws.transport.http.WSHTTPConnection;
 
+import com.sun.xml.ws.util.MessageWriter;
+import com.sun.xml.ws.util.UtilException;
 import jakarta.xml.ws.WebServiceException;
 import jakarta.xml.ws.handler.MessageContext;
+
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
@@ -233,23 +239,36 @@ final class LocalTransportTube extends AbstractTubeImpl {
         return new LocalTransportTube(this, cloner);
     }
 
-    private void dump(LocalConnectionImpl con, String caption, Map<String,List<String>> headers) {
-        System.out.println("---["+caption +"]---");
+    private void dump(LocalConnectionImpl con, String caption, Map<String,List<String>> headers) throws IOException {
+        MessageWriter pw = new MessageWriter(new OutputStreamWriter(System.out), 32 * 1024);
+        pw.println("---["+caption +"]---");
         if(headers!=null) {
             for (Entry<String,List<String>> header : headers.entrySet()) {
                 if(header.getValue().isEmpty()) {
                     // I don't think this is legal, but let's just dump it,
                     // as the point of the dump is to uncover problems.
-                    System.out.println(header.getValue());
+                    pw.println(header.getValue());
                 } else {
                     for (String value : header.getValue()) {
-                        System.out.println(header.getKey()+": "+value);
+                        pw.println(header.getKey() + ": " + value);
                     }
                 }
             }
+            pw.println("\n");
         }
-        System.out.println(con.toString());
-        System.out.println("--------------------");
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInput()));
+        String line = reader.readLine();
+        try {
+            while (line != null) {
+                pw.write(line);
+                line = reader.readLine();
+            }
+            pw.write("--------------------");
+        } catch (UtilException ue) {
+            System.out.println("...large output...");
+            System.out.println("--------------------");
+        }
     }
 
     /**

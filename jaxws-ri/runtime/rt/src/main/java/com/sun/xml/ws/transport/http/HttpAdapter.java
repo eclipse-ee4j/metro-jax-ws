@@ -10,9 +10,11 @@
 
 package com.sun.xml.ws.transport.http;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -30,6 +32,8 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.sun.xml.ws.util.MessageWriter;
+import com.sun.xml.ws.util.UtilException;
 import jakarta.xml.ws.Binding;
 import jakarta.xml.ws.WebServiceException;
 import jakarta.xml.ws.http.HTTPBinding;
@@ -961,7 +965,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
 
     private static void dump(ByteArrayBuffer buf, String caption, Map<String, List<String>> headers) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintWriter pw = new PrintWriter(baos, true);
+        MessageWriter pw = new MessageWriter(new OutputStreamWriter(baos), dump_threshold);
         pw.println("---["+caption +"]---");
         if (headers != null) {
             for (Entry<String, List<String>> header : headers.entrySet()) {
@@ -975,17 +979,20 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
                     }
                 }
             }
+            pw.println("\n");
         }
-        if (buf.size() > dump_threshold) {
-            byte[] b = buf.getRawData();
-            baos.write(b, 0, dump_threshold);
-            pw.println();
-            pw.println(WsservletMessages.MESSAGE_TOO_LONG(HttpAdapter.class.getName() + ".dumpThreshold"));
-        } else {
-            buf.writeTo(baos);
-            pw.println();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(buf.newInputStream()));
+        String line = reader.readLine();
+        try {
+            while (line != null) {
+                pw.write(line);
+                line = reader.readLine();
+            }
+        } catch (UtilException ue) {
+            baos.write(WsservletMessages.MESSAGE_TOO_LONG(HttpAdapter.class.getName() + ".dumpThreshold\n").getBytes(StandardCharsets.UTF_8));
         }
-        pw.println("--------------------");
+        baos.write("--------------------\n".getBytes(StandardCharsets.UTF_8));
 
         String msg = baos.toString();
         if (dump) {
