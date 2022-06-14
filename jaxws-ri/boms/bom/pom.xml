@@ -47,7 +47,7 @@
         <stax2-api.version>4.2.1</stax2-api.version>
         <activation-api.version>2.1.0</activation-api.version>
         <angus-activation.version>1.0.0</angus-activation.version>
-        <jakarta.annotation-api.version>2.1.0</jakarta.annotation-api.version>
+        <jakarta.annotation-api.version>2.1.1</jakarta.annotation-api.version>
     </properties>
 
     <dependencyManagement>
