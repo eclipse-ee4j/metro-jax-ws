@@ -12,14 +12,14 @@ This project is part of [Eclipse Metro](https://projects.eclipse.org/projects/ee
 # <a name="Download_Jakarta_XMLS_Release"></a>Download Jakarta XML Web Services Release
 
 The latest stable release of Jakarta XML Web Services is available for
-[download](https://repo1.maven.org/maven2/com/sun/xml/ws/jaxws-ri/3.0.0/jaxws-ri-3.0.0.zip)
+[download](https://repo1.maven.org/maven2/com/sun/xml/ws/jaxws-ri/4.0.0/jaxws-ri-4.0.0.zip)
 as well as for consumption through maven.
 ```
         <dependencies>
             <dependency>
                 <groupId>jakarta.xml.ws</groupId>
                 <artifactId>jakarta.xml.ws-api</artifactId>
-                <version>3.0.0</version>
+                <version>4.0.0</version>
             </dependency>
         </dependencies>
 
@@ -27,7 +27,7 @@ as well as for consumption through maven.
             <dependency>
                 <groupId>com.sun.xml.ws</groupId>
                 <artifactId>jaxws-rt</artifactId>
-                <version>3.0.0</version>
+                <version>4.0.0</version>
                 <scope>runtime</scope>
             </dependency>
         </dependencies>
@@ -57,6 +57,12 @@ descriptor `sun-jaxws.xml`.
 
 Previous versions of Eclipse Implementation of Jakarta XML Web Services are available for download
 as well as for consumption [through maven](https://repo1.maven.org/maven2/com/sun/xml/ws/jaxws-ri/).
+
+## Documentation for version 3.0.x
+- [Release Notes](3.0.0/docs/ch02.html)
+- [Users Guide](3.0.0/docs/ch03.html)
+- [Tools](3.0.0/docs/ch04.html)
+- [Samples](3.0.0/docs/ch07.html)
 
 ## Documentation for version 2.3.x
 - [Release Notes](2.3.3/docs/ch02.html)

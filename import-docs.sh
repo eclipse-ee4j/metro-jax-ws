@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 2020 Oracle and/or its affiliates.
+# Copyright (c) 2022 Oracle and/or its affiliates.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,7 @@
 
 # utility to help importing release documentation
 
-VERSION=3.0.0
+VERSION=4.0.0
 ARTIFACT=https://jakarta.oss.sonatype.org/content/groups/staging/com/sun/xml/ws/release-documentation/$VERSION/release-documentation-$VERSION-docbook.zip
 
 wget -O release-documentation.zip $ARTIFACT
