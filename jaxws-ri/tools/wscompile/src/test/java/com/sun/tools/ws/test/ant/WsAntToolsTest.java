@@ -98,7 +98,7 @@ public class WsAntToolsTest extends TestCase {
         jar = fixIfSNAPSHOT(jar);
         Assert.assertTrue(jar + " not found " + command, command.contains(jar));
 
-        v = System.getProperty("jaxws-api.version");
+        v = System.getProperty("xml.ws-api.version");
         jar = v != null ? "jakarta.xml.ws-api-" + v + ".jar" : "jakarta.xml.ws-api.jar";
         jar = fixIfSNAPSHOT(jar);
         Assert.assertTrue(jar + " not found " + command, command.contains(jar));

@@ -53,7 +53,7 @@
             </listitem>
 
             <listitem>
-                <para><link xlink:href="../javadocs/rt">API Documentation</link></para>
+                <para><link xlink:href="https://javadoc.io/doc/com.sun.xml.ws/jaxws-rt/&version;/">API Documentation</link></para>
             </listitem>
         </itemizedlist>
 

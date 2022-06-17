@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -65,11 +65,19 @@
         <section xml:id="jax-ws-api">
             <title>&ws.spec.name.full; API</title>
 
-            <para>&ws.spec.name.full; is a Maintainence
-            Release of JAXWS 2.0 API.</para>
+            <para>&ws.spec.name.full; is a new Release of XML-WS API and it has the following new features from &ws.spec.name.full; specification:</para>
 
-            <para>&ws.spec.name.full; has the following new
-            features from &ws.spec.name; 2.1 specification:</para>
+            <itemizedlist>
+                <listitem>
+                    <para>Annotate <literal>jakarta.xml.ws.AsyncHandler</literal> with <literal>@FunctionalInterface</literal></para>
+                </listitem>
+
+                <listitem>
+                    <para>Extend <literal>jakarta.xml.ws.wsaddressing.W3CEndpointReference</literal> API with getters</para>
+                </listitem>
+            </itemizedlist>
+
+            <para>&ws.spec.name.full; has the following features from &ws.spec.name; specification:</para>
 
             <itemizedlist>
                 <listitem>
@@ -98,12 +106,7 @@
                 <listitem>
                     <para>Provide API to create Endpoint with features</para>
                 </listitem>
-            </itemizedlist>
 
-            <para>&ws.spec.name; 2.1 has the following new features from &ws.spec.name; 2.0
-            specification:</para>
-
-            <itemizedlist>
                 <listitem>
                     <para>WS-Addressing support</para>
                 </listitem>
@@ -129,7 +132,7 @@
                             <listitem>
                                 <para>EPR Propagation <itemizedlist>
                                         <listitem>
-                                            <para>Using &binding.spec.name; 2.1 bind W3C EPR to
+                                            <para>Using &binding.spec.name; bind W3C EPR to
                                             <literal>W3CEndpointReference</literal> class</para>
                                         </listitem>
 
@@ -262,7 +265,7 @@
                 <title>Type Substitution using
                 <literal>@XmlSeeAlso</literal></title>
 
-                <para>&binding.spec.name; 2.1 defines <literal>@XmlSeeAlso</literal>
+                <para>&binding.spec.name; defines <literal>@XmlSeeAlso</literal>
                 annotation which can be used to tell &binding.spec.name; to use the classes
                 mentioned with this annotation. This allows type substitution
                 to takes place. See the <literal>samples/type_substitution/src/type_substitution/server/CarDealer.java</literal> sample
@@ -303,7 +306,7 @@
             xlink:href="http://www.w3.org/Submission/ws-addressing/">Member
             Submission</link> version of WS-Addressing. The member submission
             version is supported in an implementation specific way. For
-            compatility with &ws.spec.name; 2.1 behavior, &ws.impl.name; 2.2 also supports
+            compatility &ws.impl.name; also supports
             wsdls conforming to <link
             xlink:href="http://www.w3.org/TR/ws-addr-wsdl">WSDL Binding</link>
             specification.</para>

@@ -1,0 +1,373 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<html>
+<head>
+    <title>Eclipse Implementation of XML Web Services -- Samples Documentation</title>
+    <style type="text/css">
+        body {
+            background-color: white;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-family: sans-serif;
+            color: #000099;
+        }
+
+        h3, h4, h5, h6 {
+            text-align: left;
+            font-family: sans-serif;
+            color: #000099;
+        }
+
+        code {
+            font-family: Courier, monospace;
+        }
+
+        diff {
+            font-family: Courier, monospace;
+            color: red;
+        }
+
+        table.property {
+            margin-left: 2em;
+        }
+
+        table.property tr td {
+            background-color: rgb(240, 240, 255);
+            padding: 0.2em;
+        }
+
+        pre.code {
+            background-color: rgb(240, 240, 255);
+            border: 1px solid navy;
+            color: black;
+            font-weight: bold;
+            padding: 0.5em;
+            margin-left: 2em;
+        }
+
+        /*
+        hr {
+            align: center;
+            width: 70%;
+        }
+        */
+    </style>
+</head>
+
+<body>
+
+<h2 style="text-align: left"><font color="#000000">Samples</font></h2>
+
+<p>This document explains the samples that are bundled along with Eclipse Implementation of XML Web Services. The samples
+    included with Eclipse Implementation of XML Web Services documents how to use Eclipse Implementation of XML Web Services
+    in a non-Jakarta EE servlet container using a proprietary deployment descriptor <code>sun-jaxws.xml</code> and servlet
+    <code>com.sun.xml.ws.transport.http.servlet.WSServlet</code>. This means that you can run these applications in
+    any servlet container that has been enabled with Eclipse Implementation of XML Web Services. Applications that use
+    the proprietary DD and servlet will run in a XML-WS enabled Jakarta EE servlet container, but they will be non-portable.
+    If you wish to use these XML-WS samples in a Jakarta EE container in a Jakarta EE portable manner you need to modify them to use the standard
+    Jakarta EE deployment descriptor; please refer to the <a href="https://jakarta.ee">Jakarta EE</a> or
+    <a href="https://glassfish.org/">Glassfish</a> documentation/samples.
+<p>
+    All these samples are tested to run on <a href="https://glassfish.org/">Glassfish 7.x</a>
+    and on <a href="https://tomcat.apache.org/">Apache Tomcat 10.1.x</a>.
+</p>
+
+<h2><a name="1.0"></a><font color="#280099">1.0 Directory Structure</font></h2>
+
+<p>This section explains the directory structure of the
+    <code>samples</code> directory in the bundle:
+
+<table border="0" cellpadding="2" cellspacing="0" width="100%">
+    <tbody>
+    <tr>
+        <td width="15%">index.html</td>
+        <td width="85%">this file</td>
+    </tr>
+    <tr>
+        <td>fromjava-wsaddressing</td>
+        <td>Starting from Java endpoint how to develop W3C WS-Addressing endpoint</td>
+    </tr>
+    <tr>
+        <td>fromwsdl-wsaddressing</td>
+        <td>Starting from WSDL how to develop a WS-Addressing endpoint</td>
+    </tr>
+    <tr>
+        <td>fromjava</td>
+        <td>Demonstrates how to build, deploy, and invoke a simple Web service starting from a Java service endpoint
+                implementation using annotations.</td>
+    </tr>
+    <tr>
+        <td>fromjavahandler</td>
+        <td>Same as <b>fromjava</b> sample but with a simple logging handler on the client and server.</td>
+    </tr>
+    <tr>
+        <td>fromwsdl</td>
+        <td>Demonstrates how to build, deploy, and invoke a simple Web service starting from a WSDL using external customizations.</td>
+    </tr>
+    <tr>
+        <td>fromwsdl_secure</td>
+        <td>Same as <b>fromwsdl</b> sample but demonstrates how to build, deploy, and invoke an HTTPS Web service
+                and client from a WSDL.</td>
+    </tr>
+    <tr>
+        <td>fromwsdlhandler</td>
+        <td>Same as <b>fromwsdl</b> sample but with a simple logging handler on the client and server.</td>
+    </tr>
+    <tr>
+        <td>dispatch</td>
+        <td>Demonstrates how to dynamically invoke web service endpoints.</td>
+    </tr>
+    <tr>
+        <td>provider</td>
+        <td>Demonstrates how to build, deploy, and invoke <code>jakarta.xml.ws.Provider</code> based Web service endpoint.</td>
+    </tr>
+    <tr>
+        <td>asyncprovider</td>
+        <td>Demonstrates how to build, deploy, and invoke <code>a server side asynchronous Provider</code> based Web service endpoint.</td>
+    </tr>
+    <tr>
+        <td>annotations</td>
+        <td>Same as <b>fromjava</b> but shows how to specify a different parameter name, operation name, targetNamespace,
+                and other similar features.</td>
+    </tr>
+    <tr>
+        <td>async</td>
+        <td>Demonstrates how to generate async operations in a client SEI from a WSDL and invoke it from the client
+                application.</td>
+    </tr>
+    <tr>
+        <td>external-customize</td>
+        <td>Demonstrates how a client client application can customize a published WSDL using external binding file.</td>
+    </tr>
+    <tr>
+        <td>inline-customize</td>
+        <td>Demonstrates how a client application and server endpoint can be generated from a WSDL with embedded
+                binding declarations.</td>
+    </tr>
+    <tr>
+        <td>mtom</td>
+        <td>Demonstrates how to enable MTOM and swaRef.</td>
+    </tr>
+    <tr>
+        <td>mtom-soap12</td>
+        <td>Same as <b>mtom</b> sample but shows how to specify SOAP 1.2 binding.</td>
+    </tr>
+    <tr>
+        <td>fromjava-soap12</td>
+        <td>Same as <b>fromjava</b> sample but shows how to specify SOAP 1.2 binding.</td>
+    </tr>
+    <tr>
+        <td>fromwsdl-soap12</td>
+        <td>Same as <b>fromwsdl</b> sample but shows how to specify SOAP 1.2 binding.</td>
+    </tr>
+    <tr>
+        <td>supplychain</td>
+        <td>Same as <b>fromjava</b> sample but using JavaBeans as parameter and return types.
+                <br> Also the service can be built and deployed using Endpoint API.</td>
+    </tr>
+    <tr>
+        <td>mime</td>
+        <td>Demonstrates how a MIME binding is defined in the WSDL to send wsdl:part as MIME attachments. This
+                requires that the development model is 'starting from WSDL'.</td>
+    </tr>
+    <tr>
+        <td>wsimport_catalog</td>
+        <td>Demonstrates a how a WSDL and schema URI's can be resolved using catalog mechanism using wsimport ant
+                tasks' catalog attribute and also using ant's core type xmlcatalog.</td>
+    </tr>
+    <tr>
+        <td>catalog</td>
+        <td>Shows the catalog capability on the client side; Catalog is used every time the implementation tries to
+                access a resource identified by URI that is believed to contain either a WSDL document or any other
+                document on which it depends .</td>
+    </tr>
+    <tr>
+        <td>restful</td>
+        <td>Shows an example of a REST Web Service implemented as a XML-WS Provider and accessed via a XML-WS
+                Dispatch client. The Request uses an HTTP GET Request Method and uses the XML-WS MessageContext
+                properties PATH_INFO and QUERY_STRING.</td>
+    </tr>
+    <tr>
+        <td>stateful</td>
+        <td>This sample shows the stateful webservice support feature.</td>
+    </tr>
+    </tbody>
+</table>
+
+<h2><a name="2.0"></a><font color="#280099">2.0 Prerequisites</font></h2>
+
+<p>Here is the list of prerequisites that needs to be met before any of the samples can be invoked:
+<ol>
+    <li>
+        <p style="margin-bottom: 0in;">
+            <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Download</a>
+            Java SE 11 or later. Set
+            <code>JAVA_HOME</code> to the Java SE installation directory.
+        </p>
+    </li>
+    <li>
+        <p style="margin-bottom: 0in;">
+            <a href="https://glassfish.org/">Download</a>
+            GlassFish 7 or later application server and install it.
+        </p>
+    </li>
+    <li>
+        <p style="margin-bottom: 0in;">
+            Make sure that the Application Server is configured for port
+            <code>8080</code> (which is the default HTTP port for a Glassfish
+            installation) as samples hard-coded with this port info.
+            Should you want to use different port instead, you need to manually
+            update samples to use the correct port.
+        </p>
+    </li>
+    <li>
+        <p style="margin-bottom: 0in;">Set up the environment,
+        <ol type="a">
+            <li>
+                <p style="margin-bottom: 0in;">Set <code>AS_HOME</code> to point to the Application Server installation directory.
+            </li>
+            <li>
+                <p style="margin-bottom: 0in;">Set <code>JAXWS_HOME</code> to the XML-WS installation directory.
+            </li>
+        </ol>
+    </li>
+    <li>
+        <p style="margin-bottom: 0in;">
+            <a href="https://glassfish.org/">GlassFish</a> integrates Eclipse Implementation of XML Web Services. So you may just start
+            using it and skip step 6 below.
+        </p>
+    </li>
+    <li>
+        <p style="margin-bottom: 0in;">
+            If you have installed a standalone Eclipse Implementation of XML Web Services bundle,
+        <ol type="a">
+            <li>
+                <p style="margin-bottom: 0in;">
+                    refer to the <code>readme.html</code> in
+                    <code>$JAXWS_HOME</code> for information how to
+                    install standalone XML-WS on an application server or
+                    a servlet container.
+                </p>
+            </li>
+        </ol>
+    </li>
+</ol>
+
+<h2><a name="3.0"></a><font color="#280099">3.0 Invoking the sample</font></h2>
+
+<p>Each sample can be built, deployed and invoked using the
+    <code>$ANT_HOME/bin/ant</code> and
+    <code>build.xml</code> ant script in the root directory of the sample. Each ant script supports the following set of
+    targets:
+
+<table border="0" cellpadding="2" cellspacing="0" width="100%">
+    <tbody>
+    <tr>
+        <td width="15%">server</td>
+        <td width="85%">Builds and deploy the service endpoint WAR</td>
+    </tr>
+    <tr>
+        <td>client</td>
+        <td>Builds the client</td>
+    </tr>
+    <tr>
+        <td>run</td>
+        <td>Runs the client</td>
+    </tr>
+    </tbody>
+</table>
+<p>
+    <br> Some samples(e.g. fromjava, supplychain) can be built, deployed using <code>jakarta.xml.ws.Endpoint</code> API.
+    These samples support extra targets:
+
+<table border="0" cellpadding="2" cellspacing="0" width="100%">
+    <tbody>
+    <tr>
+        <td width="15%">server-j2se</td>
+        <td width="85%">Builds and deploys the Endpoint API based service endpoint(doesn't terminate until server-j2se-stop
+                    is called)</td>
+    </tr>
+    <tr>
+        <td>server-j2se-stop</td>
+        <td>Stops the Endpoint API based service endpoint (need to run from a different window)</td>
+    </tr>
+    </tbody>
+</table>
+<p>
+    <br> It is essential for the service endpoint to be deployed on Application Server before clients can be built
+    because clients use the WSDL exposed from the service endpoint deployed in the Application Server. So please make
+    sure that your Application Server is either running before the
+    <code>server</code> target is invoked or run it after the
+    <code>server</code> target is invoked. You will have to wait a few minutes for the Application Server to deploy the
+    service endpoint correctly before building the client.
+
+<p>
+    <font color="#280099">
+        <b>Running Samples with Tomcat:</b>
+    </font>
+
+<ol>
+    <li>
+        <p style="margin-bottom: 0in;">
+            <font color="#000000">Set CATALINA_HOME to your Tomcat installation.</font>
+    </li>
+    <li>
+        <p style="margin-bottom: 0in;">
+            Make sure that the Tomcat is configured for port
+            <code>8080</code> as samples hard-coded with this port info.
+            Should you want to use different port instead, you need to manually
+            update samples to use the correct port.
+    </li>
+    <li>
+        <p style="margin-bottom: 0in;">
+            If you have installed a standalone Eclipse Implementation of XML Web Services bundle,
+        <ol type="a">
+            <li>
+                <p style="margin-bottom: 0in;">
+                    refer to the <code>readme.html</code> in
+                    <code>$JAXWS_HOME</code> for information how to
+                    install standalone XML-WS on an application server or
+                    a servlet container.
+                </p>
+            </li>
+        </ol>
+    </li>
+    <li>
+        <p style="margin-bottom: 0in;">
+            <font color="#000000">Make sure the Tomcat container is up and running before running sample.</font>
+    </li>
+    <li>
+        <p style="margin-bottom: 0in;">
+            <font color="#000000">While running the ant targets in samples, specify &#8220;-Dtomcat=true&#8221;. For
+                example:</font>
+    </li>
+</ol>
+<p style="margin-left: 0.79in; margin-bottom: 0in;">
+    <font color="#000000"><code>ant clean server -Dtomcat=true</code>, this will build the service and deploy the war to
+        /webapps.</font>
+
+<p style="margin-left: 0.79in; margin-bottom: 0in;">
+    <font color="#000000"><code>ant clean client</code>, this would create client-side artifacts and compiles the files.</font>
+
+<p style="margin-left: 0.79in; margin-bottom: 0in;">
+    <font color="#000000"><code>ant run</code></font>
+    <br>
+
+<p>We appreciate your feedback, please send it to
+    <a href="mailto:metro-dev@eclipse.org">metro-dev@eclipse.org</a>.
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -704,7 +704,7 @@ public Future<?> addNumbers(int number1, int number2,
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<jxb:bindings xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns:jxb="http://java.sun.com/xml/ns/jaxb" version="1.0">
+        xmlns:jxb="https://jakarta.ee/xml/ns/jaxb" version="3.0">
     <jxb:bindings
             schemaLocation="http://localhost:8080/jaxws-external-customize/schema1.xsd"
             node="/xsd:schema">
@@ -738,22 +738,22 @@ public Future<?> addNumbers(int number1, int number2,
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<jaxws:bindings xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+        xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
         xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
         wsdlLocation="http://localhost:8080/jaxws-fromwsdlhandler/addnumbers?WSDL"
         xmlns:jaxws="https://jakarta.ee/xml/ns/jaxws"
-        xmlns:javaee="https://jakarta.ee/xml/ns/jakartaee">
+        xmlns:jee="https://jakarta.ee/xml/ns/jakartaee">
     <jaxws:bindings node="wsdl:definitions">
-        <javaee:handler-chain>
-            <javaee:handler-chain-name>LoggingHandlers
-            </javaee:handler-chain-name>
+        <jee:handler-chain>
+            <jee:handler-chain-name>LoggingHandlers
+            </jee:handler-chain-name>
             
-            <javaee:handler>
-                <javaee:handler-name>Logger</javaee:handler-name>
-                <javaee:handler-class>fromwsdlhandler.common.LoggingHandler
-                </javaee:handler-class>
-            </javaee:handler>
-        </javaee:handler-chain>
+            <jee:handler>
+                <jee:handler-name>Logger</jee:handler-name>
+                <jee:handler-class>fromwsdlhandler.common.LoggingHandler
+                </jee:handler-class>
+            </jee:handler>
+        </jee:handler-chain>
     </jaxws:bindings>
 </jaxws:bindings>]]></programlisting>
             </informalexample>

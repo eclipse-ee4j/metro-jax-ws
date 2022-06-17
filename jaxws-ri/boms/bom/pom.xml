@@ -37,7 +37,7 @@
         <gmbal-api.version>4.0.3</gmbal-api.version>
         <ha-api.version>3.1.13</ha-api.version>
         <jaxb.version>4.0.0</jaxb.version>
-        <jaxws-api.version>4.0.0</jaxws-api.version>
+        <xml.ws-api.version>4.0.0</xml.ws-api.version>
         <management-api.version>3.2.3</management-api.version>
         <mimepull.version>1.10.0</mimepull.version>
         <saaj-api.version>3.0.0</saaj-api.version>
@@ -93,7 +93,7 @@
             <dependency>
                 <groupId>jakarta.xml.ws</groupId>
                 <artifactId>jakarta.xml.ws-api</artifactId>
-                <version>${jaxws-api.version}</version>
+                <version>${xml.ws-api.version}</version>
                 <classifier>sources</classifier>
             </dependency>
             <dependency>
@@ -160,7 +160,7 @@
             <dependency>
                 <groupId>jakarta.xml.ws</groupId>
                 <artifactId>jakarta.xml.ws-api</artifactId>
-                <version>${jaxws-api.version}</version>
+                <version>${xml.ws-api.version}</version>
             </dependency>
 
             <dependency>
