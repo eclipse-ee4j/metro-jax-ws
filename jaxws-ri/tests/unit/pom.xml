@@ -109,8 +109,8 @@
                                     <message>Property saaj-api.version not imported or set!</message>
                                 </requireProperty>
                                 <requireProperty>
-                                    <property>jaxws-api.version</property>
-                                    <message>Property jaxws-api.version not imported or set!</message>
+                                    <property>xml.ws-api.version</property>
+                                    <message>Property xml.ws-api.version not imported or set!</message>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>jakarta.annotation-api.version</property>

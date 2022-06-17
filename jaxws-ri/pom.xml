@@ -162,7 +162,7 @@
                                 <goal>parse-version</goal>
                             </goals>
                             <configuration>
-                                <propertyPrefix>jaxb-api</propertyPrefix>
+                                <propertyPrefix>xml.bind-api</propertyPrefix>
                                 <versionString>${xml.bind-api.version}</versionString>
                             </configuration>
                         </execution>
@@ -177,14 +177,14 @@
                             </configuration>
                         </execution>
                         <execution>
-                            <id>jaxws-api.version</id>
+                            <id>xml.ws-api.version</id>
                             <phase>validate</phase>
                             <goals>
                                 <goal>parse-version</goal>
                             </goals>
                             <configuration>
-                                <propertyPrefix>jaxws-api</propertyPrefix>
-                                <versionString>${jaxws-api.version}</versionString>
+                                <propertyPrefix>xml.ws-api</propertyPrefix>
+                                <versionString>${xml.ws-api.version}</versionString>
                             </configuration>
                         </execution>
                         <execution>
@@ -305,7 +305,7 @@
                             </manifest>
                             <manifestEntries>
                                 <Specification-Title>Jakarta XML Web Services</Specification-Title>
-                                <Specification-Version>${jaxws-api.majorVersion}.${jaxws-api.minorVersion}</Specification-Version>
+                                <Specification-Version>${xml.ws-api.majorVersion}.${xml.ws-api.minorVersion}</Specification-Version>
                                 <Implementation-Title>Jakarta XML Web Services Implementation</Implementation-Title>
                                 <Implementation-Version>${project.version}</Implementation-Version>
                                 <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
@@ -330,7 +330,7 @@
                             </manifest>
                             <manifestEntries>
                                 <Specification-Title>Jakarta XML Web Services</Specification-Title>
-                                <Specification-Version>${jaxws-api.majorVersion}.${jaxws-api.minorVersion}</Specification-Version>
+                                <Specification-Version>${xml.ws-api.majorVersion}.${xml.ws-api.minorVersion}</Specification-Version>
                                 <Implementation-Title>Jakarta XML Web Services Implementation</Implementation-Title>
                                 <Implementation-Version>${project.version}</Implementation-Version>
                                 <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
@@ -612,7 +612,7 @@
                                 </manifest>
                                 <manifestEntries>
                                     <Specification-Title>Jakarta XML Web Services</Specification-Title>
-                                    <Specification-Version>${jaxws-api.majorVersion}.${jaxws-api.minorVersion}</Specification-Version>
+                                    <Specification-Version>${xml.ws-api.majorVersion}.${xml.ws-api.minorVersion}</Specification-Version>
                                     <Implementation-Title>Jakarta XML Web Services Implementation</Implementation-Title>
                                     <Implementation-Version>${project.version}</Implementation-Version>
                                     <Implementation-Vendor>${vendor.name}</Implementation-Vendor>

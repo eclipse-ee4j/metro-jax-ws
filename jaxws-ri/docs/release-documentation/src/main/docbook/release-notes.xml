@@ -60,7 +60,7 @@
                         <listitem>
                             <para>GlassFish contains &ws.impl.name; within Metro package so no installation required.
                             For updating &ws.impl.name; installation in GlassFish please refer to
-                            <link xlink:href="http://eclipselink-ee4j.github.io/metro-wsit">Metro</link> project.</para>
+                            <link xlink:href="https://eclipse-ee4j.github.io/metro-wsit">Metro</link> project.</para>
                         </listitem>
                     </itemizedlist></para>
             </listitem>

@@ -217,7 +217,7 @@
                         <bin.folder>${project.build.directory}</bin.folder>
                         <xml.bind-api.version>${xml.bind-api.version}</xml.bind-api.version>
                         <jakarta.annotation-api.version>${jakarta.annotation-api.version}</jakarta.annotation-api.version>
-                        <jaxws-api.version>${jaxws-api.version}</jaxws-api.version>
+                        <xml.ws-api.version>${xml.ws-api.version}</xml.ws-api.version>
                         <coverage>${coverage}</coverage>
                     </systemPropertyVariables>
                 </configuration>

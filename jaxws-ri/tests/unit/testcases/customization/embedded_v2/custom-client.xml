@@ -11,7 +11,7 @@
 
 -->
 
-<bindings xmlns="http://java.sun.com/xml/ns/jaxws">
+<bindings xmlns="https://jakarta.ee/xml/ns/jaxws">
     <bindings node="ns1:definitions/ns1:portType[@name='Hello']/ns1:operation[@name='Hello']" xmlns:ns1="http://schemas.xmlsoap.org/wsdl/">
         <enableAsyncMapping>true</enableAsyncMapping>        
     </bindings>

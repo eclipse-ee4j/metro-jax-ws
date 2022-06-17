@@ -185,14 +185,14 @@ public class XmlUtil {
     static final ContextClassloaderLocal<TransformerFactory> transformerFactory = new ContextClassloaderLocal<>() {
         @Override
         protected TransformerFactory initialValue() throws Exception {
-            return TransformerFactory.newInstance();
+            return newTransformerFactory(false);
         }
     };
 
     static final ContextClassloaderLocal<SAXParserFactory> saxParserFactory = new ContextClassloaderLocal<>() {
         @Override
         protected SAXParserFactory initialValue() throws Exception {
-            SAXParserFactory factory = newSAXParserFactory(true);
+            SAXParserFactory factory = newSAXParserFactory(false);
             factory.setNamespaceAware(true);
             return factory;
         }
@@ -304,6 +304,47 @@ public class XmlUtil {
             factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, !xmlSecurityDisabled(disableSecurity));
         } catch (TransformerConfigurationException e) {
             LOGGER.log(Level.WARNING, "Factory [{0}] doesn't support secure xml processing!", new Object[]{factory.getClass().getName()});
+        }
+
+        // if xml security (feature secure processing) disabled, nothing to do, no restrictions applied
+        if (xmlSecurityDisabled(disableSecurity)) {
+            if (LOGGER.isLoggable(Level.FINE)) {
+                LOGGER.log(Level.FINE, "Xml Security disabled, no JAXP xsd external access configuration necessary.");
+            }
+            return factory;
+        } else if (System.getProperty("javax.xml.accessExternalSchema") != null) {
+            if (LOGGER.isLoggable(Level.FINE)) {
+                LOGGER.log(Level.FINE, "Detected explicitly JAXP configuration, no JAXP xsd external access configuration necessary.");
+            }
+            return factory;
+        } else {
+            try {
+                factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+                if (LOGGER.isLoggable(Level.FINE)) {
+                    LOGGER.log(Level.FINE, "Property \"{0}\" is supported and has been successfully set by used JAXP implementation.", new Object[]{XMLConstants.ACCESS_EXTERNAL_SCHEMA});
+                }
+            } catch (IllegalArgumentException ignored) {
+                // nothing to do; support depends on version JDK or SAX implementation
+                if (LOGGER.isLoggable(Level.CONFIG)) {
+                    LOGGER.log(Level.CONFIG, "Property \"{0}\" is not supported by used JAXP implementation.", new Object[]{XMLConstants.ACCESS_EXTERNAL_SCHEMA});
+                }
+            }
+            try {
+                factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+                if (LOGGER.isLoggable(Level.FINE)) {
+                    LOGGER.log(Level.FINE, "Property \"{0}\" is supported and has been successfully set by used JAXP implementation.", new Object[]{XMLConstants.ACCESS_EXTERNAL_DTD});
+                }
+            } catch (IllegalArgumentException e) {
+                LOGGER.log(Level.WARNING, "Property \"{0}\" is not supported by used JAXP implementation.", new Object[]{factory.getClass().getName()});
+            }
+            try {
+                factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+                if (LOGGER.isLoggable(Level.FINE)) {
+                    LOGGER.log(Level.FINE, "Property \"{0}\" is supported and has been successfully set by used JAXP implementation.", new Object[]{XMLConstants.ACCESS_EXTERNAL_STYLESHEET});
+                }
+            } catch (IllegalArgumentException e) {
+                LOGGER.log(Level.WARNING, "Property \"{0}\" is not supported by used JAXP implementation.", new Object[]{factory.getClass().getName()});
+            }
         }
         return factory;
     }
