@@ -65,7 +65,7 @@
         <section xml:id="jax-ws-api">
             <title>&ws.spec.name.full; API</title>
 
-            <para>&ws.spec.name.full; is a new Release of XML-WS API and it has the following new features from &ws.spec.name.full; specification:</para>
+            <para>&ws.spec.name.full; is a new Release of XML-WS API and it has the following new features from &ws.spec.name; 3.0 specification:</para>
 
             <itemizedlist>
                 <listitem>
@@ -77,7 +77,7 @@
                 </listitem>
             </itemizedlist>
 
-            <para>&ws.spec.name.full; has the following features from &ws.spec.name; specification:</para>
+            <para>&ws.spec.name; 3.0 has the following features from &ws.spec.name; specification:</para>
 
             <itemizedlist>
                 <listitem>
