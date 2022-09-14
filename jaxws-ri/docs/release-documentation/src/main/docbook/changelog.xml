@@ -26,6 +26,16 @@
 
     <itemizedlist>
         <listitem>
+            <para>4.0.1</para>
+
+            <itemizedlist>
+                <listitem>
+                    <para>Switches protocol for W3C schemas to https, see <link xlink:href="https://www.w3.org/blog/2022/07/redirecting-to-https-on-www-w3-org/">the announcement</link> for details</para>
+                </listitem>
+            </itemizedlist>
+        </listitem>
+
+        <listitem>
             <para>4.0.0 - initial release for <link xlink:href="https://jakarta.ee/">Jakarta EE 10</link></para>
 
             <itemizedlist>
