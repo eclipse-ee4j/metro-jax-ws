@@ -26,7 +26,7 @@
     <parent>
         <groupId>com.sun.xml.ws.test</groupId>
         <artifactId>parent</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>jaxwscommons-91</artifactId>
