@@ -379,9 +379,14 @@ public abstract class SOAPFaultBuilder {
         }
 
         if (faultString == null) {
-            faultString = e.getMessage();
-            if (faultString == null) {
-                faultString = e.toString();
+            if (Boolean.getBoolean("com.sun.xml.ws.fault.doNotPrintExpMsg")) {
+                faultString = "Server Error";
+            }
+            else {
+                faultString = e.getMessage();
+                if (faultString == null) {
+                    faultString = e.toString();
+                }
             }
         }
         Element detailNode = null;
