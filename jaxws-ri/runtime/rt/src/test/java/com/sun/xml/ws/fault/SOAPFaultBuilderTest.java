@@ -33,7 +33,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import jakarta.xml.ws.soap.SOAPFaultException;
 import java.io.StringWriter;
-
+import java.util.Properties;
 
 /**
  * @author Jitendra Kotamraju
@@ -119,6 +119,30 @@ public class SOAPFaultBuilderTest extends TestCase {
     public void testCreate12FaultFromFault() throws Exception {
         Message msg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_12, FAULT_12);
         verifyDetail(msg);
+    }
+
+    public void testCreate11FaultFromRE() {
+        Properties props = System.getProperties();
+        props.setProperty("com.sun.xml.ws.fault.doNotPrintExpMsg","true");
+        RuntimeException re =  new RuntimeException("XML reader error: com.ctc.wstx.exc.WstxParsingException: Unexpected < character in element");
+        try {
+            Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_11, null, re);
+            XMLStreamReader rdr = faultMsg.readPayload();
+            while(rdr.hasNext()) {
+                int event = rdr.next();
+                    if (event == XMLStreamReader.START_ELEMENT) {
+                        if (rdr.getName().getLocalPart().equals("faultstring")) {
+                            event = rdr.next();
+                            assertEquals("Server Error", rdr.getText());
+                        }
+                    }
+             }
+        } catch(Exception ex) {
+             ex.printStackTrace();
+             fail(ex.getMessage());
+        } finally {
+             System.clearProperty("com.sun.xml.ws.fault.doNotPrintExpMsg");
+        }
     }
 
     public void testCreateException_14504957() throws Exception {
