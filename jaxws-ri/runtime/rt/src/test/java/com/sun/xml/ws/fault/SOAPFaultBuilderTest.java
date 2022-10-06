@@ -123,9 +123,10 @@ public class SOAPFaultBuilderTest extends TestCase {
 
     public void testCreate11FaultFromRE() {
         Properties props = System.getProperties();
-        props.setProperty("com.sun.xml.ws.fault.doNotPrintExpMsg","true");
+        props.setProperty("com.sun.xml.ws.fault.SOAPFaultBuilder.captureExceptionMessage","false");
         RuntimeException re =  new RuntimeException("XML reader error: com.ctc.wstx.exc.WstxParsingException: Unexpected < character in element");
         try {
+            SOAPFaultBuilder.setCaptureExceptionMessage();
             Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_11, null, re);
             XMLStreamReader rdr = faultMsg.readPayload();
             while(rdr.hasNext()) {
@@ -141,7 +142,7 @@ public class SOAPFaultBuilderTest extends TestCase {
              ex.printStackTrace();
              fail(ex.getMessage());
         } finally {
-             System.clearProperty("com.sun.xml.ws.fault.doNotPrintExpMsg");
+             System.clearProperty("com.sun.xml.ws.fault.SOAPFaultBuilder.captureExceptionMessage");
         }
     }
 
