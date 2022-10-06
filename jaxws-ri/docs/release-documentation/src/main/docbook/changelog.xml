@@ -32,6 +32,9 @@
                 <listitem>
                     <para>Switches protocol for W3C schemas to https, see <link xlink:href="https://www.w3.org/blog/2022/07/redirecting-to-https-on-www-w3-org/">the announcement</link> for details</para>
                 </listitem>
+                    <para>Added a new system property named com.sun.xml.ws.fault.SOAPFaultBuilder.captureExceptionMessage, which when set to false will not add exception messages in the faultstring</para>
+                <listitem>
+                </listitem>
             </itemizedlist>
         </listitem>
 
