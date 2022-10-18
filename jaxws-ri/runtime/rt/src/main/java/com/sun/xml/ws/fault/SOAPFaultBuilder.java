@@ -379,7 +379,7 @@ public abstract class SOAPFaultBuilder {
         }
 
         if (faultString == null) {
-            if (!getCaptureExceptionMessage()) {
+            if (!isCaptureExceptionMessage()) {
                 faultString = "Server Error";
             }
             else {
@@ -538,13 +538,17 @@ public abstract class SOAPFaultBuilder {
 
     private static final Logger logger = Logger.getLogger(SOAPFaultBuilder.class.getName());
 
-    private static boolean captureExceptionMessage = getBooleanSystemProperty();
+    private static boolean captureExceptionMessage = true;
     /**
      * Set to false if you don't want the generated faults to have stack trace in it.
      */
     public static final boolean captureStackTrace;
 
     /*package*/ static final String CAPTURE_STACK_TRACE_PROPERTY = SOAPFaultBuilder.class.getName()+".captureStackTrace";
+
+   public static void setCaptureExceptionMessage(boolean capture) {
+        captureExceptionMessage = capture;
+   }
 
     static {
         boolean tmpVal = false;
@@ -555,6 +559,13 @@ public abstract class SOAPFaultBuilder {
         }
         captureStackTrace = tmpVal;
         JAXB_CONTEXT = createJAXBContext();
+        try {
+            if (System.getProperty("com.sun.xml.ws.fault.SOAPFaultBuilder.captureExceptionMessage") != null) {
+                setCaptureExceptionMessage(Boolean.getBoolean("com.sun.xml.ws.fault.SOAPFaultBuilder.captureExceptionMessage"));
+            }
+        } catch (SecurityException e) {
+            // ignore
+        }
     }
 
     private static JAXBContext createJAXBContext() {
@@ -565,21 +576,7 @@ public abstract class SOAPFaultBuilder {
         }
     }
 
-   private static boolean getBooleanSystemProperty() {
-        final String propertyString = System.getProperty("com.sun.xml.ws.fault.SOAPFaultBuilder.captureExceptionMessage");
-        if (propertyString == null) {
-            //default value 
-            return true;
-        } else {
-            return Boolean.getBoolean(propertyString);
-        }
-    }
-
-   public static boolean getCaptureExceptionMessage() {
+   public static boolean isCaptureExceptionMessage() {
         return captureExceptionMessage;
-   }
-
-   public static void setCaptureExceptionMessage() {
-        captureExceptionMessage = getBooleanSystemProperty();
    }
 }
