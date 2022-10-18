@@ -33,7 +33,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import jakarta.xml.ws.soap.SOAPFaultException;
 import java.io.StringWriter;
-import java.util.Properties;
 
 /**
  * @author Jitendra Kotamraju
