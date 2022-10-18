@@ -379,9 +379,14 @@ public abstract class SOAPFaultBuilder {
         }
 
         if (faultString == null) {
-            faultString = e.getMessage();
-            if (faultString == null) {
-                faultString = e.toString();
+            if (!isCaptureExceptionMessage()) {
+                faultString = "Server Error";
+            }
+            else {
+                faultString = e.getMessage();
+                if (faultString == null) {
+                    faultString = e.toString();
+                }
             }
         }
         Element detailNode = null;
@@ -533,12 +538,17 @@ public abstract class SOAPFaultBuilder {
 
     private static final Logger logger = Logger.getLogger(SOAPFaultBuilder.class.getName());
 
+    private static boolean captureExceptionMessage = true;
     /**
      * Set to false if you don't want the generated faults to have stack trace in it.
      */
     public static final boolean captureStackTrace;
 
     /*package*/ static final String CAPTURE_STACK_TRACE_PROPERTY = SOAPFaultBuilder.class.getName()+".captureStackTrace";
+
+   public static void setCaptureExceptionMessage(boolean capture) {
+        captureExceptionMessage = capture;
+   }
 
     static {
         boolean tmpVal = false;
@@ -549,6 +559,13 @@ public abstract class SOAPFaultBuilder {
         }
         captureStackTrace = tmpVal;
         JAXB_CONTEXT = createJAXBContext();
+        try {
+            if (System.getProperty("com.sun.xml.ws.fault.SOAPFaultBuilder.captureExceptionMessage") != null) {
+                setCaptureExceptionMessage(Boolean.getBoolean("com.sun.xml.ws.fault.SOAPFaultBuilder.captureExceptionMessage"));
+            }
+        } catch (SecurityException e) {
+            // ignore
+        }
     }
 
     private static JAXBContext createJAXBContext() {
@@ -558,4 +575,8 @@ public abstract class SOAPFaultBuilder {
             throw new Error(e);
         }
     }
+
+   public static boolean isCaptureExceptionMessage() {
+        return captureExceptionMessage;
+   }
 }
