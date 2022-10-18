@@ -115,6 +115,9 @@
                     xlink:href="https://github.com/eclipse-ee4j/metro-jax-ws/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.2">Bug
                     fixes</link></para>
                 </listitem>
+                    <para>Added a new system property named com.sun.xml.ws.fault.SOAPFaultBuilder.captureExceptionMessage, which when set to false will not add exception messages in the faultstring</para>
+                <listitem>
+                </listitem>
             </itemizedlist>
         </listitem>
 

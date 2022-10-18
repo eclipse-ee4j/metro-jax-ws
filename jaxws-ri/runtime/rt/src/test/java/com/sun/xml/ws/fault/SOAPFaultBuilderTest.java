@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -119,6 +119,29 @@ public class SOAPFaultBuilderTest extends TestCase {
     public void testCreate12FaultFromFault() throws Exception {
         Message msg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_12, FAULT_12);
         verifyDetail(msg);
+    }
+
+    public void testCreate11FaultFromRE() {
+        RuntimeException re =  new RuntimeException("XML reader error: com.ctc.wstx.exc.WstxParsingException: Unexpected < character in element");
+        try {
+            SOAPFaultBuilder.setCaptureExceptionMessage(false);
+            Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_11, null, re);
+            XMLStreamReader rdr = faultMsg.readPayload();
+            while(rdr.hasNext()) {
+                int event = rdr.next();
+                    if (event == XMLStreamReader.START_ELEMENT) {
+                        if (rdr.getName().getLocalPart().equals("faultstring")) {
+                            event = rdr.next();
+                            assertEquals("Server Error", rdr.getText());
+                        }
+                    }
+             }
+        } catch(Exception ex) {
+             ex.printStackTrace();
+             fail(ex.getMessage());
+        } finally{
+             SOAPFaultBuilder.setCaptureExceptionMessage(true);
+        }
     }
 
     public void testCreateException_14504957() throws Exception {
