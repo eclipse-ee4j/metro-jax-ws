@@ -138,6 +138,8 @@ public class SOAPFaultBuilderTest extends TestCase {
         } catch(Exception ex) {
              ex.printStackTrace();
              fail(ex.getMessage());
+        } finally{
+             SOAPFaultBuilder.setCaptureExceptionMessage(true);
         }
     }
 
