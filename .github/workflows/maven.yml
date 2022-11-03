@@ -31,7 +31,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        distribution: 'zulu'
+        distribution: 'temurin'
         java-version: ${{ matrix.java_version }}
     - name: Verify
       run: cd jaxws-ri && mvn -B -V -U -C -Pstaging,oss-release clean verify org.glassfish.copyright:glassfish-copyright-maven-plugin:check -Dgpg.skip=true -Doss.disallow.snapshots=false -Dittest=true
