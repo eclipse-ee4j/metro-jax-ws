@@ -1,7 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * Oracle licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
@@ -66,7 +66,7 @@ public class MixedITCase {
         Assertions.assertFilePresent(project, "target/test-classes/wsimport/test/schema/SumType.class");
         Assertions.assertFilePresent(project, "target/generated-sources/test-wsimport/wsimport/test/SumUtil.java");
         Assertions.assertFileNotPresent(project, "target/classes/wsimport/test/AddService.class");
-        Assertions.assertFileContains(project, "target/generated-sources/test-wsimport/wsimport/test/SumUtil.java", "JAX-WS RI " + version);
+        Assertions.assertFileContains(project, "target/generated-sources/test-wsimport/wsimport/test/SumUtil.java", "XML-WS Tools " + version);
     }
 
     @Test
@@ -89,7 +89,7 @@ public class MixedITCase {
         //-wsdl:Xsoap12 + -extension
         Assertions.assertFileContains(project, "target/wsdl/EchoService.wsdl", "http://schemas.xmlsoap.org/wsdl/soap12/");
         //default dependency on JDK version
-        Assertions.assertFileContains(project, "target/wsdl/EchoService.wsdl", "JAX-WS RI " + version);
+        Assertions.assertFileContains(project, "target/wsdl/EchoService.wsdl", "XML-WS Runtime " + version);
 
         //check AddService
         Assertions.assertFilePresent(project, "target/classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/Add.class");
@@ -108,7 +108,7 @@ public class MixedITCase {
         Assertions.assertFileNotPresent(project, "target/test-classes/org/jvnet/jax_ws_commons/jaxws/test/TService.java");
         Assertions.assertFileNotPresent(project, "target/test-classes/org/jvnet/jax_ws_commons/jaxws/test/jaxws/HelloResponse.java");
         //default dependency on JDK version
-        Assertions.assertFileContains(project, "target/generated-sources/test-wsdl/ExService.wsdl", "JAX-WS RI " + version);
+        Assertions.assertFileContains(project, "target/generated-sources/test-wsdl/ExService.wsdl", "XML-WS Runtime " + version);
         //-portname
         Assertions.assertFileContains(project, "target/generated-sources/test-wsdl/ExService.wsdl", "port name=\"ExPort\"");
         //-servicename
