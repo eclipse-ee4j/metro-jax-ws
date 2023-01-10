@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2022 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2022, 2023 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Cancel previous runs of this workflow
-        uses: styfle/cancel-workflow-action@0.9.1
+        uses: styfle/cancel-workflow-action@0.11.0
         with:
           all_but_latest: true
           access_token: ${{ github.token }}
@@ -46,7 +46,7 @@ jobs:
           cd ..
           echo "::set-output name=jdk::${{ matrix.java_version }}"
       - name: Upload binary image
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: success()
         with:
           name: binary
@@ -73,14 +73,14 @@ jobs:
         with:
           fetch-depth: 0
       - name: Download binaries
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: binary
       - name: Test
         run: |
           export ROOT=`pwd`
           unzip -q -d image jaxws-ri.zip
-          wget -q -O tomcat.zip https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.1/bin/apache-tomcat-10.1.1.zip
+          wget -q -O tomcat.zip https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.4/bin/apache-tomcat-10.1.4.zip
           unzip -q tomcat.zip
           cd jaxws-ri
-          mvn -B -V -U -C -am clean verify -Poss-release,staging -Dgpg.skip=true -Doss.disallow.snapshots=false -pl :jaxws-unit -Dtomcat.home=$ROOT/apache-tomcat-10.1.1 -Dws.transport=${{ matrix.test_suite }} -Dws.localImage=$ROOT/image
+          mvn -B -V -U -C -am clean verify -Poss-release,staging -Dgpg.skip=true -Doss.disallow.snapshots=false -pl :jaxws-unit -Dtomcat.home=$ROOT/apache-tomcat-10.1.4 -Dws.transport=${{ matrix.test_suite }} -Dws.localImage=$ROOT/image
