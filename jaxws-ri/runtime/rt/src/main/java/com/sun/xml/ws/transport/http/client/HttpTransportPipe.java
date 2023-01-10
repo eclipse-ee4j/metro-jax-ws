@@ -427,7 +427,7 @@ public class HttpTransportPipe extends AbstractTubeImpl {
             if(header.getValue().isEmpty()) {
                 // I don't think this is legal, but let's just dump it,
                 // as the point of the dump is to uncover problems.
-                pw.println(header.getValue());
+                pw.println(header.getKey() + ": " + header.getValue());
             } else {
                 for (String value : header.getValue()) {
                     pw.println(header.getKey()+": "+value);
