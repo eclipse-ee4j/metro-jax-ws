@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,9 +32,12 @@
                 <listitem>
                     <para>Switches protocol for W3C schemas to https, see <link xlink:href="https://www.w3.org/blog/2022/07/redirecting-to-https-on-www-w3-org/">the announcement</link> for details</para>
                 </listitem>
-                    <para>Added a new system property named com.sun.xml.ws.fault.SOAPFaultBuilder.captureExceptionMessage, which when set to false will not add exception messages in the faultstring</para>
                 <listitem>
+                    <para>Added a new system property named com.sun.xml.ws.fault.SOAPFaultBuilder.captureExceptionMessage, which when set to false will not add exception messages in the faultstring</para>
                 </listitem>
+                <listitem><para>
+                    <link xlink:href="https://github.com/eclipse-ee4j/metro-jax-ws/issues/627">#627</link>: HttpTransportPipe dump - improve logging on empty header values
+                </para></listitem>
             </itemizedlist>
         </listitem>
 
