@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -428,7 +428,7 @@ public class HttpTransportPipe extends AbstractTubeImpl {
             if(header.getValue().isEmpty()) {
                 // I don't think this is legal, but let's just dump it,
                 // as the point of the dump is to uncover problems.
-                pw.println(header.getValue());
+                pw.println(header.getKey() + ": " + header.getValue());
             } else {
                 for (String value : header.getValue()) {
                     pw.println(header.getKey() + ": " + value);
