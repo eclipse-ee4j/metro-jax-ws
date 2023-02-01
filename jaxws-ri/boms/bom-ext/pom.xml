@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,15 +31,15 @@
     <description>JAX-WS Reference Implementation Bill-of-Materials (BOM) Extensions</description>
 
     <properties>
-        <ant.version>1.10.11</ant.version>
+        <ant.version>1.10.13</ant.version>
         <!-- CQ 21208 -->
         <asm.version>9.2</asm.version>
         <commonj.sdo.version>2.1.1</commonj.sdo.version>
-        <eclipselink.version>2.7.9</eclipselink.version>
+        <eclipselink.version>2.7.11</eclipselink.version>
         <javax.persistance.version>2.2.3</javax.persistance.version>
         <junit.version>4.13.2</junit.version>
         <mail.version>1.6.7</mail.version>
-        <servlet-api.version>4.0.3</servlet-api.version>
+        <servlet-api.version>4.0.4</servlet-api.version>
     </properties>
             
     <dependencyManagement>
