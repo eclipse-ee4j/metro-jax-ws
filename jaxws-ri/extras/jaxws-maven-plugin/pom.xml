@@ -3,7 +3,7 @@
 
     DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-    Copyright (c) 2006, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2006, 2023 Oracle and/or its affiliates. All rights reserved.
 
     Oracle licenses this file to You under the Apache License, Version 2.0
     (the "License"); you may not use this file except in compliance with
@@ -165,7 +165,7 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
-        <spotbugs.version>4.3.0</spotbugs.version>
+        <spotbugs.version>4.7.3.0</spotbugs.version>
 
         <jaxws-tools.version>${project.version}</jaxws-tools.version>
         <!--<jaxws-tools.version>2.3.2</jaxws-tools.version>-->
