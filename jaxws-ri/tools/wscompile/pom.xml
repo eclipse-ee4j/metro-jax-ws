@@ -318,7 +318,7 @@
                                         destdir="${basedir}/target/EBCDIC"
                                         quiet="true"
                                         xendorsed="true"
-                                        wsdl="${basedir}/src/test/resources/com/sun/tools/ws/EBCDIC.wsdl">
+                                        wsdl="${basedir}/src/test/resources/com/sun/tools/ws/test/EBCDIC.wsdl">
                                     <jvmarg line="-Dfile.encoding=Cp037"/>
                                     <jvmarg line="-Dnet.sourceforge.cobertura.datafile=${net.sourceforge.cobertura.datafile}"/>
                                 </wsimport>
