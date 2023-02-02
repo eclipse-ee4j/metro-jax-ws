@@ -1156,4 +1156,3 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
         HttpAdapter.dump_threshold = threshold;
     }
 }
-

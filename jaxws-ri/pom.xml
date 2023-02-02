@@ -787,5 +787,4 @@
             <artifactId>jakarta.annotation-api</artifactId>
         </dependency>
     </dependencies>
-
 </project>
