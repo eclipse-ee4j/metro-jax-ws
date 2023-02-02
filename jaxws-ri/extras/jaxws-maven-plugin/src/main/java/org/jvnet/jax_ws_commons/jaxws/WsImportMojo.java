@@ -51,8 +51,7 @@ import org.apache.maven.settings.Settings;
  * @author dantran (dantran at apache.org)
  * @version $Id: WsImportMojo.java 3169 2007-01-22 02:51:29Z dantran $
  */
-abstract class WsImportMojo extends AbstractJaxwsMojo
-{
+abstract class WsImportMojo extends AbstractJaxwsMojo {
 
     private static final String STALE_FILE_PREFIX = ".";
 

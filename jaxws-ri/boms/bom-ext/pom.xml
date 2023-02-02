@@ -99,7 +99,6 @@
                 <classifier>sources</classifier>
                 <version>${asm.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
         
