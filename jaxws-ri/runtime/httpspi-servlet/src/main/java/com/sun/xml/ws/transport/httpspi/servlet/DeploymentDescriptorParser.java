@@ -531,5 +531,4 @@ public class DeploymentDescriptorParser<A> {
     public static final String ATTRVALUE_VERSION_1_0 = "2.0";
     private static final Logger logger =
         Logger.getLogger(DeploymentDescriptorParser.class.getName());
-
 }

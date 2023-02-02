@@ -44,7 +44,6 @@ public class JAXBWrapperAccessorTest extends TestCase {
         }
 
         for (Field f : System.class.getDeclaredFields()) {
-//            System.out.println("try " + f);
             try {
                 FieldGetter getter = new FieldGetter(f);
                 fail();
@@ -57,7 +56,6 @@ public class JAXBWrapperAccessorTest extends TestCase {
             }
         }
         for (Method m : System.class.getDeclaredMethods()) {
-//            System.out.println("try " + m);
             try {
                 MethodGetter getter = new MethodGetter(m);
                 fail();

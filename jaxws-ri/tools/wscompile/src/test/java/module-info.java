@@ -32,5 +32,4 @@ module com.sun.tools.ws.wscompile.test {
     uses com.sun.tools.ws.api.WsgenExtension;
     uses com.sun.tools.ws.api.wsdl.TWSDLExtensionHandler;
     uses com.sun.tools.ws.wscompile.Plugin;
-
 }

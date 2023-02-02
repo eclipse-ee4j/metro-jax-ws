@@ -177,5 +177,4 @@ public class SOAPFaultBuilderTest extends TestCase {
             fail("There is no detail element in the fault");
         }
     }
-
 }
