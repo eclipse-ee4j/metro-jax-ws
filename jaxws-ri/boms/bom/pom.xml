@@ -67,7 +67,6 @@
                 <version>${stax2-api.version}</version>
             </dependency>
 
-
             <!-- Source artifacts -->
             <dependency>
                 <groupId>com.sun.xml.stream.buffer</groupId>

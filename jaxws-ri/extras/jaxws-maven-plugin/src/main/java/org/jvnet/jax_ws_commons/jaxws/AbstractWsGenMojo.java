@@ -260,7 +260,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
         } catch (IOException ex) {
             throw new MojoExecutionException(ex.getMessage(), ex);
         } finally {
-            if (cl != null && cl instanceof Closeable) {
+            if (cl instanceof Closeable) {
                 try {
                     ((Closeable) cl).close();
                 } catch (IOException ex) {
