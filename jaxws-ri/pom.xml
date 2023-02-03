@@ -258,6 +258,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.10.1</version>
                     <configuration>
+                        <createMissingPackageInfoClass>false</createMissingPackageInfoClass>
                         <source>${upper.java.level}</source>
                         <target>${upper.java.level}</target>
                         <compilerArgs>
