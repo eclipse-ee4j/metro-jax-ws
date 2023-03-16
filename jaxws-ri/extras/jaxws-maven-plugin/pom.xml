@@ -182,7 +182,8 @@
         <warn.limit>150</warn.limit>
         <jdoc.doclint>-missing</jdoc.doclint>
 
-        <jaxws-tools.version>${project.version}</jaxws-tools.version>
+<!--        <jaxws-tools.version>${project.version}</jaxws-tools.version>-->
+        <jaxws-tools.version>4.0.1</jaxws-tools.version>
     </properties>
 
     <build>
@@ -441,7 +442,7 @@
                                 <jaxws.plugin.version>${project.version}</jaxws.plugin.version>
                                 <jaxws-ri.version>${jaxws-tools.version}</jaxws-ri.version>
                                 <xml.ws.api.version>4.0.0</xml.ws.api.version>
-                                <metro.version>4.0.0-M3</metro.version>
+                                <metro.version>4.0.1</metro.version>
                             </filterProperties>
                             <properties>
                                 <javax.xml.accessExternalSchema>all</javax.xml.accessExternalSchema>
