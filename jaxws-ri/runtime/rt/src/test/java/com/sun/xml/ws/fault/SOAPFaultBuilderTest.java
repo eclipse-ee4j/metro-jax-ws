@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,10 +21,12 @@ import org.w3c.dom.Node;
 import javax.xml.namespace.QName;
 import jakarta.xml.soap.Detail;
 import jakarta.xml.soap.MessageFactory;
+import jakarta.xml.soap.SOAPConstants;
 import jakarta.xml.soap.SOAPElement;
 import jakarta.xml.soap.SOAPFactory;
 import jakarta.xml.soap.SOAPFault;
 import jakarta.xml.soap.SOAPMessage;
+
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -125,21 +127,88 @@ public class SOAPFaultBuilderTest extends TestCase {
         try {
             SOAPFaultBuilder.setCaptureExceptionMessage(false);
             Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_11, null, re);
-            XMLStreamReader rdr = faultMsg.readPayload();
-            while(rdr.hasNext()) {
-                int event = rdr.next();
-                    if (event == XMLStreamReader.START_ELEMENT) {
-                        if (rdr.getName().getLocalPart().equals("faultstring")) {
-                            event = rdr.next();
-                            assertEquals("Server Error", rdr.getText());
-                        }
-                    }
-             }
+            verifyFaultStringForSoap11(faultMsg);
         } catch(Exception ex) {
              ex.printStackTrace();
              fail(ex.getMessage());
         } finally{
              SOAPFaultBuilder.setCaptureExceptionMessage(true);
+        }
+    }
+
+    public void testCreate12FaultFromRE() {
+        RuntimeException re = new RuntimeException(
+                "XML reader error: com.ctc.wstx.exc.WstxParsingException: Unexpected < character in element");
+        try {
+            SOAPFaultBuilder.setCaptureExceptionMessage(false);
+            Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_12, null, re);
+            verifyFaultStringForSoap12(faultMsg);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            fail(ex.getMessage());
+        } finally {
+            SOAPFaultBuilder.setCaptureExceptionMessage(true);
+        }
+    }
+
+    public void testCreateSOAPFaultMessageWithSOAPFaultArgumentForSOAP11() {
+        try {
+            SOAPFaultBuilder.setCaptureExceptionMessage(false);
+            Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_11, FAULT_11);
+            verifyFaultStringForSoap11(faultMsg);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            fail(ex.getMessage());
+        } finally {
+            SOAPFaultBuilder.setCaptureExceptionMessage(true);
+        }
+    }
+
+    public void testCreateSOAPFaultMessageWithFaultStringArgumentForSOAP11() {
+
+        String faultString = "Couldn't create SOAP message due to exception: XML reader error: "
+                + "com.ctc.wstx.exc.WstxParsingException: Unexpected '&lt;' character in element "
+                + "(missing closing '>'?)";
+        try {
+            SOAPFaultBuilder.setCaptureExceptionMessage(false);
+            Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_11, faultString, DETAIL1_QNAME);
+            verifyFaultStringForSoap11(faultMsg);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            fail(ex.getMessage());
+        } finally {
+            SOAPFaultBuilder.setCaptureExceptionMessage(true);
+        }
+    }
+
+    public void testCreateSOAPFaultMessageWithSOAPFaultArgumentForSOAP12() {
+        try {
+            SOAPFaultBuilder.setCaptureExceptionMessage(false);
+            Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_12, FAULT_12);
+            verifyFaultStringForSoap12(faultMsg);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            fail(ex.getMessage());
+        } finally {
+            SOAPFaultBuilder.setCaptureExceptionMessage(true);
+        }
+    }
+
+    public void testCreateSOAPFaultMessageWithFaultStringArgumentForSOAP12() {
+
+        String faultString = "Couldn't create SOAP message due to exception: XML reader error: "
+                + "com.ctc.wstx.exc.WstxParsingException: Unexpected '&lt;' character in element "
+                + "(missing closing '>'?)";
+        try {
+            SOAPFaultBuilder.setCaptureExceptionMessage(false);
+            Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_12, faultString,
+                    SOAPConstants.SOAP_RECEIVER_FAULT);
+            verifyFaultStringForSoap12(faultMsg);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            fail(ex.getMessage());
+        } finally {
+            SOAPFaultBuilder.setCaptureExceptionMessage(true);
         }
     }
 
@@ -177,4 +246,30 @@ public class SOAPFaultBuilderTest extends TestCase {
         }
     }
 
+    private void verifyFaultStringForSoap11(Message faultMsg) throws Exception {
+        boolean isfaultStringPresent = false;
+        XMLStreamReader rdr = faultMsg.readPayload();
+        while (rdr.hasNext()) {
+            int event = rdr.next();
+            if (event == XMLStreamReader.START_ELEMENT) {
+                if (rdr.getName().getLocalPart().equals("faultstring")) {
+                    isfaultStringPresent = true;
+                    event = rdr.next();
+                    assertEquals(SOAPFaultBuilder.SERVER_ERROR, rdr.getText());
+                }
+            }
+        }
+        if(!isfaultStringPresent) {
+            fail("There is no faultstring in the response");
+        }
+    }
+
+    private void verifyFaultStringForSoap12(Message faultMsg) throws Exception {
+        SOAPFaultBuilder sfb = SOAPFaultBuilder.create(faultMsg);
+        Throwable ex = sfb.createException(null);
+        assertTrue(ex instanceof SOAPFaultException);
+        SOAPFaultException sfe = (SOAPFaultException) ex;
+        SOAPFault sf = sfe.getFault();
+        assertTrue(sf.getFaultString().equals(SOAPFaultBuilder.SERVER_ERROR));
+    }
 }
