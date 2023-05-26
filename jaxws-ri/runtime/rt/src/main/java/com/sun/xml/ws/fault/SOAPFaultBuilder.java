@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,28 +18,29 @@ import com.sun.xml.ws.api.model.ExceptionType;
 import com.sun.xml.ws.encoding.soap.SOAP12Constants;
 import com.sun.xml.ws.encoding.soap.SOAPConstants;
 import com.sun.xml.ws.encoding.soap.SerializationException;
-import com.sun.xml.ws.message.jaxb.JAXBMessage;
 import com.sun.xml.ws.message.FaultMessage;
+import com.sun.xml.ws.message.jaxb.JAXBMessage;
 import com.sun.xml.ws.model.CheckedExceptionImpl;
 import com.sun.xml.ws.model.JavaMethodImpl;
 import com.sun.xml.ws.spi.db.XMLBridge;
 import com.sun.xml.ws.util.DOMUtil;
 import com.sun.xml.ws.util.StringUtils;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.soap.Detail;
+import jakarta.xml.soap.DetailEntry;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPFault;
+import jakarta.xml.ws.ProtocolException;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.soap.SOAPFaultException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.annotation.XmlTransient;
 import javax.xml.namespace.QName;
-import jakarta.xml.soap.SOAPFault;
-import jakarta.xml.soap.Detail;
-import jakarta.xml.soap.DetailEntry;
 import javax.xml.transform.dom.DOMResult;
-import jakarta.xml.ws.ProtocolException;
-import jakarta.xml.ws.WebServiceException;
-import jakarta.xml.ws.soap.SOAPFaultException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -55,6 +56,8 @@ import java.util.logging.Logger;
  * @author Vivek Pandey
  */
 public abstract class SOAPFaultBuilder {
+
+    public static final String SERVER_ERROR = "Server Error";
 
     /**
      * Default constructor.
@@ -214,7 +217,10 @@ public abstract class SOAPFaultBuilder {
         return createSOAPFaultMessage(soapVersion, faultString, faultCode, null);
     }
 
-    public static Message createSOAPFaultMessage(SOAPVersion soapVersion, SOAPFault fault) {
+    public static Message createSOAPFaultMessage(SOAPVersion soapVersion, SOAPFault fault) throws SOAPException {
+        if (!isCaptureExceptionMessage()) {
+            fault.setFaultString(SERVER_ERROR);
+        }
         switch (soapVersion) {
             case SOAP_11:
                 return JAXBMessage.create(JAXB_CONTEXT, new SOAP11Fault(fault), soapVersion);
@@ -226,6 +232,9 @@ public abstract class SOAPFaultBuilder {
     }
 
     private static Message createSOAPFaultMessage(SOAPVersion soapVersion, String faultString, QName faultCode, Element detail) {
+        if (!isCaptureExceptionMessage()) {
+            faultString = SERVER_ERROR;
+        }
         switch (soapVersion) {
             case SOAP_11:
                 return JAXBMessage.create(JAXB_CONTEXT, new SOAP11Fault(faultCode, faultString, null, detail), soapVersion);
@@ -379,14 +388,9 @@ public abstract class SOAPFaultBuilder {
         }
 
         if (faultString == null) {
-            if (!isCaptureExceptionMessage()) {
-                faultString = "Server Error";
-            }
-            else {
-                faultString = e.getMessage();
-                if (faultString == null) {
-                    faultString = e.toString();
-                }
+            faultString = e.getMessage();
+            if (faultString == null) {
+                faultString = e.toString();
             }
         }
         Element detailNode = null;
@@ -406,6 +410,11 @@ public abstract class SOAPFaultBuilder {
                 faultCode = getDefaultFaultCode(soapVersion);
             }
         }
+
+        if (!isCaptureExceptionMessage()) {
+            faultString = SERVER_ERROR;
+        }
+
         SOAP11Fault soap11Fault = new SOAP11Fault(faultCode, faultString, faultActor, detailNode);
         
         //Don't fill the stacktrace for Service specific exceptions.
@@ -483,7 +492,6 @@ public abstract class SOAPFaultBuilder {
             }
         }
 
-        ReasonType reason = new ReasonType(faultString);
         Element detailNode = null;
         QName firstEntry = null;
         if (detail == null && soapFaultException != null) {
@@ -500,6 +508,11 @@ public abstract class SOAPFaultBuilder {
                 faultString = e.getMessage();
             }
         }
+
+        if (!isCaptureExceptionMessage()) {
+            faultString = SERVER_ERROR;
+        }
+        ReasonType reason = new ReasonType(faultString);
 
         SOAP12Fault soap12Fault = new SOAP12Fault(code, reason, faultNode, faultRole, detailNode);
 
