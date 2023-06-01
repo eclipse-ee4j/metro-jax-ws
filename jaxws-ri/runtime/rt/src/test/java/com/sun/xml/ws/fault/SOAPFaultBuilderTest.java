@@ -270,6 +270,6 @@ public class SOAPFaultBuilderTest extends TestCase {
         assertTrue(ex instanceof SOAPFaultException);
         SOAPFaultException sfe = (SOAPFaultException) ex;
         SOAPFault sf = sfe.getFault();
-        assertTrue(sf.getFaultString().equals(SOAPFaultBuilder.SERVER_ERROR));
+        assertEquals(sf.getFaultString(),SOAPFaultBuilder.SERVER_ERROR);
     }
 }
