@@ -175,6 +175,8 @@
         <findsecbugs.version>1.11.0</findsecbugs.version>
         <maven.compiler.release>11</maven.compiler.release>
         <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
         <!-- exclude big groups from the Xlint -->
         <comp.xlint>-Xlint:all</comp.xlint>
         <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
@@ -192,17 +194,17 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.3.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.10.1</version>
+                    <version>3.11.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-plugin-plugin</artifactId>
-                    <version>3.7.1</version>
+                    <version>3.9.0</version>
                     <configuration>
                         <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
                         <extractors>
@@ -213,7 +215,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M8</version>
+                    <version>3.1.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -223,12 +225,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.2.1</version>
+                    <version>3.3.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.4.1</version>
+                    <version>3.5.0</version>
                 </plugin>
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
@@ -252,7 +254,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>8.0.1</version>
+                    <version>8.2.1</version>
                     <configuration>
                         <failBuildOnCVSS>7</failBuildOnCVSS>
                         <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
@@ -281,7 +283,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>4.0.0-M4</version>
+                    <version>4.0.0-M8</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -300,7 +302,6 @@
                         <arg>${warn.limit}</arg>
                     </compilerArgs>
                     <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
                 </configuration>
             </plugin>
             <plugin>
@@ -332,12 +333,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>3.6.1</version>
+                <version>3.9.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.4.2</version>
+                <version>3.4.5</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -402,12 +403,12 @@
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-invoker-plugin</artifactId>
-                            <version>3.4.0</version>
+                            <version>3.5.1</version>
                         </plugin>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-failsafe-plugin</artifactId>
-                            <version>3.0.0-M8</version>
+                            <version>3.1.2</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
@@ -512,7 +513,6 @@
                                         <it.projects.dir>${project.build.directory}/it tests</it.projects.dir>
                                         <jaxws-ri.version>${jaxws-tools.version}</jaxws-ri.version>
                                     </systemPropertyVariables>
-                                    <encoding>${project.build.sourceEncoding}</encoding>
                                 </configuration>
                             </execution>
                         </executions>

@@ -222,9 +222,9 @@
                     </includes>
                     <!-- exclude APIs as implementations are needed on the path -->
                     <!--classpathDependencyExcludes>jakarta.mail:jakarta.mail-api</classpathDependencyExcludes-->
-                    <systemProperties>
+                    <systemPropertyVariables>
                         <jakarta.xml.ws.spi.Provider>com.sun.xml.ws.spi.ProviderImpl</jakarta.xml.ws.spi.Provider>
-                    </systemProperties>
+                    </systemPropertyVariables>
                     <!-- SAAJMessageWrapperTest/com.sun.xml.ws.model.Injector -->
                 </configuration>
             </plugin>
