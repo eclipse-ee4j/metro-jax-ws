@@ -79,7 +79,7 @@
         <spotbugs.exclude>${project.basedir}/exclude.xml</spotbugs.exclude>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Low</spotbugs.threshold>
-        <spotbugs.version>4.7.3.0</spotbugs.version>
+        <spotbugs.version>4.7.3.4</spotbugs.version>
         <findsecbugs.version>1.11.0</findsecbugs.version>
 
         <maven.compiler.release>11</maven.compiler.release>
@@ -99,9 +99,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <legal.doc.source>${project.basedir}/../../..</legal.doc.source>
 
-        <jaxb.version>4.0.2</jaxb.version>
+        <jaxb.version>4.0.3</jaxb.version>
         <junit.version>4.13.2</junit.version>
-        <istack.plugin.version>4.1.1</istack.plugin.version>
+        <istack.plugin.version>4.1.2</istack.plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -207,6 +207,27 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M8</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>2.15.0</version>
+                    <configuration>
+                        <ruleSet>
+                            <rules>
+                                <rule>
+                                    <!-- 4.2.0+ comes with no SecurityManager support -->
+                                    <groupId>com.sun.istack</groupId>
+                                    <ignoreVersions>
+                                        <ignoreVersion>
+                                            <type>regex</type>
+                                            <version>4.[2-9]+.*</version>
+                                        </ignoreVersion>
+                                    </ignoreVersions>
+                                </rule>
+                            </rules>
+                        </ruleSet>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

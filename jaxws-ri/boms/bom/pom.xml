@@ -36,17 +36,17 @@
         <istack.plugin.version>4.1.2</istack.plugin.version>
         <gmbal-api.version>4.0.3</gmbal-api.version>
         <ha-api.version>3.1.13</ha-api.version>
-        <jaxb.version>4.0.2</jaxb.version>
+        <jaxb.version>4.0.3</jaxb.version>
         <xml.ws-api.version>4.0.0</xml.ws-api.version>
         <management-api.version>3.2.3</management-api.version>
         <mimepull.version>1.10.0</mimepull.version>
         <saaj-api.version>3.0.0</saaj-api.version>
         <saaj-impl.version>3.0.2</saaj-impl.version>
         <streambuffer.version>2.1.0</streambuffer.version>
-        <woodstox-core.version>6.5.0</woodstox-core.version>
+        <woodstox-core.version>6.5.1</woodstox-core.version>
         <stax2-api.version>4.2.1</stax2-api.version>
-        <activation-api.version>2.1.1</activation-api.version>
-        <angus-activation.version>2.0.0</angus-activation.version>
+        <activation-api.version>2.1.2</activation-api.version>
+        <angus-activation.version>2.0.1</angus-activation.version>
         <jakarta.annotation-api.version>2.1.1</jakarta.annotation-api.version>
     </properties>
 
@@ -229,4 +229,31 @@
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>2.15.0</version>
+                    <configuration>
+                        <ruleSet>
+                            <rules>
+                                <rule>
+                                    <!-- 4.2.0+ comes with no SecurityManager support -->
+                                    <groupId>com.sun.istack</groupId>
+                                    <ignoreVersions>
+                                        <ignoreVersion>
+                                            <type>regex</type>
+                                            <version>4.[2-9]+.*</version>
+                                        </ignoreVersion>
+                                    </ignoreVersions>
+                                </rule>
+                            </rules>
+                        </ruleSet>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
