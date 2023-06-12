@@ -58,7 +58,7 @@ import java.util.logging.Logger;
  */
 public abstract class SOAPFaultBuilder {
 
-    public static final String SERVER_ERROR = "Server Error";
+    private static final String SERVER_ERROR = "Server Error";
 
     /**
      * Default constructor.
@@ -233,9 +233,7 @@ public abstract class SOAPFaultBuilder {
     }
 
     private static Message createSOAPFaultMessage(SOAPVersion soapVersion, String faultString, QName faultCode, Element detail) {
-        if (!isCaptureExceptionMessage()) {
-            faultString = SERVER_ERROR;
-        }
+        faultString = setFaultStringToServerError(faultString);
         switch (soapVersion) {
             case SOAP_11:
                 return JAXBMessage.create(JAXB_CONTEXT, new SOAP11Fault(faultCode, faultString, null, detail), soapVersion);
@@ -412,9 +410,7 @@ public abstract class SOAPFaultBuilder {
             }
         }
 
-        if (!isCaptureExceptionMessage()) {
-            faultString = SERVER_ERROR;
-        }
+        faultString = setFaultStringToServerError(faultString);
 
         SOAP11Fault soap11Fault = new SOAP11Fault(faultCode, faultString, faultActor, detailNode);
         
@@ -510,9 +506,7 @@ public abstract class SOAPFaultBuilder {
             }
         }
 
-        if (!isCaptureExceptionMessage()) {
-            faultString = SERVER_ERROR;
-        }
+        faultString = setFaultStringToServerError(faultString);
         ReasonType reason = new ReasonType(faultString);
 
         SOAP12Fault soap12Fault = new SOAP12Fault(code, reason, faultNode, faultRole, detailNode);
@@ -593,4 +587,9 @@ public abstract class SOAPFaultBuilder {
    public static boolean isCaptureExceptionMessage() {
         return captureExceptionMessage;
    }
+
+
+    private static String setFaultStringToServerError(String faultString) {
+        return isCaptureExceptionMessage() ? faultString : SERVER_ERROR;
+    }
 }

@@ -64,6 +64,7 @@ public class SOAPFaultBuilderTest extends TestCase {
     static {
         SOAPFault fault11 = null;
         SOAPFault fault12 = null;
+        SOAPFaultBuilder.setCaptureExceptionMessage(true);
         try {
             fault11 = createFault(SOAPVersion.SOAP_11);
             fault12 = createFault(SOAPVersion.SOAP_12);
@@ -124,6 +125,7 @@ public class SOAPFaultBuilderTest extends TestCase {
 
     public void testCreate11FaultFromRE() {
         RuntimeException re =  new RuntimeException("XML reader error: com.ctc.wstx.exc.WstxParsingException: Unexpected < character in element");
+        boolean captureExceptionMessageOldValue = SOAPFaultBuilder.isCaptureExceptionMessage();
         try {
             SOAPFaultBuilder.setCaptureExceptionMessage(false);
             Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_11, null, re);
@@ -132,13 +134,15 @@ public class SOAPFaultBuilderTest extends TestCase {
              ex.printStackTrace();
              fail(ex.getMessage());
         } finally{
-             SOAPFaultBuilder.setCaptureExceptionMessage(true);
+             SOAPFaultBuilder.setCaptureExceptionMessage(captureExceptionMessageOldValue);
         }
     }
 
     public void testCreate12FaultFromRE() {
         RuntimeException re = new RuntimeException(
                 "XML reader error: com.ctc.wstx.exc.WstxParsingException: Unexpected < character in element");
+
+        boolean captureExceptionMessageOldValue = SOAPFaultBuilder.isCaptureExceptionMessage();
         try {
             SOAPFaultBuilder.setCaptureExceptionMessage(false);
             Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_12, null, re);
@@ -147,11 +151,13 @@ public class SOAPFaultBuilderTest extends TestCase {
             ex.printStackTrace();
             fail(ex.getMessage());
         } finally {
-            SOAPFaultBuilder.setCaptureExceptionMessage(true);
+            SOAPFaultBuilder.setCaptureExceptionMessage(captureExceptionMessageOldValue);
         }
     }
 
     public void testCreateSOAPFaultMessageWithSOAPFaultArgumentForSOAP11() {
+
+        boolean captureExceptionMessageOldValue = SOAPFaultBuilder.isCaptureExceptionMessage();
         try {
             SOAPFaultBuilder.setCaptureExceptionMessage(false);
             Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_11, FAULT_11);
@@ -160,7 +166,7 @@ public class SOAPFaultBuilderTest extends TestCase {
             ex.printStackTrace();
             fail(ex.getMessage());
         } finally {
-            SOAPFaultBuilder.setCaptureExceptionMessage(true);
+            SOAPFaultBuilder.setCaptureExceptionMessage(captureExceptionMessageOldValue);
         }
     }
 
@@ -169,6 +175,8 @@ public class SOAPFaultBuilderTest extends TestCase {
         String faultString = "Couldn't create SOAP message due to exception: XML reader error: "
                 + "com.ctc.wstx.exc.WstxParsingException: Unexpected '&lt;' character in element "
                 + "(missing closing '>'?)";
+
+        boolean captureExceptionMessageOldValue = SOAPFaultBuilder.isCaptureExceptionMessage();
         try {
             SOAPFaultBuilder.setCaptureExceptionMessage(false);
             Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_11, faultString, DETAIL1_QNAME);
@@ -177,11 +185,13 @@ public class SOAPFaultBuilderTest extends TestCase {
             ex.printStackTrace();
             fail(ex.getMessage());
         } finally {
-            SOAPFaultBuilder.setCaptureExceptionMessage(true);
+            SOAPFaultBuilder.setCaptureExceptionMessage(captureExceptionMessageOldValue);
         }
     }
 
     public void testCreateSOAPFaultMessageWithSOAPFaultArgumentForSOAP12() {
+
+        boolean captureExceptionMessageOldValue = SOAPFaultBuilder.isCaptureExceptionMessage();
         try {
             SOAPFaultBuilder.setCaptureExceptionMessage(false);
             Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_12, FAULT_12);
@@ -190,7 +200,7 @@ public class SOAPFaultBuilderTest extends TestCase {
             ex.printStackTrace();
             fail(ex.getMessage());
         } finally {
-            SOAPFaultBuilder.setCaptureExceptionMessage(true);
+            SOAPFaultBuilder.setCaptureExceptionMessage(captureExceptionMessageOldValue);
         }
     }
 
@@ -199,6 +209,8 @@ public class SOAPFaultBuilderTest extends TestCase {
         String faultString = "Couldn't create SOAP message due to exception: XML reader error: "
                 + "com.ctc.wstx.exc.WstxParsingException: Unexpected '&lt;' character in element "
                 + "(missing closing '>'?)";
+
+        boolean captureExceptionMessageOldValue = SOAPFaultBuilder.isCaptureExceptionMessage();
         try {
             SOAPFaultBuilder.setCaptureExceptionMessage(false);
             Message faultMsg = SOAPFaultBuilder.createSOAPFaultMessage(SOAPVersion.SOAP_12, faultString,
@@ -208,7 +220,7 @@ public class SOAPFaultBuilderTest extends TestCase {
             ex.printStackTrace();
             fail(ex.getMessage());
         } finally {
-            SOAPFaultBuilder.setCaptureExceptionMessage(true);
+            SOAPFaultBuilder.setCaptureExceptionMessage(captureExceptionMessageOldValue);
         }
     }
 
@@ -255,7 +267,7 @@ public class SOAPFaultBuilderTest extends TestCase {
                 if (rdr.getName().getLocalPart().equals("faultstring")) {
                     isfaultStringPresent = true;
                     event = rdr.next();
-                    assertEquals(SOAPFaultBuilder.SERVER_ERROR, rdr.getText());
+                    assertEquals("Server Error", rdr.getText());
                 }
             }
         }
@@ -270,6 +282,6 @@ public class SOAPFaultBuilderTest extends TestCase {
         assertTrue(ex instanceof SOAPFaultException);
         SOAPFaultException sfe = (SOAPFaultException) ex;
         SOAPFault sf = sfe.getFault();
-        assertEquals(sf.getFaultString(),SOAPFaultBuilder.SERVER_ERROR);
+        assertEquals(sf.getFaultString(),"Server Error");
     }
 }
