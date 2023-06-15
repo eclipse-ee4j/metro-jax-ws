@@ -64,7 +64,6 @@ public class SOAPFaultBuilderTest extends TestCase {
     static {
         SOAPFault fault11 = null;
         SOAPFault fault12 = null;
-        SOAPFaultBuilder.setCaptureExceptionMessage(true);
         try {
             fault11 = createFault(SOAPVersion.SOAP_11);
             fault12 = createFault(SOAPVersion.SOAP_12);

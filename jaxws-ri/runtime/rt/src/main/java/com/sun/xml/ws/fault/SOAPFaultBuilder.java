@@ -233,7 +233,7 @@ public abstract class SOAPFaultBuilder {
     }
 
     private static Message createSOAPFaultMessage(SOAPVersion soapVersion, String faultString, QName faultCode, Element detail) {
-        faultString = setFaultStringToServerError(faultString);
+        faultString = changeFaultStringToServerError(faultString);
         switch (soapVersion) {
             case SOAP_11:
                 return JAXBMessage.create(JAXB_CONTEXT, new SOAP11Fault(faultCode, faultString, null, detail), soapVersion);
@@ -410,7 +410,7 @@ public abstract class SOAPFaultBuilder {
             }
         }
 
-        faultString = setFaultStringToServerError(faultString);
+        faultString = changeFaultStringToServerError(faultString);
 
         SOAP11Fault soap11Fault = new SOAP11Fault(faultCode, faultString, faultActor, detailNode);
         
@@ -506,7 +506,7 @@ public abstract class SOAPFaultBuilder {
             }
         }
 
-        faultString = setFaultStringToServerError(faultString);
+        faultString = changeFaultStringToServerError(faultString);
         ReasonType reason = new ReasonType(faultString);
 
         SOAP12Fault soap12Fault = new SOAP12Fault(code, reason, faultNode, faultRole, detailNode);
@@ -589,7 +589,7 @@ public abstract class SOAPFaultBuilder {
    }
 
 
-    private static String setFaultStringToServerError(String faultString) {
+    private static String changeFaultStringToServerError(String faultString) {
         return isCaptureExceptionMessage() ? faultString : SERVER_ERROR;
     }
 }
