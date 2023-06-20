@@ -34,7 +34,7 @@
         <ant.version>1.10.12</ant.version>
         <!-- CQ 21208 -->
         <asm.version>9.5</asm.version>
-        <eclipselink.version>4.0.0</eclipselink.version>
+        <eclipselink.version>4.0.2</eclipselink.version>
         <junit.version>4.13.2</junit.version>
         <mail-api.version>2.1.2</mail-api.version>
         <angus-mail.version>2.0.2</angus-mail.version>
