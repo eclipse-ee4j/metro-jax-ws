@@ -585,7 +585,7 @@ public abstract class SOAPFaultBuilder {
         return isCaptureExceptionMessage() ? faultString : SERVER_ERROR;
     }
 
-    protected static String getConstantServerError(){
+    protected static String createFaultString(){
        return SERVER_ERROR;
     }
 }
