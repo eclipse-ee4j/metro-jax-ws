@@ -58,7 +58,7 @@ import java.util.logging.Logger;
  */
 public abstract class SOAPFaultBuilder {
 
-    protected static final String SERVER_ERROR = "Server Error";
+    private static final String SERVER_ERROR = "Server Error";
 
     /**
      * Default constructor.
@@ -583,5 +583,9 @@ public abstract class SOAPFaultBuilder {
 
     protected static String createFaultString(String faultString) {
         return isCaptureExceptionMessage() ? faultString : SERVER_ERROR;
+    }
+
+    protected static String getConstantServerError(){
+       return SERVER_ERROR;
     }
 }

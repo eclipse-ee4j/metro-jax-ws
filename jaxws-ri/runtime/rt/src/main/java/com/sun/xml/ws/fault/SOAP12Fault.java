@@ -99,7 +99,7 @@ class SOAP12Fault extends SOAPFaultBuilder {
 
     SOAP12Fault(CodeType code, ReasonType reason, String node, String role, Element detailObject) {
         this.code = code;
-        this.reason = isCaptureExceptionMessage() ? reason : new ReasonType(SERVER_ERROR);
+        this.reason = isCaptureExceptionMessage() ? reason : new ReasonType(getConstantServerError());
         this.node = node;
         this.role = role;
         if (detailObject != null) {
