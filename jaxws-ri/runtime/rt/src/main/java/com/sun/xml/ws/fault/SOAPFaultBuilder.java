@@ -37,6 +37,7 @@ import javax.xml.soap.SOAPFault;
 import javax.xml.soap.Detail;
 import javax.xml.soap.DetailEntry;
 import javax.xml.transform.dom.DOMResult;
+import javax.xml.soap.SOAPException;
 import javax.xml.ws.ProtocolException;
 import javax.xml.ws.WebServiceException;
 import javax.xml.ws.soap.SOAPFaultException;
@@ -55,6 +56,13 @@ import java.util.logging.Logger;
  * @author Vivek Pandey
  */
 public abstract class SOAPFaultBuilder {
+
+    private static final String SERVER_ERROR = "Server Error";
+
+    /**
+     * Default constructor.
+     */
+    protected SOAPFaultBuilder() {}
 
     /**
      * Gives the {@link DetailType} for a Soap 1.1 or Soap 1.2 message that can be used to create either a checked exception or
@@ -374,14 +382,9 @@ public abstract class SOAPFaultBuilder {
         }
 
         if (faultString == null) {
-            if (!isCaptureExceptionMessage()) {
-                faultString = "Server Error";
-            }
-            else {
-                faultString = e.getMessage();
-                if (faultString == null) {
-                    faultString = e.toString();
-                }
+            faultString = e.getMessage();
+            if (faultString == null) {
+                faultString = e.toString();
             }
         }
         Element detailNode = null;
@@ -478,7 +481,6 @@ public abstract class SOAPFaultBuilder {
             }
         }
 
-        ReasonType reason = new ReasonType(faultString);
         Element detailNode = null;
         QName firstEntry = null;
         if (detail == null && soapFaultException != null) {
@@ -495,6 +497,8 @@ public abstract class SOAPFaultBuilder {
                 faultString = e.getMessage();
             }
         }
+
+        ReasonType reason = new ReasonType(faultString);
 
         SOAP12Fault soap12Fault = new SOAP12Fault(code, reason, faultNode, faultRole, detailNode);
 
@@ -575,4 +579,12 @@ public abstract class SOAPFaultBuilder {
         return captureExceptionMessage;
    }
 
+
+    protected static String createFaultString(String faultString) {
+        return isCaptureExceptionMessage() ? faultString : SERVER_ERROR;
+    }
+
+    protected static String createFaultString(){
+       return SERVER_ERROR;
+    }
 }
