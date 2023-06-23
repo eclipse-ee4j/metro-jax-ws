@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -76,7 +76,7 @@ class SOAP11Fault extends SOAPFaultBuilder {
      */
     SOAP11Fault(QName code, String reason, String actor, Element detailObject) {
         this.faultcode = code;
-        this.faultstring = reason;
+        this.faultstring = createFaultString(reason);
         this.faultactor = actor;
         if (detailObject != null) {
             if ((detailObject.getNamespaceURI() == null ||
@@ -93,7 +93,7 @@ class SOAP11Fault extends SOAPFaultBuilder {
 
     SOAP11Fault(SOAPFault fault) {
         this.faultcode = fault.getFaultCodeAsQName();
-        this.faultstring = fault.getFaultString();
+        this.faultstring = createFaultString(fault.getFaultString());
         this.faultactor = fault.getFaultActor();
         if (fault.getDetail() != null) {
             detail = new DetailType();

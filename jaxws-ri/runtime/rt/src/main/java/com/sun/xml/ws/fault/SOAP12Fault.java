@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -99,7 +99,7 @@ class SOAP12Fault extends SOAPFaultBuilder {
 
     SOAP12Fault(CodeType code, ReasonType reason, String node, String role, Element detailObject) {
         this.code = code;
-        this.reason = reason;
+        this.reason = isCaptureExceptionMessage() ? reason : new ReasonType(createFaultString());
         this.node = node;
         this.role = role;
         if (detailObject != null) {
@@ -122,7 +122,7 @@ class SOAP12Fault extends SOAPFaultBuilder {
             throw new WebServiceException(e);
         }
 
-        reason = new ReasonType(fault.getFaultString());
+        reason = new ReasonType(createFaultString(fault.getFaultString()));
         role = fault.getFaultRole();
         node = fault.getFaultNode();
         if (fault.getDetail() != null) {
