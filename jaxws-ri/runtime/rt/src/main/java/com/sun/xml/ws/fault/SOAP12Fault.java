@@ -122,7 +122,7 @@ class SOAP12Fault extends SOAPFaultBuilder {
             throw new WebServiceException(e);
         }
 
-        reason = new ReasonType(changeFaultStringToServerError(fault.getFaultString()));
+        reason = new ReasonType(createFaultString(fault.getFaultString()));
         role = fault.getFaultRole();
         node = fault.getFaultNode();
         if (fault.getDetail() != null) {

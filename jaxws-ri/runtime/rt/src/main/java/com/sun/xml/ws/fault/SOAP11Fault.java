@@ -76,7 +76,7 @@ class SOAP11Fault extends SOAPFaultBuilder {
      */
     SOAP11Fault(QName code, String reason, String actor, Element detailObject) {
         this.faultcode = code;
-        this.faultstring = changeFaultStringToServerError(reason);
+        this.faultstring = createFaultString(reason);
         this.faultactor = actor;
         if (detailObject != null) {
             if ((detailObject.getNamespaceURI() == null ||
@@ -93,7 +93,7 @@ class SOAP11Fault extends SOAPFaultBuilder {
 
     SOAP11Fault(SOAPFault fault) {
         this.faultcode = fault.getFaultCodeAsQName();
-        this.faultstring = changeFaultStringToServerError(fault.getFaultString());
+        this.faultstring = createFaultString(fault.getFaultString());
         this.faultactor = fault.getFaultActor();
         if (fault.getDetail() != null) {
             detail = new DetailType();
