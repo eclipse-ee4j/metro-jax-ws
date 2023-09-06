@@ -26,6 +26,16 @@
 
     <itemizedlist>
         <listitem>
+            <para>4.0.2</para>
+
+            <itemizedlist>
+                <listitem>
+                    <para>Replaces the last resort fallback to Java SE provided runtime by the fallback to the current WS runtime</para>
+                </listitem>
+            </itemizedlist>
+        </listitem>
+
+        <listitem>
             <para>4.0.1</para>
 
             <itemizedlist>
