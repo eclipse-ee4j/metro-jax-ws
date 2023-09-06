@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,13 +28,10 @@ import javax.xml.stream.XMLInputFactory;
 import jakarta.xml.ws.WebServiceException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.security.AccessController;
-import java.security.PrivilegedExceptionAction;
 import java.util.logging.Level;
 
 /**
@@ -51,7 +48,7 @@ import java.util.logging.Level;
 // TODO Move the logic of this class directly into MetroConfig class.
 class MetroConfigLoader {
 
-    private static final String JAXWS_TUBES_JDK_XML_RESOURCE = "jaxws-tubes-default.xml";
+    private static final String JAXWS_TUBES_DEFAULT_XML_RESOURCE = "jaxws-tubes-default.xml";
     private static final Logger LOGGER = Logger.getLogger(MetroConfigLoader.class);
 
     private MetroConfigName defaultTubesConfigNames;
@@ -244,12 +241,18 @@ class MetroConfigLoader {
         if (resourceUrl != null) {
             is = resourceUrl.openStream();
         } else {
-            is = MetroConfigLoader.class.getResourceAsStream(JAXWS_TUBES_JDK_XML_RESOURCE);
+            //the only case this can happen is when some extension does not provide
+            //a resource which it also defines; in pre-SE11 env, this would fallback
+            //to the runtime included in the JDK, in SE11+, we must be the fallback
+            URL resUrl = MetroConfigLoader.class.getResource(JAXWS_TUBES_DEFAULT_XML_RESOURCE);
+            LOGGER.config(TubelineassemblyMessages.MASM_0021_BUILTIN_CFG_FILE(JAXWS_TUBES_DEFAULT_XML_RESOURCE, resUrl));
 
-            if (is == null)
+            if (resUrl == null) {
                 throw LOGGER.logSevereException(
                         new IllegalStateException(
-                                TubelineassemblyMessages.MASM_0001_DEFAULT_CFG_FILE_NOT_FOUND(JAXWS_TUBES_JDK_XML_RESOURCE)));
+                                TubelineassemblyMessages.MASM_0001_DEFAULT_CFG_FILE_NOT_FOUND(JAXWS_TUBES_DEFAULT_XML_RESOURCE)));
+            }
+            is = resUrl.openStream();
         }
 
         return is;
