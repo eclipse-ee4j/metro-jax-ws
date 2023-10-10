@@ -31,9 +31,9 @@
     <description>JAX-WS Reference Implementation Bill-of-Materials (BOM) Extensions</description>
 
     <properties>
-        <ant.version>1.10.12</ant.version>
+        <ant.version>1.10.14</ant.version>
         <!-- CQ 21208 -->
-        <asm.version>9.5</asm.version>
+        <asm.version>9.6</asm.version>
         <eclipselink.version>4.0.2</eclipselink.version>
         <junit.version>4.13.2</junit.version>
         <mail-api.version>2.1.2</mail-api.version>
