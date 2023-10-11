@@ -44,7 +44,7 @@
         <saaj-impl.version>3.0.2</saaj-impl.version>
         <streambuffer.version>2.1.0</streambuffer.version>
         <woodstox-core.version>6.5.1</woodstox-core.version>
-        <stax2-api.version>4.2.1</stax2-api.version>
+        <stax2-api.version>4.2.2</stax2-api.version>
         <activation-api.version>2.1.2</activation-api.version>
         <angus-activation.version>2.0.1</angus-activation.version>
         <jakarta.annotation-api.version>2.1.1</jakarta.annotation-api.version>
