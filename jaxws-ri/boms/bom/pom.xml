@@ -36,11 +36,11 @@
         <istack.plugin.version>4.1.2</istack.plugin.version>
         <gmbal-api.version>4.0.3</gmbal-api.version>
         <ha-api.version>3.1.13</ha-api.version>
-        <jaxb.version>4.0.3</jaxb.version>
+        <jaxb.version>4.0.4</jaxb.version>
         <xml.ws-api.version>4.0.0</xml.ws-api.version>
         <management-api.version>3.2.3</management-api.version>
         <mimepull.version>1.10.0</mimepull.version>
-        <saaj-api.version>3.0.0</saaj-api.version>
+        <saaj-api.version>3.0.1</saaj-api.version>
         <saaj-impl.version>3.0.2</saaj-impl.version>
         <streambuffer.version>2.1.0</streambuffer.version>
         <woodstox-core.version>6.5.1</woodstox-core.version>
