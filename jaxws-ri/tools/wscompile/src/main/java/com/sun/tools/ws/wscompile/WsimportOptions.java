@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -238,7 +238,7 @@ public class WsimportOptions extends Options {
     public final void parseArguments( String[] args ) throws BadCommandLineException {
 
         for (int i = 0; i < args.length; i++) {
-            if(args[i].length()==0)
+            if(args[i].isEmpty())
                 throw new BadCommandLineException();
             if (args[i].charAt(0) == '-') {
                 int j = parseArguments(args,i);
@@ -325,9 +325,9 @@ public class WsimportOptions extends Options {
             String catalog = requireArgument("-catalog", args, ++i);
             try {
                 if (entityResolver == null) {
-                    if (catalog != null && catalog.length() > 0)
+                    if (catalog != null && !catalog.isEmpty())
                         entityResolver = XmlUtil.createEntityResolver(JAXWSUtils.getFileOrURL(JAXWSUtils.absolutize(Util.escapeSpace(catalog))));
-                } else if (catalog != null && catalog.length() > 0) {
+                } else if (catalog != null && !catalog.isEmpty()) {
                     EntityResolver er = XmlUtil.createEntityResolver(JAXWSUtils.getFileOrURL(JAXWSUtils.absolutize(Util.escapeSpace(catalog))));
                     entityResolver = new ForkEntityResolver(er, entityResolver);
                 }
@@ -337,7 +337,7 @@ public class WsimportOptions extends Options {
             return 2;
         } else if (args[i].startsWith("-httpproxy:")) {
             String value = args[i].substring(11);
-            if (value.length() == 0) {
+            if (value.isEmpty()) {
                 throw new BadCommandLineException(WscompileMessages.WSCOMPILE_INVALID_OPTION(args[i]));
             }
             parseProxy(value);
@@ -465,7 +465,7 @@ public class WsimportOptions extends Options {
      * behaviour and generate only one @HandlerChain on the SEI
      */
     public Element getHandlerChainConfiguration(){
-        if(handlerConfigs.size() > 0)
+        if(!handlerConfigs.isEmpty())
             return handlerConfigs.get(0);
         return null;
     }
@@ -591,8 +591,8 @@ public class WsimportOptions extends Options {
 
     /**
      * Exposing it as a public method to allow external tools such as NB to read from wsdl model and work on it.
-     * TODO: WSDL model needs to be exposed - basically at tool time we need to use the runtimw wsdl model
-     *
+     * TODO: WSDL model needs to be exposed - basically at tool time we need to use the runtime wsdl model
+     * <p>
      * Binding files could be jaxws or jaxb. This method identifies jaxws and jaxb binding files and keeps them separately. jaxb binding files are given separately
      * to JAXB in {@link com.sun.tools.ws.processor.modeler.wsdl.JAXBModelBuilder}
      *

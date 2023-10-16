@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,14 +16,13 @@ import org.xml.sax.*;
 import org.xml.sax.helpers.LocatorImpl;
 import org.xml.sax.helpers.XMLFilterImpl;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
  * Checks the jaxb:version attribute on a XML Schema document.
- *
+ * <p>
  * jaxws:version is optional, if absent its value is assumed to be "3.0" and if present its value must be
  * "3.0" or more.
  *

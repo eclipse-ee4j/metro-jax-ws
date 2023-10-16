@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,10 +39,10 @@ public interface JAXWSBindingsConstants {
      *               present if the binding declaration is used as an extension
      *               inside a WSDL document or if there is an ancestor binding
      *               declaration that contains this attribute.
-     *
+     * <p>
      * <code>@node</code> An XPath expression pointing to the element in the WSDL file in
      *       scope that this binding declaration is attached to.
-     *
+     * <p>
      * <code>@version</code> A version identifier. It MAY only appear on jaxws:bindings
      *          elements that don't have any jaxws:bindings ancestors (i.e. on
      *          outermost binding declarations).

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,7 +44,7 @@ public class JavaStructureType extends JavaType {
         return membersByName.get(name);
     }
 
-    public Iterator getMembers() {
+    public Iterator<JavaStructureMember> getMembers() {
         return members.iterator();
     }
 
@@ -97,39 +97,38 @@ public class JavaStructureType extends JavaType {
         subclassType.setSuperclass(this);
     }
 
-    public Iterator getSubclasses() {
-        if (subclasses == null || subclasses.size() == 0) {
+    public Iterator<JavaStructureType> getSubclasses() {
+        if (subclasses == null || subclasses.isEmpty()) {
             return null;
         }
         return subclasses.iterator();
     }
 
-    public Set getSubclassesSet() {
+    public Set<JavaStructureType> getSubclassesSet() {
         return subclasses;
     }
 
     /* serialization */
-    public void setSubclassesSet(Set s) {
+    public void setSubclassesSet(Set<JavaStructureType> s) {
         subclasses = s;
-        for (Iterator iter = s.iterator(); iter.hasNext();) {
-            ((JavaStructureType) iter.next()).setSuperclass(this);
+        for (JavaStructureType javaStructureType : s) {
+            javaStructureType.setSuperclass(this);
         }
     }
 
-    public Iterator getAllSubclasses() {
-        Set subs = getAllSubclassesSet();
-        if (subs.size() == 0) {
+    public Iterator<JavaStructureType> getAllSubclasses() {
+        Set<JavaStructureType> subs = getAllSubclassesSet();
+        if (subs.isEmpty()) {
             return null;
         }
         return subs.iterator();
     }
 
-    public Set getAllSubclassesSet() {
-        Set transitiveSet = new HashSet();
-        Iterator subs = subclasses.iterator();
-        while (subs.hasNext()) {
+    public Set<JavaStructureType> getAllSubclassesSet() {
+        Set<JavaStructureType> transitiveSet = new HashSet<>();
+        for (JavaStructureType subclass : subclasses) {
             transitiveSet.addAll(
-                ((JavaStructureType)subs.next()).getAllSubclassesSet());
+                    subclass.getAllSubclassesSet());
         }
         transitiveSet.addAll(subclasses);
         return transitiveSet;
@@ -147,11 +146,11 @@ public class JavaStructureType extends JavaType {
         this.owner = owner;
     }
 
-    private List<JavaStructureMember> members = new ArrayList();
-    private Map<String, JavaStructureMember> membersByName = new HashMap();
+    private List<JavaStructureMember> members = new ArrayList<>();
+    private Map<String, JavaStructureMember> membersByName = new HashMap<>();
 
     // known subclasses of this type
-    private Set subclasses = new HashSet();
+    private Set<JavaStructureType> subclasses = new HashSet<>();
     private JavaStructureType superclass;
 
     // usually a SOAPStructureType

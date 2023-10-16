@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,13 +17,6 @@ import org.xml.sax.Locator;
 import javax.xml.namespace.QName;
 import java.util.*;
 
-
-/**
- * @author Vivek Pandey
- *
- * To change the template for this generated type comment go to
- * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
- */
 public class JAXWSBinding extends ExtensionImpl {
 
     /**

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,9 +40,9 @@ public class WsimportListener implements ErrorListener {
     public void generatedFile(String fileName) {}
 
     /**
-     * Other miscellenous messages that do not have structures
+     * Other miscellaneous messages that do not have structures
      * will be reported through this method.
-     *
+     * <p>
      * This method is used like {@link java.io.PrintStream#println(String)}.
      * The callee is expected to add '\n'.
      */

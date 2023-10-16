@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -115,7 +115,7 @@ public class WsAntToolsTest extends TestCase {
 
     private void runVoidMethod(Class<?> c, Object i, String name, String arg) {
         Method m = null;
-        Class parent = c;
+        Class<?> parent = c;
         do {
             try {
                 m = parent.getDeclaredMethod(name, String.class);
@@ -137,7 +137,7 @@ public class WsAntToolsTest extends TestCase {
 
     private Object getField(Class<?> c, Object i, String name) {
         Field f = null;
-        Class parent = c.getSuperclass();
+        Class<?> parent = c.getSuperclass();
         do {
             try {
                 f = parent.getDeclaredField(name);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,7 +40,7 @@ public class JAXBStructuredType extends JAXBType {
     }
 
     public void add(JAXBElementMember m) {
-        if (_elementMembersByName.containsKey(m.getName())) {
+        if (_elementMembersByName.containsKey(m.getName().getLocalPart())) {
             throw new ModelException("model.uniqueness");
         }
         _elementMembers.add(m);
@@ -49,7 +49,7 @@ public class JAXBStructuredType extends JAXBType {
         }
     }
 
-    public Iterator getElementMembers() {
+    public Iterator<JAXBElementMember> getElementMembers() {
         return _elementMembers.iterator();
     }
 
@@ -58,24 +58,24 @@ public class JAXBStructuredType extends JAXBType {
     }
 
     /* serialization */
-    public List getElementMembersList() {
+    public List<JAXBElementMember> getElementMembersList() {
         return _elementMembers;
     }
 
     /* serialization */
-    public void setElementMembersList(List l) {
+    public void setElementMembersList(List<JAXBElementMember> l) {
         _elementMembers = l;
     }
 
     public void addSubtype(JAXBStructuredType type) {
         if (_subtypes == null) {
-            _subtypes = new HashSet();
+            _subtypes = new HashSet<>();
         }
         _subtypes.add(type);
         type.setParentType(this);
     }
 
-    public Iterator getSubtypes() {
+    public Iterator<JAXBStructuredType> getSubtypes() {
         if (_subtypes != null) {
             return _subtypes.iterator();
         }
@@ -90,12 +90,12 @@ public class JAXBStructuredType extends JAXBType {
         return true;
     }
     /* serialization */
-    public Set getSubtypesSet() {
+    public Set<JAXBStructuredType> getSubtypesSet() {
         return _subtypes;
     }
 
     /* serialization */
-    public void setSubtypesSet(Set s) {
+    public void setSubtypesSet(Set<JAXBStructuredType> s) {
         _subtypes = s;
     }
 
@@ -117,8 +117,8 @@ public class JAXBStructuredType extends JAXBType {
     }
 
 
-    private List _elementMembers = new ArrayList();
-    private Map _elementMembersByName = new HashMap();
-    private Set _subtypes = null;
+    private List<JAXBElementMember> _elementMembers = new ArrayList<>();
+    private Map<String, JAXBElementMember> _elementMembersByName = new HashMap<>();
+    private Set<JAXBStructuredType> _subtypes = null;
     private JAXBStructuredType _parentType = null;
 }

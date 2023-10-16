@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,7 +44,7 @@ class DOMBuilder extends SAX2DOMEx implements LexicalHandler {
      *      This set will receive newly found outermost
      *      jaxb:bindings customizations.
      */
-    public DOMBuilder( Document dom, LocatorTable ltable, Set outerMostBindings ) {
+    public DOMBuilder( Document dom, LocatorTable ltable, Set<Element> outerMostBindings ) {
         super( dom );
         this.locatorTable = ltable;
         this.outerMostBindings = outerMostBindings;
@@ -53,7 +53,7 @@ class DOMBuilder extends SAX2DOMEx implements LexicalHandler {
     /** Location information will be stored into this object. */
     private final LocatorTable locatorTable;
 
-    private final Set outerMostBindings;
+    private final Set<Element> outerMostBindings;
 
     private Locator locator;
 

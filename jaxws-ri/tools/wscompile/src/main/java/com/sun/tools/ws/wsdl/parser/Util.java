@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -111,7 +111,7 @@ public final class Util {
             Node n = (Node) iter.next();
             if (n instanceof Text) {
                 Text t = (Text) n;
-                if (t.getData().trim().length() == 0)
+                if (t.getData().trim().isEmpty())
                     continue;
                 fail("parsing.nonWhitespaceTextFound", t.getData().trim());
             }

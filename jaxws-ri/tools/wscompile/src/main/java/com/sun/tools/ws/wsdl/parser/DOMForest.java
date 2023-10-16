@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -201,8 +201,7 @@ public class DOMForest {
     }
 
     public void addExternalReferences(String ref) {
-        if (!externalReferences.contains(ref))
-            externalReferences.add(ref);
+        externalReferences.add(ref);
     }
 
 
@@ -305,7 +304,7 @@ public class DOMForest {
      */
     private String getPath(String key) {
         key = key.substring(5); // skip 'file:'
-        while (key.length() > 0 && key.charAt(0) == '/')
+        while (!key.isEmpty() && key.charAt(0) == '/')
             key = key.substring(1);
         return key;
     }

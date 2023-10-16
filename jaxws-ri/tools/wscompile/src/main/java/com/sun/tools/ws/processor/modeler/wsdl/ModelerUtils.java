@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -77,10 +77,8 @@ class ModelerUtils {
                 .getRealName(), true, type);
         type.setJavaType(jst);
         block.setType(type);
-        List memberList = jaxbType.getWrapperChildren();
-        Iterator props = memberList.iterator();
-        while (props.hasNext()) {
-            JAXBProperty prop = (JAXBProperty) props.next();
+        List<JAXBProperty> memberList = jaxbType.getWrapperChildren();
+        for (JAXBProperty prop : memberList) {
             paramList.add(createUnwrappedParameter(prop, jaxbType, block, type,
                     jst));
         }
@@ -187,11 +185,11 @@ class ModelerUtils {
         JAXBStructuredType struct2) {
         if (struct1.getElementMembersCount() != struct2.getElementMembersCount())
             return false;
-        Iterator members = struct1.getElementMembers();
+        Iterator<JAXBElementMember> members = struct1.getElementMembers();
         JAXBElementMember member1;
         JavaStructureMember javaMember1, javaMember2;
         for (int i = 0; members.hasNext(); i++) {
-            member1 = (JAXBElementMember)members.next();
+            member1 = members.next();
             javaMember1 = member1.getJavaStructureMember();
             javaMember2 =
                 ((JavaStructureType)struct2.getJavaType()).getMemberByName(

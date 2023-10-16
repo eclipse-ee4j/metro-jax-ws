@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -155,40 +155,37 @@ public class WsgenTool {
                 out.println(WscompileMessages.WSCOMPILE_CANT_GET_COMPILER(property("java.home"), property("java.version"), property("java.vendor")));
                 return false;
             }
-            DiagnosticListener<JavaFileObject> diagnostics = new DiagnosticListener<>() {
-                @Override
-                public void report(Diagnostic<? extends JavaFileObject> diagnostic) {
-                    boolean fromFile = diagnostic.getSource() != null;
-                    StringBuilder message = new StringBuilder();
-                    if (fromFile) {
-                        message.append(diagnostic.getSource().getName());
-                    }
-                    message.append(diagnostic.getMessage(Locale.getDefault()));
-                    if (fromFile) {
-                        message.append("");
-                    }
-                    switch (diagnostic.getKind()) {
-                        case ERROR:
-                            Locator2Impl l = new Locator2Impl();
-                            if (fromFile) {
-                                l.setSystemId(diagnostic.getSource().getName());
-                            } else {
-                                l.setSystemId(null);
-                            }
-                            l.setLineNumber((int) diagnostic.getLineNumber());
-                            l.setColumnNumber((int) diagnostic.getColumnNumber());
-                            SAXParseException ex = new SAXParseException(message.toString(), l);
-                            listener.error(ex);
-                            break;
-                        case MANDATORY_WARNING:
-                        case WARNING:
+            DiagnosticListener<JavaFileObject> diagnostics = diagnostic -> {
+                boolean fromFile = diagnostic.getSource() != null;
+                StringBuilder message = new StringBuilder();
+                if (fromFile) {
+                    message.append(diagnostic.getSource().getName());
+                }
+                message.append(diagnostic.getMessage(Locale.getDefault()));
+                if (fromFile) {
+                    message.append("");
+                }
+                switch (diagnostic.getKind()) {
+                    case ERROR:
+                        Locator2Impl l = new Locator2Impl();
+                        if (fromFile) {
+                            l.setSystemId(diagnostic.getSource().getName());
+                        } else {
+                            l.setSystemId(null);
+                        }
+                        l.setLineNumber((int) diagnostic.getLineNumber());
+                        l.setColumnNumber((int) diagnostic.getColumnNumber());
+                        SAXParseException ex = new SAXParseException(message.toString(), l);
+                        listener.error(ex);
+                        break;
+                    case MANDATORY_WARNING:
+                    case WARNING:
+                        listener.message(message.toString());
+                        break;
+                    default:
+                        if (options.verbose) {
                             listener.message(message.toString());
-                            break;
-                        default:
-                            if (options.verbose) {
-                                listener.message(message.toString());
-                            }
-                    }
+                        }
                 }
             };
 
@@ -213,7 +210,7 @@ public class WsgenTool {
 
             List<String> externalMetadataFileNames = options.externalMetadataFiles;
             boolean disableXmlSecurity = options.disableXmlSecurity;
-            if (externalMetadataFileNames != null && externalMetadataFileNames.size() > 0) {
+            if (externalMetadataFileNames != null && !externalMetadataFileNames.isEmpty()) {
                 config.setMetadataReader(new ExternalMetadataReader(getExternalFiles(externalMetadataFileNames), null, null, true, disableXmlSecurity));
             }
 

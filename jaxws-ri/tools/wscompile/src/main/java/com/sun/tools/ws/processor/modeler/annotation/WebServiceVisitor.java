@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -109,9 +109,9 @@ public abstract class WebServiceVisitor extends SimpleElementVisitor9<Void, Obje
                 if (serviceImplName == null)
                     serviceImplName = e.getQualifiedName();
                 String endpointInterfaceName = webService != null ? webService.endpointInterface() : null;
-                if (endpointInterfaceName != null && endpointInterfaceName.length() > 0) {
+                if (endpointInterfaceName != null && !endpointInterfaceName.isEmpty()) {
                     checkForInvalidImplAnnotation(e, SOAPBinding.class);
-                    if (webService.name().length() > 0)
+                    if (!webService.name().isEmpty())
                         builder.processError(WebserviceapMessages.WEBSERVICEAP_ENDPOINTINTEFACE_PLUS_ELEMENT("name"), e);
                     endpointReferencesInterface = true;
                     verifyImplAnnotations(e);
@@ -134,15 +134,15 @@ public abstract class WebServiceVisitor extends SimpleElementVisitor9<Void, Obje
     }
 
     protected void verifySeiAnnotations(WebService webService, TypeElement d) {
-        if (webService.endpointInterface().length() > 0) {
+        if (!webService.endpointInterface().isEmpty()) {
             builder.processError(WebserviceapMessages.WEBSERVICEAP_ENDPOINTINTERFACE_ON_INTERFACE(
                     d.getQualifiedName(), webService.endpointInterface()), d);
         }
-        if (webService.serviceName().length() > 0) {
+        if (!webService.serviceName().isEmpty()) {
             builder.processError(WebserviceapMessages.WEBSERVICEAP_INVALID_SEI_ANNOTATION_ELEMENT(
                     "serviceName", d.getQualifiedName()), d);
         }
-        if (webService.portName().length() > 0) {
+        if (!webService.portName().isEmpty()) {
             builder.processError(WebserviceapMessages.WEBSERVICEAP_INVALID_SEI_ANNOTATION_ELEMENT(
                     "portName", d.getQualifiedName()), d);
         }
@@ -159,7 +159,7 @@ public abstract class WebServiceVisitor extends SimpleElementVisitor9<Void, Obje
         }
     }
 
-    protected void checkForInvalidSeiAnnotation(TypeElement element, Class annotationClass) {
+    protected void checkForInvalidSeiAnnotation(TypeElement element, Class<? extends Annotation> annotationClass) {
         Object annotation = element.getAnnotation(annotationClass);
         if (annotation != null) {
             builder.processError(WebserviceapMessages.WEBSERVICEAP_INVALID_SEI_ANNOTATION(
@@ -167,7 +167,7 @@ public abstract class WebServiceVisitor extends SimpleElementVisitor9<Void, Obje
         }
     }
 
-    protected void checkForInvalidImplAnnotation(Element element, Class annotationClass) {
+    protected void checkForInvalidImplAnnotation(Element element, Class<? extends Annotation> annotationClass) {
         Object annotation = element.getAnnotation(annotationClass);
         if (annotation != null) {
             builder.processError(WebserviceapMessages.WEBSERVICEAP_ENDPOINTINTEFACE_PLUS_ANNOTATION(annotationClass.getName()), element);
@@ -181,9 +181,9 @@ public abstract class WebServiceVisitor extends SimpleElementVisitor9<Void, Obje
         if (webService != null)
             targetNamespace = webService.targetNamespace();
         PackageElement packageElement = builder.getProcessingEnvironment().getElementUtils().getPackageOf(element);
-        if (targetNamespace == null || targetNamespace.length() == 0) {
+        if (targetNamespace == null || targetNamespace.isEmpty()) {
             String packageName = packageElement.getQualifiedName().toString();
-            if (packageName == null || packageName.length() == 0) {
+            if (packageName == null || packageName.isEmpty()) {
                 builder.processError(WebserviceapMessages.WEBSERVICEAP_NO_PACKAGE_CLASS_MUST_HAVE_TARGETNAMESPACE(
                         element.getQualifiedName()), element);
             }
@@ -198,10 +198,10 @@ public abstract class WebServiceVisitor extends SimpleElementVisitor9<Void, Obje
         }
         portName = ClassNameInfo.getName(element.getSimpleName().toString().replace('$', '_'));
         packageName = packageElement.getQualifiedName();
-        portName = webService != null && webService.name() != null && webService.name().length() > 0 ?
+        portName = webService != null && webService.name() != null && !webService.name().isEmpty() ?
                 webService.name() : portName;
         serviceName = ClassNameInfo.getName(element.getQualifiedName().toString()) + WebServiceConstants.SERVICE.getValue();
-        serviceName = webService != null && webService.serviceName() != null && webService.serviceName().length() > 0 ?
+        serviceName = webService != null && webService.serviceName() != null && !webService.serviceName().isEmpty() ?
                 webService.serviceName() : serviceName;
         wsdlNamespace = seiContext.getNamespaceUri();
         typeNamespace = wsdlNamespace;
@@ -333,10 +333,10 @@ public abstract class WebServiceVisitor extends SimpleElementVisitor9<Void, Obje
             webMethod = method.getAnnotation(WebMethod.class);
             if (webMethod != null) {
                 if (webMethod.exclude()) {
-                    if (webMethod.operationName().length() > 0)
+                    if (!webMethod.operationName().isEmpty())
                         builder.processError(WebserviceapMessages.WEBSERVICEAP_INVALID_WEBMETHOD_ELEMENT_WITH_EXCLUDE(
                                 "operationName", element.getQualifiedName(), method.toString()), method);
-                    if (webMethod.action().length() > 0)
+                    if (!webMethod.action().isEmpty())
                         builder.processError(WebserviceapMessages.WEBSERVICEAP_INVALID_WEBMETHOD_ELEMENT_WITH_EXCLUDE(
                                 "action", element.getQualifiedName(), method.toString()), method);
                 } else {
@@ -523,6 +523,7 @@ public abstract class WebServiceVisitor extends SimpleElementVisitor9<Void, Obje
         }
     }
 
+    @SuppressWarnings({"unchecked"})
     private boolean isStateful(TypeElement classElement) {
         try {
             // We don't want dependency on rt-ha module as its not integrated in JDK

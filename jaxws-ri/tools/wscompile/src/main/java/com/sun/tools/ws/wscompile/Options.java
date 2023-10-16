@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -101,7 +101,6 @@ public class Options {
      * If true XML security features when parsing XML documents will be disabled.
      * The default value is false.
      *
-     * Boolean
      * @since 2.2.9
      */
     public boolean disableXmlSecurity;
@@ -112,7 +111,7 @@ public class Options {
 
         private final String version;
 
-        private Target(String version) {
+        Target(String version) {
             this.version = version;
         }
 
@@ -269,7 +268,7 @@ public class Options {
     public void parseArguments( String[] args ) throws BadCommandLineException {
 
         for (int i = 0; i < args.length; i++) {
-            if(args[i].length()==0)
+            if(args[i].isEmpty())
                 throw new BadCommandLineException();
             if (args[i].charAt(0) == '-') {
                 int j = parseArguments(args,i);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -153,8 +153,7 @@ public class JAXWSBindingExtensionHandler extends AbstractExtensionHandler {
     private void parsePackage(com.sun.tools.ws.api.wsdl.TWSDLParserContext context, JAXWSBinding parent, Element e) {
         //System.out.println("In handlePackageExtension: " + e.getNodeName());
         String packageName = XmlUtil.getAttributeOrNull(e, JAXWSBindingsConstants.NAME_ATTR);
-        JAXWSBinding binding = parent;
-        binding.setJaxwsPackage(new CustomName(packageName, getJavaDoc(e)));
+        parent.setJaxwsPackage(new CustomName(packageName, getJavaDoc(e)));
     }
 
     /**

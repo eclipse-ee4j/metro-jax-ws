@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,6 @@ package com.sun.tools.ws.processor.modeler.wsdl;
 import com.sun.tools.ws.processor.generator.Names;
 import com.sun.tools.ws.wscompile.ErrorReceiver;
 import com.sun.tools.ws.wscompile.WsimportOptions;
-import com.sun.tools.ws.wscompile.Options;
 import com.sun.tools.ws.wsdl.document.*;
 import com.sun.tools.ws.wsdl.document.jaxws.JAXWSBinding;
 import com.sun.tools.ws.wsdl.document.schema.SchemaKinds;
@@ -25,7 +24,6 @@ import javax.xml.namespace.QName;
 import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.*;
@@ -155,14 +153,14 @@ public class PseudoSchemaBuilder {
         bindingNameToPortMap.put(bindingName, port);
 
 
-        for(Iterator itr=binding.operations(); itr.hasNext();){
-            BindingOperation bindingOperation = (BindingOperation)itr.next();
+        for(Iterator<BindingOperation> itr=binding.operations(); itr.hasNext();){
+            BindingOperation bindingOperation = itr.next();
 
             // get only the bounded operations
-            Set boundedOps = portType.getOperationsNamed(bindingOperation.getName());
+            Set<Operation> boundedOps = portType.getOperationsNamed(bindingOperation.getName());
             if(boundedOps.size() != 1)
                 continue;
-            Operation operation = (Operation)boundedOps.iterator().next();
+            Operation operation = boundedOps.iterator().next();
 
             // No pseudo schema required for doc/lit
             if(wsdlModeler.isAsync(portType, operation)){
@@ -264,7 +262,7 @@ public class PseudoSchemaBuilder {
         print("</xs:schema>");
 
         // reset the StringWriter, so that next operation element could be written
-        if(buf.toString().length() > 0){
+        if(!buf.toString().isEmpty()){
             //System.out.println("Response bean Schema for operation========> "+ elementName+"\n\n"+buf);
             InputSource is = new InputSource(new StringReader(buf.toString()));
             schemas.add(is);

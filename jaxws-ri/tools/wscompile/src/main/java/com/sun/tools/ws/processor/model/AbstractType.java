@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -94,7 +94,7 @@ public abstract class AbstractType {
         }
 
         if (properties == null) {
-            properties = new HashMap();
+            properties = new HashMap<>();
         }
         properties.put(key, value);
     }
@@ -105,7 +105,7 @@ public abstract class AbstractType {
         }
     }
 
-    public Iterator getProperties() {
+    public Iterator<String> getProperties() {
         if (properties == null) {
             return Collections.emptyIterator();
         } else {
@@ -114,17 +114,17 @@ public abstract class AbstractType {
     }
 
     /* serialization */
-    public Map getPropertiesMap() {
+    public Map<String, Object> getPropertiesMap() {
         return properties;
     }
 
     /* serialization */
-    public void setPropertiesMap(Map m) {
+    public void setPropertiesMap(Map<String, Object> m) {
         properties = m;
     }
 
     private QName name;
     private JavaType javaType;
     private String version = null;
-    private Map properties;
+    private Map<String, Object> properties;
 }

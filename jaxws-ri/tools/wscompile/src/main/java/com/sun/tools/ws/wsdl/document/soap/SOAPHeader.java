@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,14 +27,14 @@ public class SOAPHeader extends ExtensionImpl {
 
     public SOAPHeader(Locator locator) {
         super(locator);
-        _faults = new ArrayList();
+        _faults = new ArrayList<>();
     }
 
     public void add(SOAPHeaderFault fault) {
         _faults.add(fault);
     }
 
-    public Iterator faults() {
+    public Iterator<SOAPHeaderFault> faults() {
         return _faults.iterator();
     }
 
@@ -95,8 +95,8 @@ public class SOAPHeader extends ExtensionImpl {
     public void withAllSubEntitiesDo(EntityAction action) {
         super.withAllSubEntitiesDo(action);
 
-        for (Iterator iter = _faults.iterator(); iter.hasNext();) {
-            action.perform((Entity) iter.next());
+        for (SOAPHeaderFault fault : _faults) {
+            action.perform(fault);
         }
     }
 
@@ -112,8 +112,8 @@ public class SOAPHeader extends ExtensionImpl {
     @Override
     public void accept(ExtensionVisitor visitor) throws Exception {
         visitor.preVisit(this);
-        for (Iterator iter = _faults.iterator(); iter.hasNext();) {
-            ((SOAPHeaderFault) iter.next()).accept(visitor);
+        for (SOAPHeaderFault fault : _faults) {
+            fault.accept(visitor);
         }
         visitor.postVisit(this);
     }
@@ -141,5 +141,5 @@ public class SOAPHeader extends ExtensionImpl {
     private String _part;
     private QName _message;
     private SOAPUse _use=SOAPUse.LITERAL;
-    private List _faults;
+    private List<SOAPHeaderFault> _faults;
 }

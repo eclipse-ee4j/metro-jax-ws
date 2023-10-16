@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -84,9 +84,9 @@ public enum ModelerConstants {
     //     WEAK_HASH_MAP_CLASSNAME     ("java.util.WeakHashMap"),
     JAX_WS_MAP_ENTRY_CLASSNAME("com.sun.xml.ws.encoding.soap.JAXWSMapEntry");
 
-    private String value;
+    private final String value;
 
-    private ModelerConstants(String value) {
+    ModelerConstants(String value) {
         this.value = value;
     }
 

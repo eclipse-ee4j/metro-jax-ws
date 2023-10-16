@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,7 @@
 /**
  * <h2>JAX-WS 2.1 Tools</h2>
  * This document describes the tools included with JAX-WS 2.0.1.
- *
+ * <p>
  * <h2>ANT Tasks</h2>
    <dl>
  *  <dt>{@link com.sun.tools.ws.ant.AnnotationProcessingTask AnnotationProcessing}</dt>

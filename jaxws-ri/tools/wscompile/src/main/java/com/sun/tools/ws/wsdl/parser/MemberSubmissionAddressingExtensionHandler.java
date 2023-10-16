@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -65,7 +65,7 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
         if (extensionModeOn) {
             warn(context.getLocation(e));
             String actionValue = XmlUtil.getAttributeNSOrNull(e, MemberSubmissionAddressingConstants.WSA_ACTION_QNAME);
-            if (actionValue == null || actionValue.equals("")) {
+            if (actionValue == null || actionValue.isEmpty()) {
                 return warnEmptyAction(parent, context.getLocation(e));
             }
             ((Input) parent).setAction(actionValue);
@@ -94,7 +94,7 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
         if (extensionModeOn) {
             warn(context.getLocation(e));
             String actionValue = XmlUtil.getAttributeNSOrNull(e, MemberSubmissionAddressingConstants.WSA_ACTION_QNAME);
-            if (actionValue == null || actionValue.equals("")) {
+            if (actionValue == null || actionValue.isEmpty()) {
                 return warnEmptyAction(parent, context.getLocation(e));
             }
             ((Output) parent).setAction(actionValue);
@@ -110,7 +110,7 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
         if (extensionModeOn) {
             warn(context.getLocation(e));
             String actionValue = XmlUtil.getAttributeNSOrNull(e, MemberSubmissionAddressingConstants.WSA_ACTION_QNAME);
-            if (actionValue == null || actionValue.equals("")) {
+            if (actionValue == null || actionValue.isEmpty()) {
                 errReceiver.warning(context.getLocation(e), WsdlMessages.WARNING_FAULT_EMPTY_ACTION(parent.getNameValue(), parent.getWSDLElementName().getLocalPart(), parent.getParent().getNameValue()));
                 return false; // keep compiler happy
             }

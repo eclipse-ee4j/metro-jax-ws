@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,6 +12,7 @@ package com.sun.tools.ws.processor.model;
 
 import com.sun.tools.ws.wscompile.ErrorReceiver;
 
+import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class Response extends Message {
         _faultBlocks.put(b.getName(), b);
     }
 
-    public Iterator getFaultBlocks() {
+    public Iterator<Block> getFaultBlocks() {
         return _faultBlocks.values().iterator();
     }
 
@@ -42,11 +43,11 @@ public class Response extends Message {
     }
 
     /* serialization */
-    public Map getFaultBlocksMap() {
+    public Map<QName, Block> getFaultBlocksMap() {
         return _faultBlocks;
     }
 
-    public void setFaultBlocksMap(Map m) {
+    public void setFaultBlocksMap(Map<QName, Block> m) {
         _faultBlocks = m;
     }
 
@@ -55,5 +56,5 @@ public class Response extends Message {
         visitor.visit(this);
     }
 
-    private Map _faultBlocks = new HashMap();
+    private Map<QName, Block> _faultBlocks = new HashMap<>();
 }

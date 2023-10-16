@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -60,8 +60,8 @@ public abstract class Message extends ModelObject {
 
     public boolean isBodyEncoded() {
         boolean isEncoded = false;
-        for (Iterator iter = getBodyBlocks(); iter.hasNext();) {
-            Block bodyBlock = (Block) iter.next();
+        for (Iterator<Block> iter = getBodyBlocks(); iter.hasNext();) {
+            Block bodyBlock = iter.next();
             if (bodyBlock.getType().isSOAPType()) {
                 isEncoded = true;
             }
@@ -187,12 +187,11 @@ public abstract class Message extends ModelObject {
     }
 
     private void initializeParametersByName() {
-        _parametersByName = new HashMap();
+        _parametersByName = new HashMap<>();
         if (_parameters != null) {
-            for (Iterator iter = _parameters.iterator(); iter.hasNext();) {
-                Parameter param = (Parameter) iter.next();
+            for (Parameter param : _parameters) {
                 if (param.getName() != null &&
-                    _parametersByName.containsKey(param.getName())) {
+                        _parametersByName.containsKey(param.getName())) {
                     errorReceiver.error(getEntity().getLocator(), ModelMessages.MODEL_PARAMETER_NOTUNIQUE(param.getName(), param.getName()));
                     throw new AbortException();
                 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,7 @@
 package com.sun.tools.ws.processor.util;
 
 import com.sun.tools.ws.processor.model.*;
-import com.sun.tools.ws.processor.model.java.JavaInterface;
+import com.sun.tools.ws.processor.model.java.JavaException;
 import com.sun.tools.ws.processor.model.jaxb.JAXBType;
 import com.sun.tools.ws.processor.model.jaxb.JAXBTypeVisitor;
 import com.sun.tools.ws.processor.model.jaxb.RpcLitStructure;
@@ -34,10 +34,10 @@ public class ClassNameCollector extends ExtendedModelVisitor
 
     public void process(Model model) {
         try {
-            _allClassNames = new HashSet();
-            _exceptions = new HashSet();
-            _wsdlBindingNames = new HashSet();
-            _conflictingClassNames = new HashSet();
+            _allClassNames = new HashSet<>();
+            _exceptions = new HashSet<>();
+            _wsdlBindingNames = new HashSet<>();
+            _conflictingClassNames = new HashSet<>();
             _seiClassNames = new HashSet<>();
             _jaxbGeneratedClassNames = new HashSet<>();
             _exceptionClassNames = new HashSet<>();
@@ -52,14 +52,14 @@ public class ClassNameCollector extends ExtendedModelVisitor
         }
     }
 
-    public Set getConflictingClassNames() {
+    public Set<String> getConflictingClassNames() {
         return _conflictingClassNames;
     }
 
     @Override
     protected void postVisit(Model model) throws Exception {
-        for (Iterator iter = model.getExtraTypes(); iter.hasNext();) {
-            visitType((AbstractType)iter.next());
+        for (Iterator<AbstractType> iter = model.getExtraTypes(); iter.hasNext();) {
+            visitType(iter.next());
         }
     }
 
@@ -108,14 +108,10 @@ public class ClassNameCollector extends ExtendedModelVisitor
     protected void postVisit(Port port) throws Exception {
         QName wsdlBindingName = (QName) port.getProperty(
             ModelProperties.PROPERTY_WSDL_BINDING_NAME);
-        if (!_wsdlBindingNames.contains(wsdlBindingName)) {
-            _wsdlBindingNames.add(wsdlBindingName);
-        }
+        _wsdlBindingNames.add(wsdlBindingName);
 
         QName portTypeName = (QName)port.getProperty(ModelProperties.PROPERTY_WSDL_PORT_TYPE_NAME);
-        if(!_portTypeNames.contains(portTypeName)){
-            _portTypeNames.add(portTypeName);
-        }
+        _portTypeNames.add(portTypeName);
     }
 
     @Override
@@ -135,10 +131,10 @@ public class ClassNameCollector extends ExtendedModelVisitor
             _exceptions.add(fault.getJavaException());
             addExceptionClassName(fault.getJavaException().getName());
 
-            for (Iterator iter = fault.getSubfaults();
+            for (Iterator<Fault> iter = fault.getSubfaults();
                 iter != null && iter.hasNext();) {
 
-                Fault subfault = (Fault) iter.next();
+                Fault subfault = iter.next();
                 preVisit(subfault);
             }
         }
@@ -192,7 +188,7 @@ public class ClassNameCollector extends ExtendedModelVisitor
         type.accept(this);
     }
     private void registerClassName(String name) {
-        if (name == null || name.equals("")) {
+        if (name == null || name.isEmpty()) {
             return;
         }
         if (_allClassNames.contains(name)) {
@@ -249,9 +245,9 @@ public class ClassNameCollector extends ExtendedModelVisitor
         registerClassName(name);
     }
 
-    private Set _allClassNames;
-    private Set _exceptions;
-    private Set _wsdlBindingNames;
-    private Set _conflictingClassNames;
+    private Set<String> _allClassNames;
+    private Set<JavaException> _exceptions;
+    private Set<QName> _wsdlBindingNames;
+    private Set<String> _conflictingClassNames;
     private Set<QName> _portTypeNames;
 }

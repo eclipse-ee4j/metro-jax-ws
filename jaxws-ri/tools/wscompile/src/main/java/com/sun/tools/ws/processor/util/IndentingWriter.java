@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -157,8 +157,8 @@ public class IndentingWriter extends BufferedWriter {
         final CharsetEncoder encoder =
             Charset.forName(System.getProperty("file.encoding")).newEncoder();
         char[] chars = s.toCharArray();
-        for (int i=0; i<chars.length; i++) {
-            if(!encoder.canEncode(chars[i])) {
+        for (char aChar : chars) {
+            if (!encoder.canEncode(aChar)) {
                 return false;
             }
         }

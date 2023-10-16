@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -500,7 +500,7 @@ abstract class WsTask2 extends MatchingTask {
      */
     protected CommandlineJava setupCommand() {
         // d option
-        if (null != getDestdir() && !getDestdir().getName().equals("")) {
+        if (null != getDestdir() && !getDestdir().getName().isEmpty()) {
             getCommandline().createArgument().setValue("-d");
             getCommandline().createArgument().setFile(getDestdir());
         }
@@ -517,7 +517,7 @@ abstract class WsTask2 extends MatchingTask {
             getCommandline().createArgument().setValue("-keep");
         }
         // s option
-        if (null != getSourcedestdir() && !getSourcedestdir().getName().equals("")) {
+        if (null != getSourcedestdir() && !getSourcedestdir().getName().isEmpty()) {
             getCommandline().createArgument().setValue("-s");
             getCommandline().createArgument().setFile(getSourcedestdir());
         }
@@ -582,29 +582,29 @@ abstract class WsTask2 extends MatchingTask {
             cp.append(mvn);
         }
 
-        if (getModulepath() != null && getModulepath().size() > 0) {
+        if (getModulepath() != null && !getModulepath().isEmpty()) {
             getCommandline().createModulepath(getProject()).add(getModulepath());
         }
 
-        if (getUpgrademodulepath() != null && getUpgrademodulepath().size() > 0) {
+        if (getUpgrademodulepath() != null && !getUpgrademodulepath().isEmpty()) {
             getCommandline().createUpgrademodulepath(getProject()).add(getUpgrademodulepath());
         }
-        if (getAddmodules() != null && getAddmodules().length() > 0) {
+        if (getAddmodules() != null && !getAddmodules().isEmpty()) {
             getCommandline().createVmArgument().setLine("--add-modules " + getAddmodules());
         }
-        if (getAddreads() != null && getAddreads().length() > 0) {
+        if (getAddreads() != null && !getAddreads().isEmpty()) {
             getCommandline().createVmArgument().setLine("--add-reads " + getAddreads());
         }
-        if (getAddexports() != null && getAddexports().length() > 0) {
+        if (getAddexports() != null && !getAddexports().isEmpty()) {
             getCommandline().createVmArgument().setLine("--add-exports " + getAddexports());
         }
-        if (getAddopens() != null && getAddopens().length() > 0) {
+        if (getAddopens() != null && !getAddopens().isEmpty()) {
             getCommandline().createVmArgument().setLine("--add-opens " + getAddopens());
         }
-        if (getPatchmodule() != null && getPatchmodule().length() > 0) {
+        if (getPatchmodule() != null && !getPatchmodule().isEmpty()) {
             getCommandline().createVmArgument().setLine("--patch-module " + getPatchmodule());
         }
-        if (getLimitmodules() != null && getLimitmodules().length() > 0) {
+        if (getLimitmodules() != null && !getLimitmodules().isEmpty()) {
             getCommandline().createVmArgument().setLine("--limit-modules " + getLimitmodules());
         }
 
