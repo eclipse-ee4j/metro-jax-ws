@@ -16,6 +16,7 @@
  *
  * @since 2.4.0
  */
+@SuppressWarnings({"deprecation"})
 module com.sun.tools.ws {
 
     requires transitive java.compiler;
@@ -24,7 +25,7 @@ module com.sun.tools.ws {
 
     requires transitive com.sun.xml.ws;
 
-    requires com.sun.tools.jxc;
+    requires transitive com.sun.tools.jxc;
     requires transitive com.sun.tools.xjc;
 
     exports com.sun.tools.ws;

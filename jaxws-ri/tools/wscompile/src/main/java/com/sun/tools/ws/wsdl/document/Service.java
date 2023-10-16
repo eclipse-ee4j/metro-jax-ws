@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,7 @@ public class Service extends GlobalEntity implements TWSDLExtensible {
 
     public Service(Defining defining, Locator locator, ErrorReceiver errReceiver) {
         super(defining, locator, errReceiver);
-        _ports = new ArrayList();
+        _ports = new ArrayList<>();
         _helper = new ExtensibilityHelper();
     }
 
@@ -64,16 +64,16 @@ public class Service extends GlobalEntity implements TWSDLExtensible {
 
     @Override
     public void withAllSubEntitiesDo(EntityAction action) {
-        for (Iterator iter = _ports.iterator(); iter.hasNext();) {
-            action.perform((Entity) iter.next());
+        for (Port port : _ports) {
+            action.perform(port);
         }
         _helper.withAllSubEntitiesDo(action);
     }
 
     public void accept(WSDLDocumentVisitor visitor) throws Exception {
         visitor.preVisit(this);
-        for (Iterator iter = _ports.iterator(); iter.hasNext();) {
-            ((Port) iter.next()).accept(visitor);
+        for (Port port : _ports) {
+            port.accept(visitor);
         }
         _helper.accept(visitor);
         visitor.postVisit(this);

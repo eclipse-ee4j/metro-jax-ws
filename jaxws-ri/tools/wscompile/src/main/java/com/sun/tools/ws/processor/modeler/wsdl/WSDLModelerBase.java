@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -161,7 +161,7 @@ public abstract class WSDLModelerBase implements Modeler {
         List<MessagePart> parts = new ArrayList<>();
 
         //get Mime parts
-        List mimeParts;
+        List<MessagePart> mimeParts;
         if (isInput) {
             mimeParts = getMimeContentParts(message, info.bindingOperation.getInput());
         } else {
@@ -421,7 +421,7 @@ public abstract class WSDLModelerBase implements Modeler {
         return false;
     }
 
-    protected Set getDuplicateFaultNames() {
+    protected Set<QName> getDuplicateFaultNames() {
         // look for fault messages with the same soap:fault name
         Set<QName> faultNames = new HashSet<>();
         Set<QName> duplicateNames = new HashSet<>();
@@ -547,7 +547,7 @@ public abstract class WSDLModelerBase implements Modeler {
             // s is already package qualified
             return s;
         } else if (options.defaultPackage != null
-                && !options.defaultPackage.equals("")) {
+                && !options.defaultPackage.isEmpty()) {
             return options.defaultPackage + "." + s;
         } else {//options.defaultPackage seems to be never null, and this is never executed
             return s;
@@ -575,7 +575,7 @@ public abstract class WSDLModelerBase implements Modeler {
     @SuppressWarnings({"deprecation"})
     protected static TWSDLExtension getExtensionOfType(
             TWSDLExtensible extensible,
-            Class type) {
+            Class<?> type) {
         for (TWSDLExtension extension:extensible.extensions()) {
             if (extension.getClass().equals(type)) {
                 return extension;
@@ -588,7 +588,7 @@ public abstract class WSDLModelerBase implements Modeler {
     @SuppressWarnings({"deprecation"})
     protected TWSDLExtension getAnyExtensionOfType(
         TWSDLExtensible extensible,
-        Class type) {
+        Class<?> type) {
         if (extensible == null) {
             return null;
         }
@@ -717,7 +717,7 @@ public abstract class WSDLModelerBase implements Modeler {
 
     protected ProcessSOAPOperationInfo info;
 
-    private Set _conflictingClassNames;
+    private Set<String> _conflictingClassNames;
     protected Map<String,JavaException> _javaExceptions;
     protected Map _faultTypeToStructureMap;
     protected Map<QName, Port> _bindingNameToPortMap;

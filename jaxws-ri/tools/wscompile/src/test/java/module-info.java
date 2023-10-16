@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -8,6 +8,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+@SuppressWarnings({"deprecation"})
 module com.sun.tools.ws.wscompile.test {
     requires java.xml;
     requires transitive com.sun.tools.ws.wscompile;

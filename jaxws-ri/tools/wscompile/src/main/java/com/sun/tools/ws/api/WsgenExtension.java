@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +17,7 @@ package com.sun.tools.ws.api;
  * {@link WsgenExtension}s through the
  * {@code META-INF/services/com.sun.tools.internal.ws.api.WsgenExtension}
  * files.
- *
+ * <p>
  * {@link WsgenProtocol} annotation can be specified on the
  * extensions to extend -wsdl[:protocol] behaviour.
  * 

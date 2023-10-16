@@ -16,6 +16,7 @@
  *
  * @since 2.4.0
  */
+@SuppressWarnings({"deprecation"})
 module com.sun.tools.ws.wscompile {
 
     requires transitive java.compiler;
@@ -28,7 +29,7 @@ module com.sun.tools.ws.wscompile {
     requires static com.sun.xml.ws.servlet;
 
     requires com.sun.istack.tools;
-    requires org.glassfish.jaxb.jxc;
+    requires transitive org.glassfish.jaxb.jxc;
     requires transitive org.glassfish.jaxb.xjc;
 
     exports com.sun.tools.ws;

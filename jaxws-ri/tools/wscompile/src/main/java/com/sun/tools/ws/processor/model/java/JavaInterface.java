@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -63,13 +63,13 @@ public class JavaInterface {
         impl = s;
     }
 
-    public Iterator getMethods() {
+    public Iterator<JavaMethod> getMethods() {
         return methods.iterator();
     }
 
     public boolean hasMethod(JavaMethod method) {
-        for (int i=0; i<methods.size();i++) {
-            if (method.equals(methods.get(i))) {
+        for (JavaMethod javaMethod : methods) {
+            if (method.equals(javaMethod)) {
                 return true;
             }
         }
@@ -85,18 +85,18 @@ public class JavaInterface {
     }
 
     /* serialization */
-    public List getMethodsList() {
+    public List<JavaMethod> getMethodsList() {
         return methods;
     }
 
     /* serialization */
-    public void setMethodsList(List l) {
+    public void setMethodsList(List<JavaMethod> l) {
         methods = l;
     }
 
     public boolean hasInterface(String interfaceName) {
-        for (int i=0; i<interfaces.size();i++) {
-            if (interfaceName.equals(interfaces.get(i))) {
+        for (String anInterface : interfaces) {
+            if (interfaceName.equals(anInterface)) {
                 return true;
             }
         }
@@ -112,17 +112,17 @@ public class JavaInterface {
         interfaces.add(interfaceName);
     }
 
-    public Iterator getInterfaces() {
+    public Iterator<String> getInterfaces() {
         return interfaces.iterator();
     }
 
     /* serialization */
-    public List getInterfacesList() {
+    public List<String> getInterfacesList() {
         return interfaces;
     }
 
     /* serialization */
-    public void setInterfacesList(List l) {
+    public void setInterfacesList(List<String> l) {
         interfaces = l;
     }
     
@@ -146,6 +146,6 @@ public class JavaInterface {
     private String name;
     private String realName;
     private String impl;
-    private List methods = new ArrayList();
-    private List interfaces = new ArrayList();
+    private List<JavaMethod> methods = new ArrayList<>();
+    private List<String> interfaces = new ArrayList<>();
 }

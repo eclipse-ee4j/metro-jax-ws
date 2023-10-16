@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -273,15 +273,12 @@ public class WsimportTool {
                 final String className = f.getName().substring(0,f.getName().indexOf(".java"));
                 File classDir = new File(options.destDir,relativeDir);
                 if(classDir.exists()) {
-                    classDir.listFiles(new FilenameFilter() {
-                        @Override
-                        public boolean accept(File dir, String name) {
-                            if(name.equals(className+".class") || (name.startsWith(className+"$") && name.endsWith(".class"))) {
-                                trackedClassFiles.add(new File(dir,name));
-                                return true;
-                            }
-                            return false;
+                    classDir.listFiles((dir, name) -> {
+                        if(name.equals(className+".class") || (name.startsWith(className+"$") && name.endsWith(".class"))) {
+                            trackedClassFiles.add(new File(dir,name));
+                            return true;
                         }
+                        return false;
                     });
                 }
             }
@@ -497,7 +494,7 @@ public class WsimportTool {
             }
         }
 
-        if (sourceFiles.size() > 0) {
+        if (!sourceFiles.isEmpty()) {
             String classDir = options.destDir.getAbsolutePath();
             String classpathString = createClasspathString();
             List<String> args = new ArrayList<>();

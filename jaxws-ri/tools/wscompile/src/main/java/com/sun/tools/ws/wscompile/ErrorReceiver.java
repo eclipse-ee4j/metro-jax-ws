@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -101,7 +101,7 @@ public abstract class ErrorReceiver  implements ErrorHandler, ErrorListener {
 
     /**
      * Reports verbose messages to users.
-     *
+     * <p>
      * This method can be used to report additional non-essential
      * messages. The implementation usually discards them
      * unless some specific debug option is turned on.

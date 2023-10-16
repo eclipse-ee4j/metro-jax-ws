@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,6 +32,7 @@ import org.apache.tools.ant.types.XMLCatalog;
  *
  * @author lukas
  */
+@SuppressWarnings({"exports"})
 public class WsImportBase extends WsTask2 {
 
     /**
@@ -430,7 +431,7 @@ public class WsImportBase extends WsTask2 {
         }
 
         //catalog
-        if((getCatalog() != null) && (getCatalog().getName().length() > 0)){
+        if((getCatalog() != null) && (!getCatalog().getName().isEmpty())){
             cmd.createArgument().setValue("-catalog");
             cmd.createArgument().setFile(getCatalog());
         }
@@ -459,7 +460,7 @@ public class WsImportBase extends WsTask2 {
         }
 
         //package
-        if((getPackage() != null) && (getPackage().length() > 0)){
+        if((getPackage() != null) && (!getPackage().isEmpty())){
             cmd.createArgument().setValue("-p");
             cmd.createArgument().setValue(getPackage());
         }
@@ -505,7 +506,7 @@ public class WsImportBase extends WsTask2 {
             }
         }
 
-        if((wsdlLocation != null) && (wsdlLocation.length() != 0)){
+        if((wsdlLocation != null) && (!wsdlLocation.isEmpty())){
             cmd.createArgument().setValue("-wsdllocation");
             cmd.createArgument().setValue(wsdlLocation);
         }

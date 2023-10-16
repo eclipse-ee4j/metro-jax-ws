@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -90,7 +90,7 @@ public class WSDLModeler extends WSDLModelerBase {
                     if (parent.equals(WSDLConstants.QNAME_TYPES)) {
                         // check for a schema element with the wrong namespace URI
                         if (name.getLocalPart().equals("schema")
-                                && !name.getNamespaceURI().equals("")) {
+                                && !name.getNamespaceURI().isEmpty()) {
                             warning(entity, ModelerMessages.WSDLMODELER_WARNING_IGNORING_UNRECOGNIZED_SCHEMA_EXTENSION(name.getNamespaceURI()));
                         }
                     }
@@ -134,16 +134,13 @@ public class WSDLModeler extends WSDLModelerBase {
             // give up
             StringBuilder conflictList = new StringBuilder();
             boolean first = true;
-            for (Iterator iter =
-                    classNameCollector.getConflictingClassNames().iterator();
-                 iter.hasNext();
-                    ) {
+            for (String s : classNameCollector.getConflictingClassNames()) {
                 if (!first) {
                     conflictList.append(", ");
                 } else {
                     first = false;
                 }
-                conflictList.append((String) iter.next());
+                conflictList.append(s);
             }
             error(document.getDefinitions(), ModelerMessages.WSDLMODELER_UNSOLVABLE_NAMING_CONFLICTS(conflictList.toString()));
         } catch (ModelException e) {
@@ -191,11 +188,10 @@ public class WSDLModeler extends WSDLModelerBase {
 
         boolean hasServices = document.getDefinitions().services().hasNext();
         if (hasServices) {
-            for (Iterator iter = document.getDefinitions().services();
+            for (Iterator<com.sun.tools.ws.wsdl.document.Service> iter = document.getDefinitions().services();
                  iter.hasNext();
                     ) {
-                processService((com.sun.tools.ws.wsdl.document.Service) iter.next(),
-                        model, document);
+                processService(iter.next(), model, document);
             }
         } else {
             // emit a warning if there are no service definitions
@@ -221,10 +217,10 @@ public class WSDLModeler extends WSDLModelerBase {
 
         setDocumentationIfPresent(service, wsdlService.getDocumentation());
         boolean hasPorts = false;
-        for (Iterator iter = wsdlService.ports(); iter.hasNext();) {
+        for (Iterator<com.sun.tools.ws.wsdl.document.Port> iter = wsdlService.ports(); iter.hasNext();) {
             boolean processed =
                     processPort(
-                            (com.sun.tools.ws.wsdl.document.Port) iter.next(),
+                            iter.next(),
                             service,
                             document);
             hasPorts = hasPorts || processed;
@@ -346,9 +342,9 @@ public class WSDLModeler extends WSDLModelerBase {
 
                 boolean hasOverloadedOperations = false;
                 Set<String> operationNames = new HashSet<>();
-                for (Iterator iter = portType.operations(); iter.hasNext();) {
+                for (Iterator<com.sun.tools.ws.wsdl.document.Operation> iter = portType.operations(); iter.hasNext();) {
                     com.sun.tools.ws.wsdl.document.Operation operation =
-                            (com.sun.tools.ws.wsdl.document.Operation) iter.next();
+                            iter.next();
 
                     if (operationNames.contains(operation.getName())) {
                         hasOverloadedOperations = true;
@@ -356,11 +352,11 @@ public class WSDLModeler extends WSDLModelerBase {
                     }
                     operationNames.add(operation.getName());
 
-                    for (Iterator itr = binding.operations();
+                    for (Iterator<BindingOperation> itr = binding.operations();
                          iter.hasNext();
                             ) {
                         BindingOperation bindingOperation =
-                                (BindingOperation) itr.next();
+                                itr.next();
                         if (operation
                                 .getName()
                                 .equals(bindingOperation.getName())) {
@@ -373,34 +369,23 @@ public class WSDLModeler extends WSDLModelerBase {
 
                 Map headers = new HashMap();
                 boolean hasOperations = false;
-                for (Iterator iter = binding.operations(); iter.hasNext();) {
-                    BindingOperation bindingOperation =
-                            (BindingOperation) iter.next();
+                for (Iterator<BindingOperation> iter = binding.operations(); iter.hasNext();) {
+                    BindingOperation bindingOperation = iter.next();
 
-                    com.sun.tools.ws.wsdl.document.Operation portTypeOperation =
-                            null;
-                    Set operations =
+                    com.sun.tools.ws.wsdl.document.Operation portTypeOperation = null;
+                    Set<com.sun.tools.ws.wsdl.document.Operation> operations =
                             portType.getOperationsNamed(bindingOperation.getName());
                     if (operations.isEmpty()) {
                         // the WSDL document is invalid
                         error(bindingOperation, ModelerMessages.WSDLMODELER_INVALID_BINDING_OPERATION_NOT_IN_PORT_TYPE(bindingOperation.getName(), binding.getName()));
                     } else if (operations.size() == 1) {
-                        portTypeOperation =
-                                (com.sun.tools.ws.wsdl.document.Operation) operations
-                                        .iterator()
-                                        .next();
+                        portTypeOperation = operations.iterator().next();
                     } else {
                         boolean found = false;
-                        String expectedInputName =
-                                bindingOperation.getInput().getName();
-                        String expectedOutputName =
-                                bindingOperation.getOutput().getName();
+                        String expectedInputName = bindingOperation.getInput().getName();
+                        String expectedOutputName = bindingOperation.getOutput().getName();
 
-                        for (Iterator iter2 = operations.iterator(); iter2.hasNext();) {
-                            com.sun.tools.ws.wsdl.document.Operation candidateOperation =
-                                    (com.sun.tools.ws.wsdl.document.Operation) iter2
-                                            .next();
-
+                        for (com.sun.tools.ws.wsdl.document.Operation candidateOperation : operations) {
                             if (expectedInputName == null) {
                                 // the WSDL document is invalid
                                 error(bindingOperation, ModelerMessages.WSDLMODELER_INVALID_BINDING_OPERATION_MISSING_INPUT_NAME(bindingOperation.getName()));
@@ -560,7 +545,7 @@ public class WSDLModeler extends WSDLModelerBase {
         }
 
         // faults with duplicate names
-        Set duplicateNames = getDuplicateFaultNames();
+        Set<QName> duplicateNames = getDuplicateFaultNames();
 
         // handle soap:fault
         handleLiteralSOAPFault(response, duplicateNames);
@@ -579,10 +564,10 @@ public class WSDLModeler extends WSDLModelerBase {
     /**
      * This method is added to fix one of the use case for j2ee se folks, so that we determine
      * for non_soap wsdl what could be the style - rpc or document based on parts in the message.
-     *
+     * <p>
      * We assume that the message parts could have either all of them with type attribute (RPC)
      * or element (DOCUMENT)
-     *
+     * <p>
      * Shall this check if parts are mixed and throw error message?
      */
     private void setNonSoapStyle(Message inputMessage, Message outputMessage) {
@@ -875,7 +860,7 @@ public class WSDLModeler extends WSDLModelerBase {
         }
 
         // faults with duplicate names
-        Set duplicateNames = getDuplicateFaultNames();
+        Set<QName> duplicateNames = getDuplicateFaultNames();
 
         // handle soap:fault
         handleLiteralSOAPFault(response, duplicateNames);
@@ -990,10 +975,7 @@ public class WSDLModeler extends WSDLModelerBase {
         //at last look in wsdl:definitions
         jaxwsCustomization = (JAXWSBinding) getExtensionOfType(info.document.getDefinitions(), JAXWSBinding.class);
         mimeContentMapping = (jaxwsCustomization != null) ? jaxwsCustomization.isEnableMimeContentMapping() : null;
-        if (mimeContentMapping != null) {
-            return mimeContentMapping;
-        }
-        return false;
+        return Objects.requireNonNullElse(mimeContentMapping, false);
     }
 
     private boolean applyOperationNameCustomization() {
@@ -1095,9 +1077,7 @@ public class WSDLModeler extends WSDLModelerBase {
                         MessagePart part = parts.next();
                         JAXBType jaxbType = getJAXBType(part);
                         List<JAXBProperty> memberList = jaxbType.getWrapperChildren();
-                        Iterator<JAXBProperty> props = memberList.iterator();
-                        while (props.hasNext()) {
-                            JAXBProperty prop = props.next();
+                        for (JAXBProperty prop : memberList) {
                             unwrappedParameterList.add(prop.getElementName().getLocalPart());
                         }
                     }
@@ -1234,13 +1214,13 @@ public class WSDLModeler extends WSDLModelerBase {
         return false;
     }
 
-    protected void handleLiteralSOAPHeaders(Request request, Response response, Iterator headerParts, Set duplicateNames, @NotNull List<String> definitiveParameterList, boolean processRequest) {
+    protected void handleLiteralSOAPHeaders(Request request, Response response, Iterator<MessagePart> headerParts, Set<QName> duplicateNames, @NotNull List<String> definitiveParameterList, boolean processRequest) {
         QName headerName;
         Block headerBlock;
         JAXBType jaxbType;
         int parameterOrderPosition = definitiveParameterList.size();
         while (headerParts.hasNext()) {
-            MessagePart part = (MessagePart) headerParts.next();
+            MessagePart part = headerParts.next();
             headerName = part.getDescriptor();
             jaxbType = getJAXBType(part);
             headerBlock = new Block(headerName, jaxbType, part);
@@ -1285,7 +1265,7 @@ public class WSDLModeler extends WSDLModelerBase {
 
     }
 
-    protected void handleLiteralSOAPFault(Response response, Set duplicateNames) {
+    protected void handleLiteralSOAPFault(Response response, Set<QName> duplicateNames) {
         for (BindingFault bindingFault : info.bindingOperation.faults()) {
             com.sun.tools.ws.wsdl.document.Fault portTypeFault = null;
             for (com.sun.tools.ws.wsdl.document.Fault aFault : info.portTypeOperation.faults()) {
@@ -1357,12 +1337,12 @@ public class WSDLModeler extends WSDLModelerBase {
             }
 
             com.sun.tools.ws.wsdl.document.Message faultMessage = portTypeFault.resolveMessage(info.document);
-            Iterator iter2 = faultMessage.parts();
+            Iterator<MessagePart> iter2 = faultMessage.parts();
             if (!iter2.hasNext()) {
                 // the WSDL document is invalid
                 error(faultMessage, ModelerMessages.WSDLMODELER_INVALID_BINDING_FAULT_EMPTY_MESSAGE(portTypeFault.getName(), faultMessage.getName()));
             }
-            MessagePart faultPart = (MessagePart) iter2.next();
+            MessagePart faultPart = iter2.next();
             QName faultQName = faultPart.getDescriptor();
 
             // Don't include fault messages with non-unique soap:fault names
@@ -1469,8 +1449,8 @@ public class WSDLModeler extends WSDLModelerBase {
         }
 
         //now build the final parts list with header, mime parts and body parts
-        for (Iterator iter = message.parts(); iter.hasNext();) {
-            MessagePart mPart = (MessagePart) iter.next();
+        for (Iterator<MessagePart> iter = message.parts(); iter.hasNext();) {
+            MessagePart mPart = iter.next();
             if (mimeParts.contains(mPart)) {
                 mPart.setBindingExtensibilityElementKind(MessagePart.WSDL_MIME_BINDING);
             } else if (headerParts.contains(mPart)) {
@@ -1551,13 +1531,11 @@ public class WSDLModeler extends WSDLModelerBase {
 
     @SuppressWarnings({"deprecation"})
     private Message getHeaderMessage(MessagePart part, TWSDLExtensible ext) {
-        Iterator<SOAPHeader> headers = getHeaderExtensions(ext).iterator();
-        while (headers.hasNext()) {
-            SOAPHeader header = headers.next();
+        for (SOAPHeader header : getHeaderExtensions(ext)) {
             if (!header.isLiteral()) {
                 continue;
             }
-            com.sun.tools.ws.wsdl.document.Message headerMessage = findMessage(header.getMessage(), document);
+            Message headerMessage = findMessage(header.getMessage(), document);
             if (headerMessage == null) {
                 continue;
             }
@@ -1580,9 +1558,7 @@ public class WSDLModeler extends WSDLModelerBase {
         }
 
         List<MessagePart> parts = new ArrayList<>();
-        Iterator<SOAPHeader> headers = getHeaderExtensions(ext).iterator();
-        while (headers.hasNext()) {
-            SOAPHeader header = headers.next();
+        for (SOAPHeader header : getHeaderExtensions(ext)) {
             if (!header.isLiteral()) {
                 error(header, ModelerMessages.WSDLMODELER_INVALID_HEADER_NOT_LITERAL(header.getPart(), bindingOperation.getName()));
             }
@@ -1590,7 +1566,7 @@ public class WSDLModeler extends WSDLModelerBase {
             if (header.getNamespace() != null) {
                 warning(header, ModelerMessages.WSDLMODELER_WARNING_R_2716_R_2726("soapbind:header", bindingOperation.getName()));
             }
-            com.sun.tools.ws.wsdl.document.Message headerMessage = findMessage(header.getMessage(),document);
+            Message headerMessage = findMessage(header.getMessage(), document);
             if (headerMessage == null) {
                 error(header, ModelerMessages.WSDLMODELER_INVALID_HEADER_CANT_RESOLVE_MESSAGE(header.getMessage(), bindingOperation.getName()));
             }
@@ -1747,7 +1723,7 @@ public class WSDLModeler extends WSDLModelerBase {
 
                         TypeAndAnnotation inTa = jaxbType.getJavaType().getType().getTypeAnn();
                         TypeAndAnnotation outTa = outJaxbType.getJavaType().getType().getTypeAnn();
-                        if ((((inTa != null) && (outTa != null) && inTa.equals(outTa))) && !inType.equals(outType)) {
+                        if ((((inTa != null) && inTa.equals(outTa))) && !inType.equals(outType)) {
                             String javaType = "jakarta.activation.DataHandler";
 
                             //S2JJAXBModel jaxbModel = getJAXBModelBuilder().getJAXBModel().getS2JJAXBModel();
@@ -2000,7 +1976,7 @@ public class WSDLModeler extends WSDLModelerBase {
             elementName = param.getType().getName();
         }
         String customName = jaxwsBinding.getParameterName(msg.getName(), paramName, elementName, wrapperStyle);
-        if (customName != null && !customName.equals("")) {
+        if (customName != null && !customName.isEmpty()) {
             param.setCustomName(customName);
         }
     }
@@ -2108,16 +2084,16 @@ public class WSDLModeler extends WSDLModelerBase {
     /* (non-Javadoc)
      * @see WSDLModelerBase#isSingleInOutPart(Set, MessagePart)
      */
-    protected boolean isSingleInOutPart(Set inputParameterNames,
+    protected boolean isSingleInOutPart(Set<String> inputParameterNames,
                                         MessagePart outputPart) {
         // As of now, we dont have support for in/out in doc-lit. So return false.
         SOAPOperation soapOperation =
                 (SOAPOperation) getExtensionOfType(info.bindingOperation,
                         SOAPOperation.class);
         if ((soapOperation != null) && (soapOperation.isDocument() || info.soapBinding.isDocument())) {
-            Iterator iter = getInputMessage().parts();
+            Iterator<MessagePart> iter = getInputMessage().parts();
             while (iter.hasNext()) {
-                MessagePart part = (MessagePart) iter.next();
+                MessagePart part = iter.next();
                 if (outputPart.getName().equals(part.getName()) && outputPart.getDescriptor().equals(part.getDescriptor())) {
                     return true;
                 }
@@ -2320,7 +2296,7 @@ public class WSDLModeler extends WSDLModelerBase {
         JAXWSBinding jaxwsCust = (JAXWSBinding) getExtensionOfType(wsdlService, JAXWSBinding.class);
         if (jaxwsCust != null && jaxwsCust.getClassName() != null) {
             CustomName name = jaxwsCust.getClassName();
-            if (name != null && !name.getName().equals("")) {
+            if (name != null && !name.getName().isEmpty()) {
                 return makePackageQualified(name.getName());
             }
         }
@@ -2339,7 +2315,7 @@ public class WSDLModeler extends WSDLModelerBase {
         JAXWSBinding jaxwsCust = (JAXWSBinding) getExtensionOfType(pt, JAXWSBinding.class);
         if (jaxwsCust != null && jaxwsCust.getClassName() != null) {
             CustomName name = jaxwsCust.getClassName();
-            if (name != null && !name.getName().equals("")) {
+            if (name != null && !name.getName().isEmpty()) {
                 return makePackageQualified(name.getName());
             }
         }
@@ -2367,8 +2343,8 @@ public class WSDLModeler extends WSDLModelerBase {
 
         // build a signature of the form "opName%arg1type%arg2type%...%argntype so that we
         // detect overloading conflicts in the generated java interface/classes
-        for (Iterator iter = operation.getRequest().getParameters(); iter.hasNext();) {
-            Parameter parameter = (Parameter) iter.next();
+        for (Iterator<Parameter> iter = operation.getRequest().getParameters(); iter.hasNext();) {
+            Parameter parameter = iter.next();
 
             if (parameter.getJavaParameter() != null) {
                 error(operation.getEntity(), ModelerMessages.WSDLMODELER_INVALID_OPERATION(operation.getName().getLocalPart()));
@@ -2419,6 +2395,7 @@ public class WSDLModeler extends WSDLModelerBase {
         } else {
             method.setReturnType(JavaSimpleTypeCreator.VOID_JAVATYPE);
         }
+        @SuppressWarnings({"unchecked"})
         List<Parameter> parameterOrder = (List<Parameter>) operation.getProperty(WSDL_PARAMETER_ORDER);
         for (Parameter param : parameterOrder) {
             JavaType parameterType = param.getType().getJavaType();
@@ -2445,16 +2422,16 @@ public class WSDLModeler extends WSDLModelerBase {
         intf.addMethod(method);
 
         String opName = BindingHelper.mangleNameToVariableName(operation.getName().getLocalPart());
-        for (Iterator iter = operation.getFaults();
+        for (Iterator<Fault> iter = operation.getFaults();
              iter != null && iter.hasNext();
                 ) {
-            Fault fault = (Fault) iter.next();
+            Fault fault = iter.next();
             createJavaExceptionFromLiteralType(fault, port, opName);
         }
         JavaException javaException;
         Fault fault;
-        for (Iterator iter = operation.getFaults(); iter.hasNext();) {
-            fault = (Fault) iter.next();
+        for (Iterator<Fault> iter = operation.getFaults(); iter.hasNext();) {
+            fault = iter.next();
             javaException = fault.getJavaException();
             method.addException(javaException.getName());
         }
@@ -2537,7 +2514,7 @@ public class WSDLModeler extends WSDLModelerBase {
         String parameterOrder = info.portTypeOperation.getParameterOrder();
         java.util.List<String> parameterList;
         boolean parameterOrderPresent = false;
-        if ((parameterOrder != null) && !(parameterOrder.trim().equals(""))) {
+        if ((parameterOrder != null) && !(parameterOrder.trim().isEmpty())) {
             parameterList = XmlUtil.parseTokenList(parameterOrder);
             parameterOrderPresent = true;
         } else {
@@ -2562,11 +2539,9 @@ public class WSDLModeler extends WSDLModelerBase {
 
         if (parameterOrderPresent) {
             boolean validParameterOrder = true;
-            Iterator<String> paramOrders = parameterList.iterator();
             // If any part in the parameterOrder is not present in the request or
             // response message, we completely ignore the parameterOrder hint
-            while (paramOrders.hasNext()) {
-                String param = paramOrders.next();
+            for (String param : parameterList) {
                 boolean partFound = false;
                 for (MessagePart part : inputParts) {
                     if (param.equals(part.getName())) {
@@ -2738,9 +2713,9 @@ public class WSDLModeler extends WSDLModelerBase {
         }
 
         SOAPStyle opStyle = soapBinding.getStyle();
-        for (Iterator iter = binding.operations(); iter.hasNext();) {
+        for (Iterator<BindingOperation> iter = binding.operations(); iter.hasNext();) {
             BindingOperation bindingOperation =
-                    (BindingOperation) iter.next();
+                    iter.next();
             SOAPOperation soapOperation =
                     (SOAPOperation) getExtensionOfType(bindingOperation,
                             SOAPOperation.class);

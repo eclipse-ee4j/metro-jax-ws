@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,6 @@ import com.sun.tools.ws.processor.model.Service;
 import com.sun.tools.ws.processor.model.java.JavaInterface;
 import com.sun.tools.ws.resources.GeneratorMessages;
 import com.sun.tools.ws.wscompile.ErrorReceiver;
-import com.sun.tools.ws.wscompile.Options;
 import com.sun.tools.ws.wscompile.WsimportOptions;
 import com.sun.tools.ws.wsdl.document.PortType;
 import com.sun.xml.ws.spi.db.BindingHelper;

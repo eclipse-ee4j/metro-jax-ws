@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -129,8 +129,7 @@ public class WSDLFetcher {
                 rootWsdlName = "Service";
             } else {
                 Node serviceNode = serviceNodes.item(0);
-                String serviceName = ((Element)serviceNode).getAttribute( WSDLConstants.ATTR_NAME);
-                rootWsdlName = serviceName;
+                rootWsdlName = ((Element)serviceNode).getAttribute( WSDLConstants.ATTR_NAME);
             }
             rootWsdlFileName = rootWsdlName+ WSDL_FILE_EXTENSION;
         } else {
@@ -166,21 +165,18 @@ public class WSDLFetcher {
     }
 
     private DocumentLocationResolver createDocResolver(final String baseWsdl, final DOMForest forest, final Map<String,String> documentMap) {
-        return new DocumentLocationResolver() {
-            @Override
-            public String getLocationFor(String namespaceURI, String systemId) {
-                try {
-                    URL reference = new URL(new URL(baseWsdl),systemId);
-                    systemId = reference.toExternalForm();
-                } catch (MalformedURLException e) {
-                    throw new RuntimeException(e);
-                }
-                if(documentMap.get(systemId) != null) {
-                    return documentMap.get(systemId);
-                } else {
-                    String parsedEntity = forest.getReferencedEntityMap().get(systemId);
-                    return documentMap.get(parsedEntity);
-                }
+        return (namespaceURI, systemId) -> {
+            try {
+                URL reference = new URL(new URL(baseWsdl),systemId);
+                systemId = reference.toExternalForm();
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            }
+            if(documentMap.get(systemId) != null) {
+                return documentMap.get(systemId);
+            } else {
+                String parsedEntity = forest.getReferencedEntityMap().get(systemId);
+                return documentMap.get(parsedEntity);
             }
         };
     }

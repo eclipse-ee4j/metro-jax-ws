@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,6 @@
 
 package com.sun.tools.ws.wsdl.document.mime;
 
-import com.sun.tools.ws.wsdl.framework.Entity;
 import com.sun.tools.ws.wsdl.framework.EntityAction;
 import com.sun.tools.ws.wsdl.framework.ExtensionImpl;
 import com.sun.tools.ws.wsdl.framework.ExtensionVisitor;
@@ -50,8 +49,8 @@ public class MIMEMultipartRelated extends ExtensionImpl {
     public void withAllSubEntitiesDo(EntityAction action) {
         super.withAllSubEntitiesDo(action);
 
-        for (Iterator iter = _parts.iterator(); iter.hasNext();) {
-            action.perform((Entity) iter.next());
+        for (MIMEPart part : _parts) {
+            action.perform(part);
         }
     }
 

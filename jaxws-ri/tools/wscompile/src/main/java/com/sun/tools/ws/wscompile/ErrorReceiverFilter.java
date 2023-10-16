@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@ import org.xml.sax.SAXParseException;
 
 /**
  * Filter implementation of the ErrorReceiver.
- *
+ * <p>
  * If an error is encountered, this filter sets a flag.
  *
  * @author Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -90,12 +90,12 @@ public abstract class AbstractDocument {
             action.perform(getRoot());
         }
 
-        for (Iterator<Entity> iter = importedEntities.iterator(); iter.hasNext();) {
-            action.perform(iter.next());
+        for (Entity importedEntity : importedEntities) {
+            action.perform(importedEntity);
         }
 
-        for (Iterator<Entity> iter = includedEntities.iterator(); iter.hasNext();) {
-            action.perform(iter.next());
+        for (Entity includedEntity : includedEntities) {
+            action.perform(includedEntity);
         }
     }
 

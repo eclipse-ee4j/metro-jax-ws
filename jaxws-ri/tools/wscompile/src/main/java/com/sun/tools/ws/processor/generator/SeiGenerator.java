@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,7 +19,6 @@ import com.sun.tools.ws.processor.model.java.JavaParameter;
 import com.sun.tools.ws.processor.model.jaxb.JAXBType;
 import com.sun.tools.ws.processor.model.jaxb.JAXBTypeAndAnnotation;
 import com.sun.tools.ws.wscompile.ErrorReceiver;
-import com.sun.tools.ws.wscompile.Options;
 import com.sun.tools.ws.wscompile.WsimportOptions;
 import com.sun.tools.ws.wsdl.document.soap.SOAPStyle;
 import com.sun.tools.ws.wsdl.document.PortType;
@@ -210,14 +209,14 @@ public class SeiGenerator extends GeneratorBase {
             webMethodAnn.param("operationName", operationName);
         }
 
-        if (operation.getSOAPAction() != null && operation.getSOAPAction().length() > 0){
+        if (operation.getSOAPAction() != null && !operation.getSOAPAction().isEmpty()){
             webMethodAnn.param("action", operation.getSOAPAction());
         }
 
         if (operation.getResponse() == null){
             m.annotate(jakarta.jws.Oneway.class);
         }else if (!operation.getJavaMethod().getReturnType().getName().equals("void") &&
-                 operation.getResponse().getParametersList().size() > 0){
+                !operation.getResponse().getParametersList().isEmpty()){
             Block block;
             String resultName = null;
             String nsURI = null;

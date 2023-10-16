@@ -203,7 +203,7 @@ public class WebServiceWrapperGenerator extends WebServiceVisitor {
             beanPackage = WebServiceConstants.JAXWS_PACKAGE_PD.getValue();
         Name methodName = method.getSimpleName();
         String operationName = builder.getOperationName(methodName);
-        operationName = webMethod != null && webMethod.operationName().length() > 0 ?
+        operationName = webMethod != null && !webMethod.operationName().isEmpty() ?
                 webMethod.operationName() : operationName;
         String reqName = operationName;
         String resName = operationName + WebServiceConstants.RESPONSE.getValue();
@@ -213,11 +213,11 @@ public class WebServiceWrapperGenerator extends WebServiceVisitor {
         String requestClassName = beanPackage + StringUtils.capitalize(method.getSimpleName().toString());
         RequestWrapper reqWrapper = method.getAnnotation(RequestWrapper.class);
         if (reqWrapper != null) {
-            if (reqWrapper.className().length() > 0)
+            if (!reqWrapper.className().isEmpty())
                 requestClassName = reqWrapper.className();
-            if (reqWrapper.localName().length() > 0)
+            if (!reqWrapper.localName().isEmpty())
                 reqName = reqWrapper.localName();
-            if (reqWrapper.targetNamespace().length() > 0)
+            if (!reqWrapper.targetNamespace().isEmpty())
                 reqNamespace = reqWrapper.targetNamespace();
         }
         builder.log("requestWrapper: "+requestClassName);
@@ -236,11 +236,11 @@ public class WebServiceWrapperGenerator extends WebServiceVisitor {
             responseClassName = beanPackage+StringUtils.capitalize(method.getSimpleName().toString())+ WebServiceConstants.RESPONSE.getValue();
             ResponseWrapper resWrapper = method.getAnnotation(ResponseWrapper.class);
             if(resWrapper != null) {
-                if (resWrapper.className().length() > 0)
+                if (!resWrapper.className().isEmpty())
                     responseClassName = resWrapper.className();
-                if (resWrapper.localName().length() > 0)
+                if (!resWrapper.localName().isEmpty())
                     resName = resWrapper.localName();
-                if (resWrapper.targetNamespace().length() > 0)
+                if (!resWrapper.targetNamespace().isEmpty())
                     resNamespace = resWrapper.targetNamespace();
             }
             canOverwriteResponse = builder.canOverWriteClass(responseClassName);
@@ -401,20 +401,20 @@ public class WebServiceWrapperGenerator extends WebServiceVisitor {
         if (isWSDLException) {
             TypeMirror beanType =  getFaultInfoMember(members).getParamType();
             faultInfo = new FaultInfo(TypeMonikerFactory.getTypeMoniker(beanType), true);
-            namespace = webFault.targetNamespace().length()>0 ?
+            namespace = !webFault.targetNamespace().isEmpty() ?
                                webFault.targetNamespace() : namespace;
-            name = webFault.name().length()>0 ?
+            name = !webFault.name().isEmpty() ?
                           webFault.name() : name;
             faultInfo.setElementName(new QName(namespace, name));
             seiContext.addExceptionBeanEntry(thrownDecl.getQualifiedName(), faultInfo, builder);
             return false;
         }
         if (webFault != null) {
-            namespace = webFault.targetNamespace().length()>0 ?
+            namespace = !webFault.targetNamespace().isEmpty() ?
                         webFault.targetNamespace() : namespace;
-            name = webFault.name().length()>0 ?
+            name = !webFault.name().isEmpty() ?
                    webFault.name() : name;
-            className = webFault.faultBean().length()>0 ?
+            className = !webFault.faultBean().isEmpty() ?
                         webFault.faultBean() : className;
 
         }
@@ -481,7 +481,7 @@ public class WebServiceWrapperGenerator extends WebServiceVisitor {
             return;
         JAnnotationUse xmlRootElementAnn = cls.annotate(XmlRootElement.class);
         xmlRootElementAnn.param("name", elementName);
-        if (namespaceUri.length() > 0) {
+        if (!namespaceUri.isEmpty()) {
             xmlRootElementAnn.param("namespace", namespaceUri);
         }
         JAnnotationUse xmlAccessorTypeAnn = cls.annotate(cm.ref(XmlAccessorType.class));

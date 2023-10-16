@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,12 +30,12 @@ public class Definitions extends Entity implements Defining, TWSDLExtensible {
     public Definitions(AbstractDocument document, Locator locator) {
         super(locator);
         _document = document;
-        _bindings = new ArrayList();
-        _imports = new ArrayList();
-        _messages = new ArrayList();
-        _portTypes = new ArrayList();
-        _services = new ArrayList();
-        _importedNamespaces = new HashSet();
+        _bindings = new ArrayList<>();
+        _imports = new ArrayList<>();
+        _messages = new ArrayList<>();
+        _portTypes = new ArrayList<>();
+        _services = new ArrayList<>();
+        _importedNamespaces = new HashSet<>();
         _helper = new ExtensibilityHelper();
     }
 
@@ -93,19 +93,19 @@ public class Definitions extends Entity implements Defining, TWSDLExtensible {
         _importedNamespaces.add(i.getNamespace());
     }
 
-    public Iterator imports() {
+    public Iterator<Import> imports() {
         return _imports.iterator();
     }
 
-    public Iterator messages() {
+    public Iterator<Message> messages() {
         return _messages.iterator();
     }
 
-    public Iterator portTypes() {
+    public Iterator<PortType> portTypes() {
         return _portTypes.iterator();
     }
 
-    public Iterator bindings() {
+    public Iterator<Binding> bindings() {
         return _bindings.iterator();
     }
 
@@ -159,20 +159,20 @@ public class Definitions extends Entity implements Defining, TWSDLExtensible {
         if (_types != null) {
             action.perform(_types);
         }
-        for (Iterator iter = _messages.iterator(); iter.hasNext();) {
-            action.perform((Entity) iter.next());
+        for (Message message : _messages) {
+            action.perform(message);
         }
-        for (Iterator iter = _portTypes.iterator(); iter.hasNext();) {
-            action.perform((Entity) iter.next());
+        for (PortType portType : _portTypes) {
+            action.perform(portType);
         }
-        for (Iterator iter = _bindings.iterator(); iter.hasNext();) {
-            action.perform((Entity) iter.next());
+        for (Binding binding : _bindings) {
+            action.perform(binding);
         }
-        for (Iterator iter = _services.iterator(); iter.hasNext();) {
-            action.perform((Entity) iter.next());
+        for (Service service : _services) {
+            action.perform(service);
         }
-        for (Iterator iter = _imports.iterator(); iter.hasNext();) {
-            action.perform((Entity) iter.next());
+        for (Import anImport : _imports) {
+            action.perform(anImport);
         }
         _helper.withAllSubEntitiesDo(action);
     }
@@ -180,25 +180,25 @@ public class Definitions extends Entity implements Defining, TWSDLExtensible {
     public void accept(WSDLDocumentVisitor visitor) throws Exception {
         visitor.preVisit(this);
 
-        for (Iterator iter = _imports.iterator(); iter.hasNext();) {
-            ((Import) iter.next()).accept(visitor);
+        for (Import anImport : _imports) {
+            anImport.accept(visitor);
         }
 
         if (_types != null) {
             _types.accept(visitor);
         }
 
-        for (Iterator iter = _messages.iterator(); iter.hasNext();) {
-            ((Message) iter.next()).accept(visitor);
+        for (Message message : _messages) {
+            message.accept(visitor);
         }
-        for (Iterator iter = _portTypes.iterator(); iter.hasNext();) {
-            ((PortType) iter.next()).accept(visitor);
+        for (PortType portType : _portTypes) {
+            portType.accept(visitor);
         }
-        for (Iterator iter = _bindings.iterator(); iter.hasNext();) {
-            ((Binding) iter.next()).accept(visitor);
+        for (Binding binding : _bindings) {
+            binding.accept(visitor);
         }
-        for (Iterator iter = _services.iterator(); iter.hasNext();) {
-            ((Service) iter.next()).accept(visitor);
+        for (Service service : _services) {
+            service.accept(visitor);
         }
 
         _helper.accept(visitor);
@@ -219,12 +219,12 @@ public class Definitions extends Entity implements Defining, TWSDLExtensible {
     private String _name;
     private String _targetNsURI;
     private Types _types;
-    private List _messages;
-    private List _portTypes;
-    private List _bindings;
+    private List<Message> _messages;
+    private List<PortType> _portTypes;
+    private List<Binding> _bindings;
     private List<Service> _services;
-    private List _imports;
-    private Set _importedNamespaces;
+    private List<Import> _imports;
+    private Set<String> _importedNamespaces;
 
     @Override
     public QName getElementName() {

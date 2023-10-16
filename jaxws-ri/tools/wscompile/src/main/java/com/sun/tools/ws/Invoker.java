@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -125,8 +125,8 @@ public final class Invoker {
 
             Thread.currentThread().setContextClassLoader(cl);
 
-            Class compileTool = cl.loadClass(mainClass);
-            Constructor ctor = compileTool.getConstructor(OutputStream.class);
+            Class<?> compileTool = cl.loadClass(mainClass);
+            Constructor<?> ctor = compileTool.getConstructor(OutputStream.class);
             Object tool = ctor.newInstance(System.out);
             Method runMethod = compileTool.getMethod("run",String[].class);
             boolean r = (Boolean)runMethod.invoke(tool,new Object[]{args});

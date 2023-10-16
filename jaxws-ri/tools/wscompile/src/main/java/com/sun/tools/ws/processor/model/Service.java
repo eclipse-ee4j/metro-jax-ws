@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,12 +68,11 @@ public class Service extends ModelObject {
     }
 
     private void initializePortsByName() {
-        portsByName = new HashMap();
+        portsByName = new HashMap<>();
         if (ports != null) {
-            for (Iterator iter = ports.iterator(); iter.hasNext();) {
-                Port port = (Port) iter.next();
+            for (Port port : ports) {
                 if (port.getName() != null &&
-                    portsByName.containsKey(port.getName())) {
+                        portsByName.containsKey(port.getName())) {
 
                     throw new ModelException("model.uniqueness");
                 }
@@ -100,7 +99,7 @@ public class Service extends ModelObject {
     }
 
     private QName name;
-    private List<Port> ports = new ArrayList();
+    private List<Port> ports = new ArrayList<>();
     private Map<QName, Port> portsByName = new HashMap<>();
     private JavaInterface javaInterface;
 }

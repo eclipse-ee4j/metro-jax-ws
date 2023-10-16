@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -83,15 +83,15 @@ public class Message extends GlobalEntity {
     public void withAllSubEntitiesDo(EntityAction action) {
         super.withAllSubEntitiesDo(action);
 
-        for (Iterator iter = _parts.iterator(); iter.hasNext();) {
-            action.perform((Entity) iter.next());
+        for (MessagePart part : _parts) {
+            action.perform(part);
         }
     }
 
     public void accept(WSDLDocumentVisitor visitor) throws Exception {
         visitor.preVisit(this);
-        for (Iterator<MessagePart> iter = _parts.iterator(); iter.hasNext();) {
-            iter.next().accept(visitor);
+        for (MessagePart part : _parts) {
+            part.accept(visitor);
         }
         visitor.postVisit(this);
     }

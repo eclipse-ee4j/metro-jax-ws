@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@ import java.net.URL;
  * @author WS Development Team
  */
 class JavaCompilerHelper{
-    static File getJarFile(Class clazz) {
+    static File getJarFile(Class<?> clazz) {
         URL url = null;
         try {
             url = ParallelWorldClassLoader.toJarUrl(clazz.getResource('/'+clazz.getName().replace('.','/')+".class"));

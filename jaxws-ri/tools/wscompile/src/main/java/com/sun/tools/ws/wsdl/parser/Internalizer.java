@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,6 +35,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -483,11 +484,7 @@ public class Internalizer {
 
     @NotNull
     static String fixNull(@Nullable String s) {
-        if (s == null) {
-            return "";
-        } else {
-            return s;
-        }
+        return Objects.requireNonNullElse(s, "");
     }
 
     private void reportError(Element errorSource, String formattedMsg) {

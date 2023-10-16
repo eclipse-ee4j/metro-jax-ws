@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,7 +33,7 @@ public class Binding extends GlobalEntity implements TWSDLExtensible {
 
     public Binding(Defining defining, Locator locator, ErrorReceiver receiver) {
         super(defining, locator, receiver);
-        _operations = new ArrayList();
+        _operations = new ArrayList<>();
         _helper = new ExtensibilityHelper();
     }
 
@@ -41,7 +41,7 @@ public class Binding extends GlobalEntity implements TWSDLExtensible {
         _operations.add(operation);
     }
 
-    public Iterator operations() {
+    public Iterator<BindingOperation> operations() {
         return _operations.iterator();
     }
 
@@ -82,8 +82,8 @@ public class Binding extends GlobalEntity implements TWSDLExtensible {
 
     @Override
     public void withAllSubEntitiesDo(EntityAction action) {
-        for (Iterator iter = _operations.iterator(); iter.hasNext();) {
-            action.perform((Entity) iter.next());
+        for (BindingOperation operation : _operations) {
+            action.perform(operation);
         }
         _helper.withAllSubEntitiesDo(action);
     }
@@ -109,8 +109,8 @@ public class Binding extends GlobalEntity implements TWSDLExtensible {
         visitor.preVisit(this);
         //bug fix: 4947340, extensions should be the first element
         _helper.accept(visitor);
-        for (Iterator iter = _operations.iterator(); iter.hasNext();) {
-            ((BindingOperation) iter.next()).accept(visitor);
+        for (BindingOperation operation : _operations) {
+            operation.accept(visitor);
         }
         visitor.postVisit(this);
     }
@@ -158,7 +158,7 @@ public class Binding extends GlobalEntity implements TWSDLExtensible {
     private ExtensibilityHelper _helper;
     private Documentation _documentation;
     private QName _portType;
-    private List _operations;
+    private List<BindingOperation> _operations;
 
     public void setParent(TWSDLExtensible parent) {
         this.parent = parent;

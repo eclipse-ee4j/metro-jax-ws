@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,27 +39,27 @@ public class WSDLDocument extends AbstractDocument{
 
     public QName[] getAllServiceQNames() {
 
-        ArrayList serviceQNames = new ArrayList();
+        ArrayList<QName> serviceQNames = new ArrayList<>();
 
-        for (Iterator iter = getDefinitions().services(); iter.hasNext();) {
-            Service next = (Service) iter.next();
+        for (Iterator<Service> iter = getDefinitions().services(); iter.hasNext();) {
+            Service next = iter.next();
             String targetNamespace = next.getDefining().getTargetNamespaceURI();
             String localName = next.getName();
             QName serviceQName = new QName(targetNamespace, localName);
             serviceQNames.add(serviceQName);
         }
-        return (QName[]) serviceQNames.toArray(new QName[0]);
+        return serviceQNames.toArray(new QName[0]);
     }
 
     public QName[] getAllPortQNames() {
-        ArrayList portQNames = new ArrayList();
+        ArrayList<QName> portQNames = new ArrayList<>();
 
-        for (Iterator iter = getDefinitions().services(); iter.hasNext();) {
-            Service next = (Service) iter.next();
+        for (Iterator<Service> iter = getDefinitions().services(); iter.hasNext();) {
+            Service next = iter.next();
             //Iterator ports = next.ports();
-            for (Iterator piter = next.ports(); piter.hasNext();) {
+            for (Iterator<Port> piter = next.ports(); piter.hasNext();) {
                 // If it's a relative import
-                Port pnext = (Port) piter.next();
+                Port pnext = piter.next();
                 String targetNamespace =
                     pnext.getDefining().getTargetNamespaceURI();
                 String localName = pnext.getName();
@@ -67,18 +67,18 @@ public class WSDLDocument extends AbstractDocument{
                 portQNames.add(portQName);
             }
         }
-        return (QName[]) portQNames.toArray(new QName[0]);
+        return portQNames.toArray(new QName[0]);
     }
 
     public QName[] getPortQNames(String serviceNameLocalPart) {
 
-        ArrayList portQNames = new ArrayList();
+        ArrayList<QName> portQNames = new ArrayList<>();
 
-        for (Iterator iter = getDefinitions().services(); iter.hasNext();) {
-            Service next = (Service) iter.next();
+        for (Iterator<Service> iter = getDefinitions().services(); iter.hasNext();) {
+            Service next = iter.next();
             if (next.getName().equals(serviceNameLocalPart)) {
-                for (Iterator piter = next.ports(); piter.hasNext();) {
-                    Port pnext = (Port) piter.next();
+                for (Iterator<Port> piter = next.ports(); piter.hasNext();) {
+                    Port pnext = piter.next();
                     String targetNamespace =
                         pnext.getDefining().getTargetNamespaceURI();
                     String localName = pnext.getName();
@@ -87,7 +87,7 @@ public class WSDLDocument extends AbstractDocument{
                 }
             }
         }
-        return (QName[]) portQNames.toArray(new QName[0]);
+        return portQNames.toArray(new QName[0]);
     }
 
     public void accept(WSDLDocumentVisitor visitor) throws Exception {

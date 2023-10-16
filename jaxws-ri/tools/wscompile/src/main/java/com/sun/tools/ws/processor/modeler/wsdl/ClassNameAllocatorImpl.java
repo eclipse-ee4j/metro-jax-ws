@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,7 @@ public class ClassNameAllocatorImpl implements ClassNameAllocator {
         }
 
         //if either of the values are empty string return the default className
-        if(packageName.equals("") || className.equals(""))
+        if(packageName.isEmpty() || className.isEmpty())
             return className;
 
         String fullClassName = packageName+"."+className;

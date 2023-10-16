@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -130,37 +130,37 @@ public class TWSDLParserContextImpl implements TWSDLParserContext {
         return new QName(uri, XmlUtil.getLocalPart(s));
     }
 
+    @SuppressWarnings({"unchecked"})
     public void fireIgnoringExtension(Element e, Entity entity) {
         QName name = new QName(e.getNamespaceURI(), e.getLocalName());
         QName parent = entity.getElementName();
-        List _targets = null;
+        List<ParserListener> _targets = null;
 
         synchronized (this) {
             if (_listeners != null) {
-                _targets = (List) _listeners.clone();
+                _targets = (List<ParserListener>) _listeners.clone();
             }
         }
 
         if (_targets != null) {
-            for (Iterator iter = _targets.iterator(); iter.hasNext();) {
-                ParserListener l = (ParserListener) iter.next();
+            for (ParserListener l : _targets) {
                 l.ignoringExtension(entity, name, parent);
             }
         }
     }
 
+    @SuppressWarnings({"unchecked"})
     public void fireDoneParsingEntity(QName element, Entity entity) {
-        List _targets = null;
+        List<ParserListener> _targets = null;
 
         synchronized (this) {
             if (_listeners != null) {
-                _targets = (List) _listeners.clone();
+                _targets = (List<ParserListener>) _listeners.clone();
             }
         }
 
         if (_targets != null) {
-            for (Iterator iter = _targets.iterator(); iter.hasNext();) {
-                ParserListener l = (ParserListener) iter.next();
+            for (ParserListener l : _targets) {
                 l.doneParsingEntity(element, entity);
             }
         }
