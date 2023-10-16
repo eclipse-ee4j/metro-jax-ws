@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -154,6 +154,7 @@ final class LocalConnectionImpl extends WSHTTPConnection implements WebServiceCo
 
     @Override
     @Property({MessageContext.HTTP_REQUEST_HEADERS,Packet.INBOUND_TRANSPORT_HEADERS})
+    @SuppressWarnings({"deprecation"})
     public @NotNull Map<String, List<String>> getRequestHeaders () {
         return reqHeaders;
     }
@@ -176,6 +177,7 @@ final class LocalConnectionImpl extends WSHTTPConnection implements WebServiceCo
 	}
 
 	@Override
+    @SuppressWarnings({"deprecation"})
 	public Set<String> getRequestHeaderNames() {
         return getRequestHeaders().keySet();
 	}
