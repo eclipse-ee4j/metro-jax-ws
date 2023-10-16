@@ -11,7 +11,7 @@
 /**
  * <h2>JAX-WS 2.1 Tools</h2>
  * This document describes the tools included with JAX-WS 2.0.1.
- * <p>
+ *
  * <h2>ANT Tasks</h2>
    <dl>
  *  <dt>{@link com.sun.tools.ws.ant.AnnotationProcessingTask AnnotationProcessing}</dt>
