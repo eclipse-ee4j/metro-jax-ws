@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,7 @@ public class CalendarComparator extends Assert {
             return false;
         }
 
-        Method getDSTSavingsMethod = TimeZone.getDefault().getClass().getMethod("getDSTSavings", null);
+        Method getDSTSavingsMethod = TimeZone.getDefault().getClass().getMethod("getDSTSavings");
 	return cal1.getTime().equals(cal2.getTime());
 
 /*        int offset1 = cal1.get(Calendar.ZONE_OFFSET)+(cal1.getTimeZone().inDaylightTime(cal1.getTime()) ?
@@ -78,7 +78,7 @@ public class CalendarComparator extends Assert {
             fail("Excpected calendar: " + cal1String + " but got: " + cal2String);
         }
 
-        Method getDSTSavingsMethod = TimeZone.getDefault().getClass().getMethod("getDSTSavings", null);
+        Method getDSTSavingsMethod = TimeZone.getDefault().getClass().getMethod("getDSTSavings");
 
 /*        int offset1 = cal1.get(Calendar.ZONE_OFFSET)+(cal1.getTimeZone().inDaylightTime(cal1.getTime()) ?
                 ((Integer)getDSTSavingsMethod.invoke(cal1.getTimeZone(), null)).intValue() : 0);
