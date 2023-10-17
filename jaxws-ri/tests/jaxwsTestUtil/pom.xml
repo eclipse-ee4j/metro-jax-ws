@@ -19,12 +19,12 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-ri-tests</artifactId>
-        <version>2.3.7-SNAPSHOT</version>
+        <version>2.3.7</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>jaxwsTestUtil</artifactId>
-    <version>2.3.7-SNAPSHOT</version>
+    <version>2.3.7</version>
     <name>WS Test Framework Utilities (JAX-WS)</name>
 
     <dependencies>
