@@ -274,4 +274,59 @@
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>2.16.1</version>
+                    <configuration>
+                        <allowMajorUpdates>false</allowMajorUpdates>
+                        <ruleSet>
+                            <rules>
+                                <rule>
+                                    <!-- 4.2.0+ comes with no SecurityManager support -->
+                                    <groupId>com.sun.istack</groupId>
+                                    <ignoreVersions>
+                                        <ignoreVersion>
+                                            <type>regex</type>
+                                            <version>4.[2-9]+.*</version>
+                                        </ignoreVersion>
+                                    </ignoreVersions>
+                                </rule>
+                                <rule>
+                                    <groupId>com.sun.xml.bind</groupId>
+                                    <ignoreVersions>
+                                        <ignoreVersion>
+                                            <type>regex</type>
+                                            <version>2.[4-9]+.*</version>
+                                        </ignoreVersion>
+                                    </ignoreVersions>
+                                </rule>
+                                <rule>
+                                    <groupId>org.glassfish.jaxb</groupId>
+                                    <ignoreVersions>
+                                        <ignoreVersion>
+                                            <type>regex</type>
+                                            <version>2.[4-9]+.*</version>
+                                        </ignoreVersion>
+                                    </ignoreVersions>
+                                </rule>
+                                <rule>
+                                    <groupId>org.jvnet.mimepull</groupId>
+                                    <ignoreVersions>
+                                        <ignoreVersion>
+                                            <type>regex</type>
+                                            <version>1.10.*</version>
+                                        </ignoreVersion>
+                                    </ignoreVersions>
+                                </rule>
+                            </rules>
+                        </ruleSet>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

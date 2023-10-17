@@ -34,6 +34,7 @@
             <ignoreVersions>
                 <ignoreVersion type="regex">2.2.8-b20.*</ignoreVersion>
                 <ignoreVersion type="regex">2.2.11-M.*</ignoreVersion>
+                <ignoreVersion type="regex">2.4.*</ignoreVersion>
             </ignoreVersions>
         </rule>
         <rule groupId="javax.jws" artifactId="jsr181-api" comparisonMethod="maven">
@@ -45,6 +46,7 @@
             <ignoreVersions>
                 <ignoreVersion type="regex">2.2.8-b20.*</ignoreVersion>
                 <ignoreVersion type="regex">2.2.11-M.*</ignoreVersion>
+                <ignoreVersion type="regex">2.4.*</ignoreVersion>
             </ignoreVersions>
         </rule>
     </rules>
