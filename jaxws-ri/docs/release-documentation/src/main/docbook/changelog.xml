@@ -32,6 +32,9 @@
                 <listitem>
                     <para>Replaces the last resort fallback to Java SE provided runtime by the fallback to the current WS runtime</para>
                 </listitem>
+                <listitem><para>
+                    <link xlink:href="https://github.com/eclipse-ee4j/metro-jax-ws/issues/656">#656</link>: Perform refresh in Eclipse after M2E execution of jaxws-maven-plugin
+                </para></listitem>
             </itemizedlist>
         </listitem>
 
