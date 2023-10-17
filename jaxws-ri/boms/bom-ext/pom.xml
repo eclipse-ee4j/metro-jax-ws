@@ -33,7 +33,7 @@
     <properties>
         <ant.version>1.10.14</ant.version>
         <!-- CQ 21208 -->
-        <asm.version>9.2</asm.version>
+        <asm.version>9.6</asm.version>
         <commonj.sdo.version>2.1.1</commonj.sdo.version>
         <eclipselink.version>2.7.13</eclipselink.version>
         <javax.persistance.version>2.2.3</javax.persistance.version>
