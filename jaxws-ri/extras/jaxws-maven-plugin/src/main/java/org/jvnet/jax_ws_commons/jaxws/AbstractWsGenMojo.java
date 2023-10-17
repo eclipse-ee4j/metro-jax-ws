@@ -139,15 +139,18 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     }
 
     protected void processSei(String sei) throws MojoExecutionException {
-        getLog().info("Processing: " + sei);
-        List<String> args = getWsGenArgs(sei, true);
-        getLog().info("jaxws:wsgen args: " + args);
-        exec(args);
-        if (metadata != null) {
-            try {
-                FileUtils.copyFileToDirectory(metadata, getClassesDir());
-            } catch (IOException ioe) {
-                throw new MojoExecutionException(ioe.getMessage(), ioe);
+        if (buildContext.hasDelta(new File(getClassesDir(), sei.replace('.', '/') + ".class"))
+                || (metadata != null && buildContext.hasDelta(metadata))) {
+            getLog().info("Processing: " + sei);
+            List<String> args = getWsGenArgs(sei, true);
+            getLog().info("jaxws:wsgen args: " + args);
+            exec(args);
+            if (metadata != null) {
+                try {
+                    FileUtils.copyFileToDirectory(metadata, getClassesDir());
+                } catch (IOException ioe) {
+                    throw new MojoExecutionException(ioe.getMessage(), ioe);
+                }
             }
         }
     }
