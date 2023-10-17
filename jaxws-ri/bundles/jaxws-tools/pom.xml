@@ -172,6 +172,46 @@
                                 <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
                                 <Class-Path>jaxws-rt.jar jaxb-xjc.jar jaxb-jxc.jar</Class-Path>
                                 <Extension-Name>com.sun.tools.jaxws</Extension-Name>
+                                <Require-Capability><![CDATA[
+                            osgi.extender;filter:="(&(osgi.extender=osgi.serviceloader.processor)
+                              (version>=1.0.0)(!(version>=2.0.0)))";resolution:=optional,
+                            osgi.extender;filter:="(&(osgi.extender=osgi.serviceloader.registrar)
+                              (version>=1.0.0)(!(version>=2.0.0)))";resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.wsdl.parser.MetadataResolverFactory)";
+                                osgi.serviceloader="com.sun.xml.ws.api.wsdl.parser.MetadataResolverFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.wsdl.writer.WSDLGeneratorExtension)";
+                                osgi.serviceloader="com.sun.xml.ws.api.wsdl.writer.WSDLGeneratorExtension";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.tools.ws.api.TJavaGeneratorExtension)";
+                                osgi.serviceloader="com.sun.tools.ws.api.TJavaGeneratorExtension";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.tools.ws.api.WsgenExtension)";
+                                osgi.serviceloader="com.sun.tools.ws.api.WsgenExtension";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.tools.ws.api.wsdl.TWSDLExtensionHandler)";
+                                osgi.serviceloader="com.sun.tools.ws.api.wsdl.TWSDLExtensionHandler";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.tools.ws.processor.generator.GeneratorExtension)";
+                                osgi.serviceloader="com.sun.tools.ws.processor.generator.GeneratorExtension";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.tools.ws.wscompile.Plugin)";
+                                osgi.serviceloader="com.sun.tools.ws.wscompile.Plugin";
+                                cardinality:=multiple;resolution:=optional
+                          ]]>
+                                </Require-Capability>
+                                <Provide-Capability><![CDATA[
+                            osgi.serviceloader;
+                              osgi.serviceloader="com.sun.tools.ws.wscompile.Plugin"
+                            ]]>
+                                </Provide-Capability>
                             </instructions>
                         </configuration>
                     </execution>

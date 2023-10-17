@@ -363,6 +363,27 @@
                         <configuration>
                             <instructions>
                                 <Implementation-Build-Id>${project.version} - ${buildNumber}</Implementation-Build-Id>
+                                <Require-Capability><![CDATA[
+                            osgi.extender;filter:="(&(osgi.extender=osgi.serviceloader.processor)
+                              (version>=1.0.0)(!(version>=2.0.0)))";resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.policy.spi.LoggingProvider)";
+                                osgi.serviceloader="com.sun.xml.ws.policy.spi.LoggingProvider";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.policy.spi.PolicyAssertionValidator)";
+                                osgi.serviceloader="com.sun.xml.ws.policy.spi.PolicyAssertionValidator";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.policy.spi.PolicyAssertionCreator)";
+                                osgi.serviceloader="com.sun.xml.ws.policy.spi.PolicyAssertionCreator";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.policy.spi.PrefixMapper)";
+                                osgi.serviceloader="com.sun.xml.ws.policy.spi.PrefixMapper";
+                                cardinality:=multiple;resolution:=optional
+                          ]]>
+                                </Require-Capability>
                             </instructions>
                         </configuration>
                     </execution>
