@@ -201,8 +201,8 @@
         <spotbugs.threshold>Normal</spotbugs.threshold>
         <spotbugs.version>4.7.3.6</spotbugs.version>
 
-        <jaxws-tools.version>${project.version}</jaxws-tools.version>
-        <!--<jaxws-tools.version>2.3.2</jaxws-tools.version>-->
+<!--        <jaxws-tools.version>${project.version}</jaxws-tools.version>-->
+        <jaxws-tools.version>2.3.6</jaxws-tools.version>
     </properties>
 
     <build>
@@ -575,7 +575,7 @@
                             <filterProperties>
                                 <jaxws.plugin.version>${project.version}</jaxws.plugin.version>
                                 <jaxws-ri.version>${jaxws-tools.version}</jaxws-ri.version>
-                                <metro.version>2.4.4</metro.version>
+                                <metro.version>2.4.8</metro.version>
                             </filterProperties>
                             <properties>
                                 <javax.xml.accessExternalSchema>all</javax.xml.accessExternalSchema>
