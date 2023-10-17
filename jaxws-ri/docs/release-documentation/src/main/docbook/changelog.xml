@@ -30,6 +30,9 @@
 
             <itemizedlist>
                 <listitem>
+                    <para>Adds support for OSGi Mediator specification</para>
+                </listitem>
+                <listitem>
                     <para>Replaces the last resort fallback to Java SE provided runtime by the fallback to the current WS runtime</para>
                 </listitem>
                 <listitem><para>
