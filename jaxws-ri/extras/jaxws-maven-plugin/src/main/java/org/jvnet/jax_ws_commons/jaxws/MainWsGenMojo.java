@@ -105,7 +105,6 @@ public class MainWsGenMojo extends AbstractWsGenMojo {
                 throw new MojoExecutionException("Failed to execute wsgen", ex);
             }
         }
-
     }
 
     private void attachWsdl() throws IOException {
@@ -137,6 +136,7 @@ public class MainWsGenMojo extends AbstractWsGenMojo {
         }
         getLog().debug("Packaging WSDL(s) to: " + target);
         FileUtils.copyDirectory(getResourceDestDir(), target);
+        buildContext.refresh(target);
     }
 
     private String getWebappDirectory(Object conf) {

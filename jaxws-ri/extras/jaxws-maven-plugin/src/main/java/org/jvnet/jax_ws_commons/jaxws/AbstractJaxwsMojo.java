@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
  * Copyright 2006 Codehaus
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -60,6 +60,7 @@ import org.eclipse.aether.resolution.DependencyResult;
 import org.eclipse.aether.util.filter.NotDependencyFilter;
 import org.eclipse.aether.util.graph.visitor.FilteringDependencyVisitor;
 import org.eclipse.aether.util.graph.visitor.PreorderNodeListGenerator;
+import org.sonatype.plexus.build.incremental.BuildContext;
 
 /**
  *
@@ -168,6 +169,9 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
      */
     @Parameter(defaultValue = "${plugin}", readonly = true)
     protected PluginDescriptor pluginDescriptor;
+
+    @Component
+    protected BuildContext buildContext;
 
     private static final Logger logger = Logger.getLogger(AbstractJaxwsMojo.class.getName());
     private static final List<String> METRO_22 = new ArrayList<String>();
@@ -357,7 +361,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
             }
             String fullCommand = cmd.toString();
             if (isWindows() && 8191 <= fullCommand.length()) {
-                getLog().warn("Length of the command is limitted to 8191 characters but it has "
+                getLog().warn("Length of the command is limited to 8191 characters but it has "
                         + fullCommand.length() + " characters.");
                 getLog().warn(fullCommand);
             } else {
@@ -366,10 +370,9 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
             if (CommandLineUtils.executeCommandLine(cmd, sc, sc) != 0) {
                 throw new MojoExecutionException("Mojo failed - check output");
             }
-        } catch (DependencyResolutionException dre) {
+            buildContext.refresh(getSourceDestDir());
+        } catch (DependencyResolutionException | CommandLineException dre) {
             throw new MojoExecutionException(dre.getMessage(), dre);
-        } catch (CommandLineException t) {
-            throw new MojoExecutionException(t.getMessage(), t);
         }
     }
 
