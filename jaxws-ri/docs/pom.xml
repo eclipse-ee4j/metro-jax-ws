@@ -16,7 +16,7 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>4.0.2-SNAPSHOT</version>
+        <version>4.0.3-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -24,7 +24,7 @@
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>docs</artifactId>
-    <version>4.0.2-SNAPSHOT</version>
+    <version>4.0.3-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     <name>JAX-WS RI Documentation</name>
