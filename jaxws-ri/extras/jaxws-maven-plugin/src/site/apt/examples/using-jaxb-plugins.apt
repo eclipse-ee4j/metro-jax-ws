@@ -24,13 +24,13 @@ Using xjc plugins
     <dependency>
       <groupId>com.sun.xml.ws</groupId>
       <artifactId>jaxws-rt</artifactId>
-      <version>3.0.0</version>
+      <version>4.0.0</version>
     </dependency>
     <!-- to compile xjc-generated sources -->
     <dependency>
-      <groupId>org.jvnet.jaxb2_commons</groupId>
-      <artifactId>jaxb2-basics-runtime</artifactId>
-      <version>0.6.4</version>
+      <groupId>org.jvnet.jaxb</groupId>
+      <artifactId>jaxb-plugins-runtime</artifactId>
+      <version>4.0.0</version>
     </dependency>
     ...
   </dependencies>
@@ -42,13 +42,13 @@ Using xjc plugins
       <plugin>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>4.0.0</version>
         <dependencies>
           <!-- put xjc-plugins on the jaxws-maven-plugin's classpath -->
           <dependency>
-            <groupId>org.jvnet.jaxb2_commons</groupId>
-            <artifactId>jaxb2-basics</artifactId>
-            <version>0.6.4</version>
+            <groupId>org.jvnet.jaxb</groupId>
+            <artifactId>jaxb-plugins</artifactId>
+            <version>4.0.0</version>
           </dependency>
         </dependencies>
         <configuration>
