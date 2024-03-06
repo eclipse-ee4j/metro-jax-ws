@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2024 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,7 +41,7 @@
             <url>http://www.eclipse.org/org/documents/edl-v10.php</url>
             <distribution>repo</distribution>
         </license>
-    </licenses>    
+    </licenses>
 
     <developers>
         <developer>
@@ -79,7 +79,7 @@
         <spotbugs.exclude>${project.basedir}/exclude.xml</spotbugs.exclude>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Low</spotbugs.threshold>
-        <spotbugs.version>4.7.3.6</spotbugs.version>
+        <spotbugs.version>4.8.3.1</spotbugs.version>
         <findsecbugs.version>1.11.0</findsecbugs.version>
 
         <maven.compiler.release>11</maven.compiler.release>
@@ -99,7 +99,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <legal.doc.source>${project.basedir}/../../..</legal.doc.source>
 
-        <jaxb.version>4.0.4</jaxb.version>
+        <jaxb.version>4.0.5</jaxb.version>
         <junit.version>4.13.2</junit.version>
         <istack.plugin.version>4.1.2</istack.plugin.version>
     </properties>
