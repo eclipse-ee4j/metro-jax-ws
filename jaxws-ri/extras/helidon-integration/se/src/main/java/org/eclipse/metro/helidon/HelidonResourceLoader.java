@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024 Oracle and/or its affiliates.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
@@ -38,13 +41,15 @@ import java.util.logging.Logger;
 class HelidonResourceLoader implements ResourceLoader {
 
     private final String catalog;
+    private final boolean loadCustomSchemaEnabled;
 
     private static final String DD_DIR = DeploymentDescriptorParser.JAXWS_WSDL_DD_DIR + "/";
 
     private static final Logger LOGGER = Logger.getLogger(HelidonResourceLoader.class.getName());
 
-    public HelidonResourceLoader(String catalog) {
+    HelidonResourceLoader(String catalog, boolean loadCustomSchemaEnabled) {
         this.catalog = catalog;
+        this.loadCustomSchemaEnabled = loadCustomSchemaEnabled;
     }
 
     @Override
@@ -60,62 +65,79 @@ class HelidonResourceLoader implements ResourceLoader {
 
     @Override
     public Set<String> getResourcePaths(String path) {
-        //should be always true, warn if not
-        if (("/" + DD_DIR).equals(path)) { 
+        // should be always true, warn if not
+        if (("/" + DD_DIR).equals(path)) {
             Set<String> r = new HashSet<>();
-            FileSystem jarFS = null;
             try {
-                URL rootUrl = getResource(path);
-                if (rootUrl == null) {
-                    //no wsdls found
-                    return r;
+                Collection<URL> resources;
+                String res = path.substring(1);
+                if (loadCustomSchemaEnabled) {
+                    resources = Collections.list(Thread.currentThread().getContextClassLoader().getResources(res));
+                } else {
+                    resources = Arrays.asList(getResource(res));
                 }
-                Path wsdlDir = null;
-                switch (rootUrl.getProtocol()) {
-                    case "file":
-                        wsdlDir = Paths.get(rootUrl.toURI());
-                        break;
-                    case "jar":
-                        jarFS = FileSystems.newFileSystem(rootUrl.toURI(), Collections.emptyMap());
-                        wsdlDir = jarFS.getPath(path);
-                        break;
-                    default:
-                        LOGGER.log(Level.WARNING, "Unsupported protocol: {0}", rootUrl.getProtocol());
-                        LOGGER.log(Level.WARNING, "Empty set for {0}", rootUrl);
-                        return Collections.EMPTY_SET;
+                for (URL rootUrl : resources) {
+                    loadResources(path, rootUrl, r);
                 }
-
-                //since we don't know exact file extension (can be .wsdl, .xml, .asmx,...)
-                //nor whether the file is used or not (we are not processing wsdl/xsd imports here)
-                //simply return all found files
-                Files.walkFileTree(wsdlDir, new SimpleFileVisitor<Path>() {
-
-                    @Override
-                    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                        try {
-                            String p = DD_DIR + Paths.get(rootUrl.toURI()).relativize(file).toString();
-                            r.add(p);
-                        } catch (URISyntaxException ex) {
-                            LOGGER.log(Level.FINE, null, ex);
-                        }
-                        return FileVisitResult.CONTINUE;
-                    }
-                });
-            } catch (IOException | URISyntaxException ex) {
-                LOGGER.log(Level.FINE, null, ex);
-            } finally {
-                if (jarFS != null) {
-                    try {
-                        jarFS.close();
-                    } catch (IOException ex) {
-                        LOGGER.log(Level.FINE, null, ex);
-                    }
-                }
+                return r;
+            } catch (IOException e) {
+                LOGGER.log(Level.FINE, null, e);
             }
-            return r;
         }
         LOGGER.log(Level.WARNING, "Empty set for {0}", path);
         return Collections.EMPTY_SET;
+    }
+
+    private Set<String> loadResources(String path, URL rootUrl, Set<String> r) {
+        FileSystem jarFS = null;
+        try {
+            if (rootUrl == null) {
+                // no wsdls found
+                return r;
+            }
+            Path wsdlDir = null;
+            switch (rootUrl.getProtocol()) {
+                case "file":
+                    wsdlDir = Paths.get(rootUrl.toURI());
+                    break;
+                case "jar":
+                    jarFS = FileSystems.newFileSystem(rootUrl.toURI(), Collections.emptyMap());
+                    wsdlDir = jarFS.getPath(path);
+                    break;
+                default:
+                    LOGGER.log(Level.WARNING, "Unsupported protocol: {0}", rootUrl.getProtocol());
+                    LOGGER.log(Level.WARNING, "Empty set for {0}", rootUrl);
+                    return Collections.EMPTY_SET;
+            }
+
+            //since we don't know exact file extension (can be .wsdl, .xml, .asmx,...)
+            //nor whether the file is used or not (we are not processing wsdl/xsd imports here)
+            //simply return all found files
+            Files.walkFileTree(wsdlDir, new SimpleFileVisitor<Path>() {
+
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    try {
+                        String p = DD_DIR + Paths.get(rootUrl.toURI()).relativize(file).toString();
+                        r.add(p);
+                    } catch (URISyntaxException ex) {
+                        LOGGER.log(Level.FINE, null, ex);
+                    }
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+        } catch (IOException | URISyntaxException ex) {
+            LOGGER.log(Level.FINE, null, ex);
+        } finally {
+            if (jarFS != null) {
+                try {
+                    jarFS.close();
+                } catch (IOException ex) {
+                    LOGGER.log(Level.FINE, null, ex);
+                }
+            }
+        }
+        return r;
     }
 
 }

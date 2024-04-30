@@ -4,6 +4,7 @@ target/
 # eclipse
 .project
 .classpath
+.factorypath
 .settings/
 .wtpmodules
 

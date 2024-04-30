@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Oracle and/or its affiliates.
+ * Copyright (c) 2021, 2024 Oracle and/or its affiliates.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,12 +67,11 @@ public class MetroSupport implements Service {
         HttpTransportPipe.setDump(builder.dumpClient);
         // 3.0.0 does not have this method
         HttpAdapter.setDumpTreshold(builder.dumpTreshold);
-
         List<HelidonAdapter> e = Collections.EMPTY_LIST;
         container = new HelidonContainer(builder.webContext);
         try {
             e = parseEndpoints(builder.dd,
-                    new HelidonResourceLoader(builder.catalog),
+                    new HelidonResourceLoader(builder.catalog, builder.loadcustomschema),
                     container);
         } catch (IOException ioe) {
             LOGGER.log(Level.SEVERE, null, ioe);
@@ -161,6 +160,7 @@ public class MetroSupport implements Service {
     public static final class Builder implements io.helidon.common.Builder<MetroSupport> {
 
         private String dd = "sun-jaxws.xml";
+        private boolean loadcustomschema = false;
         private String wsdlRoot = "WEB-INF/wsdl";
         private String catalog = "metro-catalog.xml";
         private String webContext = "";
@@ -193,6 +193,7 @@ public class MetroSupport implements Service {
         public Builder config(Config config) {
             config.get("catalog").asString().ifPresent(this::catalog);
             config.get("descriptor").asString().ifPresent(this::descriptor);
+            config.get("loadcustomschema").asBoolean().ifPresent(this::loadcustomschema);
 //            config.get("dump-client").asBoolean().ifPresent(this::dumpClient);
 //            config.get("dump-service").asBoolean().ifPresent(this::dumpService);
             config.get("dump").asString().ifPresent((value) -> {
@@ -285,6 +286,17 @@ public class MetroSupport implements Service {
          */
         public Builder publishStatusPage(boolean enabled) {
             publishStatusPage = enabled;
+            return this;
+        }
+
+        /**
+         * It will load every schema found in the resource path.
+         *
+         * @param enabled whether it should search for all resources (defaults to {@code false})
+         * @return updated builder instance
+         */
+        public Builder loadcustomschema(boolean enabled) {
+            loadcustomschema = enabled;
             return this;
         }
 
