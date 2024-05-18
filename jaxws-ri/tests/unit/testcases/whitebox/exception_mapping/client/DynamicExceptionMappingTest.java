@@ -12,6 +12,7 @@ package whitebox.exception_mapping.client;
 
 import junit.framework.TestCase;
 
+import java.util.Locale;
 import jakarta.xml.ws.Endpoint;
 
 import com.sun.xml.ws.model.RuntimeModelerException;
@@ -31,6 +32,7 @@ public class DynamicExceptionMappingTest extends TestCase {
     }
 
     public void testNegativeDynamicExceptionMapping() throws Exception {
+        Locale.setDefault(Locale.ENGLISH);
         int port = Util.getFreePort();
         String address = "http://localhost:" + port + "/hello";
         Endpoint endpoint = Endpoint.create(new NegativeEchoImpl());

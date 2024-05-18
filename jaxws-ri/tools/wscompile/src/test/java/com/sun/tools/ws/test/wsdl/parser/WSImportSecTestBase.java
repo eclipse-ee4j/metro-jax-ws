@@ -13,6 +13,7 @@ package com.sun.tools.ws.test.wsdl.parser;
 import com.sun.tools.ws.wscompile.WsimportTool;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -76,6 +77,7 @@ public abstract class WSImportSecTestBase extends TestCase{
 
         public void test() throws Exception {
 
+            Locale.setDefault(Locale.ENGLISH);
             System.out.println( "Launching wsimport tool with the following args:");
             for(String arg:toolArgs) {
                 System.out.println("\t"+arg);
