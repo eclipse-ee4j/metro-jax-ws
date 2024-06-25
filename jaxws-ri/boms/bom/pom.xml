@@ -43,7 +43,7 @@
         <saaj-api.version>3.0.2</saaj-api.version>
         <saaj-impl.version>3.0.4</saaj-impl.version>
         <streambuffer.version>2.1.0</streambuffer.version>
-        <woodstox-core.version>6.6.1</woodstox-core.version>
+        <woodstox-core.version>6.7.0</woodstox-core.version>
         <stax2-api.version>4.2.2</stax2-api.version>
         <activation-api.version>2.1.3</activation-api.version>
         <angus-activation.version>2.0.2</angus-activation.version>

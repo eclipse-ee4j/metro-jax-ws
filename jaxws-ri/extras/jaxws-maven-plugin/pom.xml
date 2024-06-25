@@ -73,52 +73,52 @@
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-plugin-api</artifactId>
-                <version>3.9.6</version>
+                <version>3.9.8</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-core</artifactId>
-                <version>3.9.6</version>
+                <version>3.9.8</version>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-utils</artifactId>
-                <version>4.0.0</version>
+                <version>4.0.1</version>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.plexus</groupId>
                 <artifactId>plexus-xml</artifactId>
-                <version>4.0.3</version>
+                <version>4.0.4</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-xml-impl</artifactId>
-                <version>4.0.0-alpha-12</version>
+                <version>4.0.0-beta-3</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven.plugin-tools</groupId>
                 <artifactId>maven-plugin-annotations</artifactId>
-                <version>3.11.0</version>
+                <version>3.13.1</version>
             </dependency>
             <dependency>
                 <groupId>org.testng</groupId>
                 <artifactId>testng</artifactId>
-                <version>7.9.0</version>
+                <version>7.10.2</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-settings</artifactId>
-                <version>3.9.6</version>
+                <version>3.9.8</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven.resolver</groupId>
                 <artifactId>maven-resolver-api</artifactId>
-                <version>1.9.18</version>
+                <version>1.9.20</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven.resolver</groupId>
                 <artifactId>maven-resolver-util</artifactId>
-                <version>1.9.18</version>
+                <version>1.9.20</version>
             </dependency>
             <!-- m2e -->
             <dependency>
@@ -199,7 +199,7 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
-        <spotbugs.version>4.8.3.1</spotbugs.version>
+        <spotbugs.version>4.8.6.0</spotbugs.version>
         <findsecbugs.version>1.11.0</findsecbugs.version>
         <maven.compiler.release>11</maven.compiler.release>
         <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
@@ -429,12 +429,12 @@
                                 <dependency>
                                     <groupId>org.apache.groovy</groupId>
                                     <artifactId>groovy</artifactId>
-                                    <version>4.0.15</version>
+                                    <version>4.0.21</version>
                                 </dependency>
                                 <dependency>
                                     <groupId>org.apache.groovy</groupId>
                                     <artifactId>groovy-xml</artifactId>
-                                    <version>4.0.15</version>
+                                    <version>4.0.21</version>
                                 </dependency>
                             </dependencies>
                         </plugin>
