@@ -43,7 +43,7 @@ jobs:
           cd jaxws-ri
           mvn -B -V -U -C -Pstaging,oss-release,dependency-check clean verify org.glassfish.copyright:glassfish-copyright-maven-plugin:check -Dgpg.skip=true -Doss.disallow.snapshots=false -Dittest=true
           cd ..
-          echo "::set-output name=jdk::${{ matrix.java_version }}"
+          echo "jdk=${{ matrix.java_version }}" >> $GITHUB_OUTPUT
       - name: Upload binary image
         uses: actions/upload-artifact@v4
         if: success()
