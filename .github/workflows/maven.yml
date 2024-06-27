@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2022, 2023 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 2022, 2024 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,9 +12,13 @@ name: JAXWS RI
 
 on: [push, pull_request]
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
-    name: Test on JDK ${{ matrix.java_version }} 
+    name: Test on JDK ${{ matrix.java_version }}
     runs-on: ubuntu-latest
     outputs:
       jdk: ${{ steps.build.outputs.jdk }}
@@ -23,17 +27,12 @@ jobs:
         java_version: [ 17 ]
 
     steps:
-      - name: Cancel previous runs of this workflow
-        uses: styfle/cancel-workflow-action@0.11.0
-        with:
-          all_but_latest: true
-          access_token: ${{ github.token }}
       - name: Checkout for build
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: ${{ matrix.java_version }}
@@ -46,7 +45,7 @@ jobs:
           cd ..
           echo "::set-output name=jdk::${{ matrix.java_version }}"
       - name: Upload binary image
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: success()
         with:
           name: binary
@@ -64,16 +63,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: ${{ needs.build.outputs.jdk }}
       - name: Checkout tests
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Download binaries
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: binary
       - name: Test
