@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2018, 2023 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2018, 2024 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -236,6 +236,7 @@
                         <configuration>
                             <instructions>
                                 <Import-Package>
+                                    jakarta.annotation*;version=!,
                                     sun.misc;resolution:=optional,
                                     com.sun.xml.ws.assembler.metro.jaxws;resolution:=optional,
                                     *
