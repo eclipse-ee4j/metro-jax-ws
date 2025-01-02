@@ -303,9 +303,7 @@ public class WSDLModeler extends WSDLModelerBase {
                         }
                     }else{
                         // we can only do soap1.2 if extensions are on
-                        if (options.isExtensionMode()) {
-                            warning(wsdlPort, ModelerMessages.WSDLMODELER_WARNING_PORT_SOAP_BINDING_12(wsdlPort.getName()));
-                        } else {
+                        if (!options.isExtensionMode()) {
                             warning(wsdlPort, ModelerMessages.WSDLMODELER_WARNING_IGNORING_SOAP_BINDING_12(wsdlPort.getName()));
                             return false;
                         }
