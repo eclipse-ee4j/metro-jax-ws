@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -303,7 +303,9 @@ public class WSDLModeler extends WSDLModelerBase {
                         }
                     }else{
                         // we can only do soap1.2 if extensions are on
-                        if (!options.isExtensionMode()) {
+                        if (options.isExtensionMode()) {
+                            warning(wsdlPort, ModelerMessages.WSDLMODELER_WARNING_PORT_SOAP_BINDING_12(wsdlPort.getName()));
+                        } else {
                             warning(wsdlPort, ModelerMessages.WSDLMODELER_WARNING_IGNORING_SOAP_BINDING_12(wsdlPort.getName()));
                             return false;
                         }
