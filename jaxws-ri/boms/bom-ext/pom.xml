@@ -64,31 +64,11 @@
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>org.eclipse.persistence.moxy</artifactId>
                 <version>${eclipselink.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.sun.activation</groupId>
-                        <artifactId>jakarta.activation</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.sun.mail</groupId>
-                        <artifactId>jakarta.mail</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>org.eclipse.persistence.sdo</artifactId>
                 <version>${eclipselink.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.sun.activation</groupId>
-                        <artifactId>jakarta.activation</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>com.sun.mail</groupId>
-                        <artifactId>jakarta.mail</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <!-- Optional dependencies -->
