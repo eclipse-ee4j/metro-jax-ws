@@ -13,6 +13,7 @@ package com.sun.xml.ws.streaming;
 //import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
+import java.util.Locale;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
@@ -67,6 +68,7 @@ public class XMLReaderCompositeTest extends TestCase {
     }
 
     public void testInvalidXML() throws Exception {
+        Locale.setDefault(Locale.ENGLISH);
         XMLInputFactory fac = XMLInputFactory.newFactory();
         ByteArrayInputStream in = new ByteArrayInputStream("test".getBytes());
         XMLStreamReader r = fac.createXMLStreamReader(in);
@@ -74,8 +76,8 @@ public class XMLReaderCompositeTest extends TestCase {
             XMLStreamReaderUtil.readRest(r);
             fail("Exception should be thrown");
         } catch (Exception e) {
-            assertEquals("XML reader error: Unexpected character 't' (code 116) in prolog; expected '<'\n" + 
-                    " at [row,col {unknown-source}]: [1,1]", e.getMessage());
+            assertEquals("XML reader error: Unexpected character 't' (code 116) in prolog; expected '<'" +
+                    System.lineSeparator() + " at [row,col {unknown-source}]: [1,1]", e.getMessage());
         }
 
     }

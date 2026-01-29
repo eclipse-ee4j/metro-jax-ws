@@ -45,11 +45,14 @@ public class AbstractSchemaValidationTubeTest extends TestCase {
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
-	
+
 	public void testCreateSameTnsPseudoSchema() throws InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException, TransformerException {
-    StringBuilder sb = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?><xsd:schema xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n");
-		sb.append("<xsd:include schemaLocation=\"a.xsd\"/>\n");
-		sb.append("<xsd:include schemaLocation=\"b.xsd\"/>\n");
+    StringBuilder sb = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?><xsd:schema xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">");
+		sb.append(System.lineSeparator());
+		sb.append("<xsd:include schemaLocation=\"a.xsd\"/>");
+		sb.append(System.lineSeparator());
+		sb.append("<xsd:include schemaLocation=\"b.xsd\"/>");
+		sb.append(System.lineSeparator());
 		sb.append("</xsd:schema>");
 		
 		String strResult_null = runCreateSameTnsPseudoSchema(null);
