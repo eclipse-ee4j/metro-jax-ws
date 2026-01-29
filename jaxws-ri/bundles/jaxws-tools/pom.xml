@@ -22,7 +22,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-tools</artifactId>
     <name>JAX-WS RI Tools (jaxws-tools)</name>
     <description>Open source Reference Implementation of JSR-224: Java API for XML Web Services</description>

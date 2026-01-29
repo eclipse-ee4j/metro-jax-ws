@@ -21,9 +21,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.sun.xml.ws</groupId>
     <artifactId>runtime</artifactId>
-    <version>4.0.4-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     <name>JAX-WS RI Runtime</name>

@@ -22,7 +22,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-rt</artifactId>
     <name>JAX-WS RI Runtime (jaxws-rt)</name>
     <description>JAX-WS Runtime with module descriptor</description>
