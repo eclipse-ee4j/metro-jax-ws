@@ -105,7 +105,7 @@
                 <arg line="-mark-generated"/>
         </wsimport>
     </target>
-    
+
     <target name="wsimport-fork" depends="setup">
         <javac srcdir="${src.dir}" destdir="${build.dir}" fork="true">
             <classpath refid="task.cp"/>
@@ -147,8 +147,7 @@
             extension="true"
             fork="true">
             <jvmArg line="${coverage}"/>
-            <javacarg value="-source=1.8"/>
-            <javacarg value="-target=1.8"/>
+            <javacarg value="--release=11"/>
         </wsimport>
     </target>
 

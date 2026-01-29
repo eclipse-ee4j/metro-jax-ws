@@ -162,8 +162,7 @@
                 <pathelement location="${src.dir}"/>
             </classpath>
             <jvmarg line="${coverage}"/>
-            <javacarg value="-source=1.8"/>
-            <javacarg value="-target=1.8"/>
+            <javacarg value="--release=11"/>
         </wsgen>
     </target>
 
