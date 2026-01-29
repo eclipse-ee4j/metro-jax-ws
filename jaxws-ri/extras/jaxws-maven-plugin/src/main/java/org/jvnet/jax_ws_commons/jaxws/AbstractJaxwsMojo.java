@@ -34,6 +34,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.versioning.OverConstrainedVersionException;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.AbstractMojo;
@@ -42,6 +43,8 @@ import org.apache.maven.plugin.descriptor.PluginDescriptor;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.toolchain.Toolchain;
+import org.apache.maven.toolchain.ToolchainManager;
 import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
@@ -130,6 +133,15 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
      */
     @Parameter
     private File executable;
+
+    @Component
+    private ToolchainManager toolchainManager;
+    
+    @Parameter(defaultValue = "false")
+    private boolean useJdkToolchainExecutable;
+    
+    @Parameter(defaultValue = "${session}", readonly = true, required = true)
+    protected MavenSession session;
 
     /**
      * The entry point to Aether, i.e. the component doing all the work.
@@ -340,7 +352,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
                     throw new MojoExecutionException("Cannot execute: " + executable.getAbsolutePath());
                 }
             } else {
-                cmd.setExecutable(new File(new File(System.getProperty("java.home"), "bin"), getJavaExec()).getAbsolutePath());
+                cmd.setExecutable(new File(new File(getJavaHome(), "bin"), getJavaExec()).getAbsolutePath());
                 // add additional JVM options
                 if (vmArgs != null) {
                     for (String arg : vmArgs) {
@@ -441,10 +453,12 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
             throw new RuntimeException(ex);
         }
         sb.append(File.pathSeparator);
+
+        String javaHome = getJavaHome();
         //don't forget tools.jar
-        File toolsJar = new File(System.getProperty("java.home"), "../lib/tools.jar");
+        File toolsJar = new File(javaHome, "../lib/tools.jar");
         if (!toolsJar.exists()) {
-            toolsJar = new File(System.getProperty("java.home"), "lib/tools.jar");
+            toolsJar = new File(javaHome, "lib/tools.jar");
         }
         if (toolsJar.exists()) {
             sb.append(toolsJar.getAbsolutePath());
@@ -457,6 +471,27 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
 
     private String getJavaExec() {
         return isWindows() ? "java.exe" : "java";
+    }
+    
+    private String getJavaHome() {
+        String javaHome = System.getProperty("java.home");
+        if (getJdkToolchain() != null) {
+        	File javaExecutable = new File(getJdkToolchain().findTool("java"));
+        	javaHome = javaExecutable.getParentFile().getParent();
+        	getLog().info("got java home from maven toolchain: " + javaHome);
+        } 
+        else {
+        	getLog().info("couldnt get a javahome from maven toolchain, defaulting to the java.home System property : " + javaHome);
+        }
+        return javaHome;
+      }
+
+    private Toolchain getJdkToolchain() {
+        Toolchain tc = null;
+        if (this.toolchainManager != null) {
+        	tc = this.toolchainManager.getToolchainFromBuildContext("jdk", this.session); 
+        }
+        return tc;
     }
 
     private File createPathFile(String cp) throws IOException {
