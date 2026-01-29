@@ -17,13 +17,13 @@
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>1.0.8</version>
+        <version>1.0.9</version>
         <relativePath/>
     </parent>
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>policy</artifactId>
-    <version>4.0.3-SNAPSHOT</version>
+    <version>4.0.4-SNAPSHOT</version>
 
     <name>WS-Policy Implementation</name>
     <description>WS-Policy implementation for Project Metro</description>
