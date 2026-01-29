@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -98,7 +98,8 @@ public final class MethodUtil extends SecureClassLoader {
     private static Method getTrampoline() {
         try {
             return AccessController.doPrivileged(
-                    new PrivilegedExceptionAction<Method>() {
+                    new PrivilegedExceptionAction<>() {
+                        @Override
                         public Method run() throws Exception {
                             Class<?> t = getTrampolineClass();
                             Method b = t.getDeclaredMethod("invoke",
@@ -113,6 +114,7 @@ public final class MethodUtil extends SecureClassLoader {
     }
 
 
+    @Override
     protected synchronized Class<?> loadClass(String name, boolean resolve)
             throws ClassNotFoundException {
         // First, check if the class has already been loaded
@@ -135,6 +137,7 @@ public final class MethodUtil extends SecureClassLoader {
     }
 
 
+    @Override
     protected Class<?> findClass(final String name)
             throws ClassNotFoundException {
         if (!name.startsWith(WS_UTIL_PKG)) {
@@ -142,6 +145,10 @@ public final class MethodUtil extends SecureClassLoader {
         }
         String path = "/".concat(name.replace('.', '/').concat(".class"));
         try (InputStream in = MethodUtil.class.getResourceAsStream(path)) {
+            if (in == null) {
+                throw new ClassNotFoundException(path);
+            }
+
             byte[] b = readAllBytes(in);
             return defineClass(name, b);
         } catch (IOException e) {
@@ -191,6 +198,7 @@ public final class MethodUtil extends SecureClassLoader {
         return defineClass(name, b, 0, b.length, cs);
     }
 
+    @Override
     protected PermissionCollection getPermissions(CodeSource codesource) {
         PermissionCollection perms = super.getPermissions(codesource);
         perms.add(new AllPermission());

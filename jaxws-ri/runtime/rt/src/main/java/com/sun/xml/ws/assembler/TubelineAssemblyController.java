@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,7 +26,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 final class TubelineAssemblyController {
 
@@ -48,8 +48,6 @@ final class TubelineAssemblyController {
      * replaced by a different method without a prior notice. The method SHOULD NOT be used
      * outside of Metro codebase.
      * </b>
-     *
-     * @param endpointUri URI of the endpoint for which the collection of tube factories should be returned
      *
      * @return collection of WSIT/Metro client-side tube creators
      */
@@ -77,8 +75,6 @@ final class TubelineAssemblyController {
      * replaced by a different method without a prior notice. The method SHOULD NOT be used
      * outside of Metro codebase.
      * </b>
-     * 
-     * @param endpointUri URI of the endpoint for which the collection of tube factories should be returned
      *
      * @return collection of WSIT/Metro server-side tube creators
      */
@@ -98,7 +94,7 @@ final class TubelineAssemblyController {
         ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         ClassLoader classLoader = tccl != null ? tccl : TubelineAssemblyController.class.getClassLoader();
 
-        LinkedList<TubeCreator> tubeCreators = new LinkedList<TubeCreator>();
+        LinkedList<TubeCreator> tubeCreators = new LinkedList<>();
         for (TubeFactoryConfig tubeFactoryConfig : tfl.getTubeFactoryConfigs()) {
             tubeCreators.addFirst(new TubeCreator(tubeFactoryConfig, classLoader));
         }

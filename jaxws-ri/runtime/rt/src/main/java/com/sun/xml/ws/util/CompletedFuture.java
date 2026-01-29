@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,18 +29,22 @@ public class CompletedFuture<T> implements Future<T> {
         this.re = re;
     }
 
+    @Override
     public boolean cancel(boolean mayInterruptIfRunning) {
         return false;
     }
 
+    @Override
     public boolean isCancelled() {
         return false;
     }
 
+    @Override
     public boolean isDone() {
         return true;
     }
 
+    @Override
     public T get() throws ExecutionException {
         if (re != null) {
             throw new ExecutionException(re);
@@ -48,6 +52,7 @@ public class CompletedFuture<T> implements Future<T> {
         return v;
     }
 
+    @Override
     public T get(long timeout, TimeUnit unit) throws ExecutionException {
         return get();
     }

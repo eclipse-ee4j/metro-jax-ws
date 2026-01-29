@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,10 +38,12 @@ public final class PolicyMap implements Iterable<Policy> {
    private static final PolicyLogger LOGGER = PolicyLogger.getLogger(PolicyMap.class);
     
     private static final PolicyMapKeyHandler serviceKeyHandler = new PolicyMapKeyHandler() {
+        @Override
         public boolean areEqual(final PolicyMapKey key1, final PolicyMapKey key2) {
             return key1.getService().equals(key2.getService());
         }
 
+        @Override
         public int generateHashCode(final PolicyMapKey key) {
             int result = 17;
 
@@ -52,6 +54,7 @@ public final class PolicyMap implements Iterable<Policy> {
     };
 
     private static final PolicyMapKeyHandler endpointKeyHandler = new PolicyMapKeyHandler() {
+        @Override
         public boolean areEqual(final PolicyMapKey key1, final PolicyMapKey key2) {
             boolean retVal = true;
 
@@ -61,6 +64,7 @@ public final class PolicyMap implements Iterable<Policy> {
             return retVal;
         }
 
+        @Override
         public int generateHashCode(final PolicyMapKey key) {
             int result = 17;
 
@@ -74,6 +78,7 @@ public final class PolicyMap implements Iterable<Policy> {
     private static final PolicyMapKeyHandler operationAndInputOutputMessageKeyHandler = new PolicyMapKeyHandler() {
         // we use the same algorithm to handle operation and input/output message keys
 
+        @Override
         public boolean areEqual(final PolicyMapKey key1, final PolicyMapKey key2) {
             boolean retVal = true;
 
@@ -84,6 +89,7 @@ public final class PolicyMap implements Iterable<Policy> {
             return retVal;
         }
 
+        @Override
         public int generateHashCode(final PolicyMapKey key) {
             int result = 17;
 
@@ -96,6 +102,7 @@ public final class PolicyMap implements Iterable<Policy> {
     };
 
     private static final PolicyMapKeyHandler faultMessageHandler = new PolicyMapKeyHandler() {
+        @Override
         public boolean areEqual(final PolicyMapKey key1, final PolicyMapKey key2) {
             boolean retVal = true;
 
@@ -107,6 +114,7 @@ public final class PolicyMap implements Iterable<Policy> {
             return retVal;
         }
 
+        @Override
         public int generateHashCode(final PolicyMapKey key) {
             int result = 17;
 
@@ -130,7 +138,7 @@ public final class PolicyMap implements Iterable<Policy> {
     }
 
     private static final class ScopeMap implements Iterable<Policy> {
-        private final Map<PolicyMapKey, PolicyScope> internalMap = new HashMap<PolicyMapKey, PolicyScope>();
+        private final Map<PolicyMapKey, PolicyScope> internalMap = new HashMap<>();
         private final PolicyMapKeyHandler scopeKeyHandler;
         private final PolicyMerger merger;
         
@@ -148,7 +156,7 @@ public final class PolicyMap implements Iterable<Policy> {
             final PolicyMapKey localKey = createLocalCopy(key);
             final PolicyScope scope = internalMap.get(localKey);
             if (scope == null) {
-                final List<PolicySubject> list = new LinkedList<PolicySubject>();
+                final List<PolicySubject> list = new LinkedList<>();
                 list.add(subject);
                 internalMap.put(localKey, new PolicyScope(list));
             } else {
@@ -164,7 +172,7 @@ public final class PolicyMap implements Iterable<Policy> {
             final PolicyMapKey localKey = createLocalCopy(key);
             final PolicyScope scope = internalMap.get(localKey);
             if (scope == null) {
-                final List<PolicySubject> list = new LinkedList<PolicySubject>();
+                final List<PolicySubject> list = new LinkedList<>();
                 list.add(subject);
                 internalMap.put(localKey, new PolicyScope(list));
             } else {
@@ -192,14 +200,17 @@ public final class PolicyMap implements Iterable<Policy> {
             return localKeyCopy;
         }
         
+        @Override
         public Iterator<Policy> iterator() {
-            return new Iterator<Policy> () {
+            return new Iterator<>() {
                 private final Iterator<PolicyMapKey> keysIterator = internalMap.keySet().iterator();
-                
+
+                @Override
                 public boolean hasNext() {
                     return keysIterator.hasNext();
                 }
-                
+
+                @Override
                 public Policy next() {
                     final PolicyMapKey key = keysIterator.next();
                     try {
@@ -208,7 +219,8 @@ public final class PolicyMap implements Iterable<Policy> {
                         throw LOGGER.logSevereException(new IllegalStateException(LocalizationMessages.WSP_0069_EXCEPTION_WHILE_RETRIEVING_EFFECTIVE_POLICY_FOR_KEY(key), e));
                     }
                 }
-                
+
+                @Override
                 public void remove() {
                     throw LOGGER.logSevereException(new UnsupportedOperationException(LocalizationMessages.WSP_0034_REMOVE_OPERATION_NOT_SUPPORTED()));
                 }
@@ -344,7 +356,7 @@ public final class PolicyMap implements Iterable<Policy> {
      * @param key a policy map key to be used to store the subject
      * @param subject actual policy subject to be stored in the policy map
      *
-     * @throw IllegalArgumentException in case the scope type is not recognized.
+     * @throws IllegalArgumentException in case the scope type is not recognized.
      */
     void putSubject(final ScopeType scopeType, final PolicyMapKey key, final PolicySubject subject) {
         switch (scopeType) {
@@ -380,7 +392,7 @@ public final class PolicyMap implements Iterable<Policy> {
      * @param key identifier of the scope the effective policy should be replaced with the new one. Must not be {@code null}.
      * @param newEffectivePolicy the new policy to replace the old effective policy of the scope. Must not be {@code null}.
      *
-     * @throw IllegalArgumentException in case any of the input parameters is {@code null} 
+     * @throws IllegalArgumentException in case any of the input parameters is {@code null}
      *        or in case the scope type is not recognized.
      */
     void setNewEffectivePolicyForScope(final ScopeType scopeType, final PolicyMapKey key, final Policy newEffectivePolicy) throws IllegalArgumentException {
@@ -418,7 +430,7 @@ public final class PolicyMap implements Iterable<Policy> {
      * @return All policy subjects contained by this map
      */
     public Collection<PolicySubject> getPolicySubjects() {
-        final List<PolicySubject> subjects = new LinkedList<PolicySubject>();
+        final List<PolicySubject> subjects = new LinkedList<>();
         addSubjects(subjects, serviceMap);
         addSubjects(subjects, endpointMap);
         addSubjects(subjects, operationMap);
@@ -588,7 +600,7 @@ public final class PolicyMap implements Iterable<Policy> {
     @Override
     public String toString(){
         // TODO
-        final StringBuffer result = new StringBuffer();
+        final StringBuilder result = new StringBuilder();
         if(null!=this.serviceMap) {
             result.append("\nServiceMap=").append(this.serviceMap);
         }
@@ -610,24 +622,26 @@ public final class PolicyMap implements Iterable<Policy> {
         return result.toString();
     }
     
+    @Override
     public Iterator<Policy> iterator() {
-        return new Iterator<Policy> () {
+        return new Iterator<>() {
             private final Iterator<Iterator<Policy>> mainIterator;
             private Iterator<Policy> currentScopeIterator;
-            
+
             { // instance initialization
-                final Collection<Iterator<Policy>> scopeIterators = new ArrayList<Iterator<Policy>>(6);
+                final Collection<Iterator<Policy>> scopeIterators = new ArrayList<>(6);
                 scopeIterators.add(serviceMap.iterator());
                 scopeIterators.add(endpointMap.iterator());
                 scopeIterators.add(operationMap.iterator());
                 scopeIterators.add(inputMessageMap.iterator());
                 scopeIterators.add(outputMessageMap.iterator());
                 scopeIterators.add(faultMessageMap.iterator());
-                
+
                 mainIterator = scopeIterators.iterator();
                 currentScopeIterator = mainIterator.next();
             }
-            
+
+            @Override
             public boolean hasNext() {
                 while (!currentScopeIterator.hasNext()) {
                     if (mainIterator.hasNext()) {
@@ -636,17 +650,19 @@ public final class PolicyMap implements Iterable<Policy> {
                         return false;
                     }
                 }
-                
+
                 return true;
             }
-            
+
+            @Override
             public Policy next() {
                 if (hasNext()) {
                     return currentScopeIterator.next();
                 }
                 throw LOGGER.logSevereException(new NoSuchElementException(LocalizationMessages.WSP_0054_NO_MORE_ELEMS_IN_POLICY_MAP()));
             }
-            
+
+            @Override
             public void remove() {
                 throw LOGGER.logSevereException(new UnsupportedOperationException(LocalizationMessages.WSP_0034_REMOVE_OPERATION_NOT_SUPPORTED()));
             }

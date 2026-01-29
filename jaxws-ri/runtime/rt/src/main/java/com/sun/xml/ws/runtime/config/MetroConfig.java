@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,21 +37,21 @@ import java.util.Map;
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
- * <pre>
- * &lt;element name="metro">
- *   &lt;complexType>
- *     &lt;complexContent>
- *       &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *         &lt;sequence>
- *           &lt;element ref="{http://java.sun.com/xml/ns/metro/config}tubelines" minOccurs="0"/>
- *           &lt;any/>
- *         &lt;/sequence>
- *         &lt;attribute name="version" use="required" type="{http://java.sun.com/xml/ns/metro/config}metroConfigVersionSType" />
- *       &lt;/restriction>
- *     &lt;/complexContent>
- *   &lt;/complexType>
- * &lt;/element>
- * </pre>
+ * <pre>{@code
+ * <element name="metro">
+ *   <complexType>
+ *     <complexContent>
+ *       <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *         <sequence>
+ *           <element ref="{http://java.sun.com/xml/ns/metro/config}tubelines" minOccurs="0"/>
+ *           <any/>
+ *         </sequence>
+ *         <attribute name="version" use="required" type="{http://java.sun.com/xml/ns/metro/config}metroConfigVersionSType" />
+ *       </restriction>
+ *     </complexContent>
+ *   </complexType>
+ * </element>
+ * }</pre>
  * 
  * 
  */
@@ -69,7 +69,10 @@ public class MetroConfig {
     @XmlAttribute(required = true)
     protected String version;
     @XmlAnyAttribute
-    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+    private Map<QName, String> otherAttributes = new HashMap<>();
+
+    public MetroConfig() {
+    }
 
     /**
      * Gets the value of the tubelines property.
@@ -120,7 +123,7 @@ public class MetroConfig {
      */
     public List<Object> getAny() {
         if (any == null) {
-            any = new ArrayList<Object>();
+            any = new ArrayList<>();
         }
         return this.any;
     }

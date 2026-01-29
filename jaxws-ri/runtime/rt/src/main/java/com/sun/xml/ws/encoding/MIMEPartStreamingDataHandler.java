@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -107,6 +107,9 @@ public class MIMEPartStreamingDataHandler extends StreamingDataHandler {
     }
 
     private static final class MyIOException extends IOException {
+
+        private static final long serialVersionUID = 6471093013208316861L;
+
         private final Exception linkedException;
 
         MyIOException(Exception linkedException) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,6 +23,10 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  * @author WS Development Team
  */
 public class HandlerException extends JAXWSExceptionBase {
+
+    private static final long serialVersionUID = -7422630213068664522L;
+
+    @SuppressWarnings({"deprecation"})
     public HandlerException(String key, Object... args) {
         super(key, args);
     }
@@ -31,10 +35,12 @@ public class HandlerException extends JAXWSExceptionBase {
         super(throwable);
     }
 
+    @SuppressWarnings({"deprecation"})
     public HandlerException(Localizable arg) {
         super("handler.nestedError", arg);
     }
 
+    @Override
     public String getDefaultResourceBundleName() {
         return "com.sun.xml.ws.resources.handler";
     }

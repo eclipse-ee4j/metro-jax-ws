@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,7 @@ class WsGenBase extends WsTask2 {
      * List of external metadata files; those are necessary if it's impossible to use/modify
      * annotations in ws implementation (for example only binaries are available)
      */
-    private final List<ExternalMetadata> externalMetadataFiles = new ArrayList<ExternalMetadata>();
+    private final List<ExternalMetadata> externalMetadataFiles = new ArrayList<>();
 
     /**
      * Gets the classpath.
@@ -80,7 +80,7 @@ class WsGenBase extends WsTask2 {
         createClasspath().setRefid(r);
     }
 
-    /*************************  -cp option *************************/
+    /* ***********************  -cp option *************************/
     /**
      * Gets the classpath.
      *
@@ -272,7 +272,7 @@ class WsGenBase extends WsTask2 {
     protected CommandlineJava setupCommand() {
         CommandlineJava cmd = super.setupCommand();
         Path classpath = getClasspath();
-        if (classpath != null && !classpath.toString().equals("")) {
+        if (classpath != null && !classpath.toString().isEmpty()) {
             cmd.createArgument().setValue("-classpath");
             cmd.createArgument().setPath(classpath);
         }
@@ -284,17 +284,17 @@ class WsGenBase extends WsTask2 {
 
         if (getGenwsdl()) {
             String tmp = "-wsdl";
-            if (protocol.length() > 0) {
+            if (!protocol.isEmpty()) {
                 tmp += ":" + protocol;
             }
             cmd.createArgument().setValue(tmp);
 
-            if (serviceName != null && serviceName.length() > 0) {
+            if (serviceName != null && !serviceName.isEmpty()) {
                 cmd.createArgument().setValue("-servicename");
                 cmd.createArgument().setValue(serviceName);
             }
 
-            if (portName != null && portName.length() > 0) {
+            if (portName != null && !portName.isEmpty()) {
                 cmd.createArgument().setValue("-portname");
                 cmd.createArgument().setValue(portName);
             }
@@ -307,7 +307,7 @@ class WsGenBase extends WsTask2 {
         }
 
         // r option
-        if (null != getResourcedestdir() && !getResourcedestdir().getName().equals("")) {
+        if (null != getResourcedestdir() && !getResourcedestdir().getName().isEmpty()) {
             cmd.createArgument().setValue("-r");
             cmd.createArgument().setFile(getResourcedestdir());
         }

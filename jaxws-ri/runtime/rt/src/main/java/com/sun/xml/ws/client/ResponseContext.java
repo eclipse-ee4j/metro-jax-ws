@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,6 +68,7 @@ public class ResponseContext extends AbstractMap<String,Object> {
         this.packet = packet;
     }
 
+    @Override
     public boolean containsKey(Object key) {
         if(packet.supports(key))
             return packet.containsKey(key);    // strongly typed
@@ -79,6 +80,7 @@ public class ResponseContext extends AbstractMap<String,Object> {
         return false;
     }
 
+    @Override
     public Object get(Object key) {
         if(packet.supports(key))
             return packet.get(key);    // strongly typed
@@ -92,7 +94,7 @@ public class ResponseContext extends AbstractMap<String,Object> {
         if(key.equals(MessageContext.INBOUND_MESSAGE_ATTACHMENTS)){
             Map<String, DataHandler> atts = (Map<String, DataHandler>) value;
             if(atts == null)
-                atts = new HashMap<String, DataHandler>();
+                atts = new HashMap<>();
             AttachmentSet attSet = packet.getMessage().getAttachments();
             for(Attachment att : attSet){
                 atts.put(att.getContentId(), att.asDataHandler());
@@ -102,42 +104,46 @@ public class ResponseContext extends AbstractMap<String,Object> {
         return value;
     }
 
+    @Override
     public Object put(String key, Object value) {
         // response context is read-only
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Object remove(Object key) {
         // response context is read-only
         throw new UnsupportedOperationException();
     }
 
-    public void putAll(Map<? extends String, ? extends Object> t) {
+    @Override
+    public void putAll(Map<? extends String, ?> t) {
         // response context is read-only
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void clear() {
         // response context is read-only
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Set<Entry<String, Object>> entrySet() {
         if(entrySet==null) {
             // this is where the worst case happens. we have to clone the whole properties
             // to get this view.
 
             // use TreeSet so that toString() sort them nicely. It's easier for apps.
-            Map<String,Object> r = new HashMap<String,Object>();
 
             // export application-scope properties
-            r.putAll(packet.invocationProperties);
+            Map<String, Object> r = new HashMap<>(packet.invocationProperties);
 
             // hide handler-scope properties
             r.keySet().removeAll(packet.getHandlerScopePropertyNames(true));
 
             // and all strongly typed ones
-            r.putAll(packet.createMapView());
+            r.putAll(packet.asMap());
 
             entrySet = Collections.unmodifiableSet(r.entrySet());
         }

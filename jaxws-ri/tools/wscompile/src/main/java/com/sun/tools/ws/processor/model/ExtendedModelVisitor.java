@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,22 +34,22 @@ public class ExtendedModelVisitor {
                         Request request = operation.getRequest();
                         if (request != null) {
                             preVisit(request);
-                            for (Iterator iter4 = request.getHeaderBlocks();
+                            for (Iterator<Block> iter4 = request.getHeaderBlocks();
                                 iter4.hasNext();) {
 
-                                Block block = (Block) iter4.next();
+                                Block block = iter4.next();
                                 visitHeaderBlock(block);
                             }
-                            for (Iterator iter4 = request.getBodyBlocks();
+                            for (Iterator<Block> iter4 = request.getBodyBlocks();
                                 iter4.hasNext();) {
 
-                                Block block = (Block) iter4.next();
+                                Block block = iter4.next();
                                 visitBodyBlock(block);
                             }
-                            for (Iterator iter4 = request.getParameters();
+                            for (Iterator<Parameter> iter4 = request.getParameters();
                                 iter4.hasNext();) {
 
-                                Parameter parameter = (Parameter) iter4.next();
+                                Parameter parameter = iter4.next();
                                 visit(parameter);
                             }
                             postVisit(request);
@@ -58,31 +58,31 @@ public class ExtendedModelVisitor {
                         Response response = operation.getResponse();
                         if (response != null) {
                             preVisit(response);
-                            for (Iterator iter4 = response.getHeaderBlocks();
+                            for (Iterator<Block> iter4 = response.getHeaderBlocks();
                                 iter4.hasNext();) {
 
-                                Block block = (Block) iter4.next();
+                                Block block = iter4.next();
                                 visitHeaderBlock(block);
                             }
-                            for (Iterator iter4 = response.getBodyBlocks();
+                            for (Iterator<Block> iter4 = response.getBodyBlocks();
                                 iter4.hasNext();) {
 
-                                Block block = (Block) iter4.next();
+                                Block block = iter4.next();
                                 visitBodyBlock(block);
                             }
-                            for (Iterator iter4 = response.getParameters();
+                            for (Iterator<Parameter> iter4 = response.getParameters();
                                 iter4.hasNext();) {
 
-                                Parameter parameter = (Parameter) iter4.next();
+                                Parameter parameter = iter4.next();
                                 visit(parameter);
                             }
                             postVisit(response);
                         }
 
-                        for (Iterator iter4 = operation.getFaults();
+                        for (Iterator<Fault> iter4 = operation.getFaults();
                             iter4.hasNext();) {
 
-                            Fault fault = (Fault) iter4.next();
+                            Fault fault = iter4.next();
                             preVisit(fault);
                             visitFaultBlock(fault.getBlock());
                             postVisit(fault);

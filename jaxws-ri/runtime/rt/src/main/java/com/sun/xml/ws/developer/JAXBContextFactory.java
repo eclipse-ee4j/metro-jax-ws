@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -77,10 +77,11 @@ public interface JAXBContextFactory {
     /**
      * The default implementation that creates {@link JAXBRIContext} according to the standard behavior.
      */
-    public static final JAXBContextFactory DEFAULT = new JAXBContextFactory() {
+    JAXBContextFactory DEFAULT = new JAXBContextFactory() {
+        @Override
         @NotNull
         public JAXBRIContext createJAXBContext(@NotNull SEIModel sei, @NotNull List<Class> classesToBind, @NotNull List<TypeReference> typeReferences) throws JAXBException {
-            return JAXBRIContext.newInstance(classesToBind.toArray(new Class[classesToBind.size()]),
+            return JAXBRIContext.newInstance(classesToBind.toArray(new Class[0]),
                     typeReferences, null, sei.getTargetNamespace(), false, null);
         }
     };

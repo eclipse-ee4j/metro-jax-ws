@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -128,12 +128,14 @@ abstract class AsyncMethodHandler extends MethodHandler {
             this.args = args;
         }
 
-        public void do_run () {    	
+        @Override
+        public void do_run () {
         	JavaCallInfo call = owner.databinding.createJavaCallInfo(method, args);
             Packet req = (Packet)owner.databinding.serializeRequest(call);
 
             Fiber.CompletionCallback callback = new Fiber.CompletionCallback() {
 
+                @Override
                 public void onCompletion(@NotNull Packet response) {
                     responseImpl.setResponseContext(new ResponseContext(response));
                     Message msg = response.getMessage();
@@ -179,6 +181,7 @@ abstract class AsyncMethodHandler extends MethodHandler {
                 }
                 
 
+                @Override
                 public void onCompletion(@NotNull Throwable error) {
                     if (error instanceof WebServiceException) {
                         responseImpl.set(null, error);

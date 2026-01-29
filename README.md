@@ -1,4 +1,4 @@
-[//]: # " Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved. "
+[//]: # " Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved. "
 [//]: # "  "
 [//]: # " This program and the accompanying materials are made available under the "
 [//]: # " terms of the Eclipse Distribution License v. 1.0, which is available at "
@@ -6,7 +6,8 @@
 [//]: # "  "
 [//]: # " SPDX-License-Identifier: BSD-3-Clause "
 
-[![Build Status](https://travis-ci.com/eclipse-ee4j/metro-jax-ws.svg?branch=master)](https://travis-ci.com/eclipse-ee4j/metro-jax-ws)
+[![Build Status](https://github.com/eclipse-ee4j/metro-jax-ws/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/eclipse-ee4j/metro-jax-ws/actions/workflows/maven.yml?branch=master)
+[![Jakarta Staging (Snapshots)](https://img.shields.io/nexus/s/https/jakarta.oss.sonatype.org/com.sun.xml.ws/jaxws-ri.svg)](https://jakarta.oss.sonatype.org/content/repositories/staging/com/sun/xml/ws/jaxws-ri/)
 
 # Eclipse Implementation of Jakarta XML Web Services
 
@@ -33,6 +34,7 @@ the terms of [Eclipse Contributor Agreement](http://www.eclipse.org/legal/ECA.ph
 
 * [Home page](https://eclipse-ee4j.github.io/metro-jax-ws)
 * [Mailing list](https://accounts.eclipse.org/mailing-list/metro-dev)
+* [Nightly build job](https://ci.eclipse.org/metro/job/jax-ws-master-build/)
 * [Jakarta SOAP with Attachments Specification](https://jakarta.ee/specifications/soap-attachments)
 * [Jakarta SOAP with Attachments Specification project](https://github.com/eclipse-ee4j/saaj-api)
 * [Jakarta Web Services Metadata Specification](https://jakarta.ee/specifications/web-services-metadata/)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -64,7 +64,7 @@ final class ExceptionBean {
     public String message;
     @XmlElementWrapper(namespace=NS,name="stackTrace")
     @XmlElement(namespace=NS,name="frame")
-    public List<StackFrame> stackTrace = new ArrayList<StackFrame>();
+    public List<StackFrame> stackTrace = new ArrayList<>();
     @XmlElement(namespace=NS,name="cause")
     public ExceptionBean cause;
 
@@ -175,6 +175,7 @@ final class ExceptionBean {
     }
 
     private static final NamespacePrefixMapper nsp = new NamespacePrefixMapper() {
+        @Override
         public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
             if (NS.equals(namespaceUri)) {
                 return "";

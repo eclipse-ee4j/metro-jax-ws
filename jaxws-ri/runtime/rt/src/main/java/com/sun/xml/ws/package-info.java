@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,7 +21,7 @@
  * <P>The remainder of this document will describe the JAX-WS runtime
  * architecture from the client and server perspectives.</P>
  *
- * <p>
+ *
  * <dl>
  *  <dt>{@link com.sun.xml.ws.server Server}
  *  <dd>

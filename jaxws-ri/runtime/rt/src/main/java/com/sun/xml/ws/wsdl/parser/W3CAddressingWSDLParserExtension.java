@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,8 +11,8 @@
 package com.sun.xml.ws.wsdl.parser;
 
 import com.sun.xml.ws.api.addressing.AddressingVersion;
+import com.sun.xml.ws.api.model.wsdl.WSDLBoundOperation;
 import com.sun.xml.ws.api.model.wsdl.WSDLFeaturedObject;
-import static com.sun.xml.ws.api.model.wsdl.WSDLBoundOperation.ANONYMOUS;
 import com.sun.xml.ws.api.model.wsdl.editable.*;
 import com.sun.xml.ws.api.wsdl.parser.WSDLParserExtension;
 import com.sun.xml.ws.api.wsdl.parser.WSDLParserExtensionContext;
@@ -30,6 +30,12 @@ import jakarta.xml.ws.soap.AddressingFeature;
  * @author Arun Gupta
  */
 public class W3CAddressingWSDLParserExtension extends WSDLParserExtension {
+
+    /**
+     * Default constructor.
+     */
+    protected W3CAddressingWSDLParserExtension() {}
+
     @Override
     public boolean bindingElements(EditableWSDLBoundPortType binding, XMLStreamReader reader) {
         return addressibleElement(reader, binding);
@@ -54,7 +60,7 @@ public class W3CAddressingWSDLParserExtension extends WSDLParserExtension {
 
     @Override
     public boolean bindingOperationElements(EditableWSDLBoundOperation operation, XMLStreamReader reader) {
-        EditableWSDLBoundOperation edit = (EditableWSDLBoundOperation) operation;
+        EditableWSDLBoundOperation edit = operation;
 
         QName anon = reader.getName();
         if (anon.equals(AddressingVersion.W3C.wsdlAnonymousTag)) {
@@ -65,11 +71,11 @@ public class W3CAddressingWSDLParserExtension extends WSDLParserExtension {
                     // TODO: throw exception only if wsdl:required=true
                     // TODO: is this the right exception ?
                 } else if (value.equals("optional")) {
-                    edit.setAnonymous(ANONYMOUS.optional);
+                    edit.setAnonymous(WSDLBoundOperation.ANONYMOUS.optional);
                 } else if (value.equals("required")) {
-                    edit.setAnonymous(ANONYMOUS.required);
+                    edit.setAnonymous(WSDLBoundOperation.ANONYMOUS.required);
                 } else if (value.equals("prohibited")) {
-                    edit.setAnonymous(ANONYMOUS.prohibited);
+                    edit.setAnonymous(WSDLBoundOperation.ANONYMOUS.prohibited);
                 } else {
                     throw new WebServiceException("wsaw:Anonymous value \"" + value + "\" not understood.");
                     // TODO: throw exception only if wsdl:required=true
@@ -85,6 +91,7 @@ public class W3CAddressingWSDLParserExtension extends WSDLParserExtension {
         return false;
     }
 
+    @Override
     public void portTypeOperationInputAttributes(EditableWSDLInput input, XMLStreamReader reader) {
        String action = ParserUtil.getAttribute(reader, getWsdlActionTag());
        if (action != null) {
@@ -94,6 +101,7 @@ public class W3CAddressingWSDLParserExtension extends WSDLParserExtension {
     }
 
 
+    @Override
     public void portTypeOperationOutputAttributes(EditableWSDLOutput output, XMLStreamReader reader) {
        String action = ParserUtil.getAttribute(reader, getWsdlActionTag());
        if (action != null) {
@@ -103,6 +111,7 @@ public class W3CAddressingWSDLParserExtension extends WSDLParserExtension {
     }
 
 
+    @Override
     public void portTypeOperationFaultAttributes(EditableWSDLFault fault, XMLStreamReader reader) {
         String action = ParserUtil.getAttribute(reader, getWsdlActionTag());
         if (action != null) {
@@ -113,13 +122,12 @@ public class W3CAddressingWSDLParserExtension extends WSDLParserExtension {
 
     /**
      * Process wsdl:portType operation after the entire WSDL model has been populated.
-     * The task list includes: <p>
+     * The task list includes:
      * <ul>
      * <li>Patch the value of UsingAddressing in wsdl:port and wsdl:binding</li>
      * <li>Populate actions for the messages that do not have an explicit wsaw:Action</li>
      * <li>Patch the default value of wsaw:Anonymous=optional if none is specified</li>
      * </ul>
-     * @param context
      */
     @Override
     public void finished(WSDLParserExtensionContext context) {
@@ -202,7 +210,7 @@ public class W3CAddressingWSDLParserExtension extends WSDLParserExtension {
     protected void patchAnonymousDefault(EditableWSDLBoundPortType binding) {
         for (EditableWSDLBoundOperation wbo : binding.getBindingOperations()) {
             if (wbo.getAnonymous() == null)
-                wbo.setAnonymous(ANONYMOUS.optional);
+                wbo.setAnonymous(WSDLBoundOperation.ANONYMOUS.optional);
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,31 +68,35 @@ public class ClientSOAPHandlerTube extends HandlerTube {
         super(that, cloner);
     }
 
+   @Override
    public AbstractFilterTubeImpl copy(TubeCloner cloner) {
         return new ClientSOAPHandlerTube(this, cloner);
     }
 
+    @Override
     void setUpProcessor() {
     	if (handlers == null) {
 	        // Take a snapshot, User may change chain after invocation, Same chain
 	        // should be used for the entire MEP
-	        handlers = new ArrayList<Handler>();
+	        handlers = new ArrayList<>();
 	        HandlerConfiguration handlerConfig = ((BindingImpl) getBinding()).getHandlerConfig();
 	        List<SOAPHandler> soapSnapShot= handlerConfig.getSoapHandlers();
 	        if (!soapSnapShot.isEmpty()) {
 	            handlers.addAll(soapSnapShot);
-	            roles = new HashSet<String>();
+	            roles = new HashSet<>();
 	            roles.addAll(handlerConfig.getRoles());
 	            processor = new SOAPHandlerProcessor(true, this, getBinding(), handlers);
 	        }
     	}
     }
 
+    @Override
     MessageUpdatableContext getContext(Packet packet) {
         SOAPMessageContextImpl context = new SOAPMessageContextImpl(getBinding(), packet,roles);
         return context;
     }
 
+    @Override
     boolean callHandlersOnRequest(MessageUpdatableContext context, boolean isOneWay) {
 
         boolean handlerResult;
@@ -126,6 +130,7 @@ public class ClientSOAPHandlerTube extends HandlerTube {
         return handlerResult;
     }
 
+    @Override
     void callHandlersOnResponse(MessageUpdatableContext context, boolean handleFault) {
         try {
 
@@ -140,6 +145,7 @@ public class ClientSOAPHandlerTube extends HandlerTube {
         }
     }
 
+    @Override
     void closeHandlers(MessageContext mc) {
         closeClientsideHandlers(mc);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -58,11 +58,12 @@ public class Fault extends ModelObject {
         javaException = e;
     }
 
+    @Override
     public void accept(ModelVisitor visitor) throws Exception {
         visitor.visit(this);
     }
 
-    public Iterator getSubfaults() {
+    public Iterator<Fault> getSubfaults() {
         if (subfaults.isEmpty()) {
             return null;
         }
@@ -70,28 +71,27 @@ public class Fault extends ModelObject {
     }
 
     /* serialization */
-    public Set getSubfaultsSet() {
+    public Set<Fault> getSubfaultsSet() {
         return subfaults;
     }
 
     /* serialization */
-    public void setSubfaultsSet(Set s) {
+    public void setSubfaultsSet(Set<Fault> s) {
         subfaults = s;
     }
 
-    public Iterator getAllFaults() {
-        Set allFaults = getAllFaultsSet();
+    public Iterator<Fault> getAllFaults() {
+        Set<Fault> allFaults = getAllFaultsSet();
         if (allFaults.isEmpty()) {
             return null;
         }
         return allFaults.iterator();
     }
 
-    public Set getAllFaultsSet() {
-        Set transSet = new HashSet();
-        Iterator iter = subfaults.iterator();
-        while (iter.hasNext()) {
-            transSet.addAll(((Fault)iter.next()).getAllFaultsSet());
+    public Set<Fault> getAllFaultsSet() {
+        Set<Fault> transSet = new HashSet<>();
+        for (Fault subfault : subfaults) {
+            transSet.addAll(subfault.getAllFaultsSet());
         }
         transSet.addAll(subfaults);
         return transSet;
@@ -138,7 +138,7 @@ public class Fault extends ModelObject {
     private String name;
     private Block block;
     private JavaException javaException;
-    private Set subfaults = new HashSet();
+    private Set<Fault> subfaults = new HashSet<>();
     private QName elementName = null;
     private String javaMemberName = null;
     private JClass exceptionClass;

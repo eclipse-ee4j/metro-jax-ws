@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,10 +37,10 @@ import javax.xml.namespace.QName;
  * the default behavior of {@link #validateClientSide(PolicyAssertion)} and 
  * {@link #validateServerSide(PolicyAssertion)} methods.
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public abstract class AbstractQNameValidator implements PolicyAssertionValidator {
-    private final Set<String> supportedDomains = new HashSet<String>();
+    private final Set<String> supportedDomains = new HashSet<>();
     private final Collection<QName> serverAssertions;
     private final Collection<QName> clientAssertions;
     
@@ -55,32 +55,35 @@ public abstract class AbstractQNameValidator implements PolicyAssertionValidator
      */
     protected AbstractQNameValidator(Collection<QName> serverSideAssertions, Collection<QName> clientSideAssertions) {
         if (serverSideAssertions != null) {
-            this.serverAssertions = new HashSet<QName>(serverSideAssertions);
+            this.serverAssertions = new HashSet<>(serverSideAssertions);
             for (QName assertion : this.serverAssertions) {
                 supportedDomains.add(assertion.getNamespaceURI());
             }
         } else {
-            this.serverAssertions = new HashSet<QName>(0);
+            this.serverAssertions = new HashSet<>(0);
         }
         
         if (clientSideAssertions != null) {
-            this.clientAssertions = new HashSet<QName>(clientSideAssertions);
+            this.clientAssertions = new HashSet<>(clientSideAssertions);
             for (QName assertion : this.clientAssertions) {
                 supportedDomains.add(assertion.getNamespaceURI());
             }
         } else {
-            this.clientAssertions = new HashSet<QName>(0);
+            this.clientAssertions = new HashSet<>(0);
         }        
     }        
         
+    @Override
     public String[] declareSupportedDomains() {
-        return supportedDomains.toArray(new String[supportedDomains.size()]);
+        return supportedDomains.toArray(new String[0]);
     }
     
+    @Override
     public Fitness validateClientSide(PolicyAssertion assertion) {
         return validateAssertion(assertion, clientAssertions, serverAssertions);
     }
     
+    @Override
     public Fitness validateServerSide(PolicyAssertion assertion) {
         return validateAssertion(assertion, serverAssertions, clientAssertions);
     }

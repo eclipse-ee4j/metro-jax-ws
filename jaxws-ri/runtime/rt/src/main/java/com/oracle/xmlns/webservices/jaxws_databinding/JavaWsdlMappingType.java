@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,44 +35,44 @@ import java.util.Map;
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
- * <pre>
- * &lt;complexType name="java-wsdl-mapping-type">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="xml-schema-mapping" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;any maxOccurs="unbounded" minOccurs="0"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;group ref="{http://xmlns.oracle.com/webservices/jaxws-databinding}class-annotation" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="java-methods" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element ref="{http://xmlns.oracle.com/webservices/jaxws-databinding}java-method" maxOccurs="unbounded" minOccurs="0"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute name="name" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="java-type-name" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="existing-annotations" type="{http://xmlns.oracle.com/webservices/jaxws-databinding}existing-annotations-type" />
- *       &lt;attribute name="databinding" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;anyAttribute processContents='skip' namespace='##other'/>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ * <pre>{@code
+ * <complexType name="java-wsdl-mapping-type">
+ *   <complexContent>
+ *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       <sequence>
+ *         <element name="xml-schema-mapping" minOccurs="0">
+ *           <complexType>
+ *             <complexContent>
+ *               <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 <sequence>
+ *                   <any maxOccurs="unbounded" minOccurs="0"/>
+ *                 </sequence>
+ *               </restriction>
+ *             </complexContent>
+ *           </complexType>
+ *         </element>
+ *         <group ref="{http://xmlns.oracle.com/webservices/jaxws-databinding}class-annotation" maxOccurs="unbounded" minOccurs="0"/>
+ *         <element name="java-methods" minOccurs="0">
+ *           <complexType>
+ *             <complexContent>
+ *               <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 <sequence>
+ *                   <element ref="{http://xmlns.oracle.com/webservices/jaxws-databinding}java-method" maxOccurs="unbounded" minOccurs="0"/>
+ *                 </sequence>
+ *               </restriction>
+ *             </complexContent>
+ *           </complexType>
+ *         </element>
+ *       </sequence>
+ *       <attribute name="name" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       <attribute name="java-type-name" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       <attribute name="existing-annotations" type="{http://xmlns.oracle.com/webservices/jaxws-databinding}existing-annotations-type" />
+ *       <attribute name="databinding" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       <anyAttribute processContents='skip' namespace='##other'/>
+ *     </restriction>
+ *   </complexContent>
+ * </complexType>
+ * }</pre>
  * 
  * 
  */
@@ -109,7 +109,7 @@ public class JavaWsdlMappingType {
     @XmlAttribute(name = "databinding")
     protected String databinding;
     @XmlAnyAttribute
-    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+    private Map<QName, String> otherAttributes = new HashMap<>();
 
     /**
      * Gets the value of the xmlSchemaMapping property.
@@ -171,7 +171,7 @@ public class JavaWsdlMappingType {
      */
     public List<Object> getClassAnnotation() {
         if (classAnnotation == null) {
-            classAnnotation = new ArrayList<Object>();
+            classAnnotation = new ArrayList<>();
         }
         return this.classAnnotation;
     }
@@ -320,17 +320,17 @@ public class JavaWsdlMappingType {
      * 
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element ref="{http://xmlns.oracle.com/webservices/jaxws-databinding}java-method" maxOccurs="unbounded" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
+     * <pre>{@code
+     * <complexType>
+     *   <complexContent>
+     *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       <sequence>
+     *         <element ref="{http://xmlns.oracle.com/webservices/jaxws-databinding}java-method" maxOccurs="unbounded" minOccurs="0"/>
+     *       </sequence>
+     *     </restriction>
+     *   </complexContent>
+     * </complexType>
+     * }</pre>
      * 
      * 
      */
@@ -367,7 +367,7 @@ public class JavaWsdlMappingType {
          */
         public List<JavaMethod> getJavaMethod() {
             if (javaMethod == null) {
-                javaMethod = new ArrayList<JavaMethod>();
+                javaMethod = new ArrayList<>();
             }
             return this.javaMethod;
         }
@@ -380,17 +380,17 @@ public class JavaWsdlMappingType {
      * 
      * <p>The following schema fragment specifies the expected content contained within this class.
      * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;any maxOccurs="unbounded" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
+     * <pre>{@code
+     * <complexType>
+     *   <complexContent>
+     *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       <sequence>
+     *         <any maxOccurs="unbounded" minOccurs="0"/>
+     *       </sequence>
+     *     </restriction>
+     *   </complexContent>
+     * </complexType>
+     * }</pre>
      * 
      * 
      */
@@ -427,7 +427,7 @@ public class JavaWsdlMappingType {
          */
         public List<Object> getAny() {
             if (any == null) {
-                any = new ArrayList<Object>();
+                any = new ArrayList<>();
             }
             return this.any;
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,18 +38,22 @@ final class WSDLParserExtensionContextImpl implements WSDLParserExtensionContext
         this.policyResolver = policyResolver;
     }
 
+    @Override
     public boolean isClientSide() {
         return isClientSide;
     }
 
+    @Override
     public EditableWSDLModel getWSDLModel() {
         return wsdlModel;
     }
 
+    @Override
     public Container getContainer() {
         return this.container;
     }
 
+    @Override
     public PolicyResolver getPolicyResolver() {
         return policyResolver;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,6 +22,9 @@ package com.sun.xml.ws.developer;
  * @since 2.1
  */
 public class ServerSideException extends Exception {
+
+    private static final long serialVersionUID = 3454927391766553274L;
+
     private final String className;
 
     public ServerSideException(String className, String message) {
@@ -29,6 +32,7 @@ public class ServerSideException extends Exception {
         this.className = className;
     }
 
+    @Override
     public String getMessage() {
         return "Client received an exception from server: "
                 + super.getMessage()

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,6 +30,12 @@ import com.sun.xml.ws.api.server.WSEndpoint;
  * <a href="http://txw.java.net">http://txw.java.net</a>.
  */
 public abstract class WSDLGeneratorExtension {
+
+    /**
+     * Default constructor.
+     */
+    protected WSDLGeneratorExtension() {}
+
     /**
      * Called at the very beginning of the process.
      * <br>
@@ -49,13 +55,13 @@ public abstract class WSDLGeneratorExtension {
      *                  TODO: think about tool side
      * @deprecated
      */
+    @Deprecated
     public void start(@NotNull TypedXmlWriter root, @NotNull SEIModel model, @NotNull WSBinding binding, @NotNull Container container) {
     }
 
     /**
-     * Called before writing </wsdl:defintions>.
+     * Called before writing &lt;/wsdl:defintions&gt;.
      *
-     * @param ctxt
      */
     public void end(@NotNull WSDLGenExtnContext ctxt) {
     }

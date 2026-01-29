@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,12 +25,14 @@ import java.util.Map;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class MIMEExtensionHandler extends AbstractExtensionHandler {
 
     public MIMEExtensionHandler(Map<String, AbstractExtensionHandler> extensionHandlerMap) {
         super(extensionHandlerMap);
     }
 
+    @Override
     public String getNamespaceURI() {
         return Constants.NS_WSDL_MIME;
     }

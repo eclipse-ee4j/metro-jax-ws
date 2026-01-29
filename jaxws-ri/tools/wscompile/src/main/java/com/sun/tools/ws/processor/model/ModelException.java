@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,6 +23,8 @@ import com.sun.tools.ws.processor.ProcessorException;
  */
 public class ModelException extends ProcessorException {
 
+    private static final long serialVersionUID = 2540290996493659215L;
+
     public ModelException(String key, Object... args) {
         super(key, args);
     }
@@ -35,6 +37,7 @@ public class ModelException extends ProcessorException {
         super("model.nestedModelError", arg);
     }
 
+    @Override
     public String getDefaultResourceBundleName() {
         return "com.sun.tools.ws.resources.model";
     }

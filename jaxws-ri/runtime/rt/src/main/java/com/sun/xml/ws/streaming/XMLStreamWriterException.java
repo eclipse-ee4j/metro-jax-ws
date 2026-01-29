@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,6 +23,9 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  */
 public class XMLStreamWriterException extends JAXWSExceptionBase {
 
+    private static final long serialVersionUID = 4568488681038250654L;
+
+    @SuppressWarnings({"deprecation"})
     public XMLStreamWriterException(String key, Object... args) {
         super(key, args);
     }
@@ -31,10 +34,12 @@ public class XMLStreamWriterException extends JAXWSExceptionBase {
         super(throwable);
     }
 
+    @SuppressWarnings({"deprecation"})
     public XMLStreamWriterException(Localizable arg) {
         super("xmlwriter.nestedError", arg);
     }
 
+    @Override
     public String getDefaultResourceBundleName() {
         return "com.sun.xml.ws.resources.streaming";
     }

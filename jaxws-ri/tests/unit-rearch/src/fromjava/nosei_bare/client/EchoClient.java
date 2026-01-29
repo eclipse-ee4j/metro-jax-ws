@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,10 +48,10 @@ public class EchoClient extends TestCase {
         stub.echoGenericInteger(holder);
         holder.value = null;
         stub.echoGenericInteger(holder);
-        holder.value = new Integer(33);
-        assertTrue(holder.value.equals(new Integer(33)));        
+        holder.value = Integer.valueOf(33);
+        assertTrue(holder.value.equals(Integer.valueOf(33)));        
 
-        assertTrue(stub.echoGenericObject(new Integer(66)).equals(new Integer(66)));   
+        assertTrue(stub.echoGenericObject(Integer.valueOf(66)).equals(Integer.valueOf(66)));   
         assertTrue(stub.echoGenericObject("bill").equals("bill"));   
 
 
@@ -151,7 +151,7 @@ public class EchoClient extends TestCase {
         assertTrue(stub.echoInHeader(33, 44L) == 77L);
         assertTrue(stub.echoIn2Header(33, 44L, "dirk") == 77L);
 
-        Holder<Long> longHolder = new Holder<Long>(new Long(44));
+        Holder<Long> longHolder = new Holder<Long>(Long.valueOf(44));
         assertTrue(stub.echoInOutHeader(33, longHolder) == 121L);
         assertTrue(longHolder.value == 88L);
 

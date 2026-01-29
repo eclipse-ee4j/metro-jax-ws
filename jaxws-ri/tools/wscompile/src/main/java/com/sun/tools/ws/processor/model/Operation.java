@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,8 +41,8 @@ public class Operation extends ModelObject {
         super(entity);
         _name = name;
         _uniqueName = name.getLocalPart();
-        _faultNames = new HashSet<String>();
-        _faults = new HashSet<Fault>();
+        _faultNames = new HashSet<>();
+        _faults = new HashSet<>();
     }
 
     public QName getName() {
@@ -104,10 +104,9 @@ public class Operation extends ModelObject {
     }
 
     private void initializeFaultNames() {
-        _faultNames = new HashSet<String>();
+        _faultNames = new HashSet<>();
         if (_faults != null) {
-            for (Iterator iter = _faults.iterator(); iter.hasNext();) {
-                Fault f = (Fault) iter.next();
+            for (Fault f : _faults) {
                 if (f.getName() != null && _faultNames.contains(f.getName())) {
                     throw new ModelException("model.uniqueness");
                 }
@@ -122,13 +121,11 @@ public class Operation extends ModelObject {
     }
 
     public Set<Fault> getAllFaultsSet() {
-        Set transSet = new HashSet();
-        transSet.addAll(_faults);
-        Iterator iter = _faults.iterator();
-        Fault fault;
-        Set tmpSet;
+        Set<Fault> transSet = new HashSet<>(_faults);
+        Iterator<Fault> iter = _faults.iterator();
+        Set<Fault> tmpSet;
         while (iter.hasNext()) {
-            tmpSet = ((Fault)iter.next()).getAllFaultsSet();
+            tmpSet = iter.next().getAllFaultsSet();
             transSet.addAll(tmpSet);
         }
         return transSet;
@@ -139,10 +136,8 @@ public class Operation extends ModelObject {
     }
 
     public Set<Block> getAllFaultBlocks(){
-        Set<Block> blocks = new HashSet<Block>();
-        Iterator faults = _faults.iterator();
-        while(faults.hasNext()){
-            Fault f = (Fault)faults.next();
+        Set<Block> blocks = new HashSet<>();
+        for (Fault f : _faults) {
             blocks.add(f.getBlock());
         }
         return blocks;
@@ -189,6 +184,7 @@ public class Operation extends ModelObject {
     }
 
 
+    @Override
     public void accept(ModelVisitor visitor) throws Exception {
         visitor.visit(this);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -95,7 +95,7 @@ public class RuntimeWSDLParser {
     /**
      * System IDs of WSDLs that are already read.
      */
-    private final Set<String> importedWSDLs = new HashSet<String>();
+    private final Set<String> importedWSDLs = new HashSet<>();
     /**
      * Must not be null.
      */
@@ -114,9 +114,9 @@ public class RuntimeWSDLParser {
 
     //Capture namespaces declared on the ancestors of wsa:EndpointReference, so that valid XmlStreamBuffer is created
     // from the EndpointReference fragment.
-    Map<String, String> wsdldef_nsdecl = new HashMap<String, String>();
-    Map<String, String> service_nsdecl = new HashMap<String, String>();
-    Map<String, String> port_nsdecl = new HashMap<String, String>();
+    Map<String, String> wsdldef_nsdecl = new HashMap<>();
+    Map<String, String> service_nsdecl = new HashMap<>();
+    Map<String, String> port_nsdecl = new HashMap<>();
 
     /**
      * Parses the WSDL and gives WSDLModel. If wsdl parameter is null, then wsdlLoc is used to get the WSDL. If the WSDL
@@ -228,17 +228,14 @@ public class RuntimeWSDLParser {
     }
     
     private static WSDLModel tryWithMex(@NotNull RuntimeWSDLParser wsdlParser, @NotNull URL wsdlLoc, @NotNull EntityResolver resolver, boolean isClientSide, Container container, Throwable e, Class serviceClass, PolicyResolver policyResolver, WSDLParserExtension... extensions) throws SAXException, XMLStreamException {
-        ArrayList<Throwable> exceptions = new ArrayList<Throwable>();
+        ArrayList<Throwable> exceptions = new ArrayList<>();
         try {
             WSDLModel wsdlModel = wsdlParser.parseUsingMex(wsdlLoc, resolver, isClientSide, container, serviceClass, policyResolver,extensions);
             if(wsdlModel == null){
                 throw new WebServiceException(ClientMessages.FAILED_TO_PARSE(wsdlLoc.toExternalForm(), e.getMessage()), e);
             }
             return wsdlModel;
-        } catch (URISyntaxException e1) {
-            exceptions.add(e);
-            exceptions.add(e1);
-        } catch(IOException e1){
+        } catch (URISyntaxException | IOException e1) {
             exceptions.add(e);
             exceptions.add(e1);
         }
@@ -322,7 +319,7 @@ public class RuntimeWSDLParser {
         this.wsdlDoc = sourceLocation!=null ? new WSDLModelImpl(sourceLocation) : new WSDLModelImpl();
         this.resolver = resolver;
         this.policyResolver = policyResolver;
-        this.extensions = new ArrayList<WSDLParserExtension>();
+        this.extensions = new ArrayList<>();
         this.context = new WSDLParserExtensionContextImpl(wsdlDoc, isClientSide, container, policyResolver);
 
         boolean isPolicyExtensionFound = false;
@@ -451,7 +448,7 @@ public class RuntimeWSDLParser {
             }
             targetNamespace = oldTargetNamespace;
         } finally {
-            this.wsdldef_nsdecl = new HashMap<String,String>();
+            this.wsdldef_nsdecl = new HashMap<>();
             reader.close();
         }
     }
@@ -475,7 +472,7 @@ public class RuntimeWSDLParser {
             }
         }
         wsdlDoc.addService(service);
-        service_nsdecl =  new HashMap<String, String>();
+        service_nsdecl = new HashMap<>();
     }
 
     private void parsePort(XMLStreamReader reader, EditableWSDLService service) {
@@ -515,10 +512,10 @@ public class RuntimeWSDLParser {
                     WSEndpointReference wsepr = new WSEndpointReference(eprbuffer, AddressingVersion.W3C);
                     //wsepr.toSpec().writeTo(new StreamResult(System.out));
                     port.setEPR(wsepr);
-                    /** XMLStreamBuffer.createNewBufferFromXMLStreamReader(reader) called from inside WSEndpointReference()
-                     *  consumes the complete EPR infoset and moves to the next element. This breaks the normal wsdl parser
-                     *  processing where it expects anyone reading the infoset to move to the end of the element that its reading
-                     *  and not to the next element.
+                    /* XMLStreamBuffer.createNewBufferFromXMLStreamReader(reader) called from inside WSEndpointReference()
+                       consumes the complete EPR infoset and moves to the next element. This breaks the normal wsdl parser
+                       processing where it expects anyone reading the infoset to move to the end of the element that its reading
+                       and not to the next element.
                      */
                     if(reader.getEventType() == XMLStreamConstants.END_ELEMENT && reader.getName().equals(WSDLConstants.QNAME_PORT))
                         break;
@@ -539,7 +536,7 @@ public class RuntimeWSDLParser {
             }
         }
         service.put(portQName, port);
-        port_nsdecl =new HashMap<String, String>();                        
+        port_nsdecl = new HashMap<>();
     }
 
     private void parseBinding(XMLStreamReader reader) {
@@ -637,9 +634,9 @@ public class RuntimeWSDLParser {
             } else {
                 extensionFacade.bindingOperationElements(bindingOp, reader);
             }
-            /**
-             *  If style attribute is present set it otherwise set the style as defined
-             *  on the <soap:binding> element
+            /*
+               If style attribute is present set it otherwise set the style as defined
+               on the <soap:binding> element
              */
             if (style != null) {
                 if (style.equals("rpc"))
@@ -1017,8 +1014,6 @@ public class RuntimeWSDLParser {
      * Reads the namespace declarations from the reader's current position in to the map. The reader is expected to be
      * on the start element.
      *
-     * @param ns_map
-     * @param reader
      */
     private static void readNSDecl(Map<String, String> ns_map, XMLStreamReader reader) {
         if (reader.getNamespaceCount() > 0) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,7 +21,9 @@ import java.util.*;
  *
  * @author Jitendra Kotamraju
  */
-public class MetadataUtil {
+public final class MetadataUtil {
+
+    private MetadataUtil() {}
 
     /**
      * Gets closure of all the referenced documents from the primary document(typically
@@ -35,8 +37,8 @@ public class MetadataUtil {
      */
     public static Map<String, SDDocument> getMetadataClosure(@NotNull String systemId,
             @NotNull SDDocumentResolver resolver, boolean onlyTopLevelSchemas) {
-        Map <String, SDDocument> closureDocs = new HashMap<String, SDDocument>();
-        Set<String> remaining = new HashSet<String>();
+        Map <String, SDDocument> closureDocs = new HashMap<>();
+        Set<String> remaining = new HashSet<>();
         remaining.add(systemId);
 
         while(!remaining.isEmpty()) {

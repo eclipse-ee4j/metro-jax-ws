@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -102,21 +102,22 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
          * @since 2.2.6
          * @deprecated Use {@link NextAction#suspend(Runnable)}
          */
+    @Deprecated
     public interface Listener {
         /**
          * Fiber has been suspended.  Implementations of this callback may resume the Fiber.
          * @param fiber Fiber
          */
-        public void fiberSuspended(Fiber fiber);
+        void fiberSuspended(Fiber fiber);
         
         /**
          * Fiber has been resumed.  Behavior is undefined if implementations of this callback attempt to suspend the Fiber.
          * @param fiber Fiber
          */
-        public void fiberResumed(Fiber fiber);
+        void fiberResumed(Fiber fiber);
     }
 
-    private final List<Listener> _listeners = new ArrayList<Listener>();
+    private final List<Listener> _listeners = new ArrayList<>();
 
     /**
      * Adds suspend/resume callback listener
@@ -124,6 +125,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
      * @since 2.2.6
      * @deprecated
      */
+    @Deprecated
     public void addListener(Listener listener) {
         synchronized(_listeners) {
             if (!_listeners.contains(listener)) {
@@ -138,6 +140,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
      * @since 2.2.6
      * @deprecated
      */
+    @Deprecated
     public void removeListener(Listener listener) {
         synchronized(_listeners) {
             _listeners.remove(listener);
@@ -146,7 +149,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
     List<Listener> getCurrentListeners() {
       synchronized(_listeners) {
-         return new ArrayList<Listener>(_listeners);
+         return new ArrayList<>(_listeners);
       }
     }
 
@@ -181,7 +184,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
      * <br>
      * <br>
      * Logically this is just a boolean, but we need to prepare for the case
-     * where the thread is {@link #resume(Packet) resumed} before we get to the {@link #suspend()}.
+     * where the thread is {@link #resume(Packet) resumed} before we get to the {@link #suspend(Holder, Runnable)}.
      * This happens when things happen in the following order:
      * <br>
      * <ol>
@@ -190,12 +193,12 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
      * <li>Tube returns with {@link NextAction#suspend()}.
      * <li>"External mechanism" becomes signal state and invokes {@link Fiber#resume(Packet)}
      * to wake up fiber
-     * <li>{@link Fiber#doRun} invokes {@link Fiber#suspend()}.
+     * <li>{@link Fiber#doRun} invokes {@link Fiber#suspend(Holder, Runnable)}.
      * </ol>
      * <br>
      * <br>
-     * Using int, this will work OK because {@link #suspendedCount} becomes -1 when
-     * {@link #resume(Packet)} occurs before {@link #suspend()}.
+     * Using int, this will work OK because {@code suspendedCount} becomes -1 when
+     * {@link #resume(Packet)} occurs before {@link #suspend(Holder, Runnable)}.
      * <br>
      * <br>
      * Increment and decrement is guarded by 'this' object.
@@ -340,7 +343,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
             String tubeDesc;
             if (next != null) {
-                tubeDesc = next.toString() + ".processRequest()";
+                tubeDesc = next + ".processRequest()";
             } else {
                 tubeDesc = peekCont() + ".processResponse()";
             }
@@ -704,10 +707,9 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
      */
     public synchronized void addInterceptor(@NotNull FiberContextSwitchInterceptor interceptor) {
         if (interceptors == null) {
-            interceptors = new ArrayList<FiberContextSwitchInterceptor>();
+            interceptors = new ArrayList<>();
         } else {
-            List<FiberContextSwitchInterceptor> l = new ArrayList<FiberContextSwitchInterceptor>();
-            l.addAll(interceptors);
+            List<FiberContextSwitchInterceptor> l = new ArrayList<>(interceptors);
             interceptors = l;
         }
         interceptors.add(interceptor);
@@ -742,8 +744,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
             if (interceptors.isEmpty())
                 interceptors = null;
             else {
-                List<FiberContextSwitchInterceptor> l = new ArrayList<FiberContextSwitchInterceptor>();
-                l.addAll(interceptors);
+                List<FiberContextSwitchInterceptor> l = new ArrayList<>(interceptors);
                 interceptors = l;
             }
             return result;
@@ -754,9 +755,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
     /**
      * Gets the context {@link ClassLoader} of this fiber.
      */
-    public
-    @Nullable
-    ClassLoader getContextClassLoader() {
+    public @Nullable ClassLoader getContextClassLoader() {
         return contextClassLoader;
     }
 
@@ -806,7 +805,8 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
      * complete their request/response processing. This method can be used
      * if a {@link Tube} needs to fallback to synchronous processing.
      * <br>
-     * <h3>Example:</h3>
+     * <p>
+     * <strong>Example:</strong>
      * <pre>
      * class FooTube extends {@link AbstractFilterTubeImpl} {
      *   NextAction processRequest(Packet request) {
@@ -904,7 +904,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
     /**
      * Invokes all registered {@link InterceptorHandler}s and then call into
-     * {@link Fiber#__doRun()}.
+     * {@link #__doRun(Holder, List)}.
      */
     private class InterceptorHandler implements FiberContextSwitchInterceptor.Work<Tube, Tube> {
         private final Holder<Boolean> isUnlockRequired;
@@ -921,7 +921,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
         }
 
         /**
-         * Initiate the interception, and eventually invokes {@link Fiber#__doRun()}.
+         * Initiate the interception, and eventually invokes {@link #__doRun(Holder, List)}.
          */
         Tube invoke(Tube next) {
             idx = 0;
@@ -992,7 +992,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
 
     private boolean _doRun(Tube next) {
         // isRequireUnlock will contain Boolean.FALSE when lock has already been released in suspend
-        Holder<Boolean> isRequireUnlock = new Holder<Boolean>(Boolean.TRUE);
+        Holder<Boolean> isRequireUnlock = new Holder<>(Boolean.TRUE);
         lock.lock();
         try {
             List<FiberContextSwitchInterceptor> ints;
@@ -1167,11 +1167,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
                     default:
                         throw new AssertionError();
                     }
-                } catch (RuntimeException t) {
-                    if (traceEnabled)
-                        LOGGER.log(Level.FINER, getName() + " Caught " + t + ". Start stack unwinding", t);
-                    throwable = t;
-                } catch (Error t) {
+                } catch (RuntimeException | Error t) {
                     if (traceEnabled)
                         LOGGER.log(Level.FINER, getName() + " Caught " + t + ". Start stack unwinding", t);
                     throwable = t;
@@ -1357,7 +1353,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
         return CURRENT_FIBER.get();
     }
 
-    private static final ThreadLocal<Fiber> CURRENT_FIBER = new ThreadLocal<Fiber>();
+    private static final ThreadLocal<Fiber> CURRENT_FIBER = new ThreadLocal<>();
 
     /**
      * Used to allocate unique number for each fiber.
@@ -1379,7 +1375,7 @@ public final class Fiber implements Runnable, Cancelable, ComponentRegistry {
      */
     public static volatile boolean serializeExecution = Boolean.getBoolean(Fiber.class.getName() + ".serialize");
 
-    private final Set<Component> components = new CopyOnWriteArraySet<Component>();
+    private final Set<Component> components = new CopyOnWriteArraySet<>();
     
     @Override
     public <S> S getSPI(Class<S> spiType) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +14,9 @@ package com.sun.xml.ws.util;
  *
  * @author WS Development Team
  */
-public class StringUtils {
+public final class StringUtils {
+
+    private StringUtils() {}
 
     /**
      * Utility method to take a string and convert it to normal Java variable
@@ -39,7 +41,7 @@ public class StringUtils {
 
             return name;
         }
-        char chars[] = name.toCharArray();
+        char[] chars = name.toCharArray();
         chars[0] = Character.toLowerCase(chars[0]);
         return new String(chars);
     }
@@ -57,7 +59,7 @@ public class StringUtils {
         if (name == null || name.length() == 0) {
             return name;
         }
-        char chars[] = name.toCharArray();
+        char[] chars = name.toCharArray();
         chars[0] = Character.toUpperCase(chars[0]);
         return new String(chars);
     }

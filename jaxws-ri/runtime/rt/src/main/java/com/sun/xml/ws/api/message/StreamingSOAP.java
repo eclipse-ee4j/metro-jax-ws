@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,11 +16,11 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
 public interface StreamingSOAP {
-    public XMLStreamReader readEnvelope();
-    public QName getPayloadQName();   
-    public XMLStreamReader readToBodyStarTag() throws XMLStreamException;
-    public XMLStreamReader readPayload() throws XMLStreamException;
-    public void writeToBodyStart(XMLStreamWriter w) throws XMLStreamException;
-    public void writePayloadTo(XMLStreamWriter writer)throws XMLStreamException;
-    public boolean isPayloadStreamReader();
+    XMLStreamReader readEnvelope();
+    QName getPayloadQName();
+    XMLStreamReader readToBodyStarTag() throws XMLStreamException;
+    XMLStreamReader readPayload() throws XMLStreamException;
+    void writeToBodyStart(XMLStreamWriter w) throws XMLStreamException;
+    void writePayloadTo(XMLStreamWriter writer)throws XMLStreamException;
+    boolean isPayloadStreamReader();
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,12 +15,14 @@ import com.sun.tools.ws.api.wsdl.TWSDLExtension;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A helper class for extensible entities.
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class ExtensibilityHelper {
 
     public ExtensibilityHelper() {
@@ -28,31 +30,27 @@ public class ExtensibilityHelper {
 
     public void addExtension(TWSDLExtension e) {
         if (_extensions == null) {
-            _extensions = new ArrayList();
+            _extensions = new ArrayList<>();
         }
         _extensions.add(e);
     }
 
     public Iterable<TWSDLExtension> extensions() {
-        if (_extensions == null) {
-            return new ArrayList<TWSDLExtension>();
-        } else {
-            return _extensions;
-        }
+        return Objects.requireNonNullElseGet(_extensions, ArrayList::new);
     }
 
     public void withAllSubEntitiesDo(EntityAction action) {
         if (_extensions != null) {
-            for (Iterator iter = _extensions.iterator(); iter.hasNext();) {
-                action.perform((Entity) iter.next());
+            for (TWSDLExtension extension : _extensions) {
+                action.perform((Entity) extension);
             }
         }
     }
 
     public void accept(ExtensionVisitor visitor) throws Exception {
         if (_extensions != null) {
-            for (Iterator iter = _extensions.iterator(); iter.hasNext();) {
-                ((ExtensionImpl) iter.next()).accept(visitor);
+            for (TWSDLExtension extension : _extensions) {
+                ((ExtensionImpl) extension).accept(visitor);
             }
         }
     }

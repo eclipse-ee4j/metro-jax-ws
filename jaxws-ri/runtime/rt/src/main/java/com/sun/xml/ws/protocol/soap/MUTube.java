@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,8 +11,6 @@
 package com.sun.xml.ws.protocol.soap;
 
 import com.sun.xml.ws.api.SOAPVersion;
-import static com.sun.xml.ws.api.SOAPVersion.SOAP_11;
-import static com.sun.xml.ws.api.SOAPVersion.SOAP_12;
 import com.sun.xml.ws.api.WSBinding;
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.api.message.Message;
@@ -84,7 +82,6 @@ abstract class MUTube extends AbstractFilterTubeImpl {
     }
 
     /**
-     * @param notUnderstoodHeaders
      * @return SOAPfaultException with SOAPFault representing the MustUnderstand SOAP Fault.
      *         notUnderstoodHeaders are added in the fault detail.
      */
@@ -104,7 +101,6 @@ abstract class MUTube extends AbstractFilterTubeImpl {
     /**
      * This should be used only in ServerMUPipe
      *
-     * @param notUnderstoodHeaders
      * @return Message representing a SOAPFault
      *         In SOAP 1.1, notUnderstoodHeaders are added in the fault Detail
      *         in SOAP 1.2, notUnderstoodHeaders are added as the SOAP Headers
@@ -113,13 +109,13 @@ abstract class MUTube extends AbstractFilterTubeImpl {
     final Message createMUSOAPFaultMessage(Set<QName> notUnderstoodHeaders) {
         try {
             String faultString = MUST_UNDERSTAND_FAULT_MESSAGE_STRING;
-            if (soapVersion == SOAP_11) {
+            if (soapVersion == SOAPVersion.SOAP_11) {
                 faultString = "MustUnderstand headers:" + notUnderstoodHeaders + " are not understood";
             }
             Message  muFaultMessage = SOAPFaultBuilder.createSOAPFaultMessage(
                     soapVersion,faultString,soapVersion.faultCodeMustUnderstand);
 
-            if (soapVersion == SOAP_12) {
+            if (soapVersion == SOAPVersion.SOAP_12) {
                 addHeader(muFaultMessage, notUnderstoodHeaders);
             }
             return muFaultMessage;
@@ -130,7 +126,7 @@ abstract class MUTube extends AbstractFilterTubeImpl {
 
     private static void addHeader(Message m, Set<QName> notUnderstoodHeaders) throws SOAPException {
         for (QName qname : notUnderstoodHeaders) {
-            SOAPElement soapEl = SOAP_12.getSOAPFactory().createElement(MU_HEADER_DETAIL);
+            SOAPElement soapEl = SOAPVersion.SOAP_12.getSOAPFactory().createElement(MU_HEADER_DETAIL);
             soapEl.addNamespaceDeclaration("abc", qname.getNamespaceURI());
             soapEl.setAttribute("qname", "abc:" + qname.getLocalPart());
             Header header = new DOMHeader<Element>(soapEl);

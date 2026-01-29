@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,11 +61,13 @@ public class RequestSender implements Closeable {
         Fiber fiber = engine.createFiber();
         final Tube tube = tubelinePool.take();
         fiber.start(tube, request, new Fiber.CompletionCallback() {
+            @Override
             public void onCompletion(@NotNull Packet response) {
                 tubelinePool.recycle(tube);
                 completionCallback.onCompletion(response);
             }
 
+            @Override
             public void onCompletion(@NotNull Throwable error) {
                 // let's not reuse tubes as they might be in a wrong state, so not
                 // calling tubePool.recycle()
@@ -74,6 +76,7 @@ public class RequestSender implements Closeable {
         });
     }
 
+    @Override
     public void close() {
        if (tubelinePool != null) {
             // multi-thread safety of 'close' needs to be considered more carefully.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,10 +44,12 @@ public class XMLReaderComposite implements XMLStreamReaderEx {
         ElemInfo ancestor;
         TagInfoset tagInfo; 
         public ElemInfo(TagInfoset tag, ElemInfo parent) { tagInfo = tag; ancestor = parent; }
+        @Override
         public String getNamespaceURI(String prefix) {
             String n = tagInfo.getNamespaceURI(prefix);
             return (n != null) ? n : (ancestor != null) ?  ancestor.getNamespaceURI(prefix) : null;
         }
+        @Override
         public String getPrefix(String uri) {
             String p = tagInfo.getPrefix(uri);
             return (p != null) ? p : (ancestor != null) ?  ancestor.getPrefix(uri) : null;
@@ -62,6 +64,7 @@ public class XMLReaderComposite implements XMLStreamReaderEx {
             }
             return l;
         }
+        @Override
         public Iterator<String> getPrefixes(String namespaceURI) {
             return allPrefixes(namespaceURI).iterator();
         }
@@ -314,7 +317,7 @@ public class XMLReaderComposite implements XMLStreamReaderEx {
     public boolean isAttributeSpecified(int index) {
         switch (state) {
         case StartTag: 
-        case EndTag: return (index < tagInfo.atts.getLength()) ? tagInfo.atts.getLocalName(index) != null : false;
+        case EndTag: return index < tagInfo.atts.getLength() && tagInfo.atts.getLocalName(index) != null;
         case Payload:
         default:
             return payloadReader.isAttributeSpecified(index);

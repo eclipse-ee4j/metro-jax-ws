@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -63,8 +63,8 @@ public class WsgenOptions extends Options {
      */
     public String protocol = "soap1.1";
 
-    public Set<String> protocols = new LinkedHashSet<String>();
-    public Map<String, String> nonstdProtocols = new LinkedHashMap<String, String>();
+    public Set<String> protocols = new LinkedHashSet<>();
+    public Map<String, String> nonstdProtocols = new LinkedHashMap<>();
 
     /**
      * -Xnosource
@@ -90,7 +90,7 @@ public class WsgenOptions extends Options {
      * <code>-x file1 -x file2 ...</code><br>
      * Files to be parsed to get classes' metadata in addition/instead of using annotations and reflection API
      */
-    public List<String> externalMetadataFiles = new ArrayList<String>();
+    public List<String> externalMetadataFiles = new ArrayList<>();
 
     private static final String SERVICENAME_OPTION = "-servicename";
     private static final String PORTNAME_OPTION = "-portname";
@@ -105,8 +105,8 @@ public class WsgenOptions extends Options {
         nonstdProtocols.put(X_SOAP12, SOAPBindingImpl.X_SOAP12HTTP_BINDING);
         ServiceFinder<WsgenExtension> extn = ServiceFinder.find(WsgenExtension.class, ServiceLoader.load(WsgenExtension.class));
         for(WsgenExtension ext : extn) {
-            Class clazz = ext.getClass();
-            WsgenProtocol pro = (WsgenProtocol)clazz.getAnnotation(WsgenProtocol.class);
+            Class<?> clazz = ext.getClass();
+            WsgenProtocol pro = clazz.getAnnotation(WsgenProtocol.class);
             protocols.add(pro.token());
             nonstdProtocols.put(pro.token(), pro.lexical());
         }
@@ -118,19 +118,19 @@ public class WsgenOptions extends Options {
         int j = super.parseArguments(args, i);
         if (args[i].equals(SERVICENAME_OPTION)) {
             serviceName = QName.valueOf(requireArgument(SERVICENAME_OPTION, args, ++i));
-            if (serviceName.getNamespaceURI() == null || serviceName.getNamespaceURI().length() == 0) {
+            if (serviceName.getNamespaceURI() == null || serviceName.getNamespaceURI().isEmpty()) {
                 throw new BadCommandLineException(WscompileMessages.WSGEN_SERVICENAME_MISSING_NAMESPACE(args[i]));
             }
-            if (serviceName.getLocalPart() == null || serviceName.getLocalPart().length() == 0) {
+            if (serviceName.getLocalPart() == null || serviceName.getLocalPart().isEmpty()) {
                 throw new BadCommandLineException(WscompileMessages.WSGEN_SERVICENAME_MISSING_LOCALNAME(args[i]));
             }
             return 2;
         } else if (args[i].equals(PORTNAME_OPTION)) {
             portName = QName.valueOf(requireArgument(PORTNAME_OPTION, args, ++i));
-            if (portName.getNamespaceURI() == null || portName.getNamespaceURI().length() == 0) {
+            if (portName.getNamespaceURI() == null || portName.getNamespaceURI().isEmpty()) {
                 throw new BadCommandLineException(WscompileMessages.WSGEN_PORTNAME_MISSING_NAMESPACE(args[i]));
             }
-            if (portName.getLocalPart() == null || portName.getLocalPart().length() == 0) {
+            if (portName.getLocalPart() == null || portName.getLocalPart().isEmpty()) {
                 throw new BadCommandLineException(WscompileMessages.WSGEN_PORTNAME_MISSING_LOCALNAME(args[i]));
             }
             return 2;
@@ -186,9 +186,9 @@ public class WsgenOptions extends Options {
         endpoints.add(arg);
     }
 
-    List<String> endpoints = new ArrayList<String>();
+    List<String> endpoints = new ArrayList<>();
 
-    public Class endpoint;
+    public Class<?> endpoint;
 
 
     private boolean isImplClass;
@@ -222,7 +222,7 @@ public class WsgenOptions extends Options {
      * Get an implementation class annotated with @WebService annotation.
      */
     private void validateEndpointClass() throws BadCommandLineException {
-        Class clazz = null;
+        Class<?> clazz = null;
         for(String cls : endpoints){
             clazz = getClass(cls);
             if (clazz == null)
@@ -233,7 +233,7 @@ public class WsgenOptions extends Options {
                 continue;
             }
             isImplClass = true;
-            WebService webService = (WebService) clazz.getAnnotation(WebService.class);
+            WebService webService = clazz.getAnnotation(WebService.class);
             if(webService == null)
                 continue;
             break;
@@ -286,7 +286,7 @@ public class WsgenOptions extends Options {
     }
 
 
-    private Class getClass(String className) {
+    private Class<?> getClass(String className) {
         try {
             return getClassLoader().loadClass(className);
         } catch (ClassNotFoundException e) {

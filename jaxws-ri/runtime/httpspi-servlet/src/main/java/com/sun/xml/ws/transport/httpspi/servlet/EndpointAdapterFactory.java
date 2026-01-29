@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,19 +36,19 @@ public final class EndpointAdapterFactory implements DeploymentDescriptorParser.
     }
 
     @Override
-    public EndpointAdapter createAdapter(String name, String urlPattern, Class implType,
+    public EndpointAdapter createAdapter(String name, String urlPattern, Class<?> implType,
         QName serviceName, QName portName, String bindingId,
         List<Source> metadata, WebServiceFeature... features) {
 
         LOGGER.info("Creating Endpoint using JAX-WS 2.2 HTTP SPI");
-        InvokerImpl endpointInvoker = new InvokerImpl(implType);
+        InvokerImpl<?> endpointInvoker = new InvokerImpl<>(implType);
         Endpoint endpoint = Provider.provider().createEndpoint(bindingId, implType, endpointInvoker, features);
         appContext.add(endpoint);
         endpoint.setEndpointContext(appContext);
 
         // Use DD's service name, port names as WSDL_SERVICE and WSDL_PORT
         if (portName != null || serviceName != null) {
-            Map<String, Object> props = new HashMap<String, Object>();
+            Map<String, Object> props = new HashMap<>();
             if (portName != null) {
                 props.put(Endpoint.WSDL_PORT, portName);
             }
@@ -64,7 +64,7 @@ public final class EndpointAdapterFactory implements DeploymentDescriptorParser.
         // Set bundle's wsdl, xsd docs as metadata
         if (metadata != null) {
             endpoint.setMetadata(metadata);
-            List<String> docId = new ArrayList<String>();
+            List<String> docId = new ArrayList<>();
             for(Source source : metadata) {
                 docId.add(source.getSystemId());
             }

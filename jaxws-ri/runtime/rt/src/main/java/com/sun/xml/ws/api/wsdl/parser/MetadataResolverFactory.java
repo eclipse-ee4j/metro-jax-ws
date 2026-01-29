@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,12 +27,15 @@ import org.xml.sax.EntityResolver;
  * @see com.sun.xml.ws.api.wsdl.parser.MetaDataResolver#resolve(java.net.URI)
  */
 public abstract class MetadataResolverFactory {
+
+    /**
+     * Default constructor.
+     */
+    protected MetadataResolverFactory() {}
+
     /**
      * Gets a {@link com.sun.xml.ws.api.wsdl.parser.MetaDataResolver}
      *
-     * @param resolver
      */
-    public abstract
-    @NotNull
-    MetaDataResolver metadataResolver(@Nullable EntityResolver resolver);
+    public abstract @NotNull MetaDataResolver metadataResolver(@Nullable EntityResolver resolver);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,18 +33,18 @@ import java.util.Map;
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
- * <pre>
- * &lt;complexType name="tubeFactoryListCType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="tube-factory" type="{http://java.sun.com/xml/ns/metro/config}tubeFactoryCType" maxOccurs="unbounded"/>
- *         &lt;any/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ * <pre>{@code
+ * <complexType name="tubeFactoryListCType">
+ *   <complexContent>
+ *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       <sequence>
+ *         <element name="tube-factory" type="{http://java.sun.com/xml/ns/metro/config}tubeFactoryCType" maxOccurs="unbounded"/>
+ *         <any/>
+ *       </sequence>
+ *     </restriction>
+ *   </complexContent>
+ * </complexType>
+ * }</pre>
  * 
  * 
  */
@@ -60,7 +60,10 @@ public class TubeFactoryList {
     @XmlAnyElement(lax = true)
     protected List<Object> any;
     @XmlAnyAttribute
-    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+    private Map<QName, String> otherAttributes = new HashMap<>();
+
+    public TubeFactoryList() {
+    }
 
     /**
      * Gets the value of the tubeFactoryConfigs property.
@@ -86,7 +89,7 @@ public class TubeFactoryList {
      */
     public List<TubeFactoryConfig> getTubeFactoryConfigs() {
         if (tubeFactoryConfigs == null) {
-            tubeFactoryConfigs = new ArrayList<TubeFactoryConfig>();
+            tubeFactoryConfigs = new ArrayList<>();
         }
         return this.tubeFactoryConfigs;
     }
@@ -116,7 +119,7 @@ public class TubeFactoryList {
      */
     public List<Object> getAny() {
         if (any == null) {
-            any = new ArrayList<Object>();
+            any = new ArrayList<>();
         }
         return this.any;
     }

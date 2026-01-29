@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,15 +35,21 @@ abstract public class BindingContextFactory {
     public static final String JAXB_CONTEXT_FACTORY_PROPERTY = BindingContextFactory.class.getName();
     public static final Logger LOGGER = Logger.getLogger(BindingContextFactory.class.getName());
 
+    /**
+     * Default constructor.
+     */
+    protected BindingContextFactory() {}
+
     // This iterator adds exception checking for proper logging.
     public static Iterator<BindingContextFactory> serviceIterator() {
         final ServiceFinder<BindingContextFactory> sf = ServiceFinder
                 .find(BindingContextFactory.class);
         final Iterator<BindingContextFactory> ibcf = sf.iterator();
 
-        return new Iterator<BindingContextFactory>() {
+        return new Iterator<>() {
             private BindingContextFactory bcf;
 
+            @Override
             public boolean hasNext() {
                 while (true) {
                     try {
@@ -62,6 +68,7 @@ abstract public class BindingContextFactory {
                 }
             }
 
+            @Override
             public BindingContextFactory next() {
                 if (LOGGER.isLoggable(Level.FINER))
                     LOGGER.finer("SPI found provider: " +
@@ -69,6 +76,7 @@ abstract public class BindingContextFactory {
                 return bcf;
             }
 
+            @Override
             public void remove() {
                 throw new UnsupportedOperationException();
             }
@@ -76,7 +84,7 @@ abstract public class BindingContextFactory {
     }
 
     static private List<BindingContextFactory> factories() {
-        List<BindingContextFactory> factories = new java.util.ArrayList<BindingContextFactory>();
+        List<BindingContextFactory> factories = new java.util.ArrayList<>();
         Iterator<BindingContextFactory> ibcf = serviceIterator();
         while (ibcf.hasNext())
             factories.add(ibcf.next());
@@ -99,14 +107,8 @@ abstract public class BindingContextFactory {
 	 * Check to see if the BindingContextFactory is for the databinding mode/flavor. The
 	 * String parameter can be the package name of the JAXBContext implementation as well.
 	 * @param databinding mode/flavor or the package name of the JAXBContext implementation.
-	 * @return
-	 */
-	abstract protected boolean isFor(String databinding);		
-
-	/**
-	 * @deprecated - Does jaxws need this?
-	 */
-	abstract protected BindingContext getContext(Marshaller m);
+     */
+	abstract protected boolean isFor(String databinding);
 
     static private BindingContextFactory getFactory(String mode) {
         for (BindingContextFactory f: factories()) {
@@ -167,7 +169,7 @@ abstract public class BindingContextFactory {
      * @return Created context or null. Null will be returned if we were not able to create context with any given factory.
      */
     private static BindingContext getBindingContextFromSpi(List<BindingContextFactory> factories, BindingInfo bindingInfo) {
-        List<BindingContextFactory> fallback = new ArrayList<BindingContextFactory>();
+        List<BindingContextFactory> fallback = new ArrayList<>();
         BindingContext result;
         for (BindingContextFactory factory : factories) {
             if (LOGGER.isLoggable(Level.FINE)) {
@@ -226,11 +228,5 @@ abstract public class BindingContextFactory {
 		throw new DatabindingException("Unknown JAXBContext implementation: " + o.getClass());
 		
 	}
-	
-	/**
-	 * @deprecated - Does jaxws need this?
-	 */
-	static public BindingContext getBindingContext(Marshaller m) {
-		return getJAXBFactory(m).getContext(m);
-	}
+
 }

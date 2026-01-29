@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,6 @@ import com.sun.xml.ws.api.model.wsdl.WSDLPort;
 import com.sun.xml.ws.api.model.wsdl.WSDLFeaturedObject;
 import com.sun.xml.ws.model.RuntimeModelerException;
 import com.sun.xml.ws.resources.ModelerMessages;
-import org.glassfish.jaxb.core.util.Which;
 
 import jakarta.xml.ws.RespectBinding;
 import jakarta.xml.ws.RespectBindingFeature;
@@ -62,7 +61,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         return w;
     }
 
-    private Map<Class<? extends WebServiceFeature>, WebServiceFeature> wsfeatures = new HashMap<Class<? extends WebServiceFeature>, WebServiceFeature>();
+    private Map<Class<? extends WebServiceFeature>, WebServiceFeature> wsfeatures = new HashMap<>();
     private boolean isValidating = false;
 
     public WebServiceFeatureList() {
@@ -99,11 +98,9 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         if (fva != null) {
             Class<? extends FeatureListValidator> beanClass = fva.bean();
             try {
-                FeatureListValidator validator = beanClass.newInstance();
+                FeatureListValidator validator = beanClass.getConstructor().newInstance();
                 validator.validate(this);
-            } catch (InstantiationException e) {
-                throw new WebServiceException(e);
-            } catch (IllegalAccessException e) {
+            } catch (ReflectiveOperationException e) {
                 throw new WebServiceException(e);
             }
         }
@@ -152,12 +149,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
             ftr = null;
         } else if (a instanceof Addressing) {
             Addressing addAnn = (Addressing) a;
-            try {
-                ftr = new AddressingFeature(addAnn.enabled(), addAnn.required(),addAnn.responses());
-            } catch(NoSuchMethodError e) {
-                //throw error. We can't default to Responses.ALL as we dont know if the user has not used 2.2 annotation with responses.
-                throw new RuntimeModelerException(ModelerMessages.RUNTIME_MODELER_ADDRESSING_RESPONSES_NOSUCHMETHOD(toJar(Which.which(Addressing.class))));
-            }
+            ftr = new AddressingFeature(addAnn.enabled(), addAnn.required(),addAnn.responses());
         } else if (a instanceof MTOM) {
             MTOM mtomAnn = (MTOM) a;
             ftr = new MTOMFeature(mtomAnn.enabled(), mtomAnn.threshold());
@@ -190,16 +182,6 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
                 add(ftr);
             }
         }
-    }
-
-    /**
-     * Given the URL String inside jar, returns the URL to the jar itself.
-     */
-    private static String toJar(String url) {
-        if(!url.startsWith("jar:"))
-            return url;
-        url = url.substring(4); // cut off jar:
-        return url.substring(0,url.lastIndexOf('!'));    // cut off everything after '!'
     }
 
     private static WebServiceFeature getWebServiceFeatureBean(Annotation a) {
@@ -279,9 +261,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         } catch (final NoSuchMethodException e) {
             LOGGER.log(Level.INFO, "Unable to find builder method on webservice feature: " + beanClass.getName(), e);
             return null;
-        } catch (final IllegalAccessException e) {
-            throw new WebServiceException(e);
-        } catch (final InvocationTargetException e) {
+        } catch (final IllegalAccessException | InvocationTargetException e) {
             throw new WebServiceException(e);
         }
     }
@@ -307,12 +287,14 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         return false;
     }
 
+    @Override
     public Iterator<WebServiceFeature> iterator() {
         if (parent != null)
             return new MergedFeatures(parent.getFeatures());
         return wsfeatures.values().iterator();
     }
 
+    @Override
     public @NotNull
 	WebServiceFeature[] toArray() {
         if (parent != null)
@@ -320,6 +302,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         return wsfeatures.values().toArray(new WebServiceFeature[] {});
     }
 
+    @Override
     public boolean isEnabled(@NotNull Class<? extends WebServiceFeature> feature) {
         WebServiceFeature ftr = get(feature);
         return ftr != null && ftr.isEnabled();
@@ -330,8 +313,9 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         return ftr != null;
     }
 
-    public @Nullable
-	<F extends WebServiceFeature> F get(@NotNull Class<F> featureType) {
+    @Override
+    @SuppressWarnings({"unchecked"})
+    public @Nullable <F extends WebServiceFeature> F get(@NotNull Class<F> featureType) {
         WebServiceFeature f = featureType.cast(wsfeatures.get(featureType));
         if (f == null && parent != null) {
             return parent.getFeatures().get(featureType);
@@ -370,7 +354,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
 
     /**
      * Sets MTOM feature, overriding any existing feature.  This is necessary for compatibility
-     * with the existing {@link SOAPBinding.setMTOMEnabled}.
+     * with the existing {@link jakarta.xml.ws.soap.SOAPBinding#setMTOMEnabled}.
      * @param b if MTOM will be enabled
      */
     void setMTOMEnabled(boolean b) {
@@ -399,6 +383,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
      *                          policy configuration) conflicts with feature setting in Deployed Service and
      *                          logs warning if there are any conflicts.
      */
+    @Override
     public void mergeFeatures(@NotNull Iterable<WebServiceFeature> features, boolean reportConflicts) {
         for (WebServiceFeature wsdlFtr : features) {
             if (get(wsdlFtr.getClass()) == null) {
@@ -412,6 +397,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         }
     }
 
+    @Override
     public void mergeFeatures(WebServiceFeature[] features, boolean reportConflicts) {
         for (WebServiceFeature wsdlFtr : features) {
             if (get(wsdlFtr.getClass()) == null) {
@@ -460,9 +446,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
                         boolean required = (Boolean) m.invoke(wsdlFtr);
                         if (required)
                             add(wsdlFtr);
-                    } catch (IllegalAccessException e) {
-                        throw new WebServiceException(e);
-                    } catch (InvocationTargetException e) {
+                    } catch (IllegalAccessException | InvocationTargetException e) {
                         throw new WebServiceException(e);
                     }
                 } catch (NoSuchMethodException e) {
@@ -487,6 +471,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
         this.parent = parent;
     }
 
+    @SuppressWarnings({"unchecked"})
     public static @Nullable <F extends WebServiceFeature> F getFeature(@NotNull WebServiceFeature[] features,
                                                                        @NotNull Class<F> featureType) {
         for (WebServiceFeature f : features) {
@@ -500,7 +485,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
      * A Union of this WebServiceFeatureList and the parent.
      */
     private final class MergedFeatures implements Iterator<WebServiceFeature> {
-        private final Stack<WebServiceFeature> features = new Stack<WebServiceFeature>();
+        private final Stack<WebServiceFeature> features = new Stack<>();
 
         public MergedFeatures(@NotNull WSFeatureList parent) {
 
@@ -515,10 +500,12 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
             }
         }
 
+        @Override
         public boolean hasNext() {
             return !features.empty();
         }
 
+        @Override
         public WebServiceFeature next() {
             if (!features.empty()) {
                 return features.pop();
@@ -526,6 +513,7 @@ public final class WebServiceFeatureList extends AbstractMap<Class<? extends Web
             throw new NoSuchElementException();
         }
 
+        @Override
         public void remove() {
             if (!features.empty()) {
                 features.pop();

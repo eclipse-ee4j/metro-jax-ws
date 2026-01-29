@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,6 +26,8 @@ package com.sun.xml.ws.util;
  * @since 1.3
  */
 public class ServiceConfigurationError extends Error {
+
+    private static final long serialVersionUID = -3106562284895145105L;
 
     /**
      * Constructs a new instance with the specified detail string.

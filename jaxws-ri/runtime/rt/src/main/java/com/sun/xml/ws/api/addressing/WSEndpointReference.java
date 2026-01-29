@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -545,8 +545,7 @@ public final class WSEndpointReference  implements WSDLExtension {
      * Call {@link #WSEndpointReference(EndpointReference)} directly
      * if you know it's not null.
      */
-    public static @Nullable
-    WSEndpointReference create(@Nullable EndpointReference epr) {
+    public static @Nullable WSEndpointReference create(@Nullable EndpointReference epr) {
         if (epr != null) {
             return new WSEndpointReference(epr);
         } else {
@@ -581,7 +580,7 @@ public final class WSEndpointReference  implements WSDLExtension {
      * </pre>
      *
      * @param newAddress
-     *      This is a complete URL to be written inside &lt;Adress> element of the EPR,
+     *      This is a complete URL to be written inside &lt;Address&gt; element of the EPR,
      *      such as "http://foo.bar/abc/def"
      */
     public @NotNull WSEndpointReference createWithAddress(@NotNull final String newAddress) {
@@ -597,7 +596,7 @@ public final class WSEndpointReference  implements WSDLExtension {
             }
 
             @Override
-            public void characters(char ch[], int start, int length) throws SAXException {
+            public void characters(char[] ch, int start, int length) throws SAXException {
                 if (!inAddress) {
                     super.characters(ch, start, length);
                 }
@@ -707,7 +706,7 @@ public final class WSEndpointReference  implements WSDLExtension {
     }
 
     /**
-     * The value of the &lt;wsa:address> header.
+     * The value of the &lt;wsa:address&gt; header.
      */
     public @NotNull String getAddress() {
         return address;
@@ -760,7 +759,7 @@ public final class WSEndpointReference  implements WSDLExtension {
                 XMLStreamBuffer mark;
                 while((mark = xsr.nextTagAndMark())!=null) {
                     if (marks==null) {
-                        marks = new ArrayList<Header>();
+                        marks = new ArrayList<>();
                     }
 
                     // TODO: need a different header for member submission version
@@ -784,7 +783,7 @@ public final class WSEndpointReference  implements WSDLExtension {
         if (marks==null) {
             this.referenceParameters = EMPTY_ARRAY;
         } else {
-            this.referenceParameters = marks.toArray(new Header[marks.size()]);
+            this.referenceParameters = marks.toArray(new Header[0]);
         }
 
         if (address==null) {
@@ -907,27 +906,13 @@ public final class WSEndpointReference  implements WSDLExtension {
      * many {@link Message}s.
      *
      * @param rootTagName
-     *      The header tag name to be used, such as &lt;ReplyTo> or &lt;FaultTo>.
+     *      The header tag name to be used, such as &lt;ReplyTo&gt; or &lt;FaultTo&gt;.
      *      (It's bit ugly that this method takes {@link QName} and not just local name,
      *      unlike other methods. If it's making the caller's life miserable, then
      *      we can talk.)
      */
     public Header createHeader(QName rootTagName) {
         return new EPRHeader(rootTagName,this);
-    }
-
-    /**
-     * Copies all the reference parameters in this EPR as headers
-     * to the given {@link HeaderList}.
-     * @deprecated - use addReferenceParametersToList(MessageHeaders)
-     */
-    @SuppressWarnings("ManualArrayToCollectionCopy")
-    public void addReferenceParametersToList(HeaderList outbound) {
-        // implemented through iteration because of unsupportedoperation exception thrown from addAll method on headerlist
-        // do not change
-        for (Header header : referenceParameters) {
-            outbound.add(header);
-        }
     }
 
     /**
@@ -972,7 +957,6 @@ public final class WSEndpointReference  implements WSDLExtension {
 
     /**
      * Gets the QName of the EndpointReference element.
-     * @return
      */
     @Override
     public QName getName() {
@@ -1016,6 +1000,7 @@ public final class WSEndpointReference  implements WSDLExtension {
      * Represents an extensibility element inside an EndpointReference
      */
     public static abstract class EPRExtension {
+        protected EPRExtension() {}
         public abstract XMLStreamReader readAsXMLStreamReader() throws XMLStreamException;
 
         public abstract QName getQName();
@@ -1041,7 +1026,7 @@ public final class WSEndpointReference  implements WSDLExtension {
 
     private void parseEPRExtensions() throws XMLStreamException {
 
-        rootEprExtensions = new HashMap<QName, EPRExtension>();
+        rootEprExtensions = new HashMap<>();
 
 
         StreamReaderBufferProcessor xsr = infoset.readAsXMLStreamReader();

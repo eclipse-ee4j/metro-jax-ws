@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,7 +41,7 @@ public class PolicySourceModel implements Cloneable {
 
     private static final PolicyLogger LOGGER = PolicyLogger.getLogger(PolicySourceModel.class);
 
-    private static final Map<String, String> DEFAULT_NAMESPACE_TO_PREFIX = new HashMap<String, String>();
+    private static final Map<String, String> DEFAULT_NAMESPACE_TO_PREFIX = new HashMap<>();
     static {
         for (PrefixMapper mapper: ServiceLoader.load(PrefixMapper.class)) {
             DEFAULT_NAMESPACE_TO_PREFIX.putAll(mapper.getPrefixMap());
@@ -58,13 +58,13 @@ public class PolicySourceModel implements Cloneable {
 
     // Map namespaces to prefixes
     private final Map<String, String> namespaceToPrefix =
-            new HashMap<String, String>(DEFAULT_NAMESPACE_TO_PREFIX);
+            new HashMap<>(DEFAULT_NAMESPACE_TO_PREFIX);
 
     private ModelNode rootNode;
     private final String policyId;
     private final String policyName;
     private final NamespaceVersion nsVersion;
-    private final List<ModelNode> references = new LinkedList<ModelNode>(); // links to policy reference nodes
+    private final List<ModelNode> references = new LinkedList<>(); // links to policy reference nodes
     private boolean expanded = false;
 
 
@@ -100,7 +100,7 @@ public class PolicySourceModel implements Cloneable {
      * Constructor that creates a new policy source model instance without any
      * id or name identifier. The namespace-to-prefix map is initialized with mapping
      * of policy namespace to the default value set by
-     * {@link PolicyConstants#POLICY_NAMESPACE_PREFIX POLICY_NAMESPACE_PREFIX constant}.
+     * {@link PolicyConstants#SUN_POLICY_NAMESPACE_PREFIX SUN_POLICY_NAMESPACE_PREFIX constant}.
      *
      * @param nsVersion The WS-Policy version.
      */
@@ -190,7 +190,7 @@ public class PolicySourceModel implements Cloneable {
      * @throws PolicyException Thrown if one of the prefix mappers threw an exception.
      */
     Map<String, String> getNamespaceToPrefixMapping() throws PolicyException {
-        final Map<String, String> nsToPrefixMap = new HashMap<String, String>();
+        final Map<String, String> nsToPrefixMap = new HashMap<>();
 
         final Collection<String> namespaces = getUsedNamespaces();
         for (String namespace : namespaces) {
@@ -361,14 +361,14 @@ public class PolicySourceModel implements Cloneable {
      * @throws PolicyException Thrown if internal processing failed.
      */
     private Collection<String> getUsedNamespaces() throws PolicyException {
-        final Set<String> namespaces = new HashSet<String>();
+        final Set<String> namespaces = new HashSet<>();
         namespaces.add(getNamespaceVersion().toString());
 
         if (this.policyId != null) {
             namespaces.add(PolicyConstants.WSU_NAMESPACE_URI);
         }
 
-        final Queue<ModelNode> nodesToBeProcessed = new LinkedList<ModelNode>();
+        final Queue<ModelNode> nodesToBeProcessed = new LinkedList<>();
         nodesToBeProcessed.add(rootNode);
 
         ModelNode processedNode;

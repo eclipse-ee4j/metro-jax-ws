@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,37 +17,33 @@ import javax.xml.namespace.QName;
 
 /**
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public enum NamespaceVersion {
-    v1_2("http://schemas.xmlsoap.org/ws/2004/09/policy", "wsp1_2", new XmlToken[] {
-    XmlToken.Policy,
-    XmlToken.ExactlyOne,
-    XmlToken.All,
-    XmlToken.PolicyReference,
-    XmlToken.UsingPolicy,
-    XmlToken.Name,
-    XmlToken.Optional,
-    XmlToken.Ignorable,
-    XmlToken.PolicyUris,
-    XmlToken.Uri,
-    XmlToken.Digest,
-    XmlToken.DigestAlgorithm
-    }), 
-    v1_5("http://www.w3.org/ns/ws-policy", "wsp", new XmlToken[] {
-    XmlToken.Policy,
-    XmlToken.ExactlyOne,
-    XmlToken.All,
-    XmlToken.PolicyReference,
-    XmlToken.UsingPolicy,
-    XmlToken.Name,
-    XmlToken.Optional,
-    XmlToken.Ignorable,
-    XmlToken.PolicyUris,
-    XmlToken.Uri,
-    XmlToken.Digest,
-    XmlToken.DigestAlgorithm
-    });    
+    v1_2("http://schemas.xmlsoap.org/ws/2004/09/policy", "wsp1_2", XmlToken.Policy,
+            XmlToken.ExactlyOne,
+            XmlToken.All,
+            XmlToken.PolicyReference,
+            XmlToken.UsingPolicy,
+            XmlToken.Name,
+            XmlToken.Optional,
+            XmlToken.Ignorable,
+            XmlToken.PolicyUris,
+            XmlToken.Uri,
+            XmlToken.Digest,
+            XmlToken.DigestAlgorithm),
+    v1_5("http://www.w3.org/ns/ws-policy", "wsp", XmlToken.Policy,
+            XmlToken.ExactlyOne,
+            XmlToken.All,
+            XmlToken.PolicyReference,
+            XmlToken.UsingPolicy,
+            XmlToken.Name,
+            XmlToken.Optional,
+            XmlToken.Ignorable,
+            XmlToken.PolicyUris,
+            XmlToken.Uri,
+            XmlToken.Digest,
+            XmlToken.DigestAlgorithm);
     
     /**
      * Resolves URI represented as a String into an enumeration value. If the URI 
@@ -118,7 +114,7 @@ public enum NamespaceVersion {
         nsUri = uri;
         defaultNsPrefix = prefix;
         
-        Map<XmlToken, QName> temp = new HashMap<XmlToken, QName>();
+        Map<XmlToken, QName> temp = new HashMap<>();
         for (XmlToken token : supportedTokens) {
             temp.put(token, new QName(nsUri, token.toString()));
         }

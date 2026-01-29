@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -79,6 +79,7 @@ public class WSDLParser {
     private MetadataFinder forest;
     private ArrayList<ParserListener> listeners;
 
+    @SuppressWarnings({"deprecation"})
     public WSDLParser(WsimportOptions options, ErrorReceiverFilter errReceiver, MetadataFinder forest) {
         this.extensionHandlers = new HashMap();
         this.options = options;
@@ -111,13 +112,14 @@ public class WSDLParser {
 
     }
 
+    @SuppressWarnings({"deprecation"})
     private void register(TWSDLExtensionHandler h) {
         extensionHandlers.put(h.getNamespaceURI(), h);
     }
 
     public void addParserListener(ParserListener l) {
         if (listeners == null) {
-            listeners = new ArrayList<ParserListener>();
+            listeners = new ArrayList<>();
         }
         listeners.add(l);
     }
@@ -159,9 +161,9 @@ public class WSDLParser {
     }
 
     private WSDLDocument buildWSDLDocument(){
-        /**
-         * Currently we are working off first WSDL document
-         * TODO: add support of creating WSDLDocument from fromjava.collection of WSDL documents
+        /*
+          Currently we are working off first WSDL document
+          TODO: add support of creating WSDLDocument from fromjava.collection of WSDL documents
          */
 
         String location = forest.getRootWSDL();
@@ -1024,6 +1026,7 @@ public class WSDLParser {
     }
 
 
+    @SuppressWarnings({"deprecation"})
     private boolean handleExtension(
         TWSDLParserContextImpl context,
         TWSDLExtensible entity,
@@ -1039,6 +1042,7 @@ public class WSDLParser {
         }
     }
 
+    @SuppressWarnings({"deprecation"})
     private boolean handleExtension(
         TWSDLParserContextImpl context,
         TWSDLExtensible entity,

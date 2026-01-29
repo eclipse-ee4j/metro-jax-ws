@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,7 +51,7 @@ public class SOAPFaultBuilderTest extends TestCase {
   }
 
   private static SOAPFault createFault(SOAPVersion soapVersion) throws Exception {
-    SOAPFactory fac = soapVersion.saajSoapFactory;
+    SOAPFactory fac = soapVersion.getSOAPFactory();
     SOAPFault sf = fac.createFault("This is a fault.", soapVersion.faultCodeClient);
     Detail d = sf.addDetail();
     // value of underlied element/ElementNSImpl is null

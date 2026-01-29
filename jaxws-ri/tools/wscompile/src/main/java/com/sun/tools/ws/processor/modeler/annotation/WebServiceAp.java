@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2010, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -89,7 +89,7 @@ public class WebServiceAp extends AbstractProcessor implements ModelBuilder {
     private TypeElement defHolderElement;
     private boolean isCommandLineInvocation;
     private PrintStream out;
-    private Collection<TypeElement> processedTypeElements = new HashSet<TypeElement>();
+    private Collection<TypeElement> processedTypeElements = new HashSet<>();
 
     public WebServiceAp() {
         this.context = new AnnotationProcessorContext();
@@ -123,10 +123,7 @@ public class WebServiceAp extends AbstractProcessor implements ModelBuilder {
 
     private boolean getOption(String key) {
         String value = processingEnv.getOptions().get(key);
-        if (value != null) {
-            return Boolean.valueOf(value);
-        }
-        return false;
+        return Boolean.parseBoolean(value);
     }
 
     @Override
@@ -139,7 +136,7 @@ public class WebServiceAp extends AbstractProcessor implements ModelBuilder {
         WebServiceProvider webServiceProvider;
         WebServiceVisitor webServiceVisitor = new WebServiceWrapperGenerator(this, context);
         boolean processedEndpoint = false;
-        Collection<TypeElement> classes = new ArrayList<TypeElement>();
+        Collection<TypeElement> classes = new ArrayList<>();
         filterClasses(classes, roundEnv.getRootElements());
         for (TypeElement element : classes) {
             webServiceProvider = element.getAnnotation(WebServiceProvider.class);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,66 +44,66 @@ public interface EditableWSDLBoundOperation extends WSDLBoundOperation {
 	 * @param part Part
 	 * @param mode Mode
 	 */
-    public void addPart(EditableWSDLPart part, Mode mode);
+    void addPart(EditableWSDLPart part, Mode mode);
 
     /**
      * Add Fault
      * @param fault Fault
      */
-    public void addFault(@NotNull EditableWSDLBoundFault fault);
+    void addFault(@NotNull EditableWSDLBoundFault fault);
 
     /**
      * Sets the soapbinding:binding/operation/wsaw:Anonymous.
      *
      * @param anonymous Anonymous value of the operation
      */
-	public void setAnonymous(ANONYMOUS anonymous);
+    void setAnonymous(ANONYMOUS anonymous);
 	
 	/**
 	 * Sets input explicit body parts
 	 * @param b True, if input body part is explicit
 	 */
-	public void setInputExplicitBodyParts(boolean b);
+    void setInputExplicitBodyParts(boolean b);
 	
 	/**
 	 * Sets output explicit body parts
 	 * @param b True, if output body part is explicit
 	 */
-	public void setOutputExplicitBodyParts(boolean b);
+    void setOutputExplicitBodyParts(boolean b);
 	
 	/**
 	 * Sets fault explicit body parts
 	 * @param b True, if fault body part is explicit
 	 */
-	public void setFaultExplicitBodyParts(boolean b);
+    void setFaultExplicitBodyParts(boolean b);
 	
 	/**
 	 * Set request namespace
 	 * @param ns Namespace
 	 */
-	public void setRequestNamespace(String ns);
+    void setRequestNamespace(String ns);
 	
 	/**
 	 * Set response namespace
 	 * @param ns Namespace
 	 */
-	public void setResponseNamespace(String ns);
+    void setResponseNamespace(String ns);
 	
 	/**
 	 * Set SOAP action
 	 * @param soapAction SOAP action
 	 */
-	public void setSoapAction(String soapAction);
+    void setSoapAction(String soapAction);
 	
 	/**
 	 * Set parameter style
 	 * @param style Style
 	 */
-	public void setStyle(Style style);
+    void setStyle(Style style);
 	
 	/**
 	 * Freezes WSDL model to prevent further modification
 	 * @param root WSDL Model
 	 */
-	public void freeze(EditableWSDLModel root);
+    void freeze(EditableWSDLModel root);
 }

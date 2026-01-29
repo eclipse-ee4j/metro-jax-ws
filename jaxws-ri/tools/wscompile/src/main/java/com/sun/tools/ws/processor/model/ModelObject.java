@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -56,7 +56,7 @@ public abstract class ModelObject {
         }
 
         if (_properties == null) {
-            _properties = new HashMap();
+            _properties = new HashMap<>();
         }
         _properties.put(key, value);
     }
@@ -67,9 +67,9 @@ public abstract class ModelObject {
         }
     }
 
-    public Iterator getProperties() {
+    public Iterator<String> getProperties() {
         if (_properties == null) {
-            return Collections.emptyList().iterator();
+            return Collections.emptyIterator();
         } else {
             return _properties.keySet().iterator();
         }
@@ -79,11 +79,11 @@ public abstract class ModelObject {
         return entity.getLocator();
     }
 
-    public Map getPropertiesMap() {
+    public Map<String, Object> getPropertiesMap() {
         return _properties;
     }
 
-    public void setPropertiesMap(Map m) {
+    public void setPropertiesMap(Map<String, Object> m) {
         _properties = m;
     }
 
@@ -96,5 +96,5 @@ public abstract class ModelObject {
     }
 
     private String javaDoc;
-    private Map _properties;
+    private Map<String, Object> _properties;
 }

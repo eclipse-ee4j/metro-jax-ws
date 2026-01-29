@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,18 +32,13 @@ public class DataSourceStreamingDataHandler extends StreamingDataHandler {
     @Override
     public void moveTo(File file) throws IOException {
         InputStream in = getInputStream();
-        OutputStream os = new FileOutputStream(file);
-        try {
+        try (OutputStream os = new FileOutputStream(file)) {
             byte[] temp = new byte[8192];
             int len;
-            while((len=in.read(temp)) != -1) {
+            while ((len = in.read(temp)) != -1) {
                 os.write(temp, 0, len);
             }
             in.close();
-        } finally {
-            if (os != null) {
-                os.close();
-            }
         }
     }
 

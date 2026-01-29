@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,12 +24,13 @@ import java.util.*;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class PortType extends GlobalEntity implements TWSDLExtensible {
 
     public PortType(Defining defining, Locator locator, ErrorReceiver errReceiver) {
         super(defining, locator, errReceiver);
-        _operations = new ArrayList();
-        _operationKeys = new HashSet();
+        _operations = new ArrayList<>();
+        _operationKeys = new HashSet<>();
         _helper = new ExtensibilityHelper();
     }
 
@@ -43,14 +44,13 @@ public class PortType extends GlobalEntity implements TWSDLExtensible {
         _operations.add(operation);
     }
 
-    public Iterator operations() {
+    public Iterator<Operation> operations() {
         return _operations.iterator();
     }
 
-    public Set getOperationsNamed(String s) {
-        Set result = new HashSet();
-        for (Iterator iter = _operations.iterator(); iter.hasNext();) {
-            Operation operation = (Operation) iter.next();
+    public Set<Operation> getOperationsNamed(String s) {
+        Set<Operation> result = new HashSet<>();
+        for (Operation operation : _operations) {
             if (operation.getName().equals(s)) {
                 result.add(operation);
             }
@@ -58,10 +58,12 @@ public class PortType extends GlobalEntity implements TWSDLExtensible {
         return result;
     }
 
+    @Override
     public Kind getKind() {
         return Kinds.PORT_TYPE;
     }
 
+    @Override
     public QName getElementName() {
         return WSDLConstants.QNAME_PORT_TYPE;
     }
@@ -74,11 +76,12 @@ public class PortType extends GlobalEntity implements TWSDLExtensible {
         _documentation = d;
     }
 
+    @Override
     public void withAllSubEntitiesDo(EntityAction action) {
         super.withAllSubEntitiesDo(action);
 
-        for (Iterator iter = _operations.iterator(); iter.hasNext();) {
-            action.perform((Entity) iter.next());
+        for (Operation operation : _operations) {
+            action.perform(operation);
         }
         _helper.withAllSubEntitiesDo(action);
     }
@@ -86,26 +89,30 @@ public class PortType extends GlobalEntity implements TWSDLExtensible {
     public void accept(WSDLDocumentVisitor visitor) throws Exception {
         visitor.preVisit(this);
         _helper.accept(visitor);
-        for (Iterator iter = _operations.iterator(); iter.hasNext();) {
-            ((Operation) iter.next()).accept(visitor);
+        for (Operation operation : _operations) {
+            operation.accept(visitor);
         }
         visitor.postVisit(this);
     }
 
+    @Override
     public void validateThis() {
         if (getName() == null) {
             failValidation("validation.missingRequiredAttribute", "name");
         }
     }
 
+    @Override
     public String getNameValue() {
         return getName();
     }
 
+    @Override
     public String getNamespaceURI() {
         return getDefining().getTargetNamespaceURI();
     }
 
+    @Override
     public QName getWSDLElementName() {
         return getElementName();
     }
@@ -113,6 +120,7 @@ public class PortType extends GlobalEntity implements TWSDLExtensible {
     /* (non-Javadoc)
     * @see TWSDLExtensible#addExtension(ExtensionImpl)
     */
+    @Override
     public void addExtension(TWSDLExtension e) {
         _helper.addExtension(e);
 
@@ -121,10 +129,12 @@ public class PortType extends GlobalEntity implements TWSDLExtensible {
     /* (non-Javadoc)
      * @see TWSDLExtensible#extensions()
      */
+    @Override
     public Iterable<TWSDLExtension> extensions() {
         return _helper.extensions();
     }
 
+    @Override
     public TWSDLExtensible getParent() {
         return parent;
     }
@@ -135,7 +145,7 @@ public class PortType extends GlobalEntity implements TWSDLExtensible {
 
     private TWSDLExtensible parent;
     private Documentation _documentation;
-    private List _operations;
-    private Set _operationKeys;
+    private List<Operation> _operations;
+    private Set<String> _operationKeys;
     private ExtensibilityHelper _helper;
 }

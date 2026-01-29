@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,20 +68,21 @@ public class ServletConnectionImpl extends WSHTTPConnection implements WebServic
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     @Property({MessageContext.HTTP_REQUEST_HEADERS, Packet.INBOUND_TRANSPORT_HEADERS})
     public @NotNull Map<String,List<String>> getRequestHeaders() {
         if (requestHeaders == null) {
             requestHeaders = new Headers();
-            Enumeration enums = request.getHeaderNames();
+            Enumeration<String> enums = request.getHeaderNames();
             while (enums.hasMoreElements()) {
-                String headerName = (String) enums.nextElement();
-                Enumeration e = request.getHeaders(headerName);
+                String headerName = enums.nextElement();
+                Enumeration<String> e = request.getHeaders(headerName);
                 if (e != null) {
                     List<String> values = requestHeaders.get(headerName);
                     while(e.hasMoreElements()) {
-                        String headerValue = (String)e.nextElement();
+                        String headerValue = e.nextElement();
                         if (values == null) {
-                            values = new ArrayList<String>();
+                            values = new ArrayList<>();
                             requestHeaders.put(headerName, values);
                         }
                         values.add(headerValue);
@@ -93,6 +94,7 @@ public class ServletConnectionImpl extends WSHTTPConnection implements WebServic
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public Set<String> getRequestHeaderNames() {
     	return getRequestHeaders().keySet();
     }

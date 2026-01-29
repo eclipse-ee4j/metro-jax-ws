@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -100,7 +100,7 @@ final class OutboundReferenceParameterHeader extends AbstractHeaderImpl {
             XMLStreamReader reader = readHeader();
             reader.nextTag();   // move to the first element, which is the header element
 
-            attributes = new FinalArrayList<Attribute>();
+            attributes = new FinalArrayList<>();
             boolean refParamAttrWritten = false;
             for (int i = 0; i < reader.getAttributeCount(); i++) {
                 final String attrLocalName = reader.getAttributeLocalName(i);

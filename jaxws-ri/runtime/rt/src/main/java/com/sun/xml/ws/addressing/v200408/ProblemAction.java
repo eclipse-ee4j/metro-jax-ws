@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,17 +13,16 @@ package com.sun.xml.ws.addressing.v200408;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
-import static com.sun.xml.ws.addressing.v200408.MemberSubmissionAddressingConstants.WSA_NAMESPACE_NAME;
 /**
  * @author Arun Gupta
  */
-@XmlRootElement(name="ProblemAction", namespace= WSA_NAMESPACE_NAME)
+@XmlRootElement(name="ProblemAction", namespace= MemberSubmissionAddressingConstants.WSA_NAMESPACE_NAME)
 public class ProblemAction {
 
-    @XmlElement(name="Action", namespace= WSA_NAMESPACE_NAME)
+    @XmlElement(name="Action", namespace= MemberSubmissionAddressingConstants.WSA_NAMESPACE_NAME)
     private String action;
 
-    @XmlElement(name="SoapAction", namespace=WSA_NAMESPACE_NAME)
+    @XmlElement(name="SoapAction", namespace= MemberSubmissionAddressingConstants.WSA_NAMESPACE_NAME)
     private String soapAction;
 
     /** Creates a new instance of ProblemAction */

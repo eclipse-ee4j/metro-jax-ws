@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +23,6 @@ import com.sun.xml.ws.model.AbstractSEIModelImpl;
 import com.sun.xml.ws.model.JavaMethodImpl;
 import com.sun.xml.ws.resources.ServerMessages;
 import com.sun.xml.ws.util.QNameMap;
-import com.sun.xml.ws.wsdl.DispatchException;
 
 import javax.xml.namespace.QName;
 import java.util.ArrayList;
@@ -48,8 +47,8 @@ final class PayloadQNameBasedOperationFinder extends WSDLOperationFinder {
     public static final String EMPTY_PAYLOAD_NSURI = "";
     public static final QName EMPTY_PAYLOAD = new QName(EMPTY_PAYLOAD_NSURI, EMPTY_PAYLOAD_LOCAL);
 
-    private final QNameMap<WSDLOperationMapping> methodHandlers = new QNameMap<WSDLOperationMapping>();
-    private final QNameMap<List<String>> unique = new QNameMap<List<String>>();
+    private final QNameMap<WSDLOperationMapping> methodHandlers = new QNameMap<>();
+    private final QNameMap<List<String>> unique = new QNameMap<>();
 
 
     public PayloadQNameBasedOperationFinder(WSDLPort wsdlModel, WSBinding binding, @Nullable SEIModel seiModel) {
@@ -64,7 +63,7 @@ final class PayloadQNameBasedOperationFinder extends WSDLOperationFinder {
                     name = EMPTY_PAYLOAD;
                 List<String> methods = unique.get(name);
                 if (methods == null) {
-                    methods = new ArrayList<String>();
+                    methods = new ArrayList<>();
                     unique.put(name, methods);
                 }
                 methods.add(m.getMethod().getName());
@@ -100,13 +99,12 @@ final class PayloadQNameBasedOperationFinder extends WSDLOperationFinder {
     /**
      *
      * @return not null if it finds a unique handler for the request
-     *         null if it cannot idenitify a unique wsdl operation from the Payload QName.
+     *         null if it cannot identify a unique wsdl operation from the Payload QName.
      *  
      * @throws DispatchException if the payload itself is incorrect, this happens when the payload is not accepted by
      *          any operation in the port.
      */
-//  public QName getWSDLOperationQName(Packet request) throws DispatchException{
-
+    @Override
     public WSDLOperationMapping getWSDLOperationMapping(Packet request) throws DispatchException {
         Message message = request.getMessage();
         String localPart = message.getPayloadLocalPart();

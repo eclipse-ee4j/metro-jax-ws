@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -87,7 +87,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
     private LazyMOMProvider.Scope lazyMOMProviderScope = LazyMOMProvider.Scope.STANDALONE;
     private final @NotNull ServerTubeAssemblerContext context;
 
-    private Map<QName, WSEndpointReference.EPRExtension> endpointReferenceExtensions = new HashMap<QName, WSEndpointReference.EPRExtension>();
+    private Map<QName, WSEndpointReference.EPRExtension> endpointReferenceExtensions = new HashMap<>();
     /**
      * Set to true once we start shutting down this endpoint. Used to avoid
      * running the clean up processing twice.
@@ -98,7 +98,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
     private final Class<T> implementationClass;
     private final @NotNull
     WSDLProperties wsdlProperties;
-    private final Set<Component> componentRegistry = new CopyOnWriteArraySet<Component>();
+    private final Set<Component> componentRegistry = new CopyOnWriteArraySet<>();
 
     protected WSEndpointImpl(@NotNull QName serviceName, @NotNull QName portName, WSBinding binding,
                    Container container, SEIModel seiModel, WSDLPort port,
@@ -175,7 +175,7 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
         engine = new Engine(toString(), container);
         wsdlProperties = (port == null) ? new WSDLDirectProperties(serviceName, portName, seiModel) : new WSDLPortProperties(port, seiModel);
 
-        Map<QName, WSEndpointReference.EPRExtension> eprExtensions = new HashMap<QName, WSEndpointReference.EPRExtension>();
+        Map<QName, WSEndpointReference.EPRExtension> eprExtensions = new HashMap<>();
         try {
             if (port != null) {
                 //gather EPR extrensions from WSDL Model
@@ -248,7 +248,6 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
     
     /**
      * Nullable when there is no associated WSDL Model
-     * @return
      */
     @Override
     public @Nullable OperationDispatcher getOperationDispatcher() {
@@ -562,18 +561,15 @@ public /*final*/ class WSEndpointImpl<T> extends WSEndpoint<T> implements LazyMO
     @Override
     public void closeManagedObjectManager() {
         synchronized (managedObjectManagerLock) {
-            if (managedObjectManagerClosed == true) {
+            if (managedObjectManagerClosed) {
                 return;
             }
             if (managedObjectManager != null) {
-                boolean close = true;
+                boolean close = !(managedObjectManager instanceof WSEndpointMOMProxy)
+                        || ((WSEndpointMOMProxy) managedObjectManager).isInitialized();
 
                 // ManagedObjectManager doesn't need to be closed because it exists only as a proxy
-                if (managedObjectManager instanceof WSEndpointMOMProxy
-                        && !((WSEndpointMOMProxy)managedObjectManager).isInitialized()) {
-                    close = false;
-                }
-                
+
                 if (close) {
                     try {
                         final ObjectName name = managedObjectManager.getObjectName(managedObjectManager.getRoot());

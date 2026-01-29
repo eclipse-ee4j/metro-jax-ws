@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,7 +26,7 @@ import java.util.List;
 final class PolicyScope {
     private static final PolicyLogger LOGGER = PolicyLogger.getLogger(PolicyScope.class);
     
-    private final List<PolicySubject> subjects = new LinkedList<PolicySubject>();
+    private final List<PolicySubject> subjects = new LinkedList<>();
     
     PolicyScope(final List<PolicySubject> initialSubjects) {
         if (initialSubjects != null && !initialSubjects.isEmpty()) {
@@ -52,7 +52,7 @@ final class PolicyScope {
      * @return effective policy of the scope
      */
     Policy getEffectivePolicy(final PolicyMerger merger) throws PolicyException {
-        final LinkedList<Policy> policies = new LinkedList<Policy>();
+        final LinkedList<Policy> policies = new LinkedList<>();
         for (PolicySubject subject : subjects) {
             policies.add(subject.getEffectivePolicy(merger));
         }

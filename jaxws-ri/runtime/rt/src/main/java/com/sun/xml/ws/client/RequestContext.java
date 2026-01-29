@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,6 +17,8 @@ import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.transport.Headers;
 
 import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.handler.MessageContext;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -24,10 +26,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Logger;
-
-
-import static jakarta.xml.ws.BindingProvider.*;
-import static jakarta.xml.ws.handler.MessageContext.HTTP_REQUEST_HEADERS;
 
 /**
  * Request context implementation.
@@ -45,7 +43,7 @@ import static jakarta.xml.ws.handler.MessageContext.HTTP_REQUEST_HEADERS;
  * then use that computed value during a method invocation again and again.
  *
  * <p>
- * For this goal, we use {@link com.sun.xml.ws.api.PropertySet} and implement some properties
+ * For this goal, we use {@link com.oracle.webservices.api.message.PropertySet} and implement some properties
  * as virtual properties backed by methods. This allows us to do the computation
  * in the setter, and store it in a field.
  *
@@ -60,7 +58,7 @@ import static jakarta.xml.ws.handler.MessageContext.HTTP_REQUEST_HEADERS;
  * Using {@link com.oracle.webservices.api.message.BasePropertySet.MapView} implementation allows client to use {@link Map} interface
  * in a way that all the strongly typed properties are reflected to the fields
  * right away. Any additional (extending) properties can be added by client as well;
- * those would be processed using iterating the {@link MapView} and their processing,
+ * those would be processed using iterating the {@link com.oracle.webservices.api.message.BasePropertySet.MapView} and their processing,
  * of course, would be slower.
  * <p>
  * The previous implementation with fallback mode has been removed to simplify
@@ -83,13 +81,6 @@ public final class RequestContext extends BaseDistributedPropertySet {
             ContentNegotiation.obtainFromSystemProperty();
 
     /**
-     * @deprecated
-     */
-    public void addSatellite(@NotNull com.sun.xml.ws.api.PropertySet satellite) {
-        super.addSatellite(satellite);
-    }
-    
-    /**
      * The endpoint address to which this message is sent to.
      *
      * <p>
@@ -104,7 +95,8 @@ public final class RequestContext extends BaseDistributedPropertySet {
      * @deprecated
      *      always access {@link #endpointAddress}.
      */
-    @Property(ENDPOINT_ADDRESS_PROPERTY)
+    @Deprecated
+    @Property(BindingProvider.ENDPOINT_ADDRESS_PROPERTY)
     public String getEndPointAddressString() {
         return endpointAddress != null ? endpointAddress.toString() : null;
     }
@@ -170,13 +162,13 @@ public final class RequestContext extends BaseDistributedPropertySet {
      * transport and SOAP version.
      *
      * For HTTP transport and SOAP 1.1, BP requires that SOAPAction
-     * header is present (See {@BP R2744} and {@BP R2745}.) For SOAP 1.2,
+     * header is present (See {@code BP R2744} and {@code BP R2745}.) For SOAP 1.2,
      * this is moved to the parameter of the "application/soap+xml".
      */
 
     private String soapAction;
 
-    @Property(SOAPACTION_URI_PROPERTY)
+    @Property(BindingProvider.SOAPACTION_URI_PROPERTY)
     public String getSoapAction() {
         return soapAction;
     }
@@ -194,7 +186,7 @@ public final class RequestContext extends BaseDistributedPropertySet {
      */
     private Boolean soapActionUse;
 
-    @Property(SOAPACTION_USE_PROPERTY)
+    @Property(BindingProvider.SOAPACTION_USE_PROPERTY)
     public Boolean getSoapActionUse() {
         return soapActionUse;
     }
@@ -270,7 +262,7 @@ public final class RequestContext extends BaseDistributedPropertySet {
         fillSOAPAction(packet, isAddressingEnabled);
         mergeRequestHeaders(packet);
 
-        Set<String> handlerScopeNames = new HashSet<String>();
+        Set<String> handlerScopeNames = new HashSet<>();
 
         copySatelliteInto(packet);
         
@@ -304,9 +296,9 @@ public final class RequestContext extends BaseDistributedPropertySet {
     private void mergeRequestHeaders(Packet packet) {
         //for bug 12883765
         //retrieve headers which is set in soap message
-        Headers packetHeaders = (Headers) packet.invocationProperties.get(HTTP_REQUEST_HEADERS);
+        Headers packetHeaders = (Headers) packet.invocationProperties.get(MessageContext.HTTP_REQUEST_HEADERS);
         //retrieve headers from request context
-        Map<String, List<String>> myHeaders = (Map<String, List<String>>) asMap().get(HTTP_REQUEST_HEADERS);
+        Map<String, List<String>> myHeaders = (Map<String, List<String>>) asMap().get(MessageContext.HTTP_REQUEST_HEADERS);
         if ((packetHeaders != null) && (myHeaders != null)) {
             //update the headers set in soap message with those in request context
             for (Entry<String, List<String>> entry : myHeaders.entrySet()) {
@@ -323,7 +315,7 @@ public final class RequestContext extends BaseDistributedPropertySet {
                 }
             }
             // update headers in request context with those set in soap message since it may contain other properties..
-            asMap().put(HTTP_REQUEST_HEADERS, packetHeaders);
+            asMap().put(MessageContext.HTTP_REQUEST_HEADERS, packetHeaders);
         }
     }
 

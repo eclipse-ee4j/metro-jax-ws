@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,6 +28,8 @@ import javax.xml.namespace.QName;
  */
 public class VersionMismatchException extends ExceptionHasMessage {
 
+    private static final long serialVersionUID = 5886839865338269183L;
+
     private final SOAPVersion soapVersion;
 
     public VersionMismatchException(SOAPVersion soapVersion, Object... args) {
@@ -35,10 +37,12 @@ public class VersionMismatchException extends ExceptionHasMessage {
         this.soapVersion = soapVersion;
     }
 
+    @Override
     public String getDefaultResourceBundleName() {
         return "com.sun.xml.ws.resources.soap";
     }
 
+    @Override
     public Message getFaultMessage() {
         QName faultCode = (soapVersion == SOAPVersion.SOAP_11)
             ? SOAPConstants.FAULT_CODE_VERSION_MISMATCH

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
  * Copyright 2006 Codehaus
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,8 +35,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.versioning.ArtifactVersion;
 import org.apache.maven.artifact.versioning.OverConstrainedVersionException;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.AbstractMojo;
@@ -45,6 +45,8 @@ import org.apache.maven.plugin.descriptor.PluginDescriptor;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.toolchain.Toolchain;
+import org.apache.maven.toolchain.ToolchainManager;
 import org.codehaus.plexus.util.Os;
 import org.codehaus.plexus.util.cli.Arg;
 import org.codehaus.plexus.util.cli.CommandLineException;
@@ -60,6 +62,7 @@ import org.eclipse.aether.repository.RemoteRepository;
 import org.eclipse.aether.resolution.DependencyResolutionException;
 import org.eclipse.aether.resolution.DependencyResult;
 import org.eclipse.aether.util.graph.visitor.PreorderNodeListGenerator;
+import org.sonatype.plexus.build.incremental.BuildContext;
 
 /**
  * @author dantran <dantran@apache.org>
@@ -84,6 +87,14 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
      */
     @Parameter(defaultValue = "true")
     protected boolean keep;
+
+    /**
+     * Disable XML security features when parsing XML documents.
+     *
+     * @since 4.0.0
+     */
+    @Parameter(defaultValue = "false")
+    private boolean disableXmlSecurity;
 
     /**
      * Allow to use the JAXWS Vendor Extensions.
@@ -124,6 +135,15 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
      */
     @Parameter
     private File executable;
+
+    @Component
+    private ToolchainManager toolchainManager;
+    
+    @Parameter(defaultValue = "false")
+    private boolean useJdkToolchainExecutable;
+    
+    @Parameter(defaultValue = "${session}", readonly = true, required = true)
+    protected MavenSession session;
 
     /**
      * The entry point to Aether, i.e. the component doing all the work.
@@ -168,8 +188,11 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
     @Parameter(defaultValue = "${plugin}", readonly = true)
     protected PluginDescriptor pluginDescriptor;
 
+    @Component
+    protected BuildContext buildContext;
+
     private static final Logger logger = Logger.getLogger(AbstractJaxwsMojo.class.getName());
-    private static final List<String> METRO_30 = new ArrayList<String>();
+    private static final List<String> METRO_30 = new ArrayList<>();
 
     static {
         METRO_30.add("-encoding");
@@ -186,6 +209,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
 
     /**
      * Either ${build.outputDirectory} or ${build.testOutputDirectory}.
+     * @return destination directory
      */
     protected abstract File getDestDir();
 
@@ -213,7 +237,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
     }
 
     protected List<String> getCommonArgs() throws MojoExecutionException {
-        List<String> commonArgs = new ArrayList<String>();
+        List<String> commonArgs = new ArrayList<>();
 
         if (!isDefaultSrc(getSourceDestDir()) || keep) {
             commonArgs.add("-keep");
@@ -244,6 +268,9 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
             }
         }
 
+        if (disableXmlSecurity) {
+            commonArgs.add("-disableXmlSecurity");
+        }
         if (isExtensionOn()) {
             commonArgs.add("-extension");
         }
@@ -254,9 +281,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
 
         // add additional command line options
         if (args != null) {
-            for (String arg : args) {
-                commonArgs.add(arg);
-            }
+            commonArgs.addAll(args);
         }
         return commonArgs;
     }
@@ -329,7 +354,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
                     throw new MojoExecutionException("Cannot execute: " + executable.getAbsolutePath());
                 }
             } else {
-                cmd.setExecutable(new File(new File(System.getProperty("java.home"), "bin"), getJavaExec()).getAbsolutePath());
+                cmd.setExecutable(new File(new File(getJavaHome(), "bin"), getJavaExec()).getAbsolutePath());
                 // add additional JVM options
                 if (vmArgs != null) {
                     for (String arg : vmArgs) {
@@ -365,7 +390,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
             }
             String fullCommand = cmd.toString();
             if (isWindows() && 8191 <= fullCommand.length()) {
-                getLog().warn("Length of the command is limitted to 8191 characters but it has "
+                getLog().warn("Length of the command is limited to 8191 characters but it has "
                         + fullCommand.length() + " characters.");
                 getLog().warn(fullCommand);
             } else {
@@ -374,6 +399,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
             if (CommandLineUtils.executeCommandLine(cmd, sc, sc) != 0) {
                 throw new MojoExecutionException("Mojo failed - check output");
             }
+            buildContext.refresh(getSourceDestDir());
         } catch (DependencyResolutionException | CommandLineException dre) {
             throw new MojoExecutionException(dre.getMessage(), dre);
         }
@@ -400,7 +426,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
     }
 
     private String[] getCP() throws DependencyResolutionException {
-        Map<String, org.eclipse.aether.artifact.Artifact> cp = new HashMap<String, org.eclipse.aether.artifact.Artifact>();
+        Map<String, org.eclipse.aether.artifact.Artifact> cp = new HashMap<>();
         Plugin p = pluginDescriptor.getPlugin();
         boolean toolsFound = false;
         for (Dependency d : p.getDependencies()) {
@@ -435,10 +461,12 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
             throw new RuntimeException(ex);
         }
         sb.append(File.pathSeparator);
+
+        String javaHome = getJavaHome();
         //don't forget tools.jar
-        File toolsJar = new File(System.getProperty("java.home"), "../lib/tools.jar");
+        File toolsJar = new File(javaHome, "../lib/tools.jar");
         if (!toolsJar.exists()) {
-            toolsJar = new File(System.getProperty("java.home"), "lib/tools.jar");
+            toolsJar = new File(javaHome, "lib/tools.jar");
         }
         if (toolsJar.exists()) {
             sb.append(toolsJar.getAbsolutePath());
@@ -451,6 +479,27 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
 
     private String getJavaExec() {
         return isWindows() ? "java.exe" : "java";
+    }
+    
+    private String getJavaHome() {
+        String javaHome = System.getProperty("java.home");
+        if (getJdkToolchain() != null) {
+        	File javaExecutable = new File(getJdkToolchain().findTool("java"));
+        	javaHome = javaExecutable.getParentFile().getParent();
+        	getLog().info("got java home from maven toolchain: " + javaHome);
+        } 
+        else {
+        	getLog().info("couldnt get a javahome from maven toolchain, defaulting to the java.home System property : " + javaHome);
+        }
+        return javaHome;
+      }
+
+    private Toolchain getJdkToolchain() {
+        Toolchain tc = null;
+        if (this.toolchainManager != null) {
+        	tc = this.toolchainManager.getToolchainFromBuildContext("jdk", this.session); 
+        }
+        return tc;
     }
 
     private File createPathFile(Map<String, String> cpMap) throws IOException {
@@ -518,7 +567,7 @@ abstract class AbstractJaxwsMojo extends AbstractMojo {
 
     private static class DepFilter implements DependencyFilter {
 
-        private final Set<Dep> toExclude = new HashSet<Dep>();
+        private final Set<Dep> toExclude = new HashSet<>();
 
         public DepFilter(String[] artifacts) {
             if (artifacts != null) {

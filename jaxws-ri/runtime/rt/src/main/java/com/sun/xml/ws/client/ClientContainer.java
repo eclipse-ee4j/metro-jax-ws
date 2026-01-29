@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,6 +22,7 @@ import java.net.URL;
 final class ClientContainer extends Container {
 
     private final ResourceLoader loader = new ResourceLoader() {
+        @Override
         public URL getResource(String resource) throws MalformedURLException {
             ClassLoader cl = Thread.currentThread().getContextClassLoader();
             if (cl == null) {
@@ -31,6 +32,7 @@ final class ClientContainer extends Container {
         }
     };
 
+    @Override
     public <T> T getSPI(Class<T> spiType) {
         T t = super.getSPI(spiType);
         if (t != null)

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 
-    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,23 +11,22 @@
 
 -->
 
-<project name="JAX-WS RI ${project.version} On Tomcat" default="help" basedir=".">
+<project name="XML-WS RI ${project.version} On Tomcat" default="help" basedir=".">
     <property environment="env"/>
     <property name="tomcat.home" value="\${env.CATALINA_HOME}"/>
     <property name="catalina.home" value="\${tomcat.home}"/>
     <property name="catalina.lib.home" value="\${catalina.home}/shared/lib"/>
-    <property name="catalina.endorsed" value="\${catalina.home}/common/endorsed"/>
     <property name="java.home" value="\${env.JAVA_HOME}"/>
 
     <target name="glassfish-message">
-        <echo message="NOTE: This script installs/uninstalls JAX-WS RI ${project.version} on Tomcat."/>
-        <echo message="  To install and use JAX-WS RI ${project.version} with GlassFish,"/>
+        <echo message="NOTE: This script installs/uninstalls XML-WS RI ${project.version} on Tomcat."/>
+        <echo message="  To install and use XML-WS RI ${project.version} with GlassFish,"/>
         <echo message="  download Eclipse Metro bundle from https://eclipse-ee4j.github.io/metro-wsit/."/>
         <echo/>
     </target>
 
-    <target name="install" depends="update-catalina-props" description="Install JAX-WS RI ${project.version} jars">
-        <echo message="Installing JAX-WS RI ${project.version} for \${catalina.home} ..."/>
+    <target name="install" depends="update-catalina-props" description="Install XML-WS RI ${project.version} jars">
+        <echo message="Installing XML-WS RI ${project.version} for \${catalina.home} ..."/>
 
         <mkdir dir="\${catalina.lib.home}"/>
         <copy toDir="\${catalina.lib.home}" overwrite="true">
@@ -39,7 +38,7 @@
     <target name="update-catalina-props">
         <echo message="Backing up \${catalina.home}/conf/catalina.properties..."/>
         <copy file="\${catalina.home}/conf/catalina.properties" tofile="\${catalina.home}/conf/catalina.properties.backup"/>
-        <echo message="Adding JAX-WS RI jars to shared.loader property in \${catalina.home}/conf/catalina.properties..."/>
+        <echo message="Adding XML-WS RI jars to shared.loader property in \${catalina.home}/conf/catalina.properties..."/>
         <replace file="\${catalina.home}/conf/catalina.properties" token="shared.loader=" value="shared.loader=$${catalina.home}/shared/lib/*.jar,"/>
     </target>
 
@@ -57,10 +56,10 @@
         <echo message="$CATALINA_HOME must be set to the installation directory of Tomcat."/>
         <echo/>
         <echo message="install:"/>
-        <echo message="  Installs JAX-WS RI ${project.version} on Tomcat"/>
+        <echo message="  Installs XML-WS RI ${project.version} on Tomcat"/>
         <echo/>
         <echo message="uninstall: "/>
-        <echo message="  Uninstalls JAX-WS RI ${project.version} from Tomcat"/>
+        <echo message="  Uninstalls XML-WS RI ${project.version} from Tomcat"/>
         <echo/>
     </target>
 </project>

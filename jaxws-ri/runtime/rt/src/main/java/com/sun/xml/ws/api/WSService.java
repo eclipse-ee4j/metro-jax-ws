@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +23,6 @@ import javax.xml.namespace.QName;
 import jakarta.xml.ws.Dispatch;
 import jakarta.xml.ws.EndpointReference;
 import jakarta.xml.ws.Service;
-import jakarta.xml.ws.Service.Mode;
 import jakarta.xml.ws.WebServiceException;
 import jakarta.xml.ws.WebServiceFeature;
 import jakarta.xml.ws.spi.ServiceDelegate;
@@ -31,7 +30,6 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -55,7 +53,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author Kohsuke Kawaguchi
  */
 public abstract class WSService extends ServiceDelegate implements ComponentRegistry {
-	private final Set<Component> components = new CopyOnWriteArraySet<Component>();
+	private final Set<Component> components = new CopyOnWriteArraySet<>();
 	
 	protected WSService() {
     }
@@ -91,6 +89,7 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
      */
     public abstract @NotNull Container getContainer();
 
+    @Override
     public @Nullable <S> S getSPI(@NotNull Class<S> spiType) {
     	for (Component c : components) {
     		S s = c.getSPI(spiType);
@@ -101,6 +100,7 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
     	return getContainer().getSPI(spiType);
     }
     
+    @Override
     public @NotNull Set<Component> getComponents() {
     	return components;
     }
@@ -147,6 +147,10 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
     public static final class InitParams {
         private Container container;
         /**
+         * Default constructor.
+         */
+        public InitParams() {}
+        /**
          * Sets the {@link Container} object used by the created service.
          * This allows the client to use a specific {@link Container} instance
          * as opposed to the one obtained by {@link ContainerResolver}.
@@ -163,7 +167,7 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
      * To create a {@link Service}, we need to go through the API that doesn't let us
      * pass parameters, so as a hack we use thread local.
      */
-    protected static final ThreadLocal<InitParams> INIT_PARAMS = new ThreadLocal<InitParams>();
+    protected static final ThreadLocal<InitParams> INIT_PARAMS = new ThreadLocal<>();
 
     /**
      * Used as a immutable constant so that we can avoid null check. 
@@ -209,13 +213,14 @@ public abstract class WSService extends ServiceDelegate implements ComponentRegi
      *      if the given service object is not from the JAX-WS RI.
      */
     public static WSService unwrap(final Service svc) {
-        return AccessController.doPrivileged(new PrivilegedAction<WSService>() {
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
+            @Override
             public WSService run() {
                 try {
                     Field f = svc.getClass().getField("delegate");
                     f.setAccessible(true);
                     Object delegate = f.get(svc);
-                    if(!(delegate instanceof WSService))
+                    if (!(delegate instanceof WSService))
                         throw new IllegalArgumentException();
                     return (WSService) delegate;
                 } catch (NoSuchFieldException e) {

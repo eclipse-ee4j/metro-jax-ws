@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,8 @@ implements com.sun.xml.ws.spi.db.XMLBridge {
 		super(context);
 	}
     
-	public void marshal(Marshaller m, Object object, XMLStreamWriter output) throws JAXBException {
+	@Override
+    public void marshal(Marshaller m, Object object, XMLStreamWriter output) throws JAXBException {
         m.setProperty(Marshaller.JAXB_FRAGMENT,true);
         try {
             m.marshal(object,output);
@@ -48,6 +49,7 @@ implements com.sun.xml.ws.spi.db.XMLBridge {
         }
     }
 
+    @Override
     public void marshal(Marshaller m, Object object, OutputStream output, NamespaceContext nsContext) throws JAXBException {
         m.setProperty(Marshaller.JAXB_FRAGMENT,true);
         try {
@@ -57,6 +59,7 @@ implements com.sun.xml.ws.spi.db.XMLBridge {
         }
     }
 
+    @Override
     public void marshal(Marshaller m, Object object, Node output) throws JAXBException {
         m.setProperty(Marshaller.JAXB_FRAGMENT,true);
         try {
@@ -66,6 +69,7 @@ implements com.sun.xml.ws.spi.db.XMLBridge {
         }
     }
 
+    @Override
     public void marshal(Marshaller m, Object object, ContentHandler contentHandler) throws JAXBException {
         m.setProperty(Marshaller.JAXB_FRAGMENT,true);
         try {
@@ -75,6 +79,7 @@ implements com.sun.xml.ws.spi.db.XMLBridge {
         }
     }
 
+    @Override
     public void marshal(Marshaller m, Object object, Result result) throws JAXBException {
         m.setProperty(Marshaller.JAXB_FRAGMENT,true);
         try {
@@ -84,31 +89,39 @@ implements com.sun.xml.ws.spi.db.XMLBridge {
         }
     }
 
+    @Override
     public Object unmarshal(Unmarshaller u, XMLStreamReader in) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Object unmarshal(Unmarshaller u, Source in) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Object unmarshal(Unmarshaller u, InputStream in) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Object unmarshal(Unmarshaller u, Node n) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public TypeInfo getTypeInfo() {
         throw new UnsupportedOperationException();
     }
-	public TypeReference getTypeReference() {
+	@Override
+    public TypeReference getTypeReference() {
         throw new UnsupportedOperationException();
 	}
-	public BindingContext context() {
+	@Override
+    public BindingContext context() {
         throw new UnsupportedOperationException();
 	}
+    @Override
     public boolean supportOutputStream() {
     	return true;
     }

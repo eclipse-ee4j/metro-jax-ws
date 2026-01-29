@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,12 +21,13 @@ import java.util.StringTokenizer;
 
 public final class VersionUtil {
 
+    private VersionUtil() {}
+
     public static boolean isVersion20(String version) {
         return JAXWS_VERSION_20.equals(version);
     }
 
     /**
-     * @param version
      * @return true if version is a 2.0 version
      */
     public static boolean isValidVersion(String version) {
@@ -70,7 +71,7 @@ public final class VersionUtil {
 
         // resolve the minor version
         token = tokenizer.nextToken();
-        if (token.indexOf(DASH_DELIM) == -1) {
+        if (!token.contains(DASH_DELIM)) {
             // a.b
             canonicalVersion[1] = Integer.parseInt(token);
         } else {
@@ -86,7 +87,7 @@ public final class VersionUtil {
         // resolve the minorMinor and patch version, if any
         if (tokenizer.hasMoreTokens()) {
             token = tokenizer.nextToken();
-            if (token.indexOf(DASH_DELIM) == -1) {
+            if (!token.contains(DASH_DELIM)) {
                 // minorMinor
                 canonicalVersion[2] = Integer.parseInt(token);
 
@@ -110,8 +111,6 @@ public final class VersionUtil {
 
     /**
      *
-     * @param version1
-     * @param version2
      * @return -1, 0 or 1 based upon the comparison results
      * -1 if version1 is less than version2
      * 0 if version1 is equal to version2

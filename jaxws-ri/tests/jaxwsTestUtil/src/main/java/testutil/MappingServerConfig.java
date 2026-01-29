@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -65,8 +65,8 @@ public class MappingServerConfig {
                 String wsdlLocation = wsdlElement.getAttribute("location");
                 wsdlName =
                     wsdlLocation.substring(
-                        wsdlLocation.lastIndexOf("/"),
-                        wsdlLocation.length());
+                        wsdlLocation.lastIndexOf("/")
+                    );
             } else {
                 wsdlName = serviceElement.getAttribute("name") + ".wsdl";
             }

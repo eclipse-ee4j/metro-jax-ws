@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,7 +19,6 @@ import com.sun.xml.ws.api.message.AddressingUtils;
 import com.sun.xml.ws.api.message.MessageHeaders;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.api.message.Message;
-import com.sun.xml.ws.api.message.HeaderList;
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.api.addressing.AddressingVersion;
 import com.sun.xml.ws.api.addressing.WSEndpointReference;
@@ -186,7 +185,7 @@ public class AsyncClientTransportTube extends AbstractFilterTubeImpl {
 
     class RINonAnonymousResponseHandler implements NonAnonymousResponseHandler<Message> {
         Map<String, NonAnonymousResponseHandler> waiting = Collections.synchronizedMap(
-                new HashMap<String, NonAnonymousResponseHandler>());
+                new HashMap<>());
 
         public void addNonAnonymousResponseHandler(String msgId, NonAnonymousResponseHandler handler) {
             waiting.put(msgId, handler);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,7 +68,6 @@ final class SourceUtils {
     /**
      * This would peek into the Source (DOMSource and SAXSource) for the localName and NamespaceURI
      * of the top-level element.
-     * @param src
      * @return QName of the payload
      */
     public QName sniff(Source src) {
@@ -134,8 +133,8 @@ final class SourceUtils {
 //                        assert uri != null;
 
                         if(prefix.length() > 0){
-                            /**
-                             * Before we write the
+                            /*
+                              Before we write the
                              */
                             String writerURI = null;
                             if (writer.getNamespaceContext() != null) {
@@ -171,12 +170,12 @@ final class SourceUtils {
                         // Compare nsPrefix with prefix because of [1] (above)
                         String readerURI = reader.getNamespaceURI(i);
 
-                        /**
-                         * write the namespace in 3 conditions
-                         *  - when the namespace URI is not bound to the prefix in writer(writerURI == 0)
-                         *  - when the readerPrefix and writerPrefix are ""
-                         *  - when readerPrefix and writerPrefix are not equal and the URI bound to them
-                         *    are different
+                        /*
+                          write the namespace in 3 conditions
+                           - when the namespace URI is not bound to the prefix in writer(writerURI == 0)
+                           - when the readerPrefix and writerPrefix are ""
+                           - when readerPrefix and writerPrefix are not equal and the URI bound to them
+                             are different
                          */
                         if (writerURI == null || ((nsPrefix.length() == 0) || (prefix.length() == 0)) ||
                                 (!nsPrefix.equals(prefix) && !writerURI.equals(readerURI))) {
@@ -214,9 +213,6 @@ final class SourceUtils {
 
     /**
      * sets undeclared prefixes on the writer
-     * @param prefix
-     * @param writer
-     * @throws XMLStreamException
      */
     private static void setUndeclaredPrefix(String prefix, String readerURI, XMLStreamWriter writer) throws XMLStreamException {
         String writerURI = null;
@@ -232,16 +228,9 @@ final class SourceUtils {
 
     /**
      * check if we need to declare
-     * @param rPrefix
-     * @param rUri
-     * @param wPrefix
-     * @param wUri
      */
     private static boolean declarePrefix(String rPrefix, String rUri, String wPrefix, String wUri){
-        if (wUri == null ||((wPrefix != null) && !rPrefix.equals(wPrefix))||
-                (rUri != null && !wUri.equals(rUri))) {
-            return true;
-        }
-        return false;
+        return wUri == null || ((wPrefix != null) && !rPrefix.equals(wPrefix)) ||
+                (rUri != null && !wUri.equals(rUri));
     }
 }

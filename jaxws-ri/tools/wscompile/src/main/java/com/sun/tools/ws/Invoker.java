@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -77,6 +77,8 @@ public final class Invoker {
         }
     }
 
+    private Invoker() {}
+
     static int invoke(String mainClass, String[] args) throws Throwable {
         // use the platform default proxy if available.
         // see sun.net.spi.DefaultProxySelector for details.
@@ -123,17 +125,15 @@ public final class Invoker {
 
             Thread.currentThread().setContextClassLoader(cl);
 
-            Class compileTool = cl.loadClass(mainClass);
-            Constructor ctor = compileTool.getConstructor(OutputStream.class);
+            Class<?> compileTool = cl.loadClass(mainClass);
+            Constructor<?> ctor = compileTool.getConstructor(OutputStream.class);
             Object tool = ctor.newInstance(System.out);
             Method runMethod = compileTool.getMethod("run",String[].class);
             boolean r = (Boolean)runMethod.invoke(tool,new Object[]{args});
             return r ? 0 : 1;
         } catch (InvocationTargetException e) {
             throw e.getCause();
-        } catch(ClassNotFoundException e){
-            throw e;
-        }finally {
+        } finally {
             Thread.currentThread().setContextClassLoader(oldcc);
         }
     }
@@ -146,8 +146,7 @@ public final class Invoker {
             Service.class.getMethod("getPort",Class.class, WebServiceFeature[].class);
             // yup. things look good.
             return true;
-        } catch (NoSuchMethodException e) {
-        } catch (LinkageError e) {
+        } catch (NoSuchMethodException | LinkageError e) {
         }
         // nope
         return false;
@@ -161,8 +160,7 @@ public final class Invoker {
            Service.class.getMethod("create",java.net.URL.class, QName.class, WebServiceFeature[].class);
            // yup. things look good.
            return true;
-       } catch (NoSuchMethodException e) {
-       } catch (LinkageError e) {
+       } catch (NoSuchMethodException | LinkageError e) {
        }
        // nope
        return false;
@@ -179,7 +177,7 @@ public final class Invoker {
         if(urls.length==0)
             return cl;  // we seem to be able to load everything already. no need for the hack
 
-        List<String> mask = new ArrayList<String>(Arrays.asList(maskedPackages));
+        List<String> mask = new ArrayList<>(Arrays.asList(maskedPackages));
         if(urls.length>1) {
             // we need to load 2.1 API from side. so add them to the mask
             mask.add("jakarta.xml.bind.");
@@ -203,7 +201,7 @@ public final class Invoker {
      * Creates a class loader for loading JAXB/WS 2.2 jar
      */
     private static URL[] findIstack22APIs(ClassLoader cl) throws ClassNotFoundException, IOException {
-        List<URL> urls = new ArrayList<URL>();
+        List<URL> urls = new ArrayList<>();
 
         if(Service.class.getClassLoader()==null) {
             // JAX-WS API is loaded from bootstrap class loader
@@ -217,7 +215,7 @@ public final class Invoker {
             urls.add(ParallelWorldClassLoader.toJarUrl(res));
         }
 
-        return urls.toArray(new URL[urls.size()]);
+        return urls.toArray(new URL[0]);
     }
 
 }

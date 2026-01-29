@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,14 +30,14 @@ public interface EditableWSDLPort extends WSDLPort {
      *
      * @param address Endpoint address
      */
-    public void setAddress(EndpointAddress address);
+    void setAddress(EndpointAddress address);
 
     /**
      * Sets endpoint reference
      *
      * @param epr Endpoint reference
      */
-    public void setEPR(@NotNull WSEndpointReference epr);
+    void setEPR(@NotNull WSEndpointReference epr);
 
     /**
      * Freezes WSDL model to prevent further modification

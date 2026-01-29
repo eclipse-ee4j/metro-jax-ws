@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,6 +33,7 @@ import jakarta.xml.ws.soap.AddressingFeature;
 import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 'Traits' object that absorbs differences of WS-Addressing versions.
@@ -57,7 +58,9 @@ public enum AddressingVersion {
                     "ReferenceParameters",
                     null )) {
 
-        /* package */  String getActionMismatchLocalName() {
+        /* package */
+        @Override
+        String getActionMismatchLocalName() {
             return "ActionMismatch";
         }
         @Override
@@ -80,7 +83,9 @@ public enum AddressingVersion {
             return "A required header representing a Message Addressing Property is not present";
         }
 
-        /* package */ String getInvalidAddressLocalName() {
+        /* package */
+        @Override
+        String getInvalidAddressLocalName() {
             return "InvalidAddress";
         }
 
@@ -99,26 +104,35 @@ public enum AddressingVersion {
             return "InvalidCardinality";
         }
 
-        /*package*/ Header createReferenceParameterHeader(XMLStreamBuffer mark, String nsUri, String localName) {
+        /*package*/
+        @Override
+        Header createReferenceParameterHeader(XMLStreamBuffer mark, String nsUri, String localName) {
             return new OutboundReferenceParameterHeader(mark,nsUri,localName);
         }
 
-        /*package*/ String getIsReferenceParameterLocalName() {
+        /*package*/
+        @Override
+        String getIsReferenceParameterLocalName() {
             return "IsReferenceParameter";
         }
 
-        /* package */ String getWsdlAnonymousLocalName() {
+        /* package */
+        @Override
+        String getWsdlAnonymousLocalName() {
             return "Anonymous";
         }
 
+        @Override
         public String getPrefix() {
             return "wsa";
         }
 
+        @Override
         public String getWsdlPrefix() {
             return "wsaw";
         }
 
+        @Override
         public Class<? extends WebServiceFeature> getFeatureClass() {
             return AddressingFeature.class;
         }
@@ -138,7 +152,9 @@ public enum AddressingVersion {
                     MemberSubmissionAddressingConstants.MEX_METADATA,
                     "ReferenceParameters",
                     "ReferenceProperties")) {
-        /* package */  String getActionMismatchLocalName() {
+        /* package */
+        @Override
+        String getActionMismatchLocalName() {
             return "InvalidMessageInformationHeader";
         }
         @Override
@@ -161,7 +177,9 @@ public enum AddressingVersion {
             return "A required message information header, To, MessageID, or Action, is not present.";
         }
 
-        /* package */ String getInvalidAddressLocalName() {
+        /* package */
+        @Override
+        String getInvalidAddressLocalName() {
             return getInvalidMapLocalName();
         }
 
@@ -180,26 +198,35 @@ public enum AddressingVersion {
             return getInvalidMapLocalName();
         }
 
-        /*package*/ Header createReferenceParameterHeader(XMLStreamBuffer mark, String nsUri, String localName) {
+        /*package*/
+        @Override
+        Header createReferenceParameterHeader(XMLStreamBuffer mark, String nsUri, String localName) {
             return new OutboundStreamHeader(mark,nsUri,localName);
         }
 
-        /*package*/ String getIsReferenceParameterLocalName() {
+        /*package*/
+        @Override
+        String getIsReferenceParameterLocalName() {
             return "";
         }
 
-        /* package */ String getWsdlAnonymousLocalName() {
+        /* package */
+        @Override
+        String getWsdlAnonymousLocalName() {
             return "";
         }
 
+        @Override
         public String getPrefix() {
             return "wsa";
         }
 
+        @Override
         public String getWsdlPrefix() {
             return "wsaw";
         }
 
+        @Override
         public Class<? extends WebServiceFeature> getFeatureClass() {
             return MemberSubmissionAddressingFeature.class;
         }
@@ -366,7 +393,7 @@ public enum AddressingVersion {
     public static final String UNSET_INPUT_ACTION = "http://jax-ws.dev.java.net/addressing/input-action-not-set";
 
     /**
-     * Fault sub-sub-code that represents duplicate &lt;Address> element in EPR.
+     * Fault sub-sub-code that represents duplicate &lt;Address&gt; element in EPR.
      * This is a fault code not defined in the spec.
      */
     public static final QName fault_duplicateAddressInEpr = new QName(
@@ -410,11 +437,9 @@ public enum AddressingVersion {
 
         // create stock anonymous EPR
         try {
-            this.anonymousEpr = new WSEndpointReference(new ByteArrayInputStream(anonymousEprString.getBytes("UTF-8")),this);
+            this.anonymousEpr = new WSEndpointReference(new ByteArrayInputStream(anonymousEprString.getBytes(StandardCharsets.UTF_8)),this);
         } catch (XMLStreamException e) {
             throw new Error(e); // bug in our code as EPR should parse.
-        } catch (UnsupportedEncodingException e) {
-            throw new Error(e);
         }
         this.eprType = eprType;
     }
@@ -487,17 +512,6 @@ public enum AddressingVersion {
     }
 
     /**
-     * Returns {@link #nsUri} associated with this {@link AddressingVersion}
-     *
-     * @return namespace URI
-     * @deprecated
-     *      Use {@link #nsUri}.
-     */
-    public String getNsUri() {
-        return nsUri;
-    }
-
-    /**
      * Returns true if the given local name is considered as
      * a reference parameter in EPR.
      *
@@ -517,28 +531,8 @@ public enum AddressingVersion {
      *     TODO  why are we exposing implementation specificc class through api?
      *     TODO  Remove it if no one elase uses it. 
      */
+    @Deprecated
     public abstract WsaTubeHelper getWsaHelper(WSDLPort wsdlPort, SEIModel seiModel, WSBinding binding);
-
-    /**
-     * Gets the none URI value associated with this WS-Addressing version.
-     *
-     * @return none URI value
-     * @deprecated
-     *      Use {@link #noneUri}.
-     */
-    public final String getNoneUri() {
-        return noneUri;
-    }
-
-    /**
-     * Gets the anonymous URI value associated with this WS-Addressing version.
-     *
-     * @deprecated
-     *      Use {@link #anonymousUri}
-     */
-    public final String getAnonymousUri() {
-        return anonymousUri;
-    }
 
     /**
      * Gets the default fault Action value associated with this WS-Addressing version.
@@ -566,7 +560,7 @@ public enum AddressingVersion {
     public abstract String getMapRequiredText();
 
     /**
-         * Gets the local name of the fault when a header representing anaddress is invalid.
+         * Gets the local name of the fault when a header representing an address is invalid.
          * @return local name
          */
     /* package */ abstract String getInvalidAddressLocalName();
@@ -574,7 +568,7 @@ public enum AddressingVersion {
 
     /**
      * Gets the local name of the fault when a header representing a WS-Addressing Message
-     * Addresing Property is invalid and cannot be processed.
+     * Addressing Property is invalid and cannot be processed.
      *
      * @return local name
      */

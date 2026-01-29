@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,17 +19,17 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>4.0.4-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>jaxws-ri-tests</artifactId>
     <packaging>pom</packaging>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>4.0.4-SNAPSHOT</version>
     <name>JAX-WS RI Tests</name>
 
     <properties>
-        <test.harness.version>3.0.0-M1</test.harness.version>
+        <test.harness.version>3.0.0-M4</test.harness.version>
         <jaxwsri.dep.classifier>jar</jaxwsri.dep.classifier>
         <!-- DEFAULT = JAXB, TOPLINK = MOXy -->
         <ws.databinding>DEFAULT</ws.databinding>
@@ -38,7 +38,8 @@
         <ws.test>${project.basedir}/testcases</ws.test>
         <!-- extra JVM options for JVM forked by test harness, ie proxy, tests' debugging-->
         <ws.jvmOpts></ws.jvmOpts>
-        <ws.permGenJvmOpts>-XX:PermSize=128m -XX:MaxPermSize=256m</ws.permGenJvmOpts>
+        <ws.permGenJvmOpts></ws.permGenJvmOpts>
+        <spotbugs.skip>true</spotbugs.skip>
     </properties>
 
     <build>
@@ -64,8 +65,13 @@
                     <transport>${ws.transport}</transport>
                     <extraVmArgs>${ws.jvmOpts}</extraVmArgs>
                     <vmArgs>
-                        <!-- ensure that you are specifying PermGen jvm options only for jdk < 8 -->
                         <vmArg>-Xms256m -Xmx512m ${ws.permGenJvmOpts}</vmArg>
+                        <vmArg>--add-opens java.base/java.util=ALL-UNNAMED</vmArg>
+                        <vmArg>--add-opens java.base/sun.net.www.protocol.http=ALL-UNNAMED</vmArg>
+                        <vmArg>--add-opens java.xml/com.sun.org.apache.xalan.internal.xsltc.trax=ALL-UNNAMED</vmArg>
+                        <vmArg>--add-opens java.xml/com.sun.org.apache.xerces.internal.jaxp=ALL-UNNAMED</vmArg>
+                        <vmArg>--add-opens java.xml/com.sun.org.apache.xerces.internal.dom=ALL-UNNAMED</vmArg>
+                        <vmArg>--add-opens java.xml/com.sun.org.apache.xerces.internal.jaxp.datatype=ALL-UNNAMED</vmArg>
                     </vmArgs>
                 </configuration>
             </plugin>
@@ -89,59 +95,6 @@
                 <module>unit</module>
                 <!--<module>unit-rearch</module>-->
             </modules>
-        </profile>
-        <profile>
-            <id>coverage</id>
-            <activation>
-                <!--<activeByDefault>true</activeByDefault>-->
-                <property>
-                    <name>jacoco-build</name>
-                </property>
-            </activation>
-            <modules>
-                <module>coverage</module>
-            </modules>
-
-            <properties>
-                <jaxwsri.dep.classifier>instrumented</jaxwsri.dep.classifier>
-                <ws.jvmOpts>-Djacoco-agent.destfile=${project.build.directory}/jacoco.exec</ws.jvmOpts>
-            </properties>
-
-            <dependencies>
-                <!-- sources -->
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>jaxws-rt</artifactId>
-                    <version>${project.version}</version>
-                    <classifier>sources</classifier>
-                    <type>jar</type>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>jaxws-tools</artifactId>
-                    <version>${project.version}</version>
-                    <classifier>sources</classifier>
-                    <type>jar</type>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>jaxws-eclipselink-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <classifier>sources</classifier>
-                    <type>jar</type>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
-                    <groupId>${project.groupId}</groupId>
-                    <artifactId>sdo-eclipselink-plugin</artifactId>
-                    <version>${project.version}</version>
-                    <classifier>sources</classifier>
-                    <type>jar</type>
-                    <scope>compile</scope>
-                </dependency>
-            </dependencies>
         </profile>
     </profiles>
 </project>

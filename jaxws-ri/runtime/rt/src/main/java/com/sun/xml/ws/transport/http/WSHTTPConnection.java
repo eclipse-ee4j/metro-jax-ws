@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -52,6 +52,11 @@ public abstract class WSHTTPConnection extends BasePropertySet {
     public static final int UNSUPPORTED_MEDIA=415;
     public static final int MALFORMED_XML=400;
     public static final int INTERNAL_ERR=500;
+
+    /**
+     * Default constructor.
+     */
+    protected WSHTTPConnection() {}
 
     /**
      * Overwrites all the HTTP response headers written thus far.
@@ -180,6 +185,7 @@ public abstract class WSHTTPConnection extends BasePropertySet {
      * @return
      *      can be empty but never null.
      */
+    @Deprecated
     public abstract @NotNull Map<String,List<String>> getRequestHeaders();
 
     /**
@@ -193,6 +199,7 @@ public abstract class WSHTTPConnection extends BasePropertySet {
      * @return
      *      can be empty but never null.
      */
+    @Deprecated
     public abstract @NotNull Set<String> getRequestHeaderNames();
     
     /**

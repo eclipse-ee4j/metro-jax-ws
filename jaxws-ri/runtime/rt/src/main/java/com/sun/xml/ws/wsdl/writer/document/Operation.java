@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,17 +38,17 @@ public interface Operation
     public OneWayOperation oneWayOperation();
 */
     @XmlElement
-    public ParamType input();
+    ParamType input();
 
     @XmlElement
-    public ParamType output();
+    ParamType output();
 
     @XmlElement
-    public FaultType fault();
+    FaultType fault();
 
     @XmlAttribute
-    public com.sun.xml.ws.wsdl.writer.document.Operation name(String value);
+    com.sun.xml.ws.wsdl.writer.document.Operation name(String value);
 
     @XmlAttribute
-    public com.sun.xml.ws.wsdl.writer.document.Operation parameterOrder(String value);
+    com.sun.xml.ws.wsdl.writer.document.Operation parameterOrder(String value);
 }

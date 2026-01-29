@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,15 +44,24 @@ public final class WSServletContextListener
 
     private static final String WSSERVLET_CONTEXT_LISTENER_INVOKED="com.sun.xml.ws.transport.http.servlet.WSServletContextListener.Invoked";
 
+    /**
+     * Default constructor.
+     */
+    public WSServletContextListener() {}
+
+    @Override
     public void attributeAdded(ServletContextAttributeEvent event) {
     }
 
+    @Override
     public void attributeRemoved(ServletContextAttributeEvent event) {
     }
 
+    @Override
     public void attributeReplaced(ServletContextAttributeEvent event) {
     }
 
+    @Override
     public void contextDestroyed(ServletContextEvent event) {
         if (delegate != null) { // the deployment might have failed.
             delegate.destroy();
@@ -81,7 +90,7 @@ public final class WSServletContextListener
         //The same class can be invoked via @WebListener discovery or explicit configuration in deployment descriptor
         // avoid redoing the processing of web services.
         String alreadyInvoked = (String) context.getAttribute(WSSERVLET_CONTEXT_LISTENER_INVOKED);
-        if(Boolean.valueOf(alreadyInvoked)) {
+        if(Boolean.parseBoolean(alreadyInvoked)) {
             return;
         }
         context.setAttribute(WSSERVLET_CONTEXT_LISTENER_INVOKED, "true");
@@ -96,8 +105,8 @@ public final class WSServletContextListener
             }
 
             // Parse the descriptor file and build endpoint infos
-            DeploymentDescriptorParser<ServletAdapter> parser = new DeploymentDescriptorParser<ServletAdapter>(
-                classLoader,new ServletResourceLoader(context), createContainer(context), new ServletAdapterList(context));
+            DeploymentDescriptorParser<ServletAdapter> parser = new DeploymentDescriptorParser<>(
+                    classLoader, new ServletResourceLoader(context), createContainer(context), new ServletAdapterList(context));
             adapters = parser.parse(sunJaxWsXml.toExternalForm(), sunJaxWsXml.openStream());
             registerWSServlet(adapters, context);
             delegate = createDelegate(adapters, context);
@@ -108,11 +117,12 @@ public final class WSServletContextListener
             logger.log(Level.SEVERE,
                 WsservletMessages.LISTENER_PARSING_FAILED(e),e);
             context.removeAttribute(WSServlet.JAXWS_RI_RUNTIME_INFO);
-            throw new WSServletException("listener.parsingFailed", e);
+            throw new WSServletException(WsservletMessages.localizableLISTENER_PARSING_FAILED(e));
         }
 
     }
 
+    @Override
     public void contextInitialized(ServletContextEvent event) {
         if (logger.isLoggable(Level.INFO)) {
             logger.info(WsservletMessages.LISTENER_INFO_INITIALIZE());
@@ -129,9 +139,7 @@ public final class WSServletContextListener
     }
 
     private void registerWSServlet(List<ServletAdapter> adapters, ServletContext context) {
-        if ( !ServletUtil.isServlet30Based())
-            return;
-        Set<String> unregisteredUrlPatterns = new HashSet<String>();
+        Set<String> unregisteredUrlPatterns = new HashSet<>();
         try {
             Collection<? extends ServletRegistration> registrations = context.getServletRegistrations().values();
             for (ServletAdapter adapter : adapters) {
@@ -142,7 +150,7 @@ public final class WSServletContextListener
             if (!unregisteredUrlPatterns.isEmpty()) {
                 //register WSServlet Dynamically
                 ServletRegistration.Dynamic registration = context.addServlet("Dynamic JAXWS Servlet", WSServlet.class);
-                registration.addMapping(unregisteredUrlPatterns.toArray(new String[unregisteredUrlPatterns.size()]));
+                registration.addMapping(unregisteredUrlPatterns.toArray(new String[0]));
                 registration.setAsyncSupported(true);
 
             }
@@ -162,6 +170,8 @@ public final class WSServletContextListener
 
     /**
      * Creates {@link Container} implementation that hosts the JAX-WS endpoint.
+     * @param context the Servlet context object
+     * @return {@link Container} implementation that hosts the JAX-WS endpoint
      */
     protected @NotNull Container createContainer(ServletContext context) {
         return new ServletContainer(context);
@@ -169,6 +179,9 @@ public final class WSServletContextListener
 
     /**
      * Creates {@link WSServletDelegate} that does the real work.
+     * @param adapters adapters
+     * @param context the Servlet context object
+     * @return {@link WSServletDelegate} that does the real work
      */
     protected @NotNull WSServletDelegate createDelegate(List<ServletAdapter> adapters, ServletContext context) {
         return new WSServletDelegate(adapters,context);

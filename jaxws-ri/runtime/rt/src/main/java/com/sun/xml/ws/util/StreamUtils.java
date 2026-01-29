@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,9 +17,11 @@ import java.io.InputStream;
 /**
  * @author Jitendra Kotamraju
  */
-public class StreamUtils {
+public final class StreamUtils {
 
-    /*
+    private StreamUtils() {}
+
+    /**
      * Finds if the stream has some content or not
      *
      * @return null if there is no data

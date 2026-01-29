@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,6 +54,7 @@ public class XmlPolicyModelUnmarshaller extends PolicyModelUnmarshaller {
     /**
      * See {@link PolicyModelUnmarshaller#unmarshalModel(Object) base method documentation}.
      */
+    @Override
     public PolicySourceModel unmarshalModel(final Object storage) throws PolicyException {
         final XMLEventReader reader = createXMLEventReader(storage);
         PolicySourceModel model = null;
@@ -97,10 +98,6 @@ public class XmlPolicyModelUnmarshaller extends PolicyModelUnmarshaller {
     /**
      * Allow derived classes to pass in a custom instance of PolicySourceModel.
      *
-     * @param nsVersion
-     * @param id
-     * @param name
-     * @return
      */
     protected PolicySourceModel createSourceModel(NamespaceVersion nsVersion, String id, String name) {
         return PolicySourceModel.createPolicySourceModel(nsVersion, id, name);
@@ -185,13 +182,13 @@ public class XmlPolicyModelUnmarshaller extends PolicyModelUnmarshaller {
 
     private void parseAssertionData(NamespaceVersion nsVersion, String value, ModelNode childNode, final StartElement childElement) throws IllegalArgumentException, PolicyException {
         // finish assertion node processing: create and set assertion data...
-        final Map<QName, String> attributeMap = new HashMap<QName, String>();
+        final Map<QName, String> attributeMap = new HashMap<>();
         boolean optional = false;
         boolean ignorable = false;
         
-        final Iterator iterator = childElement.getAttributes();
+        final Iterator<Attribute> iterator = childElement.getAttributes();
         while (iterator.hasNext()) {
-            final Attribute nextAttribute = (Attribute) iterator.next();
+            final Attribute nextAttribute = iterator.next();
             final QName name = nextAttribute.getName();
             if (attributeMap.containsKey(name)) {
                 throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0059_MULTIPLE_ATTRS_WITH_SAME_NAME_DETECTED_FOR_ASSERTION(nextAttribute.getName(), childElement.getName())));
@@ -226,9 +223,9 @@ public class XmlPolicyModelUnmarshaller extends PolicyModelUnmarshaller {
         // try to find the attribute without a prefix.
         if (attribute == null) {
             final String localAttributeName = attributeName.getLocalPart();
-            final Iterator iterator = element.getAttributes();
+            final Iterator<Attribute> iterator = element.getAttributes();
             while (iterator.hasNext()) {
-                final Attribute nextAttribute = (Attribute) iterator.next();
+                final Attribute nextAttribute = iterator.next();
                 final QName aName = nextAttribute.getName();
                 final boolean attributeFoundByWorkaround = aName.equals(attributeName) || (aName.getLocalPart().equals(localAttributeName) && (aName.getPrefix() == null || "".equals(aName.getPrefix())));
                 if (attributeFoundByWorkaround) {

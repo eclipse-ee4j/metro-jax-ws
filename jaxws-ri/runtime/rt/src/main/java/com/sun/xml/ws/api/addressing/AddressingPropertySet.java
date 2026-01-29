@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,11 +10,7 @@
 
 package com.sun.xml.ws.api.addressing;
 
-import com.sun.xml.ws.api.message.Packet;
 import com.oracle.webservices.api.message.BasePropertySet;
-import jakarta.xml.ws.handler.MessageContext;
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>This property set exists so the upper stack can SET addressing info
@@ -23,6 +19,11 @@ import java.util.Map;
  * <p>This class is NOT used for reading addressing header values.</p>
  */
 public class AddressingPropertySet extends BasePropertySet {
+
+    /**
+     * Default constructor.
+     */
+    public AddressingPropertySet() {}
 
     // NOTE: Setting ACTION on client side is covered by standard BindingProvider.
 

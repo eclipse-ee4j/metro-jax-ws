@@ -1,15 +1,11 @@
 /*
- * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
  * http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * SPDX-License-Identifier: BSD-3-Clause
- */
-
-/*
- * $Id: LocalCustomizationFileTransformer.java,v 1.1 2005/10/07 22:46:09 kk122374 Exp $
  */
 
 package testutil;
@@ -208,16 +204,15 @@ public class LocalCustomizationFileTransformer {
     /**
      *
      * @param dirName path to /x/y/z/WEB-INF/wsdl
-     * @return Map is query-->path e.g: wsdl=sub/a.wsdl --> /WEB-INF/wsdl/sub/a.wsdl
-     * @throws Exception
+     * @return Map is query{@literal -->}path e.g: wsdl=sub/a.wsdl {@literal -->} /WEB-INF/wsdl/sub/a.wsdl
      */
     private static Map<String, String> buildMap(String dirName, String primaryWsdl)
     throws Exception {
-        Map<String, String> map = new HashMap<String, String>();
-        List<String> schemaIds = new ArrayList<String>();
-        List<String> wsdlIds = new ArrayList<String>();
+        Map<String, String> map = new HashMap<>();
+        List<String> schemaIds = new ArrayList<>();
+        List<String> wsdlIds = new ArrayList<>();
         File dir = new File(dirName);
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         buildDocList(dir, list);
         for(String file : list) {
             // Use this logic for now for identifying wsdl or schema

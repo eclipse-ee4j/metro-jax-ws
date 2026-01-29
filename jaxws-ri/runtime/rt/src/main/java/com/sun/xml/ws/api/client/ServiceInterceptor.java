@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,6 +37,12 @@ import java.util.List;
  * @see ServiceInterceptorFactory
  */
 public abstract class ServiceInterceptor {
+
+    /**
+     * Default constructor.
+     */
+    protected ServiceInterceptor() {}
+
     /**
      * Called before {@link WSBinding} is created, to allow interceptors
      * to add {@link WebServiceFeature}s to the created {@link WSBinding}.
@@ -89,18 +95,21 @@ public abstract class ServiceInterceptor {
         if(interceptors.length==1)
             return interceptors[0];
         return new ServiceInterceptor() {
+            @Override
             public List<WebServiceFeature> preCreateBinding(@NotNull WSPortInfo port, @Nullable Class<?> portInterface, @NotNull WSFeatureList defaultFeatures) {
-                List<WebServiceFeature> r = new ArrayList<WebServiceFeature>();
+                List<WebServiceFeature> r = new ArrayList<>();
                 for (ServiceInterceptor si : interceptors)
                     r.addAll(si.preCreateBinding(port,portInterface,defaultFeatures));
                 return r;
             }
 
+            @Override
             public void postCreateProxy(@NotNull WSBindingProvider bp, @NotNull Class<?> serviceEndpointInterface) {
                 for (ServiceInterceptor si : interceptors)
                     si.postCreateProxy(bp,serviceEndpointInterface);
             }
 
+            @Override
             public void postCreateDispatch(@NotNull WSBindingProvider bp) {
                 for (ServiceInterceptor si : interceptors)
                     si.postCreateDispatch(bp);

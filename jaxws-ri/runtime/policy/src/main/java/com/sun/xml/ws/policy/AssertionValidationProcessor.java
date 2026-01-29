@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,9 +10,9 @@
 
 package com.sun.xml.ws.policy;
 
+import com.sun.xml.ws.policy.privateutil.LocalizationMessages;
 import com.sun.xml.ws.policy.privateutil.PolicyLogger;
 import com.sun.xml.ws.policy.spi.PolicyAssertionValidator;
-import static com.sun.xml.ws.policy.privateutil.LocalizationMessages.WSP_0076_NO_SERVICE_PROVIDERS_FOUND;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -21,13 +21,13 @@ import java.util.ServiceLoader;
 /**
  * Provides methods for assertion validation.
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  * @author Fabian Ritzmann
  */
 public class AssertionValidationProcessor {
     private static final PolicyLogger LOGGER = PolicyLogger.getLogger(AssertionValidationProcessor.class);
     
-    private final Collection<PolicyAssertionValidator> validators = new LinkedList<PolicyAssertionValidator>();
+    private final Collection<PolicyAssertionValidator> validators = new LinkedList<>();
     
     /**
      * This constructor instantiates the object with a set of dynamically
@@ -56,12 +56,10 @@ public class AssertionValidationProcessor {
             validators.add(validator);
         }
         if (policyValidators != null) {
-            for (PolicyAssertionValidator validator : policyValidators) {
-                validators.add(validator);
-            }
+            validators.addAll(policyValidators);
         }
         if (validators.size() == 0) {
-            throw LOGGER.logSevereException(new PolicyException(WSP_0076_NO_SERVICE_PROVIDERS_FOUND(PolicyAssertionValidator.class.getName())));
+            throw LOGGER.logSevereException(new PolicyException(LocalizationMessages.WSP_0076_NO_SERVICE_PROVIDERS_FOUND(PolicyAssertionValidator.class.getName())));
         }
     }
 

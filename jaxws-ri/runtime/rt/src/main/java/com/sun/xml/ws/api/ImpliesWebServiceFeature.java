@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,10 +25,11 @@ package com.sun.xml.ws.api;
  * @since 2.2.6
  * @deprecated use {@link FeatureListValidatorAnnotation}
  */
+@Deprecated
 public interface ImpliesWebServiceFeature {
 	/**
 	 * Callback that may inspect the current feature list and add additional features
 	 * @param list Feature list
 	 */
-	public void implyFeatures(WSFeatureList list);
+    void implyFeatures(WSFeatureList list);
 }

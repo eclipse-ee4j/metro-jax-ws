@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -64,6 +64,7 @@ public class JAXBDispatch extends DispatchImpl<Object> {
         this.isContextSupported = BindingContextFactory.isContextSupported(jc);
     }
 
+    @Override
     Object toReturnValue(Packet response) {
         try {
             Unmarshaller unmarshaller = jaxbcontext.createUnmarshaller();
@@ -83,6 +84,7 @@ public class JAXBDispatch extends DispatchImpl<Object> {
     }
 
 
+    @Override
     Packet createPacket(Object msg) {
         assert jaxbcontext != null;
 
@@ -105,6 +107,7 @@ public class JAXBDispatch extends DispatchImpl<Object> {
 
     }
 
+    @Override
     public void setOutboundHeaders(Object... headers) {
         if (headers == null)
             throw new IllegalArgumentException();
@@ -113,7 +116,7 @@ public class JAXBDispatch extends DispatchImpl<Object> {
             if (headers[i] == null)
                 throw new IllegalArgumentException();
             // TODO: handle any JAXBContext.
-            hl[i] = Headers.create((JAXBRIContext) jaxbcontext, headers[i]);
+            hl[i] = Headers.create(jaxbcontext, headers[i]);
         }
         super.setOutboundHeaders(hl);
     }

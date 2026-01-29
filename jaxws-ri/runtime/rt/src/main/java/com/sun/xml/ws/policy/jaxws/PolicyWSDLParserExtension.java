@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -101,8 +101,8 @@ final public class PolicyWSDLParserExtension extends WSDLParserExtension {
     private List<String> unresolvedUris = null;
     
     // structures for policies really needed to build a map
-    private final LinkedList<String> urisNeeded = new LinkedList<String>();
-    private final Map<String, PolicySourceModel> modelsNeeded = new HashMap<String, PolicySourceModel>();
+    private final LinkedList<String> urisNeeded = new LinkedList<>();
+    private final Map<String, PolicySourceModel> modelsNeeded = new HashMap<>();
     
     // lookup tables for Policy attachments found
     private Map<WSDLObject, Collection<PolicyRecordHandler>> handlers4ServiceMap = null;
@@ -138,112 +138,112 @@ final public class PolicyWSDLParserExtension extends WSDLParserExtension {
     
     private Map<String,PolicyRecord> getPolicyRecordsPassedBy() {
         if (null==policyRecordsPassedBy) {
-            policyRecordsPassedBy = new HashMap<String,PolicyRecord>();
+            policyRecordsPassedBy = new HashMap<>();
         }
         return policyRecordsPassedBy;
     }
     
     private Map<String,PolicySourceModel> getAnonymousPolicyModels() {
         if (null==anonymousPolicyModels) {
-            anonymousPolicyModels = new HashMap<String,PolicySourceModel>();
+            anonymousPolicyModels = new HashMap<>();
         }
         return anonymousPolicyModels;
     }
     
     private Map<WSDLObject, Collection<PolicyRecordHandler>> getHandlers4ServiceMap() {
         if (null==handlers4ServiceMap) {
-            handlers4ServiceMap = new HashMap<WSDLObject,Collection<PolicyRecordHandler>>();
+            handlers4ServiceMap = new HashMap<>();
         }
         return handlers4ServiceMap;
     }
     
     private Map<WSDLObject, Collection<PolicyRecordHandler>> getHandlers4PortMap() {
         if (null==handlers4PortMap) {
-            handlers4PortMap = new HashMap<WSDLObject,Collection<PolicyRecordHandler>>();
+            handlers4PortMap = new HashMap<>();
         }
         return handlers4PortMap;
     }
     
     private Map<WSDLObject, Collection<PolicyRecordHandler>> getHandlers4PortTypeMap() {
         if (null==handlers4PortTypeMap) {
-            handlers4PortTypeMap = new HashMap<WSDLObject,Collection<PolicyRecordHandler>>();
+            handlers4PortTypeMap = new HashMap<>();
         }
         return handlers4PortTypeMap;
     }
     
     private Map<WSDLObject, Collection<PolicyRecordHandler>> getHandlers4BindingMap() {
         if (null==handlers4BindingMap) {
-            handlers4BindingMap = new HashMap<WSDLObject,Collection<PolicyRecordHandler>>();
+            handlers4BindingMap = new HashMap<>();
         }
         return handlers4BindingMap;
     }
     
     private Map<WSDLObject, Collection<PolicyRecordHandler>> getHandlers4OperationMap() {
         if (null==handlers4OperationMap) {
-            handlers4OperationMap = new HashMap<WSDLObject,Collection<PolicyRecordHandler>>();
+            handlers4OperationMap = new HashMap<>();
         }
         return handlers4OperationMap;
     }
     
     private Map<WSDLObject, Collection<PolicyRecordHandler>> getHandlers4BoundOperationMap() {
         if (null==handlers4BoundOperationMap) {
-            handlers4BoundOperationMap = new HashMap<WSDLObject,Collection<PolicyRecordHandler>>();
+            handlers4BoundOperationMap = new HashMap<>();
         }
         return handlers4BoundOperationMap;
     }
     
     private Map<WSDLObject, Collection<PolicyRecordHandler>> getHandlers4MessageMap() {
         if (null==handlers4MessageMap) {
-            handlers4MessageMap = new HashMap<WSDLObject,Collection<PolicyRecordHandler>>();
+            handlers4MessageMap = new HashMap<>();
         }
         return handlers4MessageMap;
     }
     
     private Map<WSDLObject, Collection<PolicyRecordHandler>> getHandlers4InputMap() {
         if (null==handlers4InputMap) {
-            handlers4InputMap = new HashMap<WSDLObject,Collection<PolicyRecordHandler>>();
+            handlers4InputMap = new HashMap<>();
         }
         return handlers4InputMap;
     }
     
     private Map<WSDLObject, Collection<PolicyRecordHandler>> getHandlers4OutputMap() {
         if (null==handlers4OutputMap) {
-            handlers4OutputMap = new HashMap<WSDLObject,Collection<PolicyRecordHandler>>();
+            handlers4OutputMap = new HashMap<>();
         }
         return handlers4OutputMap;
     }
     
     private Map<WSDLObject, Collection<PolicyRecordHandler>> getHandlers4FaultMap() {
         if (null==handlers4FaultMap) {
-            handlers4FaultMap = new HashMap<WSDLObject,Collection<PolicyRecordHandler>>();
+            handlers4FaultMap = new HashMap<>();
         }
         return handlers4FaultMap;
     }
     
     private Map<WSDLObject, Collection<PolicyRecordHandler>> getHandlers4BindingInputOpMap() {
         if (null==handlers4BindingInputOpMap) {
-            handlers4BindingInputOpMap = new HashMap<WSDLObject,Collection<PolicyRecordHandler>>();
+            handlers4BindingInputOpMap = new HashMap<>();
         }
         return handlers4BindingInputOpMap;
     }
     
     private Map<WSDLObject, Collection<PolicyRecordHandler>> getHandlers4BindingOutputOpMap() {
         if (null==handlers4BindingOutputOpMap) {
-            handlers4BindingOutputOpMap = new HashMap<WSDLObject,Collection<PolicyRecordHandler>>();
+            handlers4BindingOutputOpMap = new HashMap<>();
         }
         return handlers4BindingOutputOpMap;
     }
     
     private Map<WSDLObject, Collection<PolicyRecordHandler>> getHandlers4BindingFaultOpMap() {
         if (null==handlers4BindingFaultOpMap) {
-            handlers4BindingFaultOpMap = new HashMap<WSDLObject,Collection<PolicyRecordHandler>>();
+            handlers4BindingFaultOpMap = new HashMap<>();
         }
         return handlers4BindingFaultOpMap;
     }
     
     private List<String> getUnresolvedUris(final boolean emptyListNeeded) {
         if ((null == unresolvedUris) || emptyListNeeded) {
-            unresolvedUris = new LinkedList<String>();
+            unresolvedUris = new LinkedList<>();
         }
         return unresolvedUris;
     }
@@ -293,7 +293,7 @@ final public class PolicyWSDLParserExtension extends WSDLParserExtension {
         if (map.containsKey(key)) {
             map.get(key).add(handler);
         } else {
-            final Collection<PolicyRecordHandler> newSet = new LinkedList<PolicyRecordHandler>();
+            final Collection<PolicyRecordHandler> newSet = new LinkedList<>();
             newSet.add(handler);
             map.put(key,newSet);
         }
@@ -585,7 +585,7 @@ final public class PolicyWSDLParserExtension extends WSDLParserExtension {
     
     private Collection<String> getPolicyURIs(
             final Collection<PolicyRecordHandler> handlers, final PolicySourceModelContext modelContext) throws PolicyException{
-        final Collection<String> result = new ArrayList<String>(handlers.size());
+        final Collection<String> result = new ArrayList<>(handlers.size());
         String policyUri;
         for (PolicyRecordHandler handler : handlers) {
             policyUri = handler.handler;
@@ -608,7 +608,7 @@ final public class PolicyWSDLParserExtension extends WSDLParserExtension {
         try {
             final URL xmlURL = new URL(fileUrl);
             ios = xmlURL.openStream();
-            reader = XmlUtil.newXMLInputFactory(true).createXMLStreamReader(ios);
+            reader = XmlUtil.newXMLInputFactory(false).createXMLStreamReader(ios);
             while (reader.hasNext()) {
                 if (reader.isStartElement() && NamespaceVersion.resolveAsToken(reader.getName()) == XmlToken.Policy) {
                     readSinglePolicy(policyReader.readPolicyElement(reader, fileUrl), false);
@@ -616,9 +616,7 @@ final public class PolicyWSDLParserExtension extends WSDLParserExtension {
                 reader.next();
             }
             return true;
-        } catch (IOException ioe) {
-            return false;
-        } catch (XMLStreamException xmlse) {
+        } catch (IOException | XMLStreamException ioe) {
             return false;
         } finally {
             PolicyUtils.IO.closeResource(reader);
@@ -633,7 +631,7 @@ final public class PolicyWSDLParserExtension extends WSDLParserExtension {
         if (null != expandQueueHead) { // any policies found
             final List<String> externalUris = getUnresolvedUris(false); // protect list of possible external policies
             getUnresolvedUris(true); // cleaning up the list only
-            final LinkedList<String> baseUnresolvedUris = new LinkedList<String>();
+            final LinkedList<String> baseUnresolvedUris = new LinkedList<>();
             for (PolicyRecord currentRec = expandQueueHead ; null != currentRec ; currentRec = currentRec.next) {
                 baseUnresolvedUris.addFirst(currentRec.getUri());
             }
@@ -671,9 +669,7 @@ final public class PolicyWSDLParserExtension extends WSDLParserExtension {
             try {
                 sourceModel.expand(modelContext);
                 modelContext.addModel(new URI(policyUri), sourceModel);
-            } catch (URISyntaxException e) {
-                LOGGER.logSevereException(e);
-            } catch (PolicyException e) {
+            } catch (URISyntaxException | PolicyException e) {
                 LOGGER.logSevereException(e);
             }
         }
@@ -684,7 +680,7 @@ final public class PolicyWSDLParserExtension extends WSDLParserExtension {
             // messageSet holds the handlers for all wsdl:message elements. There
             // may otherwise be multiple entries for policies that are contained
             // by fault messages.
-            HashSet<BuilderHandlerMessageScope> messageSet = new HashSet<BuilderHandlerMessageScope>();
+            HashSet<BuilderHandlerMessageScope> messageSet = new HashSet<>();
             for (EditableWSDLService service : context.getWSDLModel().getServices().values()) {
                 if (getHandlers4ServiceMap().containsKey(service)) {
                     getPolicyMapBuilder().registerHandler(new BuilderHandlerServiceScope(

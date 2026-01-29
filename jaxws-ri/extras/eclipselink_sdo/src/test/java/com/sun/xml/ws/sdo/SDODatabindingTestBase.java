@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.sun.xml.ws.db.sdo.SDOContextFactory;
 import jakarta.jws.WebService;
 import javax.xml.namespace.QName;
 import jakarta.xml.ws.WebServiceFeature;
@@ -69,6 +70,7 @@ import com.sun.xml.ws.util.xml.XmlUtil;
 import com.sun.xml.ws.wsdl.parser.RuntimeWSDLParser;
 
 import commonj.sdo.helper.HelperContext;
+import org.junit.Assert;
 
 /**
  * WsDatabindingTestBase
@@ -137,17 +139,18 @@ abstract public class SDODatabindingTestBase extends TestCase {
         public Packet requestMessage;
         public Packet responseMessage;
         
-        WsDatabindingTestFacade(Databinding client, Databinding server, Class endpoint) {
+        WsDatabindingTestFacade(Databinding client, Databinding server, Class<?> endpoint) {
             cli = client;
             srv = server;
             serviceBeanType = endpoint;
             try {
-                serviceBeanInstance = serviceBeanType.newInstance();
+                serviceBeanInstance = serviceBeanType.getConstructor().newInstance();
             } catch (Exception e) {
                 e.printStackTrace();
             } 
         }
 
+        @SuppressWarnings({"deprecation"})
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 //          JavaCallInfo cliCall = new JavaCallInfo();
 //          cliCall.setMethod(method);
@@ -213,23 +216,23 @@ abstract public class SDODatabindingTestBase extends TestCase {
 
     
     static public void assertEqualList(List<?> list1, List<?> list2) {
-        assertTrue(list1.size() == list2.size());
+        Assert.assertEquals(list1.size(), list2.size());
         for (int i = 0; i < list1.size(); i++) {
-            assertEquals(list1.get(i), list2.get(i));
+            Assert.assertEquals(list1.get(i), list2.get(i));
         }        
     }
 
     static public void assertEqualCollection(Collection<?> c1, Collection<?> c2) {
-        assertTrue(c1.size() == c2.size());
-        for (Iterator i = c1.iterator(); i.hasNext();) {
-            assertTrue(c2.contains(i.next()));
+        Assert.assertEquals(c1.size(), c2.size());
+        for (Iterator<?> i = c1.iterator(); i.hasNext();) {
+            Assert.assertTrue(c2.contains(i.next()));
         }        
     }
     
     static public void assertEqualArray(Object a1, Object a2) {
-        assertTrue(Array.getLength(a1) == Array.getLength(a2));
+        Assert.assertEquals(Array.getLength(a1), Array.getLength(a2));
         for (int i = 0; i < Array.getLength(a1); i++) {
-            assertEquals(Array.get(a1, i), Array.get(a2, i));
+            Assert.assertEquals(Array.get(a1, i), Array.get(a2, i));
         }        
     }   
 
@@ -262,15 +265,16 @@ abstract public class SDODatabindingTestBase extends TestCase {
         return config;
     }
     
-    protected WebServiceFeature[] invmSetup(final URL wsdlURL, final Class sei, final Class seb, final QName serviceName, final QName portName) {
-        DatabindingModeFeature dbmf = new DatabindingModeFeature("eclipselink.sdo");
-        Class implementorClass = seb;
+    protected <T> WebServiceFeature[] invmSetup(final URL wsdlURL, final Class<?> sei, final Class<T> seb, final QName serviceName, final QName portName) {
+        DatabindingModeFeature dbmf = new DatabindingModeFeature(SDOContextFactory.ECLIPSELINK_SDO);
+        Class<T> implementorClass = seb;
         boolean handlersSetInDD = false;
         Container container = Container.NONE; 
         Map<String, SDDocumentSource> docs = new HashMap<String, SDDocumentSource>();
         SDDocumentSource primaryWSDL = SDDocumentSource.create(wsdlURL);
         docs.put(wsdlURL.toString(), primaryWSDL);
         ExternalMetadataFeature exm = ExternalMetadataFeature.builder().setReader( new com.sun.xml.ws.model.ReflectAnnotationReader() {
+            @SuppressWarnings({"unchecked"})
             public <A extends Annotation> A getAnnotation(final Class<A> annType, final Class<?> cls) {
                 if (WebService.class.equals(annType)) {
                     final WebService ws = cls.getAnnotation(WebService.class);
@@ -309,13 +313,14 @@ abstract public class SDODatabindingTestBase extends TestCase {
         }).build();
         BindingID bindingID = BindingID.parse(implementorClass);
         WSBinding binding = bindingID.createBinding(dbmf, exm);
-        final WSEndpoint<?> endpoint = WSEndpoint.create(
+        final WSEndpoint<T> endpoint = WSEndpoint.create(
                 implementorClass, !handlersSetInDD,
                 null,
                 serviceName, portName, container, binding,
                 primaryWSDL, docs.values(), XmlUtil.createEntityResolver(null), false
         );   
         ComponentFeature cf = new ComponentFeature( new com.sun.xml.ws.api.Component() {
+            @SuppressWarnings({"unchecked"})
             public <S> S getSPI(Class<S> spiType) {
                 if (TransportTubeFactory.class.equals(spiType)) return (S) new TransportTubeFactory() {
                     public Tube doCreate( ClientTubeAssemblerContext context) {

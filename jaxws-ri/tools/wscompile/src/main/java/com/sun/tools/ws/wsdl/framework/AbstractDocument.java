@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +17,13 @@ import com.sun.tools.ws.wscompile.AbortException;
 import com.sun.tools.ws.resources.WsdlMessages;
 
 import javax.xml.namespace.QName;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * An abstract class for documents containing entities.
@@ -33,10 +39,10 @@ public abstract class AbstractDocument {
         this.forest = forest;
         this.errReceiver = errReceiver;
         kinds = new HashMap();
-        importedEntities = new ArrayList();
-        importedDocuments = new HashSet();
-        includedEntities = new ArrayList();
-        includedDocuments = new HashSet();
+        importedEntities = new ArrayList<>();
+        importedDocuments = new HashSet<>();
+        includedEntities = new ArrayList<>();
+        includedDocuments = new HashSet<>();
     }
 
     public String getSystemId() {
@@ -84,12 +90,12 @@ public abstract class AbstractDocument {
             action.perform(getRoot());
         }
 
-        for (Iterator iter = importedEntities.iterator(); iter.hasNext();) {
-            action.perform((Entity) iter.next());
+        for (Entity importedEntity : importedEntities) {
+            action.perform(importedEntity);
         }
 
-        for (Iterator iter = includedEntities.iterator(); iter.hasNext();) {
-            action.perform((Entity) iter.next());
+        for (Entity includedEntity : includedEntities) {
+            action.perform(includedEntity);
         }
     }
 
@@ -141,10 +147,10 @@ public abstract class AbstractDocument {
 
     private final Map kinds;
     private String _systemId;
-    private final Set importedDocuments;
-    private final List importedEntities;
-    private final Set includedDocuments;
-    private final List includedEntities;
+    private final Set<String> importedDocuments;
+    private final List<Entity> importedEntities;
+    private final Set<String> includedDocuments;
+    private final List<Entity> includedEntities;
 
     private static class LocallyValidatingAction implements EntityAction {
         public LocallyValidatingAction() {

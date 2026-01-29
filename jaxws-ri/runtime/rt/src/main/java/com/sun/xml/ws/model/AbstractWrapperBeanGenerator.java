@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,7 +51,7 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
         XmlList.class, XmlElement.class
     };
 
-    private static final Set<String> skipProperties = new HashSet<String>();
+    private static final Set<String> skipProperties = new HashSet<>();
     static{
         skipProperties.add("getCause");
         skipProperties.add("getLocalizedMessage");
@@ -71,13 +71,13 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
         this.factory = factory;
     }
 
-    public static interface BeanMemberFactory<T,A> {
+    public interface BeanMemberFactory<T,A> {
         A createWrapperBeanMember(T paramType, String paramName, List<Annotation> jaxbAnnotations);
     }
 
     // Collects the JAXB annotations on a method
     private List<Annotation> collectJAXBAnnotations(M method) {
-        List<Annotation> jaxbAnnotation = new ArrayList<Annotation>();
+        List<Annotation> jaxbAnnotation = new ArrayList<>();
         for(Class jaxbClass : jaxbAnns) {
             Annotation ann = annReader.getMethodAnnotation(jaxbClass, method, null);
             if (ann != null) {
@@ -89,7 +89,7 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
 
     // Collects the JAXB annotations on a parameter
     private List<Annotation> collectJAXBAnnotations(M method, int paramIndex) {
-        List<Annotation> jaxbAnnotation = new ArrayList<Annotation>();
+        List<Annotation> jaxbAnnotation = new ArrayList<>();
         for(Class jaxbClass : jaxbAnns) {
             Annotation ann = annReader.getMethodParameterAnnotation(jaxbClass, method, paramIndex, null);
             if (ann != null) {
@@ -121,7 +121,7 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
      */
     public List<A> collectRequestBeanMembers(M method) {
 
-        List<A> requestMembers = new ArrayList<A>();
+        List<A> requestMembers = new ArrayList<>();
         int paramIndex = -1;
 
         for (T param : nav.getMethodParameters(method)) {
@@ -165,7 +165,7 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
      */
     public List<A> collectResponseBeanMembers(M method) {
 
-        List<A> responseMembers = new ArrayList<A>();
+        List<A> responseMembers = new ArrayList<>();
 
         // return that need to be part response wrapper bean
         String responseElementName = RETURN;
@@ -224,7 +224,7 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
     // Therefore, we are adding a new system property
     // -Dcom.sun.xml.ws.jaxb.allowNonNillableArray=true
     // to implement the behavior requested by the customer.
-    private final boolean JAXB_ALLOWNONNILLABLEARRAY = getBooleanSystemProperty("com.sun.xml.ws.jaxb.allowNonNillableArray").booleanValue();
+    private final boolean JAXB_ALLOWNONNILLABLEARRAY = getBooleanSystemProperty("com.sun.xml.ws.jaxb.allowNonNillableArray");
 
     /*
      * Process an individual XML element.
@@ -275,18 +275,20 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
             this.required = required;
         }
 
+        @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             String methodName = method.getName();
-            if (methodName.equals("name")) {
-                return name;
-            } else if (methodName.equals("namespace")) {
-                return namespace;
-            } else if (methodName.equals("nillable")) {
-                return nillable;
-            } else if (methodName.equals("required")) {
-                return required;
-            } else {
-                throw new WebServiceException("Not handling "+methodName);
+            switch (methodName) {
+                case "name":
+                    return name;
+                case "namespace":
+                    return namespace;
+                case "nillable":
+                    return nillable;
+                case "required":
+                    return required;
+                default:
+                    throw new WebServiceException("Not handling " + methodName);
             }
         }
     }
@@ -303,7 +305,6 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
      * propOrder properties are considered. The returned collection is sorted
      * as per the given propOrder.
      *
-     * @param exception
      * @return list of properties in the correct order for an exception bean
      */
     public Collection<A> collectExceptionBeanMembers(C exception) {
@@ -322,13 +323,12 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
      * propOrder properties are considered. The returned collection is sorted
      * as per the given propOrder.
      *
-     * @param exception
      * @param decapitalize if true, all the property names are decapitalized
      * 
      * @return list of properties in the correct order for an exception bean
      */
    public Collection<A> collectExceptionBeanMembers(C exception, boolean decapitalize ) {
-        TreeMap<String, A> fields = new TreeMap<String, A>();
+        TreeMap<String, A> fields = new TreeMap<>();
         getExceptionProperties(exception, fields, decapitalize);
 
         // Consider only the @XmlType(propOrder) properties
@@ -337,7 +337,7 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
             String[] propOrder = xmlType.propOrder();
             // If not the default order of properties, use that propOrder
             if (propOrder.length > 0 && propOrder[0].length() != 0) {
-                List<A> list = new ArrayList<A>();
+                List<A> list = new ArrayList<>();
                 for(String prop : propOrder) {
                     A a = fields.get(prop);
                     if (a != null) {
@@ -418,7 +418,7 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
     private static final Map<String, String> reservedWords;
 
     static {
-        reservedWords = new HashMap<String, String>();
+        reservedWords = new HashMap<>();
         reservedWords.put("abstract", "_abstract");
         reservedWords.put("assert", "_assert");
         reservedWords.put("boolean", "_boolean");
@@ -476,11 +476,12 @@ public abstract class AbstractWrapperBeanGenerator<T,C,M,A extends Comparable> {
 
     private static Boolean getBooleanSystemProperty(final String prop) {
         return AccessController.doPrivileged(
-            new java.security.PrivilegedAction<Boolean>() {
-                public Boolean run() {
-                    return Boolean.getBoolean(prop);
+                new java.security.PrivilegedAction<>() {
+                    @Override
+                    public Boolean run() {
+                        return Boolean.getBoolean(prop);
+                    }
                 }
-            }
         );
     }
 

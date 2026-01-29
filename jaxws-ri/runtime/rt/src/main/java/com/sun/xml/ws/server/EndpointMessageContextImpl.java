@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,7 +68,7 @@ public final class EndpointMessageContextImpl extends AbstractMap<String,Object>
                 key.equals(MessageContext.INBOUND_MESSAGE_ATTACHMENTS)){
             Map<String, DataHandler> atts = (Map<String, DataHandler>) value;
             if(atts == null)
-                atts = new HashMap<String, DataHandler>();
+                atts = new HashMap<>();
             AttachmentSet attSet = packet.getMessage().getAttachments();
             for(Attachment att : attSet){
                 atts.put(att.getContentId(), att.asDataHandler());
@@ -116,6 +116,7 @@ public final class EndpointMessageContextImpl extends AbstractMap<String,Object>
         return null;
     }
 
+    @Override
     public Set<Map.Entry<String, Object>> entrySet() {
         if (entrySet == null) {
             entrySet = new EntrySet();
@@ -123,11 +124,13 @@ public final class EndpointMessageContextImpl extends AbstractMap<String,Object>
         return entrySet;
     }
 
+    @Override
     public void setScope(String name, MessageContext.Scope scope) {
         throw new UnsupportedOperationException(
                 "All the properties in this context are in APPLICATION scope. Cannot do setScope().");
     }
 
+    @Override
     public MessageContext.Scope getScope(String name) {
         throw new UnsupportedOperationException(
                 "All the properties in this context are in APPLICATION scope. Cannot do getScope().");
@@ -135,21 +138,25 @@ public final class EndpointMessageContextImpl extends AbstractMap<String,Object>
 
     private class EntrySet extends AbstractSet<Map.Entry<String, Object>> {
 
+        @Override
         public Iterator<Map.Entry<String, Object>> iterator() {
             final Iterator<Map.Entry<String, Object>> it = createBackupMap().entrySet().iterator();
 
-            return new Iterator<Map.Entry<String, Object>>() {
+            return new Iterator<>() {
                 Map.Entry<String, Object> cur;
 
+                @Override
                 public boolean hasNext() {
                     return it.hasNext();
                 }
 
+                @Override
                 public Map.Entry<String, Object> next() {
                     cur = it.next();
                     return cur;
                 }
 
+                @Override
                 public void remove() {
                     it.remove();
                     EndpointMessageContextImpl.this.remove(cur.getKey());
@@ -157,6 +164,7 @@ public final class EndpointMessageContextImpl extends AbstractMap<String,Object>
             };
         }
 
+        @Override
         public int size() {
             return createBackupMap().size();
         }
@@ -164,8 +172,7 @@ public final class EndpointMessageContextImpl extends AbstractMap<String,Object>
     }
 
     private Map<String, Object> createBackupMap() {
-        Map<String, Object> backupMap = new HashMap<String, Object>();
-        backupMap.putAll(packet.createMapView());
+        Map<String, Object> backupMap = new HashMap<>(packet.asMap());
         Set<String> handlerProps = packet.getHandlerScopePropertyNames(true);
         for(Map.Entry<String, Object> e : packet.invocationProperties.entrySet()) {
             if (!handlerProps.contains(e.getKey())) {

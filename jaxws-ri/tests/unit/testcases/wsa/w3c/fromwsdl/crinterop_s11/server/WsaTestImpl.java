@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,7 +47,7 @@ public class WsaTestImpl implements WsaTestPortType {
 
     SOAPFault createSOAPFault(String message) {
         try {
-            SOAPFault fault = SOAPVersion.SOAP_11.saajSoapFactory.createFault();
+            SOAPFault fault = SOAPVersion.SOAP_11.getSOAPFactory().createFault();
             fault.setFaultString(message);
             fault.setFaultCode(new QName("http://example.org/echo", "EmptyEchoString"));
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -70,10 +70,12 @@ public final class AsyncResponseImpl<T> extends FutureTask<T> implements Respons
     }
 
 
+    @Override
     public ResponseContext getContext() {
         return responseContext;
     }
 
+    @Override
     public void setResponseContext(ResponseContext rc) {
         responseContext = rc;
     }
@@ -82,23 +84,24 @@ public final class AsyncResponseImpl<T> extends FutureTask<T> implements Respons
         // call the handler before we mark the future as 'done'
         if (handler!=null) {
             try {
-                /**
-                 * {@link Response} object passed into the callback.
-                 * We need a separate {@link java.util.concurrent.Future} because we don't want {@link ResponseImpl}
-                 * to be marked as 'done' before the callback finishes execution.
-                 * (That would provide implicit synchronization between the application code
-                 * in the main thread and the callback code, and is compatible with the JAX-RI 2.0 FCS.
+                /*
+                  {@link Response} object passed into the callback.
+                  We need a separate {@link java.util.concurrent.Future} because we don't want {@link ResponseImpl}
+                  to be marked as 'done' before the callback finishes execution.
+                  (That would provide implicit synchronization between the application code
+                  in the main thread and the callback code, and is compatible with the JAX-RI 2.0 FCS.
                  */
                 class CallbackFuture<T> extends CompletedFuture<T> implements Response<T> {
                     public CallbackFuture(T v, Throwable t) {
                         super(v, t);
                     }
 
+                    @Override
                     public Map<String, Object> getContext() {
                         return AsyncResponseImpl.this.getContext();
                     }
                 }
-                handler.handleResponse(new CallbackFuture<T>(v, t));
+                handler.handleResponse(new CallbackFuture<>(v, t));
             } catch (Throwable e) {
                 super.setException(e);
                 return;
@@ -115,6 +118,7 @@ public final class AsyncResponseImpl<T> extends FutureTask<T> implements Respons
     	this.cancelable = cancelable;
     }
     
+    @Override
     public boolean cancel(boolean mayInterruptIfRunning) {
     	if (cancelable != null)
     		cancelable.cancel(mayInterruptIfRunning);

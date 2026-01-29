@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,6 +28,12 @@ import jakarta.xml.ws.WebServiceException;
  * @see BindingID#parse(String) 
  */
 public abstract class BindingIDFactory {
+
+    /**
+     * Default constructor.
+     */
+    public BindingIDFactory() {}
+
     /**
      * Parses a binding ID string into {@link BindingID} if possible.
      *
@@ -66,7 +72,7 @@ public abstract class BindingIDFactory {
      *      if the implementation understood the transport but it is not correct,
      *      this exception can be thrown to abort the creation with error.
      *      No further {@link BindingIDFactory} will be consulted, and
-     *      {@link #create(String, SOAPVersion)} will throw the exception.
+     *      {@code #create(String, SOAPVersion)} will throw the exception.
      */
     public @Nullable BindingID create(@NotNull String transport, @NotNull SOAPVersion soapVersion) throws WebServiceException {
         return null;

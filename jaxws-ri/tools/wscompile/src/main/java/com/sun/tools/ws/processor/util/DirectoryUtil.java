@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,15 +21,16 @@ import java.io.IOException;
  *
  * @author WS Development Team
  */
-public class DirectoryUtil  {
+public final class DirectoryUtil  {
+
+    private DirectoryUtil() {}
 
     public static File getOutputDirectoryFor(String theClass, File rootDir) throws GeneratorException {
 
         File outputDir = null;
-        String qualifiedClassName = theClass;
         String packagePath = null;
-        String packageName = ClassNameInfo.getQualifier(qualifiedClassName);
-        if (packageName != null && packageName.length() > 0) {
+        String packageName = ClassNameInfo.getQualifier(theClass);
+        if (packageName != null && !packageName.isEmpty()) {
             packagePath = packageName.replace('.', File.separatorChar);
         }
 

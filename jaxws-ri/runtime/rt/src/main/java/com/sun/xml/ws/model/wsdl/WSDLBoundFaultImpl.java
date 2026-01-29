@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,12 +33,14 @@ public class WSDLBoundFaultImpl extends AbstractExtensibleImpl implements Editab
         this.owner = owner;
     }
 
+    @Override
     public
     @NotNull
     String getName() {
         return name;
     }
 
+    @Override
     public QName getQName() {
         if(owner.getOperation() != null){
             return new QName(owner.getOperation().getName().getNamespaceURI(), name);
@@ -46,15 +48,18 @@ public class WSDLBoundFaultImpl extends AbstractExtensibleImpl implements Editab
         return null;
     }
 
+    @Override
     public EditableWSDLFault getFault() {
         return fault;
     }
 
+    @Override
     @NotNull
     public EditableWSDLBoundOperation getBoundOperation() {
         return owner;
     }
 
+    @Override
     public void freeze(EditableWSDLBoundOperation root) {
         assert root != null;
         EditableWSDLOperation op = root.getOperation();

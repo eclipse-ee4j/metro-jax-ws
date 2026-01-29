@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@ import com.sun.xml.ws.api.server.WSEndpoint;
 
 /**
  * Interface that allows components to hook up with each other.
- * Replaces {@link com.sun.xml.ws.api.server.EndpointComponent} so that component
+ * Replaces {@code com.sun.xml.ws.api.server.EndpointComponent} so that component
  * pattern can apply to more RI types.
  *
  * @since 2.2.6

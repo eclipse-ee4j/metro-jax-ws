@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,8 +12,10 @@ package com.sun.xml.ws.api.message.saaj;
 
 import java.util.Iterator;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Map;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
@@ -320,24 +322,30 @@ public class SaajStaxWriter implements XMLStreamWriter {
     @Override
     public NamespaceContext getNamespaceContext() {
         return new NamespaceContext() {
+            @Override
             public String getNamespaceURI(final String prefix) {
                 return currentElement.getNamespaceURI(prefix);
             }
+            @Override
             public String getPrefix(final String namespaceURI) {
                 return currentElement.lookupPrefix(namespaceURI);
             }
-            public Iterator getPrefixes(final String namespaceURI) {
+            @Override
+            public Iterator<String> getPrefixes(final String namespaceURI) {
                 return new Iterator<String>() {
                     String prefix = getPrefix(namespaceURI);
+                    @Override
                     public boolean hasNext() {
                         return (prefix != null);
                     }
+                    @Override
                     public String next() {
                         if (!hasNext()) throw new java.util.NoSuchElementException();
                         String next = prefix;
                         prefix = null;
                         return next;
                     }
+                    @Override
                     public void remove() {}
                 };
             }
@@ -378,16 +386,16 @@ public class SaajStaxWriter implements XMLStreamWriter {
      *
      * @author ondrej.cerny@oracle.com
      */
-    static class DeferredElement {
+    public static class DeferredElement {
         private String prefix;
         private String localName;
         private String namespaceUri;
-        private final List<NamespaceDeclaration> namespaceDeclarations;
+        private final Map<String, String> namespaceDeclarations;
         private final List<AttributeDeclaration> attributeDeclarations;
 
-        DeferredElement() {
-            this.namespaceDeclarations = new LinkedList<NamespaceDeclaration>();
-            this.attributeDeclarations = new LinkedList<AttributeDeclaration>();
+        private DeferredElement() {
+            this.namespaceDeclarations = new HashMap<>();
+            this.attributeDeclarations = new LinkedList<>();
             reset();
         }
 
@@ -435,7 +443,7 @@ public class SaajStaxWriter implements XMLStreamWriter {
             if (null == this.namespaceUri && null != namespaceUri && emptyIfNull(this.prefix).equals(prefix)) {
                 this.namespaceUri = namespaceUri;
             }
-            this.namespaceDeclarations.add(new NamespaceDeclaration(prefix, namespaceUri));
+            this.namespaceDeclarations.put(emptyIfNull(namespaceUri), prefix);
         }
 
         /**
@@ -449,7 +457,7 @@ public class SaajStaxWriter implements XMLStreamWriter {
             if (ns == null && prefix == null && xmlns.equals(ln)) {
                 this.addNamespaceDeclaration(null, value);
             } else {
-                this.attributeDeclarations.add(new AttributeDeclaration(prefix, ns, ln, value));
+                this.attributeDeclarations.add(new AttributeDeclaration(emptyIfNull(prefix), ns, ln, value));
             }
         }
 
@@ -483,13 +491,20 @@ public class SaajStaxWriter implements XMLStreamWriter {
                         newElement = target.addChildElement(this.localName, this.prefix, this.namespaceUri);
                     }
                     // add namespace declarations
-                    for (NamespaceDeclaration namespace : this.namespaceDeclarations) {
-                        newElement.addNamespaceDeclaration(namespace.prefix, namespace.namespaceUri);
+                    for (Map.Entry<String, String> namespace : this.namespaceDeclarations.entrySet()) {
+                        newElement.addNamespaceDeclaration(namespace.getValue(), namespace.getKey());
                     }
                     // add attribute declarations
                     for (AttributeDeclaration attribute : this.attributeDeclarations) {
+                        String pfx = attribute.prefix;
+                        if ("".equals(emptyIfNull(pfx))) {
+                            String p = this.namespaceDeclarations.get(attribute.namespaceUri);
+                            if (p != null) {
+                                pfx = p;
+                            }
+                        }
                         addAttibuteToElement(newElement,
-                                attribute.prefix, attribute.namespaceUri, attribute.localName, attribute.value);
+                                    pfx, attribute.namespaceUri, attribute.localName, attribute.value);
                     }
                     // reset state
                     this.reset();
@@ -522,16 +537,6 @@ public class SaajStaxWriter implements XMLStreamWriter {
 
         private static String emptyIfNull(String s) {
             return s == null ? "" : s;
-        }
-    }
-
-    static class NamespaceDeclaration {
-        final String prefix;
-        final String namespaceUri;
-
-        NamespaceDeclaration(String prefix, String namespaceUri) {
-            this.prefix = prefix;
-            this.namespaceUri = namespaceUri;
         }
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,8 +39,8 @@
         In addition to that, &ws.impl.name; also supports <link
         xlink:href="http://www.w3.org/Submission/ws-addressing/">Member
         Submission</link> version of WS-Addressing. The member submission
-        version is supported in an implementation specific way.  For
-        compatility with &ws.spec.name; 2.1 behavior, &ws.impl.name.full; also
+        version is supported in an implementation specific way. For
+        compatility reasons, &ws.impl.name.full; also
         supports wsdls conforming to <link
         xlink:href="http://www.w3.org/TR/ws-addr-wsdl">WSDL Binding</link>
         specification. The subsequent sections describe how the two

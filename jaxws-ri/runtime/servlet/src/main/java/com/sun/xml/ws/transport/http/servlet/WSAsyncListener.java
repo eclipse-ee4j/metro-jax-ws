@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpServletRequest;
 /**
  * @author Rama Pulavarthi
  */
-public class WSAsyncListener {
+class WSAsyncListener {
     final private WSHTTPConnection con;
     final private HttpAdapter.CompletionCallback callback;
 
@@ -32,26 +32,30 @@ public class WSAsyncListener {
         this.callback = callback;
     }
 
-    public void addListenerTo(AsyncContext context, final ServletAdapter.AsyncCompletionCheck completionCheck) {
+    void addListenerTo(AsyncContext context, final ServletAdapter.AsyncCompletionCheck completionCheck) {
         context.addListener(new AsyncListener() {
 
+            @Override
             public void onComplete(AsyncEvent event) throws IOException {
                 LOGGER.finer("Asynchronous Servlet Invocation completed for "+((HttpServletRequest)event.getAsyncContext().getRequest()).getRequestURL());
                 callback.onCompletion();
 
             }
 
+            @Override
             public void onTimeout(AsyncEvent event) throws IOException {
                 completionCheck.markComplete();                                
                 LOGGER.fine("Time out on Request:" + ((HttpServletRequest)event.getAsyncContext().getRequest()).getRequestURL());
                 con.close();
             }
 
+            @Override
             public void onError(AsyncEvent event) throws IOException {
                 LOGGER.fine("Error processing Request:" + ((HttpServletRequest)event.getAsyncContext().getRequest()).getRequestURL());
                 con.close();
             }
 
+            @Override
             public void onStartAsync(AsyncEvent event) throws IOException {
                 LOGGER.finer("Asynchronous Servlet Invocation started for "+((HttpServletRequest)event.getAsyncContext().getRequest()).getRequestURL());
             }

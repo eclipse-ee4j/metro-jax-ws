@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,6 @@ package com.sun.xml.ws.model.wsdl;
 import com.sun.istack.NotNull;
 import com.sun.xml.ws.api.model.ParameterBinding;
 import com.sun.xml.ws.api.model.wsdl.WSDLMessage;
-import com.sun.xml.ws.api.model.wsdl.WSDLModel;
 import com.sun.xml.ws.api.model.wsdl.WSDLOperation;
 import com.sun.xml.ws.api.model.wsdl.WSDLPortType;
 import com.sun.xml.ws.api.model.wsdl.editable.EditableWSDLBoundOperation;
@@ -35,15 +34,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Implementation of {@link WSDLModel}
+ * Implementation of WSDLModel
  *
  * @author Vivek Pandey
  */
 public final class WSDLModelImpl extends AbstractExtensibleImpl implements EditableWSDLModel {
-    private final Map<QName, EditableWSDLMessage> messages = new HashMap<QName, EditableWSDLMessage>();
-    private final Map<QName, EditableWSDLPortType> portTypes = new HashMap<QName, EditableWSDLPortType>();
-    private final Map<QName, EditableWSDLBoundPortType> bindings = new HashMap<QName, EditableWSDLBoundPortType>();
-    private final Map<QName, EditableWSDLService> services = new LinkedHashMap<QName, EditableWSDLService>();
+    private final Map<QName, EditableWSDLMessage> messages = new HashMap<>();
+    private final Map<QName, EditableWSDLPortType> portTypes = new HashMap<>();
+    private final Map<QName, EditableWSDLBoundPortType> bindings = new HashMap<>();
+    private final Map<QName, EditableWSDLService> services = new LinkedHashMap<>();
 
     private PolicyMap policyMap;
     private final Map<QName, EditableWSDLBoundPortType> unmBindings
@@ -55,57 +54,69 @@ public final class WSDLModelImpl extends AbstractExtensibleImpl implements Edita
     }
 
     /**
-     * To create {@link WSDLModelImpl} from WSDL that doesn't have a system ID.
+     * To create WSDLModelImpl from WSDL that doesn't have a system ID.
      */
     public WSDLModelImpl() {
         super(null,-1);
     }
 
+    @Override
     public void addMessage(EditableWSDLMessage msg){
         messages.put(msg.getName(), msg);
     }
 
+    @Override
     public EditableWSDLMessage getMessage(QName name){
         return messages.get(name);
     }
 
+    @Override
     public void addPortType(EditableWSDLPortType pt){
         portTypes.put(pt.getName(), pt);
     }
 
+    @Override
     public EditableWSDLPortType getPortType(QName name){
         return portTypes.get(name);
     }
 
+    @Override
     public void addBinding(EditableWSDLBoundPortType boundPortType){
         assert !bindings.containsValue(boundPortType);
         bindings.put(boundPortType.getName(), boundPortType);
     }
 
+    @Override
     public EditableWSDLBoundPortType getBinding(QName name){
         return bindings.get(name);
     }
 
+    @Override
     public void addService(EditableWSDLService svc){
         services.put(svc.getName(), svc);
     }
 
+    @Override
     public EditableWSDLService getService(QName name){
         return services.get(name);
     }
 
+    @Override
     public Map<QName, EditableWSDLMessage> getMessages() {
         return messages;
     }
 
+    @Override
     public @NotNull Map<QName, EditableWSDLPortType> getPortTypes() {
         return portTypes;
     }
 
+    @Override
     public @NotNull Map<QName, ? extends EditableWSDLBoundPortType> getBindings() {
         return unmBindings;
     }
 
+    @Override
     public @NotNull Map<QName, EditableWSDLService> getServices(){
         return services;
     }
@@ -113,6 +124,7 @@ public final class WSDLModelImpl extends AbstractExtensibleImpl implements Edita
     /**
      * Returns the first service QName from insertion order
      */
+    @Override
     public QName getFirstServiceName(){
         if(services.isEmpty())
             return null;
@@ -126,6 +138,7 @@ public final class WSDLModelImpl extends AbstractExtensibleImpl implements Edita
      * @return
      *          WSDLBoundOperation on success otherwise null. throws NPE if any of the parameters null
      */
+    @Override
     public EditableWSDLBoundPortType getBinding(QName serviceName, QName portName){
         EditableWSDLService service = services.get(serviceName);
         if(service != null){
@@ -136,6 +149,7 @@ public final class WSDLModelImpl extends AbstractExtensibleImpl implements Edita
         return null;
     }
 
+    @Override
     public void finalizeRpcLitBinding(EditableWSDLBoundPortType boundPortType){
         assert(boundPortType != null);
         QName portTypeName = boundPortType.getPortTypeName();
@@ -188,14 +202,15 @@ public final class WSDLModelImpl extends AbstractExtensibleImpl implements Edita
      *
      * @return PolicyMap
      */
+    @Override
     public PolicyMap getPolicyMap() {
         return policyMap;
     }
 
     /**
      * Set PolicyMap for the WSDLModel.
-     * @param policyMap
      */
+    @Override
     public void setPolicyMap(PolicyMap policyMap) {
         this.policyMap = policyMap;
     }
@@ -203,6 +218,7 @@ public final class WSDLModelImpl extends AbstractExtensibleImpl implements Edita
     /**
      * Invoked at the end of the model construction to fix up references, etc.
      */
+    @Override
     public void freeze() {
         for (EditableWSDLService service : services.values()) {
             service.freeze(this);

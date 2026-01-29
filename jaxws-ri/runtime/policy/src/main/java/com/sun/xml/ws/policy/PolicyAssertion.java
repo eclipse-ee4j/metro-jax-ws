@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@ import com.sun.xml.ws.policy.sourcemodel.ModelNode;
  * NOTE: Assertion implementers should not extend this class directly. {@link SimpleAssertion} 
  * or {@link ComplexAssertion} should be used as a base class instead.
  * 
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  * @author Fabian Ritzmann
  */
 public abstract class PolicyAssertion {
@@ -170,35 +170,9 @@ public abstract class PolicyAssertion {
      * Returns the boolean information whether this assertion contains any parameters.
      *
      * @return {@code true} if the assertion contains parameters. Returns {@code false} otherwise.
-     *
-     * @deprecated Use hasParameters() instead
-     */
-    @Deprecated
-    public final boolean hasNestedAssertions() {
-        // TODO: remove
-        return !parameters.isEmpty();
-    }
-
-    /**
-     * Returns the boolean information whether this assertion contains any parameters.
-     *
-     * @return {@code true} if the assertion contains parameters. Returns {@code false} otherwise.
      */
     public final boolean hasParameters() {
         return !parameters.isEmpty();
-    }
-
-    /**
-     * Returns the assertion's parameter collection iterator.
-     *
-     * @return the assertion's parameter collection iterator.
-     *
-     * @deprecated Use getNestedParametersIterator() instead
-     */
-    @Deprecated
-    public final Iterator<PolicyAssertion> getNestedAssertionsIterator() {
-        // TODO: remove
-        return parameters.iterator();
     }
 
     /**
@@ -330,7 +304,7 @@ public abstract class PolicyAssertion {
 
         result = result && this.data.equals(that.data);
         result = result && this.parameters.equals(that.parameters);
-        result = result && ((this.getNestedPolicy() == null) ? ((that.getNestedPolicy() == null) ? true : false) : this.getNestedPolicy().equals(that.getNestedPolicy()));
+        result = result && ((this.getNestedPolicy() == null) ? (that.getNestedPolicy() == null) : this.getNestedPolicy().equals(that.getNestedPolicy()));
 
         return result;
     }

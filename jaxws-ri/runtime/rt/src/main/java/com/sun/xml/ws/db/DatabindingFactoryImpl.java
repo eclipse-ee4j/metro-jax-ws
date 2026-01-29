@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,12 +46,12 @@ public class DatabindingFactoryImpl extends DatabindingFactory {
 
 	static final String WsRuntimeFactoryDefaultImpl = "com.sun.xml.ws.db.DatabindingProviderImpl";
 
-	protected Map<String, Object> properties = new HashMap<String, Object>();
+	protected Map<String, Object> properties = new HashMap<>();
 	protected DatabindingProvider defaultRuntimeFactory;
 	protected List<DatabindingProvider> providers;
 
     static private List<DatabindingProvider> providers() {
-        List<DatabindingProvider> factories = new java.util.ArrayList<DatabindingProvider>();
+        List<DatabindingProvider> factories = new java.util.ArrayList<>();
         for (DatabindingProvider p : ServiceFinder.find(DatabindingProvider.class)) {
             factories.add(p);
         }
@@ -61,7 +61,8 @@ public class DatabindingFactoryImpl extends DatabindingFactory {
 	public DatabindingFactoryImpl() {
 	}
 
-	public Map<String, Object> properties() {
+	@Override
+    public Map<String, Object> properties() {
 		return properties;
 	}
 
@@ -85,7 +86,8 @@ public class DatabindingFactoryImpl extends DatabindingFactory {
         return provider;
     }
 	
-	public Databinding createRuntime(DatabindingConfig config) {
+	@Override
+    public Databinding createRuntime(DatabindingConfig config) {
 	    DatabindingProvider provider = provider(config);
 		return provider.create(config);
 	}
@@ -134,6 +136,7 @@ public class DatabindingFactoryImpl extends DatabindingFactory {
 		return p;
 	}
 
+    @Override
     public Builder createBuilder(Class<?> contractClass, Class<?> endpointClass) {
         return new ConfigBuilder(this, contractClass, endpointClass);
     }
@@ -148,38 +151,47 @@ public class DatabindingFactoryImpl extends DatabindingFactory {
             config.setContractClass(contractClass);
             config.setEndpointClass(implBeanClass);
         }
+        @Override
         public Builder targetNamespace(String targetNamespace) {
             config.getMappingInfo().setTargetNamespace(targetNamespace);
             return this;
         }
+        @Override
         public Builder serviceName(QName serviceName) {
             config.getMappingInfo().setServiceName(serviceName);
             return this;
         }
+        @Override
         public Builder portName(QName portName) {
             config.getMappingInfo().setPortName(portName);
             return this;
         }
+        @Override
         public Builder wsdlURL(URL wsdlURL) {
             config.setWsdlURL(wsdlURL);
             return this;
         }
+        @Override
         public Builder wsdlSource(Source wsdlSource) {
             config.setWsdlSource(wsdlSource);
             return this;
         }
+        @Override
         public Builder entityResolver(EntityResolver entityResolver) {
             config.setEntityResolver(entityResolver);
             return this;
         }
+        @Override
         public Builder classLoader(ClassLoader classLoader) {
             config.setClassLoader(classLoader);
             return this;
         }
+        @Override
         public Builder feature(WebServiceFeature... f) {
             config.setFeatures(f);
             return this;
         }
+        @Override
         public Builder property(String name, Object value) {
             config.properties().put(name, value);
             if (isfor(BindingID.class, name, value)) {
@@ -200,9 +212,11 @@ public class DatabindingFactoryImpl extends DatabindingFactory {
             return type.getName().equals(name) && type.isInstance(value);
         }
 
+        @Override
         public com.oracle.webservices.api.databinding.Databinding build() {
             return factory.createRuntime(config);
         }
+        @Override
         public com.oracle.webservices.api.databinding.WSDLGenerator createWSDLGenerator() {
             return factory.createWsdlGen(config);
         }       

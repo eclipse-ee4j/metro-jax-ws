@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,6 +54,7 @@ public class WSDLAddressPatcher extends Task {
         this.wsdl = wsdl;
     }
 
+    @Override
     public void execute() throws BuildException {
         try {
             Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(wsdl);
@@ -73,7 +74,7 @@ public class WSDLAddressPatcher extends Task {
     /**
      *
      * @param portName
-     *      If this is inside &lt;wsdl:port>, the port name.
+     *      If this is inside {@code <wsdl:port>}, the port name.
      *      Otherwise null
      * @param e
      *      Element that we are visiting.

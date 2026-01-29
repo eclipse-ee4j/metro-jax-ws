@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,6 +24,11 @@ import org.xml.sax.SAXException;
  * @since 2.2.6
  */
 public abstract class Plugin {
+
+    /**
+     * Default constructor.
+     */
+    protected Plugin() {}
 
     /**
      * Gets the option name to turn on this add-on.
@@ -59,7 +64,7 @@ public abstract class Plugin {
      * <p> Since options can appear in no particular order, WsImport allows
      * sub-options of a plugin to show up before the option that activates a
      * plugin (one that's returned by {@link #getOptionName()}.)
-     *
+     * <p>
      * But nevertheless a {@link Plugin} needs to be activated to participate in
      * further processing.
      *

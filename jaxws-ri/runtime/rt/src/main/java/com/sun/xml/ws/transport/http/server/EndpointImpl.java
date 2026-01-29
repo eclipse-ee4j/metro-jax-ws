@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,6 +19,7 @@ import com.sun.xml.ws.api.databinding.MetadataReader;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.binding.BindingImpl;
 import com.sun.xml.ws.api.server.*;
+import com.sun.xml.ws.resources.ServerMessages;
 import com.sun.xml.ws.server.EndpointFactory;
 import com.sun.xml.ws.server.ServerRtException;
 import com.sun.xml.ws.util.xml.XmlUtil;
@@ -120,6 +121,7 @@ public class EndpointImpl extends Endpoint {
      * @param serverContext supported http context
      * @deprecated This is a backdoor method. Don't use it unless you know what you are doing.
      */
+    @Deprecated
     public EndpointImpl(WSEndpoint wse, Object serverContext) {
     	this(wse, serverContext, null);
     }
@@ -133,6 +135,7 @@ public class EndpointImpl extends Endpoint {
      * @param ctxt endpoint context
      * @deprecated This is a backdoor method. Don't use it unless you know what you are doing.
      */
+    @Deprecated
     public EndpointImpl(WSEndpoint wse, Object serverContext, EndpointContext ctxt) {
     	endpointContext = ctxt;
         actualEndpoint = new HttpEndpoint(null, getAdapter(wse, ""));
@@ -151,6 +154,7 @@ public class EndpointImpl extends Endpoint {
      * @param address endpoint address
      * @deprecated This is a backdoor method. Don't use it unless you know what you are doing.
      */
+    @Deprecated
     public EndpointImpl(WSEndpoint wse, String address) {
     	this(wse, address, null);
     }
@@ -165,6 +169,7 @@ public class EndpointImpl extends Endpoint {
      * @param ctxt endpoint context
      * @deprecated This is a backdoor method. Don't use it unless you know what you are doing.
      */
+    @Deprecated
     public EndpointImpl(WSEndpoint wse, String address, EndpointContext ctxt) {
         URL url;
         try {
@@ -310,7 +315,7 @@ public class EndpointImpl extends Endpoint {
                 binding,
                 getPrimaryWsdl(metadataReader),
                 buildDocList(),
-                (EntityResolver) null,
+                null,
                 false
         );
         // Don't load HttpEndpoint class before as it may load HttpServer classes
@@ -341,7 +346,7 @@ public class EndpointImpl extends Endpoint {
 
                     r.add(SDDocumentSource.create(new URL(systemId), xsbr.getXMLStreamBuffer()));
                 } catch (TransformerException | IOException | SAXException | ParserConfigurationException te) {
-                    throw new ServerRtException("server.rt.err", te);
+                    throw new ServerRtException(ServerMessages.localizableSERVER_RT_ERR(te), te);
                 }
             }
         }

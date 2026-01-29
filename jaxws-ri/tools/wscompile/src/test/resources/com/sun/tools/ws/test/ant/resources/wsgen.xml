@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2011, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2011, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,27 +54,6 @@
         </taskdef>
     </target>
 
-    <target name="wsgen-server" depends="wsgen-init">
-        <javac srcdir="${src.dir}" destdir="${src.dir}" fork="true">
-            <classpath refid="task.cp"/>
-        </javac>
-
-        <wsgen
-            sei="test.TestWs"
-            resourcedestdir="${build.dir}"
-            destdir="${build.dir}"
-            sourcedestdir="${src.dir}"
-            genwsdl="true"
-            keep="true"
-            verbose="true"
-            xendorsed="true"
-            inlineSchemas="true">
-            <classpath>
-                <pathelement location="${src.dir}"/>
-            </classpath>
-        </wsgen>
-    </target>
-
     <target name="wsgen-server-utf16be" depends="wsgen-init">
         <javac srcdir="${src.dir}" destdir="${src.dir}" fork="true" encoding="UTF-16BE">
             <classpath refid="task.cp"/>
@@ -89,7 +68,6 @@
             keep="true"
             fork="true"
             verbose="true"
-            xendorsed="true"
             encoding="UTF-16BE"
             inlineSchemas="true">
             <classpath>
@@ -112,7 +90,6 @@
             genwsdl="true"
             keep="true"
             verbose="true"
-            xendorsed="true"
             encoding="foo.bar.encoding"
             inlineSchemas="true">
             <classpath>
@@ -134,7 +111,6 @@
             genwsdl="true"
             keep="true"
             verbose="true"
-            xendorsed="true"
             fork="true"
             inlineSchemas="true">
             <classpath>

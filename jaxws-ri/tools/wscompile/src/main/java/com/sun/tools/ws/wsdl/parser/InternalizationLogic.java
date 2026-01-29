@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,8 +15,8 @@ import org.xml.sax.helpers.XMLFilterImpl;
 
 /**
  * Encapsulates schema-language dependent internalization logic.
- *
- * {@link com.sun.tools.xjc.reader.internalizer.Internalizer} and {@link DOMForest} are responsible for
+ * <p>
+ * {@code com.sun.tools.xjc.reader.internalizer.Internalizer} and {@link DOMForest} are responsible for
  * doing schema language independent part, and this object is responsible
  * for schema language dependent part.
  *

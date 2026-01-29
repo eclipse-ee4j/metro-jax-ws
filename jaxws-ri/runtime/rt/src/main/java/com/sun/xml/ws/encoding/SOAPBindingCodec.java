@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,11 +20,11 @@ import com.sun.xml.ws.api.pipe.Codec;
 import com.sun.xml.ws.api.pipe.Codecs;
 import com.sun.xml.ws.api.pipe.ContentType;
 import com.sun.xml.ws.api.pipe.StreamSOAPCodec;
+import com.sun.xml.ws.binding.WebServiceFeatureList;
 import com.sun.xml.ws.client.ContentNegotiation;
 import com.sun.xml.ws.protocol.soap.MessageCreationException;
 import com.sun.xml.ws.resources.StreamingMessages;
 import com.sun.xml.ws.server.UnsupportedMediaException;
-import static com.sun.xml.ws.binding.WebServiceFeatureList.getSoapVersion;   
 import com.sun.xml.ws.util.FastInfosetUtil;
 
 import jakarta.xml.ws.WebServiceException;
@@ -135,7 +135,7 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
     }
     
     public SOAPBindingCodec(WSFeatureList features, StreamSOAPCodec xmlSoapCodec) {
-        super(getSoapVersion(features), features);
+        super(WebServiceFeatureList.getSoapVersion(features), features);
         
         this.xmlSoapCodec = xmlSoapCodec;
         xmlMimeType = xmlSoapCodec.getMimeType();
@@ -156,11 +156,11 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
                 fiSwaCodec = new SwACodec(version, features, fiSoapCodec);
                 connegXmlAccept = fiMimeType + ", " + clientAcceptedContentTypes;
                 
-                /**
-                 * This feature will only be present on the client side.
-                 *
-                 * Fast Infoset is enabled on the client if the service
-                 * explicitly supports Fast Infoset.
+                /*
+                  This feature will only be present on the client side.
+
+                  Fast Infoset is enabled on the client if the service
+                  explicitly supports Fast Infoset.
                  */
                 WebServiceFeature select = features.get(SelectOptimalEncodingFeature.class);
                 if (select != null) { // if the client FI feature is set - ignore negotiation property
@@ -194,7 +194,7 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
         
         xmlAccept = clientAcceptedContentTypes;
 
-        if(getSoapVersion(features) == null)
+        if(WebServiceFeatureList.getSoapVersion(features) == null)
             throw new WebServiceException("Expecting a SOAP binding but found ");
     }
     
@@ -411,10 +411,10 @@ public class SOAPBindingCodec extends MimeCodec implements com.sun.xml.ws.api.pi
      * Determines the encoding codec.
      */
     private Codec getEncoder(Packet p) {
-        /**
-         * The following logic is only for outbound packets
-         * to be encoded by a client.
-         * For a server the p.contentNegotiation == null.
+        /*
+          The following logic is only for outbound packets
+          to be encoded by a client.
+          For a server the p.contentNegotiation == null.
          */
         if (!ignoreContentNegotiationProperty) {
             if (p.contentNegotiation == ContentNegotiation.none) {

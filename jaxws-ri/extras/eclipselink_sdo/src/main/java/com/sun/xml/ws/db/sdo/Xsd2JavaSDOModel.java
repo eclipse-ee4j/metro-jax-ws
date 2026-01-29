@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,14 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: giglee
- * Date: May 14, 2009
- * Time: 11:11:25 AM
- * To change this template use File | Settings | File Templates.
- */
-
-/**
  * This class contains the result of java type mapping on a set of schemas.
  * It is only aware of the global elements for now.
  */
@@ -47,7 +39,6 @@ public class Xsd2JavaSDOModel {
 
     /**
      * write the java class to the code writer, see toplink CodeWriter interface
-     * @param cw
      */
     public void generateCode(CodeWriter cw) {
         if (types == null) {
@@ -59,11 +50,10 @@ public class Xsd2JavaSDOModel {
 
     /**
      * Receive a list of java classes modeled by this xsd2java model
-     * @return
      */
     public List<String> getClassList() {
         // the model only needs to know the interface class???
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         for (SDOType type : types) {
             list.add(type.getInstanceClassName());
         }
@@ -73,13 +63,11 @@ public class Xsd2JavaSDOModel {
     /**
      * Return the type qname used to define this java class
      *
-     * @param javaClass
-     * @return
      */
     public QName getXsdTypeName(String javaClass) {
         for (SDOType type : types) {
             if (type.getInstanceClassName().equals(javaClass)) {
-                return ((SDOType) type).getQName();
+                return type.getQName();
             }
         }
         return null;
@@ -89,8 +77,6 @@ public class Xsd2JavaSDOModel {
      * return the java type used for the element, only Global elements can be located.
      * Containing types are not searched
      *
-     * @param qname
-     * @return
      */
     public String getJavaTypeForElementName(QName qname) {
         XSDHelper xsdHelper = context.getXSDHelper();
@@ -107,8 +93,6 @@ public class Xsd2JavaSDOModel {
 
     /**
      * return the java type for a given xsd type
-     * @param name
-     * @return
      */
     public String getJavaTypeForElementType(QName name) {
         if (types != null) {

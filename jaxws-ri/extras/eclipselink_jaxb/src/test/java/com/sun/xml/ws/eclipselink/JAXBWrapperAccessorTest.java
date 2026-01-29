@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,6 +11,8 @@
 package com.sun.xml.ws.eclipselink;
 
 import javax.xml.namespace.QName;
+
+import com.sun.xml.ws.db.toplink.JAXBContextFactory;
 import jakarta.xml.ws.WebServiceFeature;
 
 import com.oracle.webservices.api.databinding.Databinding;
@@ -51,7 +53,7 @@ public class JAXBWrapperAccessorTest extends TestCase {
         DatabindingFactory fac = DatabindingFactory.newInstance();
         Databinding.Builder b = fac.createBuilder(sei, null);
         DatabindingModeFeature dbf = new DatabindingModeFeature(
-                "eclipselink.jaxb");
+                JAXBContextFactory.ECLIPSELINK_JAXB);
         WebServiceFeature[] f = { dbf };
         b.feature(f);
         String ns = "http://performance.bea.com";
@@ -61,7 +63,7 @@ public class JAXBWrapperAccessorTest extends TestCase {
 
     }    
 
-    @DatabindingMode("eclipselink.jaxb")
+    @DatabindingMode(JAXBContextFactory.ECLIPSELINK_JAXB)
     static class SEB {}       
     public void testDatabindingModeAnnotationToFeature() throws Exception {
         DatabindingMode a = SEB.class.getAnnotation(DatabindingMode.class); 

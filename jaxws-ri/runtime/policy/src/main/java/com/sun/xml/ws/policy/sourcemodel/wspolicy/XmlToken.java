@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,7 @@ package com.sun.xml.ws.policy.sourcemodel.wspolicy;
 
 /**
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public enum XmlToken {
     Policy("Policy", true),
@@ -36,8 +36,7 @@ public enum XmlToken {
      * Resolves URI represented as a String into an enumeration value. If the URI 
      * doesn't represent any existing enumeration value, method returns {@code null}
      * 
-     * @param name
-     * @return Enumeration value that represents given URI or {@code null} if 
+     * @return Enumeration value that represents given URI or {@code null} if
      * no enumeration value exists for given URI.
      */
     public static XmlToken resolveToken(String name) {

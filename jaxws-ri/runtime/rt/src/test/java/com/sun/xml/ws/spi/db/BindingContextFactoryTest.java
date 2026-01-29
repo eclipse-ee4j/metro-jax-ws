@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2015, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -114,7 +114,7 @@ public class BindingContextFactoryTest extends TestCase {
         }
 
         @Override
-        public Object newWrapperInstace(Class<?> wrapperType) throws InstantiationException, IllegalAccessException {
+        public Object newWrapperInstace(Class<?> wrapperType) throws ReflectiveOperationException {
             return null;
         }
 
@@ -186,10 +186,6 @@ public class BindingContextFactoryTest extends TestCase {
             return false;
         }
 
-        @Override
-        protected BindingContext getContext(Marshaller m) {
-            throw new IllegalStateException();
-        }
     }
 
     private static class JaxbWithException extends BindingContextFactory {
@@ -203,11 +199,6 @@ public class BindingContextFactoryTest extends TestCase {
         @Override
         protected BindingContext newContext(BindingInfo bi) {
             throw new IllegalStateException("Bad context");
-        }
-
-        @Override
-        protected BindingContext getContext(Marshaller m) {
-            return null;
         }
 
         @Override
@@ -239,10 +230,6 @@ public class BindingContextFactoryTest extends TestCase {
             return false;
         }
 
-        @Override
-        protected BindingContext getContext(Marshaller m) {
-            return null;
-        }
     }
 
     private static class Jaxb extends Good {

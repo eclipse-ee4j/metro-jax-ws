@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -59,12 +59,12 @@ public abstract class RpclitTest extends TestCase implements Const, Benchmark {
         rpclitIntArray = of.createIntegerArray();
         List<Integer> intList = rpclitIntArray.getValue();
         for (int i=0; i<intArray.length; i++)
-            intList.add(i, new Integer(intArray[i]));
+            intList.add(i, Integer.valueOf(intArray[i]));
 
         rpclitFloatArray = of.createFloatArray();
         List<Float> floatList = rpclitFloatArray.getValue();
         for (int i=0; i<floatArray.length; i++)
-            floatList.add(i, new Float(floatArray[i]));
+            floatList.add(i, Float.valueOf(floatArray[i]));
 
         DatatypeFactory dtf = DatatypeFactory.newInstance();
         Calendar cal = Calendar.getInstance();

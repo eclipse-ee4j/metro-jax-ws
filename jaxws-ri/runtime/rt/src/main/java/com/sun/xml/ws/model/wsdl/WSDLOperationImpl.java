@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,47 +46,57 @@ public final class WSDLOperationImpl extends AbstractExtensibleImpl implements E
     public WSDLOperationImpl(XMLStreamReader xsr, EditableWSDLPortType owner, QName name) {
         super(xsr);
         this.name = name;
-        this.faults = new ArrayList<EditableWSDLFault>();
-        this.faultMap = new QNameMap<EditableWSDLFault>();
+        this.faults = new ArrayList<>();
+        this.faultMap = new QNameMap<>();
         this.owner = owner;
     }
 
+    @Override
     public QName getName() {
         return name;
     }
 
+    @Override
     public String getParameterOrder() {
         return parameterOrder;
     }
 
+    @Override
     public void setParameterOrder(String parameterOrder) {
         this.parameterOrder = parameterOrder;
     }
 
+    @Override
     public EditableWSDLInput getInput() {
         return input;
     }
 
+    @Override
     public void setInput(EditableWSDLInput input) {
         this.input = input;
     }
 
+    @Override
     public EditableWSDLOutput getOutput() {
         return output;
     }
 
+    @Override
     public boolean isOneWay() {
         return output == null;
     }
 
+    @Override
     public void setOutput(EditableWSDLOutput output) {
         this.output = output;
     }
 
+    @Override
     public Iterable<EditableWSDLFault> getFaults() {
         return faults;
     }
 
+    @Override
     public EditableWSDLFault getFault(QName faultDetailName) {
         EditableWSDLFault fault = faultMap.get(faultDetailName);
         if(fault != null)
@@ -103,15 +113,18 @@ public final class WSDLOperationImpl extends AbstractExtensibleImpl implements E
         return null;
     }
     
+    @Override
     @NotNull
     public QName getPortTypeName() {
         return owner.getName();
     }
 
+    @Override
     public void addFault(EditableWSDLFault fault) {
         faults.add(fault);
     }
 
+    @Override
     public void freeze(EditableWSDLModel root) {
         assert input != null;
         input.freeze(root);

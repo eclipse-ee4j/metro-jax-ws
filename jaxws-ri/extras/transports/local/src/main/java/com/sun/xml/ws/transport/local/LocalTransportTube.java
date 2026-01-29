@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,6 @@
 package com.sun.xml.ws.transport.local;
 
 import com.sun.istack.NotNull;
-import com.sun.xml.ws.api.WSBinding;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.api.pipe.Codec;
 import com.sun.xml.ws.api.pipe.ContentType;
@@ -25,11 +24,16 @@ import com.sun.xml.ws.client.ContentNegotiation;
 import com.sun.xml.ws.transport.http.HttpAdapter;
 import com.sun.xml.ws.transport.http.WSHTTPConnection;
 
+import com.sun.xml.ws.util.MessageWriter;
+import com.sun.xml.ws.util.UtilException;
 import jakarta.xml.ws.WebServiceException;
-import jakarta.xml.ws.BindingProvider;
 import jakarta.xml.ws.handler.MessageContext;
+
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
@@ -67,9 +71,9 @@ final class LocalTransportTube extends AbstractTubeImpl {
     // per-pipe reusable resources.
     // we don't really have to reuse anything since this isn't designed for performance,
     // but nevertheless we do it as an experiement.
-    private final Map<String, List<String>> reqHeaders = new HashMap<String, List<String>>();
+    private final Map<String, List<String>> reqHeaders = new HashMap<>();
 
-    public LocalTransportTube(URI baseURI, WSEndpoint endpoint, Codec codec) {
+    public LocalTransportTube(URI baseURI, WSEndpoint<?> endpoint, Codec codec) {
         this(baseURI,HttpAdapter.createAlone(endpoint),codec);
     }
 
@@ -88,10 +92,12 @@ final class LocalTransportTube extends AbstractTubeImpl {
         cloner.add(that,this);
     }
 
+    @Override
     public @NotNull NextAction processException(@NotNull Throwable t) {
         return doThrow(t);
     }
 
+    @Override
     public Packet process(Packet request) {
 
         try {
@@ -99,6 +105,7 @@ final class LocalTransportTube extends AbstractTubeImpl {
 
             // get transport headers from message
             reqHeaders.clear();
+            @SuppressWarnings({"unchecked"})
             Map<String, List<String>> rh = (Map<String, List<String>>) request.invocationProperties.get(MessageContext.HTTP_REQUEST_HEADERS);
             //assign empty map if its null
             if(rh != null){
@@ -151,8 +158,6 @@ final class LocalTransportTube extends AbstractTubeImpl {
             Packet reply = request.createClientResponse(null);
             codec.decode(con.getInput(), responseContentType, reply);
             return reply;
-        } catch (WebServiceException wex) {
-            throw wex;
         } catch (IOException ex) {
             throw new WebServiceException(ex);
         }
@@ -212,41 +217,58 @@ final class LocalTransportTube extends AbstractTubeImpl {
         return null;
     }
 
+    @Override
     @NotNull
     public NextAction processRequest(@NotNull Packet request) {
         return doReturnWith(process(request));
     }
 
+    @Override
     @NotNull
     public NextAction processResponse(@NotNull Packet response) {
         throw new IllegalStateException("LocalTransportPipe's processResponse shouldn't be called.");
     }
 
+    @Override
     public void preDestroy() {
         // Nothing to do here. Intenionally left empty
     }
 
+    @Override
     public LocalTransportTube copy(TubeCloner cloner) {
         return new LocalTransportTube(this, cloner);
     }
 
-    private void dump(LocalConnectionImpl con, String caption, Map<String,List<String>> headers) {
-        System.out.println("---["+caption +"]---");
+    private void dump(LocalConnectionImpl con, String caption, Map<String,List<String>> headers) throws IOException {
+        MessageWriter pw = new MessageWriter(new OutputStreamWriter(System.out), 32 * 1024);
+        pw.println("---["+caption +"]---");
         if(headers!=null) {
             for (Entry<String,List<String>> header : headers.entrySet()) {
                 if(header.getValue().isEmpty()) {
                     // I don't think this is legal, but let's just dump it,
                     // as the point of the dump is to uncover problems.
-                    System.out.println(header.getValue());
+                    pw.println(header.getValue());
                 } else {
                     for (String value : header.getValue()) {
-                        System.out.println(header.getKey()+": "+value);
+                        pw.println(header.getKey() + ": " + value);
                     }
                 }
             }
+            pw.println("\n");
         }
-        System.out.println(con.toString());
-        System.out.println("--------------------");
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInput()));
+        String line = reader.readLine();
+        try {
+            while (line != null) {
+                pw.write(line);
+                line = reader.readLine();
+            }
+            pw.write("--------------------");
+        } catch (UtilException ue) {
+            System.out.println("...large output...");
+            System.out.println("--------------------");
+        }
     }
 
     /**

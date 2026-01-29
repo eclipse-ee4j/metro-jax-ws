@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,8 +12,6 @@ package com.oracle.webservices.api.message;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.ByteBuffer;
-import java.nio.channels.WritableByteChannel;
 
 import jakarta.xml.soap.SOAPException;
 import jakarta.xml.soap.SOAPMessage;
@@ -40,17 +38,10 @@ public interface MessageContext extends DistributedPropertySet {
      * @return The SOAPMessage
      */
     SOAPMessage getAsSOAPMessage() throws SOAPException;
-    
-    /**
-     * Gets the SAAJ SOAPMessage representation of the SOAP message.
-     * @deprecated use getAsSOAPMessage
-     * @return The SOAPMessage
-     */
-    SOAPMessage getSOAPMessage() throws SOAPException;
 
     /**
      * Writes the XML infoset portion of this MessageContext
-     * (from &lt;soap:Envelope> to &lt;/soap:Envelope>).
+     * (from &lt;soap:Envelope&gt; to &lt;/soap:Envelope&gt;).
      *
      * @param out
      *      Must not be null. The caller is responsible for closing the stream,
@@ -65,13 +56,13 @@ public interface MessageContext extends DistributedPropertySet {
      */
     ContentType writeTo( OutputStream out ) throws IOException;
 
-    /**
-     * The version of {@link #writeTo(OutputStream)}
-     * that writes to NIO {@link ByteBuffer}.
-     *
-     * <p>
-     * TODO: for the convenience of implementation, write
-     * an adapter that wraps {@link WritableByteChannel} to {@link OutputStream}.
+    /*
+      The version of {@link #writeTo(OutputStream)}
+      that writes to NIO {@link ByteBuffer}.
+
+      <p>
+      TODO: for the convenience of implementation, write
+      an adapter that wraps {@link WritableByteChannel} to {@link OutputStream}.
      */
 //  ContentType writeTo( WritableByteChannel buffer );
     

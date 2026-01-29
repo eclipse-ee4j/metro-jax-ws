@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,6 +37,7 @@ public class StreamHeader11 extends StreamHeader {
         super(reader);
     }
 
+    @Override
     protected final FinalArrayList<Attribute> processHeaderAttributes(XMLStreamReader reader) {
         FinalArrayList<Attribute> atts = null;
 
@@ -58,7 +59,7 @@ public class StreamHeader11 extends StreamHeader {
             }
 
             if(atts==null) {
-                atts = new FinalArrayList<Attribute>();
+                atts = new FinalArrayList<>();
             }
             atts.add(new Attribute(namespaceURI,localName,value));
         }

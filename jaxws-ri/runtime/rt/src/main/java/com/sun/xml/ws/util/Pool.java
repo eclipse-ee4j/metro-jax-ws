@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,6 +40,11 @@ public abstract class Pool<T> {
     private volatile SoftReference<ConcurrentLinkedQueue<T>> queue;
 
     /**
+     * Default constructor.
+     */
+    protected Pool() {}
+
+    /**
      * Gets a new object from the pool.
      *
      * <p>
@@ -64,8 +69,8 @@ public abstract class Pool<T> {
         }
 
         // overwrite the queue
-        ConcurrentLinkedQueue<T> d = new ConcurrentLinkedQueue<T>();
-        queue = new SoftReference<ConcurrentLinkedQueue<T>>(d);
+        ConcurrentLinkedQueue<T> d = new ConcurrentLinkedQueue<>();
+        queue = new SoftReference<>(d);
 
         return d;
     }
@@ -156,7 +161,7 @@ public abstract class Pool<T> {
          * tubeline is required and safe, such as Stub.close()."
          */
         @Deprecated()
-        public final Tube takeMaster() {
+        public Tube takeMaster() {
             return master;
         }
         

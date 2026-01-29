@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,10 +27,10 @@
         echoPort.echoGenericInteger(holder);
         holder.value = null;
         echoPort.echoGenericInteger(holder);
-        holder.value = new Integer(33);
+        holder.value = Integer.valueOf(33);
         assertEquals(33, holder.value);
 
-        assertEquals(66, echoPort.echoGenericObject(new Integer(66)));
+        assertEquals(66, echoPort.echoGenericObject(Integer.valueOf(66)));
         assertEquals("bill", echoPort.echoGenericObject("bill"));
   ]]></client>
     
@@ -132,7 +132,7 @@
         assertEquals(77L, echoPort.echoInHeader(33, 44L));
         assertEquals(77L, echoPort.echoIn2Header(33, 44L, "dirk"));
 
-        Holder longHolder = new Holder(new Long(44));
+        Holder longHolder = new Holder(Long.valueOf(44));
         assertEquals(121L, echoPort.echoInOutHeader(33, longHolder));
         assertEquals(88L, longHolder.value);
 

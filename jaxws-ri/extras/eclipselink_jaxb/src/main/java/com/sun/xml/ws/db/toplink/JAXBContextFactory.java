@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +23,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.XMLConstants;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -67,21 +66,27 @@ import com.sun.xml.ws.spi.db.WrapperComposite;
  */
 public class JAXBContextFactory extends BindingContextFactory {
 
-    static final public String OXM_XML_OVERRIDE = JAXBContextProperties.OXM_METADATA_SOURCE;
-    static final public String OXM_XML_ELEMENT = JAXBContextProperties.DEFAULT_TARGET_NAMESPACE;
+    public static final String ECLIPSELINK_JAXB = "eclipselink.jaxb";
+
+    private static DocumentBuilderFactory docBuilderFactory;
+    private static String OXMTNS = "http://www.eclipse.org/eclipselink/xsds/persistence/oxm";
+
+    static {
+        docBuilderFactory = XmlUtil.newDocumentBuilderFactory(true);
+        docBuilderFactory.setNamespaceAware(true);
+    }
+
+    /**
+     * Default constructor.
+     */
+    public JAXBContextFactory() {}
 
     @Override
     protected boolean isFor(String str) {
-        return (str.equals("toplink.jaxb")
-                || str.equals("eclipselink.jaxb")
+        return (ECLIPSELINK_JAXB.equals(str)
+                || str.equals("toplink.jaxb")
                 || str.equals(this.getClass().getName())
                 || str.equals("org.eclipse.persistence.jaxb"));
-    }
-
-    @Override
-    protected BindingContext getContext(Marshaller m) {
-        //org.eclipse.persistence.jaxb.JAXBMarshaller jm = (org.eclipse.persistence.jaxb.JAXBMarshaller) m;
-        return null;
     }
 
     @Override
@@ -91,8 +96,9 @@ public class JAXBContextFactory extends BindingContextFactory {
 
     @Override
     protected BindingContext newContext(BindingInfo bi) {
-        Map<String, Source> extMapping = (Map<String, Source>) bi.properties().get(OXM_XML_OVERRIDE);
-        Map<String, Object> properties = new HashMap<String, Object>();
+        @SuppressWarnings({"unchecked"})
+        Map<String, Source> extMapping = (Map<String, Source>) bi.properties().get(JAXBContextProperties.OXM_METADATA_SOURCE);
+        Map<String, Object> properties = new HashMap<>();
         Map<TypeInfo, TypeMappingInfo> map = createTypeMappings(bi.typeInfos());
         //chen workaround for document-literal wrapper - new feature on eclipselink API requested
         for (TypeInfo tinfo : map.keySet()) {
@@ -134,8 +140,8 @@ public class JAXBContextFactory extends BindingContextFactory {
 //	        }
 //		}
 
-        HashSet<Type> typeSet = new HashSet<Type>();
-        HashSet<TypeMappingInfo> typeList = new HashSet<TypeMappingInfo>();
+        HashSet<Type> typeSet = new HashSet<>();
+        HashSet<TypeMappingInfo> typeList = new HashSet<>();
         for (TypeMappingInfo tmi : map.values()) {
             typeList.add(tmi);
             typeSet.add(tmi.getType());
@@ -148,12 +154,12 @@ public class JAXBContextFactory extends BindingContextFactory {
                 typeList.add(tmi);
             }
         }
-        TypeMappingInfo[] types = typeList.toArray(new TypeMappingInfo[typeList.size()]);
+        TypeMappingInfo[] types = typeList.toArray(new TypeMappingInfo[0]);
         if (extMapping != null) {
-            properties.put(OXM_XML_OVERRIDE, extMapping);
+            properties.put(JAXBContextProperties.OXM_METADATA_SOURCE, extMapping);
         }
         if (bi.getDefaultNamespace() != null) {
-            properties.put(OXM_XML_ELEMENT, bi.getDefaultNamespace());
+            properties.put(JAXBContextProperties.DEFAULT_TARGET_NAMESPACE, bi.getDefaultNamespace());
         }
         try {
             org.eclipse.persistence.jaxb.JAXBContext jaxbContext = (org.eclipse.persistence.jaxb.JAXBContext) org.eclipse.persistence.jaxb.JAXBContextFactory
@@ -164,7 +170,7 @@ public class JAXBContextFactory extends BindingContextFactory {
         }
     }
 
-    private String getFieldName(ParameterImpl p, Class wrpCls) {
+    private String getFieldName(ParameterImpl p, Class<?> wrpCls) {
         for (Field f : wrpCls.getFields()) {
             XmlElement xe = f.getAnnotation(XmlElement.class);
             if (xe != null && p.getName().getLocalPart().equals(xe.name())) {
@@ -176,13 +182,6 @@ public class JAXBContextFactory extends BindingContextFactory {
             }
         }
         return null;
-    }
-    static DocumentBuilderFactory docBuilderFactory;
-    static String OXMTNS = "http://www.eclipse.org/eclipselink/xsds/persistence/oxm";
-
-    static {
-        docBuilderFactory = XmlUtil.newDocumentBuilderFactory(true);
-        docBuilderFactory.setNamespaceAware(true);
     }
 
     private Element javaAttributes(Class<?> wrpCls, Map<String, Source> extMapping) {
@@ -256,8 +255,6 @@ public class JAXBContextFactory extends BindingContextFactory {
                     } else if (n instanceof Element) {
                         xmlbindings = (Element) n;
                     }
-                } catch (TransformerConfigurationException e) {
-                    throw new WebServiceException(e.getMessage(), e);
                 } catch (TransformerException e) {
                     throw new WebServiceException(e.getMessage(), e);
                 }
@@ -276,7 +273,7 @@ public class JAXBContextFactory extends BindingContextFactory {
     }
 
     static Map<TypeInfo, TypeMappingInfo> createTypeMappings(Collection<TypeInfo> col) {
-        Map<TypeInfo, TypeMappingInfo> refs = new HashMap<TypeInfo, TypeMappingInfo>();
+        Map<TypeInfo, TypeMappingInfo> refs = new HashMap<>();
         if (col == null || col.isEmpty()) {
             return refs;
         }
@@ -357,7 +354,7 @@ public class JAXBContextFactory extends BindingContextFactory {
                 // Filter out non-JAXB annotations.
                 Annotation[] aa = e.annotations;
                 if (aa != null && aa.length != 0) {
-                    List<Annotation> la = new ArrayList<Annotation>();
+                    List<Annotation> la = new ArrayList<>();
                     for (Annotation a : aa) {
                         for (Class<?> clz : a.getClass().getInterfaces()) {
                             if (clz.getName().startsWith(
@@ -367,7 +364,7 @@ public class JAXBContextFactory extends BindingContextFactory {
                             }
                         }
                     }
-                    aa = la.toArray(new Annotation[la.size()]);
+                    aa = la.toArray(new Annotation[0]);
                     // System.out.println("filtered: " + la);
                 }
                 tmi.setAnnotations(aa);
@@ -385,7 +382,7 @@ public class JAXBContextFactory extends BindingContextFactory {
     }
 
     private static Element findXmlElement(Map<String, Object> properties) {
-        return (Element) properties.get(OXM_XML_ELEMENT);
+        return (Element) properties.get(JAXBContextProperties.DEFAULT_TARGET_NAMESPACE);
     }
 
     private static TypeInfo repeatedWrapee(TypeInfo e, Element xmlAnn) {

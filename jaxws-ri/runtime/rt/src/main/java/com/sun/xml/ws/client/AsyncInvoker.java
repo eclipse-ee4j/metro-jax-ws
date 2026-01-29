@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,9 +11,8 @@
 package com.sun.xml.ws.client;
 
 import com.sun.xml.ws.api.message.Packet;
-import com.sun.xml.ws.api.pipe.Fiber.CompletionCallback;
+import com.sun.xml.ws.api.pipe.Fiber;
 import com.sun.xml.ws.api.pipe.Tube;
-
 import jakarta.xml.ws.WebServiceException;
 
 /**
@@ -30,33 +29,40 @@ public abstract class AsyncInvoker implements Runnable {
      */
     protected AsyncResponseImpl responseImpl;
     protected boolean nonNullAsyncHandlerGiven;
-    
+
+    /**
+     * Default constructor.
+     */
+    protected AsyncInvoker() {
+    }
+
     public void setReceiver(AsyncResponseImpl responseImpl) {
         this.responseImpl = responseImpl;
     }
 
-  public AsyncResponseImpl getResponseImpl() {
-    return responseImpl;
-  }
+    public AsyncResponseImpl getResponseImpl() {
+        return responseImpl;
+    }
 
-  public void setResponseImpl(AsyncResponseImpl responseImpl) {
-    this.responseImpl = responseImpl;
-  }
+    public void setResponseImpl(AsyncResponseImpl responseImpl) {
+        this.responseImpl = responseImpl;
+    }
 
-  public boolean isNonNullAsyncHandlerGiven() {
-    return nonNullAsyncHandlerGiven;
-  }
+    public boolean isNonNullAsyncHandlerGiven() {
+        return nonNullAsyncHandlerGiven;
+    }
 
-  public void setNonNullAsyncHandlerGiven(boolean nonNullAsyncHandlerGiven) {
-    this.nonNullAsyncHandlerGiven = nonNullAsyncHandlerGiven;
-  }
+    public void setNonNullAsyncHandlerGiven(boolean nonNullAsyncHandlerGiven) {
+        this.nonNullAsyncHandlerGiven = nonNullAsyncHandlerGiven;
+    }
 
-  public void run () {
+    @Override
+    public void run() {
         try {
             do_run();
-        }catch(WebServiceException e) {
+        } catch (WebServiceException e) {
             throw e;
-        }catch(Throwable t) {
+        } catch (Throwable t) {
             //Wrap it in WebServiceException
             throw new WebServiceException(t);
         }

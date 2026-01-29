@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,13 +28,10 @@ import javax.xml.stream.XMLInputFactory;
 import jakarta.xml.ws.WebServiceException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.security.AccessController;
-import java.security.PrivilegedExceptionAction;
 import java.util.logging.Level;
 
 /**
@@ -46,29 +43,31 @@ import java.util.logging.Level;
  * then used in {@link TubelineAssemblyController} to construct the list of
  * {@link TubeCreator} objects that are used in the actual tubeline construction.
  *
- * @author Marek Potociar <marek.potociar at sun.com>
+ * @author Marek Potociar
  */
 // TODO Move the logic of this class directly into MetroConfig class.
 class MetroConfigLoader {
 
-    private static final String JAXWS_TUBES_JDK_XML_RESOURCE = "jaxws-tubes-default.xml";
+    private static final String JAXWS_TUBES_DEFAULT_XML_RESOURCE = "jaxws-tubes-default.xml";
     private static final Logger LOGGER = Logger.getLogger(MetroConfigLoader.class);
 
     private MetroConfigName defaultTubesConfigNames;
 
-    private static interface TubeFactoryListResolver {
+    private interface TubeFactoryListResolver {
 
         TubeFactoryList getFactories(TubelineDefinition td);
     }
 
     private static final TubeFactoryListResolver ENDPOINT_SIDE_RESOLVER = new TubeFactoryListResolver() {
 
+        @Override
         public TubeFactoryList getFactories(TubelineDefinition td) {
             return (td != null) ? td.getEndpointSide() : null;
         }
     };
     private static final TubeFactoryListResolver CLIENT_SIDE_RESOLVER = new TubeFactoryListResolver() {
 
+        @Override
         public TubeFactoryList getFactories(TubelineDefinition td) {
             return (td != null) ? td.getClientSide() : null;
         }
@@ -225,7 +224,7 @@ class MetroConfigLoader {
         try (InputStream is = getConfigInputStream(resourceUrl)) {
             JAXBContext jaxbContext = createJAXBContext();
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            XMLInputFactory factory = XmlUtil.newXMLInputFactory(true);
+            XMLInputFactory factory = XmlUtil.newXMLInputFactory(false);
             JAXBElement<MetroConfig> configElement = unmarshaller.unmarshal(factory.createXMLStreamReader(is), MetroConfig.class);
             return configElement.getValue();
         } catch (Exception e) {
@@ -242,41 +241,31 @@ class MetroConfigLoader {
         if (resourceUrl != null) {
             is = resourceUrl.openStream();
         } else {
-            is = MetroConfigLoader.class.getResourceAsStream(JAXWS_TUBES_JDK_XML_RESOURCE);
+            //the only case this can happen is when some extension does not provide
+            //a resource which it also defines; in pre-SE11 env, this would fallback
+            //to the runtime included in the JDK, in SE11+, we must be the fallback
+            URL resUrl = MetroConfigLoader.class.getResource(JAXWS_TUBES_DEFAULT_XML_RESOURCE);
+            LOGGER.config(TubelineassemblyMessages.MASM_0021_BUILTIN_CFG_FILE(JAXWS_TUBES_DEFAULT_XML_RESOURCE, resUrl));
 
-            if (is == null)
+            if (resUrl == null) {
                 throw LOGGER.logSevereException(
                         new IllegalStateException(
-                                TubelineassemblyMessages.MASM_0001_DEFAULT_CFG_FILE_NOT_FOUND(JAXWS_TUBES_JDK_XML_RESOURCE)));
+                                TubelineassemblyMessages.MASM_0001_DEFAULT_CFG_FILE_NOT_FOUND(JAXWS_TUBES_DEFAULT_XML_RESOURCE)));
+            }
+            is = resUrl.openStream();
         }
 
         return is;
     }
 
     private static JAXBContext createJAXBContext() throws Exception {
-        if (isJDKInternal()) {
-            // since jdk classes are repackaged, extra privilege is necessary to create JAXBContext
-            return AccessController.doPrivileged(
-                    new PrivilegedExceptionAction<JAXBContext>() {
-                        @Override
-                        public JAXBContext run() throws Exception {
-                            return JAXBContext.newInstance(MetroConfig.class.getPackage().getName());
-                        }
-                    });
-        } else {
-            // usage from JAX-WS/Metro/Glassfish
-            return JAXBContext.newInstance(MetroConfig.class.getPackage().getName());
-        }
+        // usage from JAX-WS/Metro/Glassfish
+        return JAXBContext.newInstance(MetroConfig.class.getPackage().getName());
     }
 
-    private static boolean isJDKInternal() {
-        // avoid "string repackaging"
-        return MetroConfigLoader.class.getName().startsWith("com." + "sun.xml.internal.ws");
-    }
 
     private static class MetroConfigUrlLoader extends ResourceLoader {
 
-        Container container; // TODO remove the field together with the code path using it (see below)
         ResourceLoader parentLoader;
 
         MetroConfigUrlLoader(ResourceLoader parentLoader) {
@@ -285,7 +274,6 @@ class MetroConfigLoader {
 
         MetroConfigUrlLoader(Container container) {
             this((container != null) ? container.getSPI(ResourceLoader.class) : null);
-            this.container = container;
         }
 
         @Override
@@ -303,11 +291,6 @@ class MetroConfigLoader {
 
                 if (resourceUrl == null) {
                     resourceUrl = loadViaClassLoaders("META-INF/" + resource);
-                }
-
-                if (resourceUrl == null && container != null) {
-                    // TODO: we should remove this code path, the config file should be loaded using ResourceLoader only
-                    resourceUrl = loadFromServletContext(resource);
                 }
 
                 return resourceUrl;
@@ -330,32 +313,6 @@ class MetroConfigLoader {
 
         private static URL tryLoadFromClassLoader(final String resource, final ClassLoader loader) {
             return (loader != null) ? loader.getResource(resource) : null;
-        }
-
-        private URL loadFromServletContext(String resource) throws RuntimeException {
-            Object context = null;
-            try {
-                final Class<?> contextClass = Class.forName("jakarta.servlet.ServletContext");
-                context = container.getSPI(contextClass);
-                if (context != null) {
-                    if (LOGGER.isLoggable(Level.FINE)) {
-                        LOGGER.fine(TubelineassemblyMessages.MASM_0012_LOADING_VIA_SERVLET_CONTEXT(resource, context));
-                    }
-                    try {
-                        final Method method = context.getClass().getMethod("getResource", String.class);
-                        method.setAccessible(true);
-                        final Object result = method.invoke(context, "/WEB-INF/" + resource);
-                        return URL.class.cast(result);
-                    } catch (Exception e) {
-                        throw LOGGER.logSevereException(new RuntimeException(TubelineassemblyMessages.MASM_0013_ERROR_INVOKING_SERVLET_CONTEXT_METHOD("getResource()")), e);
-                    }
-                }
-            } catch (ClassNotFoundException e) {
-                if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.fine(TubelineassemblyMessages.MASM_0014_UNABLE_TO_LOAD_CLASS("jakarta.servlet.ServletContext"));
-                }
-            }
-            return null;
         }
     }
 

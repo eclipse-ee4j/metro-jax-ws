@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,6 @@ public interface WSDLBoundFault extends WSDLObject, WSDLExtensible {
     /**
      * Gives the wsdl:binding/wsdl:operation/wsdl:fault@name value
      */
-    public
     @NotNull
     String getName();
 
@@ -37,7 +36,7 @@ public interface WSDLBoundFault extends WSDLObject, WSDLExtensible {
      * corresponding fault in abstractwsdl:portType/wsdl:operation then the namespace URI of the fault will be that of
      * the WSDBoundPortType.
      */
-    public @Nullable QName getQName();
+    @Nullable QName getQName();
 
     /**
      * Gives the associated abstract fault from
@@ -47,7 +46,6 @@ public interface WSDLBoundFault extends WSDLObject, WSDLExtensible {
      * Maybe null if a binding fault has no corresponding fault in abstract
      * wsdl:portType/wsdl:operation
      */
-    public
     @Nullable
     WSDLFault getFault();
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -55,10 +55,12 @@ public class PipeAdapter extends AbstractTubeImpl {
                     this.t = cloner.copy(that.t);
                 }
 
+                @Override
                 public Packet process(Packet request) {
                     return Fiber.current().runSync(t,request);
                 }
 
+                @Override
                 public Pipe copy(PipeCloner cloner) {
                     return new TubeAdapter(this,cloner);
                 }
@@ -85,23 +87,28 @@ public class PipeAdapter extends AbstractTubeImpl {
      * Uses the current fiber and runs the whole pipe to the completion
      * (meaning everything from now on will run synchronously.)
      */
+    @Override
     public @NotNull NextAction processRequest(@NotNull Packet p) {
         return doReturnWith(next.process(p));
     }
 
+    @Override
     public @NotNull NextAction processResponse(@NotNull Packet p) {
         throw new IllegalStateException();
     }
 
+    @Override
     @NotNull
     public NextAction processException(@NotNull Throwable t) {
         throw new IllegalStateException();
     }
 
+    @Override
     public void preDestroy() {
         next.preDestroy();
     }
 
+    @Override
     public PipeAdapter copy(TubeCloner cloner) {
         return new PipeAdapter(this,cloner);
     }

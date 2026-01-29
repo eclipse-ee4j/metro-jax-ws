@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -70,10 +70,12 @@ public final class DeferredTransportPipe extends AbstractTubeImpl {
             this.address = that.address;
        }
     }
+    @Override
     public NextAction processException(@NotNull Throwable t) {
         return transport.processException(t);
     }
 
+    @Override
     public NextAction processRequest(@NotNull Packet request) {
         if(request.endpointAddress==address)
             // cache hit
@@ -109,12 +111,14 @@ public final class DeferredTransportPipe extends AbstractTubeImpl {
         return transport.processRequest(request);
     }
 
+    @Override
     public NextAction processResponse(@NotNull Packet response) {
     	if (transport != null)
     		return transport.processResponse(response);
     	return doReturnWith(response);
     }
 
+    @Override
     public void preDestroy() {
         if(transport!=null) {
             transport.preDestroy();
@@ -123,6 +127,7 @@ public final class DeferredTransportPipe extends AbstractTubeImpl {
         }
     }
 
+    @Override
     public DeferredTransportPipe copy(TubeCloner cloner) {
         return new DeferredTransportPipe(this,cloner);
     }

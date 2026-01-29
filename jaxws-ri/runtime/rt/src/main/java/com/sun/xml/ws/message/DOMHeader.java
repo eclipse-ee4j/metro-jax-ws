@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,6 @@
 
 package com.sun.xml.ws.message;
 
-import org.glassfish.jaxb.runtime.api.Bridge;
 import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
 import com.sun.xml.ws.streaming.DOMStreamReader;
 import com.sun.xml.ws.util.DOMUtil;
@@ -49,28 +48,29 @@ public class DOMHeader<N extends Element> extends AbstractHeaderImpl {
     }
 
 
+    @Override
     public String getNamespaceURI() {
         return nsUri;
     }
 
+    @Override
     public String getLocalPart() {
         return localName;
     }
 
+    @Override
     public XMLStreamReader readHeader() throws XMLStreamException {
         DOMStreamReader r = new DOMStreamReader(node);
         r.nextTag();    // move ahead to the start tag
         return r;
     }
 
+    @Override
     public <T> T readAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         return (T) unmarshaller.unmarshal(node);
     }
-    /** @deprecated */
-    public <T> T readAsJAXB(Bridge<T> bridge) throws JAXBException {
-        return bridge.unmarshal(node);
-    }
 
+    @Override
     public void writeTo(XMLStreamWriter w) throws XMLStreamException {
         DOMUtil.serializeNode(node, w);
     }
@@ -80,17 +80,20 @@ public class DOMHeader<N extends Element> extends AbstractHeaderImpl {
         else            return "";
     }
 
+    @Override
     public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException {
         DOMScanner ds = new DOMScanner();
         ds.setContentHandler(contentHandler);
         ds.scan(node);
     }
 
+    @Override
     public String getAttribute(String nsUri, String localName) {
         if(nsUri.length()==0)   nsUri=null; // DOM wants null, not "".
         return node.getAttributeNS(nsUri,localName);
     }
 
+    @Override
     public void writeTo(SOAPMessage saaj) throws SOAPException {
         SOAPHeader header = saaj.getSOAPHeader();
         if(header == null)

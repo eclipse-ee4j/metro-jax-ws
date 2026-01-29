@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,6 +40,12 @@ import java.util.List;
  * @author Kohsuke Kawaguchi
  */
 public final class LocalTransportFactory extends TransportTubeFactory {
+
+    /**
+     * Default constructor.
+     */
+    public LocalTransportFactory() {}
+
     @Override
     public Tube doCreate(@NotNull ClientTubeAssemblerContext context) {
         URI adrs = context.getAddress().getURI();
@@ -56,15 +62,17 @@ public final class LocalTransportFactory extends TransportTubeFactory {
      * a file system.
      * TODO: Currently it expects the PortName to be appended to the endpoint address
      *       This needs to be expanded to take Service and Port QName as well.
+     * @param adrs URI
+     * @return deployed WSEndpoint
      */
-    protected static WSEndpoint createServerService(URI adrs) {
+    protected static WSEndpoint<?> createServerService(URI adrs) {
         try {
             String outputDir = adrs.getPath();
-            List<WSEndpoint> endpoints = parseEndpoints(outputDir);
+            List<WSEndpoint<?>> endpoints = parseEndpoints(outputDir);
 
-            WSEndpoint endpoint = endpoints.get(0);
+            WSEndpoint<?> endpoint = endpoints.get(0);
             if (endpoints.size() > 1) {
-                for (WSEndpoint rei : endpoints) {
+                for (WSEndpoint<?> rei : endpoints) {
                     //TODO: for now just compare local part
                     if(rei.getPortName().getLocalPart().equals(adrs.getQuery())) {
                         endpoint = rei;
@@ -79,17 +87,17 @@ public final class LocalTransportFactory extends TransportTubeFactory {
         }
     }
 
-    protected static List<WSEndpoint> parseEndpoints(String outputDir) throws IOException {
+    protected static List<WSEndpoint<?>> parseEndpoints(String outputDir) throws IOException {
         String riFile = outputDir+"/WEB-INF/sun-jaxws.xml";
-        DeploymentDescriptorParser<WSEndpoint> parser = new DeploymentDescriptorParser<WSEndpoint>(
-            Thread.currentThread().getContextClassLoader(),
-            new FileSystemResourceLoader(new File(outputDir)), null,
-            new AdapterFactory<WSEndpoint>() {
-                @Override
-                public WSEndpoint createAdapter(String name, String urlPattern, WSEndpoint<?> endpoint) {
-                    return endpoint;
-                }
-            });
+        DeploymentDescriptorParser<WSEndpoint<?>> parser = new DeploymentDescriptorParser<>(
+                Thread.currentThread().getContextClassLoader(),
+                new FileSystemResourceLoader(new File(outputDir)), null,
+                new AdapterFactory<>() {
+                    @Override
+                    public WSEndpoint<?> createAdapter(String name, String urlPattern, WSEndpoint<?> endpoint) {
+                        return endpoint;
+                    }
+                });
 
         return parser.parse(new File(riFile));
     }

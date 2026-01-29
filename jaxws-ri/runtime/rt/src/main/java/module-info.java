@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,6 +21,7 @@
  *
  * @since 2.4.0
  */
+@SuppressWarnings({"deprecation"})
 module com.sun.xml.ws.rt {
 
     requires java.desktop;
@@ -28,10 +29,10 @@ module com.sun.xml.ws.rt {
     requires java.management;
     requires transitive java.xml;
     requires jdk.httpserver;
+    requires jdk.unsupported;
 
     requires transitive jakarta.activation;
     requires transitive jakarta.annotation;
-    requires transitive jakarta.jws;
     requires transitive jakarta.mail;
     requires transitive jakarta.xml.bind;
     requires transitive jakarta.xml.soap;
@@ -40,7 +41,7 @@ module com.sun.xml.ws.rt {
     requires static jakarta.servlet;
     requires static com.sun.xml.fastinfoset;
 
-    requires org.jvnet.mimepull;
+    requires transitive org.jvnet.mimepull;
     requires transitive org.jvnet.staxex;
     requires transitive org.glassfish.jaxb.runtime;
     requires transitive com.sun.xml.streambuffer;
@@ -64,7 +65,9 @@ module com.sun.xml.ws.rt {
     exports com.sun.xml.ws.api.message.saaj;
     exports com.sun.xml.ws.api.message.stream; //wsit
     exports com.sun.xml.ws.api.model;
+    exports com.sun.xml.ws.api.model.soap;
     exports com.sun.xml.ws.api.model.wsdl;
+    exports com.sun.xml.ws.api.model.wsdl.editable;
     exports com.sun.xml.ws.api.pipe;
     exports com.sun.xml.ws.api.pipe.helper;
     exports com.sun.xml.ws.api.policy; //wsit
@@ -73,6 +76,7 @@ module com.sun.xml.ws.rt {
     exports com.sun.xml.ws.api.wsdl.parser;
     exports com.sun.xml.ws.api.wsdl.writer;
     exports com.sun.xml.ws.addressing;
+    exports com.sun.xml.ws.addressing.model;
     exports com.sun.xml.ws.addressing.policy; //wsit-impl
     exports com.sun.xml.ws.addressing.v200408;
     exports com.sun.xml.ws.assembler to org.glassfish.metro.wsit.impl; //wsit-api
@@ -99,7 +103,10 @@ module com.sun.xml.ws.rt {
     exports com.sun.xml.ws.policy.jaxws.spi; //wsit
     exports com.sun.xml.ws.protocol.soap; //wsit
     exports com.sun.xml.ws.resources;
+    exports com.sun.xml.ws.runtime.config; //wsit
     exports com.sun.xml.ws.server;
+    exports com.sun.xml.ws.server.provider;
+    exports com.sun.xml.ws.server.sei;
     exports com.sun.xml.ws.spi.db;
     exports com.sun.xml.ws.streaming;
     exports com.sun.xml.ws.transport;
@@ -112,6 +119,10 @@ module com.sun.xml.ws.rt {
     exports com.sun.xml.ws.wsdl; // wsit-api
     exports com.sun.xml.ws.wsdl.parser;
     exports com.sun.xml.ws.wsdl.writer;
+    exports com.sun.xml.ws.wsdl.writer.document;
+    exports com.sun.xml.ws.wsdl.writer.document.soap;
+    exports com.sun.xml.ws.wsdl.writer.document.soap12;
+    exports com.sun.xml.ws.wsdl.writer.document.xsd;
 
     exports com.sun.xml.ws.spi to jakarta.xml.ws;
 

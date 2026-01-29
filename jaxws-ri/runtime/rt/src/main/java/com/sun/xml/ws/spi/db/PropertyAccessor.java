@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,13 +32,13 @@ public interface PropertyAccessor<B,V> {
      *
      * @param bean
      *      must not be null.
-     * @throws AccessorException
+     * @throws DatabindingException
      *      if failed to set a value. For example, the getter method
      *      may throw an exception.
      *
      * @since 2.0 EA1
      */
-    public abstract V get(B bean) throws DatabindingException;
+    V get(B bean) throws DatabindingException;
 
     /**
      * Sets the value of the property of the given bean object.
@@ -48,11 +48,11 @@ public interface PropertyAccessor<B,V> {
      * @param value
      *      the value to be set. Setting value to null means resetting
      *      to the VM default value (even for primitive properties.)
-     * @throws AccessorException
+     * @throws DatabindingException
      *      if failed to set a value. For example, the setter method
      *      may throw an exception.
      *
      * @since 2.0 EA1
      */
-    public abstract void set(B bean,V value) throws DatabindingException;
+    void set(B bean, V value) throws DatabindingException;
 }

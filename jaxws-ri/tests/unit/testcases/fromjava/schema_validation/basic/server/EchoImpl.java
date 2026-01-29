@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -209,7 +209,7 @@ public class EchoImpl {
 //    @WebResult(name="outHeaderResponse")
 //    public Long echoOutHeader(@WebParam(name="outHeader")Integer age, @WebParam(name="num", mode=WebParam.Mode.OUT, header=true, targetNamespace="foo/bar")LongWrapperHolder num) {
 //        log("-----------age: "+age);
-//        num.value = new Long(age);;
+//        num.value = Long.valueOf(age);;
 //        log("-----------num.value: "+num.value);
 //        log("-----------num.value+age: "+(num.value+age));
 //        return num.value+age;
@@ -219,7 +219,7 @@ public class EchoImpl {
     @WebResult(name="outHeaderResponse")
     public Long echoOutHeader(@WebParam(name="outHeader")Integer age, @WebParam(name="num", mode=WebParam.Mode.OUT, header=true, targetNamespace="foo/bar")Holder<Long> num) {
         log("-----------age: "+age);
-        num.value = new Long(age);;
+        num.value = Long.valueOf(age);;
         log("-----------num.value: "+num.value);
         log("-----------num.value+age: "+(num.value+age));
         return num.value+age;
@@ -231,7 +231,7 @@ public class EchoImpl {
     public Long echoOut2Header(@WebParam(name="out2Header")Integer age, @WebParam(name="num", mode=WebParam.Mode.OUT, header=true, targetNamespace="foo/bar")Holder<Long> num,
                         @WebParam(name="name", mode=WebParam.Mode.OUT, header=true)Holder<String> name) {
         log("-----------age: "+age);
-        num.value = new Long(age);
+        num.value = Long.valueOf(age);
         name.value="Fred";
         log("-----------num.value: "+num.value);
         log("-----------num.value+age: "+(num.value+age));

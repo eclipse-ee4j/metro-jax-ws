@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,7 +37,7 @@ import java.util.List;
  * @author Vivek Pandey
  */
 public class WrapperParameter extends ParameterImpl {
-    protected final List<ParameterImpl> wrapperChildren = new ArrayList<ParameterImpl>();
+    protected final List<ParameterImpl> wrapperChildren = new ArrayList<>();
 
     // TODO: wrapper parameter doesn't use 'typeRef' --- it only uses tag name.
     public WrapperParameter(JavaMethodImpl parent, TypeInfo typeRef, Mode mode, int index) {
@@ -51,6 +51,7 @@ public class WrapperParameter extends ParameterImpl {
      * @deprecated
      *      Why are you calling a method that always return true?
      */
+    @Deprecated
     @Override
     public boolean isWrapperStyle() {
         return true;
@@ -65,8 +66,7 @@ public class WrapperParameter extends ParameterImpl {
 
     /**
      * Adds a new child parameter.
-     * 
-     * @param wrapperChild
+     *
      */
     public void addWrapperChild(ParameterImpl wrapperChild) {
         wrapperChildren.add(wrapperChild);

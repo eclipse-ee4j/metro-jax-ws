@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,12 +10,15 @@
 
 package com.sun.xml.ws.api.server;
 
-import javax.xml.namespace.QName;
-
 /**
  * @author Jitendra Kotamraju
  */
 public abstract class EndpointData {
+
+    /**
+     * Default constructor.
+     */
+    protected EndpointData() {}
 
     public abstract String getNamespace();
 

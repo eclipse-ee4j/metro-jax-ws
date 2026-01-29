@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,6 +20,7 @@ import java.util.Map;
  * @author Vivek Pandey
  * @deprecated This interface is deprecated, will be removed in JAX-WS 2.2 RI.
  */
+@Deprecated
 public interface TWSDLOperation extends TWSDLExtensible{
     /**
      * Gives a Map of fault name attribute value to the {@link JClass}

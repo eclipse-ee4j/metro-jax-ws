@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
  * Copyright 2006 Guillaume Nodet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,8 +37,8 @@ import org.codehaus.plexus.util.FileUtils;
 /**
  *
  *
- * @author gnodet <gnodet@apache.org>
- * @author dantran <dantran@apache.org>
+ * @author gnodet (gnodet at apache.org)
+ * @author dantran (dantran at apache.org)
  * @version $Id: WsGenMojo.java 3169 2007-01-22 02:51:29Z dantran $
  */
 abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
@@ -57,7 +57,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     private String sei;
 
     /**
-     * Used in conjunction with <code>genWsdl<code> to specify the protocol to use in the
+     * Used in conjunction with <code>genWsdl</code> to specify the protocol to use in the
      * <code>wsdl:binding</code>. Valid values are "<code>soap1.1</code>" or "<code>Xsoap1.2</code>",
      * default is "<code>soap1.1</code>". "<code>Xsoap1.2</code>" is not standard
      * and can only be used in conjunction with the <code>extension</code> option.
@@ -139,15 +139,18 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     }
 
     protected void processSei(String sei) throws MojoExecutionException {
-        getLog().info("Processing: " + sei);
-        List<String> args = getWsGenArgs(sei, true);
-        getLog().info("jaxws:wsgen args: " + args);
-        exec(args);
-        if (metadata != null) {
-            try {
-                FileUtils.copyFileToDirectory(metadata, getClassesDir());
-            } catch (IOException ioe) {
-                throw new MojoExecutionException(ioe.getMessage(), ioe);
+        if (buildContext.hasDelta(new File(getClassesDir(), sei.replace('.', '/') + ".class"))
+                || (metadata != null && buildContext.hasDelta(metadata))) {
+            getLog().info("Processing: " + sei);
+            List<String> args = getWsGenArgs(sei, true);
+            getLog().info("jaxws:wsgen args: " + args);
+            exec(args);
+            if (metadata != null) {
+                try {
+                    FileUtils.copyFileToDirectory(metadata, getClassesDir());
+                } catch (IOException ioe) {
+                    throw new MojoExecutionException(ioe.getMessage(), ioe);
+                }
             }
         }
     }
@@ -162,7 +165,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     protected String getExtraClasspath() {
         StringBuilder buf = new StringBuilder();
         buf.append(getClassesDir().getAbsolutePath());
-        for (Artifact a : (Set<Artifact>)project.getArtifacts()) {
+        for (Artifact a : project.getArtifacts()) {
             buf.append(File.pathSeparatorChar);
             buf.append(a.getFile().getAbsolutePath());
         }
@@ -176,12 +179,13 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
 
     /**
      * Construct wsgen arguments
+     * @param aSei web service
+     * @param attachResources true to attach resources to the project
      * @return a list of arguments
-     * @throws MojoExecutionException
+     * @throws MojoExecutionException for errors
      */
     protected List<String> getWsGenArgs(String aSei, boolean attachResources) throws MojoExecutionException {
-        List<String> args = new ArrayList<>();
-        args.addAll(getCommonArgs());
+        List<String> args = new ArrayList<>(getCommonArgs());
 
         if (getGenWSDL()) {
             if (this.protocol != null) {
@@ -237,7 +241,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
     }
 
     private Set<String> getSEIs(File directory) throws MojoExecutionException {
-        Set<String> seis = new HashSet<String>();
+        Set<String> seis = new HashSet<>();
         if (!directory.exists() || directory.isFile()) {
             return seis;
         }
@@ -259,7 +263,7 @@ abstract class AbstractWsGenMojo extends AbstractJaxwsMojo {
         } catch (IOException ex) {
             throw new MojoExecutionException(ex.getMessage(), ex);
         } finally {
-            if (cl != null && cl instanceof Closeable) {
+            if (cl instanceof Closeable) {
                 try {
                     ((Closeable) cl).close();
                 } catch (IOException ex) {

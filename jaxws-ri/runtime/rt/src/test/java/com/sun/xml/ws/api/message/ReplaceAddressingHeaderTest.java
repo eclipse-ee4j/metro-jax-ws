@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -106,7 +106,7 @@ public class ReplaceAddressingHeaderTest extends TestCase {
 
       //check toHeader
       String toHeaderAfterProcessed = AddressingUtils.getTo(responsePacket.getHeaderList(), av, sv);
-      assertTrue(toHeaderAfterProcessed.equals(originToHeader));
+      assertEquals(toHeaderAfterProcessed, originToHeader);
   }
   private SOAPMessage makeSOAPMessage(String msg) throws Exception {
       MessageFactory factory = MessageFactory.newInstance(SOAPConstants.SOAP_1_2_PROTOCOL);

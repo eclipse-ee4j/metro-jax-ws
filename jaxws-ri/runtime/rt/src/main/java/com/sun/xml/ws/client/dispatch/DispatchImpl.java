@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -133,7 +133,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
     }
     /**
      *
-     * @param portportInfo dispatch instance is associated with this wsdl port qName
+     * @param portInfo dispatch instance is associated with this wsdl port qName
      * @param mode    Service.mode associated with this Dispatch instance - Service.mode.MESSAGE or Service.mode.PAYLOAD
      * @param pipe    Master pipe for the pipeline
      * @param binding Binding of this Dispatch instance, current one of SOAP/HTTP or XML/HTTP
@@ -159,6 +159,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
      */
     abstract T toReturnValue(Packet response);
 
+    @Override
     public final Response<T> invokeAsync(T param) {
         Container old = ContainerResolver.getDefault().enterContainer(owner.getContainer());
         try {
@@ -166,7 +167,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
               dumpParam(param, "invokeAsync(T)");
             }
             AsyncInvoker invoker = new DispatchAsyncInvoker(param);
-            AsyncResponseImpl<T> ft = new AsyncResponseImpl<T>(invoker,null);
+            AsyncResponseImpl<T> ft = new AsyncResponseImpl<>(invoker, null);
             invoker.setReceiver(ft);
             ft.run();
             return ft;
@@ -198,6 +199,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
         }
       }
     }
+    @Override
     public final Future<?> invokeAsync(T param, AsyncHandler<T> asyncHandler) {
         Container old = ContainerResolver.getDefault().enterContainer(owner.getContainer());
         try {
@@ -205,7 +207,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
               dumpParam(param, "invokeAsync(T, AsyncHandler<T>)");
             }
             AsyncInvoker invoker = new DispatchAsyncInvoker(param);
-            AsyncResponseImpl<T> ft = new AsyncResponseImpl<T>(invoker,asyncHandler);
+            AsyncResponseImpl<T> ft = new AsyncResponseImpl<>(invoker, asyncHandler);
             invoker.setReceiver(ft);
             invoker.setNonNullAsyncHandlerGiven(asyncHandler != null);
     
@@ -264,6 +266,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
         }
     }
 
+    @Override
     public final T invoke(T in) {
         Container old = ContainerResolver.getDefault().enterContainer(owner.getContainer());
         try {
@@ -277,6 +280,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
         }
     }
 
+    @Override
     public final void invokeOneWay(T in) {
         Container old = ContainerResolver.getDefault().enterContainer(owner.getContainer());
         try {
@@ -356,6 +360,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
             throw new WebServiceException(DispatchMessages.INVALID_DATASOURCE_DISPATCH_MSGMODE(mode.name(), Service.Mode.MESSAGE.toString()));
     }
 
+    @Override
     public final @NotNull QName getPortName() {
         return portname;
     }
@@ -515,6 +520,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
             this.param = param;
         }
 
+        @Override
         public T call() throws Exception {
             if (LOGGER.isLoggable(Level.FINE)) {
               dumpParam(param, "call()");
@@ -540,6 +546,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
             this.param = param;
         }
 
+        @Override
         public void do_run () {
             checkNullAllowed(param, rc, binding, mode);
             final Packet message = createPacket(param);
@@ -566,6 +573,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
             final String msgIdUse = msgId;
 
             Fiber.CompletionCallback callback = new Fiber.CompletionCallback() {
+                @Override
                 public void onCompletion(@NotNull Packet response) {
 
                     if (LOGGER.isLoggable(Level.FINE)) {
@@ -601,6 +609,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
                         responseImpl.set(null, new WebServiceException(e));
                     }
                 }
+                @Override
                 public void onCompletion(@NotNull Throwable error) {
                     if (LOGGER.isLoggable(Level.FINE)) {
                       LOGGER.fine("Done with processAsync in DispatchAsyncInvoker.do_run, and setting response for async message with action: " + actionUse + " and msg ID: " + msgIdUse + " Throwable: " + error.toString());
@@ -619,6 +628,7 @@ public abstract class DispatchImpl<T> extends Stub implements Dispatch<T> {
         }
     }
 
+    @Override
     public void setOutboundHeaders(Object... headers) {
         throw new UnsupportedOperationException();
     }

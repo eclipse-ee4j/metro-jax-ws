@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,12 +22,15 @@ import javax.xml.stream.XMLStreamReader;
 public final class FastInfosetStreamReaderFactory extends XMLStreamReaderFactory {
     private static final FastInfosetStreamReaderFactory factory = new FastInfosetStreamReaderFactory();
     
-    private ThreadLocal<StAXDocumentParser> pool = new ThreadLocal<StAXDocumentParser>();
-    
+    private ThreadLocal<StAXDocumentParser> pool = new ThreadLocal<>();
+
+    private FastInfosetStreamReaderFactory() {}
+
     public static FastInfosetStreamReaderFactory getInstance() {
         return factory;
     }
     
+    @Override
     public XMLStreamReader doCreate(String systemId, InputStream in, boolean rejectDTDs) {
         StAXDocumentParser parser = fetch();
         if (parser == null) {
@@ -38,6 +41,7 @@ public final class FastInfosetStreamReaderFactory extends XMLStreamReaderFactory
         return parser;
     }
     
+    @Override
     public XMLStreamReader doCreate(String systemId, Reader reader, boolean rejectDTDs) {
         throw new UnsupportedOperationException();
     }
@@ -48,6 +52,7 @@ public final class FastInfosetStreamReaderFactory extends XMLStreamReaderFactory
         return parser;
     }
     
+    @Override
     public void doRecycle(XMLStreamReader r) {
         if (r instanceof StAXDocumentParser) {
             pool.set((StAXDocumentParser) r);

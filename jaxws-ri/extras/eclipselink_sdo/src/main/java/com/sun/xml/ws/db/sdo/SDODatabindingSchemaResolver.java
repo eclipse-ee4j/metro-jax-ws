@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -45,6 +45,7 @@ public class SDODatabindingSchemaResolver extends DefaultSchemaResolver {
         externalResolver = resolver;
     }
     
+    @Override
     public Source resolveSchema(Source sourceXSD, String namespace,
                                 String schemaLocation) {
 
@@ -66,7 +67,7 @@ public class SDODatabindingSchemaResolver extends DefaultSchemaResolver {
 
                 URI schemaLocationURI = baseURI.resolve(schemaLocation);
                 if (scheme != null) {
-                    schemaLocationURI = new URI(scheme + ":" + schemaLocationURI.toString());
+                    schemaLocationURI = new URI(scheme + ":" + schemaLocationURI);
                 }
                 source = loadSourceFromKnownSchemas(schemaList, schemaLocationURI);
                 if (source != null) {
@@ -142,7 +143,7 @@ public class SDODatabindingSchemaResolver extends DefaultSchemaResolver {
             targetXSD.setSystemId(targetURL.toExternalForm());
         } catch (IOException e) {
             System.out.println("failed to load source from URL:"
-                    + targetURL.toString() + ": " + e.getMessage());
+                    + targetURL + ": " + e.getMessage());
             return null;
         }
 

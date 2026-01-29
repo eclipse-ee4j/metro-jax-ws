@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,12 +39,18 @@ import java.util.regex.Pattern;
 /**
  * annotation processing task for use with the JAXWS project.
  */
+@SuppressWarnings({"exports"})
 public class AnnotationProcessingTask extends Javac {
 
     private boolean procOnly = false;
     private File sourceDestDir;
 
     private static final Pattern VERSION_PATTERN = Pattern.compile("^\\D+(\\d+(\\.?\\d+)?)$");
+
+    /**
+     * Default constructor.
+     */
+    public AnnotationProcessingTask() {}
 
     /**
      * Get the sourceDestDir attribute (-s javac parameter)
@@ -113,6 +119,7 @@ public class AnnotationProcessingTask extends Javac {
      *
      * @throws BuildException if there is a problem.
      */
+    @Override
     public void execute() throws BuildException {
         ImplementationSpecificArgument argument = super.createCompilerArg();
         argument.setLine("-processor " + WebServiceAp.class.getName());

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,14 +25,14 @@ import java.util.logging.Level;
  * A base tubeline assembly context class providing common methods for both
  * client and server assembly context classes.
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public class TubelineAssemblyContextImpl implements TubelineAssemblyContext {
     private static final Logger LOGGER = Logger.getLogger(TubelineAssemblyContextImpl.class);
 
     private Tube head;
     private Pipe adaptedHead;
-    private List<Tube> tubes = new LinkedList<Tube>();
+    private List<Tube> tubes = new LinkedList<>();
 
     @Override
     public Tube getTubelineHead() {

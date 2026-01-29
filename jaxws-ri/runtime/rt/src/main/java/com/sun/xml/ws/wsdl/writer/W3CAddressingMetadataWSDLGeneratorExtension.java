@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,12 +10,12 @@
 
 package com.sun.xml.ws.wsdl.writer;
 
+import com.sun.xml.ws.addressing.W3CAddressingMetadataConstants;
 import com.sun.xml.ws.api.wsdl.writer.WSDLGeneratorExtension;
 import com.sun.xml.ws.api.wsdl.writer.WSDLGenExtnContext;
 import com.sun.xml.ws.api.model.JavaMethod;
 import com.sun.xml.ws.api.model.CheckedException;
 import com.sun.xml.txw2.TypedXmlWriter;
-import static com.sun.xml.ws.addressing.W3CAddressingMetadataConstants.*;
 import com.sun.xml.ws.model.JavaMethodImpl;
 import com.sun.xml.ws.model.CheckedExceptionImpl;
 import com.sun.xml.ws.addressing.WsaActionUtil;
@@ -31,28 +31,33 @@ import java.util.logging.Logger;
 public class W3CAddressingMetadataWSDLGeneratorExtension extends
         WSDLGeneratorExtension {
 
+    /**
+     * Default constructor.
+     */
+    public W3CAddressingMetadataWSDLGeneratorExtension() {}
+
     @Override
     public void start(WSDLGenExtnContext ctxt) {
         TypedXmlWriter root = ctxt.getRoot();
-        root._namespace(WSAM_NAMESPACE_NAME, WSAM_PREFIX_NAME);
+        root._namespace(W3CAddressingMetadataConstants.WSAM_NAMESPACE_NAME, W3CAddressingMetadataConstants.WSAM_PREFIX_NAME);
     }
 
     @Override
     public void addOperationInputExtension(TypedXmlWriter input,
                                            JavaMethod method) {
-        input._attribute(WSAM_ACTION_QNAME, getInputAction(method));
+        input._attribute(W3CAddressingMetadataConstants.WSAM_ACTION_QNAME, getInputAction(method));
     }
 
     @Override
     public void addOperationOutputExtension(TypedXmlWriter output,
                                             JavaMethod method) {
-        output._attribute(WSAM_ACTION_QNAME, getOutputAction(method));
+        output._attribute(W3CAddressingMetadataConstants.WSAM_ACTION_QNAME, getOutputAction(method));
     }
 
     @Override
     public void addOperationFaultExtension(TypedXmlWriter fault,
                                            JavaMethod method, CheckedException ce) {
-        fault._attribute(WSAM_ACTION_QNAME, getFaultAction(method, ce));
+        fault._attribute(W3CAddressingMetadataConstants.WSAM_ACTION_QNAME, getFaultAction(method, ce));
     }
 
 

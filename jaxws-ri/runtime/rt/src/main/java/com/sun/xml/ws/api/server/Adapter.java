@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -87,7 +87,8 @@ public abstract class Adapter<TK extends Adapter.Toolkit>
      * an object out of the pool, you must make sure that it is recycled by the
      * same instance of the pool.
      */
-    protected volatile Pool<TK> pool = new Pool<TK>() {
+    protected volatile Pool<TK> pool = new Pool<>() {
+        @Override
         protected TK create() {
             return createToolkit();
         }
@@ -106,7 +107,8 @@ public abstract class Adapter<TK extends Adapter.Toolkit>
     
     protected Component getEndpointComponent() {
     	return new Component() {
-			public <S> S getSPI(Class<S> spiType) {
+			@Override
+            public <S> S getSPI(Class<S> spiType) {
 		        if (spiType.isAssignableFrom(Reconfigurable.class)) {
 		            return spiType.cast(Adapter.this);
 		        }
@@ -118,14 +120,17 @@ public abstract class Adapter<TK extends Adapter.Toolkit>
     /**
      * The pool instance needs to be recreated to prevent reuse of old Toolkit instances.
      */
+    @Override
     public void reconfigure() {
-        this.pool = new Pool<TK>() {
+        this.pool = new Pool<>() {
+            @Override
             protected TK create() {
                 return createToolkit();
             }
         };
     }
 
+    @Override
     public <S> S getSPI(Class<S> spiType) {
         if (spiType.isAssignableFrom(Reconfigurable.class)) {
             return spiType.cast(this);
@@ -154,7 +159,6 @@ public abstract class Adapter<TK extends Adapter.Toolkit>
      * you must make sure that you return it to the same pool instance that you
      * took it from.
      *
-     * @return
      */
     protected Pool<TK> getPool() {
         return pool;

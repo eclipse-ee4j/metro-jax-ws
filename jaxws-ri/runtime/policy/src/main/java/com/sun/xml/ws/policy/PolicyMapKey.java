@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
  * is made within a <code>get...</code> call on {@link PolicyMap}, before the actual scope map search is performed.
  * 
  * 
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  * @author Fabian Ritzmann
  */
 final public class PolicyMapKey  {
@@ -109,7 +109,7 @@ final public class PolicyMapKey  {
     
     @Override
     public String toString() {
-        final StringBuffer result = new StringBuffer("PolicyMapKey(");
+        final StringBuilder result = new StringBuilder("PolicyMapKey(");
         result.append(this.service).append(", ").append(port).append(", ").append(operation).append(", ").append(faultMessage);
         return result.append(")").toString();
     }

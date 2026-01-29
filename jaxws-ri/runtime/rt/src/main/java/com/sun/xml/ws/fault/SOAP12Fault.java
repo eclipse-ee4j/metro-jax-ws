@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,6 +13,7 @@ package com.sun.xml.ws.fault;
 
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.util.DOMUtil;
+import jakarta.xml.soap.DetailEntry;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -26,35 +27,34 @@ import javax.xml.namespace.QName;
 import jakarta.xml.soap.SOAPException;
 import jakarta.xml.soap.SOAPFault;
 import jakarta.xml.ws.WebServiceException;
-import jakarta.xml.ws.soap.SOAPFaultException;
 import java.util.Iterator;
 
 /**
  * SOAP 1.2 Fault class that can be marshalled/unmarshalled by JAXB
  * <br>
- * <pre>
  * Example:
- * &lt;env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope"
+ * <pre>{@code
+ * <env:Envelope xmlns:env="http://www.w3.org/2003/05/soap-envelope"
  *            xmlns:m="http://www.example.org/timeouts"
  *            xmlns:xml="http://www.w3.org/XML/1998/namespace">
- * &lt;env:Body>
- *     &lt;env:Fault>
- *         &lt;env:Code>
- *             &lt;env:Value>env:Sender* &lt;/env:Value>
- *             &lt;env:Subcode>
- *                 &lt;env:Value>m:MessageTimeout* &lt;/env:Value>
- *             &lt;/env:Subcode>
- *         &lt;/env:Code>
- *         &lt;env:Reason>
- *             &lt;env:Text xml:lang="en">Sender Timeout* &lt;/env:Text>
- *         &lt;/env:Reason>
- *         &lt;env:Detail>
- *             &lt;m:MaxTime>P5M* &lt;/m:MaxTime>
- *         &lt;/env:Detail>
- *     &lt;/env:Fault>
- * &lt;/env:Body>
- * &lt;/env:Envelope>
- * </pre>
+ * <env:Body>
+ *     <env:Fault>
+ *         <env:Code>
+ *             <env:Value>env:Sender* </env:Value>
+ *             <env:Subcode>
+ *                 <env:Value>m:MessageTimeout* </env:Value>
+ *             </env:Subcode>
+ *         </env:Code>
+ *         <env:Reason>
+ *             <env:Text xml:lang="en">Sender Timeout* </env:Text>
+ *         </env:Reason>
+ *         <env:Detail>
+ *             <m:MaxTime>P5M* </m:MaxTime>
+ *         </env:Detail>
+ *     </env:Fault>
+ * </env:Body>
+ * </env:Envelope>
+ * }</pre>
  *
  * @author Vivek Pandey
  */
@@ -99,7 +99,7 @@ class SOAP12Fault extends SOAPFaultBuilder {
 
     SOAP12Fault(CodeType code, ReasonType reason, String node, String role, Element detailObject) {
         this.code = code;
-        this.reason = reason;
+        this.reason = isCaptureExceptionMessage() ? reason : new ReasonType(createFaultString());
         this.node = node;
         this.role = role;
         if (detailObject != null) {
@@ -122,14 +122,14 @@ class SOAP12Fault extends SOAPFaultBuilder {
             throw new WebServiceException(e);
         }
 
-        reason = new ReasonType(fault.getFaultString());
+        reason = new ReasonType(createFaultString(fault.getFaultString()));
         role = fault.getFaultRole();
         node = fault.getFaultNode();
         if (fault.getDetail() != null) {
             detail = new DetailType();
-            Iterator iter = fault.getDetail().getDetailEntries();
+            Iterator<DetailEntry> iter = fault.getDetail().getDetailEntries();
             while(iter.hasNext()){
-                Element fd = (Element)iter.next();
+                Element fd = iter.next();
                 detail.getDetails().add(fd);
             }
         }
@@ -170,9 +170,10 @@ class SOAP12Fault extends SOAPFaultBuilder {
         return reason.texts().get(0).getText();
     }
 
+     @Override
      protected Throwable getProtocolException() {
         try {
-            SOAPFault fault = SOAPVersion.SOAP_12.getSOAPFactory().createFault();;
+            SOAPFault fault = SOAPVersion.SOAP_12.getSOAPFactory().createFault();
             if(reason != null){
                 for(TextType tt : reason.texts()){
                     fault.setFaultString(tt.getText());
@@ -216,10 +217,10 @@ class SOAP12Fault extends SOAPFaultBuilder {
      * Adds Fault subcodes from {@link SOAPFault} to {@link #code}
      */
     private void fillFaultSubCodes(SOAPFault fault) throws SOAPException {
-        Iterator subcodes = fault.getFaultSubcodes();
+        Iterator<QName> subcodes = fault.getFaultSubcodes();
         SubcodeType firstSct = null;
         while(subcodes.hasNext()){
-            QName subcode = (QName)subcodes.next();
+            QName subcode = subcodes.next();
             if(firstSct == null){
                 firstSct = new SubcodeType(subcode);
                 code.setSubcode(firstSct);

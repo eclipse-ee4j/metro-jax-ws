@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@ import com.sun.tools.ws.ant.WsImport2;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import junit.framework.Assert;
+import org.junit.Assert;
 import junit.framework.TestCase;
 import org.apache.tools.ant.types.CommandlineJava;
 
@@ -91,16 +91,14 @@ public class WsAntToolsTest extends TestCase {
     }
 
     private void verifyCommand(String command) {
-        if (!WsAntTaskTestBase.is9()) {
-            Assert.assertTrue("-Xbootclasspath/p not set: " + command, command.contains("-Xbootclasspath/p"));
-        }
+        Assert.assertFalse("-Xbootclasspath/p set: " + command, command.contains("-Xbootclasspath/p"));
 
         String v = System.getProperty("xml.bind-api.version");
         String jar = v != null ? "jakarta.xml.bind-api-" + v + ".jar" : "jakarta.xml.bind-api.jar";
         jar = fixIfSNAPSHOT(jar);
         Assert.assertTrue(jar + " not found " + command, command.contains(jar));
 
-        v = System.getProperty("jaxws-api.version");
+        v = System.getProperty("xml.ws-api.version");
         jar = v != null ? "jakarta.xml.ws-api-" + v + ".jar" : "jakarta.xml.ws-api.jar";
         jar = fixIfSNAPSHOT(jar);
         Assert.assertTrue(jar + " not found " + command, command.contains(jar));
@@ -117,7 +115,7 @@ public class WsAntToolsTest extends TestCase {
 
     private void runVoidMethod(Class<?> c, Object i, String name, String arg) {
         Method m = null;
-        Class parent = c;
+        Class<?> parent = c;
         do {
             try {
                 m = parent.getDeclaredMethod(name, String.class);
@@ -139,7 +137,7 @@ public class WsAntToolsTest extends TestCase {
 
     private Object getField(Class<?> c, Object i, String name) {
         Field f = null;
-        Class parent = c.getSuperclass();
+        Class<?> parent = c.getSuperclass();
         do {
             try {
                 f = parent.getDeclaredField(name);

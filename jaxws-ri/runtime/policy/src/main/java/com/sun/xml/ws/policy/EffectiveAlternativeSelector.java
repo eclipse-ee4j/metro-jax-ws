@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,6 +31,7 @@ import java.util.LinkedList;
 public class EffectiveAlternativeSelector {
     private enum AlternativeFitness {
         UNEVALUATED {
+            @Override
             AlternativeFitness combine(final Fitness assertionFitness) {
                 switch (assertionFitness) {
                     case UNKNOWN:
@@ -47,11 +48,13 @@ public class EffectiveAlternativeSelector {
             }
         },
         INVALID {
+            @Override
             AlternativeFitness combine(final Fitness assertionFitness) {
                 return INVALID;
             }
         },
         UNKNOWN {
+            @Override
             AlternativeFitness combine(final Fitness assertionFitness) {
                 switch (assertionFitness) {
                     case UNKNOWN:
@@ -68,6 +71,7 @@ public class EffectiveAlternativeSelector {
             }
         },
         UNSUPPORTED {
+            @Override
             AlternativeFitness combine(final Fitness assertionFitness) {
                 switch (assertionFitness) {
                     case UNKNOWN:
@@ -83,6 +87,7 @@ public class EffectiveAlternativeSelector {
             }
         },
         PARTIALLY_SUPPORTED {
+            @Override
             AlternativeFitness combine(final Fitness assertionFitness) {
                 switch (assertionFitness) {
                     case UNKNOWN:
@@ -97,12 +102,14 @@ public class EffectiveAlternativeSelector {
             }
         },
         SUPPORTED_EMPTY {
+            @Override
             AlternativeFitness combine(final Fitness assertionFitness) {
                 // will not localize - this exception may not occur if there is no programatic error in this class
                 throw new UnsupportedOperationException("Combine operation was called unexpectedly on 'SUPPORTED_EMPTY' alternative fitness enumeration state.");
             }
         },
         SUPPORTED {
+            @Override
             AlternativeFitness combine(final Fitness assertionFitness) {
                 switch (assertionFitness) {
                     case UNKNOWN:
@@ -122,7 +129,9 @@ public class EffectiveAlternativeSelector {
     }
     
     private static final PolicyLogger LOGGER = PolicyLogger.getLogger(EffectiveAlternativeSelector.class);
-    
+
+    protected EffectiveAlternativeSelector() {}
+
     /**
      * Does the selection for policy map bound to given modifier.
      *
@@ -142,9 +151,6 @@ public class EffectiveAlternativeSelector {
      * This method is intended to be called by extension classes that need to
      * override the behavior of {@link #doSelection}.
      *
-     * @param modifier
-     * @param validationProcessor
-     * @throws PolicyException
      */
     protected static void selectAlternatives(final EffectivePolicyModifier modifier,
             final AssertionValidationProcessor validationProcessor)
@@ -224,7 +230,7 @@ public class EffectiveAlternativeSelector {
         Collection<AssertionSet> alternativeSet = null;
         if (bestAlternative != null) {
             // return a policy containing just the picked alternative
-            alternativeSet = new LinkedList<AssertionSet>();
+            alternativeSet = new LinkedList<>();
             alternativeSet.add(bestAlternative);
         }
         return Policy.createPolicy(policy.getNamespaceVersion(), policy.getName(), policy.getId(), alternativeSet);

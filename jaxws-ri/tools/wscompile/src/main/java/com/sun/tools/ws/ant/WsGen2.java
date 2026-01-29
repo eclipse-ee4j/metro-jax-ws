@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,16 +10,14 @@
 
 package com.sun.tools.ws.ant;
 
-import org.apache.tools.ant.BuildException;
-
 /**
- * wsgen task for use with the JAXWS project.
+ *
+ * @author lukas
  */
 public class WsGen2 extends WsGenBase {
 
-    @Override
-    public void execute() throws BuildException {
-        super.execute();
-    }
-
+    /**
+     * Default constructor.
+     */
+    public WsGen2() {}
 }

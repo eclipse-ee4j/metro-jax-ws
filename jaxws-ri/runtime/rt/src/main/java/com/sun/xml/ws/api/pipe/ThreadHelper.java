@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2015, 2024 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,7 +33,7 @@ final class ThreadHelper {
 
     static {
         threadFactory = AccessController.doPrivileged(
-                new PrivilegedAction<ThreadFactory> () {
+                new PrivilegedAction<>() {
                     @Override
                     public ThreadFactory run() {
                         // In order of preference
@@ -53,7 +53,8 @@ final class ThreadHelper {
                             Class<?> cls = Class.forName(SAFE_THREAD_NAME);
                             Constructor<?> ctr = cls.getConstructor(Runnable.class);
                             return new SunMiscThreadFactory(ctr);
-                        } catch (ClassNotFoundException | NoSuchMethodException ignored) {}
+                        } catch (ClassNotFoundException | NoSuchMethodException ignored) {
+                        }
                         return new LegacyThreadFactory();
                     }
                 }
@@ -66,12 +67,14 @@ final class ThreadHelper {
 
     // A Thread factory backed by the Thread constructor that
     // suppresses inheriting of inheritable thread-locals.
-    private static class JDK9ThreadFactory implements ThreadFactory {
+    static class JDK9ThreadFactory implements ThreadFactory {
         final Constructor<Thread> ctr;
         JDK9ThreadFactory(Constructor<Thread> ctr) { this.ctr = ctr; }
         @Override public Thread newThread(Runnable r) {
             try {
-                return ctr.newInstance(null, r, "toBeReplaced", 0, false);
+                final Thread t = ctr.newInstance(null, r, "toBeReplaced", 0, false);
+                t.setContextClassLoader(Thread.currentThread().getContextClassLoader());
+                return t;
             } catch (ReflectiveOperationException x) {
                 InternalError ie = new InternalError(x.getMessage());
                 ie.initCause(ie);
@@ -86,7 +89,7 @@ final class ThreadHelper {
         SunMiscThreadFactory(Constructor<?> ctr) { this.ctr = ctr; }
         @Override public Thread newThread(final Runnable r) {
             return AccessController.doPrivileged(
-                    new PrivilegedAction<Thread>() {
+                    new PrivilegedAction<>() {
                         @Override
                         public Thread run() {
                             try {

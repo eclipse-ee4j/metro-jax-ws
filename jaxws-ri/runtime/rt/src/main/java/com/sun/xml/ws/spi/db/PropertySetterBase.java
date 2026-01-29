@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,7 +20,13 @@ import java.util.Map;
  */
 public abstract class PropertySetterBase implements PropertySetter {
     protected Class type;
-    
+
+    /**
+     * Default constructor.
+     */
+    protected PropertySetterBase() {}
+
+    @Override
     public Class getType() {
         return type;
     }
@@ -36,7 +42,7 @@ public abstract class PropertySetterBase implements PropertySetter {
     /**
      * Uninitialized map keyed by their classes.
      */
-    private static final Map<Class, Object> uninitializedValues = new HashMap<Class, Object>();
+    private static final Map<Class, Object> uninitializedValues = new HashMap<>();
     static {
         uninitializedValues.put(byte.class, Byte.valueOf((byte) 0));
         uninitializedValues.put(boolean.class, false);

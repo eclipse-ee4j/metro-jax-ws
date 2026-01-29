@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -61,6 +62,12 @@ import java.util.Map;
  * @author Jitendra Kotamraju
  */
 public abstract class EndpointArgumentsBuilder {
+
+    /**
+     * Default constructor.
+     */
+    protected EndpointArgumentsBuilder() {}
+
     /**
      * Reads a request {@link Message}, disassembles it, and moves obtained
      * Java values to the expected places.
@@ -106,11 +113,11 @@ public abstract class EndpointArgumentsBuilder {
         return primitiveUninitializedValues.get(type);
     }
 
-    private static final Map<Class,Object> primitiveUninitializedValues = new HashMap<Class, Object>();
+    private static final Map<Class,Object> primitiveUninitializedValues = new HashMap<>();
 
     static {
         Map<Class, Object> m = primitiveUninitializedValues;
-        m.put(int.class,(int)0);
+        m.put(int.class, 0);
         m.put(char.class,(char)0);
         m.put(byte.class,(byte)0);
         m.put(short.class,(short)0);
@@ -155,7 +162,7 @@ public abstract class EndpointArgumentsBuilder {
         }
     }
     
-    protected Map<QName,WrappedPartBuilder> wrappedParts = null;
+    Map<QName,WrappedPartBuilder> wrappedParts = null;
 
     protected void readWrappedRequest(Message msg, Object[] args) throws JAXBException, XMLStreamException {
         if (!msg.hasPayload()) {
@@ -195,6 +202,7 @@ public abstract class EndpointArgumentsBuilder {
             this.nullValue = nullValue;
             this.setter = setter;
         }
+        @Override
         public void readRequest(Message msg, Object[] args) {
             setter.put(nullValue, args);
         }
@@ -223,9 +231,10 @@ public abstract class EndpointArgumentsBuilder {
         }
 
         public Composite(Collection<? extends EndpointArgumentsBuilder> builders) {
-            this(builders.toArray(new EndpointArgumentsBuilder[builders.size()]));
+            this(builders.toArray(new EndpointArgumentsBuilder[0]));
         }
 
+        @Override
         public void readRequest(Message msg, Object[] args) throws JAXBException, XMLStreamException {
             for (EndpointArgumentsBuilder builder : builders) {
                 builder.readRequest(msg,args);
@@ -280,6 +289,7 @@ public abstract class EndpointArgumentsBuilder {
             }
         }
         
+        @Override
         public void readRequest(Message msg, Object[] args) throws JAXBException, XMLStreamException {
             boolean foundAttachment = false;
             // TODO not to loop
@@ -307,6 +317,7 @@ public abstract class EndpointArgumentsBuilder {
             super(param, setter);
         }
         
+        @Override
         void mapAttachment(Attachment att, Object[] args) {
             setter.put(att.asDataHandler(), args);
         }
@@ -317,6 +328,7 @@ public abstract class EndpointArgumentsBuilder {
             super(param, setter);
         }
         
+        @Override
         void mapAttachment(Attachment att, Object[] args) {
             setter.put(att.asByteArray(), args);
         }
@@ -327,6 +339,7 @@ public abstract class EndpointArgumentsBuilder {
             super(param, setter);
         }
         
+        @Override
         void mapAttachment(Attachment att, Object[] args) {
             setter.put(att.asSource(), args);
         }
@@ -337,6 +350,7 @@ public abstract class EndpointArgumentsBuilder {
             super(param, setter);
         }
         
+        @Override
         void mapAttachment(Attachment att, Object[] args) {
             Image image;
             InputStream is = null;
@@ -363,6 +377,7 @@ public abstract class EndpointArgumentsBuilder {
             super(param, setter);
         }
         
+        @Override
         void mapAttachment(Attachment att, Object[] args) {
             setter.put(att.asInputStream(), args);
         }
@@ -373,6 +388,7 @@ public abstract class EndpointArgumentsBuilder {
             super(param, setter);
         }
         
+        @Override
         void mapAttachment(Attachment att, Object[] args) throws JAXBException {
             Object obj = param.getXMLBridge().unmarshal(att.asInputStream());
             setter.put(obj, args);
@@ -384,6 +400,7 @@ public abstract class EndpointArgumentsBuilder {
             super(param, setter);
         }
 
+        @Override
         void mapAttachment(Attachment att, Object[] args) {
             att.getContentType();
             StringDataContentHandler sdh = new StringDataContentHandler();
@@ -416,7 +433,7 @@ public abstract class EndpointArgumentsBuilder {
      * </PRE>
      *
      * So a wsdl:part fooPart will be encoded as:
-     *      <fooPart=somereallybignumberlikeauuid@example.com>
+     *      {@code <fooPart=somereallybignumberlikeauuid@example.com>}
      *
      * @return null
      *      if the parsing fails.
@@ -424,20 +441,16 @@ public abstract class EndpointArgumentsBuilder {
     public static final String getWSDLPartName(com.sun.xml.ws.api.message.Attachment att){
         String cId = att.getContentId();
 
-        int index = cId.lastIndexOf('@', cId.length());
+        int index = cId.lastIndexOf('@');
         if(index == -1){
             return null;
         }
         String localPart = cId.substring(0, index);
-        index = localPart.lastIndexOf('=', localPart.length());
+        index = localPart.lastIndexOf('=');
         if(index == -1){
             return null;
         }
-        try {
-            return java.net.URLDecoder.decode(localPart.substring(0, index), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new WebServiceException(e);
-        }
+        return java.net.URLDecoder.decode(localPart.substring(0, index), StandardCharsets.UTF_8);
     }
 
     
@@ -487,6 +500,7 @@ public abstract class EndpointArgumentsBuilder {
             }
         }
 
+        @Override
         public void readRequest(Message msg, Object[] args) throws JAXBException {
             com.sun.xml.ws.api.message.Header header = null;
             Iterator<com.sun.xml.ws.api.message.Header> it =
@@ -524,6 +538,7 @@ public abstract class EndpointArgumentsBuilder {
             this.setter = setter;
         }
 
+        @Override
         public void readRequest(Message msg, Object[] args) throws JAXBException {
             setter.put( msg.readPayloadAsJAXB(bridge), args );
         }
@@ -547,7 +562,7 @@ public abstract class EndpointArgumentsBuilder {
             wrapper = wp.getXMLBridge();
             Class wrapperType = (Class) wrapper.getTypeInfo().type;            
             dynamicWrapper = WrapperComposite.class.equals(wrapperType);
-            List<PartBuilder> parts = new ArrayList<PartBuilder>();
+            List<PartBuilder> parts = new ArrayList<>();
             List<ParameterImpl> children = wp.getWrapperChildren();
             for (ParameterImpl p : children) {
                 if (p.getMode() == skipMode) {
@@ -560,7 +575,7 @@ public abstract class EndpointArgumentsBuilder {
                 QName name = p.getName();
                 try {
                     if (dynamicWrapper) {
-                        if (wrappedParts == null) wrappedParts = new HashMap<QName,WrappedPartBuilder>();
+                        if (wrappedParts == null) wrappedParts = new HashMap<>();
                         XMLBridge xmlBridge = p.getInlinedRepeatedElementBridge();
                         if (xmlBridge == null) xmlBridge = p.getXMLBridge();
                         wrappedParts.put( p.getName(), new WrappedPartBuilder(xmlBridge, EndpointValueSetter.get(p)));
@@ -582,9 +597,10 @@ public abstract class EndpointArgumentsBuilder {
                 }
             }
 
-            this.parts = parts.toArray(new PartBuilder[parts.size()]);
+            this.parts = parts.toArray(new PartBuilder[0]);
         }
 
+        @Override
         public void readRequest(Message msg, Object[] args) throws JAXBException, XMLStreamException {
             if (dynamicWrapper) {
                 readWrappedRequest(msg, args);
@@ -636,7 +652,7 @@ public abstract class EndpointArgumentsBuilder {
                 assert accessor!=null && setter!=null;
             }
 
-            final void readRequest( Object[] args, Object wrapperBean ) {
+            void readRequest( Object[] args, Object wrapperBean ) {
                 Object obj = accessor.get(wrapperBean);
                 setter.put(obj,args);
             }
@@ -654,7 +670,7 @@ public abstract class EndpointArgumentsBuilder {
             assert wp.getTypeInfo().type== WrapperComposite.class;
 
             wrapperName = wp.getName();
-            wrappedParts = new HashMap<QName,WrappedPartBuilder>();
+            wrappedParts = new HashMap<>();
             List<ParameterImpl> children = wp.getWrapperChildren();
             for (ParameterImpl p : children) {
                 wrappedParts.put( p.getName(), new WrappedPartBuilder(
@@ -666,6 +682,7 @@ public abstract class EndpointArgumentsBuilder {
             }
         }
 
+        @Override
         public void readRequest(Message msg, Object[] args) throws JAXBException, XMLStreamException {
             readWrappedRequest(msg, args);
         }

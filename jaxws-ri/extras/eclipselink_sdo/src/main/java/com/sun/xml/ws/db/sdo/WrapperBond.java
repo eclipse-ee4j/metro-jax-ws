@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -59,6 +59,7 @@ public class WrapperBond<T> implements XMLBridge<T> {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public final void marshal(T object, ContentHandler contentHandler, AttachmentMarshaller am) throws JAXBException {
         WrapperComposite w = (WrapperComposite) object;
         Attributes att = new Attributes() {
@@ -83,7 +84,7 @@ public class WrapperBond<T> implements XMLBridge<T> {
         if (w.bridges != null) for (int i = 0; i < w.bridges.length; i++) {
             if (w.bridges[i] instanceof RepeatedElementBridge) {
                 RepeatedElementBridge rbridge = (RepeatedElementBridge) w.bridges[i];
-                for (Iterator itr = rbridge.collectionHandler().iterator(w.values[i]); itr.hasNext();) {
+                for (Iterator<?> itr = rbridge.collectionHandler().iterator(w.values[i]); itr.hasNext();) {
                     rbridge.marshal(itr.next(), contentHandler, am);
                 }                
             } else {
@@ -139,7 +140,7 @@ public class WrapperBond<T> implements XMLBridge<T> {
         if (w.bridges != null) for (int i = 0; i < w.bridges.length; i++) {
             if (w.bridges[i] instanceof RepeatedElementBridge) {
                 RepeatedElementBridge rbridge = (RepeatedElementBridge) w.bridges[i];
-                for (Iterator itr = rbridge.collectionHandler().iterator(w.values[i]); itr.hasNext();) {
+                for (Iterator<?> itr = rbridge.collectionHandler().iterator(w.values[i]); itr.hasNext();) {
                     rbridge.marshal(itr.next(), output, am);
                 }                
             } else {

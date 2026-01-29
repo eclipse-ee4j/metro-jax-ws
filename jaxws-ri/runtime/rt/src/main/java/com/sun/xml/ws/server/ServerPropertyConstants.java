@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,8 +19,8 @@ package com.sun.xml.ws.server;
 public interface ServerPropertyConstants {
     /*public static final String ATTACHMENT_CONTEXT =
         "com.sun.xml.ws.attachment.AttachmentContext";*/
-    public static final String SET_ATTACHMENT_PROPERTY =
+    String SET_ATTACHMENT_PROPERTY =
         "com.sun.xml.ws.attachment.SetAttachmentContext";
-    public static final String GET_ATTACHMENT_PROPERTY =
+    String GET_ATTACHMENT_PROPERTY =
         "com.sun.xml.ws.attachment.GetAttachmentContext";
 }

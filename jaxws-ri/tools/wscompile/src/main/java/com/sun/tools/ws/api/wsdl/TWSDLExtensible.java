@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,6 +20,7 @@ import javax.xml.namespace.QName;
  * @deprecated This interface is deprecated, will be removed in JAX-WS 2.2 RI.
  *
  */
+@Deprecated
 public interface TWSDLExtensible {
     /**
      * Gives the wsdl extensiblity element's name attribute value. It can be null as @name on some of the wsdl

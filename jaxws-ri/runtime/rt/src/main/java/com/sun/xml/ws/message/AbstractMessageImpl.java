@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,6 @@
 package com.sun.xml.ws.message;
 
 import com.sun.istack.NotNull;
-import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.api.message.Header;
 import com.sun.xml.ws.api.message.Message;
@@ -86,7 +85,7 @@ public abstract class AbstractMessageImpl extends Message {
 
     static {
         EMPTY_ATTS = new AttributesImpl();
-        List<TagInfoset> tagList = new ArrayList<TagInfoset>();
+        List<TagInfoset> tagList = new ArrayList<>();
         create(SOAPVersion.SOAP_11, tagList);
         create(SOAPVersion.SOAP_12, tagList);
         DEFAULT_TAGS = Collections.unmodifiableList(tagList);
@@ -114,6 +113,7 @@ public abstract class AbstractMessageImpl extends Message {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public <T> T readPayloadAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         if(hasAttachments())
             unmarshaller.setAttachmentUnmarshaller(new AttachmentUnmarshallerImpl(getAttachments()));
@@ -123,13 +123,7 @@ public abstract class AbstractMessageImpl extends Message {
             unmarshaller.setAttachmentUnmarshaller(null);
         }
     }
-    /** @deprecated */
-    @Override
-    public <T> T readPayloadAsJAXB(Bridge<T> bridge) throws JAXBException {
-        return bridge.unmarshal(readPayloadAsSource(),
-            hasAttachments()? new AttachmentUnmarshallerImpl(getAttachments()) : null );
-    }
-    
+
     @Override
     public <T> T readPayloadAsJAXB(XMLBridge<T> bridge) throws JAXBException {
         return bridge.unmarshal(readPayloadAsSource(),

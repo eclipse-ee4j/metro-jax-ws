@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,6 @@ import org.glassfish.jaxb.core.marshaller.SAX2DOMEx;
 import com.sun.xml.ws.api.ha.HighAvailabilityProvider;
 import com.sun.xml.ws.api.ha.HighAvailabilityProvider.StoreType;
 import com.sun.xml.ws.api.message.Header;
-import com.sun.xml.ws.api.message.HeaderList;
 import com.sun.xml.ws.api.message.MessageHeaders;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.api.server.InstanceResolver;
@@ -91,6 +90,9 @@ public final class StatefulInstanceResolver<T> extends AbstractMultiInstanceReso
     // Keep this a static class, otherwise enclosed object will be pulled in
     // during serialization
     private static final class HAInstance<T> implements Storeable {
+
+        private static final long serialVersionUID = -8237131444531203708L;
+
         transient @NotNull T instance;
         private byte[] buf;
 
@@ -481,8 +483,8 @@ public final class StatefulInstanceResolver<T> extends AbstractMultiInstanceReso
     private <EPR extends EndpointReference> EPR createEPR(String key,
                                                           Class<EPR> eprClass, String address, String wsdlAddress, EPRRecipe recipe) {
 
-        List<Element> referenceParameters = new ArrayList<Element>();
-        List<Element> metadata = new ArrayList<Element>();
+        List<Element> referenceParameters = new ArrayList<>();
+        List<Element> metadata = new ArrayList<>();
 
         Document doc = DOMUtil.createDom();
         Element cookie =
@@ -549,7 +551,7 @@ public final class StatefulInstanceResolver<T> extends AbstractMultiInstanceReso
             }
 
             @Override
-            public void characters(char ch[], int start, int length) throws SAXException {
+            public void characters(char[] ch, int start, int length) throws SAXException {
                 if (inCookie) {
                     buf.append(ch, start, length);
                 }
@@ -618,9 +620,9 @@ public final class StatefulInstanceResolver<T> extends AbstractMultiInstanceReso
 
     private class HAMap {
         // cookie --> Instance
-        final Map<String, Instance> instances = new HashMap<String, Instance>();
+        final Map<String, Instance> instances = new HashMap<>();
         // object --> cookie
-        final Map<T, String> reverseInstances = new HashMap<T, String>();
+        final Map<T, String> reverseInstances = new HashMap<>();
         final BackingStore<String, HAInstance> bs;
         // Removes expired entrees from BackingStore
         TimerTask expiredTask;
@@ -690,7 +692,7 @@ public final class StatefulInstanceResolver<T> extends AbstractMultiInstanceReso
 
             instances.put(id, newi);
             reverseInstances.put(newi.instance, id);
-            HAInstance<T> hai = new HAInstance<T>(newi.instance, timeoutMilliseconds);
+            HAInstance<T> hai = new HAInstance<>(newi.instance, timeoutMilliseconds);
             HighAvailabilityProvider.saveTo(bs, id, hai, isNew);
         }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -168,16 +168,13 @@ public class DeploymentDescriptorParser<A> {
      * a set of {@link HttpAdapter}s.
      */
     public @NotNull List<A> parse(File f) throws IOException {
-        FileInputStream in = new FileInputStream(f);
-        try {
+        try (FileInputStream in = new FileInputStream(f)) {
             return parse(f.getPath(), in);
-        } finally {
-            in.close();
         }
     }
 
     /**
-     * Get all the WSDL & schema documents recursively.
+     * Get all the WSDL and schema documents recursively.
      */
     private void collectDocs(String dirPath) throws MalformedURLException {
         Set<String> paths = loader.getResourcePaths(dirPath);
@@ -350,16 +347,17 @@ public class DeploymentDescriptorParser<A> {
      * @return returns corresponding API's binding ID or the same lexical
      */
     public static @NotNull String getBindingIdForToken(@NotNull String lexical) {
-        if (lexical.equals("##SOAP11_HTTP")) {
-            return SOAPBinding.SOAP11HTTP_BINDING;
-        } else if (lexical.equals("##SOAP11_HTTP_MTOM")) {
-            return SOAPBinding.SOAP11HTTP_MTOM_BINDING;
-        } else if (lexical.equals("##SOAP12_HTTP")) {
-            return SOAPBinding.SOAP12HTTP_BINDING;
-        } else if (lexical.equals("##SOAP12_HTTP_MTOM")) {
-            return SOAPBinding.SOAP12HTTP_MTOM_BINDING;
-        } else if (lexical.equals("##XML_HTTP")) {
-            return HTTPBinding.HTTP_BINDING;
+        switch (lexical) {
+            case "##SOAP11_HTTP":
+                return SOAPBinding.SOAP11HTTP_BINDING;
+            case "##SOAP11_HTTP_MTOM":
+                return SOAPBinding.SOAP11HTTP_MTOM_BINDING;
+            case "##SOAP12_HTTP":
+                return SOAPBinding.SOAP12HTTP_BINDING;
+            case "##SOAP12_HTTP_MTOM":
+                return SOAPBinding.SOAP12HTTP_MTOM_BINDING;
+            case "##XML_HTTP":
+                return HTTPBinding.HTTP_BINDING;
         }
         return lexical;
     }
@@ -370,12 +368,12 @@ public class DeploymentDescriptorParser<A> {
      * Normally 'A' would be {@link HttpAdapter} or some derived class.
      * But the parser doesn't require that to be of any particular type.
      */
-    public static interface AdapterFactory<A> {
+    public interface AdapterFactory<A> {
         A createAdapter(String name, String urlPattern, WSEndpoint<?> endpoint);
     }
 
     /**
-     * Checks the deployment descriptor or {@link @WebServiceProvider} annotation
+     * Checks the deployment descriptor or {@link jakarta.xml.ws.WebServiceProvider} annotation
      * to see if it points to any WSDL. If so, returns the {@link SDDocumentSource}.
      *
      * @return The pointed WSDL, if any. Otherwise null.
@@ -477,7 +475,7 @@ public class DeploymentDescriptorParser<A> {
      * Parses the handler and role information and sets it
      * on the {@link WSBinding}.
      *
-     * @return true if <handler-chains> element present in DD
+     * @return true if &lt;handler-chains&gt; element present in DD
      *         false otherwise.
      */
     protected boolean setHandlersAndRoles(WSBinding binding, XMLStreamReader reader, QName serviceName, QName portName) {
@@ -568,9 +566,7 @@ public class DeploymentDescriptorParser<A> {
             return Class.forName(name, true, classLoader);
         } catch (ClassNotFoundException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
-            throw new ServerRtException(
-                    "runtime.parser.classNotFound",
-                    name);
+            throw new ServerRtException(ServerMessages.localizableRUNTIME_PARSER_CLASS_NOT_FOUND(name));
         }
     }
 

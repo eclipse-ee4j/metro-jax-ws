@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,6 +34,12 @@ import java.util.List;
  * @author Jitendra Kotamraju
  */
 public abstract class EndpointResponseMessageBuilder {
+
+    /**
+     * Default constructor.
+     */
+    protected EndpointResponseMessageBuilder() {}
+
     public abstract Message createMessage(Object[] methodArgs, Object returnValue);
 
     public static final EndpointResponseMessageBuilder EMPTY_SOAP11 = new Empty(SOAPVersion.SOAP_11);
@@ -256,16 +262,9 @@ public abstract class EndpointResponseMessageBuilder {
                 }
 
                 return bean;
-            } catch (InstantiationException e) {
+            } catch (ReflectiveOperationException e) {
                 // this is irrecoverable
-                Error x = new InstantiationError(e.getMessage());
-                x.initCause(e);
-                throw x;
-            } catch (IllegalAccessException e) {
-                // this is irrecoverable
-                Error x = new IllegalAccessError(e.getMessage());
-                x.initCause(e);
-                throw x;
+                throw new InstantiationError(e.getMessage());
             } catch (com.sun.xml.ws.spi.db.DatabindingException e) {
                 // this can happen when the set method throw a checked exception or something like that
                 throw new WebServiceException(e);    // TODO:i18n

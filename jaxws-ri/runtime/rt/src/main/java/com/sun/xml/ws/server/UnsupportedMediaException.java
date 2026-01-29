@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,6 +24,8 @@ import java.util.List;
  */
 public final class UnsupportedMediaException extends JAXWSExceptionBase {
 
+    private static final long serialVersionUID = -6909196265080209905L;
+
     public UnsupportedMediaException( @NotNull String contentType, List<String> expectedContentTypes) {
         super(ServerMessages.localizableUNSUPPORTED_CONTENT_TYPE(contentType, expectedContentTypes));
     }
@@ -36,6 +38,7 @@ public final class UnsupportedMediaException extends JAXWSExceptionBase {
         super(ServerMessages.localizableUNSUPPORTED_CHARSET(charset));
     }
 
+    @Override
     public String getDefaultResourceBundleName() {
         return "com.sun.xml.ws.resources.server";
     }

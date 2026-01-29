@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,26 +29,31 @@ import java.util.Set;
  * must implement this class. There are two ways to have the JAX-WS RI
  * recognize your {@link ServiceInterceptor}s.
  *
- * <h3>Use {@link ServiceFinder}</h3>
+ * <h2>Use {@link ServiceFinder}</h2>
  * <p>
  * {@link ServiceInterceptorFactory}s discovered via {@link ServiceFinder}
  * will be incorporated to all {@link WSService} instances.
  *
- * <h3>Register per-thread</h3>
+ * <h2>Register per-thread</h2>
  *
  *
  * @author Kohsuke Kawaguchi
  * @see ServiceInterceptor
- * @see 2.1 EA3
  */
 public abstract class ServiceInterceptorFactory {
+
+    /**
+     * Default constructor.
+     */
+    protected ServiceInterceptorFactory() {}
+
     public abstract ServiceInterceptor create(@NotNull WSService service);
 
     /**
      * Loads all {@link ServiceInterceptor}s and return aggregated one.
      */
     public static @NotNull ServiceInterceptor load(@NotNull WSService service, @Nullable ClassLoader cl) {
-        List<ServiceInterceptor> l = new ArrayList<ServiceInterceptor>();
+        List<ServiceInterceptor> l = new ArrayList<>();
 
         // first service look-up
         for( ServiceInterceptorFactory f : ServiceFinder.find(ServiceInterceptorFactory.class))
@@ -58,12 +63,13 @@ public abstract class ServiceInterceptorFactory {
         for( ServiceInterceptorFactory f : threadLocalFactories.get())
             l.add(f.create(service));
 
-        return ServiceInterceptor.aggregate(l.toArray(new ServiceInterceptor[l.size()]));
+        return ServiceInterceptor.aggregate(l.toArray(new ServiceInterceptor[0]));
     }
 
-    private static ThreadLocal<Set<ServiceInterceptorFactory>> threadLocalFactories = new ThreadLocal<Set<ServiceInterceptorFactory>>() {
+    private static ThreadLocal<Set<ServiceInterceptorFactory>> threadLocalFactories = new ThreadLocal<>() {
+        @Override
         protected Set<ServiceInterceptorFactory> initialValue() {
-            return new HashSet<ServiceInterceptorFactory>();
+            return new HashSet<>();
         }
     };
 

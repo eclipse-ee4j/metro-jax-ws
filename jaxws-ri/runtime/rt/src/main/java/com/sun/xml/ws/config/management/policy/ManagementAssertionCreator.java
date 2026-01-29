@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,12 +29,14 @@ import javax.xml.namespace.QName;
  */
 public class ManagementAssertionCreator implements PolicyAssertionCreator {
 
+    @Override
     public String[] getSupportedDomainNamespaceURIs() {
         return new String[] { PolicyConstants.SUN_MANAGEMENT_NAMESPACE };
     }
 
+    @Override
     public PolicyAssertion createAssertion(AssertionData data, Collection<PolicyAssertion> assertionParameters,
-            AssertionSet nestedAlternative, PolicyAssertionCreator defaultCreator) throws AssertionCreationException {
+                                           AssertionSet nestedAlternative, PolicyAssertionCreator defaultCreator) throws AssertionCreationException {
         final QName name = data.getName();
         if (ManagedServiceAssertion.MANAGED_SERVICE_QNAME.equals(name)) {
             return new ManagedServiceAssertion(data, assertionParameters);

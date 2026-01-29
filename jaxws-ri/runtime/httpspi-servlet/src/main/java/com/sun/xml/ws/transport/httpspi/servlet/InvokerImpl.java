@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +14,6 @@ import jakarta.xml.ws.spi.Invoker;
 import jakarta.xml.ws.WebServiceContext;
 import jakarta.xml.ws.WebServiceException;
 import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 
 import com.sun.xml.ws.util.InjectionPlan;
 
@@ -27,21 +26,19 @@ import java.security.PrivilegedAction;
 /**
  * @author Jitendra Kotamraju
  */
-class InvokerImpl extends Invoker {
-    private final Class implType;
-    private final Object impl;
+class InvokerImpl<T> extends Invoker {
+    private final Class<T> implType;
+    private final T impl;
     private final Method postConstructMethod;
 //    private final Method preDestroyMethod;
 
-    InvokerImpl(Class implType) {
+    InvokerImpl(Class<T> implType) {
         this.implType = implType;
         postConstructMethod = findAnnotatedMethod(implType, PostConstruct.class);
 //        preDestroyMethod = findAnnotatedMethod(implType, PreDestroy.class);
         try {
-            impl = implType.newInstance();
-        } catch (InstantiationException e) {
-            throw new WebServiceException(e);
-        } catch (IllegalAccessException e) {
+            impl = implType.getConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
             throw new WebServiceException(e);
         }
     }
@@ -52,15 +49,14 @@ class InvokerImpl extends Invoker {
     private static void invokeMethod(final Method method, final Object instance, final Object... args) {
         if(method==null)    return;
         AccessController.doPrivileged(new PrivilegedAction<Void>() {
+            @Override
             public Void run() {
                 try {
                     if (!method.isAccessible()) {
                         method.setAccessible(true);
                     }
                     method.invoke(instance,args);
-                } catch (IllegalAccessException e) {
-                    throw new WebServiceException(e);
-                } catch (InvocationTargetException e) {
+                } catch (IllegalAccessException | InvocationTargetException e) {
                     throw new WebServiceException(e);
                 }
                 return null;
@@ -68,12 +64,14 @@ class InvokerImpl extends Invoker {
         });
     }
 
+    @Override
     public void inject(WebServiceContext webServiceContext) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         InjectionPlan.buildInjectionPlan(
             implType, WebServiceContext.class,false).inject(impl,webServiceContext);
         invokeMethod(postConstructMethod, impl);
     }
 
+    @Override
     public Object invoke(Method m, Object... args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         return m.invoke(impl, args);
     }
@@ -82,7 +80,7 @@ class InvokerImpl extends Invoker {
      * Finds the method that has the given annotation, while making sure that
      * there's only at most one such method.
      */
-    private static Method findAnnotatedMethod(Class clazz, Class<? extends Annotation> annType) {
+    private static Method findAnnotatedMethod(Class<?> clazz, Class<? extends Annotation> annType) {
         boolean once = false;
         Method r = null;
         for(Method method : clazz.getDeclaredMethods()) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -57,18 +57,22 @@ public class FastInfosetCodec implements Codec {
             new ContentTypeImpl(FastInfosetMIMETypes.INFOSET);
     }
     
+    @Override
     public String getMimeType() {
         return _contentType.getContentType();
     }
     
+    @Override
     public Codec copy() {
         return new FastInfosetCodec(_retainState);
     }
     
+    @Override
     public ContentType getStaticContentType(Packet packet) {
         return _contentType;
     }
     
+    @Override
     public ContentType encode(Packet packet, OutputStream out) {
         Message message = packet.getMessage();
         if (message != null && message.hasPayload()) {
@@ -86,11 +90,13 @@ public class FastInfosetCodec implements Codec {
         return _contentType;
     }
     
+    @Override
     public ContentType encode(Packet packet, WritableByteChannel buffer) {
         //TODO: not yet implemented
         throw new UnsupportedOperationException();
     }
     
+    @Override
     public void decode(InputStream in, String contentType, Packet packet) throws IOException {
         /* Implements similar logic as the XMLMessage.create(String, InputStream).
          * But it's faster, as we know the InputStream has FastInfoset content*/
@@ -106,6 +112,7 @@ public class FastInfosetCodec implements Codec {
         packet.setMessage(message);
     }
     
+    @Override
     public void decode(ReadableByteChannel in, String contentType, Packet response) {
         throw new UnsupportedOperationException();
     }
@@ -142,7 +149,7 @@ public class FastInfosetCodec implements Codec {
     /**
      * Create a new (@link StAXDocumentSerializer} instance.
      *
-     * @param in the OutputStream to serialize to.
+     * @param out the OutputStream to serialize to.
      * @param retainState if true the serializer should retain the state of
      *        vocabulary tables for multiple serializations.
      * @return a new {@link StAXDocumentSerializer} instance.
@@ -154,7 +161,7 @@ public class FastInfosetCodec implements Codec {
     /**
      * Create a new (@link StAXDocumentSerializer} instance.
      *
-     * @param in the OutputStream to serialize to.
+     * @param out the OutputStream to serialize to.
      * @param retainState if true the serializer should retain the state of
      *        vocabulary tables for multiple serializations.
      * @return a new {@link StAXDocumentSerializer} instance.
@@ -163,11 +170,11 @@ public class FastInfosetCodec implements Codec {
             boolean retainState, int indexedStringSizeLimit, int stringsMemoryLimit) {
         StAXDocumentSerializer serializer = new StAXDocumentSerializer(out);
         if (retainState) {
-            /**
-             * Create a serializer vocabulary external to the serializer.
-             * This will ensure that the vocabulary will never be cleared
-             * for each serialization and will be retained (and will grow)
-             * for each serialization
+            /*
+              Create a serializer vocabulary external to the serializer.
+              This will ensure that the vocabulary will never be cleared
+              for each serialization and will be retained (and will grow)
+              for each serialization
              */
             SerializerVocabulary vocabulary = new SerializerVocabulary();
             serializer.setVocabulary(vocabulary);
@@ -193,11 +200,11 @@ public class FastInfosetCodec implements Codec {
         StAXDocumentParser parser = new StAXDocumentParser(in);
         parser.setStringInterning(true);
         if (retainState) {
-            /**
-             * Create a parser vocabulary external to the parser.
-             * This will ensure that the vocabulary will never be cleared
-             * for each parse and will be retained (and will grow)
-             * for each parse.
+            /*
+              Create a parser vocabulary external to the parser.
+              This will ensure that the vocabulary will never be cleared
+              for each parse and will be retained (and will grow)
+              for each parse.
              */
             ParserVocabulary vocabulary = new ParserVocabulary();
             parser.setVocabulary(vocabulary);
@@ -218,11 +225,11 @@ public class FastInfosetCodec implements Codec {
         parser.setStringInterning(true);
         parser.setForceStreamClose(true);
         if (retainState) {
-            /**
-             * Create a parser vocabulary external to the parser.
-             * This will ensure that the vocabulary will never be cleared
-             * for each parse and will be retained (and will grow)
-             * for each parse.
+            /*
+              Create a parser vocabulary external to the parser.
+              This will ensure that the vocabulary will never be cleared
+              for each parse and will be retained (and will grow)
+              for each parse.
              */
             ParserVocabulary vocabulary = new ParserVocabulary();
             parser.setVocabulary(vocabulary);
@@ -232,13 +239,13 @@ public class FastInfosetCodec implements Codec {
 
     /**
      * Method is copied from com.sun.xml.ws.encoding.xml.XMLMessage
-     * @TODO method should be public in some util package?
      *
      * Finds if the stream has some content or not
      *
      * @return null if there is no data
      *         else stream to be used
      */
+    //TODO method should be public in some util package?
     private static InputStream hasSomeData(InputStream in) throws IOException {
         if (in != null) {
             if (in.available() < 1) {

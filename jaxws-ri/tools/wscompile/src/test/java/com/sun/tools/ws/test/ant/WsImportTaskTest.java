@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,61 +40,9 @@ public class WsImportTaskTest extends WsAntTaskTestBase {
         assertTrue(metainf.mkdirs());
     }
 
-    @Override
-    protected void tearDown() throws Exception {
-        if (tryDelete) {
-            wsdl.delete();
-        }
-        super.tearDown();
-    }
-
-    public void testWsImportLockJars() throws IOException, URISyntaxException {
-        if (isOldJDK()) {
-            Logger.getLogger(WsImportTaskTest.class.getName()).warning("Old JDK - 6+ is required - skipping jar locking test");
-            return;
-        }
-        if (is9()) {
-            Logger.getLogger(WsGenTaskTest.class.getName()).warning("New JDK - <9 is required - skipping jar locking test");
-            return;
-        }
-        if (isAntPre18()) {
-            Logger.getLogger(WsImportTaskTest.class.getName()).warning("Old Ant - 1.8+ is required - skipping jar locking test");
-            return;
-        }
-        tryDelete = true;
-        assertEquals(0, AntExecutor.exec(script, apiDir, "wsimport-client", "clean"));
-        List<String> files = listDirs(apiDir, libDir);
-        assertTrue("Locked jars: " + files, files.isEmpty());
-    }
-
-    /**
-     * Verify (@code module-info.java} generation with JDK9.
-     */
-    /*public void testWsImportModuleGeneration() throws IOException, URISyntaxException {
-        // TODO: JDK 9
-        if (ModuleHelper.isModularJDK()) {
-            assertEquals(0, AntExecutor.exec(script, apiDir, "wsimport-client-module", "clean"));
-        }
-    }*/
-
-    public void testWsImportLockJarURLs() throws IOException, URISyntaxException {
-        if (is9()) {
-            Logger.getLogger(WsGenTaskTest.class.getName()).warning("New JDK - <9 is required - skipping jar locking test");
-            return;
-        }
-        if (isAntPre18()) {
-            Logger.getLogger(WsImportTaskTest.class.getName()).warning("Old Ant - 1.8+ is required - skipping jar locking test");
-            return;
-        }
-        tryDelete = true;
-        assertEquals(0, AntExecutor.exec(script, apiDir, "wsimport-client-jarurl", "clean"));
-        List<String> files = listDirs(apiDir, libDir);
-        assertTrue("Locked jars: " + files, files.isEmpty());
-    }
-
     public void testEncoding() throws IOException {
         //this fails because one task uses invalid attributte
-        assertEquals(1, AntExecutor.exec(script, apiDir, "wsimport-client-encoding"));
+        assertEquals(1, AntExecutor.exec(script, "wsimport-client-encoding"));
         //UTF-8
         File f = new File(buildDir, "client/utf8/Hello.java");
         FileInputStream fis = new FileInputStream(f);
@@ -118,7 +66,7 @@ public class WsImportTaskTest extends WsAntTaskTestBase {
     }
 
     public void testPlugin() throws IOException {
-        assertEquals(0, AntExecutor.exec(script, apiDir, "wsimport-plugin"));
+        assertEquals(0, AntExecutor.exec(script, "wsimport-plugin"));
         File f = new File(buildDir, "test/Hello_Service.java");
         BufferedReader br = new BufferedReader(new FileReader(f));
         String line;
@@ -146,20 +94,11 @@ public class WsImportTaskTest extends WsAntTaskTestBase {
     public void testFork() throws FileNotFoundException, IOException {
         copy(pkg,  "MyExtension.java", WsImportTaskTest.class.getResourceAsStream("resources/MyExtension.java_"));
         copy(buildDir,  "META-INF/com.sun.tools.ws.api.wsdl.TWSDLExtensionHandler", WsImportTaskTest.class.getResourceAsStream("resources/TWSDLExtensionHandler"));
-        assertEquals(0, AntExecutor.exec(script, apiDir, "wsimport-fork"));
+        assertEquals(0, AntExecutor.exec(script, "wsimport-fork"));
     }
 
-    //TODO: FIXME
-//    public void testAddmodules() throws IOException {
-//        if (!WsAntTaskTestBase.is9()) {
-//           Logger.getLogger(WsGenTaskTest.class.getName()).warning("Old JDK - >=9 is required - skipping jar test");
-//           return;
-//        }
-//        assertEquals(0, AntExecutor.exec(script, apiDir, "wsimport-addmodules"));
-//    }
-
     public void testJavac() throws IOException {
-        assertEquals(0, AntExecutor.exec(script, apiDir, "wsimport-javac"));
+        assertEquals(0, AntExecutor.exec(script, "wsimport-javac"));
         //wsimport compiled classes should be valid for java 5
         File f = new File(buildDir, "test/types/HelloType.class");
         DataInputStream in = new DataInputStream(new FileInputStream(f));

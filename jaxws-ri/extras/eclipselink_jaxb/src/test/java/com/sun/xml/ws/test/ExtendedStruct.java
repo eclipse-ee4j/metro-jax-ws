@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,19 +21,19 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
- * <pre>
- * &lt;complexType name="extendedStruct">
- *   &lt;complexContent>
- *     &lt;extension base="{http://performance.bea.com}baseStruct">
- *       &lt;sequence>
- *         &lt;element name="anotherIntMessage" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="intMessage" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="stringMessage" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/extension>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ * <pre>{@code
+ * <complexType name="extendedStruct">
+ *   <complexContent>
+ *     <extension base="{http://performance.bea.com}baseStruct">
+ *       <sequence>
+ *         <element name="anotherIntMessage" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         <element name="intMessage" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         <element name="stringMessage" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *       </sequence>
+ *     </extension>
+ *   </complexContent>
+ * </complexType>
+ * }</pre>
  * 
  * 
  */

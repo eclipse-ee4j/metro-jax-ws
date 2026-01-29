@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,17 +23,19 @@ import java.util.Map;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class HTTPExtensionHandler extends AbstractExtensionHandler {
-
 
     public HTTPExtensionHandler(Map<String, AbstractExtensionHandler> extensionHandlerMap) {
         super(extensionHandlerMap);
     }
 
+    @Override
     public String getNamespaceURI() {
         return Constants.NS_WSDL_HTTP;
     }
 
+    @Override
     public boolean handleDefinitionsExtension(
         TWSDLParserContext context,
         TWSDLExtensible parent,
@@ -45,6 +47,7 @@ public class HTTPExtensionHandler extends AbstractExtensionHandler {
         return false;
     }
 
+    @Override
     public boolean handleTypesExtension(
         com.sun.tools.ws.api.wsdl.TWSDLParserContext context,
         TWSDLExtensible parent,
@@ -56,6 +59,7 @@ public class HTTPExtensionHandler extends AbstractExtensionHandler {
         return false;
     }
 
+    @Override
     public boolean handleBindingExtension(
         TWSDLParserContext context,
         TWSDLExtensible parent,
@@ -82,6 +86,7 @@ public class HTTPExtensionHandler extends AbstractExtensionHandler {
         }
     }
 
+    @Override
     public boolean handleOperationExtension(
         TWSDLParserContext context,
         TWSDLExtensible parent,
@@ -111,6 +116,7 @@ public class HTTPExtensionHandler extends AbstractExtensionHandler {
         }
     }
 
+    @Override
     public boolean handleInputExtension(
         TWSDLParserContext context,
         TWSDLExtensible parent,
@@ -131,6 +137,7 @@ public class HTTPExtensionHandler extends AbstractExtensionHandler {
         }
     }
 
+    @Override
     public boolean handleOutputExtension(
         TWSDLParserContext context,
         TWSDLExtensible parent,
@@ -142,6 +149,7 @@ public class HTTPExtensionHandler extends AbstractExtensionHandler {
         return false;
     }
 
+    @Override
     public boolean handleFaultExtension(
         TWSDLParserContext context,
         TWSDLExtensible parent,
@@ -153,6 +161,7 @@ public class HTTPExtensionHandler extends AbstractExtensionHandler {
         return false;
     }
 
+    @Override
     public boolean handleServiceExtension(
         TWSDLParserContext context,
         TWSDLExtensible parent,
@@ -164,6 +173,7 @@ public class HTTPExtensionHandler extends AbstractExtensionHandler {
         return false;
     }
 
+    @Override
     public boolean handlePortExtension(
         TWSDLParserContext context,
         TWSDLExtensible parent,
@@ -191,6 +201,7 @@ public class HTTPExtensionHandler extends AbstractExtensionHandler {
         }
     }
 
+    @Override
     public boolean handlePortTypeExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         Util.fail(
             "parsing.invalidExtensionElement",

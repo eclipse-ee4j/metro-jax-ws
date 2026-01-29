@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,14 +43,13 @@ import java.util.logging.Logger;
  *
  * <p>
  * This class implements {@link BoundEndpoint} and represent the
- * servlet-{@link WSEndpoint} association for {@link }
+ * servlet-{@code WSEndpoint} association
  *
  */
 public class ServletAdapter extends HttpAdapter implements BoundEndpoint {
     final String name;
 
-    @SuppressWarnings("unchecked")
-	protected ServletAdapter(String name, String urlPattern, WSEndpoint endpoint, ServletAdapterList owner) {
+	protected ServletAdapter(String name, String urlPattern, WSEndpoint<?> endpoint, ServletAdapterList owner) {
         super(endpoint, owner, urlPattern);
         this.name = name;
         // registers itself with the container
@@ -82,6 +81,7 @@ public class ServletAdapter extends HttpAdapter implements BoundEndpoint {
     /**
      * Gets the name of the endpoint as given in the <code>sun-jaxws.xml</code>
      * deployment descriptor.
+     * @return the name
      */
     public String getName() {
         return name;
@@ -164,17 +164,7 @@ public class ServletAdapter extends HttpAdapter implements BoundEndpoint {
                 return;
             }
 
-            boolean asyncRequest = false;
-            try {
-                asyncRequest = isServlet30Based && request.isAsyncSupported() && !request.isAsyncStarted();
-            } catch (Throwable t) {
-                //this happens when the loaded Servlet API is 3.0, but the impl is not, ending up as AbstractMethodError
-                LOGGER.log(Level.INFO, request.getClass().getName() + " does not support Async API, Continuing with synchronous processing", t);
-                //Continue with synchronous processing and don't repeat the check for processing further requests
-                isServlet30Based = false;
-            }
-
-            if (asyncRequest) {
+            if (request.isAsyncSupported() && !request.isAsyncStarted()) {
                 final jakarta.servlet.AsyncContext asyncContext = request.startAsync(request, response);
                 final AsyncCompletionCheck completionCheck = new AsyncCompletionCheck();
                 new WSAsyncListener(connection, callback).addListenerTo(asyncContext,completionCheck);
@@ -224,6 +214,7 @@ public class ServletAdapter extends HttpAdapter implements BoundEndpoint {
      * @deprecated
      *      Use {@link #handle(ServletContext, HttpServletRequest, HttpServletResponse)}
      */
+    @Deprecated
     public void publishWSDL(ServletContext context, HttpServletRequest request, HttpServletResponse response) throws IOException {
         WSHTTPConnection connection = new ServletConnectionImpl(this,context,request,response);
         super.handle(connection);
@@ -235,7 +226,5 @@ public class ServletAdapter extends HttpAdapter implements BoundEndpoint {
     }
 
     private static final Logger LOGGER = Logger.getLogger(ServletAdapter.class.getName());
-
-    private boolean isServlet30Based = ServletUtil.isServlet30Based();
 
 }

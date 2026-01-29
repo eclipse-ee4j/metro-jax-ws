@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,6 @@ import java.util.Map;
  * WsFactory is the entry point of all the ws-databinding APIs. A WsFactory
  * instance can be used to create <code>WsTool</code>, <code>WsRuntime</code>,
  * <code>XsTool</code>, and <code>XsRuntime</code> instances.
- * <p>
  *
  * <blockquote>
  * Following is an example that creates a {@code WsTool} which provides the
@@ -43,10 +42,15 @@ import java.util.Map;
  */
 public abstract class DatabindingFactory extends com.oracle.webservices.api.databinding.DatabindingFactory {
 
-  /**
-   * Creates a new instance of a <code>WsTool</code>. 
-   * 
-   * @return New instance of a <code>WsTool</code>
+	/**
+	 * Default constructor.
+	 */
+	protected DatabindingFactory() {}
+
+  /*
+    Creates a new instance of a <code>WsTool</code>.
+
+    @return New instance of a <code>WsTool</code>
    */
 //	abstract public WsTool createTool();
 
@@ -60,17 +64,17 @@ public abstract class DatabindingFactory extends com.oracle.webservices.api.data
    */
   abstract public com.oracle.webservices.api.databinding.Databinding createRuntime(DatabindingConfig config);
 	
-  /**
-   * Creates a new instance of a <code>XsTool</code>. 
-   * 
-   * @return New instance of a <code>XsTool</code>
+  /*
+    Creates a new instance of a <code>XsTool</code>.
+
+    @return New instance of a <code>XsTool</code>
    */
 //	abstract public XsTool createXsTool(String mode);
 
-  /**
-   * Creates a new instance of a <code>XsRuntime</code>. 
-   * 
-   * @return New instance of a <code>XsRuntime</code>
+  /*
+    Creates a new instance of a <code>XsRuntime</code>.
+
+    @return New instance of a <code>XsRuntime</code>
    */
 //	abstract public XsRuntime createXsRuntime(String mode);
 
@@ -79,6 +83,7 @@ public abstract class DatabindingFactory extends com.oracle.webservices.api.data
    *
    * @return properties of this WsFactory
    */
+	@Override
 	abstract public Map<String, Object> properties();
 
 	/**
@@ -99,7 +104,7 @@ public abstract class DatabindingFactory extends com.oracle.webservices.api.data
 	static public DatabindingFactory newInstance() {
 		try {
 			Class<?> cls = Class.forName(ImplClass);
-			return (DatabindingFactory) cls.newInstance();
+			return (DatabindingFactory) cls.getConstructor().newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

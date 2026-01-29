@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
 import java.security.AccessController;
 import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
-import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -54,6 +53,13 @@ public abstract class BasePropertySet implements PropertySet {
      * Just giving it an alias to make the use of this class more fool-proof.
      */
     protected static class PropertyMap extends HashMap<String,Accessor> {
+
+        private static final long serialVersionUID = 2640743517567338373L;
+
+        /**
+         * Default constructor.
+         */
+        protected PropertyMap() {}
 
         // the entries are often being iterated through so performance can be improved
         // by their caching instead of iterating through the original (immutable) map each time
@@ -198,140 +204,16 @@ public abstract class BasePropertySet implements PropertySet {
         void set(PropertySet props, Object value);
     }
 
-    static final class FieldAccessor implements Accessor {
-        /**
-         * Field with the annotation.
-         */
-        private final Field f;
-
-        /**
-         * One of the values in {@link Property} annotation on {@link #f}.
-         */
-        private final String name;
-
-        protected FieldAccessor(Field f, String name) {
-            this.f = f;
-            f.setAccessible(true);
-            this.name = name;
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public boolean hasValue(PropertySet props) {
-            return get(props)!=null;
-        }
-
-        @Override
-        public Object get(PropertySet props) {
-            try {
-                return f.get(props);
-            } catch (IllegalAccessException e) {
-                throw new AssertionError();
-            }
-        }
-
-        @Override
-        public void set(PropertySet props, Object value) {
-            try {
-                f.set(props,value);
-            } catch (IllegalAccessException e) {
-                throw new AssertionError();
-            }
-        }
-    }
-
-    static final class MethodAccessor implements Accessor {
-        /**
-         * Getter method.
-         */
-        private final @NotNull Method getter;
-        /**
-         * Setter method.
-         * Some property is read-only.
-         */
-        private final @Nullable Method setter;
-
-        /**
-         * One of the values in {@link Property} annotation on {@link #getter}.
-         */
-        private final String name;
-
-        protected MethodAccessor(Method getter, Method setter, String value) {
-            this.getter = getter;
-            this.setter = setter;
-            this.name = value;
-            getter.setAccessible(true);
-            if (setter!=null) {
-                setter.setAccessible(true);
-            }
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        @Override
-        public boolean hasValue(PropertySet props) {
-            return get(props)!=null;
-        }
-
-        @Override
-        public Object get(PropertySet props) {
-            try {
-                return getter.invoke(props);
-            } catch (IllegalAccessException e) {
-                throw new AssertionError();
-            } catch (InvocationTargetException e) {
-                handle(e);
-                return 0;   // never reach here
-            }
-        }
-
-        @Override
-        public void set(PropertySet props, Object value) {
-            if(setter==null) {
-                throw new ReadOnlyPropertyException(getName());
-            }
-            try {
-                setter.invoke(props,value);
-            } catch (IllegalAccessException e) {
-                throw new AssertionError();
-            } catch (InvocationTargetException e) {
-                handle(e);
-            }
-        }
-
-        /**
-         * Since we don't expect the getter/setter to throw a checked exception,
-         * it should be possible to make the exception propagation transparent.
-         * That's what we are trying to do here.
-         */
-        private Exception handle(InvocationTargetException e) {
-            Throwable t = e.getTargetException();
-            if (t instanceof Error) {
-                throw (Error)t;
-            }
-            if (t instanceof RuntimeException) {
-                throw (RuntimeException)t;
-            }
-            throw new Error(e);
-        }
-    }
-
-
     /**
      * Class allowing to work with PropertySet object as with a Map; it doesn't only allow to read properties from
      * the map but also to modify the map in a way it is in sync with original strongly typed fields. It also allows
      * (if necessary) to store additional properties those can't be found in strongly typed fields.
      *
-     * @see com.sun.xml.ws.api.PropertySet#asMap() method
+     * @see PropertySet#asMap() method
      */
     final class MapView extends HashMap<String, Object> {
+
+        private static final long serialVersionUID = -8512282119705090517L;
 
         // flag if it should allow store also different properties
         // than the from strongly typed fields
@@ -363,9 +245,9 @@ public abstract class BasePropertySet implements PropertySet {
 
         @Override
         public Set<Entry<String, Object>> entrySet() {
-            Set<Entry<String, Object>> entries = new HashSet<Entry<String, Object>>();
+            Set<Entry<String, Object>> entries = new HashSet<>();
             for (String key : keySet()) {
-                entries.add(new SimpleImmutableEntry<String, Object>(key, get(key)));
+                entries.add(new SimpleImmutableEntry<>(key, get(key)));
             }
             return entries;
         }
@@ -374,7 +256,7 @@ public abstract class BasePropertySet implements PropertySet {
         public Object put(String key, Object value) {
 
             Object o = super.get(key);
-            if (o != null && o instanceof Accessor) {
+            if (o instanceof Accessor) {
 
                 Object oldValue = ((Accessor) o).get(BasePropertySet.this);
                 ((Accessor) o).set(BasePropertySet.this, value);
@@ -438,7 +320,9 @@ public abstract class BasePropertySet implements PropertySet {
     /**
      * Sets a property.
      *
-     * <h3>Implementation Note</h3>
+     * <p>
+     * <strong>Implementation Note</strong>
+     * <p>
      * This method is slow. Code inside JAX-WS should define strongly-typed
      * fields in this class and access them directly, instead of using this.
      *
@@ -481,37 +365,6 @@ public abstract class BasePropertySet implements PropertySet {
     }
 
     /**
-     * Creates a {@link Map} view of this {@link PropertySet}.
-     *
-     * <p>
-     * This map is partially live, in the sense that values you set to it
-     * will be reflected to {@link PropertySet}.
-     *
-     * <p>
-     * However, this map may not pick up changes made
-     * to {@link PropertySet} after the view is created.
-     *
-     * @deprecated use newer implementation {@link PropertySet#asMap()} which produces
-     * readwrite {@link Map}
-     *
-     * @return
-     *      always non-null valid instance.
-     */
-    @Deprecated
-    @Override
-    public final Map<String,Object> createMapView() {
-        final Set<Entry<String,Object>> core = new HashSet<Entry<String,Object>>();
-        createEntrySet(core);
-
-        return new AbstractMap<String, Object>() {
-            @Override
-            public Set<Entry<String,Object>> entrySet() {
-                return core;
-            }
-        };
-    }
-
-    /**
      * Creates a modifiable {@link Map} view of this {@link PropertySet}.
      * <br>
      * Changes done on this {@link Map} or on {@link PropertySet} object work in both directions - values made to
@@ -547,7 +400,7 @@ public abstract class BasePropertySet implements PropertySet {
 
     protected void createEntrySet(Set<Entry<String,Object>> core) {
         for (final Entry<String, Accessor> e : getPropertyMap().entrySet()) {
-            core.add(new Entry<String, Object>() {
+            core.add(new Entry<>() {
                 @Override
                 public String getKey() {
                     return e.getKey();
@@ -562,7 +415,7 @@ public abstract class BasePropertySet implements PropertySet {
                 public Object setValue(Object value) {
                     Accessor acc = e.getValue();
                     Object old = acc.get(BasePropertySet.this);
-                    acc.set(BasePropertySet.this,value);
+                    acc.set(BasePropertySet.this, value);
                     return old;
                 }
             });

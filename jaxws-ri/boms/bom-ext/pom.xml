@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2025 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,31 +16,31 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-ri-bom</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>4.0.4-SNAPSHOT</version>
         <relativePath>../bom/pom.xml</relativePath>
     </parent>
-    
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-ri-bom-ext</artifactId>
-    
-    <version>3.0.1-SNAPSHOT</version>
+
+    <version>4.0.4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>JAX-WS RI Bill-of-Materials (BOM) Extensions</name>
     <description>JAX-WS Reference Implementation Bill-of-Materials (BOM) Extensions</description>
 
     <properties>
-        <ant.version>1.10.9</ant.version>
+        <ant.version>1.10.14</ant.version>
         <!-- CQ 21208 -->
-        <asm.version>9.1</asm.version>
-        <commonj.sdo.version>2.1.1</commonj.sdo.version>
-        <eclipselink.version>3.0.0</eclipselink.version>
+        <asm.version>9.7</asm.version>
+        <eclipselink.version>4.0.3</eclipselink.version>
         <junit.version>4.13.2</junit.version>
-        <mail.version>2.0.1</mail.version>
-        <servlet-api.version>5.0.0</servlet-api.version>
+        <mail-api.version>2.1.5</mail-api.version>
+        <angus-mail.version>2.0.5</angus-mail.version>
+        <servlet-api.version>6.1.0</servlet-api.version>
     </properties>
-            
+
     <dependencyManagement>
         <dependencies>
 
@@ -55,27 +55,42 @@
             <dependency>
                 <groupId>jakarta.mail</groupId>
                 <artifactId>jakarta.mail-api</artifactId>
-                <version>${mail.version}</version>
+                <version>${mail-api.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.sun.mail</groupId>
-                <artifactId>jakarta.mail</artifactId>
-                <version>${mail.version}</version>
+                <groupId>org.eclipse.angus</groupId>
+                <artifactId>angus-mail</artifactId>
+                <version>${angus-mail.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>org.eclipse.persistence.moxy</artifactId>
                 <version>${eclipselink.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.sun.activation</groupId>
+                        <artifactId>jakarta.activation</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.sun.mail</groupId>
+                        <artifactId>jakarta.mail</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.persistence</groupId>
                 <artifactId>org.eclipse.persistence.sdo</artifactId>
                 <version>${eclipselink.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.eclipse.persistence</groupId>
-                <artifactId>commonj.sdo</artifactId>
-                <version>${commonj.sdo.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.sun.activation</groupId>
+                        <artifactId>jakarta.activation</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.sun.mail</groupId>
+                        <artifactId>jakarta.mail</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- Optional dependencies -->
@@ -89,12 +104,10 @@
             <dependency>
                 <groupId>org.ow2.asm</groupId>
                 <artifactId>asm</artifactId>
-                <type>jar</type>
-                <classifier>sources</classifier>
                 <version>${asm.version}</version>
             </dependency>
 
         </dependencies>
     </dependencyManagement>
-        
+
 </project>

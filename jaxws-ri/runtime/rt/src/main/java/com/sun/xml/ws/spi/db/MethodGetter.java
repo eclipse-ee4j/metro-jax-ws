@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,11 +33,13 @@ public class MethodGetter extends PropertyGetterBase {
         return method;
     }
 
+    @Override
     public <A> A getAnnotation(Class<A> annotationType) {
         Class c = annotationType;
         return (A) method.getAnnotation(c);
     }    
     
+    @Override
     public Object get(final Object instance) {
         final Object[] args = new Object[0];
         try {

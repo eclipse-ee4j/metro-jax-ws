@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,20 +16,22 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>4.0.4-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>wscompile</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>4.0.4-SNAPSHOT</version>
 
     <name>JAX-WS RI Tools (wscompile)</name>
     <description>JAX-WS RI Tools</description>
 
     <properties>
         <spotbugs.exclude>${project.basedir}/exclude.xml</spotbugs.exclude>
+        <!-- too many to fix -->
+        <jdoc.doclint>-missing</jdoc.doclint>
     </properties>
 
     <dependencies>
@@ -153,11 +155,6 @@
                                     <artifactId>jakarta.annotation-api</artifactId>
                                     <type>jar</type>
                                 </artifactItem>
-                                <artifactItem>
-                                    <groupId>jakarta.jws</groupId>
-                                    <artifactId>jakarta.jws-api</artifactId>
-                                    <type>jar</type>
-                                </artifactItem>
                             </artifactItems>
                         </configuration>
                     </execution>
@@ -169,7 +166,7 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                            <excludeArtifactIds>jakarta.activation-api,ant-launcher,ant-nodeps</excludeArtifactIds>
+                            <excludeArtifactIds>ant-launcher,ant-nodeps</excludeArtifactIds>
                             <excludeScope>system</excludeScope>
                         </configuration>
                     </execution>
@@ -201,27 +198,11 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>default-compile-mr</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <compileSourceRoots>
-                                <compileSourceRoot>${project.basedir}/src/main/java-mr</compileSourceRoot>
-                            </compileSourceRoots>
-                            <outputDirectory>${project.build.outputDirectory}/META-INF/versions/9</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>default-testCompile</id>
                         <configuration>
                             <compilerArgs>
-                                <arg>--add-modules</arg>
-                                <arg>junit,ant</arg>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.tools.ws.wscompile.test=junit</arg>
-                                <arg>--add-reads</arg>
-                                <arg>com.sun.tools.ws.wscompile=ant</arg>
+                                <arg>com.sun.tools.ws.wscompile=ALL-UNNAMED</arg>
                             </compilerArgs>
                         </configuration>
                     </execution>
@@ -235,10 +216,9 @@
                         <java.io.tmpdir>${project.build.directory}/test-antprojects</java.io.tmpdir>
                         <bin.folder>${project.build.directory}</bin.folder>
                         <xml.bind-api.version>${xml.bind-api.version}</xml.bind-api.version>
-                        <jakarta.jws-api.version>${jakarta.jws-api.version}</jakarta.jws-api.version>
                         <jakarta.annotation-api.version>${jakarta.annotation-api.version}</jakarta.annotation-api.version>
-                        <jaxws-api.version>${jaxws-api.version}</jaxws-api.version>
-                        <jacoco-agent.destfile>${project.build.directory}</jacoco-agent.destfile>
+                        <xml.ws-api.version>${xml.ws-api.version}</xml.ws-api.version>
+                        <coverage>${coverage}</coverage>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>
@@ -248,6 +228,11 @@
                             <excludes>
                                 <exclude>com.sun.tools.ws.test.wsdl.parser.WSImportSec2Test</exclude>
                             </excludes>
+                            <argLine>
+                                --add-reads com.sun.tools.ws.wscompile=ant
+                                --add-opens com.sun.tools.ws.wscompile/com.sun.tools.ws.ant=com.sun.tools.ws.wscompile.test
+                                --add-opens com.sun.tools.ws.wscompile/com.sun.tools.ws.wscompile=com.sun.tools.ws.wscompile.test
+                            </argLine>
                         </configuration>
                     </execution>
                     <execution>
@@ -274,9 +259,6 @@
                         <manifest>
                             <addDefaultEntries>false</addDefaultEntries>
                         </manifest>
-                        <manifestEntries>
-                            <Multi-Release>true</Multi-Release>
-                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>
@@ -304,7 +286,6 @@
                                 <path id="compile.classpath">
                                     <pathelement location="${basedir}/target/classes"/>
                                     <fileset dir="${basedir}/target/lib/" includes="*.jar"/>
-                                    <fileset dir="${basedir}/target/endorsed/" includes="*.jar"/>
                                     <fileset dir="${basedir}/target/lib/ant" includes="*.jar" />
                                 </path>
                                 <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
@@ -316,7 +297,6 @@
                                         debug="true"
                                         destdir="${basedir}/target/EBCDIC"
                                         quiet="true"
-                                        xendorsed="true"
                                         wsdl="${basedir}/src/test/resources/com/sun/tools/ws/EBCDIC.wsdl">
                                     <jvmarg line="-Dfile.encoding=Cp037"/>
                                     <jvmarg line="-Dnet.sourceforge.cobertura.datafile=${net.sourceforge.cobertura.datafile}"/>
@@ -329,38 +309,6 @@
                 </executions>
             </plugin> -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>add-mr-resource</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>add-resource</goal>
-                        </goals>
-                        <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>${project.basedir}/src/main/java-mr</directory>
-                                    <targetPath>META-INF/versions/9</targetPath>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Multi-Release>true</Multi-Release>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
@@ -372,5 +320,41 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>coverage</id>
+            <activation>
+                <property>
+                    <name>jacoco-build</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-prepare-agent-for-ant</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                                <configuration>
+                                    <propertyName>coverage</propertyName>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>default-report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

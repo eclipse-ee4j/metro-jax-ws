@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,6 +24,7 @@ abstract class ValueGetterFactory {
     abstract ValueGetter get(ParameterImpl p);
 
     static final ValueGetterFactory SYNC = new ValueGetterFactory() {
+        @Override
         ValueGetter get(ParameterImpl p) {
             return (p.getMode()== WebParam.Mode.IN || p.getIndex() == -1)
                     ? ValueGetter.PLAIN : ValueGetter.HOLDER;
@@ -35,6 +36,7 @@ abstract class ValueGetterFactory {
      * parameters go in async bean class
      */
     static final ValueGetterFactory ASYNC = new ValueGetterFactory() {
+        @Override
         ValueGetter get(ParameterImpl p) {
             return ValueGetter.PLAIN;
         }

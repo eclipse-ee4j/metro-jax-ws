@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -142,9 +142,9 @@ public final class XMLHTTPBindingCodec extends MimeCodec {
 
     @Override
     public void decode(InputStream in, String contentType, Packet packet) throws IOException {
-        /**
-         * Reset the encoding state when on the server side for each
-         * decode/encode step.
+        /*
+          Reset the encoding state when on the server side for each
+          decode/encode step.
          */
         if (packet.contentNegotiation == null)
             useFastInfosetForEncoding = false;
@@ -248,10 +248,10 @@ public final class XMLHTTPBindingCodec extends MimeCodec {
 
     @Override
     protected Codec getMimeRootCodec(Packet p) {
-        /**
-         * The following logic is only for outbound packets
-         * to be encoded by client.
-         * On the server the p.contentNegotiation == null.
+        /*
+          The following logic is only for outbound packets
+          to be encoded by client.
+          On the server the p.contentNegotiation == null.
          */
         if (p.contentNegotiation == ContentNegotiation.none) {
             // The client may have changed the negotiation property from

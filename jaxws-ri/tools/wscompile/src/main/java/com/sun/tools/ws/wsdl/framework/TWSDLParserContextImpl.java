@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,6 +30,7 @@ import java.util.List;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class TWSDLParserContextImpl implements TWSDLParserContext {
 
     private final static String PREFIX_XMLNS = "xmlns";
@@ -62,26 +63,32 @@ public class TWSDLParserContextImpl implements TWSDLParserContext {
         _followImports = b;
     }
 
+    @Override
     public void push() {
         _nsSupport.pushContext();
     }
 
+    @Override
     public void pop() {
         _nsSupport.popContext();
     }
 
+    @Override
     public String getNamespaceURI(String prefix) {
         return _nsSupport.getURI(prefix);
     }
 
+    @Override
     public Iterable<String> getPrefixes() {
         return _nsSupport.getPrefixes();
     }
 
+    @Override
     public String getDefaultNamespaceURI() {
         return getNamespaceURI("");
     }
 
+    @Override
     public void registerNamespaces(Element e) {
         for (Iterator iter = XmlUtil.getAllAttributes(e); iter.hasNext();) {
             Attr a = (Attr) iter.next();
@@ -99,6 +106,7 @@ public class TWSDLParserContextImpl implements TWSDLParserContext {
         }
     }
 
+    @Override
     public Locator getLocation(Element e) {
         return forest.locatorTable.getStartLocation(e);
     }
@@ -122,37 +130,37 @@ public class TWSDLParserContextImpl implements TWSDLParserContext {
         return new QName(uri, XmlUtil.getLocalPart(s));
     }
 
+    @SuppressWarnings({"unchecked"})
     public void fireIgnoringExtension(Element e, Entity entity) {
         QName name = new QName(e.getNamespaceURI(), e.getLocalName());
         QName parent = entity.getElementName();
-        List _targets = null;
+        List<ParserListener> _targets = null;
 
         synchronized (this) {
             if (_listeners != null) {
-                _targets = (List) _listeners.clone();
+                _targets = (List<ParserListener>) _listeners.clone();
             }
         }
 
         if (_targets != null) {
-            for (Iterator iter = _targets.iterator(); iter.hasNext();) {
-                ParserListener l = (ParserListener) iter.next();
+            for (ParserListener l : _targets) {
                 l.ignoringExtension(entity, name, parent);
             }
         }
     }
 
+    @SuppressWarnings({"unchecked"})
     public void fireDoneParsingEntity(QName element, Entity entity) {
-        List _targets = null;
+        List<ParserListener> _targets = null;
 
         synchronized (this) {
             if (_listeners != null) {
-                _targets = (List) _listeners.clone();
+                _targets = (List<ParserListener>) _listeners.clone();
             }
         }
 
         if (_targets != null) {
-            for (Iterator iter = _targets.iterator(); iter.hasNext();) {
-                ParserListener l = (ParserListener) iter.next();
+            for (ParserListener l : _targets) {
                 l.doneParsingEntity(element, entity);
             }
         }

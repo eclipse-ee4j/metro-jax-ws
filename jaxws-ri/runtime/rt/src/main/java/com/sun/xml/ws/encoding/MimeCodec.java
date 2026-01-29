@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,7 +44,7 @@ import java.util.UUID;
  *
  * @author Kohsuke Kawaguchi
  */
-abstract class MimeCodec implements Codec {
+public abstract class MimeCodec implements Codec {
     
     public static final String MULTIPART_RELATED_MIME_TYPE = "multipart/related";
     
@@ -57,6 +57,7 @@ abstract class MimeCodec implements Codec {
         this.features = f;
     }
     
+    @Override
     public String getMimeType() {
         return MULTIPART_RELATED_MIME_TYPE;
     }
@@ -67,6 +68,7 @@ abstract class MimeCodec implements Codec {
 
     // TODO: preencode String literals to byte[] so that they don't have to
     // go through char[]->byte[] conversion at runtime.
+    @Override
     public ContentType encode(Packet packet, OutputStream out) throws IOException {
         Message msg = packet.getMessage();
         if (msg == null) {
@@ -97,7 +99,7 @@ abstract class MimeCodec implements Codec {
                 String cid = att.getContentId();
                 if(cid != null && cid.length() >0 && cid.charAt(0) != '<')
                     cid = '<' + cid + '>';
-                writeln("Content-Id:" + cid, out);
+                writeln("Content-ID: " + cid, out);
                 writeln("Content-Type: " + att.getContentType(), out);
                 writeCustomMimeHeaders(att, out);
                 writeln("Content-Transfer-Encoding: binary", out);
@@ -119,13 +121,14 @@ abstract class MimeCodec implements Codec {
                 AttachmentEx.MimeHeader mh = allMimeHeaders.next();
                 String name = mh.getName();
 
-                if (!"Content-Type".equalsIgnoreCase(name) && !"Content-Id".equalsIgnoreCase(name)) {
+                if (!"Content-Type".equalsIgnoreCase(name) && !"Content-ID".equalsIgnoreCase(name)) {
                     writeln(name +": " + mh.getValue(), out);
                 }
             }
         }
     }
 
+    @Override
     public ContentType getStaticContentType(Packet packet) {
         ContentType ct = (ContentType) packet.getInternalContentType();
         if ( ct != null ) return ct;
@@ -134,7 +137,7 @@ abstract class MimeCodec implements Codec {
         Codec rootCodec = getMimeRootCodec(packet);
 
         if (hasAttachments) {
-            String boundary = "uuid:" + UUID.randomUUID().toString();
+            String boundary = "uuid:" + UUID.randomUUID();
             String boundaryParameter = "boundary=\"" + boundary + "\"";
             // TODO use primaryEncoder to get type
             String messageContentType =  MULTIPART_RELATED_MIME_TYPE + 
@@ -160,11 +163,13 @@ abstract class MimeCodec implements Codec {
         this.features = that.features;
     }
 
+    @Override
     public void decode(InputStream in, String contentType, Packet packet) throws IOException {
         MimeMultipartParser parser = new MimeMultipartParser(in, contentType, features.get(StreamingAttachmentFeature.class));
         decode(parser,packet);
     }
 
+    @Override
     public void decode(ReadableByteChannel in, String contentType, Packet packet) {
         throw new UnsupportedOperationException();
     }
@@ -174,6 +179,7 @@ abstract class MimeCodec implements Codec {
      */
     protected abstract void decode(MimeMultipartParser mpp, Packet packet) throws IOException;
 
+    @Override
     public abstract MimeCodec copy();
 
 

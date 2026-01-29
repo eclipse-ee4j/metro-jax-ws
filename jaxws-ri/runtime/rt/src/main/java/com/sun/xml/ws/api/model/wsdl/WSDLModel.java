@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -95,17 +95,17 @@ public interface WSDLModel extends WSDLExtensible {
     /**
      * Returns the first service QName from insertion order
      */
-    public QName getFirstServiceName();
+    QName getFirstServiceName();
     
     /**
      * Returns the message with the given QName
      * @param name Message name
      * @return Message
      */
-    public WSDLMessage getMessage(QName name);
+    WSDLMessage getMessage(QName name);
     
     /**
-     * Gives a {@link Map} of wsdl:message qualified name and {@link com.sun.xml.ws.api.model.wsdl.WSDLMesage}
+     * Gives a {@link Map} of wsdl:message qualified name and {@link com.sun.xml.ws.api.model.wsdl.WSDLMessage}
      *
      * @return an empty Map if the wsdl document has no wsdl:message
      */
@@ -119,12 +119,14 @@ public interface WSDLModel extends WSDLExtensible {
      * @deprecated
      * Do not use this method as the PolicyMap API is not final yet and might change in next few months.
      */
-    public PolicyMap getPolicyMap();
+    @Deprecated
+    PolicyMap getPolicyMap();
 
     /**
      * Main purpose of this class is to  parsing of a WSDL and get the {@link WSDLModel} from it.
      */
-    public class WSDLParser{
+    class WSDLParser{
+        private WSDLParser() {}
        /**
          * Parses WSDL from the given wsdlLoc and gives a {@link WSDLModel} built from it.
          *
@@ -133,10 +135,7 @@ public interface WSDLModel extends WSDLExtensible {
          * @param isClientSide  true - its invoked on the client, false means its invoked on the server
          * @param extensions var args of {@link com.sun.xml.ws.api.wsdl.parser.WSDLParserExtension}s
          * @return A {@link WSDLModel} built from the given wsdlLocation}
-         * @throws java.io.IOException
-         * @throws javax.xml.stream.XMLStreamException
-         * @throws org.xml.sax.SAXException
-         */
+        */
         public static @NotNull WSDLModel parse(XMLEntityResolver.Parser wsdlEntityParser, XMLEntityResolver resolver, boolean isClientSide, WSDLParserExtension... extensions) throws IOException, XMLStreamException, SAXException {
             return parse(wsdlEntityParser, resolver, isClientSide, Container.NONE, extensions);
         }
@@ -150,9 +149,6 @@ public interface WSDLModel extends WSDLExtensible {
          * @param container - container in which the parser is run
          * @param extensions var args of {@link com.sun.xml.ws.api.wsdl.parser.WSDLParserExtension}s
          * @return A {@link WSDLModel} built from the given wsdlLocation}
-         * @throws java.io.IOException
-         * @throws javax.xml.stream.XMLStreamException
-         * @throws org.xml.sax.SAXException
          */
         public static @NotNull WSDLModel parse(XMLEntityResolver.Parser wsdlEntityParser, XMLEntityResolver resolver, boolean isClientSide, @NotNull Container container, WSDLParserExtension... extensions) throws IOException, XMLStreamException, SAXException {
             return parse(wsdlEntityParser, resolver, isClientSide, container, PolicyResolverFactory.create(),extensions);
@@ -169,9 +165,6 @@ public interface WSDLModel extends WSDLExtensible {
          * @param policyResolver - PolicyResolver for resolving effective Policy
          * @param extensions var args of {@link com.sun.xml.ws.api.wsdl.parser.WSDLParserExtension}s
          * @return A {@link WSDLModel} built from the given wsdlLocation}
-         * @throws java.io.IOException
-         * @throws javax.xml.stream.XMLStreamException
-         * @throws org.xml.sax.SAXException
          */
         public static @NotNull WSDLModel parse(XMLEntityResolver.Parser wsdlEntityParser, XMLEntityResolver resolver, boolean isClientSide, @NotNull Container container, PolicyResolver policyResolver,  WSDLParserExtension... extensions) throws IOException, XMLStreamException, SAXException {
             return RuntimeWSDLParser.parse(wsdlEntityParser, resolver, isClientSide, container, policyResolver, extensions);

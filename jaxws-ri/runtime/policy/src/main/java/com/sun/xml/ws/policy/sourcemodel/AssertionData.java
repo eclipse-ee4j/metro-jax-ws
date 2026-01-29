@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,7 @@ public final class AssertionData implements Cloneable, Serializable {
 
     private final QName name;
     private final String value;
-    private final Map<QName, String> attributes;
+    private transient final Map<QName, String> attributes;
     private ModelNode.Type type;
 
     private boolean optional;
@@ -117,8 +117,8 @@ public final class AssertionData implements Cloneable, Serializable {
      * @param attributes map of model node's &lt;attribute name, attribute value&gt; pairs
      * @param type specifies whether the data will belong to the assertion or assertion parameter node. This is
      *             a workaround solution that allows us to transfer this information about the owner node to
-     *             a policy assertion instance factory without actualy having to touch the {@link PolicyAssertionCreator}
-     *             interface and protected {@link PolicyAssertion} constructors.
+     *             a policy assertion instance factory without actualy having to touch the {@link com.sun.xml.ws.policy.spi.PolicyAssertionCreator}
+     *             interface and protected {@link com.sun.xml.ws.policy.PolicyAssertion} constructors.
      *
      * @throws IllegalArgumentException in case the {@code type} parameter is not
      * {@link ModelNode.Type#ASSERTION ASSERTION} or
@@ -130,7 +130,7 @@ public final class AssertionData implements Cloneable, Serializable {
         this.optional = optional;
         this.ignorable = ignorable;
 
-        this.attributes = new HashMap<QName, String>();
+        this.attributes = new HashMap<>();
         if (attributes != null && !attributes.isEmpty()) {
             this.attributes.putAll(attributes);
         }
@@ -154,7 +154,7 @@ public final class AssertionData implements Cloneable, Serializable {
     AssertionData(final AssertionData data) {
         this.name = data.name;
         this.value = data.value;
-        this.attributes = new HashMap<QName, String>();
+        this.attributes = new HashMap<>();
         if (!data.attributes.isEmpty()) {
             this.attributes.putAll(data.attributes);
         }
@@ -228,7 +228,7 @@ public final class AssertionData implements Cloneable, Serializable {
      */
     public Map<QName, String> getAttributes() {
         synchronized (attributes) {
-            return new HashMap<QName, String>(attributes);
+            return new HashMap<>(attributes);
         }
     }
 
@@ -245,7 +245,7 @@ public final class AssertionData implements Cloneable, Serializable {
      */
     public Set<Map.Entry<QName, String>> getAttributesSet() {
         synchronized (attributes) {
-            return new HashSet<Map.Entry<QName, String>>(attributes.entrySet());
+            return new HashSet<>(attributes.entrySet());
         }
     }
 

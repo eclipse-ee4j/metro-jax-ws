@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -94,7 +94,9 @@ import java.util.logging.Logger;
  */
 public class EndpointFactory {
 	private static final EndpointFactory instance = new EndpointFactory();
-	
+
+    private EndpointFactory() {}
+
 	public static EndpointFactory getInstance() {
 		return instance;
 	}
@@ -182,7 +184,7 @@ public class EndpointFactory {
         // Performance analysis indicates that reading and parsing imported schemas is
         // a major component of Endpoint creation time.  Therefore, modify SDDocumentSource
         // handling to delay iterating collection as long as possible.
-        Collection<SDDocumentSource> md = new CollectionCollection<SDDocumentSource>();
+        Collection<SDDocumentSource> md = new CollectionCollection<>();
         if(primaryWsdl!=null) {
             if(metadata!=null) {
                 Iterator<? extends SDDocumentSource> it = metadata.iterator();
@@ -210,7 +212,7 @@ public class EndpointFactory {
             String serviceNS = serviceName.getNamespaceURI();
             String portNS = portName.getNamespaceURI();
             if (!serviceNS.equals(portNS)) {
-                throw new ServerRtException("wrong.tns.for.port",portNS, serviceNS);
+                throw new ServerRtException(ServerMessages.localizableWRONG_TNS_FOR_PORT(portNS, serviceNS));
             }
         }
 
@@ -304,8 +306,8 @@ public class EndpointFactory {
     }
     
     protected <T> WSEndpoint<T> create(QName serviceName, QName portName, WSBinding binding, Container container, SEIModel seiModel, WSDLPort wsdlPort, Class<T> implType, ServiceDefinitionImpl serviceDefinition, EndpointAwareTube terminal, boolean isTransportSynchronous, PolicyMap policyMap) {
-        return new WSEndpointImpl<T>(serviceName, portName, binding, container, seiModel, 
-        		wsdlPort, implType, serviceDefinition, terminal, isTransportSynchronous, policyMap);
+        return new WSEndpointImpl<>(serviceName, portName, binding, container, seiModel,
+                wsdlPort, implType, serviceDefinition, terminal, isTransportSynchronous, policyMap);
     }
 
     protected boolean isUseProviderTube(Class<?> implType, boolean isStandard) {
@@ -331,20 +333,19 @@ public class EndpointFactory {
      */
     private static Collection<SDDocumentImpl> findMetadataClosure(
             final SDDocumentImpl primaryDoc, final Collection<SDDocumentImpl> docList, final EntityResolver resolver) {
-        return new AbstractCollection<SDDocumentImpl>() {
+        return new AbstractCollection<>() {
             @Override
             public Iterator<SDDocumentImpl> iterator() {
                 // create a map for old metadata
-                Map<String, SDDocumentImpl> oldMap = new HashMap<String, SDDocumentImpl>();
+                Map<String, SDDocumentImpl> oldMap = new HashMap<>();
                 Iterator<SDDocumentImpl> oldDocs = docList.iterator();
 
                 // create a map for new metadata
-                Map<String, SDDocumentImpl> newMap = new HashMap<String, SDDocumentImpl>();
+                Map<String, SDDocumentImpl> newMap = new HashMap<>();
                 newMap.put(primaryDoc.getSystemId().toString(), primaryDoc);
 
-                List<String> remaining = new ArrayList<String>();
-                remaining.addAll(primaryDoc.getImports());
-                while(!remaining.isEmpty()) {
+                List<String> remaining = new ArrayList<>(primaryDoc.getImports());
+                while (!remaining.isEmpty()) {
                     String url = remaining.remove(0);
                     SDDocumentImpl doc = oldMap.get(url);
                     if (doc == null) {
@@ -357,24 +358,24 @@ public class EndpointFactory {
                                 break;
                             }
                         }
-                        
+
                         if (doc == null) {
                             // old metadata doesn't have this imported doc, may be external
-                                if (resolver != null) {
-                                        try {
-                                                InputSource source = resolver.resolveEntity(null, url);
-                                                if (source != null) {                                           
-                                                        MutableXMLStreamBuffer xsb = new MutableXMLStreamBuffer();
-                                                        XMLStreamReader reader = XmlUtil.newXMLInputFactory(true).createXMLStreamReader(source.getByteStream());
-                                                        xsb.createFromXMLStreamReader(reader);
-            
-                                                        SDDocumentSource sdocSource = SDDocumentImpl.create(new URL(url), xsb);
-                                                        doc = SDDocumentImpl.create(sdocSource, null, null);
-                                                } 
-                                        } catch (Exception ex) {
-                                                ex.printStackTrace();
-                                        }
-                                } 
+                            if (resolver != null) {
+                                try {
+                                    InputSource source = resolver.resolveEntity(null, url);
+                                    if (source != null) {
+                                        MutableXMLStreamBuffer xsb = new MutableXMLStreamBuffer();
+                                        XMLStreamReader reader = XmlUtil.newXMLInputFactory(false).createXMLStreamReader(source.getByteStream());
+                                        xsb.createFromXMLStreamReader(reader);
+
+                                        SDDocumentSource sdocSource = SDDocumentImpl.create(new URL(url), xsb);
+                                        doc = SDDocumentImpl.create(sdocSource, null, null);
+                                    }
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
+                            }
                         }
                     }
                     // Check if new metadata already contains this doc
@@ -383,7 +384,7 @@ public class EndpointFactory {
                         remaining.addAll(doc.getImports());
                     }
                 }
-                
+
                 return newMap.values().iterator();
             }
 
@@ -501,9 +502,9 @@ public class EndpointFactory {
         return null;
     }
 
-    /**
-     *Set the mtom enable setting from wsdl model (mtom policy assertion) on to @link WSBinding} if DD has
-     * not already set it on BindingID. Also check conflicts.
+    /*
+     Set the mtom enable setting from wsdl model (mtom policy assertion) on to @link WSBinding} if DD has
+      not already set it on BindingID. Also check conflicts.
      */
     /*
     private static void applyEffectiveMtomSetting(WSDLBoundPortType wsdlBinding, WSBinding binding){
@@ -641,7 +642,7 @@ public class EndpointFactory {
                                                Container container, Class implType) {
         BindingID bindingId = binding.getBindingId();
         if (!bindingId.canGenerateWSDL()) {
-            throw new ServerRtException("can.not.generate.wsdl", bindingId);
+            throw new ServerRtException(ServerMessages.localizableCAN_NOT_GENERATE_WSDL(bindingId));
         }
 
         if (bindingId.toString().equals(SOAPBindingImpl.X_SOAP12HTTP_BINDING)) {
@@ -675,8 +676,8 @@ public class EndpointFactory {
     private static Collection<SDDocumentImpl> categoriseMetadata(
         final Iterator<SDDocumentSource> src, final QName serviceName, final QName portTypeName) {
         
-        return new AbstractCollection<SDDocumentImpl>() {
-            private final Collection<SDDocumentImpl> theConverted = new ArrayList<SDDocumentImpl>();
+        return new AbstractCollection<>() {
+            private final Collection<SDDocumentImpl> theConverted = new ArrayList<>();
 
             @Override
             public boolean add(SDDocumentImpl arg0) {
@@ -685,8 +686,9 @@ public class EndpointFactory {
 
             @Override
             public Iterator<SDDocumentImpl> iterator() {
-                return new Iterator<SDDocumentImpl>() {
+                return new Iterator<>() {
                     private Iterator<SDDocumentImpl> convIt = theConverted.iterator();
+
                     @Override
                     public boolean hasNext() {
                         if (convIt != null && convIt.hasNext())
@@ -701,7 +703,7 @@ public class EndpointFactory {
                         convIt = null;
                         if (!src.hasNext())
                             throw new NoSuchElementException();
-                        SDDocumentImpl next = SDDocumentImpl.create(src.next(),serviceName,portTypeName);
+                        SDDocumentImpl next = SDDocumentImpl.create(src.next(), serviceName, portTypeName);
                         theConverted.add(next);
                         return next;
                     }
@@ -768,13 +770,13 @@ public class EndpointFactory {
                 if (wsdlDoc.hasService()) {
                     primaryDoc = doc;
                     if (foundConcrete) {
-                        throw new ServerRtException("duplicate.primary.wsdl", doc.getSystemId() );
+                        throw new ServerRtException(ServerMessages.localizableDUPLICATE_PRIMARY_WSDL(doc.getSystemId()));
                     }
                     foundConcrete = true;
                 }
                 if (wsdlDoc.hasPortType()) {
                     if (foundAbstract) {
-                        throw new ServerRtException("duplicate.abstract.wsdl", doc.getSystemId());
+                        throw new ServerRtException(ServerMessages.localizableDUPLICATE_ABSTRACT_WSDL(doc.getSystemId()));
                     }
                     foundAbstract = true;
                 }
@@ -814,14 +816,10 @@ public class EndpointFactory {
                 throw new ServerRtException(ServerMessages.localizableRUNTIME_PARSER_WSDL_INCORRECTSERVICEPORT(serviceName, portName, wsdlUrl));
             }
             return wsdlPort;
-        } catch (IOException e) {
-            throw new ServerRtException("runtime.parser.wsdl", wsdlUrl,e);
+        } catch (IOException | ServiceConfigurationError | SAXException e) {
+            throw new ServerRtException(ServerMessages.localizableRUNTIME_PARSER_WSDL(wsdlUrl), e);
         } catch (XMLStreamException e) {
-            throw new ServerRtException("runtime.saxparser.exception", e.getMessage(), e.getLocation(), e);
-        } catch (SAXException e) {
-            throw new ServerRtException("runtime.parser.wsdl", wsdlUrl,e);
-        } catch (ServiceConfigurationError e) {
-            throw new ServerRtException("runtime.parser.wsdl", wsdlUrl,e);
+            throw new ServerRtException(ServerMessages.localizableRUNTIME_SAXPARSER_EXCEPTION(e.getMessage(), e.getLocation()), e);
         }
     }
 
@@ -830,7 +828,7 @@ public class EndpointFactory {
      */
     private static final class EntityResolverImpl implements XMLEntityResolver {
         private Iterator<? extends SDDocumentSource> origMetadata;
-        private Map<String,SDDocumentSource> metadata = new ConcurrentHashMap<String,SDDocumentSource>();
+        private Map<String,SDDocumentSource> metadata = new ConcurrentHashMap<>();
         private EntityResolver resolver;
 
         public EntityResolverImpl(Collection<? extends SDDocumentSource> metadata, EntityResolver resolver) {
@@ -838,6 +836,7 @@ public class EndpointFactory {
             this.resolver = resolver;
         }
 
+        @Override
         public Parser resolveEntity (String publicId, String systemId) throws IOException, XMLStreamException {
             if (systemId != null) {
                 SDDocumentSource doc = metadata.get(systemId);
@@ -874,14 +873,14 @@ public class EndpointFactory {
     
     private static class CollectionCollection<T> extends AbstractCollection<T> {
 
-        private final Collection<Collection<? extends T>> cols = new ArrayList<Collection<? extends T>>();
+        private final Collection<Collection<? extends T>> cols = new ArrayList<>();
         
         @Override
         public Iterator<T> iterator() {
             final Iterator<Collection<? extends T>> colIt = cols.iterator();
-            return new Iterator<T>() {
+            return new Iterator<>() {
                 private Iterator<? extends T> current = null;
-                
+
                 @Override
                 public boolean hasNext() {
                     if (current == null || !current.hasNext()) {

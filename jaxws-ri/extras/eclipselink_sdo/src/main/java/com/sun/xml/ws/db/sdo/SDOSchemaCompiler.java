@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,10 +23,6 @@ import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXSource;
 //import javax.xml.transform.stax.StAXSource;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +88,7 @@ public class SDOSchemaCompiler {
 
     public void resetSchema() {
         if (schemas == null) {
-            schemas = new ArrayList<Source>();
+            schemas = new ArrayList<>();
         } else {
             schemas.clear();
         }
@@ -100,9 +96,10 @@ public class SDOSchemaCompiler {
 
     public Xsd2JavaSDOModel bind() {
         SDOHelperContext hc = new SDOHelperContext();
-        List<SDOType> types = new ArrayList<SDOType>();
+        List<SDOType> types = new ArrayList<>();
         SDODatabindingSchemaResolver schemaResolver = new SDODatabindingSchemaResolver(schemas, entityResolver);
         for (Source schema : schemas) {
+            @SuppressWarnings({"unchecked"})
             List<SDOType> list = ((SDOXSDHelper) hc.getXSDHelper()).define(schema, schemaResolver);
             types.addAll(list);
         }

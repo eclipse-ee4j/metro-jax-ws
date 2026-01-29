@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,7 +33,6 @@ import org.xml.sax.helpers.LocatorImpl;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamReader;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -45,9 +44,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.HashMap;
 import java.util.ServiceLoader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -153,7 +152,7 @@ public class WsimportOptions extends Options {
     /**
      * Additional arguments
      */
-    public HashMap<String, String> extensionOptions = new HashMap<String, String>();
+    public HashMap<String, String> extensionOptions = new HashMap<>();
 
     /**
      * All discovered {@link Plugin}s.
@@ -166,7 +165,13 @@ public class WsimportOptions extends Options {
     /**
      * {@link Plugin}s that are enabled in this compilation.
      */
-    public final List<Plugin> activePlugins = new ArrayList<Plugin>();
+    public final List<Plugin> activePlugins = new ArrayList<>();
+
+
+    /**
+     * Default constructor.
+     */
+    public WsimportOptions() {}
 
     public JCodeModel getCodeModel() {
         if(codeModel == null)
@@ -197,7 +202,7 @@ public class WsimportOptions extends Options {
     /**
      * This captures jars passed on the commandline and passes them to XJC and puts them in the classpath for compilation
      */
-    public List<String> cmdlineJars = new ArrayList<String>();
+    public List<String> cmdlineJars = new ArrayList<>();
 
     /**
      * Gets all the {@link Plugin}s discovered so far.
@@ -209,7 +214,7 @@ public class WsimportOptions extends Options {
      */
     public List<Plugin> getAllPlugins() {
         if(allPlugins==null) {
-            allPlugins = new ArrayList<Plugin>();
+            allPlugins = new ArrayList<>();
             allPlugins.addAll(Arrays.asList(findServices(Plugin.class, getClassLoader())));
         }
         return allPlugins;
@@ -233,7 +238,7 @@ public class WsimportOptions extends Options {
     public final void parseArguments( String[] args ) throws BadCommandLineException {
 
         for (int i = 0; i < args.length; i++) {
-            if(args[i].length()==0)
+            if(args[i].isEmpty())
                 throw new BadCommandLineException();
             if (args[i].charAt(0) == '-') {
                 int j = parseArguments(args,i);
@@ -245,7 +250,9 @@ public class WsimportOptions extends Options {
 
                     try {
                 cmdlineJars.add(args[i]);
-                schemaCompiler.getOptions().scanEpisodeFile(new File(args[i]));
+                @SuppressWarnings({"deprecation"})
+                com.sun.tools.xjc.Options jaxbOptions = schemaCompiler.getOptions();
+                jaxbOptions.scanEpisodeFile(new File(args[i]));
 
             } catch (com.sun.tools.xjc.BadCommandLineException e) {
                 //Driver.usage(jaxbOptions,false);
@@ -257,12 +264,16 @@ public class WsimportOptions extends Options {
             }
         }
 
-        if (encoding != null && schemaCompiler.getOptions().encoding == null) {
-            try {
-                schemaCompiler.getOptions().parseArgument(
-                        new String[] {"-encoding", encoding}, 0);
-            } catch (com.sun.tools.xjc.BadCommandLineException ex) {
-                Logger.getLogger(WsimportOptions.class.getName()).log(Level.SEVERE, null, ex);
+        if (encoding != null) {
+            @SuppressWarnings({"deprecation"})
+            com.sun.tools.xjc.Options jaxbOptions = schemaCompiler.getOptions();
+            if (jaxbOptions.encoding == null) {
+                try {
+                    jaxbOptions.parseArgument(
+                            new String[]{"-encoding", encoding}, 0);
+                } catch (com.sun.tools.xjc.BadCommandLineException ex) {
+                    Logger.getLogger(WsimportOptions.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
 
@@ -314,9 +325,9 @@ public class WsimportOptions extends Options {
             String catalog = requireArgument("-catalog", args, ++i);
             try {
                 if (entityResolver == null) {
-                    if (catalog != null && catalog.length() > 0)
+                    if (catalog != null && !catalog.isEmpty())
                         entityResolver = XmlUtil.createEntityResolver(JAXWSUtils.getFileOrURL(JAXWSUtils.absolutize(Util.escapeSpace(catalog))));
-                } else if (catalog != null && catalog.length() > 0) {
+                } else if (catalog != null && !catalog.isEmpty()) {
                     EntityResolver er = XmlUtil.createEntityResolver(JAXWSUtils.getFileOrURL(JAXWSUtils.absolutize(Util.escapeSpace(catalog))));
                     entityResolver = new ForkEntityResolver(er, entityResolver);
                 }
@@ -326,7 +337,7 @@ public class WsimportOptions extends Options {
             return 2;
         } else if (args[i].startsWith("-httpproxy:")) {
             String value = args[i].substring(11);
-            if (value.length() == 0) {
+            if (value.isEmpty()) {
                 throw new BadCommandLineException(WscompileMessages.WSCOMPILE_INVALID_OPTION(args[i]));
             }
             parseProxy(value);
@@ -349,6 +360,7 @@ public class WsimportOptions extends Options {
             System.arraycopy(args,i,subCmd,0,subCmd.length);
             subCmd[0] = subCmd[0].substring(2); // trim off the first "-B"
 
+            @SuppressWarnings({"deprecation"})
             com.sun.tools.xjc.Options jaxbOptions = schemaCompiler.getOptions();
             try {
                 int r = jaxbOptions.parseArgument(subCmd, 0);
@@ -369,10 +381,11 @@ public class WsimportOptions extends Options {
             clientjar = requireArgument("-clientjar", args, ++i);
             return 2;
         } else if (args[i].equals("-implDestDir")) {
-        		implDestDir = new File(requireArgument("-implDestDir", args, ++i));
-            if (!implDestDir.exists())
-              throw new BadCommandLineException(WscompileMessages.WSCOMPILE_NO_SUCH_DIRECTORY(implDestDir.getPath()));
-        		return 2;
+            implDestDir = new File(requireArgument("-implDestDir", args, ++i));
+            if (!implDestDir.exists()) {
+                throw new BadCommandLineException(WscompileMessages.WSCOMPILE_NO_SUCH_DIRECTORY(implDestDir.getPath()));
+            }
+            return 2;
         } else if (args[i].equals("-implServiceName")) {
         	implServiceName = requireArgument("-implServiceName", args, ++i);
           return 2;
@@ -438,12 +451,12 @@ public class WsimportOptions extends Options {
         addFile(arg, wsdls, ".wsdl");
     }
 
-    private final List<InputSource> wsdls = new ArrayList<InputSource>();
-    private final List<InputSource> schemas = new ArrayList<InputSource>();
-    private final List<InputSource> bindingFiles = new ArrayList<InputSource>();
-    private final List<InputSource> jaxwsCustomBindings = new ArrayList<InputSource>();
-    private final List<InputSource> jaxbCustomBindings = new ArrayList<InputSource>();
-    private final List<Element> handlerConfigs = new ArrayList<Element>();
+    private final List<InputSource> wsdls = new ArrayList<>();
+    private final List<InputSource> schemas = new ArrayList<>();
+    private final List<InputSource> bindingFiles = new ArrayList<>();
+    private final List<InputSource> jaxwsCustomBindings = new ArrayList<>();
+    private final List<InputSource> jaxbCustomBindings = new ArrayList<>();
+    private final List<Element> handlerConfigs = new ArrayList<>();
 
     /**
      * There is supposed to be one handler chain per generated SEI.
@@ -452,7 +465,7 @@ public class WsimportOptions extends Options {
      * behaviour and generate only one @HandlerChain on the SEI
      */
     public Element getHandlerChainConfiguration(){
-        if(handlerConfigs.size() > 0)
+        if(!handlerConfigs.isEmpty())
             return handlerConfigs.get(0);
         return null;
     }
@@ -462,19 +475,19 @@ public class WsimportOptions extends Options {
     }
 
     public InputSource[] getWSDLs() {
-        return wsdls.toArray(new InputSource[wsdls.size()]);
+        return wsdls.toArray(new InputSource[0]);
     }
 
     public InputSource[] getSchemas() {
-        return schemas.toArray(new InputSource[schemas.size()]);
+        return schemas.toArray(new InputSource[0]);
     }
 
     public InputSource[] getWSDLBindings() {
-        return jaxwsCustomBindings.toArray(new InputSource[jaxwsCustomBindings.size()]);
+        return jaxwsCustomBindings.toArray(new InputSource[0]);
     }
 
     public InputSource[] getSchemaBindings() {
-        return jaxbCustomBindings.toArray(new InputSource[jaxbCustomBindings.size()]);
+        return jaxbCustomBindings.toArray(new InputSource[0]);
     }
 
     public void addWSDL(File source) {
@@ -495,7 +508,7 @@ public class WsimportOptions extends Options {
 
     private InputSource fileToInputSource(File source) {
         try {
-            String url = source.toURL().toExternalForm();
+            String url = source.toURI().toURL().toExternalForm();
             return new InputSource(Util.escapeSpace(url));
         } catch (MalformedURLException e) {
             return new InputSource(source.getPath());
@@ -537,7 +550,7 @@ public class WsimportOptions extends Options {
         // absolutize all the system IDs in the input,
         // so that we can map system IDs to DOM trees.
         try {
-            URL baseURL = new File(".").getCanonicalFile().toURL();
+            URL baseURL = new File(".").getCanonicalFile().toURI().toURL();
             is.setSystemId(new URL(baseURL, is.getSystemId()).toExternalForm());
         } catch (IOException e) {
             // ignore
@@ -578,8 +591,8 @@ public class WsimportOptions extends Options {
 
     /**
      * Exposing it as a public method to allow external tools such as NB to read from wsdl model and work on it.
-     * TODO: WSDL model needs to be exposed - basically at tool time we need to use the runtimw wsdl model
-     *
+     * TODO: WSDL model needs to be exposed - basically at tool time we need to use the runtime wsdl model
+     * <p>
      * Binding files could be jaxws or jaxb. This method identifies jaxws and jaxb binding files and keeps them separately. jaxb binding files are given separately
      * to JAXB in {@link com.sun.tools.ws.processor.modeler.wsdl.JAXBModelBuilder}
      *
@@ -595,6 +608,15 @@ public class WsimportOptions extends Options {
             } else if (reader.getName().equals(JAXWSBindingsConstants.JAXB_BINDINGS) ||
                     reader.getName().equals(new QName(SchemaConstants.NS_XSD, "schema"))) {
                 jaxbCustomBindings.add(new RereadInputSource(is));
+            } else if ("http://java.sun.com/xml/ns/jaxws".equals(reader.getNamespaceURI()) && "bindings".equals(reader.getLocalName())) {
+                //handle pre-jakarta customizations
+                LocatorImpl locator = new LocatorImpl();
+                locator.setSystemId(reader.getLocation().getSystemId());
+                locator.setPublicId(reader.getLocation().getPublicId());
+                locator.setLineNumber(reader.getLocation().getLineNumber());
+                locator.setColumnNumber(reader.getLocation().getColumnNumber());
+                receiver.warning(locator, ConfigurationMessages.CONFIGURATION_OLD_BINDING_FILE(is.getSystemId()));
+                jaxwsCustomBindings.add(new RereadInputSource(is));
             } else {
                 LocatorImpl locator = new LocatorImpl();
                 locator.setSystemId(reader.getLocation().getSystemId());
@@ -602,6 +624,14 @@ public class WsimportOptions extends Options {
                 locator.setLineNumber(reader.getLocation().getLineNumber());
                 locator.setColumnNumber(reader.getLocation().getColumnNumber());
                 receiver.warning(locator, ConfigurationMessages.CONFIGURATION_NOT_BINDING_FILE(is.getSystemId()));
+            }
+            if (is.getByteStream() != null) {
+                try {
+                    is.getByteStream().close();
+                    is.setByteStream(null);
+                } catch (IOException ex) {
+                    Logger.getLogger(WsimportOptions.class.getName()).log(Level.FINEST, null, ex);
+                }
             }
         }
     }
@@ -648,6 +678,7 @@ public class WsimportOptions extends Options {
      * Looks for all "META-INF/services/[className]" files and
      * create one instance for each class name found inside this file.
      */
+    @SuppressWarnings({"unchecked"})
     private static <T> T[] findServices(Class<T> clazz, ClassLoader classLoader) {
         ServiceFinder<T> serviceFinder = ServiceFinder.find(clazz, ServiceLoader.load(clazz, classLoader));
         List<T> r = new ArrayList<>();
@@ -792,6 +823,7 @@ public class WsimportOptions extends Options {
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     protected void disableXmlSecurity() {
         super.disableXmlSecurity();
         schemaCompiler.getOptions().disableXmlSecurity = true;

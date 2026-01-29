@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2003, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,15 +46,15 @@ public final class JAXWS_Data {
 
 
     public final static Boolean Boolean_data[] = {
-	new Boolean(false),
-	new Boolean(true),
+	Boolean.valueOf(false),
+	Boolean.valueOf(true),
 	null
     };
 
 
     public final static Boolean Boolean_nonull_data[] = {
-	new Boolean(false),
-	new Boolean(true),
+	Boolean.valueOf(false),
+	Boolean.valueOf(true),
     };
 
     public final static List<Boolean> list_Boolean_data = (List<Boolean>) Arrays.asList(Boolean_data);
@@ -69,17 +69,17 @@ public final class JAXWS_Data {
     public final static List<Character> list_char_data = (List<Character>) convertToListPrimArray(char_data);
 
     public final static Character Character_data[] = {
-	new Character(Character.MIN_VALUE),
-	new Character((char)0),
-	new Character(Character.MAX_VALUE),
+	Character.valueOf(Character.MIN_VALUE),
+	Character.valueOf((char)0),
+	Character.valueOf(Character.MAX_VALUE),
 	null
     };
 
 
     public final static Character Character_nonull_data[] = {
-	new Character(Character.MIN_VALUE),
-	new Character((char)0),
-	new Character(Character.MAX_VALUE),
+	Character.valueOf(Character.MIN_VALUE),
+	Character.valueOf((char)0),
+	Character.valueOf(Character.MAX_VALUE),
     };
 
     public final static List<Character> list_Character_data = (List<Character>) Arrays.asList(Character_data);
@@ -102,17 +102,17 @@ public final class JAXWS_Data {
     public final static List<Byte> list_byte_data2 = (List<Byte>) convertToListPrimArray(byte_data2);
 
     public final static Byte Byte_data[] = {
-	new Byte(Byte.MIN_VALUE),
-	new Byte((byte)0),
-	new Byte(Byte.MAX_VALUE),
+	Byte.valueOf(Byte.MIN_VALUE),
+	Byte.valueOf((byte)0),
+	Byte.valueOf(Byte.MAX_VALUE),
 	null
     };
 
 
     public final static Byte Byte_nonull_data[] = {
-	new Byte(Byte.MIN_VALUE),
-	new Byte((byte)0),
-	new Byte(Byte.MAX_VALUE),
+	Byte.valueOf(Byte.MIN_VALUE),
+	Byte.valueOf((byte)0),
+	Byte.valueOf(Byte.MAX_VALUE),
     };
 
     public final static List<Byte> list_Byte_data = (List<Byte>) Arrays.asList(Byte_data);
@@ -127,17 +127,17 @@ public final class JAXWS_Data {
     public final static List<Short> list_short_data = (List<Short>) convertToListPrimArray(short_data);
 
     public final static Short Short_data[] = {
-	new Short(Short.MIN_VALUE),
-	new Short((short)0),
-	new Short(Short.MAX_VALUE),
+	Short.valueOf(Short.MIN_VALUE),
+	Short.valueOf((short)0),
+	Short.valueOf(Short.MAX_VALUE),
 	null
      };
 
 
     public final static Short Short_nonull_data[] = {
-	new Short(Short.MIN_VALUE),
-	new Short((short)0),
-	new Short(Short.MAX_VALUE),
+	Short.valueOf(Short.MIN_VALUE),
+	Short.valueOf((short)0),
+	Short.valueOf(Short.MAX_VALUE),
     };
 
     public final static List<Short> list_Short_data = (List<Short>) Arrays.asList(Short_data);
@@ -152,17 +152,17 @@ public final class JAXWS_Data {
     public final static List<Integer> list_int_data = (List<Integer>) convertToListPrimArray(int_data);
 
     public final static Integer Integer_data[] = {
-	new Integer(Integer.MIN_VALUE),
-	new Integer(0),
-	new Integer(Integer.MAX_VALUE),
+	Integer.valueOf(Integer.MIN_VALUE),
+	Integer.valueOf(0),
+	Integer.valueOf(Integer.MAX_VALUE),
 	null
     };
 
 
     public final static Integer Integer_nonull_data[] = {
-	new Integer(Integer.MIN_VALUE),
-	new Integer(0),
-	new Integer(Integer.MAX_VALUE),
+	Integer.valueOf(Integer.MIN_VALUE),
+	Integer.valueOf(0),
+	Integer.valueOf(Integer.MAX_VALUE),
     };
 
     public final static List<Integer> list_Integer_data = (List<Integer>) Arrays.asList(Integer_data);
@@ -177,17 +177,17 @@ public final class JAXWS_Data {
     public final static List<Long> list_long_data = (List<Long>) convertToListPrimArray(long_data);
 
     public final static Long Long_data[] = {
-	new Long(Long.MIN_VALUE),
-	new Long(0L),
-	new Long(Long.MAX_VALUE),
+	Long.valueOf(Long.MIN_VALUE),
+	Long.valueOf(0L),
+	Long.valueOf(Long.MAX_VALUE),
 	null
     };
 
 
     public final static Long Long_nonull_data[] = {
-	new Long(Long.MIN_VALUE),
-	new Long(0L),
-	new Long(Long.MAX_VALUE),
+	Long.valueOf(Long.MIN_VALUE),
+	Long.valueOf(0L),
+	Long.valueOf(Long.MAX_VALUE),
     };
 
     public final static List<Long> list_Long_data = (List<Long>) Arrays.asList(Long_data);
@@ -202,17 +202,17 @@ public final class JAXWS_Data {
     public final static List<Float> list_float_data = (List<Float>) convertToListPrimArray(float_data);
 
     public final static Float Float_data[] = {
-	new Float(Float.MIN_VALUE),
-	new Float((float)0),
-	new Float(Float.MAX_VALUE),
+	Float.valueOf(Float.MIN_VALUE),
+	Float.valueOf((float)0),
+	Float.valueOf(Float.MAX_VALUE),
 	null
     };
 
 
     public final static Float Float_nonull_data[] = {
-	new Float(Float.MIN_VALUE),
-	new Float((float)0),
-	new Float(Float.MAX_VALUE),
+	Float.valueOf(Float.MIN_VALUE),
+	Float.valueOf((float)0),
+	Float.valueOf(Float.MAX_VALUE),
     };
 
     public final static List<Float> list_Float_data = (List<Float>) Arrays.asList(Float_data);
@@ -227,17 +227,17 @@ public final class JAXWS_Data {
     public final static List<Double> list_double_data = (List<Double>) convertToListPrimArray(double_data);
 
     public final static Double Double_data[] = {
-	new Double(Double.MIN_VALUE),
-	new Double(0),
-	new Double(Double.MAX_VALUE),
+	Double.valueOf(Double.MIN_VALUE),
+	Double.valueOf(0),
+	Double.valueOf(Double.MAX_VALUE),
 	null
     };
 
 
     public final static Double Double_nonull_data[] = {
-	new Double(Double.MIN_VALUE),
-	new Double(0),
-	new Double(Double.MAX_VALUE),
+	Double.valueOf(Double.MIN_VALUE),
+	Double.valueOf(0),
+	Double.valueOf(Double.MAX_VALUE),
     };
 
     public final static List<Double> list_Double_data = (List<Double>) Arrays.asList(Double_data);

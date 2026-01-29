@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,7 +28,9 @@ import java.util.Iterator;
  *
  * @author WS Development Team
  */
-public class Util {
+public final class Util {
+
+    private Util() {}
 
     public static String getRequiredAttribute(Element element, String name) {
         String result = XmlUtil.getAttributeOrNull(element, name);
@@ -109,7 +111,7 @@ public class Util {
             Node n = (Node) iter.next();
             if (n instanceof Text) {
                 Text t = (Text) n;
-                if (t.getData().trim().length() == 0)
+                if (t.getData().trim().isEmpty())
                     continue;
                 fail("parsing.nonWhitespaceTextFound", t.getData().trim());
             }
@@ -131,7 +133,7 @@ public class Util {
             try {
                 base = new URL(baseSystemId);
             } catch (MalformedURLException e) {
-                base = new File(baseSystemId).toURL();
+                base = new File(baseSystemId).toURI().toURL();
             }
 
             try {
@@ -157,7 +159,7 @@ public class Util {
     }
 
     public static void fail(String key, String arg1, String arg2) {
-        throw new ParseException(key, new Object[] { arg1, arg2 });
+        throw new ParseException(key, arg1, arg2);
     }
 
     public static void fail(String key, Object[] args) {

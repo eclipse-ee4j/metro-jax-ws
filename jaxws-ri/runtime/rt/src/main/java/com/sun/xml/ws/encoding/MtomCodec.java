@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,6 +51,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -150,7 +151,7 @@ public class MtomCodec extends MimeCodec {
                 writeMimeHeaders(soapXopContentType, rootId, out);
 
                 //mtom attachments that need to be written after the root part
-                List<ByteArrayBuffer> mtomAttachments = new ArrayList<ByteArrayBuffer>();
+                List<ByteArrayBuffer> mtomAttachments = new ArrayList<>();
                 MtomStreamWriterImpl writer = new MtomStreamWriterImpl(
                         XMLStreamWriterFactory.create(out, encoding), mtomAttachments, boundary, mtomFeature);
 
@@ -220,7 +221,7 @@ public class MtomCodec extends MimeCodec {
         String cid = contentId;
         if(cid != null && cid.length() >0 && cid.charAt(0) != '<')
             cid = '<' + cid + '>';
-        writeln("Content-Id: " + cid, out);
+        writeln("Content-ID: " + cid, out);
         writeln("Content-Type: " + contentType, out);
         writeln("Content-Transfer-Encoding: binary", out);
         writeln(out);
@@ -466,7 +467,7 @@ public class MtomCodec extends MimeCodec {
             }
 
             @Override
-            public Iterator getPrefixes(String namespaceURI) {
+            public Iterator<String> getPrefixes(String namespaceURI) {
                 return nsContext.getPrefixes(namespaceURI);
             }
         }
@@ -572,17 +573,13 @@ public class MtomCodec extends MimeCodec {
         }
 
         private String decodeCid(String cid) {
-            try {
-                cid = URLDecoder.decode(cid, "utf-8");
-            } catch (UnsupportedEncodingException e) {
-                //on recceiving side lets not fail now, try to look for it
-            }
+            cid = URLDecoder.decode(cid, StandardCharsets.UTF_8);
             return cid;
         }
 
         private Attachment getAttachment(String cid) throws IOException {
             if (cid.startsWith("cid:"))
-                cid = cid.substring(4, cid.length());
+                cid = cid.substring(4);
             if (cid.indexOf('%') != -1) {
                 cid = decodeCid(cid);
                 return mimeMP.getAttachmentPart(cid);

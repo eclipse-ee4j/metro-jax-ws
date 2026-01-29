@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,6 +42,11 @@ import org.xml.sax.SAXParseException;
  */
 public abstract class ErrorReceiver  implements ErrorHandler, ErrorListener {
 
+    /**
+     * Default constructor.
+     */
+    protected ErrorReceiver() {}
+
 //
 //
 // convenience methods for callers
@@ -79,8 +84,11 @@ public abstract class ErrorReceiver  implements ErrorHandler, ErrorListener {
 // ErrorHandler implementation, but can't throw SAXException
 //
 //
+    @Override
     public abstract void error(SAXParseException exception) throws AbortException;
+    @Override
     public abstract void fatalError(SAXParseException exception) throws AbortException;
+    @Override
     public abstract void warning(SAXParseException exception) throws AbortException;
 
     /**
@@ -93,11 +101,12 @@ public abstract class ErrorReceiver  implements ErrorHandler, ErrorListener {
 
     /**
      * Reports verbose messages to users.
-     *
+     * <p>
      * This method can be used to report additional non-essential
      * messages. The implementation usually discards them
      * unless some specific debug option is turned on.
      */
+    @Override
     public abstract void info(SAXParseException exception) /*REVISIT:throws AbortException*/;
 
     /**

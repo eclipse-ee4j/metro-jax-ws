@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,7 +26,7 @@ import java.net.URL;
 /**
  * XMLFilter that finds references to other schema files from
  * SAX events.
- *
+ * <p>
  * This implementation is a base implementation for typical case
  * where we just need to look for a particular attribute which
  * contains an URL to another schema file.
@@ -80,16 +80,9 @@ public abstract class AbstractReferenceFinderImpl extends XMLFilterImpl {
             // then parse this schema as well,
             // but don't mark this document as a root.
             parent.parse(ref,false);
-        } catch( URISyntaxException e ) {
+        } catch(URISyntaxException | IOException e ) {
             SAXParseException spe = new SAXParseException2(
                     WsdlMessages.ABSTRACT_REFERENCE_FINDER_IMPL_UNABLE_TO_PARSE(relativeRef,e.getMessage()),
-                locator, e );
-
-            fatalError(spe);
-            throw spe;
-        } catch( IOException e ) {
-            SAXParseException spe = new SAXParseException2(
-                WsdlMessages.ABSTRACT_REFERENCE_FINDER_IMPL_UNABLE_TO_PARSE(relativeRef,e.getMessage()),
                 locator, e );
 
             fatalError(spe);

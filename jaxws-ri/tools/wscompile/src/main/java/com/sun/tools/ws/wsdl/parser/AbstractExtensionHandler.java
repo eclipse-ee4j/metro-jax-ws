@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,6 +24,7 @@ import java.util.Map;
  *
  * @author Vivek Pandey
  */
+@SuppressWarnings({"deprecation"})
 public abstract class AbstractExtensionHandler extends TWSDLExtensionHandler {
     private final Map<String, AbstractExtensionHandler> extensionHandlers;
     private final Map<String, AbstractExtensionHandler> unmodExtenHandlers;
@@ -46,6 +47,7 @@ public abstract class AbstractExtensionHandler extends TWSDLExtensionHandler {
      * @return false if there was some error during the extension handling otherwise returns true. If returned false
      *         then the WSDL parser can abort if the wsdl extensibility element had <code>required</code> attribute set to true
      */
+    @Override
     public boolean doHandleExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         if (parent.getWSDLElementName().equals(MIMEConstants.QNAME_PART)) {
             return handleMIMEPartExtension(context, parent, e);

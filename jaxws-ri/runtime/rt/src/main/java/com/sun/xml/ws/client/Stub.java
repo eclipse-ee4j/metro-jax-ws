@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,7 +28,6 @@ import com.sun.xml.ws.api.addressing.WSEndpointReference;
 import com.sun.xml.ws.api.client.WSPortInfo;
 import com.sun.xml.ws.api.message.AddressingUtils;
 import com.sun.xml.ws.api.message.Header;
-import com.sun.xml.ws.api.message.HeaderList;
 import com.sun.xml.ws.api.message.MessageHeaders;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.api.model.SEIModel;
@@ -162,7 +161,7 @@ public abstract class Stub implements WSBindingProvider, ResponseContextReceiver
     ManagedObjectManager managedObjectManager;
     private boolean managedObjectManagerClosed = false;
 
-    private final Set<Component> components = new CopyOnWriteArraySet<Component>();
+    private final Set<Component> components = new CopyOnWriteArraySet<>();
 
     /**
      * @param master                 The created stub will send messages to this pipe.
@@ -349,7 +348,6 @@ public abstract class Stub implements WSBindingProvider, ResponseContextReceiver
 
     /**
      * Nullable when there is no associated WSDL Model
-     * @return
      */
     public
     @Nullable
@@ -626,7 +624,7 @@ public abstract class Stub implements WSBindingProvider, ResponseContextReceiver
         String eprAddress = requestContext.getEndpointAddress().toString();
         QName portTypeName = null;
         String wsdlAddress = null;
-        List<WSEndpointReference.EPRExtension> wsdlEPRExtensions = new ArrayList<WSEndpointReference.EPRExtension>();
+        List<WSEndpointReference.EPRExtension> wsdlEPRExtensions = new ArrayList<>();
         if (wsdlPort != null) {
             portTypeName = wsdlPort.getBinding().getPortTypeName();
             wsdlAddress = eprAddress + "?wsdl";
@@ -689,7 +687,7 @@ public abstract class Stub implements WSBindingProvider, ResponseContextReceiver
                     throw new IllegalArgumentException();
                 }
             }
-            userOutboundHeaders = headers.toArray(new Header[headers.size()]);
+            userOutboundHeaders = headers.toArray(new Header[0]);
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,6 +48,7 @@ public class SEIInvokerTube extends InvokerTube {
      * return value, and response Holder arguments are used to create a new {@link Message}
      * that traverses through the Pipeline to transport.
      */
+    @Override
     public @NotNull NextAction processRequest(@NotNull Packet req) {
         	JavaCallInfo call = model.getDatabinding().deserializeRequest(req);
         	if (call.getException() == null) {
@@ -57,12 +58,10 @@ public class SEIInvokerTube extends InvokerTube {
 	        		}
 	        		Object ret = getInvoker(req).invoke(req, call.getMethod(), call.getParameters());
 	        		call.setReturnValue(ret);
-				} catch (InvocationTargetException e) {
-					call.setException(e);
 				} catch (Exception e) {
 					call.setException(e);
 				}
-			} else if (call.getException() instanceof DispatchException) {
+            } else if (call.getException() instanceof DispatchException) {
 			    DispatchException e = (DispatchException)call.getException();
 			    return doReturnWith(req.createServerResponse(e.fault, model.getPort(), null, binding));
 			}
@@ -72,10 +71,12 @@ public class SEIInvokerTube extends InvokerTube {
             return doReturnWith(res);
     }
 
+    @Override
     public @NotNull NextAction processResponse(@NotNull Packet response) {
         return doReturnWith(response);
     }
 
+    @Override
     public @NotNull NextAction processException(@NotNull Throwable t) {
         return doThrow(t);
     }

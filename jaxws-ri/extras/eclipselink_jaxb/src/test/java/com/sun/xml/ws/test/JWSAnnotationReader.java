@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,6 +17,7 @@ import java.lang.reflect.Type;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 
+import com.sun.xml.ws.model.RuntimeModeler;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
 import jakarta.xml.bind.annotation.XmlTransient;
@@ -29,7 +30,6 @@ import jakarta.xml.bind.annotation.XmlType;
 //import org.apache.xmlbeans.SchemaType;
 
 import com.sun.xml.ws.model.ReflectAnnotationReader;
-import static com.sun.xml.ws.model.RuntimeModeler.erasure;
 
 /**
  * JWSAnnotationReader extends the ReflectAnnotationReader to allow customizing the parameter names with dummy 
@@ -66,7 +66,7 @@ public class JWSAnnotationReader extends ReflectAnnotationReader {
                for(int pos = 0; pos < paramType.length; pos ++) {
                    Annotation[] anno = paramAnno[pos];
                    Class<?>     type = paramType[pos];
-                   if(Holder.class.equals(type)) type = erasure(((ParameterizedType)genericParamType[pos]).getActualTypeArguments()[0]);
+                   if(Holder.class.equals(type)) type = RuntimeModeler.erasure(((ParameterizedType)genericParamType[pos]).getActualTypeArguments()[0]);
                    WebParam webParam = null;
                    int webParamPos = -1;
                    for(int i = 0; i < anno.length; i++) if (anno[i] instanceof WebParam){
@@ -214,8 +214,8 @@ public class JWSAnnotationReader extends ReflectAnnotationReader {
 //    }
     
     static QName getGlobalElementName(Class<?> cls) {
-        XmlRootElement xre = (XmlRootElement) cls.getAnnotation(XmlRootElement.class);
-        XmlType xt = (XmlType) cls.getAnnotation(XmlType.class);
+        XmlRootElement xre = cls.getAnnotation(XmlRootElement.class);
+        XmlType xt = cls.getAnnotation(XmlType.class);
         if (xt != null && xt.name() != null && !"".equals(xt.name())) return null;
         if (xre != null) {
             String lp = xre.name();

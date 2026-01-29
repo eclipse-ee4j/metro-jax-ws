@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 
 /**
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public class PolicyUtilsTest extends TestCase {
 
@@ -47,20 +47,6 @@ public class PolicyUtilsTest extends TestCase {
         String expResult, result;
 
         index = 0;
-        result = PolicyUtils.Commons.getStackMethodName(index);
-        // On Mac OS X, getStackMethodName returns getStackTrace. On other systems,
-        // this method first returns dumpThreads and then getStackTrace.
-        if (result.equals("dumpThreads")) {
-            index++;
-            expResult = "getStackTrace";
-            result = PolicyUtils.Commons.getStackMethodName(index);
-            assertEquals(expResult, result);
-        }
-        else if (!result.equals("getStackTrace")) {
-            fail("Expected \"dumpThreads\" or \"getStackTrace\", but got instead \"" + result + "\"");
-        }
-
-        index++;
         expResult = "getStackMethodName";
         result = PolicyUtils.Commons.getStackMethodName(index);
         assertEquals(expResult, result);
@@ -259,7 +245,6 @@ public class PolicyUtilsTest extends TestCase {
 
     /**
      * Test of generateFullName method, of class com.sun.xml.ws.policy.privateutil.PolicyUtils.ConfigFile.
-     * @throws PolicyException
      */
     public void testConfigFileGenerateFullName() throws PolicyException {
         String configFileIdentifier = "test";
@@ -324,6 +309,7 @@ public class PolicyUtilsTest extends TestCase {
     }
 
     public static class NamedObject {
+        public NamedObject() {}
         public String hum() { return "hum"; };
     }
 

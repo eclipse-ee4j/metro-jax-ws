@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Eclipse Foundation.
+ * Copyright 2021, 2022 Eclipse Foundation.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,6 +70,7 @@ public class WsdlGenMojo extends AbstractWsGenMojo {
         return new File(project.getBuild().getDirectory(), "generated-sources/wsgen");
     }
 
+    @Override
     protected void processSei(String sei) throws MojoExecutionException {
         getLog().info("Processing: " + sei);
         List<String> args = getWsGenArgs(sei, false);

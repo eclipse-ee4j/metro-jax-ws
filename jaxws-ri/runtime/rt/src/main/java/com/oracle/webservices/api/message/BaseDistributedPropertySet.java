@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -67,7 +67,7 @@ public abstract class BaseDistributedPropertySet extends BasePropertySet impleme
      * All {@link PropertySet}s that are bundled into this {@link PropertySet}.
      */
     private final Map<Class<? extends com.oracle.webservices.api.message.PropertySet>, PropertySet> satellites 
-        = new IdentityHashMap<Class<? extends com.oracle.webservices.api.message.PropertySet>, PropertySet>();
+        = new IdentityHashMap<>();
 
     private final Map<String, Object> viewthis;
     
@@ -103,6 +103,7 @@ public abstract class BaseDistributedPropertySet extends BasePropertySet impleme
     
     @Override
     public @Nullable <T extends com.oracle.webservices.api.message.PropertySet> T getSatellite(Class<T> satelliteClass) {
+        @SuppressWarnings({"unchecked"})
         T satellite = (T) satellites.get(satelliteClass);
         if (satellite != null) {
             return satellite;
@@ -240,18 +241,18 @@ public abstract class BaseDistributedPropertySet extends BasePropertySet impleme
 
         @Override
         public Set<Entry<String, Object>> entrySet() {
-            Set<Entry<String, Object>> entries = new HashSet<Entry<String, Object>>();
+            Set<Entry<String, Object>> entries = new HashSet<>();
             for (PropertySet child : satellites.values()) {
                 for (Entry<String,Object> entry : child.asMap().entrySet()) {
                     // the code below is here to avoid entries.addAll(child.asMap().entrySet()); which works differently on JDK6/7
                     // see DMI_ENTRY_SETS_MAY_REUSE_ENTRY_OBJECTS
-                    entries.add(new SimpleImmutableEntry<String, Object>(entry.getKey(), entry.getValue()));
+                    entries.add(new SimpleImmutableEntry<>(entry.getKey(), entry.getValue()));
                 }
             }
             for (Entry<String,Object> entry : viewthis.entrySet()) {
                 // the code below is here to avoid entries.addAll(child.asMap().entrySet()); which works differently on JDK6/7
                 // see DMI_ENTRY_SETS_MAY_REUSE_ENTRY_OBJECTS
-                entries.add(new SimpleImmutableEntry<String, Object>(entry.getKey(), entry.getValue()));
+                entries.add(new SimpleImmutableEntry<>(entry.getKey(), entry.getValue()));
             }
             
             return entries;

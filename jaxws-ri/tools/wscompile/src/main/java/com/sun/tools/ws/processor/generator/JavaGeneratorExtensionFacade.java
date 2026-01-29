@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,6 +17,7 @@ import com.sun.tools.ws.api.wsdl.TWSDLOperation;
 /**
  * @author Arun Gupta
  */
+@SuppressWarnings({"deprecation"})
 public final class JavaGeneratorExtensionFacade extends TJavaGeneratorExtension {
     private final TJavaGeneratorExtension[] extensions;
 
@@ -25,6 +26,8 @@ public final class JavaGeneratorExtensionFacade extends TJavaGeneratorExtension 
         this.extensions = extensions;
     }
 
+    @Override
+    @SuppressWarnings({"deprecation"})
     public void writeMethodAnnotations(TWSDLOperation wsdlOperation, JMethod jMethod) {
         for (TJavaGeneratorExtension e : extensions) {
             e.writeMethodAnnotations(wsdlOperation, jMethod);

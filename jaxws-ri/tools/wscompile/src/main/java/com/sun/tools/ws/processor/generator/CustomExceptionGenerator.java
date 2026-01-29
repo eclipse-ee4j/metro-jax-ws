@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,7 +38,12 @@ import java.util.Map;
  * @author WS Development Team
  */
 public class CustomExceptionGenerator extends GeneratorBase {
-    private Map<String, JClass> faults = new HashMap<String, JClass>();
+    private Map<String, JClass> faults = new HashMap<>();
+
+    /**
+     * Default constructor.
+     */
+    public CustomExceptionGenerator() {}
 
     public static void generate(Model model,
         WsimportOptions options,
@@ -62,7 +67,7 @@ public class CustomExceptionGenerator extends GeneratorBase {
     }
 
     private boolean isRegistered(Fault fault) {
-        if(faults.keySet().contains(fault.getJavaException().getName())){
+        if(faults.containsKey(fault.getJavaException().getName())){
             fault.setExceptionClass(faults.get(fault.getJavaException().getName()));
             return true;
         }
@@ -88,9 +93,7 @@ public class CustomExceptionGenerator extends GeneratorBase {
             comment.add("\n\n");
         }
 
-        for (String doc : getJAXWSClassComment()) {
-            comment.add(doc);
-        }
+        comment.addAll(getJAXWSClassComment());
         
         cls._extends(java.lang.Exception.class);
 

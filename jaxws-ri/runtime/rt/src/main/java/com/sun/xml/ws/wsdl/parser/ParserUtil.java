@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,16 +11,11 @@
 package com.sun.xml.ws.wsdl.parser;
 
 
-import com.sun.xml.ws.streaming.Attributes;
-import com.sun.xml.ws.streaming.XMLReaderException;
 import com.sun.xml.ws.util.xml.XmlUtil;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamReader;
 
@@ -30,7 +25,10 @@ import javax.xml.stream.XMLStreamReader;
  * TODO: made public just for now
  * @author WS Development Team
  */
-public class ParserUtil {
+public final class ParserUtil {
+
+    private ParserUtil() {}
+
     public static String getAttribute(XMLStreamReader reader, String name) {
         return reader.getAttributeValue(null, name);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,11 +24,14 @@ import com.sun.xml.ws.api.SOAPVersion;
  * @see JwsImplGenerator
  */
 public abstract class GeneratorExtension {
-    
+
+    /**
+     * Default constructor.
+     */
+    protected GeneratorExtension() {}
+
     /**
      * Derive  Binding ID based on transport and SOAP version 
-     * @param transport
-     * @param soapVersion
      * @return BindingID
      */
     public String getBindingValue(String transport, SOAPVersion soapVersion) {
@@ -37,10 +40,6 @@ public abstract class GeneratorExtension {
     
     /**
      * Create annotations in service JWS generated
-     * @param model
-     * @param cm
-     * @param cls
-     * @param port
      */
     public void writeWebServiceAnnotation(Model model, JCodeModel cm, JDefinedClass cls, Port port) {
     }
@@ -56,9 +55,6 @@ public abstract class GeneratorExtension {
     
     /**
      * Create annotations in service client generated
-     * @param options
-     * @param cm
-     * @param cls
      */
     public void writeWebServiceClientAnnotation(WsimportOptions options, JCodeModel cm, JDefinedClass cls) {
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@ public interface AttachmentSet extends Iterable<Attachment> {
      *
      * @param contentId
      *      The content ID like "foo-bar-zot@abc.com", without
-     *      surrounding '&lt;' and '>' used as the transfer syntax.
+     *      surrounding '&lt;' and '&gt;' used as the transfer syntax.
      *
      * @return null
      *      if no such attachment exist.
@@ -51,6 +51,6 @@ public interface AttachmentSet extends Iterable<Attachment> {
      * @param att
      *      must not be null.
      */
-    public void add(Attachment att);
+    void add(Attachment att);
 
 }

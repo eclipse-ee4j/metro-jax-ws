@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,6 +40,11 @@ public abstract class ModelGenerator extends PolicyModelGenerator {
 
 
     protected static class SourceModelCreator extends PolicySourceModelCreator {
+
+        /**
+         * Default constructor.
+         */
+        private SourceModelCreator() {}
 
         @Override
         protected PolicySourceModel create(Policy policy) {

@@ -3,7 +3,7 @@
 
     DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
-    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2025 Oracle and/or its affiliates. All rights reserved.
 
     Oracle licenses this file to You under the Apache License, Version 2.0
     (the "License"); you may not use this file except in compliance with
@@ -64,8 +64,7 @@
                             <target>
                                 <delete dir="${project.build.directory}" />
                                 <mkdir dir="${project.build.directory}" />
-                                <get src="http://www.ebi.ac.uk/webservices/chebi/2.0/webservice?wsdl"
-                                     dest="${project.build.directory}/ebi.wsdl" />
+                                <copy file="${project.basedir}/ebi.wsdl" tofile="${project.build.directory}/ebi.wsdl" />
                             </target>
                         </configuration>
                     </execution>

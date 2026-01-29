@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,6 +10,7 @@
 
 package com.sun.xml.ws.transport.http.servlet;
 
+import com.sun.istack.localization.Localizable;
 import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
 
 /**
@@ -17,14 +18,18 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  * @author WS Development Team
  */
 final class WSServletException extends JAXWSExceptionBase {
-    public WSServletException(String key, Object... args) {
-        super(key, args);
+
+    private static final long serialVersionUID = 7953997988740525579L;
+
+    public WSServletException(Localizable loc) {
+        super(loc);
     }
 
     public WSServletException(Throwable throwable) {
         super(throwable);
     }
 
+    @Override
     public String getDefaultResourceBundleName() {
         return "com.sun.xml.ws.resources.wsservlet";
     }

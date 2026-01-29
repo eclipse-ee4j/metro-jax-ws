@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,6 @@ package com.sun.xml.ws.spi.db;
 
 import java.lang.reflect.Field;
 import jakarta.xml.ws.WebServiceException;
-import static com.sun.xml.ws.spi.db.PropertyGetterBase.verifyWrapperType;
 
 /**
  * FieldSetter 
@@ -24,7 +23,7 @@ public class FieldSetter extends PropertySetterBase {
     protected Field field;
     
     public FieldSetter(Field f) {
-        verifyWrapperType(f.getDeclaringClass());        
+        PropertyGetterBase.verifyWrapperType(f.getDeclaringClass());
         field = f;
         type = f.getType();
     }
@@ -33,6 +32,7 @@ public class FieldSetter extends PropertySetterBase {
         return field;
     }
 
+    @Override
     public void set(final Object instance, final Object val) {
         final Object resource = (type.isPrimitive() && val == null)? uninitializedValue(type): val;
         try {
@@ -42,6 +42,7 @@ public class FieldSetter extends PropertySetterBase {
         }
     }
     
+    @Override
     public <A> A getAnnotation(Class<A> annotationType) {
         Class c = annotationType;
         return (A) field.getAnnotation(c);

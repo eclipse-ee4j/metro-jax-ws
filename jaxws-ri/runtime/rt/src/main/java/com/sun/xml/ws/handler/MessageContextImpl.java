@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,6 +43,7 @@ class MessageContextImpl implements MessageContext {
         throw new UnsupportedOperationException("wrong call");
     }
 
+    @Override
     public void setScope(String name, Scope scope) {
         if(!containsKey(name))
             throw new IllegalArgumentException("Property " + name + " does not exist.");
@@ -54,6 +55,7 @@ class MessageContextImpl implements MessageContext {
         }
     }
 
+    @Override
     public Scope getScope(String name) {
         if(!containsKey(name))
             throw new IllegalArgumentException("Property " + name + " does not exist.");
@@ -64,22 +66,27 @@ class MessageContextImpl implements MessageContext {
         }
     }
 
+    @Override
     public int size() {
         return asMapIncludingInvocationProperties.size();
     }
 
+    @Override
     public boolean isEmpty() {
         return asMapIncludingInvocationProperties.isEmpty();
     }
 
+    @Override
     public boolean containsKey(Object key) {
         return asMapIncludingInvocationProperties.containsKey(key);
     }
 
+    @Override
     public boolean containsValue(Object value) {
         return asMapIncludingInvocationProperties.containsValue(value);
     }
 
+    @Override
     public Object put(String key, Object value) {
         if (!asMapIncludingInvocationProperties.containsKey(key)) {
             //new property, default to Scope.HANDLER
@@ -87,6 +94,7 @@ class MessageContextImpl implements MessageContext {
         }
         return asMapIncludingInvocationProperties.put(key, value);
     }
+    @Override
     public Object get(Object key) {
         if(key == null)
             return null;
@@ -94,13 +102,14 @@ class MessageContextImpl implements MessageContext {
         //add the attachments from the Message to the corresponding attachment property
         if(key.equals(MessageContext.OUTBOUND_MESSAGE_ATTACHMENTS) ||
             key.equals(MessageContext.INBOUND_MESSAGE_ATTACHMENTS)){
+            @SuppressWarnings({"unchecked"})
             Map<String, DataHandler> atts = (Map<String, DataHandler>) value;
             if(atts == null)
-                atts = new HashMap<String, DataHandler>();
+                atts = new HashMap<>();
             AttachmentSet attSet = packet.getMessage().getAttachments();
             for(Attachment att : attSet){
                 String cid = att.getContentId();
-                if (cid.indexOf("@jaxws.sun.com") == -1) {
+                if (!cid.contains("@jaxws.sun.com")) {
                     Object a = atts.get(cid);
                     if (a == null) {
                         a = atts.get("<" + cid + ">");
@@ -115,7 +124,8 @@ class MessageContextImpl implements MessageContext {
         return value;
     }
 
-    public void putAll(Map<? extends String, ? extends Object> t) {
+    @Override
+    public void putAll(Map<? extends String, ?> t) {
         for(String key: t.keySet()) {
             if(!asMapIncludingInvocationProperties.containsKey(key)) {
                 //new property, default to Scope.HANDLER
@@ -125,19 +135,24 @@ class MessageContextImpl implements MessageContext {
         asMapIncludingInvocationProperties.putAll(t);
     }
 
+    @Override
     public void clear() {
         asMapIncludingInvocationProperties.clear();
     }
+    @Override
     public Object remove(Object key){
         handlerScopeProps.remove(key);
         return asMapIncludingInvocationProperties.remove(key);
     }
+    @Override
     public Set<String> keySet() {
         return asMapIncludingInvocationProperties.keySet();
     }
+    @Override
     public Set<Map.Entry<String, Object>> entrySet(){
         return asMapIncludingInvocationProperties.entrySet();
     }
+    @Override
     public Collection<Object> values() {
         return asMapIncludingInvocationProperties.values();
     }

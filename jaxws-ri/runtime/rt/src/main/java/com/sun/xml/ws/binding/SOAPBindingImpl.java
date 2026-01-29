@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,7 +43,7 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
     protected final SOAPVersion soapVersion;
 
     private Set<QName> portKnownHeaders = Collections.emptySet();
-    private Set<QName> bindingUnderstoodHeaders = new HashSet<QName>();
+    private Set<QName> bindingUnderstoodHeaders = new HashSet<>();
     private final Lock lock = new ReentrantLock();
 
     /**
@@ -68,7 +68,7 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
         super(bindingId, features);
         this.soapVersion = bindingId.getSOAPVersion();
         //populates with required roles and updates handlerConfig
-        setRoles(new HashSet<String>());
+        setRoles(new HashSet<>());
         //Is this still required? comment out for now
         //setupSystemHandlerDelegate(serviceName);
 
@@ -93,9 +93,7 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
     }
 
     /**
-     * TODO A feature should be created to configure processing of MU headers. 
-     * @param header
-     * @return
+     * TODO A feature should be created to configure processing of MU headers.
      */
     public boolean understandsHeader(QName header) {
         return serviceMode == jakarta.xml.ws.Service.Mode.MESSAGE
@@ -109,6 +107,7 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
      * Creates a new HandlerConfiguration object and sets it on the BindingImpl. Also parses Headers understood by
      * Protocol Handlers and sets the HandlerConfiguration.
      */
+    @Override
     public void setHandlerChain(List<Handler> chain) {
         setHandlerConfig(new HandlerConfiguration(getHandlerConfig().getRoles(), chain));
     }
@@ -117,6 +116,7 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
         roles.addAll(soapVersion.requiredRoles);
     }
 
+    @Override
     public Set<String> getRoles() {
         return getHandlerConfig().getRoles();
     }
@@ -126,9 +126,10 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
      * been called by a user without them.
      * Creates a new HandlerConfiguration object and sets it on the BindingImpl.
      */
+    @Override
     public void setRoles(Set<String> roles) {
         if (roles == null) {
-            roles = new HashSet<String>();
+            roles = new HashSet<>();
         }
         if (roles.contains(ROLE_NONE)) {
             throw new WebServiceException(ClientMessages.INVALID_SOAP_ROLE_NONE());
@@ -141,6 +142,7 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
     /**
      * Used typically by the runtime to enable/disable Mtom optimization
      */
+    @Override
     public boolean isMTOMEnabled() {
         return isFeatureEnabled(MTOMFeature.class);
     }
@@ -148,14 +150,17 @@ public final class SOAPBindingImpl extends BindingImpl implements SOAPBinding {
     /**
      * Client application can override if the MTOM optimization should be enabled
      */
+    @Override
     public void setMTOMEnabled(boolean b) {
         features.setMTOMEnabled(b);
     }
 
+    @Override
     public SOAPFactory getSOAPFactory() {
         return soapVersion.getSOAPFactory();
     }
 
+    @Override
     public MessageFactory getMessageFactory() {
         return soapVersion.getMessageFactory();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,6 +12,7 @@ package com.sun.xml.ws.sdo.test.add;
 
 import org.eclipse.persistence.sdo.SDODataObject;
 
+@SuppressWarnings({"serial"})
 public class AddNumbersResponseImpl extends SDODataObject implements AddNumbersResponse {
 
    public static final int START_PROPERTY_INDEX = 0;

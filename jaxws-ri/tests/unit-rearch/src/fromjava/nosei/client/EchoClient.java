@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,8 +54,8 @@ public class EchoClient extends TestCase {
         assertTrue(stub.echoGenericString(var).getValue().equals("fred&john"));
         var.setValue(33);
         assertTrue(stub.echoGenericInteger(null) == null);        
-        assertTrue(stub.echoGenericInteger(var).getValue().equals(new Integer(33)));
-        assertTrue(stub.echoGenericObject(new Integer(66)).equals(new Integer(66)));   
+        assertTrue(stub.echoGenericInteger(var).getValue().equals(Integer.valueOf(33)));
+        assertTrue(stub.echoGenericObject(Integer.valueOf(66)).equals(Integer.valueOf(66)));   
         assertTrue(stub.echoGenericObject(null) == null);        
         assertTrue(stub.echoGenericObject("bill").equals("bill"));   
 
@@ -148,7 +148,7 @@ public class EchoClient extends TestCase {
         } catch (GenericException_Exception e){
             GenericException ex = e.getFaultInfo();
             assertTrue(ex.getMessage().equals("my genericException"));
-            assertTrue(ex.getAge().value.equals(new Integer(33)));
+            assertTrue(ex.getAge().value.equals(Integer.valueOf(33)));
             assertTrue(ex.getObject().getAge() == 44);
             assertTrue(ex.getBarList().get(0).getAge()  == 33);
         }
@@ -216,7 +216,7 @@ public class EchoClient extends TestCase {
         
         EchoInOutHeader echoInOutHeader = new EchoInOutHeader();
         echoInOutHeader.setArg0(33);
-        Holder<Long> longHolder = new Holder<Long>(new Long(44));
+        Holder<Long> longHolder = new Holder<Long>(Long.valueOf(44));
         echoInOutHeader.setArg2("fred");
         EchoInOutHeaderResponse echoInOutHeaderResp = stub.echoInOutHeader(echoInOutHeader, longHolder);
         assertTrue(echoInOutHeaderResp.getReturn().equals("fred88"));

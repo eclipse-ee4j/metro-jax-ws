@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,7 +38,7 @@ class JAXBRIContextWrapper implements BindingContext {
         context = cxt;
         typeRefs = refs;
         if (refs != null) {
-            typeInfos = new java.util.HashMap<TypeReference, TypeInfo>();
+            typeInfos = new java.util.HashMap<>();
             for (TypeInfo ti : refs.keySet()) {
                 typeInfos.put(typeRefs.get(ti), ti);
             }
@@ -118,10 +118,7 @@ class JAXBRIContextWrapper implements BindingContext {
             return false;
         }
         final JAXBRIContextWrapper other = (JAXBRIContextWrapper) obj;
-        if (this.context != other.context && (this.context == null || !this.context.equals(other.context))) {
-            return false;
-        }
-        return true;
+        return this.context == other.context || (this.context != null && this.context.equals(other.context));
     }
 
     @Override
@@ -161,7 +158,7 @@ class JAXBRIContextWrapper implements BindingContext {
 
     @Override
     public Object newWrapperInstace(Class<?> wrapperType)
-            throws InstantiationException, IllegalAccessException {
-        return wrapperType.newInstance();
+            throws ReflectiveOperationException {
+        return wrapperType.getConstructor().newInstance();
     }
 }

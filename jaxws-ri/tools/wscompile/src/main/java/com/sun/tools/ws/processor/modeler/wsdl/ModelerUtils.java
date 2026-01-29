@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -66,7 +66,7 @@ class ModelerUtils {
      */
     public static List<Parameter> createUnwrappedParameters(JAXBType jaxbType,
             Block block) {
-        List<Parameter> paramList = new ArrayList<Parameter>();
+        List<Parameter> paramList = new ArrayList<>();
         JAXBStructuredType type = null;
         if (!(jaxbType instanceof JAXBStructuredType))
             type = createJAXBStructureType(jaxbType);
@@ -77,10 +77,8 @@ class ModelerUtils {
                 .getRealName(), true, type);
         type.setJavaType(jst);
         block.setType(type);
-        List memberList = jaxbType.getWrapperChildren();
-        Iterator props = memberList.iterator();
-        while (props.hasNext()) {
-            JAXBProperty prop = (JAXBProperty) props.next();
+        List<JAXBProperty> memberList = jaxbType.getWrapperChildren();
+        for (JAXBProperty prop : memberList) {
             paramList.add(createUnwrappedParameter(prop, jaxbType, block, type,
                     jst));
         }
@@ -89,9 +87,6 @@ class ModelerUtils {
     }
 
     /**
-     * @param prop
-     * @param jaxbType
-     * @param block
      * @return unwrapped parameter
      */
     private static Parameter createUnwrappedParameter(JAXBProperty prop,
@@ -117,7 +112,7 @@ class ModelerUtils {
     public static List<Parameter> createRpcLitParameters(Message message, Block block, S2JJAXBModel jaxbModel, ErrorReceiverFilter errReceiver){
         RpcLitStructure rpcStruct = (RpcLitStructure)block.getType();
 
-        List<Parameter> parameters = new ArrayList<Parameter>();
+        List<Parameter> parameters = new ArrayList<>();
         for(MessagePart part : message.getParts()){
             if(!ModelerUtils.isBoundToSOAPBody(part))
                 continue;
@@ -166,8 +161,6 @@ class ModelerUtils {
     /**
      * Get Parameter from the list of parameters.
      *
-     * @param paramName
-     * @param parameters
      * @return the Parameter with name paramName from parameters
      */
     public static Parameter getParameter(String paramName, List<Parameter> parameters){
@@ -185,8 +178,6 @@ class ModelerUtils {
     /**
      * Compares two JAXBStructures.
      *
-     * @param struct1
-     * @param struct2
      * @return true if struct1 and struct2 are equivalent.
      */
     public static boolean isEquivalentLiteralStructures(
@@ -194,11 +185,11 @@ class ModelerUtils {
         JAXBStructuredType struct2) {
         if (struct1.getElementMembersCount() != struct2.getElementMembersCount())
             return false;
-        Iterator members = struct1.getElementMembers();
+        Iterator<JAXBElementMember> members = struct1.getElementMembers();
         JAXBElementMember member1;
         JavaStructureMember javaMember1, javaMember2;
         for (int i = 0; members.hasNext(); i++) {
-            member1 = (JAXBElementMember)members.next();
+            member1 = members.next();
             javaMember1 = member1.getJavaStructureMember();
             javaMember2 =
                 ((JavaStructureType)struct2.getJavaType()).getMemberByName(
@@ -229,38 +220,27 @@ class ModelerUtils {
     }
 
     /**
-     * @param part
      * @return true if part is bound to Mime content
      */
     public static boolean isBoundToMimeContent(MessagePart part) {
-        if((part != null) && part.getBindingExtensibilityElementKind() == MessagePart.WSDL_MIME_BINDING)
-            return true;
-        return false;
+        return (part != null) && part.getBindingExtensibilityElementKind() == MessagePart.WSDL_MIME_BINDING;
     }
 
     /**
-     * @param part
      * @return true if part is bound to SOAPBody
      */
     public static boolean isBoundToSOAPBody(MessagePart part) {
-        if((part != null) && part.getBindingExtensibilityElementKind() == MessagePart.SOAP_BODY_BINDING)
-            return true;
-        return false;
+        return (part != null) && part.getBindingExtensibilityElementKind() == MessagePart.SOAP_BODY_BINDING;
     }
 
     /**
-     * @param part
      * @return true if part is bound to SOAPHeader
      */
     public static boolean isBoundToSOAPHeader(MessagePart part) {
-        if((part != null) && part.getBindingExtensibilityElementKind() == MessagePart.SOAP_HEADER_BINDING)
-            return true;
-        return false;
+        return (part != null) && part.getBindingExtensibilityElementKind() == MessagePart.SOAP_HEADER_BINDING;
     }
 
     public static boolean isUnbound(MessagePart part) {
-        if((part != null) && part.getBindingExtensibilityElementKind() == MessagePart.PART_NOT_BOUNDED)
-            return true;
-        return false;
+        return (part != null) && part.getBindingExtensibilityElementKind() == MessagePart.PART_NOT_BOUNDED;
     }
 }

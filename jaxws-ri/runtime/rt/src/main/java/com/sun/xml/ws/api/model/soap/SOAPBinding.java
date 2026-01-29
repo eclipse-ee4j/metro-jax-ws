@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,6 +28,11 @@ abstract public class SOAPBinding {
     protected Style style = Style.DOCUMENT;
     protected SOAPVersion soapVersion = SOAPVersion.SOAP_11;
     protected String soapAction = "";
+
+    /**
+     * Default construtor.
+     */
+    protected SOAPBinding() {}
 
     /**
      * Get {@link Use} such as <code>literal</code> or <code>encoded</code>.
@@ -67,14 +72,14 @@ abstract public class SOAPBinding {
     /**
      * Value of <code>wsdl:binding/wsdl:operation/soap:operation@soapAction</code> attribute or
      * {@link WebMethod#action()} annotation.
-     * <pre>
      * For example:
-     * &lt;wsdl:binding name="HelloBinding" type="tns:Hello">
-     *   &lt;soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-     *   &lt;wsdl:operation name="echoData">
-     *       &lt;soap12:operation soapAction=""/>
+     * <pre>{@code
+     * <wsdl:binding name="HelloBinding" type="tns:Hello">
+     *   <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+     *   <wsdl:operation name="echoData">
+     *       <soap12:operation soapAction=""/>
      * ...
-     * </pre>
+     * }</pre>
      * It's always non-null. soap message serializer needs to generated SOAPAction HTTP header with
      * the return of this method enclosed in quotes("").
      *

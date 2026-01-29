@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,12 +15,12 @@ import com.sun.xml.ws.policy.sourcemodel.ModelNode;
 import com.sun.xml.ws.policy.sourcemodel.PolicyModelTranslator;
 import com.sun.xml.ws.policy.sourcemodel.PolicySourceModel;
 import com.sun.xml.ws.policy.sourcemodel.wspolicy.NamespaceVersion;
-import static com.sun.xml.ws.policy.testutils.PolicyResourceLoader.loadPolicy;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import javax.xml.namespace.QName;
 
+import com.sun.xml.ws.policy.testutils.PolicyResourceLoader;
 import junit.framework.TestCase;
 
 /**
@@ -61,7 +61,6 @@ public class EffectiveAlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class EffectiveAlternativeSelector.
-     * @throws PolicyException
      */
     public void testDoSelectionNull() throws PolicyException {
         final EffectivePolicyModifier modifier = null;
@@ -75,7 +74,6 @@ public class EffectiveAlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class EffectiveAlternativeSelector.
-     * @throws PolicyException
      */
     public void testDoSelectionUnconnected() throws PolicyException {
         final EffectivePolicyModifier modifier = EffectivePolicyModifier.createEffectivePolicyModifier();
@@ -89,7 +87,6 @@ public class EffectiveAlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class EffectiveAlternativeSelector.
-     * @throws PolicyException
      */
     public void testDoSelectionEmpty() throws PolicyException {
         final EffectivePolicyModifier modifier = EffectivePolicyModifier.createEffectivePolicyModifier();
@@ -101,7 +98,6 @@ public class EffectiveAlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class EffectiveAlternativeSelector.
-     * @throws PolicyException
      */
     public void testDoSelectionAlternativesService() throws PolicyException {
 
@@ -131,7 +127,6 @@ public class EffectiveAlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class EffectiveAlternativeSelector.
-     * @throws PolicyException
      */
     public void testDoSelectionAlternativesEndpoint() throws PolicyException {
 
@@ -161,7 +156,6 @@ public class EffectiveAlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class EffectiveAlternativeSelector.
-     * @throws PolicyException
      */
     public void testDoSelectionAlternativesOperation() throws PolicyException {
 
@@ -192,7 +186,6 @@ public class EffectiveAlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class EffectiveAlternativeSelector.
-     * @throws PolicyException
      */
     public void testDoSelectionAlternativesInput() throws PolicyException {
 
@@ -277,7 +270,6 @@ public class EffectiveAlternativeSelectorTest extends TestCase {
 
     /**
      * Test of doSelection method, of class com.sun.xml.ws.policy.EffectiveAlternativeSelector.
-     * @throws Exception
      */
     public void testDoPositiveSelection() throws Exception {
         HashSet<PolicyMapMutator> mutators = new HashSet<PolicyMapMutator>();
@@ -289,7 +281,7 @@ public class EffectiveAlternativeSelectorTest extends TestCase {
 
         //Policy pol1 = PolicyModelTranslator.getTranslator()
         //                .translate(unmarshalModel("single_alternative_policy/policy3.xml"));
-        Policy pol2 = loadPolicy("complex_policy/nested_assertions_with_alternatives.xml");
+        Policy pol2 = PolicyResourceLoader.loadPolicy("complex_policy/nested_assertions_with_alternatives.xml");
 
         PolicyMapKey aKey = PolicyMap.createWsdlEndpointScopeKey(new QName("service"),new QName("port"));
 
@@ -319,7 +311,7 @@ public class EffectiveAlternativeSelectorTest extends TestCase {
 
         //Policy pol1 = PolicyModelTranslator.getTranslator()
         //                .translate(unmarshalModel("single_alternative_policy/policy3.xml"));
-        Policy pol2 = loadPolicy("complex_policy/nested_assertions_with_alternatives.xml");
+        Policy pol2 = PolicyResourceLoader.loadPolicy("complex_policy/nested_assertions_with_alternatives.xml");
 
         PolicyMapKey aKey = PolicyMap.createWsdlEndpointScopeKey(new QName("service"),new QName("port"));
 

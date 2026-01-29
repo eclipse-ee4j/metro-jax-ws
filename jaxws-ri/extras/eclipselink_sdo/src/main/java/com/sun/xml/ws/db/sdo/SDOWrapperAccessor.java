@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,12 +46,12 @@ public final class SDOWrapperAccessor extends WrapperAccessor {
     }
 
     protected void initBuilders() {
-        HashMap<Object, PropertySetter> setByQName = new HashMap<Object, PropertySetter>();
-        HashMap<Object, PropertyGetter> getByQName = new HashMap<Object, PropertyGetter>();
-        HashMap<Object, PropertySetter> setByLocalpart = new HashMap<Object, PropertySetter>();
-        HashMap<Object, PropertyGetter> getByLocalpart = new HashMap<Object, PropertyGetter>();
+        HashMap<Object, PropertySetter> setByQName = new HashMap<>();
+        HashMap<Object, PropertyGetter> getByQName = new HashMap<>();
+        HashMap<Object, PropertySetter> setByLocalpart = new HashMap<>();
+        HashMap<Object, PropertyGetter> getByLocalpart = new HashMap<>();
 
-        HashSet<String> elementLocalNames = new HashSet<String>();
+        HashSet<String> elementLocalNames = new HashSet<>();
 
         TypeHelper helper = contextWrapper.getHelperContext().getTypeHelper();
         Type type = helper.getType(contentClass);
@@ -89,9 +89,9 @@ public final class SDOWrapperAccessor extends WrapperAccessor {
             PropertyGetter, PropertySetter {
 
         private QName qname;
-        private Class type;
+        private Class<?> type;
 
-        public SDOPropertyBuilder(QName qname, Class type) {
+        public SDOPropertyBuilder(QName qname, Class<?> type) {
             this.qname = qname;
             this.type = type;
         }

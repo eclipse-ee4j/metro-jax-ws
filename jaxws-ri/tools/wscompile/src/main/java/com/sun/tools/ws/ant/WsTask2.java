@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,8 +16,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.URL;
-import java.util.Enumeration;
+
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -126,6 +125,27 @@ abstract class WsTask2 extends MatchingTask {
         this.destDir = base;
     }
 
+
+    /* ****************** -disableXmlSecurity option ********************* */
+    private boolean disableXmlSecurity;
+
+    /**
+     * Gets the "disableXmlSecurity" flag.
+     *
+     * @return true if extension mode is on, false otherwise.
+     */
+    public boolean getDisableXmlSecurity() {
+        return disableXmlSecurity;
+    }
+
+    /**
+     * Sets the "disableXmlSecurity" flag.
+     *
+     * @param disableXmlSecurity true to disable XML security features when parsing XML documents, false otherwise.
+     */
+    public void setDisableXmlSecurity(boolean disableXmlSecurity) {
+        this.disableXmlSecurity = disableXmlSecurity;
+    }
 
     /* ****************** -extensions option ********************* */
     private boolean extension;
@@ -306,23 +326,6 @@ abstract class WsTask2 extends MatchingTask {
     }
 
 
-    /* *********************** -Xendorsed option ************************ */
-    /**
-     * Set to true to perform the endorsed directory override so that Ant tasks
-     * can run on JavaSE 6. This is used only when fork is true. With fork=false
-     * which is default, it is handled way before in the WrapperTask.
-     */
-    private boolean xendorsed = false;
-
-    public void setXendorsed(boolean xendorsed) {
-        this.xendorsed = xendorsed;
-    }
-
-    public boolean isXendorsed() {
-        return xendorsed;
-    }
-
-
     /* *********************** -Xnocompile option ************************ */
     /**
      * do not compile generated classes *
@@ -438,7 +441,7 @@ abstract class WsTask2 extends MatchingTask {
         try {
             if (getVerbose()) {
                 log(ToolVersion.VERSION.BUILD_VERSION);
-                log("command line: " + tool
+                log("command line: " + tool + " "
                         + (getFork() ? getCommandline().getJavaCommand() : getCommandline()).toString());
             }
             if (getFork()) {
@@ -497,25 +500,24 @@ abstract class WsTask2 extends MatchingTask {
      */
     protected CommandlineJava setupCommand() {
         // d option
-        if (null != getDestdir() && !getDestdir().getName().equals("")) {
+        if (null != getDestdir() && !getDestdir().getName().isEmpty()) {
             getCommandline().createArgument().setValue("-d");
             getCommandline().createArgument().setFile(getDestdir());
+        }
+        // disableXmlSecurity flag
+        if (getDisableXmlSecurity()) {
+            getCommandline().createArgument().setValue("-disableXmlSecurity");
         }
         // extension flag
         if (getExtension()) {
             getCommandline().createArgument().setValue("-extension");
-        }
-        //-Xendorsed option
-        /* TODO JDK9 */
-        if (isXendorsed()) {
-            getCommandline().createArgument().setValue("-Xendorsed");
         }
         // keep option
         if (getKeep()) {
             getCommandline().createArgument().setValue("-keep");
         }
         // s option
-        if (null != getSourcedestdir() && !getSourcedestdir().getName().equals("")) {
+        if (null != getSourcedestdir() && !getSourcedestdir().getName().isEmpty()) {
             getCommandline().createArgument().setValue("-s");
             getCommandline().createArgument().setFile(getSourcedestdir());
         }
@@ -580,29 +582,29 @@ abstract class WsTask2 extends MatchingTask {
             cp.append(mvn);
         }
 
-        if (getModulepath() != null && getModulepath().size() > 0) {
+        if (getModulepath() != null && !getModulepath().isEmpty()) {
             getCommandline().createModulepath(getProject()).add(getModulepath());
         }
 
-        if (getUpgrademodulepath() != null && getUpgrademodulepath().size() > 0) {
+        if (getUpgrademodulepath() != null && !getUpgrademodulepath().isEmpty()) {
             getCommandline().createUpgrademodulepath(getProject()).add(getUpgrademodulepath());
         }
-        if (getAddmodules() != null && getAddmodules().length() > 0) {
+        if (getAddmodules() != null && !getAddmodules().isEmpty()) {
             getCommandline().createVmArgument().setLine("--add-modules " + getAddmodules());
         }
-        if (getAddreads() != null && getAddreads().length() > 0) {
+        if (getAddreads() != null && !getAddreads().isEmpty()) {
             getCommandline().createVmArgument().setLine("--add-reads " + getAddreads());
         }
-        if (getAddexports() != null && getAddexports().length() > 0) {
+        if (getAddexports() != null && !getAddexports().isEmpty()) {
             getCommandline().createVmArgument().setLine("--add-exports " + getAddexports());
         }
-        if (getAddopens() != null && getAddopens().length() > 0) {
+        if (getAddopens() != null && !getAddopens().isEmpty()) {
             getCommandline().createVmArgument().setLine("--add-opens " + getAddopens());
         }
-        if (getPatchmodule() != null && getPatchmodule().length() > 0) {
+        if (getPatchmodule() != null && !getPatchmodule().isEmpty()) {
             getCommandline().createVmArgument().setLine("--patch-module " + getPatchmodule());
         }
-        if (getLimitmodules() != null && getLimitmodules().length() > 0) {
+        if (getLimitmodules() != null && !getLimitmodules().isEmpty()) {
             getCommandline().createVmArgument().setLine("--limit-modules " + getLimitmodules());
         }
 

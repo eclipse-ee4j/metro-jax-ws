@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  * Copyright 2006 Guillaume Nodet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,6 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -46,8 +47,8 @@ import org.apache.maven.settings.Settings;
 
 /**
  * 
- * @author gnodet <gnodet@apache.org>
- * @author dantran <dantran@apache.org>
+ * @author gnodet (gnodet at apache.org)
+ * @author dantran (dantran at apache.org)
  * @version $Id: WsImportMojo.java 3169 2007-01-22 02:51:29Z dantran $
  */
 abstract class WsImportMojo extends AbstractJaxwsMojo
@@ -117,23 +118,22 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
      * </p>
      *
      * <p>Example:
-     * <pre>
+     * <pre>{@code
      *  ...
-     *  &lt;configuration>
-     *      &lt;wsdlDirectory>src/mywsdls&lt;/wsdlDirectory>
-     *      &lt;wsdlFiles>
-     *          &lt;wsdlFile>a.wsdl&lt;/wsdlFile>
-     *          &lt;wsdlFile>b/b.wsdl&lt;/wsdlFile>
-     *          &lt;wsdlFile>${basedir}/src/mywsdls/c.wsdl&lt;/wsdlFile>
-     *      &lt;/wsdlFiles>
-     *      &lt;wsdlLocation>http://example.com/mywebservices/*&lt;/wsdlLocation>
-     *  &lt;/configuration>
+     *  <configuration>
+     *      <wsdlDirectory>src/mywsdls</wsdlDirectory>
+     *      <wsdlFiles>
+     *          <wsdlFile>a.wsdl</wsdlFile>
+     *          <wsdlFile>b/b.wsdl</wsdlFile>
+     *          <wsdlFile>${basedir}/src/mywsdls/c.wsdl</wsdlFile>
+     *      </wsdlFiles>
+     *      <wsdlLocation>http://example.com/mywebservices/*</wsdlLocation>
+     *  </configuration>
      *  ...
-     * </pre>
-     * wsdlLocation for <code>a.wsdl</code> will be http://example.com/mywebservices/a.wsdl<br/>
-     * wsdlLocation for <code>b/b.wsdl</code> will be http://example.com/mywebservices/b/b.wsdl<br/>
+     * }</pre>
+     * wsdlLocation for <code>a.wsdl</code> will be http://example.com/mywebservices/a.wsdl<br>
+     * wsdlLocation for <code>b/b.wsdl</code> will be http://example.com/mywebservices/b/b.wsdl<br>
      * wsdlLocation for <code>${basedir}/src/mywsdls/c.wsdl</code> will be file://absolute/path/to/c.wsdl
-     * </p>
      *
      * <p>
      * Note: External binding files cannot be used if asterisk notation is in place.
@@ -262,8 +262,6 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
             }
             this.processWsdlViaUrls();
             this.processLocalWsdlFiles(wsdls);
-        } catch (MojoExecutionException e) {
-            throw e;
         } catch (IOException e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
@@ -280,9 +278,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
     }
 
     /**
-     * 
-     * @throws MojoExecutionException
-     * @throws IOException
+     *
      */
     private void processLocalWsdlFiles(URL[] wsdls)
             throws MojoExecutionException, IOException {
@@ -309,7 +305,6 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
 
     /**
      * process external wsdl
-     * @throws MojoExecutionException
      */
     private void processWsdlViaUrls()
             throws MojoExecutionException, IOException {
@@ -331,12 +326,10 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
     /**
      * 
      * @return wsimport's command arguments
-     * @throws MojoExecutionException
      */
     private ArrayList<String> getWsImportArgs(String relativePath)
             throws MojoExecutionException {
-        ArrayList<String> args = new ArrayList<String>();
-        args.addAll(getCommonArgs());
+        ArrayList<String> args = new ArrayList<>(getCommonArgs());
 
         if ( httpproxy != null )
         {
@@ -409,8 +402,8 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
             args.add("-Xdebug");
         }
 
-        /**
-         * -Xno-addressing-databinding enable binding of W3C EndpointReferenceType to Java
+        /*
+          -Xno-addressing-databinding enable binding of W3C EndpointReferenceType to Java
          */
         if(xnoAddressingDataBinding){
             args.add("-Xno-addressing-databinding");
@@ -504,10 +497,10 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
      * @return An array of schema files to be parsed by the schema compiler.
      */
     private URL[] getWSDLFiles() throws MojoExecutionException {
-        List<URL> files = new ArrayList<URL>();
-        @SuppressWarnings("unchecked")
+        List<URL> files = new ArrayList<>();
+        @SuppressWarnings("deprecation")
         Set<Artifact> dependencyArtifacts = project.getDependencyArtifacts();
-        List<URL> urlCpath = new ArrayList<URL>(dependencyArtifacts.size());
+        List<URL> urlCpath = new ArrayList<>(dependencyArtifacts.size());
         for (Artifact a: dependencyArtifacts) {
             try {
                 if (a.getFile() != null) {
@@ -523,7 +516,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
         }
         ClassLoader loader = urlCpath.isEmpty()
                 ? Thread.currentThread().getContextClassLoader()
-                : new URLClassLoader(urlCpath.toArray(new URL[urlCpath.size()]));
+                : new URLClassLoader(urlCpath.toArray(new URL[0]));
         if (wsdlFiles != null) {
             for (String wsdlFileName : wsdlFiles) {
                 File wsdl = new File(wsdlFileName);
@@ -589,7 +582,7 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
                 }
             }
         }
-        return files.toArray(new URL[files.size()]);
+        return files.toArray(new URL[0]);
     }
 
     /**
@@ -704,12 +697,10 @@ abstract class WsImportMojo extends AbstractJaxwsMojo
         try {
             MessageDigest md = MessageDigest.getInstance("SHA");
             Formatter formatter = new Formatter();
-            for (byte b : md.digest(s.getBytes("UTF-8"))) {
+            for (byte b : md.digest(s.getBytes(StandardCharsets.UTF_8))) {
                 formatter.format("%02x", b);
             }
             return formatter.toString();
-        } catch (UnsupportedEncodingException ex) {
-            getLog().debug(ex.getMessage(), ex);
         } catch (NoSuchAlgorithmException ex) {
             getLog().debug(ex.getMessage(), ex);
         }

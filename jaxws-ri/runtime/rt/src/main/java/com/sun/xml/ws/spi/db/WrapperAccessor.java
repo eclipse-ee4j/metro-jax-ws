@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,8 +22,13 @@ import javax.xml.namespace.QName;
 public abstract class WrapperAccessor {
 	protected Map<Object, PropertySetter> propertySetters;
 	protected Map<Object, PropertyGetter> propertyGetters;
-	protected boolean elementLocalNameCollision; 
-	
+	protected boolean elementLocalNameCollision;
+
+	/**
+	 * Default constructor.
+	 */
+	protected WrapperAccessor() {}
+
 	protected PropertySetter getPropertySetter(QName name) {
         Object key = (elementLocalNameCollision) ? name : name.getLocalPart();
         return propertySetters.get(key);
@@ -38,11 +43,13 @@ public abstract class WrapperAccessor {
 		final PropertySetter setter = getPropertySetter(n);
 		final PropertyGetter getter = getPropertyGetter(n);		
 		return new PropertyAccessor() {
-			public Object get(Object bean) throws DatabindingException {
+			@Override
+            public Object get(Object bean) throws DatabindingException {
 				return getter.get(bean);
 			}
 
-			public void set(Object bean, Object value) throws DatabindingException {
+			@Override
+            public void set(Object bean, Object value) throws DatabindingException {
 				setter.set(bean, value);				
 			}			
 		};		

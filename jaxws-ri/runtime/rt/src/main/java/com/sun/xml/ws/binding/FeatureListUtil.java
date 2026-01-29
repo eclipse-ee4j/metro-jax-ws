@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,7 +21,9 @@ import jakarta.xml.ws.WebServiceFeature;
  *
  * @author WS Development Team
  */
-public class FeatureListUtil {
+public final class FeatureListUtil {
+
+    private FeatureListUtil() {}
 
     /**
      * Merge all features into one list. Returns an empty list if no lists were

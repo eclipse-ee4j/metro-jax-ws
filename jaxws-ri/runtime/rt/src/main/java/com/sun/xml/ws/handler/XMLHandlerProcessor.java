@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,7 +42,8 @@ final class XMLHandlerProcessor<C extends MessageUpdatableContext> extends Handl
      * TODO: This is valid only for XML/HTTP binding
      * Empty the XML message
      */
-    final void insertFaultMessage(C context,
+    @Override
+    void insertFaultMessage(C context,
             ProtocolException exception) {
         if(exception instanceof HTTPException) {
             context.put(MessageContext.HTTP_RESPONSE_CODE,((HTTPException)exception).getStatusCode());

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,22 +35,19 @@ import com.sun.tools.ws.processor.model.Service;
 import com.sun.tools.ws.processor.model.java.JavaInterface;
 import com.sun.tools.ws.resources.GeneratorMessages;
 import com.sun.tools.ws.wscompile.ErrorReceiver;
-import com.sun.tools.ws.wscompile.Options;
 import com.sun.tools.ws.wscompile.WsimportOptions;
 import com.sun.tools.ws.wsdl.document.PortType;
 import com.sun.xml.ws.spi.db.BindingHelper;
-
+import com.sun.xml.ws.util.ServiceFinder;
+import jakarta.xml.ws.WebEndpoint;
+import jakarta.xml.ws.WebServiceClient;
+import jakarta.xml.ws.WebServiceException;
+import jakarta.xml.ws.WebServiceFeature;
 import org.xml.sax.Locator;
 
 import javax.xml.namespace.QName;
-import jakarta.xml.ws.WebEndpoint;
-import jakarta.xml.ws.WebServiceClient;
-import jakarta.xml.ws.WebServiceFeature;
-import jakarta.xml.ws.WebServiceException;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import com.sun.xml.ws.util.ServiceFinder;
 import java.util.Locale;
 import java.util.ServiceLoader;
 
@@ -122,9 +119,7 @@ public class ServiceGenerator extends GeneratorBase {
             comment.add("\n\n");
         }
 
-        for (String doc : getJAXWSClassComment()) {
-            comment.add(doc);
-        }
+        comment.addAll(getJAXWSClassComment());
 
         // Generating constructor
         // for e.g:  public ExampleService()
@@ -134,31 +129,25 @@ public class ServiceGenerator extends GeneratorBase {
 
         // Generating constructor
         // for e.g:  public ExampleService(WebServiceFeature ... features)
-        if (options.target.isLaterThan(Options.Target.V2_2)) {
-            JMethod constructor2 = cls.constructor(JMod.PUBLIC);
-            constructor2.varParam(WebServiceFeature.class, "features");
-            String constructor2Str = String.format("super(__getWsdlLocation(), %s, features);", serviceName);
-            constructor2.body().directStatement(constructor2Str);
-        }
+        JMethod constructor2 = cls.constructor(JMod.PUBLIC);
+        constructor2.varParam(WebServiceFeature.class, "features");
+        String constructor2Str = String.format("super(__getWsdlLocation(), %s, features);", serviceName);
+        constructor2.body().directStatement(constructor2Str);
 
         // Generating constructor
         // for e.g:  public ExampleService(URL wsdlLocation)
-        if (options.target.isLaterThan(Options.Target.V2_2)) {
-            JMethod constructor3 = cls.constructor(JMod.PUBLIC);
-            constructor3.param(URL.class, "wsdlLocation");
-            String constructor3Str = String.format("super(wsdlLocation, %s);", serviceName);
-            constructor3.body().directStatement(constructor3Str);
-        }
+        JMethod constructor3 = cls.constructor(JMod.PUBLIC);
+        constructor3.param(URL.class, "wsdlLocation");
+        String constructor3Str = String.format("super(wsdlLocation, %s);", serviceName);
+        constructor3.body().directStatement(constructor3Str);
 
         // Generating constructor
         // for e.g:  public ExampleService(URL wsdlLocation, WebServiceFeature ... features)
-        if (options.target.isLaterThan(Options.Target.V2_2)) {
-            JMethod constructor4 = cls.constructor(JMod.PUBLIC);
-            constructor4.param(URL.class, "wsdlLocation");
-            constructor4.varParam(WebServiceFeature.class, "features");
-            String constructor4Str = String.format("super(wsdlLocation, %s, features);", serviceName);
-            constructor4.body().directStatement(constructor4Str);
-        }
+        JMethod constructor4 = cls.constructor(JMod.PUBLIC);
+        constructor4.param(URL.class, "wsdlLocation");
+        constructor4.varParam(WebServiceFeature.class, "features");
+        String constructor4Str = String.format("super(wsdlLocation, %s, features);", serviceName);
+        constructor4.body().directStatement(constructor4Str);
 
         // Generating constructor
         // for e.g:  public ExampleService(URL wsdlLocation, QName serviceName)
@@ -169,13 +158,11 @@ public class ServiceGenerator extends GeneratorBase {
 
         // Generating constructor
         // for e.g:  public ExampleService(URL, QName, WebServiceFeature ...)
-        if (options.target.isLaterThan(Options.Target.V2_2)) {
-            JMethod constructor6 = cls.constructor(JMod.PUBLIC);
-            constructor6.param(URL.class, "wsdlLocation");
-            constructor6.param(QName.class, "serviceName");
-            constructor6.varParam(WebServiceFeature.class, "features");
-            constructor6.body().directStatement("super(wsdlLocation, serviceName, features);");
-        }
+        JMethod constructor6 = cls.constructor(JMod.PUBLIC);
+        constructor6.param(URL.class, "wsdlLocation");
+        constructor6.param(QName.class, "serviceName");
+        constructor6.varParam(WebServiceFeature.class, "features");
+        constructor6.body().directStatement("super(wsdlLocation, serviceName, features);");
 
         //@WebService
         JAnnotationUse webServiceClientAnn = cls.annotate(cm.ref(WebServiceClient.class));
@@ -218,9 +205,7 @@ public class ServiceGenerator extends GeneratorBase {
             writeDefaultGetPort(port, retType, cls);
 
             //write getXyzPort(WebServicesFeature...)
-            if (options.target.isLaterThan(Options.Target.V2_1)) {
-                writeGetPort(port, retType, cls);
-            }
+            writeGetPort(port, retType, cls);
         }
 
         writeGetWsdlLocation(cm.ref(URL.class), cls, urlField, exField);   

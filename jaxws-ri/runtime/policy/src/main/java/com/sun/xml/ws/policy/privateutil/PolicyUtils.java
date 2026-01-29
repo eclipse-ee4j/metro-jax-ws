@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,12 +17,14 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.logging.Level;
 import javax.xml.namespace.QName;
@@ -39,6 +41,7 @@ public final class PolicyUtils {
     private PolicyUtils() { }
 
     public static class Commons {
+        private Commons() {}
         /**
          * Method returns the name of the method that is on the {@code methodIndexInStack}
          * position in the call stack of the current {@link Thread}.
@@ -48,16 +51,11 @@ public final class PolicyUtils {
          *         position in the call stack of the current {@link Thread}.
          */
         public static String getStackMethodName(final int methodIndexInStack) {
-            final String methodName;
-
-            final StackTraceElement[] stack = Thread.currentThread().getStackTrace();
-            if (stack.length > methodIndexInStack + 1) {
-                methodName = stack[methodIndexInStack].getMethodName();
-            } else {
-                methodName = "UNKNOWN METHOD";
-            }
-
-            return methodName;
+            final Optional<String> method = StackWalker.getInstance().walk(frames ->
+                            frames.map(StackWalker.StackFrame::getMethodName)
+                                  .skip(methodIndexInStack)
+                                  .findFirst());
+            return method.orElse("UNKNOWN METHOD");
         }
 
         /**
@@ -67,11 +65,7 @@ public final class PolicyUtils {
          * @return caller method name from the call stack of the current {@link Thread}.
          */
         public static String getCallerMethodName() {
-            String result = getStackMethodName(5);
-            if (result.equals("invoke0")) {
-                // We are likely running on Mac OS X, which returns a shorter stack trace
-                result = getStackMethodName(4);
-            }
+            String result = getStackMethodName(3);
             return result;
         }
     }
@@ -79,6 +73,7 @@ public final class PolicyUtils {
     public static class IO {
         private static final PolicyLogger LOGGER = PolicyLogger.getLogger(PolicyUtils.IO.class);
 
+        private IO () {}
         /**
          * If the {@code resource} is not {@code null}, this method will try to close the
          * {@code resource} instance and log warning about any unexpected
@@ -124,6 +119,7 @@ public final class PolicyUtils {
          */
         public final static String NEW_LINE = System.getProperty("line.separator");
 
+        private Text() {}
         /**
          * Method creates indent string consisting of as many {@code TAB} characters as specified by {@code indentLevel} parameter
          *
@@ -139,6 +135,7 @@ public final class PolicyUtils {
     }
 
     public static class Comparison {
+        private Comparison() {}
         /**
          * The comparator comapres QName objects according to their publicly accessible attributes, in the following
          * order of attributes:
@@ -146,7 +143,8 @@ public final class PolicyUtils {
          * 1. namespace (not null String)
          * 2. local name (not null String)
          */
-        public static final Comparator<QName> QNAME_COMPARATOR = new Comparator<QName>() {
+        public static final Comparator<QName> QNAME_COMPARATOR = new Comparator<>() {
+            @Override
             public int compare(final QName qn1, final QName qn2) {
                 if (qn1 == qn2 || qn1.equals(qn2)) {
                     return 0;
@@ -187,6 +185,7 @@ public final class PolicyUtils {
 
     public static class Collections {
         private static final PolicyLogger LOGGER = PolicyLogger.getLogger(PolicyUtils.Collections.class);
+        private Collections() {}
         /**
          * TODO javadocs
          *
@@ -201,27 +200,27 @@ public final class PolicyUtils {
             if (options == null || options.isEmpty()) {
                 // no combination creation needed
                 if (initialBase != null) {
-                    combinations = new ArrayList<Collection<E>>(1);
-                    combinations.add(new ArrayList<E>(initialBase));
+                    combinations = new ArrayList<>(1);
+                    combinations.add(new ArrayList<>(initialBase));
                 }
                 return combinations;
             }
 
             // creating defensive and modifiable copy of the base
-            final Collection<E> base = new LinkedList<E>();
+            final Collection<E> base = new LinkedList<>();
             if (initialBase != null && !initialBase.isEmpty()) {
                 base.addAll(initialBase);
             }
-            /**
-             * now we iterate over all options and build up an option processing queue:
-             *   1. if ignoreEmptyOption flag is not set and we found an empty option, we are going to stop processing and return null. Otherwise we
-             *      ignore the empty option.
-             *   2. if the option has one child only, we add the child directly to the base.
-             *   3. if there are more children in examined node, we add it to the queue for further processing and precoumpute the final size of
-             *      resulting collection of combinations.
+            /*
+              now we iterate over all options and build up an option processing queue:
+                1. if ignoreEmptyOption flag is not set and we found an empty option, we are going to stop processing and return null. Otherwise we
+                   ignore the empty option.
+                2. if the option has one child only, we add the child directly to the base.
+                3. if there are more children in examined node, we add it to the queue for further processing and precoumpute the final size of
+                   resulting collection of combinations.
              */
             int finalCombinationsSize = 1;
-            final Queue<T> optionProcessingQueue = new LinkedList<T>();
+            final Queue<T> optionProcessingQueue = new LinkedList<>();
             for (T option : options) {
                 final int optionSize =  option.size();
 
@@ -241,7 +240,7 @@ public final class PolicyUtils {
             }
 
             // creating final combinations
-            combinations = new ArrayList<Collection<E>>(finalCombinationsSize);
+            combinations = new ArrayList<>(finalCombinationsSize);
             combinations.add(base);
             if (finalCombinationsSize > 1) {
                 T processedOption;
@@ -256,7 +255,7 @@ public final class PolicyUtils {
 
                             if (semiCombinationIndex + actualSemiCombinationCollectionSize < newSemiCombinationCollectionSize) {
                                 // this is not the last optionElement => we create a new combination copy for the next child
-                                combinations.add(new LinkedList<E>(semiCombination));
+                                combinations.add(new LinkedList<>(semiCombination));
                             }
 
                             semiCombination.add(optionElement);
@@ -275,9 +274,11 @@ public final class PolicyUtils {
     static class Reflection {
         private static final PolicyLogger LOGGER = PolicyLogger.getLogger(PolicyUtils.Reflection.class);
 
+        private Reflection() {}
         /**
          * Reflectively invokes specified method on the specified target
          */
+        @SuppressWarnings({"rawtypes"})
         static <T> T invoke(final Object target, final String methodName,
                 final Class<T> resultClass, final Object... parameters) throws RuntimePolicyUtilsException {
             Class[] parameterTypes;
@@ -298,22 +299,16 @@ public final class PolicyUtils {
          * Reflectively invokes specified method on the specified target
          */
         public static <T> T invoke(final Object target, final String methodName, final Class<T> resultClass,
-                final Object[] parameters, final Class[] parameterTypes) throws RuntimePolicyUtilsException {
+                final Object[] parameters, final Class<?>[] parameterTypes) throws RuntimePolicyUtilsException {
             try {
                 final Method method = target.getClass().getMethod(methodName, parameterTypes);
                 final Object result = MethodUtil.invoke(target, method,parameters);
 
                 return resultClass.cast(result);
-            } catch (IllegalArgumentException e) {
-                throw LOGGER.logSevereException(new RuntimePolicyUtilsException(createExceptionMessage(target, parameters, methodName), e));
-            } catch (InvocationTargetException e) {
+            } catch (IllegalArgumentException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
                 throw LOGGER.logSevereException(new RuntimePolicyUtilsException(createExceptionMessage(target, parameters, methodName), e));
             } catch (IllegalAccessException e) {
                 throw LOGGER.logSevereException(new RuntimePolicyUtilsException(createExceptionMessage(target, parameters, methodName), e.getCause()));
-            } catch (SecurityException e) {
-                throw LOGGER.logSevereException(new RuntimePolicyUtilsException(createExceptionMessage(target, parameters, methodName), e));
-            } catch (NoSuchMethodException e) {
-                throw LOGGER.logSevereException(new RuntimePolicyUtilsException(createExceptionMessage(target, parameters, methodName), e));
             }
         }
 
@@ -324,6 +319,7 @@ public final class PolicyUtils {
     }
 
     public static class ConfigFile {
+        private ConfigFile() {}
         /**
          * Generates a config file resource name from provided config file identifier.
          * The generated file name can be transformed into a URL instance using
@@ -337,7 +333,7 @@ public final class PolicyUtils {
          */
         public static String generateFullName(final String configFileIdentifier) throws PolicyException {
             if (configFileIdentifier != null) {
-                final StringBuffer buffer = new StringBuffer("wsit-");
+                final StringBuilder buffer = new StringBuilder("wsit-");
                 buffer.append(configFileIdentifier).append(".xml");
                 return buffer.toString();
             } else {
@@ -379,6 +375,7 @@ public final class PolicyUtils {
     public static class Rfc2396 {
 
         private static final PolicyLogger LOGGER = PolicyLogger.getLogger(PolicyUtils.Reflection.class);
+        private Rfc2396() {}
 
         // converts "hello%20world" into "hello world"
         public static String unquote(final String quoted) {
@@ -405,11 +402,7 @@ public final class PolicyUtils {
                     unquoted[newLength++] = (byte) c;
                 }
             }
-            try {
-                return new String(unquoted, 0, newLength, "utf-8");
-            } catch (UnsupportedEncodingException uee) {
-                throw LOGGER.logSevereException(new RuntimePolicyUtilsException(LocalizationMessages.WSP_0079_ERROR_WHILE_RFC_2396_UNESCAPING(quoted), uee));
-            }
+            return new String(unquoted, 0, newLength, StandardCharsets.UTF_8);
         }
     }
 }

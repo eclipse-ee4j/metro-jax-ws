@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -161,6 +161,12 @@
                     </row>
 
                     <row>
+                        <entry><literal>-disableXmlSecurity</literal></entry>
+
+                        <entry>disables XML security features when parsing XML documents.</entry>
+                    </row>
+
+                    <row>
                         <entry><literal>-extension</literal></entry>
 
                         <entry>Allow vendor extensions (functionality not
@@ -266,8 +272,8 @@
 
                         <entry>Generate code as per the given &ws.spec.name;
                         specification version. For example, "<literal>-target
-                        2.0</literal>" generates compliant code for &ws.spec.name; 2.0
-                        spec. Default value is 2.2.</entry>
+                        3.0</literal>" generates compliant code for &ws.spec.name; 3.0
+                        spec. Default value is 3.0.</entry>
                     </row>
 
                     <row>

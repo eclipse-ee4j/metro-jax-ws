@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,6 +13,10 @@ package com.oracle.webservices.api.message;
 import java.util.Map;
 
 import com.sun.istack.Nullable;
+import com.sun.xml.ws.api.message.Packet;
+import com.sun.xml.ws.client.RequestContext;
+import com.sun.xml.ws.client.ResponseContext;
+import jakarta.xml.ws.WebServiceContext;
 
 /**
  * {@link PropertySet} that combines properties exposed from multiple
@@ -52,15 +56,15 @@ import com.sun.istack.Nullable;
  */
 public interface DistributedPropertySet extends com.oracle.webservices.api.message.PropertySet {
 
-    public @Nullable <T extends com.oracle.webservices.api.message.PropertySet> T getSatellite(Class<T> satelliteClass);
+    @Nullable <T extends com.oracle.webservices.api.message.PropertySet> T getSatellite(Class<T> satelliteClass);
 
-    public Map<Class<? extends com.oracle.webservices.api.message.PropertySet>, com.oracle.webservices.api.message.PropertySet> getSatellites();
+    Map<Class<? extends com.oracle.webservices.api.message.PropertySet>, com.oracle.webservices.api.message.PropertySet> getSatellites();
     
-    public void addSatellite(com.oracle.webservices.api.message.PropertySet satellite);
+    void addSatellite(com.oracle.webservices.api.message.PropertySet satellite);
 
-    public void addSatellite(Class<? extends com.oracle.webservices.api.message.PropertySet> keyClass, com.oracle.webservices.api.message.PropertySet satellite);
+    void addSatellite(Class<? extends com.oracle.webservices.api.message.PropertySet> keyClass, com.oracle.webservices.api.message.PropertySet satellite);
 
-    public void removeSatellite(com.oracle.webservices.api.message.PropertySet satellite);
+    void removeSatellite(com.oracle.webservices.api.message.PropertySet satellite);
 
-    public void copySatelliteInto(com.oracle.webservices.api.message.MessageContext r);
+    void copySatelliteInto(com.oracle.webservices.api.message.MessageContext r);
 }

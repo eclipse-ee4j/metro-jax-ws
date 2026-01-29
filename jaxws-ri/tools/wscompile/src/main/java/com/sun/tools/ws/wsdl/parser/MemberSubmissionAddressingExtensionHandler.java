@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,14 +20,13 @@ import com.sun.tools.ws.wsdl.document.Fault;
 import com.sun.tools.ws.wsdl.document.Input;
 import com.sun.tools.ws.wsdl.document.Output;
 import com.sun.xml.ws.addressing.W3CAddressingMetadataConstants;
+import com.sun.xml.ws.addressing.v200408.MemberSubmissionAddressingConstants;
 import com.sun.xml.ws.api.addressing.AddressingVersion;
 import org.w3c.dom.Element;
 import org.xml.sax.Locator;
 
 import javax.xml.namespace.QName;
 import java.util.Map;
-
-import static com.sun.xml.ws.addressing.v200408.MemberSubmissionAddressingConstants.WSA_ACTION_QNAME;
 
 /**
  * @author Arun Gupta
@@ -48,22 +47,25 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
         return AddressingVersion.MEMBER.wsdlNsUri;
     }
 
+    @Override
     protected QName getWSDLExtensionQName() {
         return AddressingVersion.MEMBER.wsdlExtensionTag;
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public boolean handlePortExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         // ignore any extension elements
         return false;
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public boolean handleInputExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         if (extensionModeOn) {
             warn(context.getLocation(e));
-            String actionValue = XmlUtil.getAttributeNSOrNull(e, WSA_ACTION_QNAME);
-            if (actionValue == null || actionValue.equals("")) {
+            String actionValue = XmlUtil.getAttributeNSOrNull(e, MemberSubmissionAddressingConstants.WSA_ACTION_QNAME);
+            if (actionValue == null || actionValue.isEmpty()) {
                 return warnEmptyAction(parent, context.getLocation(e));
             }
             ((Input) parent).setAction(actionValue);
@@ -87,11 +89,12 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public boolean handleOutputExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         if (extensionModeOn) {
             warn(context.getLocation(e));
-            String actionValue = XmlUtil.getAttributeNSOrNull(e, WSA_ACTION_QNAME);
-            if (actionValue == null || actionValue.equals("")) {
+            String actionValue = XmlUtil.getAttributeNSOrNull(e, MemberSubmissionAddressingConstants.WSA_ACTION_QNAME);
+            if (actionValue == null || actionValue.isEmpty()) {
                 return warnEmptyAction(parent, context.getLocation(e));
             }
             ((Output) parent).setAction(actionValue);
@@ -102,11 +105,12 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public boolean handleFaultExtension(TWSDLParserContext context, TWSDLExtensible parent, Element e) {
         if (extensionModeOn) {
             warn(context.getLocation(e));
-            String actionValue = XmlUtil.getAttributeNSOrNull(e, WSA_ACTION_QNAME);
-            if (actionValue == null || actionValue.equals("")) {
+            String actionValue = XmlUtil.getAttributeNSOrNull(e, MemberSubmissionAddressingConstants.WSA_ACTION_QNAME);
+            if (actionValue == null || actionValue.isEmpty()) {
                 errReceiver.warning(context.getLocation(e), WsdlMessages.WARNING_FAULT_EMPTY_ACTION(parent.getNameValue(), parent.getWSDLElementName().getLocalPart(), parent.getParent().getNameValue()));
                 return false; // keep compiler happy
             }
@@ -117,6 +121,7 @@ public class MemberSubmissionAddressingExtensionHandler extends W3CAddressingExt
         }
     }
 
+    @SuppressWarnings({"deprecation"})
     private boolean warnEmptyAction(TWSDLExtensible parent, Locator pos) {
         errReceiver.warning(pos, WsdlMessages.WARNING_INPUT_OUTPUT_EMPTY_ACTION(parent.getWSDLElementName().getLocalPart(), parent.getParent().getNameValue()));
         return false;

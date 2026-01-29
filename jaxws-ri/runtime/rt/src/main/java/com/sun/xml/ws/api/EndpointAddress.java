@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,7 @@ import java.util.Iterator;
  * of this code wants to use it, it can do so.
  *
  *
- * <h3>How it improves the performance</h3>
+ * <h2>How it improves the performance</h2>
  * <ol>
  *  <li>
  *  Endpoint address is often eventually turned into an {@link URLConnection},
@@ -138,12 +138,12 @@ public final class EndpointAddress {
     private Proxy chooseProxy() {
         ProxySelector sel =
             java.security.AccessController.doPrivileged(
-                new java.security.PrivilegedAction<ProxySelector>() {
-                    @Override
-                    public ProxySelector run() {
-                        return ProxySelector.getDefault();
-                    }
-                });
+                    new java.security.PrivilegedAction<>() {
+                        @Override
+                        public ProxySelector run() {
+                            return ProxySelector.getDefault();
+                        }
+                    });
 
         if(sel==null)
             return Proxy.NO_PROXY;

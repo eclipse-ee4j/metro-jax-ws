@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,7 +53,7 @@ public class Headers implements Map<String,List<String>> {
     HashMap<String,List<String>> map;
 
     public Headers() {
-        map = new HashMap<String,List<String>>(32);
+        map = new HashMap<>(32);
     }
 
     /* Normalize the key by converting to following form.
@@ -121,7 +121,7 @@ public class Headers implements Map<String,List<String>> {
      * @return the first string value associated with the key
      */
     public String getFirst (String key) {
-        List<String> l = map.get(normalize((String)key));
+        List<String> l = map.get(normalize(key));
         if (l == null) {
             return null;
         }
@@ -142,11 +142,7 @@ public class Headers implements Map<String,List<String>> {
      */
     public void add (String key, String value) {
         String k = normalize(key);
-        List<String> l = map.get(k);
-        if (l == null) {
-            l = new LinkedList<String>();
-            map.put(k,l);
-        }
+        List<String> l = map.computeIfAbsent(k, k1 -> new LinkedList<>());
         l.add (value);
     }
 
@@ -158,7 +154,7 @@ public class Headers implements Map<String,List<String>> {
      * @param value the header value to set.
      */
     public void set (String key, String value) {
-        LinkedList<String> l = new LinkedList<String>();
+        LinkedList<String> l = new LinkedList<>();
         l.add (value);
         put (key, l);
     }

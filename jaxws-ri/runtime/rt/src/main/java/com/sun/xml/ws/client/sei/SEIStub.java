@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -73,7 +73,7 @@ public final class SEIStub extends Stub implements InvocationHandler {
     }
 
     private void initMethodHandlers() {
-        Map<WSDLBoundOperation, JavaMethodImpl> syncs = new HashMap<WSDLBoundOperation, JavaMethodImpl>();
+        Map<WSDLBoundOperation, JavaMethodImpl> syncs = new HashMap<>();
 
         // fill in methodHandlers.
         // first fill in sychronized versions
@@ -107,8 +107,8 @@ public final class SEIStub extends Stub implements InvocationHandler {
 
     /**
      * Nullable when there is no associated WSDL Model
-     * @return
      */
+    @Override
     public @Nullable
     OperationDispatcher getOperationDispatcher() {
         if(operationDispatcher == null && wsdlPort != null)
@@ -120,8 +120,9 @@ public final class SEIStub extends Stub implements InvocationHandler {
      * For each method on the port interface we have
      * a {@link MethodHandler} that processes it.
      */
-    private final Map<Method, MethodHandler> methodHandlers = new HashMap<Method, MethodHandler>();
+    private final Map<Method, MethodHandler> methodHandlers = new HashMap<>();
 
+    @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         validateInputs(proxy, method);
         Container old = ContainerResolver.getDefault().enterContainer(owner.getContainer());
@@ -133,10 +134,8 @@ public final class SEIStub extends Stub implements InvocationHandler {
                 // we handle the other method invocations by ourselves
                 try {
                     return method.invoke(this, args);
-                } catch (IllegalAccessException e) {
+                } catch (IllegalAccessException | IllegalArgumentException e) {
                     // impossible
-                    throw new AssertionError(e);
-                } catch (IllegalArgumentException e) {
                     throw new AssertionError(e);
                 } catch (InvocationTargetException e) {
                     throw e.getCause();
@@ -157,19 +156,21 @@ public final class SEIStub extends Stub implements InvocationHandler {
         }
     }
 
-    public final Packet doProcess(Packet request, RequestContext rc, ResponseContextReceiver receiver) {
+    public Packet doProcess(Packet request, RequestContext rc, ResponseContextReceiver receiver) {
         return super.process(request, rc, receiver);
     }
 
-    public final void doProcessAsync(AsyncResponseImpl<?> receiver, Packet request, RequestContext rc, Fiber.CompletionCallback callback) {
+    public void doProcessAsync(AsyncResponseImpl<?> receiver, Packet request, RequestContext rc, Fiber.CompletionCallback callback) {
         super.processAsync(receiver, request, rc, callback);
     }
 
-    protected final @NotNull QName getPortName() {
+    @Override
+    protected @NotNull QName getPortName() {
         return wsdlPort.getName();
     }
 
 
+    @Override
     public void setOutboundHeaders(Object... headers) {
         if(headers==null)
             throw new IllegalArgumentException();

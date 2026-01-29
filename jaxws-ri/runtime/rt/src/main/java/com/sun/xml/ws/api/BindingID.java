@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,6 +34,7 @@ import jakarta.xml.ws.soap.SOAPBinding;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,7 +61,7 @@ import java.util.Map;
  * instances do not necessarily have singleton semantics. Use {@link #equals(Object)}
  * for the comparison.
  *
- * <h3>{@link BindingID} and {@link WSBinding}</h3>
+ * <h2>{@link BindingID} and {@link WSBinding}</h2>
  * <p>
  * {@link WSBinding} is mutable and represents a particular "use" of a {@link BindingID}.
  * As such, it has state like a list of {@link Handler}s, which are inherently local
@@ -72,6 +73,11 @@ import java.util.Map;
  * @author Kohsuke Kawaguchi
  */
 public abstract class BindingID {
+
+    /**
+     * Default constructor.
+     */
+    protected BindingID() {}
 
     /**
      * Creates an instance of {@link WSBinding} (which is conceptually an "use"
@@ -258,7 +264,7 @@ public abstract class BindingID {
     /**
      * Parses parameter portion and returns appropriately populated {@link SOAPHTTPImpl}
      */
-    private static SOAPHTTPImpl customize(String lexical, SOAPHTTPImpl base) {
+    private static BindingID customize(String lexical, BindingID base) {
         if(lexical.equals(base.toString()))
             return base;
 
@@ -267,20 +273,16 @@ public abstract class BindingID {
         // complicated handling (such as %HH or non-ASCII char), so this parser
         // is quite simple-minded.
         SOAPHTTPImpl r = new SOAPHTTPImpl(base.getSOAPVersion(), lexical, base.canGenerateWSDL());
-        try {
-            // With X_SOAP12_HTTP, base != lexical and lexical does n't have any query string
-            if(lexical.indexOf('?') == -1) {
-                return r;
-            }
-            String query = URLDecoder.decode(lexical.substring(lexical.indexOf('?')+1),"UTF-8");
-            for( String token : query.split("&") ) {
-                int idx = token.indexOf('=');
-                if(idx<0)
-                    throw new WebServiceException("Malformed binding ID (no '=' in "+token+")");
-                r.parameters.put(token.substring(0,idx),token.substring(idx+1));
-            }
-        } catch (UnsupportedEncodingException e) {
-            throw new AssertionError(e);    // UTF-8 is supported everywhere
+        // With X_SOAP12_HTTP, base != lexical and lexical does n't have any query string
+        if(lexical.indexOf('?') == -1) {
+            return r;
+        }
+        String query = URLDecoder.decode(lexical.substring(lexical.indexOf('?')+1), StandardCharsets.UTF_8);
+        for( String token : query.split("&") ) {
+            int idx = token.indexOf('=');
+            if(idx<0)
+                throw new WebServiceException("Malformed binding ID (no '=' in "+token+")");
+            r.parameters.put(token.substring(0,idx),token.substring(idx+1));
         }
 
         return r;
@@ -309,29 +311,29 @@ public abstract class BindingID {
      * Constant that represents implementation specific SOAP1.2/HTTP which is
      * used to generate non-standard WSDLs
      */
-    public static final SOAPHTTPImpl X_SOAP12_HTTP = new SOAPHTTPImpl(
+    public static final BindingID X_SOAP12_HTTP = new SOAPHTTPImpl(
         SOAPVersion.SOAP_12, SOAPBindingImpl.X_SOAP12HTTP_BINDING, true);
     
     /**
      * Constant that represents SOAP1.2/HTTP.
      */
-    public static final SOAPHTTPImpl SOAP12_HTTP = new SOAPHTTPImpl(
+    public static final BindingID SOAP12_HTTP = new SOAPHTTPImpl(
         SOAPVersion.SOAP_12, SOAPBinding.SOAP12HTTP_BINDING, true);
     /**
      * Constant that represents SOAP1.1/HTTP.
      */
-    public static final SOAPHTTPImpl SOAP11_HTTP = new SOAPHTTPImpl(
+    public static final BindingID SOAP11_HTTP = new SOAPHTTPImpl(
         SOAPVersion.SOAP_11, SOAPBinding.SOAP11HTTP_BINDING, true);
 
     /**
      * Constant that represents SOAP1.2/HTTP.
      */
-    public static final SOAPHTTPImpl SOAP12_HTTP_MTOM = new SOAPHTTPImpl(
+    public static final BindingID SOAP12_HTTP_MTOM = new SOAPHTTPImpl(
         SOAPVersion.SOAP_12, SOAPBinding.SOAP12HTTP_MTOM_BINDING, true, true);
     /**
      * Constant that represents SOAP1.1/HTTP.
      */
-    public static final SOAPHTTPImpl SOAP11_HTTP_MTOM = new SOAPHTTPImpl(
+    public static final BindingID SOAP11_HTTP_MTOM = new SOAPHTTPImpl(
         SOAPVersion.SOAP_11, SOAPBinding.SOAP11HTTP_MTOM_BINDING, true, true);
     
     
@@ -387,7 +389,7 @@ public abstract class BindingID {
      * Internal implementation for SOAP/HTTP.
      */
     private static final class SOAPHTTPImpl extends Impl implements Cloneable {
-        /*final*/ Map<String,String> parameters = new HashMap<String,String>();
+        /*final*/ Map<String,String> parameters = new HashMap<>();
 
         static final String MTOM_PARAM = "mtom";
 

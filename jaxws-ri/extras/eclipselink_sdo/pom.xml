@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,14 +16,14 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>4.0.4-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>sdo-eclipselink-plugin</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>4.0.4-SNAPSHOT</version>
 
     <name>JAX-WS RI Eclipselink SDO Plugin</name>
     <description>Pluggable databinding module employing Eclipselink SDO</description>
@@ -40,15 +40,15 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
-            <artifactId>commonj.sdo</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.moxy</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jaxws-rt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-xjc</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -61,92 +61,62 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-compile</id>
-                        <configuration>
-                            <!--adds reads for gmbal-->
-                            <compilerArgs>
-                                <arg>--add-reads</arg>
-                                <arg>com.sun.xml.ws.sdo=ALL-UNNAMED</arg>
-                            </compilerArgs>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <forkNode implementation="org.apache.maven.plugin.surefire.extensions.SurefireForkNodeFactory"/>
                     <argLine>
-                        --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.test=ALL-UNNAMED
-                        --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.test.add=ALL-UNNAMED
+                        --add-reads org.eclipse.persistence.moxy=com.sun.tools.xjc
+                        --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.test.add=org.eclipse.persistence.sdo
                         --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.test.helloSDO=ALL-UNNAMED
-                        --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.sample.service=ALL-UNNAMED
+                        --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.sample.service.types=org.eclipse.persistence.sdo
                         --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.sample.service=com.sun.xml.ws
-                        --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.sample.service.types=ALL-UNNAMED
+                        --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.sample.service=ALL-UNNAMED
                         @{argLine}
                     </argLine>
                     <forkCount>1</forkCount>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>osgi-bundle</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                        <configuration>
+                            <instructions>
+                                <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+                                <Import-Package>
+                                    commonj.sdo.*;version=!,
+                                    org.eclipse.persistence.*;version=!,
+                                    *
+                                </Import-Package>
+                                <Require-Capability><![CDATA[
+                            osgi.extender;filter:="(&(osgi.extender=osgi.serviceloader.registrar)
+                              (version>=1.0.0)(!(version>=2.0.0)))";resolution:=optional
+                            ]]>
+                                </Require-Capability>
+                                <Provide-Capability><![CDATA[
+                            osgi.serviceloader;
+                              osgi.serviceloader="com.sun.xml.ws.spi.db.BindingContextFactory"
+                            ]]>
+                                </Provide-Capability>
+                            </instructions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
-                    <additionalJOptions>
-                        <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.xml.ws.sdo=ALL-UNNAMED</additionalJOption>
-                    </additionalJOptions>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>osgi-bundle</id>
-            <activation>
-                <property>
-                    <name>!jacoco-build</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.felix</groupId>
-                        <artifactId>maven-bundle-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>osgi-bundle</id>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>manifest</goal>
-                                </goals>
-                                <configuration>
-                                    <instructions>
-                                        <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
-                                        <Import-Package>
-                                            commonj.sdo.*;version=!,
-                                            org.eclipse.persistence.*;version=!,
-                                            *
-                                        </Import-Package>
-                                    </instructions>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <configuration>
-                            <archive>
-                                <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                            </archive>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

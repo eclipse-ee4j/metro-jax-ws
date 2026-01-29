@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -181,7 +181,8 @@ public interface StatefulWebServiceManager<T> {
      * processing is synchronous, and that's why this parameter is only needed for
      * asynchronous web services.)
      *
-     * <h3>Why {@link WebServiceContext} is needed?</h3>
+     * <p>
+     * <strong>Why {@link WebServiceContext} is needed?</strong>
      * <p>
      * The obtained EPR contains address, such as host name. The server does not
      * know what its own host name is (or there are more than one of them),
@@ -223,6 +224,7 @@ public interface StatefulWebServiceManager<T> {
      *      The endpoint address URL. Normally, this information is determined by other inputs,
      *      like {@link Packet} or {@link WebServiceContext}.
      */
+    @Deprecated
     @NotNull <EPR extends EndpointReference> EPR export(Class<EPR> eprType, String endpointAddress, T o);
 
     /**

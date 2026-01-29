@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,6 +21,12 @@ import java.util.List;
  * @author Vivek Pandey
  */
 public abstract class ServiceDescriptor {
+
+    /**
+     * Default constructor.
+     */
+    protected ServiceDescriptor() {}
+
     /**
      * Gives list of wsdls
      * @return List of WSDL documents as {@link Source}.

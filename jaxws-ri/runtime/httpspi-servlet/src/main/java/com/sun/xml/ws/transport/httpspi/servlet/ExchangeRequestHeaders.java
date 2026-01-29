@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,12 @@ package com.sun.xml.ws.transport.httpspi.servlet;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.xml.ws.spi.http.HttpExchange;
-import java.util.*;
+
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * {@link HttpExchange#getRequestHeaders} impl for servlet container.
@@ -30,13 +35,12 @@ class ExchangeRequestHeaders extends Headers {
 
     private void convertToMap() {
         if (!useMap) {
-            Enumeration e = request.getHeaderNames();
+            Enumeration<String> e = request.getHeaderNames();
             while(e.hasMoreElements()) {
-                String name = (String)e.nextElement();
-                Enumeration ev = request.getHeaders(name);
+                String name = e.nextElement();
+                Enumeration<String> ev = request.getHeaders(name);
                 while(ev.hasMoreElements()) {
-                    String value = (String)ev.nextElement();
-                    super.add(name, value);
+                    super.add(name, ev.nextElement());
                 }
             }
             useMap = true;

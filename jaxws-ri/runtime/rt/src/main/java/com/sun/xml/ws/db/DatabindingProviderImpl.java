@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,17 +28,24 @@ import com.sun.xml.ws.spi.db.DatabindingProvider;
 public class DatabindingProviderImpl implements DatabindingProvider {
     static final private String CachedDatabinding = "com.sun.xml.ws.db.DatabindingProviderImpl";
 	Map<String, Object> properties;
-	
-	public void init(Map<String, Object> p) {
+
+    /**
+     * Default constructor.
+     */
+    public DatabindingProviderImpl() {}
+
+	@Override
+    public void init(Map<String, Object> p) {
             properties = p;
 	}
 	
 	DatabindingImpl getCachedDatabindingImpl(DatabindingConfig config) {
 	    Object object = config.properties().get(CachedDatabinding);
-	    return (object != null && object instanceof DatabindingImpl)? (DatabindingImpl)object : null;
+	    return (object instanceof DatabindingImpl)? (DatabindingImpl)object : null;
 	}
 
-	public Databinding create(DatabindingConfig config) {
+	@Override
+    public Databinding create(DatabindingConfig config) {
 	    DatabindingImpl impl = getCachedDatabindingImpl(config);
 	    if (impl == null) {
 	        impl = new DatabindingImpl(this, config);
@@ -47,11 +54,13 @@ public class DatabindingProviderImpl implements DatabindingProvider {
 		return impl;
 	}
 
+    @Override
     public WSDLGenerator wsdlGen(DatabindingConfig config) {
         DatabindingImpl impl = (DatabindingImpl)create(config);
         return new JaxwsWsdlGen(impl);
     }
 
+    @Override
     public boolean isFor(String databindingMode) {
         //This is the default one, so it always return true
         return true;
@@ -66,21 +75,25 @@ public class DatabindingProviderImpl implements DatabindingProvider {
             wsdlGenInfo = new WSDLGenInfo();
         }
         
+        @Override
         public WSDLGenerator inlineSchema(boolean inline) {
             wsdlGenInfo.setInlineSchemas(inline); 
             return this;
         }
 
+        @Override
         public WSDLGenerator property(String name, Object value) {
             // TODO wsdlGenInfo.set...
             return this;
         }
 
+        @Override
         public void generate(WSDLResolver wsdlResolver) {
             wsdlGenInfo.setWsdlResolver(wsdlResolver);
             databinding.generateWSDL(wsdlGenInfo);
         }
         
+        @Override
         public void generate(File outputDir, String name) {
             // TODO Auto-generated method stub
             databinding.generateWSDL(wsdlGenInfo);            

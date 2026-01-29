@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,6 +14,8 @@ import com.sun.xml.ws.api.handler.MessageHandler;
 import com.sun.xml.ws.handler.HandlerException;
 
 import javax.xml.namespace.QName;
+
+import com.sun.xml.ws.resources.HandlerMessages;
 import jakarta.xml.ws.handler.Handler;
 import jakarta.xml.ws.handler.LogicalHandler;
 import jakarta.xml.ws.handler.soap.SOAPHandler;
@@ -48,10 +50,10 @@ public class HandlerConfiguration {
     public HandlerConfiguration(Set<String> roles, List<Handler> handlerChain) {
         this.roles = roles;
         this.handlerChain = handlerChain;
-        logicalHandlers = new ArrayList<LogicalHandler>();
-        soapHandlers = new ArrayList<SOAPHandler>();
-        messageHandlers = new ArrayList<MessageHandler>();
-        Set<QName> modHandlerKnownHeaders = new HashSet<QName>();
+        logicalHandlers = new ArrayList<>();
+        soapHandlers = new ArrayList<>();
+        messageHandlers = new ArrayList<>();
+        Set<QName> modHandlerKnownHeaders = new HashSet<>();
 
         for (Handler handler : handlerChain) {
             if (handler instanceof LogicalHandler) {
@@ -69,8 +71,7 @@ public class HandlerConfiguration {
                     modHandlerKnownHeaders.addAll(headers);
                 }
             }else {
-                throw new HandlerException("handler.not.valid.type",
-                    handler.getClass());
+                throw new HandlerException(HandlerMessages.localizableHANDLER_NOT_VALID_TYPE(handler.getClass()));
             }
         }
         
@@ -79,8 +80,6 @@ public class HandlerConfiguration {
 
     /**
      * This is called when roles as reset on binding using SOAPBinding#setRoles(), to save reparsing the handlers again.
-     * @param roles
-     * @param oldConfig
      */
     public HandlerConfiguration(Set<String> roles, HandlerConfiguration oldConfig) {
         this.roles = roles;
@@ -102,7 +101,7 @@ public class HandlerConfiguration {
     public List<Handler> getHandlerChain() {
         if(handlerChain == null)
             return Collections.emptyList();
-        return new ArrayList<Handler>(handlerChain);
+        return new ArrayList<>(handlerChain);
 
     }
 

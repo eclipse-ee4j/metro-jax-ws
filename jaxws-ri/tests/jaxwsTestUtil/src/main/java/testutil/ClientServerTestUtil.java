@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -120,7 +120,7 @@ public class ClientServerTestUtil {
             if (istream != null) {
                 BufferedReader reader =
                     new BufferedReader(new InputStreamReader(istream));
-                StringBuffer sBuffer = new StringBuffer();
+                StringBuilder sBuffer = new StringBuilder();
                 String line = reader.readLine();
                 while (line != null) {
                     sBuffer.append(line);
@@ -190,10 +190,10 @@ public class ClientServerTestUtil {
         return connectionFactory.createConnection().call(message, url);
     }
 
-    /**
-     * Convenient method to create a service
-     *
-     * @param serviceClass
+    /*
+      Convenient method to create a service
+
+      @param serviceClass
      * @return the service
      * @throws Exception
      */
@@ -201,10 +201,10 @@ public class ClientServerTestUtil {
 //        return ServiceFactory.newInstance().createService((URL)null,serviceClass);
 //    }
 
-    /**
-     * Convenient method to create a port using service class, sei class and sei qname.
-     *
-     * @param serviceClass
+    /*
+      Convenient method to create a port using service class, sei class and sei qname.
+
+      @param serviceClass
      * @param seiClass
      * @param port
      * @return
@@ -218,13 +218,8 @@ public class ClientServerTestUtil {
     /**
      * Convenient method to create a sei using service, sei class and port qname.
      *
-     * @param service
-     * @param seiClass
-     * @param port
-     * @return
-     * @throws Exception
      */
-    public static Object getPort(Service service, Class seiClass, QName port) throws Exception {
+    public static Object getPort(Service service, Class<?> seiClass, QName port) throws Exception {
         return service.getPort(port, seiClass);
     }
 
@@ -245,7 +240,7 @@ public class ClientServerTestUtil {
      */
     public static void clearHandlers(BindingProvider provider) {
         Binding binding = provider.getBinding();
-        binding.setHandlerChain(new ArrayList<Handler>());
+        binding.setHandlerChain(new ArrayList<>());
     }
 
     public static String getLocalAddress(QName port) {

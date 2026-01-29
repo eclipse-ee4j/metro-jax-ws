@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,7 +47,7 @@ public class HandlerChainsModel {
     
     private List<HandlerChainType> getHandlerChain() {
         if (handlerChains == null) {
-            handlerChains = new ArrayList<HandlerChainType>();
+            handlerChains = new ArrayList<>();
         }
         return handlerChains;
     }
@@ -60,7 +60,7 @@ public class HandlerChainsModel {
         this.id = value;
     }
     /**
-     * reader should be on <handler-chains> element
+     * reader should be on &lt;handler-chains&gt; element
      */
     public static HandlerChainsModel parseHandlerConfigFile(Class annotatedClass, XMLStreamReader reader) {
         ensureProperName(reader,QNAME_HANDLER_CHAINS);
@@ -149,13 +149,10 @@ public class HandlerChainsModel {
      * {@link com.sun.xml.ws.transport.http.DeploymentDescriptorParser}
      * directly when it reaches the handler chains element in the
      * descriptor file it is parsing.
-     * @param reader should be on <handler-chains> element
+     * @param reader should be on &lt;handler-chains&gt; element
      * @return A HandlerAnnotationInfo object that stores the
      * handlers and roles.
      */
-
-
-
     public static HandlerAnnotationInfo parseHandlerFile(XMLStreamReader reader,
             ClassLoader classLoader, QName serviceName, QName portName,
             WSBinding wsbinding) {
@@ -165,8 +162,8 @@ public class HandlerChainsModel {
 
         XMLStreamReaderUtil.nextElementContent(reader);
 
-        List<Handler> handlerChain = new ArrayList<Handler>();
-        Set<String> roles = new HashSet<String>();
+        List<Handler> handlerChain = new ArrayList<>();
+        Set<String> roles = new HashSet<>();
 
         while (reader.getName().equals(QNAME_HANDLER_CHAIN)) {
 
@@ -192,7 +189,7 @@ public class HandlerChainsModel {
                 String bindingConstraint = XMLStreamReaderUtil.getElementText(reader);
                 boolean skipThisChain = true;
                 StringTokenizer stk = new StringTokenizer(bindingConstraint);
-                List<String> bindingList = new ArrayList<String>();
+                List<String> bindingList = new ArrayList<>();
                 while(stk.hasMoreTokens()) {
                     String tokenOrURI = stk.nextToken();
                     /*
@@ -240,11 +237,9 @@ public class HandlerChainsModel {
                 ensureProperName(reader, QNAME_HANDLER_CLASS);
                 try {
                     handler = (Handler) loadClass(classLoader,
-                            XMLStreamReaderUtil.getElementText(reader).trim()).newInstance();
-                } catch (InstantiationException ie){
+                            XMLStreamReaderUtil.getElementText(reader).trim()).getConstructor().newInstance();
+                } catch (ReflectiveOperationException ie){
                     throw new RuntimeException(ie);
-                } catch (IllegalAccessException e) {
-                    throw new RuntimeException(e);
                 }
                 XMLStreamReaderUtil.nextContent(reader);
 
@@ -270,7 +265,7 @@ public class HandlerChainsModel {
                         continue;
                     }
                     try {
-                        method.invoke(handler, new Object [0]);
+                        method.invoke(handler);
                         break;
                     } catch (Exception e) {
                         throw new RuntimeException(e);
@@ -297,29 +292,23 @@ public class HandlerChainsModel {
     public HandlerAnnotationInfo getHandlersForPortInfo(PortInfo info){
 
         HandlerAnnotationInfo handlerInfo = new HandlerAnnotationInfo();
-        List<Handler> handlerClassList = new ArrayList<Handler>();
-        Set<String> roles = new HashSet<String>();
+        List<Handler> handlerClassList = new ArrayList<>();
+        Set<String> roles = new HashSet<>();
 
         for(HandlerChainType hchain : handlerChains) {
-            boolean hchainMatched = false;
-            if((!hchain.isConstraintSet()) ||
+            boolean hchainMatched = (!hchain.isConstraintSet()) ||
                     JAXWSUtils.matchQNames(info.getServiceName(), hchain.getServiceNamePattern()) ||
                     JAXWSUtils.matchQNames(info.getPortName(), hchain.getPortNamePattern()) ||
-                    hchain.getProtocolBindings().contains(info.getBindingID()) ){
-                hchainMatched = true;
-
-            }
+                    hchain.getProtocolBindings().contains(info.getBindingID());
             if(hchainMatched) {
                 for(HandlerType handler : hchain.getHandlers()) {
                     try {
                         Handler handlerClass = (Handler) loadClass(annotatedClass.getClassLoader(),
-                                handler.getHandlerClass()).newInstance();
+                                handler.getHandlerClass()).getConstructor().newInstance();
                         callHandlerPostConstruct(handlerClass);
                         handlerClassList.add(handlerClass);
-                    } catch (InstantiationException ie){
+                    } catch (ReflectiveOperationException ie){
                         throw new RuntimeException(ie);
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
                     }
 
                     roles.addAll(handler.getSoapRoles());
@@ -334,9 +323,10 @@ public class HandlerChainsModel {
 
     }
 
-    private static Class loadClass(ClassLoader loader, String name) {
+    @SuppressWarnings({"unchecked"})
+    private static <T> Class<T> loadClass(ClassLoader loader, String name) {
         try {
-            return Class.forName(name, true, loader);
+            return (Class<T>) Class.forName(name, true, loader);
         } catch (ClassNotFoundException e) {
             throw new UtilException(
                     "util.handler.class.not.found",
@@ -351,7 +341,7 @@ public class HandlerChainsModel {
                 continue;
             }
             try {
-                method.invoke(handlerClass, new Object [0]);
+                method.invoke(handlerClass);
                 break;
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -453,7 +443,7 @@ public class HandlerChainsModel {
 
         /** Creates a new instance of HandlerChain */
         public HandlerChainType() {
-            protocolBindings = new ArrayList<String>();
+            protocolBindings = new ArrayList<>();
         }
 
         public void setServiceNamePattern(QName value) {
@@ -502,7 +492,7 @@ public class HandlerChainsModel {
 
         public List<HandlerType> getHandlers() {
             if (handlers == null) {
-                handlers = new ArrayList<HandlerType>();
+                handlers = new ArrayList<>();
             }
             return this.handlers;
         }
@@ -545,7 +535,7 @@ public class HandlerChainsModel {
 
         public List<String> getSoapRoles() {
             if (soapRoles == null) {
-                soapRoles = new ArrayList<String>();
+                soapRoles = new ArrayList<>();
             }
             return this.soapRoles;
         }

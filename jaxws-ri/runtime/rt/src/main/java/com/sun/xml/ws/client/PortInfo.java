@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -72,6 +72,7 @@ public class PortInfo implements WSPortInfo {
         this.policyMap = createPolicyMap();
     }
 
+    @Override
     public PolicyMap getPolicyMap() {
         return policyMap;
     }
@@ -150,21 +151,25 @@ public class PortInfo implements WSPortInfo {
 // implementation of API PortInfo interface
 //
 
+    @Override
     @Nullable
     public WSDLPort getPort() {
         return portModel;
     }
 
+    @Override
     @NotNull
     public WSService getOwner() {
         return owner;
     }
 
+    @Override
     @NotNull
     public BindingID getBindingId() {
         return bindingId;
     }
 
+    @Override
     @NotNull
     public EndpointAddress getEndpointAddress() {
         return targetEndpoint;
@@ -175,6 +180,8 @@ public class PortInfo implements WSPortInfo {
      *      Only meant to be used via {@link jakarta.xml.ws.handler.PortInfo}.
      *      Use {@link WSServiceDelegate#getServiceName()}.
      */
+    @Deprecated
+    @Override
     public QName getServiceName() {
         return owner.getServiceName();
     }
@@ -183,6 +190,7 @@ public class PortInfo implements WSPortInfo {
      *      Only meant to be used via {@link jakarta.xml.ws.handler.PortInfo}.
      *      Use {@link #portName}.
      */
+    @Override
     public QName getPortName() {
         return portName;
     }
@@ -192,6 +200,8 @@ public class PortInfo implements WSPortInfo {
      *      Only meant to be used via {@link jakarta.xml.ws.handler.PortInfo}.
      *      Use {@link #bindingId}.
      */
+    @Deprecated
+    @Override
     public String getBindingID() {
         return bindingId.toString();
     }

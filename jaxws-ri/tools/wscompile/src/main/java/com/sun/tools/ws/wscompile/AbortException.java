@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,9 +11,6 @@
 package com.sun.tools.ws.wscompile;
 
 /**
- * @author Vivek Pandey
- */
-/**
  * Signals the abortion of the compilation.
  * <p>
  * This exception should be only thrown from {@link ErrorReceiver}
@@ -22,6 +19,9 @@ package com.sun.tools.ws.wscompile;
  * @author Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 public class AbortException extends RuntimeException {
+
+    private static final long serialVersionUID = -5787052686999838093L;
+
     public AbortException() {
     }
 }

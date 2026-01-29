@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,6 +36,10 @@ import java.util.logging.Logger;
  */
 public abstract class TubelineAssemblerFactory {
     /**
+     * Default constructor.
+     */
+    protected TubelineAssemblerFactory() {}
+    /**
      * Creates a {@link TubelineAssembler} applicable for the given binding ID.
      *
      * @param bindingId The binding ID for which a tubeline will be created,
@@ -49,6 +53,7 @@ public abstract class TubelineAssemblerFactory {
      * @deprecated
      *      Use {@link #create(ClassLoader, BindingID, Container)}
      */
+    @Deprecated
     public static TubelineAssembler create(ClassLoader classLoader, BindingID bindingId) {
         return create(classLoader,bindingId,null);
     }
@@ -116,7 +121,7 @@ public abstract class TubelineAssemblerFactory {
         @Override
         public @NotNull Tube createServer(@NotNull ServerTubeAssemblerContext context) {
             if (!(context instanceof ServerPipeAssemblerContext)) {
-                throw new IllegalArgumentException("{0} is not instance of ServerPipeAssemblerContext");
+                throw new IllegalArgumentException(context + " is not instance of ServerPipeAssemblerContext");
             }
             return PipeAdapter.adapt(assembler.createServer((ServerPipeAssemblerContext) context));
         }

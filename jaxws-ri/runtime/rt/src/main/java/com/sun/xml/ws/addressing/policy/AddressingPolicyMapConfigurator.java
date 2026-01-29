@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -45,8 +45,6 @@ public class AddressingPolicyMapConfigurator implements PolicyMapConfigurator {
         /**
          * Creates an assertion with nested alternatives.
          *
-         * @param assertionData
-         * @param nestedAlternative
          */
         AddressingAssertion(AssertionData assertionData, final AssertionSet nestedAlternative) {
             super(assertionData, null, nestedAlternative);
@@ -55,22 +53,26 @@ public class AddressingPolicyMapConfigurator implements PolicyMapConfigurator {
         /**
          * Creates an assertion with no nested alternatives.
          *
-         * @param assertionData
          */
         AddressingAssertion(AssertionData assertionData) {
-            super(assertionData, null, null);
+            super(assertionData, null);
         }
     }
 
+    /**
+     * Default constructor.
+     */
+    public AddressingPolicyMapConfigurator() {}
 
     /**
      * Puts an addressing policy into the PolicyMap if the addressing feature was set.
      */
+    @Override
     public Collection<PolicySubject> update(final PolicyMap policyMap, final SEIModel model, final WSBinding wsBinding)
             throws PolicyException {
         LOGGER.entering(policyMap, model, wsBinding);
 
-        Collection<PolicySubject> subjects = new ArrayList<PolicySubject>();
+        Collection<PolicySubject> subjects = new ArrayList<>();
         if (policyMap != null) {
             final AddressingFeature addressingFeature = wsBinding.getFeature(AddressingFeature.class);
             if (LOGGER.isLoggable(Level.FINEST)) {
@@ -101,8 +103,8 @@ public class AddressingPolicyMapConfigurator implements PolicyMapConfigurator {
      * Create a policy with an WSAM Addressing assertion.
      */
     private Policy createWsamAddressingPolicy(final QName bindingName, AddressingFeature af) {
-        final ArrayList<AssertionSet> assertionSets = new ArrayList<AssertionSet>(1);
-        final ArrayList<PolicyAssertion> assertions = new ArrayList<PolicyAssertion>(1);
+        final ArrayList<AssertionSet> assertionSets = new ArrayList<>(1);
+        final ArrayList<PolicyAssertion> assertions = new ArrayList<>(1);
         final AssertionData addressingData =
                 AssertionData.createAssertionData(W3CAddressingMetadataConstants.WSAM_ADDRESSING_ASSERTION);
         if (!af.isRequired()) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,6 @@
 
 package com.sun.xml.ws.model;
 
-import org.glassfish.jaxb.runtime.api.Bridge;
 import org.glassfish.jaxb.runtime.api.TypeReference;
 import com.sun.xml.ws.api.model.JavaMethod;
 import com.sun.xml.ws.api.model.Parameter;
@@ -47,6 +46,7 @@ public class ParameterImpl implements Parameter {
     private final int index;
     private final Mode mode;
     /** @deprecated */
+    @Deprecated
     private TypeReference typeReference;
     private TypeInfo typeInfo;
     private QName name;
@@ -65,10 +65,12 @@ public class ParameterImpl implements Parameter {
         this.parent = parent;
     }
 
+    @Override
     public AbstractSEIModelImpl getOwner() {
         return parent.owner;
     }
 
+    @Override
     public JavaMethod getParent() {
         return parent;
     }
@@ -76,6 +78,7 @@ public class ParameterImpl implements Parameter {
     /**
      * @return Returns the name.
      */
+    @Override
     public QName getName() {
         return name;
     }
@@ -104,21 +107,13 @@ public class ParameterImpl implements Parameter {
         return  itemTypeInfo;
     }
 
-    /**  @deprecated  */
-    public Bridge getBridge() {
-        return getOwner().getBridge(typeReference);
-    }
-    /**  @deprecated  */
-    protected Bridge getBridge(TypeReference typeRef) {
-        return getOwner().getBridge(typeRef);
-    }
-
     /**
-     * TODO: once the model gets JAXBContext, shouldn't {@link Bridge}s
+     * TODO: once the model gets JAXBContext, shouldn't {@code Bridge}s
      * be made available from model objects?
      * @deprecated use getTypeInfo
      * @return Returns the TypeReference associated with this Parameter
      */
+    @Deprecated
     public TypeReference getTypeReference() {
         return typeReference;
     }
@@ -131,16 +126,19 @@ public class ParameterImpl implements Parameter {
      * @see AbstractSEIModelImpl#applyRpcLitParamBinding(JavaMethodImpl, WrapperParameter, WSDLBoundPortType, WebParam.Mode)
      * @deprecated 
      */
+    @Deprecated
     void setTypeReference(TypeReference type){
         typeReference = type;
         name = type.tagName;
     }
 
 
+    @Override
     public Mode getMode() {
         return mode;
     }
 
+    @Override
     public int getIndex() {
         return index;
     }
@@ -148,10 +146,12 @@ public class ParameterImpl implements Parameter {
     /**
      * @return true if {@code this instanceof} {@link WrapperParameter}.
      */
+    @Override
     public boolean isWrapperStyle() {
         return false;
     }
 
+    @Override
     public boolean isReturnValue() {
         return index==-1;
     }
@@ -159,6 +159,7 @@ public class ParameterImpl implements Parameter {
     /**
      * @return the Binding for this Parameter
      */
+    @Override
     public ParameterBinding getBinding() {
         if(binding == null)
             return ParameterBinding.BODY;
@@ -166,7 +167,6 @@ public class ParameterImpl implements Parameter {
     }
 
     /**
-     * @param binding
      */
     public void setBinding(ParameterBinding binding) {
         this.binding = binding;
@@ -180,24 +180,29 @@ public class ParameterImpl implements Parameter {
         this.outBinding = binding;
     }
 
+    @Override
     public ParameterBinding getInBinding(){
         return binding;
     }
 
+    @Override
     public ParameterBinding getOutBinding(){
         if(outBinding == null)
             return binding;
         return outBinding;
     }
 
+    @Override
     public boolean isIN() {
         return mode==Mode.IN;
     }
 
+    @Override
     public boolean isOUT() {
         return mode==Mode.OUT;
     }
 
+    @Override
     public boolean isINOUT() {
         return mode==Mode.INOUT;
     }
@@ -210,6 +215,7 @@ public class ParameterImpl implements Parameter {
      * at most one such {@link ParameterImpl}. Note that there coule be none,
      * in which case the method returns {@code void}.
      */
+    @Override
     public boolean isResponse() {
         return index == -1;
     }
@@ -219,15 +225,16 @@ public class ParameterImpl implements Parameter {
      * Gets the holder value if applicable. To be called for inbound client side
      * message.
      * 
-     * @param obj
      * @return the holder value if applicable.
      */
+    @Override
     public Object getHolderValue(Object obj) {
-        if (obj != null && obj instanceof Holder)
+        if (obj instanceof Holder)
             return ((Holder) obj).value;
         return obj;
     }
 
+    @Override
     public String getPartName() {
         if(partName == null)
             return name.getLocalPart();

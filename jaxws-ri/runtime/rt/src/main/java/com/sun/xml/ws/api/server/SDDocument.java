@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -156,7 +156,7 @@ public interface SDDocument {
         boolean hasService();
 
         /**
-         * All &lt;service> names that were in this WSDL, or empty set if there was none.
+         * All &lt;service&gt; names that were in this WSDL, or empty set if there was none.
          * Used for error diagnostics.
          */
         @ManagedAttribute

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,15 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author WS Development Team
  */
 public class WSServlet extends HttpServlet {
+
+    private static final long serialVersionUID = 6561781925559053510L;
+
     private transient WSServletDelegate delegate = null;
+
+    /**
+     * Default constructor.
+     */
+    public WSServlet() {}
 
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
@@ -38,6 +46,7 @@ public class WSServlet extends HttpServlet {
     /**
      * Gets the {@link WSServletDelegate} that we will be forwarding the requests to.
      *
+     * @param servletConfig the ServletConfig object
      * @return
      *      null if the deployment have failed and we don't have the delegate.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,6 +61,7 @@ public class MessagePart extends Entity {
         _descriptorKind = k;
     }
 
+    @Override
     public QName getElementName() {
         return WSDLConstants.QNAME_PART;
     }
@@ -73,12 +74,14 @@ public class MessagePart extends Entity {
         _bindingKind = kind;
     }
 
+    @Override
     public void withAllQNamesDo(QNameAction action) {
         if (_descriptor != null) {
             action.perform(_descriptor);
         }
     }
 
+    @Override
     public void withAllEntityReferencesDo(EntityReferenceAction action) {
         super.withAllEntityReferencesDo(action);
         if (_descriptor != null && _descriptorKind != null) {
@@ -90,8 +93,9 @@ public class MessagePart extends Entity {
         visitor.visit(this);
     }
 
+    @Override
     public void validateThis() {
-        if(_descriptor != null && _descriptor.getLocalPart().equals("")){
+        if(_descriptor != null && _descriptor.getLocalPart().isEmpty()){
             failValidation("validation.invalidElement", _descriptor.toString());
         }
     }

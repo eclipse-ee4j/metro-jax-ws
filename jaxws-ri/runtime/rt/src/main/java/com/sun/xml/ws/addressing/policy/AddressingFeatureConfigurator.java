@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,7 +22,6 @@ import com.sun.xml.ws.policy.jaxws.spi.PolicyFeatureConfigurator;
 import com.sun.xml.ws.policy.privateutil.PolicyLogger;
 import com.sun.xml.ws.addressing.W3CAddressingMetadataConstants;
 import com.sun.xml.ws.resources.ModelerMessages;
-import org.glassfish.jaxb.core.util.Which;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -53,9 +52,10 @@ public class AddressingFeatureConfigurator implements PolicyFeatureConfigurator 
     public AddressingFeatureConfigurator() {
     }
 
+    @Override
     public Collection<WebServiceFeature> getFeatures(final PolicyMapKey key, final PolicyMap policyMap) throws PolicyException {
         LOGGER.entering(key, policyMap);
-        final Collection<WebServiceFeature> features = new LinkedList<WebServiceFeature>();
+        final Collection<WebServiceFeature> features = new LinkedList<>();
         if ((key != null) && (policyMap != null)) {
             final Policy policy = policyMap.getEndpointEffectivePolicy(key);
             for (QName addressingAssertionQName : ADDRESSING_ASSERTIONS) {
@@ -95,16 +95,12 @@ public class AddressingFeatureConfigurator implements PolicyFeatureConfigurator 
                             }
 
                             final WebServiceFeature feature;
-                            try {
-                                if (requiresAnonymousResponses) {
-                                    feature = new AddressingFeature(true, !assertion.isOptional(), AddressingFeature.Responses.ANONYMOUS);
-                                } else if (requiresNonAnonymousResponses) {
-                                    feature = new AddressingFeature(true, !assertion.isOptional(), AddressingFeature.Responses.NON_ANONYMOUS);
-                                } else {
-                                    feature = new AddressingFeature(true, !assertion.isOptional());
-                                }
-                            } catch (NoSuchMethodError e) {
-                                throw LOGGER.logSevereException(new PolicyException(ModelerMessages.RUNTIME_MODELER_ADDRESSING_RESPONSES_NOSUCHMETHOD(toJar(Which.which(AddressingFeature.class))), e));
+                            if (requiresAnonymousResponses) {
+                                feature = new AddressingFeature(true, !assertion.isOptional(), AddressingFeature.Responses.ANONYMOUS);
+                            } else if (requiresNonAnonymousResponses) {
+                                feature = new AddressingFeature(true, !assertion.isOptional(), AddressingFeature.Responses.NON_ANONYMOUS);
+                            } else {
+                                feature = new AddressingFeature(true, !assertion.isOptional());
                             }
                             if (LOGGER.isLoggable(Level.FINE)) {
                                 LOGGER.fine("Added addressing feature \"" + feature + "\" for element \"" + key + "\"");
@@ -117,15 +113,5 @@ public class AddressingFeatureConfigurator implements PolicyFeatureConfigurator 
         }
         LOGGER.exiting(features);
         return features;
-    }
-
-    /**
-     * Given the URL String inside jar, returns the URL to the jar itself.
-     */
-    private static String toJar(String url) {
-        if(!url.startsWith("jar:"))
-            return url;
-        url = url.substring(4); // cut off jar:
-        return url.substring(0,url.lastIndexOf('!'));    // cut off everything after '!'
     }
 }

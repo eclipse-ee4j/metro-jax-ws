@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -89,7 +89,7 @@ public final class NamespaceSupport {
      * An empty enumeration.
      */
     private final static Iterable<String> EMPTY_ENUMERATION =
-        new ArrayList<String>();
+            new ArrayList<>();
 
     ////////////////////////////////////////////////////////////////////
     // Constructor.
@@ -165,7 +165,7 @@ public final class NamespaceSupport {
 
         // Extend the array if necessary
         if (contextPos >= max) {
-            Context newContexts[] = new Context[max * 2];
+            Context[] newContexts = new Context[max * 2];
             System.arraycopy(contexts, 0, newContexts, 0, max);
             contexts = newContexts;
         }
@@ -309,10 +309,10 @@ public final class NamespaceSupport {
      * @see #declarePrefix
      * @see java.lang.String#intern */
     public String[] processName(
-        String qName,
-        String parts[],
-        boolean isAttribute) {
-        String myParts[] = currentContext.processName(qName, isAttribute);
+            String qName,
+            String[] parts,
+            boolean isAttribute) {
+        String[] myParts = currentContext.processName(qName, isAttribute);
         if (myParts == null) {
             return null;
         } else {
@@ -430,7 +430,7 @@ public final class NamespaceSupport {
     // Internal state.
     ////////////////////////////////////////////////////////////////////
 
-    private Context contexts[];
+    private Context[] contexts;
     private Context currentContext;
     private int contextPos;
 
@@ -557,7 +557,7 @@ public final class NamespaceSupport {
          * @see org.xml.sax.helpers.NamespaceSupport#processName
          */
         String[] processName(String qName, boolean isAttribute) {
-            String name[];
+            String[] name;
             Map table;
 
             // Select the appropriate table.

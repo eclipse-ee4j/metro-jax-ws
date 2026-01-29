@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,6 +13,7 @@ package com.sun.xml.ws.server;
 import com.sun.istack.Nullable;
 import com.sun.xml.ws.api.server.*;
 import com.sun.xml.ws.api.streaming.XMLStreamWriterFactory;
+import com.sun.xml.ws.resources.ServerMessages;
 import com.sun.xml.ws.streaming.XMLStreamReaderUtil;
 import com.sun.xml.ws.wsdl.SDDocumentResolver;
 import com.sun.xml.ws.util.RuntimeVersion;
@@ -51,7 +52,7 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
     private static final QName SCHEMA_IMPORT_QNAME = new QName(NS_XSD, "import");
     private static final QName SCHEMA_REDEFINE_QNAME = new QName(NS_XSD, "redefine");
     private static final String VERSION_COMMENT =
-        " Published by JAX-WS RI (https://github.com/eclipse-ee4j/metro-jax-ws). RI's version is "+RuntimeVersion.VERSION+". ";
+        " Published by XML-WS Runtime (https://github.com/eclipse-ee4j/metro-jax-ws). Runtime's version is " + RuntimeVersion.VERSION + ". ";
 
     private final QName rootName;
     private final SDDocumentSource source;
@@ -98,7 +99,7 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
                 QName rootName = reader.getName();
                 if(rootName.equals(WSDLConstants.QNAME_SCHEMA)) {
                     String tns = ParserUtil.getMandatoryNonEmptyAttribute(reader, WSDLConstants.ATTR_TNS);
-                    Set<String> importedDocs = new HashSet<String>();
+                    Set<String> importedDocs = new HashSet<>();
                     while (XMLStreamReaderUtil.nextContent(reader) != XMLStreamConstants.END_DOCUMENT) {
                          if (reader.getEventType() != XMLStreamConstants.START_ELEMENT)
                             continue;
@@ -117,8 +118,8 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
 
                     boolean hasPortType = false;
                     boolean hasService = false;
-                    Set<String> importedDocs = new HashSet<String>();
-                    Set<QName> allServices = new HashSet<QName>();
+                    Set<String> importedDocs = new HashSet<>();
+                    Set<QName> allServices = new HashSet<>();
 
                     // if WSDL, parse more
                     while (XMLStreamReaderUtil.nextContent(reader) != XMLStreamConstants.END_DOCUMENT) {
@@ -161,17 +162,13 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
             } finally {
                 reader.close();
             }
-        } catch (WebServiceException e) {
-            throw new ServerRtException("runtime.parser.wsdl", systemId,e);
-        } catch (IOException e) {
-            throw new ServerRtException("runtime.parser.wsdl", systemId,e);
-        } catch (XMLStreamException e) {
-            throw new ServerRtException("runtime.parser.wsdl", systemId,e);
+        } catch (WebServiceException | XMLStreamException | IOException e) {
+            throw new ServerRtException(ServerMessages.localizableRUNTIME_PARSER_WSDL(systemId), e);
         }
     }
 
     protected SDDocumentImpl(QName rootName, URL url, SDDocumentSource source) {
-        this(rootName, url, source, new HashSet<String>());
+        this(rootName, url, source, new HashSet<>());
     }
 
     protected SDDocumentImpl(QName rootName, URL url, SDDocumentSource source, Set<String> imports) {
@@ -192,34 +189,42 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
         this.sddocResolver = sddocResolver;
     }
 
+    @Override
     public QName getRootName() {
         return rootName;
     }
 
+    @Override
     public boolean isWSDL() {
         return false;
     }
 
+    @Override
     public boolean isSchema() {
         return false;
     }
 
+    @Override
     public URL getURL() {
         return url;
     }
 
+    @Override
     public XMLStreamReader read(XMLInputFactory xif) throws IOException, XMLStreamException {
         return source.read(xif);
     }
 
+    @Override
     public XMLStreamReader read() throws IOException, XMLStreamException {
         return source.read();
     }
 
+    @Override
     public URL getSystemId() {
         return url;
     }
 
+    @Override
     public Set<String> getImports() {
         return imports;
     }
@@ -249,6 +254,7 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
     }
 
 
+    @Override
     public void writeTo(PortAddressResolver portAddressResolver, DocumentAddressResolver resolver, OutputStream os) throws IOException {
         XMLStreamWriter w = null;
         try {
@@ -273,6 +279,7 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
         }
     }
 
+    @Override
     public void writeTo(PortAddressResolver portAddressResolver, DocumentAddressResolver resolver, XMLStreamWriter out) throws XMLStreamException, IOException {
         if (filters != null) {
             for (SDDocumentFilter f : filters) {
@@ -304,10 +311,12 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
             this.targetNamespace = targetNamespace;
         }
 
+        @Override
         public String getTargetNamespace() {
             return targetNamespace;
         }
 
+        @Override
         public boolean isSchema() {
             return true;
         }
@@ -329,22 +338,27 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
             this.allServices = allServices;
         }
 
+        @Override
         public String getTargetNamespace() {
             return targetNamespace;
         }
 
+        @Override
         public boolean hasPortType() {
             return hasPortType;
         }
 
+        @Override
         public boolean hasService() {
             return hasService;
         }
 
+        @Override
         public Set<QName> getAllServices() {
             return allServices;
         }
 
+        @Override
         public boolean isWSDL() {
             return true;
         }
@@ -357,6 +371,7 @@ public class SDDocumentImpl extends SDDocumentSource implements SDDocument {
             this.delegate = delegate;
         }
 
+        @Override
         public String getLocationFor(String namespaceURI, String systemId) {
             if (sddocResolver == null) {
                 return systemId;

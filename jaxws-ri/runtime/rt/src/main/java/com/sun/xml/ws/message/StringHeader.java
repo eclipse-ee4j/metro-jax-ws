@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 /**
  * {@link Header} that has a single text value in it
- * (IOW, of the form &lt;foo>text&lt;/foo>.)
+ * (IOW, of the form &lt;foo&gt;text&lt;/foo&gt;.)
  *
  * @author Rama Pulavarthi
  * @author Arun Gupta
@@ -63,14 +63,17 @@ public class StringHeader extends AbstractHeaderImpl {
         this.mustUnderstand = mustUnderstand;
     }
 
+    @Override
     public @NotNull String getNamespaceURI() {
         return name.getNamespaceURI();
     }
 
+    @Override
     public @NotNull String getLocalPart() {
         return name.getLocalPart();
     }
 
+    @Override
     @Nullable public String getAttribute(@NotNull String nsUri, @NotNull String localName) {
         if(mustUnderstand && soapVersion.nsUri.equals(nsUri) && MUST_UNDERSTAND.equals(localName)) {
             return getMustUnderstandLiteral(soapVersion);
@@ -78,6 +81,7 @@ public class StringHeader extends AbstractHeaderImpl {
         return null;
     }
 
+    @Override
     public XMLStreamReader readHeader() throws XMLStreamException {
         MutableXMLStreamBuffer buf = new MutableXMLStreamBuffer();
         XMLStreamWriter w = buf.createFromXMLStreamWriter();
@@ -85,6 +89,7 @@ public class StringHeader extends AbstractHeaderImpl {
         return buf.readAsXMLStreamReader();
     }
 
+    @Override
     public void writeTo(XMLStreamWriter w) throws XMLStreamException {
         w.writeStartElement("", name.getLocalPart(), name.getNamespaceURI());
         w.writeDefaultNamespace(name.getNamespaceURI());
@@ -104,6 +109,7 @@ public class StringHeader extends AbstractHeaderImpl {
         w.writeEndElement();
     }
 
+    @Override
     public void writeTo(SOAPMessage saaj) throws SOAPException {
         SOAPHeader header = saaj.getSOAPHeader();
         if(header == null)
@@ -115,6 +121,7 @@ public class StringHeader extends AbstractHeaderImpl {
         she.addTextNode(value);
     }
 
+    @Override
     public void writeTo(ContentHandler h, ErrorHandler errorHandler) throws SAXException {
         String nsUri = name.getNamespaceURI();
         String ln = name.getLocalPart();

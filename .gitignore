@@ -4,6 +4,7 @@ target/
 # eclipse
 .project
 .classpath
+.factorypath
 .settings/
 .wtpmodules
 
@@ -12,6 +13,7 @@ target/
 *.ipr
 *.iws
 .idea
+.DS_Store
 
 *.log
 *.tlog

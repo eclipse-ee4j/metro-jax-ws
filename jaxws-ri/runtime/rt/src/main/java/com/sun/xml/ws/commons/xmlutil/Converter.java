@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,6 @@ import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.util.xml.XmlUtil;
 
 import javax.xml.stream.*;
-import javax.xml.xpath.XPathFactoryConfigurationException;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -38,7 +37,7 @@ public final class Converter {
         // prevents instantiation
     }
     private static final Logger LOGGER = Logger.getLogger(Converter.class);
-    private static final ContextClassloaderLocal<XMLOutputFactory> xmlOutputFactory = new ContextClassloaderLocal<XMLOutputFactory>() {
+    private static final ContextClassloaderLocal<XMLOutputFactory> xmlOutputFactory = new ContextClassloaderLocal<>() {
         @Override
         protected XMLOutputFactory initialValue() throws Exception {
             return XMLOutputFactory.newInstance();
@@ -49,7 +48,6 @@ public final class Converter {
     /**
      * Converts a throwable to String
      * 
-     * @param throwable
      * @return String representation of throwable
      */
     public static String toString(Throwable throwable) {
@@ -165,7 +163,7 @@ public final class Converter {
      * @return {@link com.sun.xml.ws.api.message.Message} object created from the data stream
      */
     public static Message toMessage(@NotNull InputStream dataStream, String encoding) throws XMLStreamException {
-        XMLStreamReader xsr = XmlUtil.newXMLInputFactory(true).createXMLStreamReader(dataStream, encoding);
+        XMLStreamReader xsr = XmlUtil.newXMLInputFactory(false).createXMLStreamReader(dataStream, encoding);
         return Messages.create(xsr);
     }
 

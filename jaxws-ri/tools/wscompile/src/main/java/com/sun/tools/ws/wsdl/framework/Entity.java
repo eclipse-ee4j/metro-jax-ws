@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,6 +34,7 @@ public abstract class Entity implements Elemental {
         this.errorReceiver = errorReceiver;
     }
 
+    @Override
     public Locator getLocator() {
         return locator;
     }
@@ -51,7 +52,7 @@ public abstract class Entity implements Elemental {
         }
 
         if (_properties == null) {
-            _properties = new HashMap();
+            _properties = new HashMap<>();
         }
         _properties.put(key, value);
     }
@@ -83,8 +84,8 @@ public abstract class Entity implements Elemental {
     protected void failValidation(String key, String arg) {
         throw new ValidationException(
             key,
-            new Object[] { arg, getElementName().getLocalPart()});
+                arg, getElementName().getLocalPart());
     }
 
-    private Map _properties;
+    private Map<String, Object> _properties;
 }

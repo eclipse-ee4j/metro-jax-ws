@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,7 +43,7 @@ public final class ServiceDefinitionImpl implements ServiceDefinition, SDDocumen
      */
     /*package*/ WSEndpointImpl<?> owner;
 
-    /*package*/ final List<SDDocumentFilter> filters = new ArrayList<SDDocumentFilter>();
+    /*package*/ final List<SDDocumentFilter> filters = new ArrayList<>();
 
     /**
      * @param docs
@@ -55,7 +55,7 @@ public final class ServiceDefinitionImpl implements ServiceDefinition, SDDocumen
         assert docs.contains(primaryWsdl);
         this.docs = docs;
         this.primaryWsdl = primaryWsdl;
-        this.bySystemId = new HashMap<String, SDDocumentImpl>();
+        this.bySystemId = new HashMap<>();
     }
 
     private boolean isInitialized = false;
@@ -80,14 +80,17 @@ public final class ServiceDefinitionImpl implements ServiceDefinition, SDDocumen
         this.owner = owner;
     }
 
+    @Override
     public @NotNull SDDocument getPrimary() {
         return primaryWsdl;
     }
 
+    @Override
     public void addFilter(SDDocumentFilter filter) {
         filters.add(filter);
     }
 
+    @Override
     public Iterator<SDDocument> iterator() {
         init();
         return (Iterator)docs.iterator();
@@ -100,6 +103,7 @@ public final class ServiceDefinitionImpl implements ServiceDefinition, SDDocumen
      * @return
      *      null if none is found.
      */
+    @Override
     public SDDocument resolve(String systemId) {
         init();
         return bySystemId.get(systemId);

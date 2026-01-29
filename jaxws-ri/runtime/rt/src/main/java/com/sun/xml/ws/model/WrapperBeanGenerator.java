@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -49,7 +49,7 @@ import java.io.IOException;
  *
  * @author Jitendra Kotamraju
  */
-public class WrapperBeanGenerator {
+public final class WrapperBeanGenerator {
 
     private static final Logger LOGGER = Logger.getLogger(WrapperBeanGenerator.class.getName());
 
@@ -57,7 +57,7 @@ public class WrapperBeanGenerator {
 
     private static final AbstractWrapperBeanGenerator RUNTIME_GENERATOR =
             new RuntimeWrapperBeanGenerator(new RuntimeInlineAnnotationReader(),
-                    (Navigator<java.lang.reflect.Type, Class, ?, Method>) Utils.REFLECTION_NAVIGATOR, FIELD_FACTORY);
+                    Utils.REFLECTION_NAVIGATOR, FIELD_FACTORY);
 
     private static final class RuntimeWrapperBeanGenerator extends AbstractWrapperBeanGenerator<java.lang.reflect.Type, Class, java.lang.reflect.Method, Field> {
 
@@ -95,6 +95,8 @@ public class WrapperBeanGenerator {
             return new Field(paramName, paramType, getASMType(paramType), jaxb);
         }
     }
+
+    private WrapperBeanGenerator() {}
 
     // Creates class's bytes
     private static byte[] createBeanImage(String className,

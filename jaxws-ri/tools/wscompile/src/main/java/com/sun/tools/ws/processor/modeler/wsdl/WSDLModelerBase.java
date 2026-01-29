@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,8 +62,6 @@ public abstract class WSDLModelerBase implements Modeler {
 
     /**
      *
-     * @param port
-     * @param wsdlPort
      */
     protected void applyPortMethodCustomization(Port port, com.sun.tools.ws.wsdl.document.Port wsdlPort) {
         if (isProvider(wsdlPort)) {
@@ -108,6 +106,7 @@ public abstract class WSDLModelerBase implements Modeler {
         return requestBody;
     }
 
+    @SuppressWarnings({"deprecation"})
     protected boolean isRequestMimeMultipart() {
         for (TWSDLExtension extension: info.bindingOperation.getInput().extensions()) {
             if (extension.getClass().equals(MIMEMultipartRelated.class)) {
@@ -117,6 +116,7 @@ public abstract class WSDLModelerBase implements Modeler {
         return false;
     }
 
+    @SuppressWarnings({"deprecation"})
     protected boolean isResponseMimeMultipart() {
         for (TWSDLExtension extension: info.bindingOperation.getOutput().extensions()) {
             if (extension.getClass().equals(MIMEMultipartRelated.class)) {
@@ -125,9 +125,6 @@ public abstract class WSDLModelerBase implements Modeler {
         }
         return false;
     }
-
-
-
 
     protected SOAPBody getSOAPResponseBody() {
         SOAPBody responseBody =
@@ -160,11 +157,11 @@ public abstract class WSDLModelerBase implements Modeler {
         SOAPBody body,
         com.sun.tools.ws.wsdl.document.Message message, boolean isInput) {
         String bodyParts = body.getParts();
-        ArrayList<MessagePart> partsList = new ArrayList<MessagePart>();
-        List<MessagePart> parts = new ArrayList<MessagePart>();
+        ArrayList<MessagePart> partsList = new ArrayList<>();
+        List<MessagePart> parts = new ArrayList<>();
 
         //get Mime parts
-        List mimeParts;
+        List<MessagePart> mimeParts;
         if (isInput) {
             mimeParts = getMimeContentParts(message, info.bindingOperation.getInput());
         } else {
@@ -205,11 +202,11 @@ public abstract class WSDLModelerBase implements Modeler {
     }
 
     /**
-     * @param message
      * @return MessageParts referenced by the mime:content
      */
+    @SuppressWarnings({"deprecation"})
     protected List<MessagePart> getMimeContentParts(Message message, TWSDLExtensible ext) {
-        ArrayList<MessagePart> mimeContentParts = new ArrayList<MessagePart>();
+        ArrayList<MessagePart> mimeContentParts = new ArrayList<>();
 
         for (MIMEPart mimePart : getMimeParts(ext)) {
             MessagePart part = getMimeContentPart(message, mimePart);
@@ -220,12 +217,10 @@ public abstract class WSDLModelerBase implements Modeler {
         return mimeContentParts;
     }
 
-    /**
-     * @param mimeParts
-     */
+    @SuppressWarnings({"deprecation"})
     protected boolean validateMimeParts(Iterable<MIMEPart> mimeParts) {
         boolean gotRootPart = false;
-        List<MIMEContent> mimeContents = new ArrayList<MIMEContent>();
+        List<MIMEContent> mimeContents = new ArrayList<>();
         for (MIMEPart mPart : mimeParts) {
             for (TWSDLExtension obj : mPart.extensions()) {
                 if (obj instanceof SOAPBody) {
@@ -265,7 +260,7 @@ public abstract class WSDLModelerBase implements Modeler {
 
     //List of mimeTypes
     protected List<String> getAlternateMimeTypes(List<MIMEContent> mimeContents) {
-        List<String> mimeTypes = new ArrayList<String>();
+        List<String> mimeTypes = new ArrayList<>();
         //validateMimeContentPartNames(mimeContents.iterator());
 //        String mimeType = null;
         for(MIMEContent mimeContent:mimeContents){
@@ -290,6 +285,7 @@ public abstract class WSDLModelerBase implements Modeler {
         return true;
     }
 
+    @SuppressWarnings({"deprecation"})
     protected Iterable<MIMEPart> getMimeParts(TWSDLExtensible ext) {
         MIMEMultipartRelated multiPartRelated =
             (MIMEMultipartRelated) getAnyExtensionOfType(ext,
@@ -301,8 +297,9 @@ public abstract class WSDLModelerBase implements Modeler {
     }
 
     //returns MIMEContents
+    @SuppressWarnings({"deprecation"})
     protected List<MIMEContent> getMimeContents(MIMEPart part) {
-        List<MIMEContent> mimeContents = new ArrayList<MIMEContent>();
+        List<MIMEContent> mimeContents = new ArrayList<>();
         for (TWSDLExtension mimeContent : part.extensions()) {
             if (mimeContent instanceof MIMEContent) {
                 mimeContents.add((MIMEContent) mimeContent);
@@ -343,22 +340,16 @@ public abstract class WSDLModelerBase implements Modeler {
         // style attribute on soap:binding
 
         if ((soapOperation != null) && (soapOperation.getStyle() != null)) {
-            if ((soapOperation.isDocument()
-                && (part.getDescriptorKind() != SchemaKinds.XSD_ELEMENT))
-                || (soapOperation.isRPC()
-                    && (part.getDescriptorKind() != SchemaKinds.XSD_TYPE))) {
-                return false;
-            }
+            return (!soapOperation.isDocument()
+                    || (part.getDescriptorKind() == SchemaKinds.XSD_ELEMENT))
+                    && (!soapOperation.isRPC()
+                    || (part.getDescriptorKind() == SchemaKinds.XSD_TYPE));
         } else {
-            if ((info.soapBinding.isDocument()
-                && (part.getDescriptorKind() != SchemaKinds.XSD_ELEMENT))
-                || (info.soapBinding.isRPC()
-                    && (part.getDescriptorKind() != SchemaKinds.XSD_TYPE))) {
-                return false;
-            }
+            return (!info.soapBinding.isDocument()
+                    || (part.getDescriptorKind() == SchemaKinds.XSD_ELEMENT))
+                    && (!info.soapBinding.isRPC()
+                    || (part.getDescriptorKind() == SchemaKinds.XSD_TYPE));
         }
-
-        return true;
     }
 
 
@@ -392,8 +383,9 @@ public abstract class WSDLModelerBase implements Modeler {
     /**
      * @return List of SOAPHeader extensions
      */
+    @SuppressWarnings({"deprecation"})
     protected List<SOAPHeader> getHeaderExtensions(TWSDLExtensible extensible) {
-        List<SOAPHeader> headerList = new ArrayList<SOAPHeader>();
+        List<SOAPHeader> headerList = new ArrayList<>();
         for (TWSDLExtension extension : extensible.extensions()) {
             if (extension.getClass()==MIMEMultipartRelated.class) {
                 for( MIMEPart part : ((MIMEMultipartRelated) extension).getParts() ) {
@@ -403,7 +395,7 @@ public abstract class WSDLModelerBase implements Modeler {
                             //bug fix: 5024015
                             if (!isRootPart) {
                                 warning((Entity) obj, ModelerMessages.MIMEMODELER_WARNING_IGNORINGINVALID_HEADER_PART_NOT_DECLARED_IN_ROOT_PART(info.bindingOperation.getName()));
-                                return new ArrayList<SOAPHeader>();
+                                return new ArrayList<>();
                             }
                             headerList.add((SOAPHeader) obj);
                         }
@@ -417,9 +409,9 @@ public abstract class WSDLModelerBase implements Modeler {
     }
 
     /**
-     * @param part
      * @return true if part is the Root part
      */
+    @SuppressWarnings({"deprecation"})
     private boolean isRootPart(MIMEPart part) {
         for (TWSDLExtension twsdlExtension : part.extensions()) {
             if (twsdlExtension instanceof SOAPBody) {
@@ -429,10 +421,10 @@ public abstract class WSDLModelerBase implements Modeler {
         return false;
     }
 
-    protected Set getDuplicateFaultNames() {
+    protected Set<QName> getDuplicateFaultNames() {
         // look for fault messages with the same soap:fault name
-        Set<QName> faultNames = new HashSet<QName>();
-        Set<QName> duplicateNames = new HashSet<QName>();
+        Set<QName> faultNames = new HashSet<>();
+        Set<QName> duplicateNames = new HashSet<>();
         for( BindingFault bindingFault : info.bindingOperation.faults() ) {
             com.sun.tools.ws.wsdl.document.Fault portTypeFault = null;
             for (com.sun.tools.ws.wsdl.document.Fault aFault : info.portTypeOperation.faults()) {
@@ -489,7 +481,6 @@ public abstract class WSDLModelerBase implements Modeler {
 
 
     /**
-     * @param operation
      * @return true if operation has valid body parts
      */
     protected boolean validateBodyParts(BindingOperation operation) {
@@ -503,15 +494,12 @@ public abstract class WSDLModelerBase implements Modeler {
 
         if(isRequestResponse){
             List<MessagePart> outputParts = getMessageParts(getSOAPResponseBody(), getOutputMessage(), false);
-            if (!validateStyleAndPart(operation, outputParts)) {
-                return false;
-            }
+            return validateStyleAndPart(operation, outputParts);
         }
         return true;
     }
 
     /**
-     * @param operation
      * @return true if operation has valid style and part
      */
     private boolean validateStyleAndPart(BindingOperation operation, List<MessagePart> parts) {
@@ -539,11 +527,9 @@ public abstract class WSDLModelerBase implements Modeler {
     }
 
     /**
-     * @param ext
-     * @param message
-     * @param name
      * @return List of MimeContents from ext
      */
+    @SuppressWarnings({"deprecation"})
     protected List<MIMEContent> getMimeContents(TWSDLExtensible ext, Message message, String name) {
         for (MIMEPart mimePart : getMimeParts(ext)) {
             List<MIMEContent> mimeContents = getMimeContents(mimePart);
@@ -557,11 +543,11 @@ public abstract class WSDLModelerBase implements Modeler {
     }
 
     protected String makePackageQualified(String s) {
-        if (s.indexOf(".") != -1) {
+        if (s.contains(".")) {
             // s is already package qualified
             return s;
         } else if (options.defaultPackage != null
-                && !options.defaultPackage.equals("")) {
+                && !options.defaultPackage.isEmpty()) {
             return options.defaultPackage + "." + s;
         } else {//options.defaultPackage seems to be never null, and this is never executed
             return s;
@@ -586,9 +572,10 @@ public abstract class WSDLModelerBase implements Modeler {
             entity.getName());
     }
 
+    @SuppressWarnings({"deprecation"})
     protected static TWSDLExtension getExtensionOfType(
             TWSDLExtensible extensible,
-            Class type) {
+            Class<?> type) {
         for (TWSDLExtension extension:extensible.extensions()) {
             if (extension.getClass().equals(type)) {
                 return extension;
@@ -598,9 +585,10 @@ public abstract class WSDLModelerBase implements Modeler {
         return null;
     }
 
+    @SuppressWarnings({"deprecation"})
     protected TWSDLExtension getAnyExtensionOfType(
         TWSDLExtensible extensible,
-        Class type) {
+        Class<?> type) {
         if (extensible == null) {
             return null;
         }
@@ -729,12 +717,12 @@ public abstract class WSDLModelerBase implements Modeler {
 
     protected ProcessSOAPOperationInfo info;
 
-    private Set _conflictingClassNames;
+    private Set<String> _conflictingClassNames;
     protected Map<String,JavaException> _javaExceptions;
     protected Map _faultTypeToStructureMap;
     protected Map<QName, Port> _bindingNameToPortMap;
 
-    private final Set<String> reqResNames = new HashSet<String>();
+    private final Set<String> reqResNames = new HashSet<>();
 
     public static class ProcessSOAPOperationInfo {
 

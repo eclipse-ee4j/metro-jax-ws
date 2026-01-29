@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -85,11 +85,12 @@ public class ManagedServiceAssertion extends ManagementAssertion {
      *
      * @return The value of the management attribute.
      */
+    @Override
     public boolean isManagementEnabled() {
         final String management = this.getAttributeValue(MANAGEMENT_ATTRIBUTE_QNAME);
         boolean result = true;
         if (management != null) {
-            if (management.trim().toLowerCase().equals("on")) {
+            if (management.trim().equalsIgnoreCase("on")) {
                 result = true;
             }
             else {
@@ -130,7 +131,7 @@ public class ManagedServiceAssertion extends ManagementAssertion {
      * parameters of this assertion. May be empty.
      */
     public Collection<ImplementationRecord> getCommunicationServerImplementations() {
-        final Collection<ImplementationRecord> result = new LinkedList<ImplementationRecord>();
+        final Collection<ImplementationRecord> result = new LinkedList<>();
         final Iterator<PolicyAssertion> parameters = getParametersIterator();
         while (parameters.hasNext()) {
             final PolicyAssertion parameter = parameters.next();
@@ -199,14 +200,14 @@ public class ManagedServiceAssertion extends ManagementAssertion {
 
     private ImplementationRecord getImplementation(PolicyAssertion rootParameter) {
         final String className = rootParameter.getAttributeValue(CLASS_NAME_ATTRIBUTE_QNAME);
-        final HashMap<QName, String> parameterMap = new HashMap<QName, String>();
+        final HashMap<QName, String> parameterMap = new HashMap<>();
         final Iterator<PolicyAssertion> implementationParameters = rootParameter.getParametersIterator();
-        final Collection<NestedParameters> nestedParameters = new LinkedList<NestedParameters>();
+        final Collection<NestedParameters> nestedParameters = new LinkedList<>();
         while (implementationParameters.hasNext()) {
             final PolicyAssertion parameterAssertion = implementationParameters.next();
             final QName parameterName = parameterAssertion.getName();
             if (parameterAssertion.hasParameters()) {
-                final Map<QName, String> nestedParameterMap = new HashMap<QName, String>();
+                final Map<QName, String> nestedParameterMap = new HashMap<>();
                 final Iterator<PolicyAssertion> parameters = parameterAssertion.getParametersIterator();
                 while (parameters.hasNext()) {
                     final PolicyAssertion parameter = parameters.next();
@@ -288,11 +289,8 @@ public class ManagedServiceAssertion extends ManagementAssertion {
             if (this.parameters != other.parameters && (this.parameters == null || !this.parameters.equals(other.parameters))) {
                 return false;
             }
-            if (this.nestedParameters != other.nestedParameters &&
-                    (this.nestedParameters == null || !this.nestedParameters.equals(other.nestedParameters))) {
-                return false;
-            }
-            return true;
+            return this.nestedParameters == other.nestedParameters ||
+                    (this.nestedParameters != null && this.nestedParameters.equals(other.nestedParameters));
         }
 
         @Override
@@ -349,10 +347,7 @@ public class ManagedServiceAssertion extends ManagementAssertion {
             if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
                 return false;
             }
-            if (this.parameters != other.parameters && (this.parameters == null || !this.parameters.equals(other.parameters))) {
-                return false;
-            }
-            return true;
+            return this.parameters == other.parameters || (this.parameters != null && this.parameters.equals(other.parameters));
         }
 
         @Override

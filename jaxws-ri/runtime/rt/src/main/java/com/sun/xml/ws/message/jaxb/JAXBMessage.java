@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,10 +48,10 @@ import jakarta.xml.bind.attachment.AttachmentMarshaller;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.util.JAXBResult;
 import javax.xml.namespace.QName;
+import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
-import static javax.xml.stream.XMLStreamConstants.START_DOCUMENT;
 import javax.xml.transform.Source;
 import jakarta.xml.ws.WebServiceException;
 import java.io.OutputStream;
@@ -111,9 +111,7 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
 
             // any way to reuse this XMLStreamBuffer in StreamMessage?
             return new StreamMessage(headers,attachments,xsb.readAsXMLStreamReader(),soapVersion);
-        } catch (JAXBException e) {
-            throw new WebServiceException(e);
-        } catch (XMLStreamException e) {
+        } catch (JAXBException | XMLStreamException e) {
             throw new WebServiceException(e);
         }
     }
@@ -133,6 +131,7 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
         return create(context,jaxbObject,soapVersion,null,null);
     }
     /** @deprecated */ 
+    @Deprecated
     public static Message create(JAXBContext context, Object jaxbObject, SOAPVersion soapVersion) {
         return create(BindingContextFactory.create(context),jaxbObject,soapVersion,null,null);
     }
@@ -143,13 +142,13 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
      * for he JAXBContext parameter.
      * 
      */ 
+    @Deprecated
     public static Message createRaw(JAXBContext context, Object jaxbObject, SOAPVersion soapVersion) {
         return new JAXBMessage(context,jaxbObject,soapVersion,null,null);
     }
 
     private JAXBMessage( BindingContext context, Object jaxbObject, SOAPVersion soapVer, MessageHeaders headers, AttachmentSet attachments ) {
         super(soapVer);
-//        this.bridge = new MarshallerBridge(context);
         this.bridge = context.createFragmentBridge();
         this.rawContext = null;
         this.jaxbObject = jaxbObject;
@@ -159,7 +158,6 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
     
     private JAXBMessage( JAXBContext rawContext, Object jaxbObject, SOAPVersion soapVer, MessageHeaders headers, AttachmentSet attachments ) {
         super(soapVer);
-//        this.bridge = new MarshallerBridge(context);
         this.rawContext = rawContext;
         this.bridge = null;
         this.jaxbObject = jaxbObject;
@@ -172,7 +170,6 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
      *
      * @param bridge
      *      Specify the payload tag name and how {@code jaxbObject} is bound.
-     * @param jaxbObject
      */
     public static Message create(XMLBridge bridge, Object jaxbObject, SOAPVersion soapVer) {
         if(!bridge.context().hasSwaRef()) {
@@ -193,9 +190,7 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
 
             // any way to reuse this XMLStreamBuffer in StreamMessage?
             return new StreamMessage(null,attachments,xsb.readAsXMLStreamReader(),soapVer);
-        } catch (JAXBException e) {
-            throw new WebServiceException(e);
-        } catch (XMLStreamException e) {
+        } catch (JAXBException | XMLStreamException e) {
             throw new WebServiceException(e);
         }
     }
@@ -324,7 +319,7 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
 				}
             }
             XMLStreamReader reader = infoset.readAsXMLStreamReader();
-            if(reader.getEventType()== START_DOCUMENT)
+            if(reader.getEventType()== XMLStreamConstants.START_DOCUMENT)
                 XMLStreamReaderUtil.nextElementContent(reader);
             return reader;
         } catch (JAXBException e) {
@@ -400,11 +395,12 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
         return new JAXBMessage(this).copyFrom(this);
     }
     
+    @Override
     public XMLStreamReader readEnvelope() {
         int base = soapVersion.ordinal()*3;
         this.envelopeTag = DEFAULT_TAGS.get(base);
         this.bodyTag = DEFAULT_TAGS.get(base+2);
-        List<XMLStreamReader> hReaders = new java.util.ArrayList<XMLStreamReader>();
+        List<XMLStreamReader> hReaders = new java.util.ArrayList<>();
         ElemInfo envElem =  new ElemInfo(envelopeTag, null);
         ElemInfo bdyElem =  new ElemInfo(bodyTag, envElem);
         for (Header h : getHeaders().asList()) {
@@ -418,7 +414,7 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
         if(hReaders.size()>0) {
             headerTag = DEFAULT_TAGS.get(base+1);
             ElemInfo hdrElem = new ElemInfo(headerTag, envElem);
-            soapHeader = new XMLReaderComposite(hdrElem, hReaders.toArray(new XMLStreamReader[hReaders.size()]));
+            soapHeader = new XMLReaderComposite(hdrElem, hReaders.toArray(new XMLStreamReader[0]));
         }
         try {
             XMLStreamReader payload= readPayload();
@@ -430,17 +426,20 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
         }
     }
     
+    @Override
     public boolean isPayloadStreamReader() { return false; }
 
+    @Override
     public QName getPayloadQName() {
         return new QName(getPayloadNamespaceURI(), getPayloadLocalPart());
     }
     
+    @Override
     public XMLStreamReader readToBodyStarTag() {
         int base = soapVersion.ordinal()*3;
         this.envelopeTag = DEFAULT_TAGS.get(base);
         this.bodyTag = DEFAULT_TAGS.get(base+2);
-        List<XMLStreamReader> hReaders = new java.util.ArrayList<XMLStreamReader>();
+        List<XMLStreamReader> hReaders = new java.util.ArrayList<>();
         ElemInfo envElem =  new ElemInfo(envelopeTag, null);
         ElemInfo bdyElem =  new ElemInfo(bodyTag, envElem);
         for (Header h : getHeaders().asList()) {
@@ -454,7 +453,7 @@ public final class JAXBMessage extends AbstractMessageImpl implements StreamingS
         if(hReaders.size()>0) {
             headerTag = DEFAULT_TAGS.get(base+1);
             ElemInfo hdrElem = new ElemInfo(headerTag, envElem);
-            soapHeader = new XMLReaderComposite(hdrElem, hReaders.toArray(new XMLStreamReader[hReaders.size()]));
+            soapHeader = new XMLReaderComposite(hdrElem, hReaders.toArray(new XMLStreamReader[0]));
         }
         XMLStreamReader soapBody = new XMLReaderComposite(bdyElem, new XMLStreamReader[]{}); 
         XMLStreamReader[] soapContent = (soapHeader != null) ? new XMLStreamReader[]{soapHeader, soapBody} : new XMLStreamReader[]{soapBody};

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,23 +43,16 @@ public abstract class WSDLOperationFinder {
     }
 
     /**
-     * This methods returns the QName of the WSDL operation correponding to a request Packet.
+     * This methods returns the QName of the WSDL operation corresponding to a request Packet.
      * An implementation should return null when it cannot dispatch to a unique method based on the information it processes.
      * In such case, other OperationFinders are queried to resolve a WSDL operation.
      * It should throw an instance of DispatchException if it finds incorrect information in the packet.
-     * 
-     * @deprecated use getWSDLOperationMapping(Packet request)
      *
      * @param request  Request Packet that is used to find the associated WSDLOperation
      * @return QName of the WSDL Operation that this request correponds to.
      *          null when it cannot find a unique operation to dispatch to.
      * @throws DispatchException When the information in the Packet is invalid
      */
-    public QName getWSDLOperationQName(Packet request) throws DispatchException {
-        WSDLOperationMapping m = getWSDLOperationMapping(request);
-        return m != null ? m.getOperationName() : null;
-    }
-    
     public WSDLOperationMapping getWSDLOperationMapping(Packet request) throws DispatchException {
         return null;
     }
@@ -83,14 +76,17 @@ public abstract class WSDLOperationFinder {
             operationName = (javaMethod != null) ? javaMethod.getOperationQName() : wsdlOperation.getName();
         }
 
+        @Override
         public WSDLBoundOperation getWSDLBoundOperation() {
             return wsdlOperation;
         }
         
+        @Override
         public JavaMethod getJavaMethod() {
             return javaMethod;
         }
         
+        @Override
         public QName getOperationName() {
             return operationName;
         }

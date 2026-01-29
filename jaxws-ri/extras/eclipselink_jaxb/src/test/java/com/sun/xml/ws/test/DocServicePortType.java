@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,9 +31,7 @@ import jakarta.xml.ws.ResponseWrapper;
 public interface DocServicePortType {
 
     /**
-     * 
-     * @param shortMessage
-     * @param floatMessage
+     *
      */
     @WebMethod
     @RequestWrapper(localName = "echoBaseStruct", targetNamespace = "http://performance.bea.com", className = "com.bea.performance.BaseStruct")
@@ -46,12 +44,7 @@ public interface DocServicePortType {
         Holder<Short> shortMessage);
 
     /**
-     * 
-     * @param shortMessage
-     * @param intMessage
-     * @param anotherIntMessage
-     * @param stringMessage
-     * @param floatMessage
+     *
      */
     @WebMethod
     @RequestWrapper(localName = "echoExtendedStruct", targetNamespace = "http://performance.bea.com", className = "com.bea.performance.ExtendedStruct")
@@ -71,13 +64,7 @@ public interface DocServicePortType {
 
   
     /**
-     * 
-     * @param shortMessage
-     * @param booleanMessage
-     * @param intMessage
-     * @param anotherIntMessage
-     * @param stringMessage
-     * @param floatMessage
+     *
      */
     @WebMethod
     @RequestWrapper(localName = "modifyMoreExtendedStruct", targetNamespace = "http://performance.bea.com", className = "com.bea.performance.MoreExtendedStruct")

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,7 +54,7 @@ public class FastInfosetUtil {
                 @Override
                 public XMLStreamReader createFIStreamReader(Source source) {
                     // no compatible implementation of FI was found
-                    throw new XMLReaderException("fastinfoset.noImplementation");
+                    throw new XMLReaderException(StreamingMessages.localizableFASTINFOSET_NO_IMPLEMENTATION());
                 }
 
                 @Override
@@ -90,7 +90,7 @@ public class FastInfosetUtil {
         return fi.createFIStreamReader(source);
     }
 
-    static interface FISupport {
+    interface FISupport {
 
         boolean isFastInfosetSource(Source o);
 

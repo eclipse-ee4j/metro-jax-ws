@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,7 +30,6 @@ import jakarta.xml.ws.Provider;
 import jakarta.xml.ws.Service;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.logging.Logger;
 
 /**
@@ -54,10 +53,12 @@ import java.util.logging.Logger;
  *
  * @author JAX-WS Development Team
  */
-public class HandlerAnnotationProcessor {
+public final class HandlerAnnotationProcessor {
 
     private static final Logger logger = Logger.getLogger(
         com.sun.xml.ws.util.Constants.LoggingDomain + ".util");
+
+    private HandlerAnnotationProcessor() {}
 
     /**
      * <p>This method is called by
@@ -91,7 +92,9 @@ public class HandlerAnnotationProcessor {
                 return null;
         }
 
-        if (clazz.getAnnotation(SOAPMessageHandlers.class) != null) {
+        @SuppressWarnings({"deprecation"})
+        final SOAPMessageHandlers sa = clazz.getAnnotation(SOAPMessageHandlers.class);
+        if (sa != null) {
             throw new UtilException(
                 "util.handler.cannot.combine.soapmessagehandlers");
         }
@@ -104,10 +107,7 @@ public class HandlerAnnotationProcessor {
         try {
             reader.close();
             iStream.close();
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
-            throw new UtilException(e.getMessage());
-        } catch (IOException e) {
+        } catch (XMLStreamException | IOException e) {
             e.printStackTrace();
             throw new UtilException(e.getMessage());
         }
@@ -130,10 +130,7 @@ public class HandlerAnnotationProcessor {
         try {
             reader.close();
             iStream.close();
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
-            throw new UtilException(e.getMessage());
-        } catch (IOException e) {
+        } catch (XMLStreamException | IOException e) {
             e.printStackTrace();
             throw new UtilException(e.getMessage());
         }

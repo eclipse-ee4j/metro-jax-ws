@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2025 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,13 +18,13 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-ri-bom-ext</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>4.0.4-SNAPSHOT</version>
         <relativePath>boms/bom-ext/pom.xml</relativePath>
     </parent>
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>project</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>4.0.4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Jakarta XML Web Services Implementation</name>
     <description>Open source Implementation of Jakarta XML Web Services (formerly JSR-224: Java API for XML Web Services)</description>
@@ -79,27 +79,39 @@
     </mailingLists>
 
     <properties>
-        <copyright.alternatetemplate>src/main/resources/copyright-apache2.txt</copyright.alternatetemplate>
-        <copyright.exclude>src/main/resources/copyright-exclude</copyright.exclude>
+        <project.build.commonResourcesDirectory>${project.build.directory}/common-resources</project.build.commonResourcesDirectory>
+        <legal.doc.source>${project.build.commonResourcesDirectory}/legal</legal.doc.source>
+        <copyright.alternatetemplate>${project.build.commonResourcesDirectory}/config/copyright-apache2.txt</copyright.alternatetemplate>
+        <copyright.exclude>${project.build.commonResourcesDirectory}/config/copyright-exclude</copyright.exclude>
         <copyright.ignoreyear>false</copyright.ignoreyear>
         <copyright.scmonly>true</copyright.scmonly>
-        <copyright.template>src/main/resources/copyright.txt</copyright.template>
+        <copyright.template>${project.build.commonResourcesDirectory}/config/copyright.txt</copyright.template>
         <copyright.update>false</copyright.update>
-        <spotbugs.common>src/main/resources/exclude-common.xml</spotbugs.common>
+        <spotbugs.common>${project.build.commonResourcesDirectory}/config/exclude-common.xml</spotbugs.common>
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
-        <spotbugs.version>4.2.0</spotbugs.version>
+        <spotbugs.version>4.8.6.0</spotbugs.version>
+        <findsecbugs.version>1.11.0</findsecbugs.version>
 
-        <ignore.failing.tests>true</ignore.failing.tests>
+        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
+        <!-- exclude big groups from the Xlint -->
+        <comp.xlint>-Xlint:all,-rawtypes,-unchecked</comp.xlint>
+        <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
+        <comp.xdoclint>-Xdoclint:all,-missing</comp.xdoclint>
+        <warn.limit>150</warn.limit>
+        <!-- not interested in warnings from tests (yet) -->
+        <comp.test.xlint>-Xlint:none</comp.test.xlint>
+        <comp.test.xdoclint>-Xdoclint:none</comp.test.xdoclint>
+        <warn.test.limit>10</warn.test.limit>
+
+        <ignore.failing.tests>false</ignore.failing.tests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mrjar.sourceDirectory>${project.basedir}/src/main/java-mr</mrjar.sourceDirectory>
-        <base.java.level>8</base.java.level>
-        <upper.java.level>9</upper.java.level>
-        <legal.doc.source>${maven.multiModuleProjectDirectory}/..</legal.doc.source>
         <oss.disallow.snapshots>true</oss.disallow.snapshots>
         <vendor.name>Eclipse Foundation</vendor.name>
         <vendor.id>org.eclipse</vendor.id>
+        <jdoc.doclint>-missing</jdoc.doclint>
     </properties>
 
     <modules>
@@ -117,7 +129,7 @@
                 <plugin>
                     <groupId>com.sun.istack</groupId>
                     <artifactId>import-properties-plugin</artifactId>
-                    <version>${istack.version}</version>
+                    <version>${istack.plugin.version}</version>
                     <executions>
                         <execution>
                             <phase>validate</phase>
@@ -130,7 +142,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.4.0</version>
                     <executions>
                         <execution>
                             <id>jaxb.version</id>
@@ -150,7 +162,7 @@
                                 <goal>parse-version</goal>
                             </goals>
                             <configuration>
-                                <propertyPrefix>jaxb-api</propertyPrefix>
+                                <propertyPrefix>xml.bind-api</propertyPrefix>
                                 <versionString>${xml.bind-api.version}</versionString>
                             </configuration>
                         </execution>
@@ -165,14 +177,14 @@
                             </configuration>
                         </execution>
                         <execution>
-                            <id>jaxws-api.version</id>
+                            <id>xml.ws-api.version</id>
                             <phase>validate</phase>
                             <goals>
                                 <goal>parse-version</goal>
                             </goals>
                             <configuration>
-                                <propertyPrefix>jaxws-api</propertyPrefix>
-                                <versionString>${jaxws-api.version}</versionString>
+                                <propertyPrefix>xml.ws-api</propertyPrefix>
+                                <versionString>${xml.ws-api.version}</versionString>
                             </configuration>
                         </execution>
                         <execution>
@@ -191,12 +203,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.3.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.3.1</version>
                     <configuration>
                         <escapeString>\</escapeString>
                     </configuration>
@@ -204,7 +216,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>buildnumber-maven-plugin</artifactId>
-                    <version>1.4</version>
+                    <version>3.2.0</version>
                     <configuration>
                         <locale>en-US</locale>
                     </configuration>
@@ -212,27 +224,27 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.0.0-M3</version>
+                    <version>3.4.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.glassfish.hk2</groupId>
                     <artifactId>osgiversion-maven-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>3.0.5</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>3.6.0</version>
                 </plugin>
                 <plugin>
                     <groupId>com.sun.wts.tools.ant</groupId>
                     <artifactId>package-rename-task</artifactId>
-                    <version>1.5.2</version>
+                    <version>1.6.0</version>
                 </plugin>
                 <plugin>
                     <groupId>com.sun.istack</groupId>
                     <artifactId>istack-commons-maven-plugin</artifactId>
-                    <version>${istack.version}</version>
+                    <version>${istack.plugin.version}</version>
                     <executions>
                         <execution>
                             <id>rs-gen</id>
@@ -255,38 +267,22 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
-                    <configuration>
-                        <release>${upper.java.level}</release>
-                        <source>${upper.java.level}</source>
-                        <target>${upper.java.level}</target>
-                        <compilerArgument>-Xlint:all</compilerArgument>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>base-compile</id>
-                            <goals>
-                                <goal>compile</goal>
-                            </goals>
-                            <configuration>
-                                <release>${base.java.level}</release>
-                                <excludes>
-                                    <exclude>module-info.java</exclude>
-                                </excludes>
-                            </configuration>
-                        </execution>
-                    </executions>
+                    <version>3.11.0</version>
                 </plugin>
-
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M4</version>
+                    <version>3.1.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>3.1.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.3.0</version>
                     <configuration>
                         <archive>
                             <manifest>
@@ -309,7 +305,7 @@
                             </manifest>
                             <manifestEntries>
                                 <Specification-Title>Jakarta XML Web Services</Specification-Title>
-                                <Specification-Version>${jaxws-api.majorVersion}.${jaxws-api.minorVersion}</Specification-Version>
+                                <Specification-Version>${xml.ws-api.majorVersion}.${xml.ws-api.minorVersion}</Specification-Version>
                                 <Implementation-Title>Jakarta XML Web Services Implementation</Implementation-Title>
                                 <Implementation-Version>${project.version}</Implementation-Version>
                                 <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
@@ -326,7 +322,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>3.6.0</version>
                     <configuration>
                         <archive>
                             <manifest>
@@ -334,7 +330,7 @@
                             </manifest>
                             <manifestEntries>
                                 <Specification-Title>Jakarta XML Web Services</Specification-Title>
-                                <Specification-Version>${jaxws-api.majorVersion}.${jaxws-api.minorVersion}</Specification-Version>
+                                <Specification-Version>${xml.ws-api.majorVersion}.${xml.ws-api.minorVersion}</Specification-Version>
                                 <Implementation-Title>Jakarta XML Web Services Implementation</Implementation-Title>
                                 <Implementation-Version>${project.version}</Implementation-Version>
                                 <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
@@ -351,15 +347,15 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.6.0</version>
                     <configuration>
                         <archive>
                             <manifest>
                                 <addDefaultEntries>false</addDefaultEntries>
                             </manifest>
                         </archive>
-                        <release>11</release>
-                        <aggregate>false</aggregate>
+                        <doclint>${jdoc.doclint}</doclint>
+                        <quiet>true</quiet>
                         <dependencySourceExcludes>
                             <dependencySourceExclude>com.sun.xml.ws:*</dependencySourceExclude>
                         </dependencySourceExcludes>
@@ -368,7 +364,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.ant</groupId>
@@ -385,7 +381,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>5.1.1</version>
+                    <version>5.1.9</version>
                     <configuration>
                         <niceManifest>true</niceManifest>
                         <instructions>
@@ -394,17 +390,40 @@
                     </configuration>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
                     <version>${spotbugs.version}</version>
                     <configuration>
                         <skip>${spotbugs.skip}</skip>
                         <threshold>${spotbugs.threshold}</threshold>
-                        <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
                         <excludeFilterFile>
                             ${spotbugs.common},${spotbugs.exclude}
                         </excludeFilterFile>
-                        <fork>true</fork>
+                        <plugins>
+                            <plugin>
+                                <groupId>com.h3xstream.findsecbugs</groupId>
+                                <artifactId>findsecbugs-plugin</artifactId>
+                                <version>${findsecbugs.version}</version>
+                            </plugin>
+                        </plugins>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>12.1.8</version>
+                    <configuration>
+                        <failBuildOnCVSS>7</failBuildOnCVSS>
+                        <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+                        <formats>
+                            <format>HTML</format>
+                            <format>CSV</format>
+                        </formats>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -428,6 +447,50 @@
         </pluginManagement>
 
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>common-resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/resources.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.sun.xml.ws</groupId>
+                                    <artifactId>project</artifactId>
+                                    <version>${project.version}</version>
+                                    <classifier>resources</classifier>
+                                    <type>zip</type>
+                                    <outputDirectory>${project.build.commonResourcesDirectory}</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>com.sun.istack</groupId>
                 <artifactId>import-properties-plugin</artifactId>
@@ -468,10 +531,6 @@
                             <resources>
                                 <resource>
                                     <directory>${legal.doc.source}</directory>
-                                    <includes>
-                                        <include>NOTICE.md</include>
-                                        <include>LICENSE.md</include>
-                                    </includes>
                                     <targetPath>META-INF</targetPath>
                                 </resource>
                             </resources>
@@ -511,6 +570,41 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <configuration>
+                            <compilerArgs combine.children="append">
+                                <arg>${comp.xlint}</arg>
+                                <arg>${comp.xdoclint}</arg>
+                                <arg>-Xmaxwarns</arg>
+                                <arg>${warn.limit}</arg>
+                                <arg>-Xmaxerrs</arg>
+                                <arg>${warn.limit}</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <configuration>
+                            <compilerArgs combine.children="append">
+                                <arg>${comp.test.xlint}</arg>
+                                <arg>${comp.test.xdoclint}</arg>
+                                <arg>-Xmaxwarns</arg>
+                                <arg>${warn.test.limit}</arg>
+                                <arg>-Xmaxerrs</arg>
+                                <arg>${warn.test.limit}</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <executions>
                     <execution>
@@ -522,7 +616,7 @@
                                 </manifest>
                                 <manifestEntries>
                                     <Specification-Title>Jakarta XML Web Services</Specification-Title>
-                                    <Specification-Version>${jaxws-api.majorVersion}.${jaxws-api.minorVersion}</Specification-Version>
+                                    <Specification-Version>${xml.ws-api.majorVersion}.${xml.ws-api.minorVersion}</Specification-Version>
                                     <Implementation-Title>Jakarta XML Web Services Implementation</Implementation-Title>
                                     <Implementation-Version>${project.version}</Implementation-Version>
                                     <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
@@ -558,7 +652,7 @@
             <extension>
                 <groupId>com.sun.istack</groupId>
                 <artifactId>import-properties-plugin</artifactId>
-                <version>${istack.version}</version>
+                <version>${istack.plugin.version}</version>
             </extension>
         </extensions-->
     </build>
@@ -615,6 +709,43 @@
             </build>
         </profile>
         <profile>
+            <id>spotbugs</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>spotbugs</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>dependency-check</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.owasp</groupId>
+                        <artifactId>dependency-check-maven</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>coverage</id>
             <activation>
                 <property>
@@ -622,28 +753,9 @@
                 </property>
             </activation>
             <properties>
-                <jacoco.version>0.8.6</jacoco.version>
+                <jacoco.version>0.8.10</jacoco.version>
                 <jacoco.skip>false</jacoco.skip>
             </properties>
-            <dependencies>
-                <!-- jacoco library -->
-                <dependency>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>org.jacoco.agent</artifactId>
-                    <version>${jacoco.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>org.jacoco.agent</artifactId>
-                    <classifier>runtime</classifier>
-                    <version>${jacoco.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>org.jacoco.ant</artifactId>
-                    <version>${jacoco.version}</version>
-                </dependency>
-            </dependencies>
             <build>
                 <pluginManagement>
                     <plugins>
@@ -658,6 +770,9 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
+                        <configuration>
+                            <append>true</append>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>default-prepare-agent</id>
@@ -670,19 +785,68 @@
                                 <goals>
                                     <goal>report</goal>
                                 </goals>
-                                <!-- configuration should be removed once this bug https://github.com/jacoco/jacoco/issues/407 is fixed -->
                                 <configuration>
                                     <excludes>
-                                        <exclude>com/sun/tools/ws/ant/WsGen2.class</exclude>
-                                        <exclude>com/sun/tools/ws/ant/WsImport2.class</exclude>
-                                        <exclude>com/sun/tools/ws/ant/WsImport.class</exclude>
-                                        <exclude>com/sun/tools/ws/ant/WsGen.class</exclude>
-                                        <exclude>com/sun/xml/ws/util/xml/XmlCatalogUtil.class</exclude>
-                                        <exclude>com/sun/xml/ws/util/MrJarUtil.class</exclude>
-                                        <exclude>com/sun/xml/ws/util/MrJarUtil$1.class</exclude>
-                                        <exclude>com/sun/xml/ws/api/server/SDDocumentSource.class</exclude>
-                                        <exclude>com/sun/xml/ws/api/server/SDDocumentSource$1.class</exclude>
-                                        <exclude>com/sun/xml/ws/api/server/SDDocumentSource$2.class</exclude>
+                                        <!-- JDK -->
+                                        <exclude>javax/annotation/**</exclude>
+                                        <exclude>javax/lang/**</exclude>
+                                        <exclude>javax/tools/**</exclude>
+                                        <exclude>jdk/javadoc/**</exclude>
+                                        <exclude>jdk/nio/**</exclude>
+                                        <exclude>com/sun/net/**</exclude>
+                                        <exclude>com/sun/source/**</exclude>
+                                        <exclude>com/sun/tools/doclint/**</exclude>
+                                        <exclude>com/sun/tools/javac/**</exclude>
+                                        <exclude>sun/net/**</exclude>
+                                        <exclude>sun/nio/**</exclude>
+                                        <exclude>sun/util/**</exclude>
+                                        <!-- test runtime & dependencies -->
+                                        <exclude>bsh/**</exclude>
+                                        <exclude>junit/**</exclude>
+                                        <exclude>org/junit/**</exclude>
+                                        <exclude>org/apache/**</exclude>
+                                        <exclude>freemarker/**</exclude>
+                                        <exclude>org/ctc/**</exclude>
+                                        <exclude>com/ctc/**</exclude>
+                                        <exclude>org/codehaus/**</exclude>
+                                        <exclude>com/sun/xml/ws/test/**</exclude>
+                                        <!-- -tests -->
+                                        <exclude>async/**</exclude>
+                                        <exclude>bugs/**</exclude>
+                                        <exclude>customization/**</exclude>
+                                        <exclude>epr/**</exclude>
+                                        <exclude>fromjava/**</exclude>
+                                        <exclude>handler/**</exclude>
+                                        <exclude>provider/**</exclude>
+                                        <exclude>server/**</exclude>
+                                        <exclude>wsa/**</exclude>
+                                        <exclude>xop/**</exclude>
+                                        <exclude>benchmark/**</exclude>
+                                        <exclude>client/**</exclude>
+                                        <exclude>deployment/**</exclude>
+                                        <exclude>externalmetadata/**</exclude>
+                                        <exclude>fromwsdl/**</exclude>
+                                        <exclude>mtom/**</exclude>
+                                        <exclude>rt_wsdl_parser/**</exclude>
+                                        <exclude>whitebox/**</exclude>
+                                        <exclude>wsimport/**</exclude>
+                                        <exclude>custom/**</exclude>
+                                        <exclude>default/**</exclude>
+                                        <exclude>dispatch/**</exclude>
+                                        <exclude>jaxws/**</exclude>
+                                        <exclude>testcases/**</exclude>
+                                        <exclude>testutil/**</exclude>
+                                        <!-- likely used/reported in mvn plugin only -->
+                                        <exclude>bean/**</exclude>
+                                        <exclude>https/**</exclude>
+                                        <exclude>mojo/**</exclude>
+                                        <exclude>com/mycompany/**</exclude>
+                                        <exclude>org/jvnet/jax_ws_commons/jaxws/test/**</exclude>
+                                        <exclude>org/jvnet/jax_ws_commons/wsimport/test/**</exclude>
+                                        <exclude>sample/**</exclude>
+                                        <exclude>test/**</exclude>
+                                        <exclude>tests/**</exclude>
+                                        <exclude>work/**</exclude>
                                     </excludes>
                                 </configuration>
                             </execution>
@@ -710,8 +874,8 @@
     <dependencies>
         <!-- Make sure new apis are used across the project -->
         <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
         </dependency>
 
         <dependency>
@@ -727,11 +891,6 @@
         <dependency>
             <groupId>jakarta.xml.soap</groupId>
             <artifactId>jakarta.xml.soap-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.jws</groupId>
-            <artifactId>jakarta.jws-api</artifactId>
         </dependency>
 
         <dependency>

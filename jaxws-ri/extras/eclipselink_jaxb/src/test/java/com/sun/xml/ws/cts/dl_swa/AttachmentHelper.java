@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,23 +20,24 @@ import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 
 public class AttachmentHelper {
-    public Iterator getAttachments(Iterator iter) {
+    @SuppressWarnings({"unchecked"})
+    public Iterator<AttachmentPart> getAttachments(Iterator<?> iter) {
         while(iter.hasNext()) {
             Object obj = iter.next();
             if(!(obj instanceof AttachmentPart)) {                    
                 return null;                    
             }
         }
-        return iter;
+        return (Iterator<AttachmentPart>) iter;
     }
     
-    public AttachmentPart getAttachment(java.net.URI ref, Iterator iter) {
+    public AttachmentPart getAttachment(java.net.URI ref, Iterator<AttachmentPart> iter) {
         if(iter == null || ref == null) {
             System.err.println("getAttachment: null Iterator for AttachmentPart");
             return null;
         }
         while(iter.hasNext()) {
-            AttachmentPart tempAttachment = (AttachmentPart)iter.next();            
+            AttachmentPart tempAttachment = iter.next();
             if(ref.isOpaque() && ref.getScheme().equals("cid")) {
                 String refId = ref.getSchemeSpecificPart();
                 String cId = tempAttachment.getContentId();
@@ -91,23 +92,17 @@ public class AttachmentHelper {
         
         boolean matched = false;
         
-        Iterator iter1 = handlePixels(image1, rect);
-        Iterator iter2 = handlePixels(image2, rect);
+        Iterator<Pixel> iter1 = handlePixels(image1, rect);
+        Iterator<Pixel> iter2 = handlePixels(image2, rect);
         
         while(iter1.hasNext() && iter2.hasNext()) {
-            Pixel pixel = (Pixel)iter1.next();
-            if(pixel.equals((Pixel)iter2.next())) {
-                matched = true;
-            }else {
-                matched = false;
-            }
+            Pixel pixel = iter1.next();
+            matched = pixel.equals(iter2.next());
         }
-        if(matched)
-            return true;
-        return false;        
+        return matched;
     }
 
-     public Iterator handlePixels(Image img, Rectangle rect) {
+     public Iterator<Pixel> handlePixels(Image img, Rectangle rect) {
          int x = rect.x;
          int y = rect.y;
          int w = rect.width;
@@ -125,7 +120,7 @@ public class AttachmentHelper {
             System.err.println("image fetch aborted or errored");
             return null;
         }
-        ArrayList tmpList = new ArrayList();
+        ArrayList<Pixel> tmpList = new ArrayList<>();
         for (int j = 0; j < h; j++) {
             for (int i = 0; i < w; i++) {
               tmpList.add(handleSinglePixel(x+i, y+j, pixels[j * w + i]));
@@ -177,9 +172,9 @@ public class AttachmentHelper {
 
         BufferedImage bufImage = convertToBufferedImage(image);
         ImageWriter writer = null;
-        Iterator i = ImageIO.getImageWritersByMIMEType(type);
+        Iterator<ImageWriter> i = ImageIO.getImageWritersByMIMEType(type);
         if (i.hasNext()) {
-            writer = (ImageWriter)i.next();
+            writer = i.next();
         }
         if (writer != null) {
             ImageOutputStream stream = null;

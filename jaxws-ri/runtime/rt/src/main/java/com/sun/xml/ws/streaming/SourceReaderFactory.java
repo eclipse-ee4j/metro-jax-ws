@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,6 +11,7 @@
 package com.sun.xml.ws.streaming;
 
 import com.sun.xml.ws.api.streaming.XMLStreamReaderFactory;
+import com.sun.xml.ws.resources.StreamingMessages;
 import com.sun.xml.ws.util.FastInfosetUtil;
 import com.sun.xml.ws.util.xml.XmlUtil;
 
@@ -29,12 +30,15 @@ import java.net.URL;
 /**
  * @author Santiago.PericasGeertsen@sun.com
  */
-public class SourceReaderFactory {
-    
+public final class SourceReaderFactory {
+
+    private SourceReaderFactory() {
+    }
+
     public static XMLStreamReader createSourceReader(Source source, boolean rejectDTDs) {
         return createSourceReader(source, rejectDTDs, null);
     }
-    
+
     public static XMLStreamReader createSourceReader(Source source, boolean rejectDTDs, String charsetName) {
         try {
             if (source instanceof StreamSource) {
@@ -45,48 +49,39 @@ public class SourceReaderFactory {
                     // Wrap input stream in Reader if charset is specified
                     if (charsetName != null) {
                         return XMLStreamReaderFactory.create(
-                            source.getSystemId(), new InputStreamReader(is, charsetName), rejectDTDs);                    
-                    }
-                    else {
+                                source.getSystemId(), new InputStreamReader(is, charsetName), rejectDTDs);
+                    } else {
                         return XMLStreamReaderFactory.create(
-                            source.getSystemId(), is, rejectDTDs);
+                                source.getSystemId(), is, rejectDTDs);
                     }
-                }
-                else {
+                } else {
                     Reader reader = streamSource.getReader();
                     if (reader != null) {
                         return XMLStreamReaderFactory.create(
-                            source.getSystemId(), reader, rejectDTDs);
-                    }
-                    else {
+                                source.getSystemId(), reader, rejectDTDs);
+                    } else {
                         return XMLStreamReaderFactory.create(
-                            source.getSystemId(), new URL(source.getSystemId()).openStream(), rejectDTDs );
+                                source.getSystemId(), new URL(source.getSystemId()).openStream(), rejectDTDs);
                     }
                 }
-            }
-            else if (FastInfosetUtil.isFastInfosetSource(source)) {
+            } else if (FastInfosetUtil.isFastInfosetSource(source)) {
                 return FastInfosetUtil.createFIStreamReader(source);
-            }
-            else if (source instanceof DOMSource) {
-                DOMStreamReader dsr =  new DOMStreamReader();
+            } else if (source instanceof DOMSource) {
+                DOMStreamReader dsr = new DOMStreamReader();
                 dsr.setCurrentNode(((DOMSource) source).getNode());
                 return dsr;
-            }
-            else if (source instanceof SAXSource) {
+            } else if (source instanceof SAXSource) {
                 // TODO: need SAX to StAX adapter here -- Use transformer for now
-                Transformer tx =  XmlUtil.newTransformer();
+                Transformer tx = XmlUtil.newTransformer();
                 DOMResult domResult = new DOMResult();
                 tx.transform(source, domResult);
                 return createSourceReader(
-                    new DOMSource(domResult.getNode()),
-                    rejectDTDs);
+                        new DOMSource(domResult.getNode()),
+                        rejectDTDs);
+            } else {
+                throw new XMLReaderException(StreamingMessages.localizableSOURCEREADER_INVALID_SOURCE(source.getClass().getName()));
             }
-            else {
-                throw new XMLReaderException("sourceReader.invalidSource",
-                        source.getClass().getName());
-            }        
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new XMLReaderException(e);
         }
     }

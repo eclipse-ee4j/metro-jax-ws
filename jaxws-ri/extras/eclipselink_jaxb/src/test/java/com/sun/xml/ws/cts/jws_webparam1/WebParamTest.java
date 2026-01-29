@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,6 +10,7 @@
 
 package com.sun.xml.ws.cts.jws_webparam1;
 
+import com.sun.xml.ws.db.toplink.JAXBContextFactory;
 import jakarta.xml.ws.WebServiceFeature;
 
 import com.oracle.webservices.api.databinding.DatabindingModeFeature;
@@ -22,7 +23,7 @@ public class WebParamTest extends WsDatabindingTestBase {
     boolean debug = false;
     
     public void testWebParam1_toplink() throws Exception {
-        testWebParam1("eclipselink.jaxb");
+        testWebParam1(JAXBContextFactory.ECLIPSELINK_JAXB);
     }
     
     //TODO How does jaxb-ri defaultNamespaceRemap work?
@@ -44,20 +45,20 @@ public class WebParamTest extends WsDatabindingTestBase {
         cliConfig.setFeatures(f);     
         WebParamWebService port = createProxy(WebParamWebService.class, srvConfig, cliConfig, debug);
         {
-            jakarta.xml.ws.Holder<Employee> employeeHolder = new jakarta.xml.ws.Holder<Employee>();
+            jakarta.xml.ws.Holder<Employee> employeeHolder = new jakarta.xml.ws.Holder<>();
             port.helloString4("jsr181", employeeHolder);
-            Employee employee = (Employee) employeeHolder.value;
+            Employee employee = employeeHolder.value;
             Name output = employee.getName();
             assertEquals(output.getFirstName(), "jsr181");
             assertEquals(output.getLastName(),  "jaxws");
         }
         {
-            jakarta.xml.ws.Holder<Employee> employeeHolder = new jakarta.xml.ws.Holder<Employee>();
+            jakarta.xml.ws.Holder<Employee> employeeHolder = new jakarta.xml.ws.Holder<>();
             Name name = new Name();
             name.setFirstName("jsr181");
             name.setLastName("jsr109");
             port.helloString7("jsr181", name, employeeHolder);
-            Employee employee = (Employee) employeeHolder.value;
+            Employee employee = employeeHolder.value;
             Name output = employee.getName();
             assertEquals(output.getFirstName(), "jsr181");
             assertEquals(output.getLastName(),  "jsr109");

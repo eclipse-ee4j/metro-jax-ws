@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,6 +12,7 @@ package com.sun.xml.ws.fault;
 
 import com.sun.xml.ws.api.SOAPVersion;
 import com.sun.xml.ws.util.DOMUtil;
+import jakarta.xml.soap.DetailEntry;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -26,28 +27,24 @@ import java.util.Iterator;
 /**
  * This class represents SOAP1.1 Fault. This class will be used to marshall/unmarshall a soap fault using JAXB.
  * <br>
- * <pre>
  * Example:
- * <br>
- *     &lt;soap:Fault xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>
- *         &lt;faultcode>soap:Client&lt;/faultcode>
- *         &lt;faultstring>Invalid message format&lt;/faultstring>
- *         &lt;faultactor>http://example.org/someactor&lt;/faultactor>
- *         &lt;detail>
- *             &lt;m:msg xmlns:m='http://example.org/faults/exceptions'>
+ * <pre>{@code
+ *     <soap:Fault xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/'>
+ *         <faultcode>soap:Client</faultcode>
+ *         <faultstring>Invalid message format</faultstring>
+ *         <faultactor>http://example.org/someactor</faultactor>
+ *         <detail>
+ *             <m:msg xmlns:m='http://example.org/faults/exceptions'>
  *                 Test message
- *             &lt;/m:msg>
- *         &lt;/detail>
- *     &lt;/soap:Fault>
- * <br>
+ *             </m:msg>
+ *         </detail>
+ *     </soap:Fault>
+ * }</pre>
  * Above, m:msg, if a known fault (described in the WSDL), IOW, if m:msg is known by JAXBContext it should be unmarshalled into a
  * Java object otherwise it should be deserialized as {@link jakarta.xml.soap.Detail}
- * </pre>
- * <br>
  *
  * @author Vivek Pandey
  */
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
         "faultcode",
@@ -76,14 +73,10 @@ class SOAP11Fault extends SOAPFaultBuilder {
      * This constructor takes soap fault detail among other things. The detail could represent {@link jakarta.xml.soap.Detail}
      * or a java object that can be marshalled/unmarshalled by JAXB.
      *
-     * @param code
-     * @param reason
-     * @param actor
-     * @param detailObject
      */
     SOAP11Fault(QName code, String reason, String actor, Element detailObject) {
         this.faultcode = code;
-        this.faultstring = reason;
+        this.faultstring = createFaultString(reason);
         this.faultactor = actor;
         if (detailObject != null) {
             if ((detailObject.getNamespaceURI() == null ||
@@ -100,13 +93,13 @@ class SOAP11Fault extends SOAPFaultBuilder {
 
     SOAP11Fault(SOAPFault fault) {
         this.faultcode = fault.getFaultCodeAsQName();
-        this.faultstring = fault.getFaultString();
+        this.faultstring = createFaultString(fault.getFaultString());
         this.faultactor = fault.getFaultActor();
         if (fault.getDetail() != null) {
             detail = new DetailType();
-            Iterator iter = fault.getDetail().getDetailEntries();
+            Iterator<DetailEntry> iter = fault.getDetail().getDetailEntries();
             while(iter.hasNext()){
-                Element fd = (Element)iter.next();
+                Element fd = iter.next();
                 detail.getDetails().add(fd);
             }
         }
@@ -145,10 +138,12 @@ class SOAP11Fault extends SOAPFaultBuilder {
         return detail;
     }
 
+    @Override
     void setDetail(DetailType detail) {
         this.detail = detail;
     }
 
+    @Override
     protected Throwable getProtocolException() {
         try {
             SOAPFault fault = SOAPVersion.SOAP_11.getSOAPFactory().createFault(faultstring, faultcode);

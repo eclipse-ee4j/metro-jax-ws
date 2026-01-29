@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -89,6 +89,7 @@ public abstract class Messages {
      * @param soapVersion
      *      The SOAP version of the message. Must not be null.
      */
+    @Deprecated
     public static Message create(JAXBContext context, Object jaxbObject, SOAPVersion soapVersion) {
         return JAXBMessage.create(context,jaxbObject,soapVersion);
     }
@@ -98,17 +99,10 @@ public abstract class Messages {
      * For use when creating a Dispatch object with an unknown JAXB implementation
      * for he JAXBContext parameter.
      * 
-     */ 
+     */
+    @Deprecated
     public static Message createRaw(JAXBContext context, Object jaxbObject, SOAPVersion soapVersion) {
         return JAXBMessage.createRaw(context,jaxbObject,soapVersion);
-    }
-
-    /**
-     * @deprecated
-     *      Use {@link #create(JAXBRIContext, Object, SOAPVersion)}
-     */
-    public static Message create(Marshaller marshaller, Object jaxbObject, SOAPVersion soapVersion) {
-        return create(BindingContextFactory.getBindingContext(marshaller).getJAXBContext(),jaxbObject,soapVersion);
     }
 
     /**
@@ -252,7 +246,7 @@ public abstract class Messages {
      * the start of the envelope.
      *
      * @param reader
-     *      can point to the start document or the start element (of &lt;s:Envelope>)
+     *      can point to the start document or the start element (of &lt;s:Envelope&gt;)
      */
     public static @NotNull Message create(@NotNull XMLStreamReader reader) {
         // skip until the root element
@@ -322,6 +316,7 @@ public abstract class Messages {
      * @deprecated
      *      Use {@link #createAddressingFaultMessage(WSBinding, Packet, QName)}
      */
+    @Deprecated
     public static Message createAddressingFaultMessage(WSBinding binding, QName missingHeader) {
         return createAddressingFaultMessage(binding,null,missingHeader);
     }

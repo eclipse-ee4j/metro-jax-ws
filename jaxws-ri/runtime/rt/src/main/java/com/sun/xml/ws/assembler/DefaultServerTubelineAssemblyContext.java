@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -8,10 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sun.xml.ws.assembler;
 
 import com.sun.istack.NotNull;
@@ -28,7 +24,7 @@ import com.sun.xml.ws.policy.PolicyMap;
 /**
  * The context is a wrapper around the existing JAX-WS {@link ServerTubeAssemblerContext} with additional features
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl implements ServerTubelineAssemblyContext  {
 
@@ -42,10 +38,12 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
         this.policyMap = context.getEndpoint().getPolicyMap();
     }
     
+    @Override
     public PolicyMap getPolicyMap() {
         return policyMap;
     }
     
+    @Override
     public boolean isPolicyAvailable() {
         return policyMap != null && !policyMap.isEmpty();
     }
@@ -56,6 +54,7 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * @return Null if the service doesn't have SEI model e.g. Provider endpoints,
      *         and otherwise non-null.
      */
+    @Override
     public @Nullable SEIModel getSEIModel() {
         return wrappedContext.getSEIModel();
     }
@@ -66,6 +65,7 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * @return Null if the service isn't associated with any port definition in WSDL,
      *         and otherwise non-null.
      */
+    @Override
     public @Nullable WSDLPort getWsdlPort() {
         return wrappedContext.getWsdlModel();
     }
@@ -77,6 +77,7 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * {@link com.sun.xml.ws.api.pipe.Pipe}s.
      *  @return Always non-null.
      */
+    @Override
     public @NotNull WSEndpoint getEndpoint() {
         return wrappedContext.getEndpoint();
     }
@@ -91,6 +92,7 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      *
      * @return always non-null terminal pipe
      */
+     @Override
      public @NotNull Tube getTerminalTube() {
          return wrappedContext.getTerminalTube();
     }
@@ -101,6 +103,7 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * hint, since often synchronous versions are cheaper to execute than asycnhronous
      * versions.
      */
+    @Override
     public boolean isSynchronous() {
         return wrappedContext.isSynchronous();
     }
@@ -112,8 +115,9 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * encode/decode entire MIME messages in SOAP binding)
      *
      * @return codec to be used for web service requests
-     * @see {@link com.sun.xml.ws.api.pipe.Codecs}
+     * @see com.sun.xml.ws.api.pipe.Codecs
      */
+    @Override
     public @NotNull Codec getCodec() {
         return wrappedContext.getCodec();
     }
@@ -134,12 +138,14 @@ class DefaultServerTubelineAssemblyContext extends TubelineAssemblyContextImpl i
      * serving requests concurrently.
      *
      * @param codec codec to be used for web service requests
-     * @see {@link com.sun.xml.ws.api.pipe.Codecs}
+     * @see com.sun.xml.ws.api.pipe.Codecs
      */
+    @Override
     public void setCodec(@NotNull Codec codec) {
         wrappedContext.setCodec(codec);
     }
         
+    @Override
     public ServerTubeAssemblerContext getWrappedContext() {
         return wrappedContext;
     }    

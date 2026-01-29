@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,9 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * &lt;env:Detail>
- *     &lt;m:MaxTime>P5M</m:MaxTime>
- * &lt;/env:Detail>
+ * <pre>{@code
+ * <env:Detail>
+ *     <m:MaxTime>P5M</m:MaxTime>
+ * </env:Detail>
+ * }</pre>
  */
 class DetailType {
     /**
@@ -39,7 +41,7 @@ class DetailType {
      * {@link Object} once we have better solution that working thru {@link org.glassfish.jaxb.runtime.api.Bridge}
      */
     @XmlAnyElement
-    private final List<Element> detailEntry = new ArrayList<Element>();
+    private final List<Element> detailEntry = new ArrayList<>();
 
     @NotNull
     List<Element> getDetails() {

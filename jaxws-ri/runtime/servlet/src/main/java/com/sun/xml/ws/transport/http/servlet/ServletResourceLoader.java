@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,14 +29,17 @@ final class ServletResourceLoader implements ResourceLoader {
         this.context = context;
     }
 
+    @Override
     public URL getResource(String path) throws MalformedURLException {
         return context.getResource(path);
     }
 
+    @Override
     public URL getCatalogFile() throws MalformedURLException {
         return getResource("/WEB-INF/jax-ws-catalog.xml");
     }
 
+    @Override
     public Set<String> getResourcePaths(String path) {
         return context.getResourcePaths(path);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,34 +16,43 @@
  *
  * @since 2.4.0
  */
+@SuppressWarnings({"deprecation"})
 module com.sun.tools.ws.wscompile {
 
-    requires java.compiler;
+    requires transitive java.compiler;
     requires java.logging;
     requires java.rmi;
 
-    requires com.sun.xml.ws.rt;
+    requires transitive com.sun.xml.ws.rt;
     requires com.sun.xml.ws.fi;
     requires static com.sun.xml.ws.httpspi.servlet;
     requires static com.sun.xml.ws.servlet;
 
     requires com.sun.istack.tools;
-    requires org.glassfish.jaxb.jxc;
-    requires org.glassfish.jaxb.xjc;
+    requires transitive org.glassfish.jaxb.jxc;
+    requires transitive org.glassfish.jaxb.xjc;
 
     exports com.sun.tools.ws;
     exports com.sun.tools.ws.ant;
     exports com.sun.tools.ws.api;
     exports com.sun.tools.ws.api.wsdl;
     exports com.sun.tools.ws.processor;
+    exports com.sun.tools.ws.processor.generator;
+    exports com.sun.tools.ws.processor.model;
+    exports com.sun.tools.ws.processor.model.java;
+    exports com.sun.tools.ws.processor.model.jaxb;
     exports com.sun.tools.ws.processor.modeler;
     exports com.sun.tools.ws.processor.modeler.annotation;
     exports com.sun.tools.ws.processor.modeler.wsdl;
+    exports com.sun.tools.ws.processor.util;
     exports com.sun.tools.ws.spi;
     exports com.sun.tools.ws.util;
     exports com.sun.tools.ws.util.xml;
     exports com.sun.tools.ws.wscompile;
     exports com.sun.tools.ws.wsdl.document;
+    exports com.sun.tools.ws.wsdl.document.mime;
+    exports com.sun.tools.ws.wsdl.document.soap;
+    exports com.sun.tools.ws.wsdl.framework;
     exports com.sun.tools.ws.wsdl.parser;
 
     uses com.sun.xml.ws.api.wsdl.parser.MetadataResolverFactory;

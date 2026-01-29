@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,7 +36,10 @@ import com.sun.xml.ws.api.server.TransportBackChannel;
 import com.sun.xml.ws.api.server.WSEndpoint;
 import com.sun.xml.ws.api.server.WebServiceContextDelegate;
 import com.sun.xml.ws.api.streaming.XMLStreamWriterFactory;
-import com.sun.xml.ws.client.*;
+import com.sun.xml.ws.client.BindingProviderProperties;
+import com.sun.xml.ws.client.ContentNegotiation;
+import com.sun.xml.ws.client.HandlerConfiguration;
+import com.sun.xml.ws.client.Stub;
 import com.sun.xml.ws.developer.JAXWSProperties;
 import com.sun.xml.ws.encoding.MtomCodec;
 import com.sun.xml.ws.message.RelatesToHeader;
@@ -66,7 +69,17 @@ import jakarta.xml.ws.handler.MessageContext;
 import jakarta.xml.ws.handler.soap.SOAPMessageContext;
 import jakarta.xml.ws.soap.MTOMFeature;
 
-import java.util.*;
+import java.nio.charset.StandardCharsets;
+import java.util.AbstractMap;
+import java.util.AbstractSet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -89,7 +102,7 @@ import java.nio.channels.WritableByteChannel;
  * float around without a {@link Message} in it.
  *
  *
- * <a name="properties"></a>
+ * <a id="properties"></a>
  * <h2>Properties</h2>
  * <p>
  * Information frequently used inside the JAX-WS RI
@@ -130,7 +143,7 @@ import java.nio.channels.WritableByteChannel;
  *
  * <h3>TODO</h3>
  * <ol>
- *  <li>this class needs to be cloneable since Message is copiable.
+ *  <li>this class needs to be cloneable since Message is copyable.
  *  <li>The three live views aren't implemented correctly. It will be
  *      more work to do so, although I'm sure it's possible.
  *  <li>{@link PropertySet.Property} annotation is to make it easy
@@ -166,7 +179,7 @@ public final class Packet
      * Creates an empty {@link Packet} that doesn't have any {@link Message}.
      */
     public Packet() {
-        this.invocationProperties = new HashMap<String, Object>();
+        this.invocationProperties = new HashMap<>();
     }
     
     /**
@@ -267,7 +280,7 @@ public final class Packet
      *         runtime cannot uniquely identify the wsdl operation from the information in the packet.
      */
     @Property(MessageContext.WSDL_OPERATION)
-    public final
+    public
     @Nullable
     QName getWSDLOperation() {
         if (wsdlOperation != null) return wsdlOperation;
@@ -276,6 +289,7 @@ public final class Packet
         return wsdlOperation;
     }
 
+    @Override
     public WSDLOperationMapping getWSDLOperationMapping() {
         if (wsdlOperationMapping != null) return wsdlOperationMapping;
         OperationDispatcher opDispatcher = null;
@@ -397,6 +411,7 @@ public final class Packet
      *      {@link #endpointAddress}. This is for JAX-WS client applications
      *      that access this property via {@link BindingProvider#ENDPOINT_ADDRESS_PROPERTY}.
      */
+    @Deprecated
     @Property(BindingProvider.ENDPOINT_ADDRESS_PROPERTY)
     public String getEndPointAddressString() {
         if (endpointAddress == null) {
@@ -445,14 +460,12 @@ public final class Packet
      * <p>
      * Headers which have attribute wsa:IsReferenceParameter="true"
      * This is not cached as one may reset the Message.
-     *<p>
+     *
      */
     @Property(MessageContext.REFERENCE_PARAMETERS)
-    public
-    @NotNull
-    List<Element> getReferenceParameters() {
+    public @NotNull List<Element> getReferenceParameters() {
         Message msg = getMessage();
-        List<Element> refParams = new ArrayList<Element>();
+        List<Element> refParams = new ArrayList<>();
         if (msg == null) {
             return refParams;
         }
@@ -589,7 +602,7 @@ public final class Packet
      * transport and SOAP version.
      * <br>
      * For HTTP transport and SOAP 1.1, BP requires that SOAPAction
-     * header is present (See {@BP R2744} and {@BP R2745}.) For SOAP 1.2,
+     * header is present (See BP R2744 and BP R2745.) For SOAP 1.2,
      * this is moved to the parameter of the "application/soap+xml".
      */
     @Property(BindingProvider.SOAPACTION_URI_PROPERTY)
@@ -732,7 +745,8 @@ public final class Packet
      * <p>
      * These properties will not be exposed to the response context.
      * Consequently, if a {@link Tube} wishes to hide a property
-     * to {@link ResponseContext}, it needs to add the property name
+     * to {@link com.sun.xml.ws.client.ResponseContext},
+     * it needs to add the property name
      * to this set.
      *
      * @param readOnly
@@ -743,13 +757,13 @@ public final class Packet
      * @return
      *      always non-null, possibly empty set that stores property names.
      */
-    public final Set<String> getHandlerScopePropertyNames(boolean readOnly) {
+    public Set<String> getHandlerScopePropertyNames(boolean readOnly) {
         Set<String> o = this.handlerScopePropertyNames;
         if (o == null) {
             if (readOnly) {
                 return Collections.emptySet();
             }
-            o = new HashSet<String>();
+            o = new HashSet<>();
             this.handlerScopePropertyNames = o;
         }
         return o;
@@ -762,9 +776,10 @@ public final class Packet
      *      Use {@link #getHandlerScopePropertyNames(boolean)}.
      *      To be removed once Tango components are updated.
      */
-    public final Set<String> getApplicationScopePropertyNames(boolean readOnly) {
+    @Deprecated
+    public Set<String> getApplicationScopePropertyNames(boolean readOnly) {
         assert false;
-        return new HashSet<String>();
+        return new HashSet<>();
     }
 
     /**
@@ -825,7 +840,7 @@ public final class Packet
      * packet ({@code this}). If WS-Addressing is enabled, a default Action
      * Message Addressing Property is obtained using <code>wsdlPort</code> {@link WSDLPort}
      * and <code>binding</code> {@link WSBinding}.
-     * <p><p>
+     * <p>
      * This method should be called to create application response messages
      * since they are associated with a {@link WSBinding} and {@link WSDLPort}.
      * For creating protocol messages that require a non-default Action, use
@@ -853,7 +868,6 @@ public final class Packet
     /**
      * A common method to make members related between input packet and this packet
      * 
-     * @param packet
      * @param isCopy 'true' means copying all properties from input packet;
      *               'false' means copying all properties from this packet to input packet. 
      */
@@ -936,7 +950,7 @@ public final class Packet
      * Creates a server-side response {@link Packet} from a request
      * packet ({@code this}). If WS-Addressing is enabled, <code>action</code>
      * is used as Action Message Addressing Property.
-     * <p><p>
+     * <p>
      * This method should be called only for creating protocol response messages
      * that require a particular value of Action since they are not associated
      * with a {@link WSBinding} and {@link WSDLPort} but do know the {@link AddressingVersion}
@@ -1104,7 +1118,7 @@ public final class Packet
 		        
 		        byte[] bytes = baos.toByteArray();
 		        //message = Messages.create(XMLStreamReaderFactory.create(null, new ByteArrayInputStream(bytes), "UTF-8", true));
-		        content = new String(bytes, "UTF-8");
+		        content = new String(bytes, StandardCharsets.UTF_8);
     		} else {
     		    content = "<none>";
         }
@@ -1129,16 +1143,16 @@ public final class Packet
     
     public Map<String, Object> asMapIncludingInvocationProperties() {
         final Map<String, Object> asMap = asMap();
-        return new AbstractMap<String, Object>() {
+        return new AbstractMap<>() {
             @Override
             public Object get(Object key) {
                 Object o = asMap.get(key);
                 if (o != null)
                     return o;
-                
+
                 return invocationProperties.get(key);
             }
-            
+
             @Override
             public int size() {
                 return asMap.size() + invocationProperties.size();
@@ -1150,19 +1164,19 @@ public final class Packet
                     return true;
                 return invocationProperties.containsKey(key);
             }
-            
+
             @Override
             public Set<Entry<String, Object>> entrySet() {
                 final Set<Entry<String, Object>> asMapEntries = asMap.entrySet();
                 final Set<Entry<String, Object>> ipEntries = invocationProperties.entrySet();
-                
-                return new AbstractSet<Entry<String, Object>>() {
+
+                return new AbstractSet<>() {
                     @Override
                     public Iterator<Entry<String, Object>> iterator() {
                         final Iterator<Entry<String, Object>> asMapIt = asMapEntries.iterator();
                         final Iterator<Entry<String, Object>> ipIt = ipEntries.iterator();
-                        
-                        return new Iterator<Entry<String, Object>>() {
+
+                        return new Iterator<>() {
                             @Override
                             public boolean hasNext() {
                                 return asMapIt.hasNext() || ipIt.hasNext();
@@ -1193,7 +1207,7 @@ public final class Packet
             public Object put(String key, Object value) {
                 if (supports(key))
                     return asMap.put(key, value);
-                
+
                 return invocationProperties.put(key, value);
             }
 
@@ -1207,7 +1221,7 @@ public final class Packet
             public Object remove(Object key) {
                 if (supports(key))
                     return asMap.remove(key);
-                
+
                 return invocationProperties.remove(key);
             }
         };
@@ -1215,12 +1229,7 @@ public final class Packet
     
     private static final Logger LOGGER = Logger.getLogger(Packet.class.getName());
 
-    @Override
-    public SOAPMessage getSOAPMessage() throws SOAPException {
-        return getAsSOAPMessage();
-    }
-    
-    //TODO replace the message to a SAAJMEssage issue - JRFSAAJMessage or SAAJMessage?
+    //TODO replace the message to a SAAJMessage issue - JRFSAAJMessage or SAAJMessage?
     @Override
     public SOAPMessage getAsSOAPMessage() throws SOAPException {
         Message msg = this.getMessage();
@@ -1304,7 +1313,7 @@ public final class Packet
             if (acceptableMimeTypes == null || isFastInfosetDisabled) {
                 checkMtomAcceptable = false;
             } else {
-                checkMtomAcceptable = (acceptableMimeTypes.indexOf(MtomCodec.XOP_XML_MIME_TYPE) != -1);
+                checkMtomAcceptable = (acceptableMimeTypes.contains(MtomCodec.XOP_XML_MIME_TYPE));
 //                StringTokenizer st = new StringTokenizer(acceptableMimeTypes, ",");
 //                while (st.hasMoreTokens()) {
 //                    final String token = st.nextToken().trim();
@@ -1325,7 +1334,7 @@ public final class Packet
             if (acceptableMimeTypes == null || isFastInfosetDisabled) {
                 fastInfosetAcceptable = false;
             } else {
-                fastInfosetAcceptable = (acceptableMimeTypes.indexOf(fiMimeType) != -1);
+                fastInfosetAcceptable = (acceptableMimeTypes.contains(fiMimeType));
             }
 //        if (accept == null || isFastInfosetDisabled) return false;
 //        
@@ -1447,9 +1456,7 @@ public final class Packet
                 if (getMtomRequest() != null && getMtomRequest() && getState().equals(State.ServerResponse)) {
                     return true;
                 }
-                if (getMtomRequest() != null && getMtomRequest() && getState().equals(State.ClientRequest)) {
-                    return true;
-                }
+                return getMtomRequest() != null && getMtomRequest() && getState().equals(State.ClientRequest);
             }
         }
         return false;
@@ -1463,36 +1470,8 @@ public final class Packet
 		return cType.getContentType().contains("application/xop+xml");
 	}
 
-	/**
-     * @deprecated
-     */
-    public void addSatellite(@NotNull com.sun.xml.ws.api.PropertySet satellite) {
-        super.addSatellite(satellite);
-    }
-    
     /**
-     * @deprecated
-     */
-    public void addSatellite(@NotNull Class keyClass, @NotNull com.sun.xml.ws.api.PropertySet satellite) {
-        super.addSatellite(keyClass, satellite);
-    }
-    
-    /**
-     * @deprecated
-     */
-    public void copySatelliteInto(@NotNull com.sun.xml.ws.api.DistributedPropertySet r) {
-        super.copySatelliteInto(r);
-    }
-    
-    /**
-     * @deprecated
-     */
-    public void removeSatellite(com.sun.xml.ws.api.PropertySet satellite) {
-        super.removeSatellite(satellite);
-    }
-
-    /**
-     * This is propogated from SOAPBindingCodec and will affect isMtomAcceptable and isFastInfosetAcceptable
+     * This is propagated from SOAPBindingCodec and will affect isMtomAcceptable and isFastInfosetAcceptable
      */
     private boolean isFastInfosetDisabled;
     

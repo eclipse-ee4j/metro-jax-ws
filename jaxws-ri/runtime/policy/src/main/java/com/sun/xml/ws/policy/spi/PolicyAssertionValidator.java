@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,11 +15,11 @@ import com.sun.xml.ws.policy.PolicyAssertion;
 /**
  *
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 public interface PolicyAssertionValidator {
     
-    public static enum Fitness {
+    enum Fitness {
         UNKNOWN,
         INVALID,
         UNSUPPORTED,
@@ -64,7 +64,7 @@ public interface PolicyAssertionValidator {
      * May contain nested policies and assertions.
      * @return fitness of the {@code assertion} on in the client-side context. Must not be {@code null}.
      */
-    public Fitness validateClientSide(PolicyAssertion assertion);
+    Fitness validateClientSide(PolicyAssertion assertion);
     
     /**
      * An implementation of this method must return:
@@ -94,7 +94,7 @@ public interface PolicyAssertionValidator {
      * May contain nested policies and assertions.
      * @return fitness of the {@code assertion} on in the server-side context. Must not be {@code null}.
      */
-    public Fitness validateServerSide(PolicyAssertion assertion);
+    Fitness validateServerSide(PolicyAssertion assertion);
     
     /**
      * Each service provider that implements this SPI must make sure to identify all possible domains it supports.
@@ -114,5 +114,5 @@ public interface PolicyAssertionValidator {
      * @return {@code String} array holding {@code String} representations of identifiers of all supported domains.
      * Usually a domain identifier is represented by a namespace.
      */
-    public String[] declareSupportedDomains();
+    String[] declareSupportedDomains();
 }

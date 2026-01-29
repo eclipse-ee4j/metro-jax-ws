@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,7 +54,7 @@ public class JAXBMapping {
         if(list==null)
             wrapperStyleDrilldown = null;
         else {
-            wrapperStyleDrilldown = new ArrayList<JAXBProperty>(list.size());
+            wrapperStyleDrilldown = new ArrayList<>(list.size());
             for( Property p : list )
                 wrapperStyleDrilldown.add(new JAXBProperty(p));
         }

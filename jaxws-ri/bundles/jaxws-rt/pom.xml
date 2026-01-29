@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2018, 2024 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,9 +16,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>com.sun.xml.ws</groupId>
-        <artifactId>project</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
+        <artifactId>bundles</artifactId>
+        <version>4.0.4-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -28,57 +28,77 @@
     <description>JAX-WS Runtime with module descriptor</description>
 
     <dependencies>
+
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.glassfish.ha</groupId>
             <artifactId>ha-api</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.glassfish.external</groupId>
             <artifactId>management-api</artifactId>
-            </dependency>
+        </dependency>
+
         <dependency>
             <groupId>org.glassfish.gmbal</groupId>
             <artifactId>gmbal-api-only</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.jvnet.staxex</groupId>
             <artifactId>stax-ex</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.sun.xml.stream.buffer</groupId>
             <artifactId>streambuffer</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.jvnet.mimepull</groupId>
             <artifactId>mimepull</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.sun.xml.fastinfoset</groupId>
             <artifactId>FastInfoset</artifactId>
         </dependency>
 
-        <!-- we need API for compile and impl for runtime
-             to make usage easy, let's just depend on the impl -->
         <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
         </dependency>
 
         <!-- Runtime dependencies -->
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-activation</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-mail</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.sun.xml.messaging.saaj</groupId>
             <artifactId>saaj-impl</artifactId>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <artifactId>woodstox-core</artifactId>
             <groupId>com.fasterxml.woodstox</groupId>
             <scope>runtime</scope>
         </dependency>
+
         <dependency>
             <groupId>org.codehaus.woodstox</groupId>
             <artifactId>stax2-api</artifactId>
@@ -88,14 +108,6 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- To be removed after end of support for JDK 8 -->
-        <dependency>
-            <groupId>com.sun.org.apache.xml.internal</groupId>
-            <artifactId>resolver</artifactId>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -140,9 +152,9 @@
     </dependencies>
 
     <properties>
-        <spotbugs.skip>true</spotbugs.skip>
         <dep.sources>${project.build.directory}/generated-sources/dependencies</dep.sources>
-        <dep.sources.mr>${project.build.directory}/generated-sources/dependencies-mr</dep.sources.mr>
+        <!-- too many to fix -->
+        <jdoc.doclint>-missing</jdoc.doclint>
     </properties>
 
     <build>
@@ -164,22 +176,6 @@
                             <excludeTransitive>true</excludeTransitive>
                             <excludes>module-info.*,META-INF/versions/**, META-INF/MANIFEST.MF</excludes>
                             <outputDirectory>${dep.sources}</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unpack-sources-mr</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeGroupIds>${project.groupId}</includeGroupIds>
-                            <includeArtifactIds>rt</includeArtifactIds>
-                            <includeScope>provided</includeScope>
-                            <classifier>sources</classifier>
-                            <excludeTransitive>true</excludeTransitive>
-                            <includes>META-INF/versions/9/**</includes>
-                            <outputDirectory>${dep.sources.mr}</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -225,48 +221,6 @@
                             </sources>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>add-mr-resource</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>add-resource</goal>
-                        </goals>
-                        <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>${dep.sources.mr}</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-compile</id>
-                        <configuration>
-                            <!-- adds reads for ha-api, xmlresolver -->
-                            <compilerArgs>
-                                <arg>--add-reads</arg>
-                                <arg>com.sun.xml.ws=ALL-UNNAMED</arg>
-                            </compilerArgs>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-compile-mr</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <compileSourceRoots>
-                                <compileSourceRoot>${dep.sources.mr}/META-INF/versions/9</compileSourceRoot>
-                            </compileSourceRoots>
-                            <outputDirectory>${project.build.outputDirectory}/META-INF/versions/9</outputDirectory>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -281,21 +235,151 @@
                         </goals>
                         <configuration>
                             <instructions>
-                                <Export-Package>
-                                    !META-INF.*,
-                                    *
-                                </Export-Package>
                                 <Import-Package>
-                                    javax.xml.catalog;resolution:=optional,
+                                    jakarta.annotation*;version=!,
                                     sun.misc;resolution:=optional,
-                                    jdk.internal.misc;resolution:=optional,
                                     com.sun.xml.ws.assembler.metro.jaxws;resolution:=optional,
                                     *
                                 </Import-Package>
-                                <Multi-Release>true</Multi-Release>
                                 <probe-provider-class-names>com.sun.xml.ws.transport.http.servlet.JAXWSRIDeploymentProbeProvider</probe-provider-class-names>
-                                <Class-Path>jakarta.annotation-api.jar jakarta.activation.jar jakarta.mail.jar jakarta.jws-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar FastInfoset.jar gmbal-api-only.jar ha-api.jar jaxb-core.jar jaxb-impl.jar management-api.jar mimepull.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar woodstox-core.jar</Class-Path>
+                                <Class-Path>jakarta.annotation-api.jar jakarta.activation-api.jar jakarta.mail-api.jar jakarta.xml.bind-api.jar jakarta.xml.ws-api.jar jakarta.xml.soap-api.jar angus-activation.jar angus-mail.jar FastInfoset.jar gmbal-api-only.jar ha-api.jar jaxb-core.jar jaxb-impl.jar management-api.jar mimepull.jar saaj-impl.jar stax-ex.jar stax2-api.jar streambuffer.jar woodstox-core.jar</Class-Path>
                                 <Extension-Name>com.sun.xml.ws</Extension-Name>
+                                <Require-Capability><![CDATA[
+                            osgi.extender;filter:="(&(osgi.extender=osgi.serviceloader.processor)
+                              (version>=1.0.0)(!(version>=2.0.0)))";resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=jakarta.xml.ws.spi.Provider)";
+                                osgi.serviceloader="jakarta.xml.ws.spi.Provider";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=jakarta.xml.soap.MessageFactory)";
+                                osgi.serviceloader="jakarta.xml.soap.MessageFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=jakarta.xml.soap.SAAJMetaFactory)";
+                                osgi.serviceloader="jakarta.xml.soap.SAAJMetaFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=jakarta.xml.soap.SOAPConnectionFactory)";
+                                osgi.serviceloader="jakarta.xml.soap.SOAPConnectionFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=jakarta.xml.soap.SOAPFactory)";
+                                osgi.serviceloader="jakarta.xml.soap.SOAPFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.policy.jaxws.spi.PolicyFeatureConfigurator)";
+                                osgi.serviceloader="com.sun.xml.ws.policy.jaxws.spi.PolicyFeatureConfigurator";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.policy.jaxws.spi.PolicyMapConfigurator)";
+                                osgi.serviceloader="com.sun.xml.ws.policy.jaxws.spi.PolicyMapConfigurator";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.policy.spi.LoggingProvider)";
+                                osgi.serviceloader="com.sun.xml.ws.policy.spi.LoggingProvider";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.policy.spi.PolicyAssertionValidator)";
+                                osgi.serviceloader="com.sun.xml.ws.policy.spi.PolicyAssertionValidator";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.policy.spi.PolicyAssertionCreator)";
+                                osgi.serviceloader="com.sun.xml.ws.policy.spi.PolicyAssertionCreator";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.policy.spi.PrefixMapper)";
+                                osgi.serviceloader="com.sun.xml.ws.policy.spi.PrefixMapper";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.wsdl.parser.MetadataResolverFactory)";
+                                osgi.serviceloader="com.sun.xml.ws.api.wsdl.parser.MetadataResolverFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.spi.db.DatabindingProvider)";
+                                osgi.serviceloader="com.sun.xml.ws.spi.db.DatabindingProvider";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.spi.db.BindingContextFactory)";
+                                osgi.serviceloader="com.sun.xml.ws.spi.db.BindingContextFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.oracle.webservices.impl.internalspi.encoding.StreamDecoder)";
+                                osgi.serviceloader="com.oracle.webservices.impl.internalspi.encoding.StreamDecoder";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.message.saaj.SAAJFactory)";
+                                osgi.serviceloader="com.sun.xml.ws.api.message.saaj.SAAJFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.oracle.webservices.api.message.MessageContextFactory)";
+                                osgi.serviceloader="com.oracle.webservices.api.message.MessageContextFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.BindingIDFactory)";
+                                osgi.serviceloader="com.sun.xml.ws.api.BindingIDFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.client.ServiceInterceptorFactory)";
+                                osgi.serviceloader="com.sun.xml.ws.api.client.ServiceInterceptorFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.policy.PolicyResolverFactory)";
+                                osgi.serviceloader="com.sun.xml.ws.api.policy.PolicyResolverFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.pipe.TransportTubeFactory)";
+                                osgi.serviceloader="com.sun.xml.ws.api.pipe.TransportTubeFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.pipe.TransportPipeFactory)";
+                                osgi.serviceloader="com.sun.xml.ws.api.pipe.TransportPipeFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.pipe.TubelineAssemblerFactory)";
+                                osgi.serviceloader="com.sun.xml.ws.api.pipe.TubelineAssemblerFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.pipe.PipelineAssemblerFactory)";
+                                osgi.serviceloader="com.sun.xml.ws.api.pipe.PipelineAssemblerFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.server.ProviderInvokerTubeFactory)";
+                                osgi.serviceloader="com.sun.xml.ws.api.server.ProviderInvokerTubeFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.config.management.ManagedEndpointFactory)";
+                                osgi.serviceloader="com.sun.xml.ws.api.config.management.ManagedEndpointFactory";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.assembler.dev.TubelineAssemblyDecorator)";
+                                osgi.serviceloader="com.sun.xml.ws.assembler.dev.TubelineAssemblyDecorator";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.wsdl.parser.WSDLParserExtension)";
+                                osgi.serviceloader="com.sun.xml.ws.api.wsdl.parser.WSDLParserExtension";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.wsdl.writer.WSDLGeneratorExtension)";
+                                osgi.serviceloader="com.sun.xml.ws.api.wsdl.writer.WSDLGeneratorExtension";
+                                cardinality:=multiple;resolution:=optional,
+                            osgi.serviceloader;
+                              filter:="(osgi.serviceloader=com.sun.xml.ws.api.client.ServiceInterceptorFactory)";
+                                osgi.serviceloader="com.sun.xml.ws.api.server.EndpointReferenceExtensionContributor";
+                                cardinality:=multiple;resolution:=optional
+                          ]]>
+                                </Require-Capability>
+                                <Provide-Capability><![CDATA[
+                            osgi.serviceloader;
+                              osgi.serviceloader="jakarta.xml.ws.spi.Provider",
+                            osgi.serviceloader;
+                              osgi.serviceloader="com.sun.xml.ws.policy.spi.LoggingProvider",
+                            osgi.serviceloader;
+                              osgi.serviceloader="com.sun.xml.ws.spi.db.DatabindingProvider",
+                            osgi.serviceloader;
+                              osgi.serviceloader="com.sun.xml.ws.spi.db.BindingContextFactory"
+                            ]]>
+                                </Provide-Capability>
                             </instructions>
                         </configuration>
                     </execution>
@@ -312,22 +396,15 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Multi-Release>true</Multi-Release>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <doclint>none</doclint>
                     <includeDependencySources>false</includeDependencySources>
-                    <additionalOptions>--add-reads com.sun.xml.ws=ALL-UNNAMED</additionalOptions>
+                    <tags>
+                        <tag>
+                            <name>exclude</name>
+                            <placement>X</placement>
+                        </tag>
+                    </tags>
                 </configuration>
             </plugin>
         </plugins>

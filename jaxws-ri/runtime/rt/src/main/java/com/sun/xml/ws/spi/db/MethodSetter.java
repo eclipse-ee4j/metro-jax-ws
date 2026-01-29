@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,6 @@
 
 package com.sun.xml.ws.spi.db;
 
-import static com.sun.xml.ws.spi.db.PropertyGetterBase.verifyWrapperType;
 import java.lang.reflect.Method;
 import jakarta.xml.ws.WebServiceException;
 
@@ -25,7 +24,7 @@ public class MethodSetter extends PropertySetterBase {
     private Method method;
     
     public MethodSetter(Method m) {
-        verifyWrapperType(m.getDeclaringClass());      
+        PropertyGetterBase.verifyWrapperType(m.getDeclaringClass());
         method = m;
         type = m.getParameterTypes()[0];
     }
@@ -34,11 +33,13 @@ public class MethodSetter extends PropertySetterBase {
         return method;
     }
 
+    @Override
     public <A> A getAnnotation(Class<A> annotationType) {
         Class c = annotationType;
         return (A) method.getAnnotation(c);
     }
     
+    @Override
     public void set(final Object instance, Object val) {
         final Object resource = (type.isPrimitive() && val == null)? uninitializedValue(type): val;
         final Object[] args = {resource};

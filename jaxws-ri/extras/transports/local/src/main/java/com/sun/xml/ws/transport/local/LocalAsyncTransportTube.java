@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -66,7 +66,7 @@ final class LocalAsyncTransportTube extends AbstractTubeImpl {
     // per-pipe reusable resources.
     // we don't really have to reuse anything since this isn't designed for performance,
     // but nevertheless we do it as an experiement.
-    private final Map<String, List<String>> reqHeaders = new HashMap<String, List<String>>();
+    private final Map<String, List<String>> reqHeaders = new HashMap<>();
 
     public LocalAsyncTransportTube(URI baseURI, WSEndpoint endpoint, Codec codec) {
         this(baseURI,HttpAdapter.createAlone(endpoint),codec);
@@ -192,6 +192,7 @@ final class LocalAsyncTransportTube extends AbstractTubeImpl {
 
         // get transport headers from message
         reqHeaders.clear();
+        @SuppressWarnings({"unchecked"})
         Map<String, List<String>> rh = (Map<String, List<String>>) request.invocationProperties.get(MessageContext.HTTP_REQUEST_HEADERS);
         //assign empty map if its null
         if(rh != null){

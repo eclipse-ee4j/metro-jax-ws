@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,19 +34,19 @@ import java.util.Map;
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
- * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;group ref="{http://xmlns.oracle.com/webservices/jaxws-databinding}param-annotation" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *       &lt;attribute name="java-type" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;anyAttribute processContents='skip' namespace='##other'/>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ * <pre>{@code
+ * <complexType>
+ *   <complexContent>
+ *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       <sequence>
+ *         <group ref="{http://xmlns.oracle.com/webservices/jaxws-databinding}param-annotation" maxOccurs="unbounded" minOccurs="0"/>
+ *       </sequence>
+ *       <attribute name="java-type" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       <anyAttribute processContents='skip' namespace='##other'/>
+ *     </restriction>
+ *   </complexContent>
+ * </complexType>
+ * }</pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -61,7 +61,7 @@ public class JavaParam {
     @XmlAttribute(name = "java-type")
     protected String javaType;
     @XmlAnyAttribute
-    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+    private Map<QName, String> otherAttributes = new HashMap<>();
 
     /**
      * Gets the value of the paramAnnotation property.
@@ -88,7 +88,7 @@ public class JavaParam {
      */
     public List<Object> getParamAnnotation() {
         if (paramAnnotation == null) {
-            paramAnnotation = new ArrayList<Object>();
+            paramAnnotation = new ArrayList<>();
         }
         return this.paramAnnotation;
     }

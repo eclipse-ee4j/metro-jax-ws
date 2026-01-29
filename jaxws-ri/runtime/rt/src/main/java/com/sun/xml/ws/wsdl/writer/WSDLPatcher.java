@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,7 +41,7 @@ public final class WSDLPatcher extends XMLStreamReaderToXMLStreamWriter {
     private static final Logger logger = Logger.getLogger(
             com.sun.xml.ws.util.Constants.LoggingDomain + ".wsdl.patcher");
 
-    private final boolean useExternalSchemaLocationURL = getBooleanSystemProperty("com.sun.xml.ws.wsdl.externalSchemaLocationURL").booleanValue();
+    private final boolean useExternalSchemaLocationURL = getBooleanSystemProperty("com.sun.xml.ws.wsdl.externalSchemaLocationURL");
 
     private final DocumentLocationResolver docResolver;
     private final PortAddressResolver portAddressResolver;
@@ -230,11 +230,12 @@ public final class WSDLPatcher extends XMLStreamReaderToXMLStreamWriter {
 
     private static Boolean getBooleanSystemProperty(final String prop) {
         return AccessController.doPrivileged(
-            new PrivilegedAction<Boolean>() {
-                public Boolean run() {
-                    return Boolean.getBoolean(prop);
+                new PrivilegedAction<>() {
+                    @Override
+                    public Boolean run() {
+                        return Boolean.getBoolean(prop);
+                    }
                 }
-            }
         );
     }
 

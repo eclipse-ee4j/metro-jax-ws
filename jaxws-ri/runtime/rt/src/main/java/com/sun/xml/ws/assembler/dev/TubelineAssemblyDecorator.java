@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,6 +21,12 @@ import com.sun.xml.ws.api.pipe.Tube;
  * @since 2.2.7
  */
 public class TubelineAssemblyDecorator {
+
+    /**
+     * Default constructor.
+     */
+    public TubelineAssemblyDecorator() {}
+
     /**
      * Composite decorator
      * @param decorators decorators
@@ -97,7 +103,7 @@ public class TubelineAssemblyDecorator {
     }
     
     private static class CompositeTubelineAssemblyDecorator extends TubelineAssemblyDecorator {
-        private Collection<TubelineAssemblyDecorator> decorators = new ArrayList<TubelineAssemblyDecorator>();
+        private Collection<TubelineAssemblyDecorator> decorators = new ArrayList<>();
         
         public CompositeTubelineAssemblyDecorator(Iterable<TubelineAssemblyDecorator> decorators) {
             for (TubelineAssemblyDecorator decorator : decorators) {
@@ -132,6 +138,7 @@ public class TubelineAssemblyDecorator {
             return tube;
         }
         
+        @Override
         public Tube decorateServer(Tube tube, ServerTubelineAssemblyContext context) {
             for (TubelineAssemblyDecorator decorator : decorators) {
                 tube = decorator.decorateServer(tube, context);

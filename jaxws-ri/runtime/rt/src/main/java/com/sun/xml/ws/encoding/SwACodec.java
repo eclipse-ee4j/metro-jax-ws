@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.nio.channels.WritableByteChannel;
 import java.util.Map;
 
-import jakarta.xml.ws.WebServiceFeature;
 
 /**
  * {@link Codec} that uses MIME/multipart as the base format.
@@ -57,11 +56,13 @@ public final class SwACodec extends MimeCodec {
         }
     }
 
+    @Override
     public ContentType encode(Packet packet, WritableByteChannel buffer) {
         //TODO: not yet implemented
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public SwACodec copy() {
         return new SwACodec(this);
     }

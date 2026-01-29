@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,8 @@ import javax.xml.namespace.QName;
  * Constants for W3C Addressing Metadata specification
  * @author Rama Pulavarthi
  */
-public class W3CAddressingMetadataConstants {
+public final class W3CAddressingMetadataConstants {
+    private W3CAddressingMetadataConstants() {}
     public static final String WSAM_NAMESPACE_NAME = "http://www.w3.org/2007/05/addressing/metadata";
     public static final String WSAM_PREFIX_NAME = "wsam";
     public static final QName  WSAM_ACTION_QNAME = new QName(WSAM_NAMESPACE_NAME,"Action",WSAM_PREFIX_NAME);

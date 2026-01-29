@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,6 @@
 package com.sun.xml.ws.streaming;
 
 import javax.xml.namespace.QName;
-import static javax.xml.stream.XMLStreamConstants.*;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamConstants;
@@ -49,13 +48,13 @@ public class XMLStreamReaderUtil {
         try {
             int readerEvent = reader.next();
 
-            while (readerEvent != END_DOCUMENT) {
+            while (readerEvent != XMLStreamConstants.END_DOCUMENT) {
                 switch (readerEvent) {
-                    case START_ELEMENT:
-                    case END_ELEMENT:
-                    case CDATA:
-                    case CHARACTERS:
-                    case PROCESSING_INSTRUCTION:
+                    case XMLStreamConstants.START_ELEMENT:
+                    case XMLStreamConstants.END_ELEMENT:
+                    case XMLStreamConstants.CDATA:
+                    case XMLStreamConstants.CHARACTERS:
+                    case XMLStreamConstants.PROCESSING_INSTRUCTION:
                         return readerEvent;
                     default:
                         // falls through ignoring event
@@ -72,7 +71,7 @@ public class XMLStreamReaderUtil {
 
     public static int nextElementContent(XMLStreamReader reader) {
         int state = nextContent(reader);
-        if (state == CHARACTERS) {
+        if (state == XMLStreamConstants.CHARACTERS) {
             throw new XMLStreamReaderException(
                 "xmlreader.unexpectedCharacterContent", reader.getText());
         }
@@ -93,8 +92,6 @@ public class XMLStreamReaderUtil {
     /**
      * Moves next and read spaces from the reader as long as to the next element.
      * Comments are ignored
-     * @param reader
-     * @return
      */
     public static String nextWhiteSpaceContent(XMLStreamReader reader) {
         next(reader);
@@ -104,8 +101,6 @@ public class XMLStreamReaderUtil {
     /**
      * Read spaces from the reader as long as to the next element, starting from
      * current position. Comments are ignored.
-     * @param reader
-     * @return
      */
     public static String currentWhiteSpaceContent(XMLStreamReader reader) {
 
@@ -115,11 +110,11 @@ public class XMLStreamReaderUtil {
 
         for (;;) {
             switch (reader.getEventType()) {
-                case START_ELEMENT:
-                case END_ELEMENT:
-                case END_DOCUMENT:
+                case XMLStreamConstants.START_ELEMENT:
+                case XMLStreamConstants.END_ELEMENT:
+                case XMLStreamConstants.END_DOCUMENT:
                     return whiteSpaces == null ? null : whiteSpaces.toString();
-                case CHARACTERS:
+                case XMLStreamConstants.CHARACTERS:
                     if (reader.isWhiteSpace()) {
                         if (whiteSpaces == null) {
                             whiteSpaces = new StringBuilder();
@@ -138,13 +133,13 @@ public class XMLStreamReaderUtil {
         for (;;) {
             int state = next(reader);
             switch (state) {
-                case START_ELEMENT:
-                case END_ELEMENT:
-                case END_DOCUMENT:
+                case XMLStreamConstants.START_ELEMENT:
+                case XMLStreamConstants.END_ELEMENT:
+                case XMLStreamConstants.END_DOCUMENT:
                     return state;
-                case CHARACTERS:
+                case XMLStreamConstants.CHARACTERS:
                     if (!reader.isWhiteSpace()) {
-                        return CHARACTERS;
+                        return XMLStreamConstants.CHARACTERS;
                     }
             }
         }
@@ -155,9 +150,9 @@ public class XMLStreamReaderUtil {
      * current element.
      */
     public static void skipElement(XMLStreamReader reader) {
-        assert reader.getEventType() == START_ELEMENT;
+        assert reader.getEventType() == XMLStreamConstants.START_ELEMENT;
         skipTags(reader, true);
-        assert reader.getEventType() == END_ELEMENT;
+        assert reader.getEventType() == XMLStreamConstants.END_ELEMENT;
     }
 
     /**
@@ -166,17 +161,17 @@ public class XMLStreamReaderUtil {
      */
     public static void skipSiblings(XMLStreamReader reader, QName parent) {
         skipTags(reader, reader.getName().equals(parent));
-        assert reader.getEventType() == END_ELEMENT;
+        assert reader.getEventType() == XMLStreamConstants.END_ELEMENT;
     }
 
     private static void skipTags(XMLStreamReader reader, boolean exitCondition) {
         try {
             int state, tags = 0;
-            while ((state = reader.next()) != END_DOCUMENT) {
-                if (state == START_ELEMENT) {
+            while ((state = reader.next()) != XMLStreamConstants.END_DOCUMENT) {
+                if (state == XMLStreamConstants.START_ELEMENT) {
                     tags++;
                 }
-                else if (state == END_ELEMENT) {
+                else if (state == XMLStreamConstants.END_ELEMENT) {
                     if (tags == 0 && exitCondition) return;
                     tags--;
                 }
@@ -212,7 +207,7 @@ public class XMLStreamReaderUtil {
                 namespaceURI = "";
             }
             String localPart = text.substring(
-                    text.indexOf(':') + 1, text.length());
+                    text.indexOf(':') + 1);
             return new QName(namespaceURI, localPart);
         } catch (XMLStreamException e) {
             throw wrapException(e);
@@ -224,8 +219,8 @@ public class XMLStreamReaderUtil {
      * be called multiple times to get the same list of attributes. 
      */
     public static Attributes getAttributes(XMLStreamReader reader) {
-        return (reader.getEventType() == START_ELEMENT ||
-                reader.getEventType() == ATTRIBUTE) ?
+        return (reader.getEventType() == XMLStreamConstants.START_ELEMENT ||
+                reader.getEventType() == XMLStreamConstants.ATTRIBUTE) ?
                 new AttributesImpl(reader) : null;
     }
 
@@ -257,35 +252,35 @@ public class XMLStreamReaderUtil {
 
     public static String getStateName(int state) {
         switch (state) {
-            case ATTRIBUTE:
+            case XMLStreamConstants.ATTRIBUTE:
                 return "ATTRIBUTE";
-            case CDATA:
+            case XMLStreamConstants.CDATA:
                 return "CDATA";
-            case CHARACTERS:
+            case XMLStreamConstants.CHARACTERS:
                 return "CHARACTERS";
-            case COMMENT:
+            case XMLStreamConstants.COMMENT:
                 return "COMMENT";
-            case DTD:
+            case XMLStreamConstants.DTD:
                 return "DTD";
-            case END_DOCUMENT:
+            case XMLStreamConstants.END_DOCUMENT:
                 return "END_DOCUMENT";
-            case END_ELEMENT:
+            case XMLStreamConstants.END_ELEMENT:
                 return "END_ELEMENT";
-            case ENTITY_DECLARATION:
+            case XMLStreamConstants.ENTITY_DECLARATION:
                 return "ENTITY_DECLARATION";
-            case ENTITY_REFERENCE:
+            case XMLStreamConstants.ENTITY_REFERENCE:
                 return "ENTITY_REFERENCE";
-            case NAMESPACE:
+            case XMLStreamConstants.NAMESPACE:
                 return "NAMESPACE";
-            case NOTATION_DECLARATION:
+            case XMLStreamConstants.NOTATION_DECLARATION:
                 return "NOTATION_DECLARATION";
-            case PROCESSING_INSTRUCTION:
+            case XMLStreamConstants.PROCESSING_INSTRUCTION:
                 return "PROCESSING_INSTRUCTION";
-            case SPACE:
+            case XMLStreamConstants.SPACE:
                 return "SPACE";
-            case START_DOCUMENT:
+            case XMLStreamConstants.START_DOCUMENT:
                 return "START_DOCUMENT";
-            case START_ELEMENT:
+            case XMLStreamConstants.START_ELEMENT:
                 return "START_ELEMENT";
             default :
                 return "UNKNOWN";
@@ -389,10 +384,12 @@ public class XMLStreamReaderUtil {
             }
         }
 
+        @Override
         public int getLength() {
             return atInfos.length;
         }
 
+        @Override
         public String getLocalName(int index) {
             if (index >= 0 && index < atInfos.length) {
                 return atInfos[index].getLocalName();
@@ -400,6 +397,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public QName getName(int index) {
             if (index >= 0 && index < atInfos.length) {
                 return atInfos[index].getName();
@@ -407,6 +405,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public String getPrefix(int index) {
             if (index >= 0 && index < atInfos.length) {
                 return atInfos[index].getName().getPrefix();
@@ -414,6 +413,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public String getURI(int index) {
             if (index >= 0 && index < atInfos.length) {
                 return atInfos[index].getName().getNamespaceURI();
@@ -421,6 +421,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public String getValue(int index) {
             if (index >= 0 && index < atInfos.length) {
                 return atInfos[index].getValue();
@@ -428,6 +429,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public String getValue(QName name) {
             int index = getIndex(name);
             if (index != -1) {
@@ -436,6 +438,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public String getValue(String localName) {
             int index = getIndex(localName);
             if (index != -1) {
@@ -444,6 +447,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public String getValue(String uri, String localName) {
             int index = getIndex(uri, localName);
             if (index != -1) {
@@ -452,6 +456,7 @@ public class XMLStreamReaderUtil {
             return null;
         }
 
+        @Override
         public boolean isNamespaceDeclaration(int index) {
             if (index >= 0 && index < atInfos.length) {
                 return atInfos[index].isNamespaceDeclaration();
@@ -459,6 +464,7 @@ public class XMLStreamReaderUtil {
             return false;
         }
 
+        @Override
         public int getIndex(QName name) {
             for (int i=0; i<atInfos.length; i++) {
                 if (atInfos[i].getName().equals(name)) {
@@ -468,6 +474,7 @@ public class XMLStreamReaderUtil {
             return -1;
         }
 
+        @Override
         public int getIndex(String localName) {
             for (int i=0; i<atInfos.length; i++) {
                 if (atInfos[i].getName().getLocalPart().equals(localName)) {
@@ -477,6 +484,7 @@ public class XMLStreamReaderUtil {
             return -1;
         }
 
+        @Override
         public int getIndex(String uri, String localName) {
             QName qName;
             for (int i=0; i<atInfos.length; i++) {

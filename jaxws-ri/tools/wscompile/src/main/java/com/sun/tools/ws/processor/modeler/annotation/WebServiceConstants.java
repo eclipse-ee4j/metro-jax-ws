@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,9 +27,9 @@ public enum WebServiceConstants {
 
     RESPONSE("Response");
 
-    private String value;
+    private final String value;
 
-    private WebServiceConstants(String value) {
+    WebServiceConstants(String value) {
         this.value = value;
     }
 

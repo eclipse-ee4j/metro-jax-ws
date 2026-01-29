@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,14 +18,14 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-ri-tests</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>4.0.4-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>jaxws-unit</artifactId>
     <packaging>pom</packaging>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>4.0.4-SNAPSHOT</version>
 
     <name>JAX-WS RI Unit Tests</name>
     <description>JAX-WS RI Unit Tests</description>
@@ -109,8 +109,8 @@
                                     <message>Property saaj-api.version not imported or set!</message>
                                 </requireProperty>
                                 <requireProperty>
-                                    <property>jaxws-api.version</property>
-                                    <message>Property jaxws-api.version not imported or set!</message>
+                                    <property>xml.ws-api.version</property>
+                                    <message>Property xml.ws-api.version not imported or set!</message>
                                 </requireProperty>
                                 <requireProperty>
                                     <property>jakarta.annotation-api.version</property>
@@ -181,56 +181,10 @@
         </profile>
 
         <profile>
-            <id>jaxwsInJDK6</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <ws.all-args>-jaxwsInJDK -version 2.1.6 -lwhs ${ws.args}</ws.all-args>
-                <maven.endorsed.skip>true</maven.endorsed.skip>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>jaxwsInJDK7</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <ws.all-args>-jaxwsInJDK -version 2.2.4 -lwhs ${ws.args}</ws.all-args>
-                <maven.endorsed.skip>true</maven.endorsed.skip>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>jaxwsInJDK8</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <ws.all-args>-jaxwsInJDK -version 2.2.8 -lwhs ${ws.args}</ws.all-args>
-                <maven.endorsed.skip>true</maven.endorsed.skip>
-                <ws.permGenJvmOpts></ws.permGenJvmOpts>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>jaxwsInJDK9</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <ws.all-args>-jaxwsInJDK -version 2.3.0 -lwhs ${ws.args}</ws.all-args>
-                <maven.endorsed.skip>true</maven.endorsed.skip>
-                <ws.permGenJvmOpts></ws.permGenJvmOpts>
-            </properties>
-        </profile>
-
-        <profile>
             <id>dev</id>
             <activation>
                 <property>
-                    <name>!dev</name>
+                    <name>!ws.localImage</name>
                 </property>
             </activation>
 
@@ -411,12 +365,6 @@
                 </dependency>
                 -->
 
-                <!-- To be removed after end of support for JDK 8 -->
-<!--                <dependency>
-                    <groupId>com.sun.org.apache.xml.internal</groupId>
-                    <artifactId>resolver</artifactId>
-                </dependency>-->
-
                 <!-- Plugin dependencies -->
                 <dependency>
                     <groupId>com.sun.mail</groupId>
@@ -484,49 +432,15 @@
                     <name>jacoco-build</name>
                 </property>
             </activation>
-            <properties>
-                <ws.jvmOpts>-Djacoco-agent.destfile=${basedir}/target/jacoco.exec</ws.jvmOpts>
-            </properties>
             <build>
                 <plugins>
-                    <!--plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy-exec-file</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <copy todir="target/jacoco" file="${basedir}/target/jacoco.exec"
-                                              verbose="true" failonerror="true"/>
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin-->
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>default-prepare-agent</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>default-report</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                        </executions>
+                        <configuration>
+                            <propertyName>ws.jvmOpts</propertyName>
+                            <classDumpDir>${project.build.outputDirectory}</classDumpDir>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -113,7 +113,8 @@ public class JAXBBond<T> implements XMLBridge<T> {
                         marshaller.marshal(jte, output, mappingInfo);
                     }
                 } else {
-                    JAXBElement<T> elt = new JAXBElement<T>(
+                    @SuppressWarnings({"unchecked"})
+                    JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) typeInfo.type, object);
                     if (isEx) {
@@ -159,7 +160,8 @@ public class JAXBBond<T> implements XMLBridge<T> {
                     marshaller.marshal(jte, new StreamResult(output),
                             mappingInfo);
                 } else {
-                    JAXBElement<T> elt = new JAXBElement<T>(
+                    @SuppressWarnings({"unchecked"})
+                    JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) mappingInfo.getType(), object);
                     // marshaller.marshal(elt, output);
@@ -193,7 +195,8 @@ public class JAXBBond<T> implements XMLBridge<T> {
                             (ParameterizedType) mappingInfo.getType());
                     marshaller.marshal(jte, new DOMResult(output), mappingInfo);
                 } else {
-                    JAXBElement<T> elt = new JAXBElement<T>(
+                    @SuppressWarnings({"unchecked"})
+                    JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) mappingInfo.getType(), object);
                     // marshaller.marshal(elt, output);
@@ -227,7 +230,8 @@ public class JAXBBond<T> implements XMLBridge<T> {
                     marshaller.marshal(jte, new SAXResult(contentHandler),
                             mappingInfo);
                 } else {
-                    JAXBElement<T> elt = new JAXBElement<T>(
+                    @SuppressWarnings({"unchecked"})
+                    JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) mappingInfo.getType(), object);
                     // marshaller.marshal(elt, contentHandler);
@@ -264,7 +268,8 @@ public class JAXBBond<T> implements XMLBridge<T> {
                             (ParameterizedType) mappingInfo.getType());
                     marshaller.marshal(jte, result, mappingInfo);
                 } else {
-                    JAXBElement<T> elt = new JAXBElement<T>(
+                    @SuppressWarnings({"unchecked"})
+                    JAXBElement<T> elt = new JAXBElement<>(
                             mappingInfo.getXmlTagName(),
                             (Class<T>) mappingInfo.getType(), object);
                     // marshaller.marshal(elt, result);
@@ -302,6 +307,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
 
     // This is used in RPC
     @Override
+    @SuppressWarnings({"unchecked"})
     public T unmarshal(XMLStreamReader in, AttachmentUnmarshaller au)
             throws JAXBException {
         JAXBUnmarshaller unmarshaller = null;
@@ -350,6 +356,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public T unmarshal(Source in, AttachmentUnmarshaller au)
             throws JAXBException {
         JAXBUnmarshaller unmarshaller = null;
@@ -376,6 +383,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public T unmarshal(InputStream in) throws JAXBException {
         JAXBUnmarshaller unmarshaller = null;
         try {
@@ -399,6 +407,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public T unmarshal(Node in, AttachmentUnmarshaller au) throws JAXBException {
         JAXBUnmarshaller unmarshaller = null;
         try {
@@ -430,7 +439,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
         return false;
     }
 
-    public static class CustomXMLStreamReaderReader extends XMLStreamReaderReader {
+    private static class CustomXMLStreamReaderReader extends XMLStreamReaderReader {
 
         @Override
         protected void parseCharactersEvent(XMLStreamReader xmlStreamReader)
@@ -466,7 +475,7 @@ public class JAXBBond<T> implements XMLBridge<T> {
         }
     }
 
-    public static class NewStreamWriterRecord extends XMLStreamWriterRecord {
+    private static class NewStreamWriterRecord extends XMLStreamWriterRecord {
 
         private transient XMLStreamWriterEx xsw;
 

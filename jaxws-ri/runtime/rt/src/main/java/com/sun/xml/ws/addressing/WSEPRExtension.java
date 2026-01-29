@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2009, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,10 +32,12 @@ public class WSEPRExtension extends WSEndpointReference.EPRExtension {
     }
 
 
+    @Override
     public XMLStreamReader readAsXMLStreamReader() throws XMLStreamException {
         return xsb.readAsXMLStreamReader();
     }
 
+    @Override
     public QName getQName() {
         return qname;
     }

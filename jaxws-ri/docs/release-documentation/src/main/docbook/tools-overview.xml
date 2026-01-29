@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -118,34 +118,10 @@
         </orderedlist>
     </section>
 
-    <section xml:id="running-on-jdk8">
-        <title>Running tools on Java SE 8</title>
-
-        <itemizedlist>
-            <listitem>
-                <para>Copy
-                <filename>&jax-ws.home;/lib/jakarta.annotation-api.jar</filename>
-                <filename>&jax-ws.home;/lib/jakarta.jws-api.jar</filename>
-                <filename>&jax-ws.home;/lib/jakarta.xml.ws-api.jar</filename>
-                <filename>&jax-ws.home;/lib/jakarta.xml.bind-api.jar</filename> to
-                <filename>$JDK8_HOME/jre/lib/endorsed</filename>
-                directory</para>
-            </listitem>
-        </itemizedlist>
-
-        <para>For details see <link
-        xlink:href="https://docs.oracle.com/javase/8/docs/technotes/guides/standards/">Endorsed
-        Directory Mechanism</link>. Above,
-        <filename>&jax-ws.home;</filename> points to the root directory of
-        the extracted &ws.impl.name; bundle.
-        <filename>JDK8_HOME</filename> points to JDK 8 installation
-        directory.</para>
-    </section>
-
     <section xml:id="jaxws-maven">
         <title>Maven plugins</title>
         <para>You can use all jaxws tools within your maven build. Information about maven plugin and its usage is located at
-            <link xlink:href="https://github.com/eclipse-ee4j/metro-jaxws-commons/tree/master/jaxws-maven-plugin">the plugin homepage.</link>
+            <link xlink:href="https://eclipse-ee4j.github.io/metro-jax-ws/jaxws-maven-plugin/">the plugin homepage.</link>
         </para>
     </section>
 </section>

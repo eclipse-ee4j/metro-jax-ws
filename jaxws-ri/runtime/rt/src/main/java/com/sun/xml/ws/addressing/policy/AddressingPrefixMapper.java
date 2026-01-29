@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,14 +25,20 @@ import java.util.Map;
  */
 public class AddressingPrefixMapper implements PrefixMapper {
 
-    private static final Map<String, String> prefixMap = new HashMap<String, String>();
+    private static final Map<String, String> prefixMap = new HashMap<>();
 
     static {
         prefixMap.put(AddressingVersion.MEMBER.policyNsUri, "wsap");
         prefixMap.put(AddressingVersion.MEMBER.nsUri, "wsa");
         prefixMap.put(W3CAddressingMetadataConstants.WSAM_NAMESPACE_NAME,W3CAddressingMetadataConstants.WSAM_PREFIX_NAME);
     }
-        
+
+    /**
+     * Default constructor.
+     */
+    public AddressingPrefixMapper() {}
+
+    @Override
     public Map<String, String> getPrefixMap() {
         return prefixMap;
     }

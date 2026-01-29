@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,6 @@ import com.sun.xml.ws.api.message.Messages;
 import com.sun.xml.ws.api.message.Packet;
 import com.sun.xml.ws.model.AbstractSEIModelImpl;
 import com.sun.xml.ws.model.JavaMethodImpl;
-import static com.sun.xml.ws.wsdl.PayloadQNameBasedOperationFinder.*;
 import com.sun.xml.ws.resources.AddressingMessages;
 
 import javax.xml.namespace.QName;
@@ -58,8 +57,8 @@ final class ActionBasedOperationFinder extends WSDLOperationFinder {
 
         assert binding.getAddressingVersion() != null;    // this dispatcher can be only used when addressing is on.
         av = binding.getAddressingVersion();
-        uniqueOpSignatureMap = new HashMap<ActionBasedOperationSignature, WSDLOperationMapping>();
-        actionMap = new HashMap<String,WSDLOperationMapping>();
+        uniqueOpSignatureMap = new HashMap<>();
+        actionMap = new HashMap<>();
 
         if (seiModel != null) {
             for (JavaMethodImpl m : ((AbstractSEIModelImpl) seiModel).getJavaMethods()) {
@@ -69,7 +68,7 @@ final class ActionBasedOperationFinder extends WSDLOperationFinder {
                 String action = m.getInputAction();
                 QName payloadName = m.getRequestPayloadName();
                 if (payloadName == null)
-                    payloadName = EMPTY_PAYLOAD;
+                    payloadName = PayloadQNameBasedOperationFinder.EMPTY_PAYLOAD;
                 //first look at annotations and then in wsdlmodel
                 if (action == null || action.equals("")) {
                     if (m.getOperation() != null) action = m.getOperation().getOperation().getInput().getAction();
@@ -89,7 +88,7 @@ final class ActionBasedOperationFinder extends WSDLOperationFinder {
             for (WSDLBoundOperation wsdlOp : wsdlModel.getBinding().getBindingOperations()) {
                 QName payloadName = wsdlOp.getRequestPayloadName();
                 if (payloadName == null)
-                    payloadName = EMPTY_PAYLOAD;
+                    payloadName = PayloadQNameBasedOperationFinder.EMPTY_PAYLOAD;
                 String action = wsdlOp.getOperation().getInput().getAction();
                 ActionBasedOperationSignature opSignature = new ActionBasedOperationSignature(
                         action, payloadName);
@@ -104,19 +103,7 @@ final class ActionBasedOperationFinder extends WSDLOperationFinder {
         }
     }
 
-//    /**
-//     *
-//     * @param request  Request Packet that is used to find the associated WSDLOperation
-//     * @return WSDL operation Qname.
-//     *         return null if WS-Addressing is not engaged. 
-//     * @throws DispatchException with WSA defined fault message when it cannot find an associated WSDL operation.
-//     *
-//     */
-//    @Override
-//    public QName getWSDLOperationQName(Packet request) throws DispatchException {
-//        return getWSDLOperationMapping(request).getWSDLBoundOperation().getName();
-//    }
-
+    @Override
     public WSDLOperationMapping getWSDLOperationMapping(Packet request) throws DispatchException {
         MessageHeaders hl = request.getMessage().getHeaders();
         String action = AddressingUtils.getAction(hl, av, binding.getSOAPVersion());
@@ -129,11 +116,11 @@ final class ActionBasedOperationFinder extends WSDLOperationFinder {
         QName payloadName;
         String localPart = message.getPayloadLocalPart();
         if (localPart == null) {
-            payloadName = EMPTY_PAYLOAD;
+            payloadName = PayloadQNameBasedOperationFinder.EMPTY_PAYLOAD;
         } else {
             String nsUri = message.getPayloadNamespaceURI();
             if (nsUri == null)
-                nsUri = EMPTY_PAYLOAD_NSURI;
+                nsUri = PayloadQNameBasedOperationFinder.EMPTY_PAYLOAD_NSURI;
             payloadName = new QName(nsUri, localPart);
         }
 

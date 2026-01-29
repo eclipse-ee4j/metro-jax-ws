@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,11 +41,11 @@ import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 public interface BindingContext {
 	
 	//following are found in JAXBContext used by jaxws
-	abstract public Marshaller createMarshaller() throws JAXBException;
-	abstract public Unmarshaller createUnmarshaller() throws JAXBException;
-	abstract public JAXBContext getJAXBContext();
-    abstract public Object newWrapperInstace(Class<?> wrapperType)
-            throws InstantiationException, IllegalAccessException;
+    Marshaller createMarshaller() throws JAXBException;
+	Unmarshaller createUnmarshaller() throws JAXBException;
+	JAXBContext getJAXBContext();
+    Object newWrapperInstace(Class<?> wrapperType)
+            throws ReflectiveOperationException;
 	
 	
 	
@@ -57,7 +57,7 @@ public interface BindingContext {
      *
      * @since 2.1
      */
-    public abstract boolean hasSwaRef();
+    boolean hasSwaRef();
 
     /**
      * If the given object is bound to an element in XML by JAXB,
@@ -70,16 +70,13 @@ public interface BindingContext {
      *
      * @since 2.0 EA1
      */
-    public abstract @Nullable QName getElementName(@NotNull Object o) throws JAXBException;
+    @Nullable QName getElementName(@NotNull Object o) throws JAXBException;
 
     /**
      * Allows to retrieve the element name based on Class.
-     * @param o
-     * @return
-     * @throws jakarta.xml.bind.JAXBException
      * @since 2.1.10
      */
-    public abstract @Nullable QName getElementName(@NotNull Class o) throws JAXBException;
+    @Nullable QName getElementName(@NotNull Class o) throws JAXBException;
 
     /**
      * Creates a mini-marshaller/unmarshaller that can process a {@link TypeInfo}.
@@ -89,13 +86,13 @@ public interface BindingContext {
      *
      * @since 2.0 EA1
      */
-    public abstract XMLBridge createBridge(@NotNull TypeInfo ref);
-    public abstract XMLBridge createFragmentBridge();
+    XMLBridge createBridge(@NotNull TypeInfo ref);
+    XMLBridge createFragmentBridge();
 
-    /**
-     * Creates a new {@link BridgeContext} instance.
-     *
-     * @return
+    /*
+      Creates a new {@link BridgeContext} instance.
+
+      @return
      *      always a valid non-null instance.
      *
      * @since 2.0 EA1
@@ -130,7 +127,7 @@ public interface BindingContext {
      *
      * @since 2.0 EA1
      */
-    public abstract <B,V> PropertyAccessor<B,V> getElementPropertyAccessor( Class<B> wrapperBean, String nsUri, String localName )
+    <B,V> PropertyAccessor<B,V> getElementPropertyAccessor(Class<B> wrapperBean, String nsUri, String localName)
             throws JAXBException;
 
     /**
@@ -148,7 +145,7 @@ public interface BindingContext {
      *
      * @since 2.0 EA2
      */
-    public abstract @NotNull List<String> getKnownNamespaceURIs();
+    @NotNull List<String> getKnownNamespaceURIs();
 
 
     /**
@@ -159,12 +156,12 @@ public interface BindingContext {
      * add element declarations to the generate schema.
      * For example, if the JAX-RPC passes in the following entry:
      *
-     * {foo}bar -> DeclaredType for java.lang.String
+     * {foo}bar -{@literal >} DeclaredType for java.lang.String
      *
      * then JAXB generates the following element declaration (in the schema
      * document for the namespace "foo")"
      *
-     * &lt;xs:element name="bar" type="xs:string" />
+     * &lt;xs:element name="bar" type="xs:string" /&gt;
      *
      * This can be used for generating schema components necessary for WSDL.
      *
@@ -175,7 +172,7 @@ public interface BindingContext {
      * @throws IOException
      *      if {@link SchemaOutputResolver} throws an {@link IOException}.
      */
-    public abstract void generateSchema(@NotNull SchemaOutputResolver outputResolver) throws IOException;
+    void generateSchema(@NotNull SchemaOutputResolver outputResolver) throws IOException;
 
     /**
      * Returns the name of the XML Type bound to the
@@ -183,7 +180,7 @@ public interface BindingContext {
      *
      * @param tr
      *      must not be null. This must be one of the {@link TypeInfo}s specified
-     *      in the {@link BindingContext#newInstance} method.
+     *      in the {@link BindingContext#newWrapperInstace(java.lang.Class)} method.
      *
      * @throws IllegalArgumentException
      *      if the parameter is null or not a part of the {@link TypeInfo}s specified
@@ -192,7 +189,7 @@ public interface BindingContext {
      * @return null
      *      if the referenced type is an anonymous and therefore doesn't have a name. 
      */
-    public abstract QName getTypeName(@NotNull TypeInfo tr);
+    QName getTypeName(@NotNull TypeInfo tr);
 
     /**
      * Gets the build information of the JAXB runtime.
@@ -201,7 +198,7 @@ public interface BindingContext {
      *      may be null, if the runtime is loaded by a class loader that doesn't support
      *      the access to the manifest informatino.
      */
-    public abstract @NotNull String getBuildId();
+    @NotNull String getBuildId();
     
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -213,14 +210,14 @@ public interface BindingContext {
      *
      * @since 2.0 EA1
      */
-    public static final String DEFAULT_NAMESPACE_REMAP = JAXBRIContext.DEFAULT_NAMESPACE_REMAP;
+    String DEFAULT_NAMESPACE_REMAP = JAXBRIContext.DEFAULT_NAMESPACE_REMAP;
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
      * to put additional JAXB type references into the {@link JAXBContext}.
      *
      * <p>
-     * The value of the property is {@link Collection}&lt;{@link TypeInfo}>.
+     * The value of the property is {@link Collection}&lt;{@link TypeInfo}&gt;.
      * Those {@link TypeInfo}s can then be used to create {@link XMLBridge}s.
      *
      * <p>
@@ -229,7 +226,7 @@ public interface BindingContext {
      *
      * @since 2.0 EA1
      */
-    public static final String TYPE_REFERENCES = JAXBRIContext.TYPE_REFERENCES;
+    String TYPE_REFERENCES = JAXBRIContext.TYPE_REFERENCES;
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -238,7 +235,7 @@ public interface BindingContext {
      *
      * @since 2.0 EA2
      */
-    public static final String CANONICALIZATION_SUPPORT = JAXBRIContext.CANONICALIZATION_SUPPORT;
+    String CANONICALIZATION_SUPPORT = JAXBRIContext.CANONICALIZATION_SUPPORT;
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -247,13 +244,13 @@ public interface BindingContext {
      *
      * @since 2.1.3
      */
-    public static final String TREAT_EVERYTHING_NILLABLE = JAXBRIContext.TREAT_EVERYTHING_NILLABLE;
+    String TREAT_EVERYTHING_NILLABLE = JAXBRIContext.TREAT_EVERYTHING_NILLABLE;
 
-    /**
-     * The property that you can specify to {@link JAXBContext#newInstance}
-     * to use alternative {@link RuntimeAnnotationReader} implementation.
-     *
-     * @since 2.1 EA2
+    /*
+      The property that you can specify to {@link JAXBContext#newInstance}
+      to use alternative {@link RuntimeAnnotationReader} implementation.
+
+      @since 2.1 EA2
      */
 //    public static final String ANNOTATION_READER = RuntimeAnnotationReader.class.getName();
 
@@ -262,7 +259,7 @@ public interface BindingContext {
      *
      * @since 2.0 EA2
      */
-    public static final String ENABLE_XOP = JAXBRIContext.ENABLE_XOP;
+    String ENABLE_XOP = JAXBRIContext.ENABLE_XOP;
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -273,7 +270,7 @@ public interface BindingContext {
      *
      * @since 2.1 EA2
      */
-    public static final String SUBCLASS_REPLACEMENTS = JAXBRIContext.SUBCLASS_REPLACEMENTS;
+    String SUBCLASS_REPLACEMENTS = JAXBRIContext.SUBCLASS_REPLACEMENTS;
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -281,13 +278,13 @@ public interface BindingContext {
      *
      * @since 2.1 EA2
      */
-    public static final String XMLACCESSORFACTORY_SUPPORT = JAXBRIContext.XMLACCESSORFACTORY_SUPPORT;
+    String XMLACCESSORFACTORY_SUPPORT = JAXBRIContext.XMLACCESSORFACTORY_SUPPORT;
 
     /**
      * Retains references to PropertyInfos.
      *
      * @since 2.1.10
      */
-    public static final String RETAIN_REFERENCE_TO_INFO = JAXBRIContext.RETAIN_REFERENCE_TO_INFO;
+    String RETAIN_REFERENCE_TO_INFO = JAXBRIContext.RETAIN_REFERENCE_TO_INFO;
 
 }

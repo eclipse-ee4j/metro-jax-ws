@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,10 +23,14 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  */
 public class SerializationException extends JAXWSExceptionBase {
 
+    private static final long serialVersionUID = -7892436885781704629L;
+
+    @SuppressWarnings({"deprecation"})
     public SerializationException(String key, Object... args) {
         super(key, args);
     }
 
+    @SuppressWarnings({"deprecation"})
     public SerializationException(Localizable arg) {
         super("nestedSerializationError", arg);
     }
@@ -35,6 +39,7 @@ public class SerializationException extends JAXWSExceptionBase {
         super(throwable);
     }
 
+    @Override
     public String getDefaultResourceBundleName() {
         return "com.sun.xml.ws.resources.encoding";
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,6 +62,12 @@ import jakarta.xml.ws.WebServiceException;
  * @see StandalonePipeAssembler
  */
 public abstract class TransportPipeFactory {
+
+    /**
+     * Default constructor.
+     */
+    public TransportPipeFactory() {}
+
     /**
      * Creates a transport {@link Pipe} for the given port, if this factory can do so,
      * or return null.
@@ -95,6 +101,7 @@ public abstract class TransportPipeFactory {
      * @deprecated
      *      Use {@link TransportTubeFactory#create(ClassLoader, ClientTubeAssemblerContext)}
      */
+    @Deprecated
     public static Pipe create(@Nullable ClassLoader classLoader, @NotNull ClientPipeAssemblerContext context) {
         return PipeAdapter.adapt(TransportTubeFactory.create(classLoader,context));
     }

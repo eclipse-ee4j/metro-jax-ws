@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,7 +53,7 @@ public final class MetadataFinder extends DOMForest{
 
     public boolean isMexMetadata;
     private String rootWSDL;
-    private final Set<String> rootWsdls = new HashSet<String>();
+    private final Set<String> rootWsdls = new HashSet<>();
 
     public MetadataFinder(InternalizationLogic logic, WsimportOptions options, ErrorReceiver errReceiver) {
         super(logic, new WSEntityResolver(options,errReceiver), options, errReceiver);
@@ -92,11 +92,7 @@ public final class MetadataFinder extends DOMForest{
             } catch (FileNotFoundException e) {
                 errorReceiver.error(WsdlMessages.FILE_NOT_FOUND(systemID), e);
                 return;
-            } catch (IOException e) {
-                doc = getFromMetadataResolver(systemID, e);
-            } catch (SAXParseException e) {
-                doc = getFromMetadataResolver(systemID, e);
-            } catch (SAXException e) {
+            } catch (IOException | SAXException e) {
                 doc = getFromMetadataResolver(systemID, e);
             }
 
@@ -184,7 +180,7 @@ public final class MetadataFinder extends DOMForest{
                         if (code == 302 || code == 303) {
                             //retry with the value in Location header
                             List<String> seeOther = httpConn.getHeaderFields().get("Location");
-                            if (seeOther != null && seeOther.size() > 0) {
+                            if (seeOther != null && !seeOther.isEmpty()) {
                                 URL newurl = new URL(url, seeOther.get(0));
                                 if (!newurl.equals(url)) {
                                     errorReceiver.info(new SAXParseException(WscompileMessages.WSIMPORT_HTTP_REDIRECT(code, seeOther.get(0)), null));
@@ -338,12 +334,10 @@ public final class MetadataFinder extends DOMForest{
                     Element imp = (Element) nl.item(i);
                     String loc = imp.getAttribute("location");
                     if (loc != null) {
-                        if (!externalReferences.contains(loc))
-                            externalReferences.add(loc);
+                        externalReferences.add(loc);
                     }
                 }
-                if (core.keySet().contains(systemId))
-                    core.remove(systemId);
+                core.remove(systemId);
                 core.put(src.getSystemId(), doc);
                 resolvedCache.put(systemId, doc.getDocumentURI());
                 isMexMetadata = true;

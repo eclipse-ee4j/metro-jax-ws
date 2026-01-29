@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,6 +18,6 @@ import javax.xml.namespace.QName;
  * @author WS Development Team
  */
 public interface ParserListener {
-    public void ignoringExtension(Entity entity, QName name, QName parent);
-    public void doneParsingEntity(QName element, Entity entity);
+    void ignoringExtension(Entity entity, QName name, QName parent);
+    void doneParsingEntity(QName element, Entity entity);
 }

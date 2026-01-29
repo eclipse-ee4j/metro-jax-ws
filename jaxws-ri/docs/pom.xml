@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>4.0.4-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -24,13 +24,14 @@
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>docs</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>4.0.4-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     <name>JAX-WS RI Documentation</name>
 
     <properties>
         <www.upload.dir>${project.build.directory}/www-stage</www.upload.dir>
+        <jacoco.skip>false</jacoco.skip>
     </properties>
 
     <modules>
@@ -56,7 +57,7 @@
                                 <dependency>
                                     <groupId>com.sun.istack</groupId>
                                     <artifactId>istack-commons-soimp</artifactId>
-                                    <version>${istack.version}</version>
+                                    <version>${istack.plugin.version}</version>
                                 </dependency>
                                 <dependency>
                                     <groupId>args4j</groupId>

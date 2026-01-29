@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,6 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 import javax.xml.namespace.QName;
@@ -24,7 +23,6 @@ import jakarta.xml.soap.AttachmentPart;
 import jakarta.xml.soap.MessageFactory;
 import jakarta.xml.soap.MimeHeader;
 import jakarta.xml.soap.SOAPElement;
-import jakarta.xml.soap.SOAPException;
 import jakarta.xml.soap.SOAPMessage;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
@@ -48,7 +46,6 @@ import com.sun.xml.ws.binding.BindingImpl;
 import com.sun.xml.ws.encoding.SOAPBindingCodec;
 import com.sun.xml.ws.message.stream.StreamMessage;
 
-import com.sun.xml.ws.util.ByteArrayBuffer;
 import junit.framework.TestCase;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -87,7 +84,6 @@ public class SAAJFactoryTest extends TestCase {
     /**
      * Test whether SAAJFactory.readAsSOAPMessage can handle null namespace prefixes if the 
      * appropriate flag is set on Woodstox
-     * @throws Exception
      */
     public void testNullNamespacePrefix() throws Exception {
     	XMLInputFactory infact = XMLInputFactory.newFactory();
@@ -132,7 +128,6 @@ public class SAAJFactoryTest extends TestCase {
      * This test operates against JDK XMLInputFactory.
      * </p>
      *
-     * @throws Exception
      */
     public void testResetDefaultNamespaceToGlobalWithJDK() throws Exception {
         XMLInputFactory inputFactory = getBuiltInJdkXmlInputFactory();
@@ -186,7 +181,6 @@ public class SAAJFactoryTest extends TestCase {
      * This test operates against woodstax.
      * </p>
      *
-     * @throws Exception
      */
     public void testResetDefaultNamespaceToGlobalWithWoodstax() throws Exception {
         XMLInputFactory inputFactory = XMLInputFactory.newFactory();
@@ -240,7 +234,7 @@ public class SAAJFactoryTest extends TestCase {
         SAAJFactory factory = new SAAJFactory();
         SOAPMessage saajMessage = factory.readAsSOAPMessage(SOAPVersion.SOAP_11, message);
 
-        AttachmentPart ap = (AttachmentPart) saajMessage.getAttachments().next();
+        AttachmentPart ap = saajMessage.getAttachments().next();
         Iterator it = ap.getAllMimeHeaders();
         int countContentID = 0;
         while (it.hasNext()) {

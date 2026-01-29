@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,7 +20,13 @@ import jakarta.xml.ws.WebServiceException;
  */
 public abstract class PropertyGetterBase implements PropertyGetter {
     protected Class type;
-    
+
+    /**
+     * Default constructor.
+     */
+    protected PropertyGetterBase() {}
+
+    @Override
     public Class getType() {
         return type;
     }
@@ -33,11 +39,9 @@ public abstract class PropertyGetterBase implements PropertyGetter {
                 method.getName().length() > 3) {
                 return true;
             } else {
-                if ((method.getReturnType().equals(boolean.class) || method.getReturnType().equals(Boolean.class)) &&
-                    method.getName().startsWith("is") &&
-                    method.getName().length() > 2) {
-                    return true;
-                }
+                return (method.getReturnType().equals(boolean.class) || method.getReturnType().equals(Boolean.class)) &&
+                        method.getName().startsWith("is") &&
+                        method.getName().length() > 2;
             }
         } 
         return false;
@@ -45,7 +49,7 @@ public abstract class PropertyGetterBase implements PropertyGetter {
     
     static void verifyWrapperType(Class wrapperType) {
         String className = wrapperType.getName();
-        if (className.startsWith("java.") || className.startsWith("javax.")) {
+        if (className.startsWith("java.") || className.startsWith("javax.") || className.startsWith("jakarta.")) {
             throw new WebServiceException("Invalid wrapper type " + className);
         }
     }

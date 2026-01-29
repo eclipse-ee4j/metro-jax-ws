@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,6 @@ package com.sun.xml.ws.message.jaxb;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.XMLStreamException2;
-import org.glassfish.jaxb.runtime.api.Bridge;
 import com.sun.xml.stream.buffer.MutableXMLStreamBuffer;
 import com.sun.xml.stream.buffer.XMLStreamBuffer;
 import com.sun.xml.ws.api.message.Header;
@@ -68,7 +67,6 @@ public final class JAXBHeader extends AbstractHeaderImpl {
 
     public JAXBHeader(BindingContext context, Object jaxbObject) {
         this.jaxbObject = jaxbObject;
-//        this.bridge = new MarshallerBridge(context);
         this.bridge = context.createFragmentBridge();
 
         if (jaxbObject instanceof JAXBElement) {
@@ -108,24 +106,28 @@ public final class JAXBHeader extends AbstractHeaderImpl {
     }
 
 
+    @Override
     public @NotNull String getNamespaceURI() {
         if(nsUri==null)
             parse();
         return nsUri;
     }
 
+    @Override
     public @NotNull String getLocalPart() {
         if(localName==null)
             parse();
         return localName;
     }
 
+    @Override
     public String getAttribute(String nsUri, String localName) {
         if(atts==null)
             parse();
         return atts.getValue(nsUri,localName);
     }
 
+    @Override
     public XMLStreamReader readHeader() throws XMLStreamException {
         if(infoset==null) {
             MutableXMLStreamBuffer buffer = new MutableXMLStreamBuffer();
@@ -135,6 +137,7 @@ public final class JAXBHeader extends AbstractHeaderImpl {
         return infoset.readAsXMLStreamReader();
     }
 
+    @Override
     public <T> T readAsJAXB(Unmarshaller unmarshaller) throws JAXBException {
         try {
             JAXBResult r = new JAXBResult(unmarshaller);
@@ -147,15 +150,13 @@ public final class JAXBHeader extends AbstractHeaderImpl {
             throw new JAXBException(e);
         }
     }
-    /** @deprecated */
-    public <T> T readAsJAXB(Bridge<T> bridge) throws JAXBException {
-        return bridge.unmarshal(new JAXBBridgeSource(this.bridge,jaxbObject));
-    }
 
-	public <T> T readAsJAXB(XMLBridge<T> bond) throws JAXBException {
+    @Override
+    public <T> T readAsJAXB(XMLBridge<T> bond) throws JAXBException {
         return bond.unmarshal(new JAXBBridgeSource(this.bridge,jaxbObject),null);
 	}
 
+    @Override
     public void writeTo(XMLStreamWriter sw) throws XMLStreamException {
         try {
             // Get the encoding of the writer
@@ -173,6 +174,7 @@ public final class JAXBHeader extends AbstractHeaderImpl {
         }
     }
 
+    @Override
     public void writeTo(SOAPMessage saaj) throws SOAPException {
         try {
             SOAPHeader header = saaj.getSOAPHeader();
@@ -184,6 +186,7 @@ public final class JAXBHeader extends AbstractHeaderImpl {
         }
     }
 
+    @Override
     public void writeTo(ContentHandler contentHandler, ErrorHandler errorHandler) throws SAXException {
         try {
             bridge.marshal(jaxbObject,contentHandler,null);

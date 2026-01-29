@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,10 +23,11 @@ import java.util.Collection;
  * {@code getSupportedDomainNamespaceUri()} must not return empty String without causing PolicyAssertionCreator registration
  * fail.
  *
- * @author Marek Potociar (marek.potociar at sun.com)
+ * @author Marek Potociar
  */
 class DefaultPolicyAssertionCreator implements PolicyAssertionCreator {    
     private static final class DefaultPolicyAssertion extends PolicyAssertion {
+        @SuppressWarnings({"deprecation"})
         DefaultPolicyAssertion(AssertionData data, Collection<PolicyAssertion> assertionParameters, AssertionSet nestedAlternative) {
             super (data, assertionParameters, nestedAlternative);
         }
@@ -42,6 +43,7 @@ class DefaultPolicyAssertionCreator implements PolicyAssertionCreator {
     /**
      * See {@link PolicyAssertionCreator#getSupportedDomainNamespaceURIs() method documentation in interface}
      */
+    @Override
     public String[] getSupportedDomainNamespaceURIs() {
         return new String[0];
     }
@@ -49,6 +51,7 @@ class DefaultPolicyAssertionCreator implements PolicyAssertionCreator {
     /**
      * See {@link PolicyAssertionCreator#createAssertion(AssertionData, Collection, AssertionSet, PolicyAssertionCreator) method documentation in interface}
      */
+    @Override
     public PolicyAssertion createAssertion(final AssertionData data, final Collection<PolicyAssertion> assertionParameters, final AssertionSet nestedAlternative, final PolicyAssertionCreator defaultCreator) throws AssertionCreationException {
         return new DefaultPolicyAssertion(data, assertionParameters, nestedAlternative);
     }    

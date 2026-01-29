@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -90,7 +90,7 @@ import java.util.concurrent.Executor;
  *
  *
  *
- * <h3>Objects Exposed From Endpoint</h3>
+ * <h2>Objects Exposed From Endpoint</h2>
  * <p>
  * {@link WSEndpoint} exposes a series of information that represents
  * how an endpoint is configured to host a service. See the getXXX methods
@@ -98,7 +98,7 @@ import java.util.concurrent.Executor;
  *
  *
  *
- * <h3>Implementation Notes</h3>
+ * <h2>Implementation Notes</h2>
  * <p>
  * {@link WSEndpoint} owns a {@link WSWebServiceContext} implementation.
  * But a bulk of the work is delegated to {@link WebServiceContextDelegate},
@@ -107,6 +107,11 @@ import java.util.concurrent.Executor;
  * @author Kohsuke Kawaguchi
  */
 public abstract class WSEndpoint<T> implements ComponentRegistry {
+
+    /**
+     * Default constructor.
+     */
+    protected WSEndpoint() {}
 
     /**
      * Gets the Endpoint's codec that is used to encode/decode {@link Message}s. This is a
@@ -372,35 +377,6 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
     	Module m = getContainer().getSPI(Module.class);
     	return m != null ? m.getBoundEndpoints() : null;
     }
-    
-    /**
-     * Gets the list of {@link EndpointComponent} that are associated
-     * with this endpoint.
-     *
-     * <p>
-     * Components (such as codec, tube, handler, etc) who wish to provide
-     * some service to other components in the endpoint can iterate the
-     * registry and call its {@link EndpointComponent#getSPI(Class)} to
-     * establish a private contract between components.
-     * <p>
-     * Components who wish to subscribe to such a service can add itself
-     * to this set.
-     *
-     * @return
-     *      always return the same set.
-     * @deprecated Use {@link #getComponents} instead
-     */
-    @Deprecated
-    public @NotNull Set<EndpointComponent> getComponentRegistry() {
-        Set<Component> componentRegistry = getComponents();
-        Set<EndpointComponent> sec = new EndpointComponentSet(componentRegistry);
-        for (Component c : getComponents()) {
-            sec.add(c instanceof EndpointComponentWrapper
-                    ? ((EndpointComponentWrapper) c).component
-                    : new ComponentWrapper(c));
-        }
-        return sec;
-    }
 
     /**
      * Gets the list of {@link Component}s that are associated
@@ -459,6 +435,7 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
      * @deprecated
      * Do not use this method as the PolicyMap API is not final yet and might change in next few months.
      */
+    @Deprecated
     public abstract PolicyMap getPolicyMap();
 
     /**
@@ -598,28 +575,8 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
     }
 
     /**
-     * Deprecated version that assumes {@code isTransportSynchronous==false}
-     */
-    @Deprecated
-    public static <T> WSEndpoint<T> create(
-        @NotNull Class<T> implType,
-        boolean processHandlerAnnotation,
-        @Nullable Invoker invoker,
-        @Nullable QName serviceName,
-        @Nullable QName portName,
-        @Nullable Container container,
-        @Nullable WSBinding binding,
-        @Nullable SDDocumentSource primaryWsdl,
-        @Nullable Collection<? extends SDDocumentSource> metadata,
-        @Nullable EntityResolver resolver) {
-        return create(implType,processHandlerAnnotation,invoker,serviceName,portName,container,binding,primaryWsdl,metadata,resolver,false);
-    }
-
-
-    /**
-     * The same as
-     * {@link #create(Class, boolean, Invoker, QName, QName, Container, WSBinding, SDDocumentSource, Collection, EntityResolver)}
-     * except that this version takes an url of the {@code jax-ws-catalog.xml}.
+     * Takes an url of the {@code jax-ws-catalog.xml}.
+     * Assumes {@code isTransportSynchronous==false}
      *
      * @param catalogUrl
      *      if not null, an {@link EntityResolver} is created from it and used.
@@ -677,7 +634,6 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
 
     /**
      * Return EndpointReference instance, based on passed parameters and spec version represented by clazz
-     * @param <T>
      * @param clazz represents spec version
      * @param address   endpoint address
      * @param wsdlAddress   wsdl address
@@ -688,12 +644,6 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
 
     /**
      * 
-     * @param <T>
-     * @param clazz
-     * @param address
-     * @param wsdlAddress
-     * @param metadata
-     * @param referenceParameters
      * @return EndpointReference instance based on passed parameters and values obtained from current instance
      */
     public abstract <T extends EndpointReference> T getEndpointReference(Class<T> clazz,
@@ -702,17 +652,15 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
     
     /**
      * Used for managed endpoints infrastructure to compare equality of proxies vs proxied endpoints.
-     * @param endpoint
      * @return true if the proxied endpoint instance held by this instance equals to 'endpoint', otherwise return false.
      */
-    public boolean equalsProxiedInstance(WSEndpoint endpoint) {
+    public boolean equalsProxiedInstance(WSEndpoint<?> endpoint) {
         if (endpoint == null) return false;
         return this.equals(endpoint);
     }
 
     /**
      * Nullable when there is no associated WSDL Model
-     * @return
      */
     public abstract @Nullable OperationDispatcher getOperationDispatcher();
 
@@ -726,114 +674,5 @@ public abstract class WSEndpoint<T> implements ComponentRegistry {
                                                              final WSDLPort    wsdlPort,
                                                              final SEIModel    seiModel,
                                                              final WSBinding   binding);
-
-    private class EndpointComponentSet extends HashSet<EndpointComponent> {
-
-        private final Set<Component> componentRegistry;
-
-        public EndpointComponentSet(Set<Component> componentRegistry) {
-            super();
-            this.componentRegistry = componentRegistry;
-        }
-
-        @Override
-        public Iterator<EndpointComponent> iterator() {
-            final Iterator<EndpointComponent> it = super.iterator();
-            return new Iterator<EndpointComponent>() {
-                private EndpointComponent last = null;
-
-                @Override
-                public boolean hasNext() {
-                    return it.hasNext();
-                }
-
-                @Override
-                public EndpointComponent next() {
-                    last = it.next();
-                    return last;
-                }
-
-                @Override
-                public void remove() {
-                    it.remove();
-                    if (last != null) {
-                        componentRegistry.remove(last instanceof ComponentWrapper
-                                ? ((ComponentWrapper) last).component
-                                : new EndpointComponentWrapper(last));
-                    }
-                    last = null;
-                }
-            };
-        }
-
-        @Override
-        public boolean add(EndpointComponent e) {
-            boolean result = super.add(e);
-            if (result) {
-                componentRegistry.add(new EndpointComponentWrapper(e));
-            }
-            return result;
-        }
-
-        @Override
-        public boolean remove(Object o) {
-            boolean result = super.remove(o);
-            if (result) {
-                componentRegistry.remove(o instanceof ComponentWrapper
-                        ? ((ComponentWrapper) o).component
-                        : new EndpointComponentWrapper((EndpointComponent) o));
-            }
-            return result;
-        }
-
-    }
-
-    private static class ComponentWrapper implements EndpointComponent {
-
-        private final Component component;
-
-        public ComponentWrapper(Component component) {
-            this.component = component;
-        }
-
-        @Override
-        public <S> S getSPI(Class<S> spiType) {
-            return component.getSPI(spiType);
-        }
-
-        @Override
-        public int hashCode() {
-            return component.hashCode();
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return component.equals(obj);
-        }
-    }
-
-    private static class EndpointComponentWrapper implements Component {
-
-        private final EndpointComponent component;
-
-        public EndpointComponentWrapper(EndpointComponent component) {
-            this.component = component;
-        }
-
-        @Override
-        public <S> S getSPI(Class<S> spiType) {
-            return component.getSPI(spiType);
-        }
-
-        @Override
-        public int hashCode() {
-            return component.hashCode();
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            return component.equals(obj);
-        }
-    }
 
 }

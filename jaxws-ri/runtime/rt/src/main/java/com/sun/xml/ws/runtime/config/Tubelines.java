@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,20 +33,20 @@ import java.util.Map;
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
- * <pre>
- * &lt;complexType name="tubelinesConfigCType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{http://java.sun.com/xml/ns/metro/config}tubeline-mapping" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element ref="{http://java.sun.com/xml/ns/metro/config}tubeline" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;any/>
- *       &lt;/sequence>
- *       &lt;attribute name="default" type="{http://www.w3.org/2001/XMLSchema}anyURI" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ * <pre>{@code
+ * <complexType name="tubelinesConfigCType">
+ *   <complexContent>
+ *     <restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       <sequence>
+ *         <element ref="{http://java.sun.com/xml/ns/metro/config}tubeline-mapping" maxOccurs="unbounded" minOccurs="0"/>
+ *         <element ref="{http://java.sun.com/xml/ns/metro/config}tubeline" maxOccurs="unbounded" minOccurs="0"/>
+ *         <any/>
+ *       </sequence>
+ *       <attribute name="default" type="{http://www.w3.org/2001/XMLSchema}anyURI" />
+ *     </restriction>
+ *   </complexContent>
+ * </complexType>
+ * }</pre>
  * 
  * 
  */
@@ -68,7 +68,10 @@ public class Tubelines {
     @XmlSchemaType(name = "anyURI")
     protected String _default;
     @XmlAnyAttribute
-    private Map<QName, String> otherAttributes = new HashMap<QName, String>();
+    private Map<QName, String> otherAttributes = new HashMap<>();
+
+    public Tubelines() {
+    }
 
     /**
      * Gets the value of the tubelineMappings property.
@@ -94,7 +97,7 @@ public class Tubelines {
      */
     public List<TubelineMapping> getTubelineMappings() {
         if (tubelineMappings == null) {
-            tubelineMappings = new ArrayList<TubelineMapping>();
+            tubelineMappings = new ArrayList<>();
         }
         return this.tubelineMappings;
     }
@@ -123,7 +126,7 @@ public class Tubelines {
      */
     public List<TubelineDefinition> getTubelineDefinitions() {
         if (tubelineDefinitions == null) {
-            tubelineDefinitions = new ArrayList<TubelineDefinition>();
+            tubelineDefinitions = new ArrayList<>();
         }
         return this.tubelineDefinitions;
     }
@@ -153,7 +156,7 @@ public class Tubelines {
      */
     public List<Object> getAny() {
         if (any == null) {
-            any = new ArrayList<Object>();
+            any = new ArrayList<>();
         }
         return this.any;
     }

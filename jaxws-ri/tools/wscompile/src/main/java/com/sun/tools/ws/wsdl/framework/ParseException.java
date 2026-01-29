@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,10 +20,14 @@ import com.sun.xml.ws.util.exception.JAXWSExceptionBase;
  */
 public class ParseException extends JAXWSExceptionBase {
 
+    private static final long serialVersionUID = -7989101117666409466L;
+
+    @SuppressWarnings({"deprecation"})
     public ParseException(String key, Object... args) {
         super(key, args);
     }
 
+    @SuppressWarnings({"deprecation"})
     public ParseException(Localizable message){
         super("localized.error", message);
     }
@@ -32,6 +36,7 @@ public class ParseException extends JAXWSExceptionBase {
         super(throwable);
     }
 
+    @Override
     public String getDefaultResourceBundleName() {
         return "com.sun.tools.ws.resources.wsdl";
     }

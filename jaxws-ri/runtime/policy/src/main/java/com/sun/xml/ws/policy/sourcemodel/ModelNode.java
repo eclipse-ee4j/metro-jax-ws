@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -127,7 +127,7 @@ public final class ModelNode implements Iterable<ModelNode>, Cloneable {
     private ModelNode(Type type, PolicySourceModel parentModel) {
         this.type = type;
         this.parentModel = parentModel;
-        this.children = new LinkedList<ModelNode>();
+        this.children = new LinkedList<>();
         this.unmodifiableViewOnContent = Collections.unmodifiableCollection(this.children);
     }
     
@@ -443,6 +443,7 @@ public final class ModelNode implements Iterable<ModelNode>, Cloneable {
      *
      * @return An iterator for the child nodes
      */
+    @Override
     public Iterator<ModelNode> iterator() {
         return children.iterator();
     }
@@ -565,7 +566,7 @@ public final class ModelNode implements Iterable<ModelNode>, Cloneable {
         }
         
         
-        clone.children = new LinkedList<ModelNode>();
+        clone.children = new LinkedList<>();
         clone.unmodifiableViewOnContent = Collections.unmodifiableCollection(clone.children);
         
         for (ModelNode thisChild : this.children) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,6 +18,8 @@ import com.sun.tools.ws.processor.ProcessorException;
  */
 public class GeneratorException extends ProcessorException {
 
+    private static final long serialVersionUID = 1459715621872011795L;
+
     public GeneratorException(String key, Object... args) {
         super(key, args);
     }
@@ -26,6 +28,7 @@ public class GeneratorException extends ProcessorException {
         super(throwable);
     }
 
+    @Override
     public String getDefaultResourceBundleName() {
         return "com.sun.tools.ws.resources.generator";
     }

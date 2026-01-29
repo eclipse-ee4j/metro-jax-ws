@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -145,11 +145,11 @@ public class WsgenTool {
      * @return
      * @throws BadCommandLineException
      */
-    public boolean buildModel(String endpoint, Listener listener) throws BadCommandLineException {
+    public boolean buildModel(String endpoint, WsimportListener listener) throws BadCommandLineException {
         final ErrorReceiverFilter errReceiver = new ErrorReceiverFilter(listener);
 
         if (!options.nosource) {
-            List<String> args = new ArrayList<String>(6 + (options.nocompile ? 1 : 0)
+            List<String> args = new ArrayList<>(6 + (options.nocompile ? 1 : 0)
                     + (options.encoding != null ? 2 : 0));
 
             args.add("-d");
@@ -190,40 +190,37 @@ public class WsgenTool {
                 out.println(WscompileMessages.WSCOMPILE_CANT_GET_COMPILER(property("java.home"), property("java.version"), property("java.vendor")));
                 return false;
             }
-            DiagnosticListener<JavaFileObject> diagnostics = new DiagnosticListener<JavaFileObject>() {
-                @Override
-                public void report(Diagnostic<? extends JavaFileObject> diagnostic) {
-                    boolean fromFile = diagnostic.getSource() != null;
-                    StringBuilder message = new StringBuilder();
-                    if (fromFile) {
-                        message.append(diagnostic.getSource().getName());
-                    }
-                    message.append(diagnostic.getMessage(Locale.getDefault()));
-                    if (fromFile) {
-                        message.append("");
-                    }
-                    switch (diagnostic.getKind()) {
-                        case ERROR:
-                            Locator2Impl l = new Locator2Impl();
-                            if (fromFile) {
-                                l.setSystemId(diagnostic.getSource().getName());
-                            } else {
-                                l.setSystemId(null);
-                            }
-                            l.setLineNumber((int) diagnostic.getLineNumber());
-                            l.setColumnNumber((int) diagnostic.getColumnNumber());
-                            SAXParseException ex = new SAXParseException(message.toString(), l);
-                            listener.error(ex);
-                            break;
-                        case MANDATORY_WARNING:
-                        case WARNING:
+            DiagnosticListener<JavaFileObject> diagnostics = diagnostic -> {
+                boolean fromFile = diagnostic.getSource() != null;
+                StringBuilder message = new StringBuilder();
+                if (fromFile) {
+                    message.append(diagnostic.getSource().getName());
+                }
+                message.append(diagnostic.getMessage(Locale.getDefault()));
+                if (fromFile) {
+                    message.append("");
+                }
+                switch (diagnostic.getKind()) {
+                    case ERROR:
+                        Locator2Impl l = new Locator2Impl();
+                        if (fromFile) {
+                            l.setSystemId(diagnostic.getSource().getName());
+                        } else {
+                            l.setSystemId(null);
+                        }
+                        l.setLineNumber((int) diagnostic.getLineNumber());
+                        l.setColumnNumber((int) diagnostic.getColumnNumber());
+                        SAXParseException ex = new SAXParseException(message.toString(), l);
+                        listener.error(ex);
+                        break;
+                    case MANDATORY_WARNING:
+                    case WARNING:
+                        listener.message(message.toString());
+                        break;
+                    default:
+                        if (options.verbose) {
                             listener.message(message.toString());
-                            break;
-                        default:
-                            if (options.verbose) {
-                                listener.message(message.toString());
-                            }
-                    }
+                        }
                 }
             };
 
@@ -248,7 +245,7 @@ public class WsgenTool {
 
             List<String> externalMetadataFileNames = options.externalMetadataFiles;
             boolean disableXmlSecurity = options.disableXmlSecurity;
-            if (externalMetadataFileNames != null && externalMetadataFileNames.size() > 0) {
+            if (externalMetadataFileNames != null && !externalMetadataFileNames.isEmpty()) {
                 config.setMetadataReader(new ExternalMetadataReader(getExternalFiles(externalMetadataFileNames), null, null, true, disableXmlSecurity));
             }
 
@@ -282,7 +279,7 @@ public class WsgenTool {
             com.sun.xml.ws.db.DatabindingImpl rt = (com.sun.xml.ws.db.DatabindingImpl) fac.createRuntime(config);
 
             final File[] wsdlFileName = new File[1]; // used to capture the generated WSDL file.
-            final Map<String, File> schemaFiles = new HashMap<String, File>();
+            final Map<String, File> schemaFiles = new HashMap<>();
 
             WSDLGenInfo wsdlGenInfo = new WSDLGenInfo();
             wsdlGenInfo.setSecureXmlProcessingDisabled(disableXmlSecurity);
@@ -435,7 +432,7 @@ public class WsgenTool {
     }
 
     private List<File> getExternalFiles(List<String> exts) {
-        List<File> files = new ArrayList<File>();
+        List<File> files = new ArrayList<>();
         for (String ext : exts) {
             // first try absolute path ...
             File file = new File(ext);

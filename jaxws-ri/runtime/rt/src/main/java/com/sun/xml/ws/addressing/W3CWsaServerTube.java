@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,8 +20,6 @@ import com.sun.xml.ws.api.pipe.Tube;
 import com.sun.xml.ws.api.pipe.TubeCloner;
 import com.sun.xml.ws.addressing.model.MissingAddressingHeaderException;
 import com.sun.xml.ws.addressing.model.InvalidAddressingHeaderException;
-import static com.sun.xml.ws.addressing.W3CAddressingConstants.ONLY_NON_ANONYMOUS_ADDRESS_SUPPORTED;
-import static com.sun.xml.ws.addressing.W3CAddressingConstants.ONLY_ANONYMOUS_ADDRESS_SUPPORTED;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 
@@ -101,17 +99,17 @@ public class W3CWsaServerTube extends WsaServerTube{
         switch (responseRequirement) {
             case prohibited:
                 if (replyToValue != null && replyToValue.equals(addressingVersion.anonymousUri))
-                    throw new InvalidAddressingHeaderException(addressingVersion.replyToTag, ONLY_NON_ANONYMOUS_ADDRESS_SUPPORTED);
+                    throw new InvalidAddressingHeaderException(addressingVersion.replyToTag, W3CAddressingConstants.ONLY_NON_ANONYMOUS_ADDRESS_SUPPORTED);
 
                 if (faultToValue != null && faultToValue.equals(addressingVersion.anonymousUri))
-                    throw new InvalidAddressingHeaderException(addressingVersion.faultToTag, ONLY_NON_ANONYMOUS_ADDRESS_SUPPORTED);
+                    throw new InvalidAddressingHeaderException(addressingVersion.faultToTag, W3CAddressingConstants.ONLY_NON_ANONYMOUS_ADDRESS_SUPPORTED);
                 break;
             case required:
                 if (replyToValue != null && !replyToValue.equals(addressingVersion.anonymousUri))
-                    throw new InvalidAddressingHeaderException(addressingVersion.replyToTag, ONLY_ANONYMOUS_ADDRESS_SUPPORTED);
+                    throw new InvalidAddressingHeaderException(addressingVersion.replyToTag, W3CAddressingConstants.ONLY_ANONYMOUS_ADDRESS_SUPPORTED);
 
                 if (faultToValue != null && !faultToValue.equals(addressingVersion.anonymousUri))
-                    throw new InvalidAddressingHeaderException(addressingVersion.faultToTag, ONLY_ANONYMOUS_ADDRESS_SUPPORTED);
+                    throw new InvalidAddressingHeaderException(addressingVersion.faultToTag, W3CAddressingConstants.ONLY_ANONYMOUS_ADDRESS_SUPPORTED);
                 break;
             default:
                 // ALL: no check

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.NoType;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.SimpleTypeVisitor6;
+import javax.lang.model.util.SimpleTypeVisitor9;
 import javax.lang.model.util.Types;
 import java.util.Collection;
 import java.util.Map;
@@ -24,7 +24,7 @@ import java.util.Map;
  *
  * @author dkohlert
  */
-public class MakeSafeTypeVisitor extends SimpleTypeVisitor6<TypeMirror, Types> {
+public class MakeSafeTypeVisitor extends SimpleTypeVisitor9<TypeMirror, Types> {
 
     TypeElement collectionType;
     TypeElement mapType;

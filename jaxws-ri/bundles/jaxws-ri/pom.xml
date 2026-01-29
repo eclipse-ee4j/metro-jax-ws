@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,23 +18,19 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>bundles</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>4.0.4-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-ri</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>4.0.4-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     <name>JAX-WS RI Standalone Zipped Bundle</name>
     <description>Open source Compatible Implementation of Jakarta XML Web Services Distribution</description>
 
     <dependencies>
-        <dependency>
-            <groupId>com.sun.org.apache.xml.internal</groupId>
-            <artifactId>resolver</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jaxws-rt</artifactId>
@@ -144,115 +140,4 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
-        <profile>
-            <id>coverage</id>
-            <activation>
-                <property>
-                    <name>jacoco-build</name>
-                </property>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>org.jacoco.core</artifactId>
-                    <version>${jacoco.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>org.jacoco.report</artifactId>
-                    <version>${jacoco.version}</version>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy-jacoco-lib</id>
-                                <phase>process-test-sources</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>org.jacoco</groupId>
-                                            <artifactId>org.jacoco.ant</artifactId>
-                                            <type>jar</type>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>org.jacoco</groupId>
-                                            <artifactId>org.jacoco.core</artifactId>
-                                            <type>jar</type>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>org.jacoco</groupId>
-                                            <artifactId>org.jacoco.report</artifactId>
-                                            <type>jar</type>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>org.ow2.asm</groupId>
-                                            <artifactId>asm</artifactId>
-                                            <type>jar</type>
-                                            <version>${asm.version}</version>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>org.ow2.asm</groupId>
-                                            <artifactId>asm-commons</artifactId>
-                                            <type>jar</type>
-                                            <version>${asm.version}</version>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>org.ow2.asm</groupId>
-                                            <artifactId>asm-tree</artifactId>
-                                            <type>jar</type>
-                                            <version>${asm.version}</version>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>instrument-dist-zip</id>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <target xmlns:jacoco="antlib:org.jacoco.ant">
-                                        <!--taskdef classpathref="maven.test.classpath" resource="tasks.properties" /-->
-                                        <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
-                                            <classpath path="target/lib/org.jacoco.ant-0.8.5.jar:target/lib/org.jacoco.core-0.8.5.jar:target/lib/org.jacoco.report-0.8.5.jar:target/lib/asm-7.2.jar:target/lib/asm-commons-7.2.jar:target/lib/asm-tree-7.2.jar" />
-                                        </taskdef>
-                                        <property name="jaxws-ri.instr.dir" location="${project.build.directory}/jaxws-ri-instrumented"/>
-                                        <property name="jaxws-ri.instr.full.name" location="${project.build.directory}/jaxws-ri-instrumented-full.zip"/>
-                                        <unzip src="${project.build.directory}/jaxws-ri.zip" dest="${jaxws-ri.instr.dir}"/>
-                                        <jacoco:instrument destdir="${jaxws-ri.instr.dir}">
-                                            <fileset dir="${jaxws-ri.instr.dir}/jaxws-ri/lib">
-                                                <include name="jaxws-rt.jar" />
-                                                <include name="jaxws-tools.jar" />
-                                                <include name="plugins/*-plugin.jar" />
-                                            </fileset>
-                                        </jacoco:instrument>
-                                        <!--attachartifact file="${jaxws-ri.instr.dir}/jaxws-ri/jacoco/jacoco.exec" type="exec"/-->
-                                        <zip destfile="${jaxws-ri.instr.full.name}" basedir="${project.build.directory}/jaxws-ri-instrumented"/>
-                                        <attachartifact file="${jaxws-ri.instr.full.name}" classifier="instrumented" type="zip"/>
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,13 +10,16 @@
 
 package com.sun.xml.ws.transport.http;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.Collections;
@@ -29,6 +32,8 @@ import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.sun.xml.ws.util.MessageWriter;
+import com.sun.xml.ws.util.UtilException;
 import jakarta.xml.ws.Binding;
 import jakarta.xml.ws.WebServiceException;
 import jakarta.xml.ws.http.HTTPBinding;
@@ -125,17 +130,6 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
         return new DummyList().createAdapter("","",endpoint);
     }
 
-    /**
-     * @deprecated
-     *      remove as soon as we can update the test util.
-     * @param endpoint web service endpoint
-     * @param owner list of related adapters
-     */
-    protected HttpAdapter(WSEndpoint endpoint,
-                          HttpAdapterList<? extends HttpAdapter> owner) {
-        this(endpoint,owner,null);
-    }
-
     protected HttpAdapter(WSEndpoint endpoint,
                           HttpAdapterList<? extends HttpAdapter> owner,
                           String urlPattern) {
@@ -158,7 +152,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
     /**
      * Fill in WSDL map.
      *
-     * @param sdef service definition
+     * @param serviceDefinition service definition
      */
     public final void initWSDLMap(final ServiceDefinition serviceDefinition) {
         this.serviceDefinition = serviceDefinition;
@@ -166,17 +160,17 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
             wsdls = Collections.emptyMap();
             revWsdls = Collections.emptyMap();
         } else {
-            wsdls = new AbstractMap<String, SDDocument>() {
+            wsdls = new AbstractMap<>() {
                 private Map<String, SDDocument> delegate = null;
-                
+
                 private synchronized Map<String, SDDocument> delegate() {
                     if (delegate != null)
                         return delegate;
-                    
-                    delegate = new HashMap<String, SDDocument>();  // wsdl=1 --> Doc
+
+                    delegate = new HashMap<>();  // wsdl=1 --> Doc
                     // Sort WSDL, Schema documents based on SystemId so that the same
                     // document gets wsdl=x mapping
-                    Map<String, SDDocument> systemIds = new TreeMap<String, SDDocument>();
+                    Map<String, SDDocument> systemIds = new TreeMap<>();
                     for (SDDocument sdd : serviceDefinition) {
                         if (sdd == serviceDefinition.getPrimary()) { // No sorting for Primary WSDL
                             delegate.put("wsdl", sdd);
@@ -191,10 +185,10 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
                     for (Entry<String, SDDocument> e : systemIds.entrySet()) {
                         SDDocument sdd = e.getValue();
                         if (sdd.isWSDL()) {
-                            delegate.put("wsdl="+(wsdlnum++),sdd);
+                            delegate.put("wsdl=" + (wsdlnum++), sdd);
                         }
                         if (sdd.isSchema()) {
-                            delegate.put("xsd="+(xsdnum++),sdd);
+                            delegate.put("xsd=" + (xsdnum++), sdd);
                         }
                     }
 
@@ -263,20 +257,20 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
                 }
             };
             
-            revWsdls = new AbstractMap<SDDocument, String>() {
+            revWsdls = new AbstractMap<>() {
                 private Map<SDDocument, String> delegate = null;
 
                 private synchronized Map<SDDocument, String> delegate() {
                     if (delegate != null)
                         return delegate;
-                    
-                    delegate = new HashMap<SDDocument,String>();    // Doc --> wsdl=1
-                    for (Entry<String,SDDocument> e : wsdls.entrySet()) {
+
+                    delegate = new HashMap<>();    // Doc --> wsdl=1
+                    for (Entry<String, SDDocument> e : wsdls.entrySet()) {
                         if (!e.getKey().equals("WSDL")) {           // map Doc --> wsdl, not WSDL
-                            delegate.put(e.getValue(),e.getKey());
+                            delegate.put(e.getValue(), e.getKey());
                         }
                     }
-                    
+
                     return delegate;
                 }
 
@@ -508,7 +502,6 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
     /**
      * This method is added for the case of the sub-class wants to override the method to
      * print details. E.g. convert soapfault as HTML msg for 403 error connstatus.
-     * @param os
      */
     protected void writeClientError(int connStatus, @NotNull OutputStream os, @NotNull Packet packet) throws IOException {
     	//do nothing
@@ -812,7 +805,8 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
         }
     }
 
-    final class HttpToolkit extends Adapter.Toolkit {
+    public final class HttpToolkit extends Adapter.Toolkit {
+        private HttpToolkit() {};
         public void handle(WSHTTPConnection con) throws IOException {
             try {
                 boolean invoke = false;
@@ -945,7 +939,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
         con.setStatus(HttpURLConnection.HTTP_NOT_FOUND);
         con.setContentTypeResponseHeader("text/html; charset=utf-8");
 
-        PrintWriter out = new PrintWriter(new OutputStreamWriter(con.getOutput(),"UTF-8"));
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(con.getOutput(), StandardCharsets.UTF_8));
         out.println("<html>");
         out.println("<head><title>");
         out.println(WsservletMessages.SERVLET_HTML_TITLE());
@@ -971,7 +965,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
 
     private static void dump(ByteArrayBuffer buf, String caption, Map<String, List<String>> headers) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintWriter pw = new PrintWriter(baos, true);
+        MessageWriter pw = new MessageWriter(new OutputStreamWriter(baos), dump_threshold);
         pw.println("---["+caption +"]---");
         if (headers != null) {
             for (Entry<String, List<String>> header : headers.entrySet()) {
@@ -985,17 +979,20 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
                     }
                 }
             }
+            pw.println("\n");
         }
-        if (buf.size() > dump_threshold) {
-            byte[] b = buf.getRawData();
-            baos.write(b, 0, dump_threshold);
-            pw.println();
-            pw.println(WsservletMessages.MESSAGE_TOO_LONG(HttpAdapter.class.getName() + ".dumpTreshold"));
-        } else {
-            buf.writeTo(baos);
-            pw.println();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(buf.newInputStream()));
+        String line = reader.readLine();
+        try {
+            while (line != null) {
+                pw.write(line);
+                line = reader.readLine();
+            }
+        } catch (UtilException ue) {
+            baos.write(WsservletMessages.MESSAGE_TOO_LONG(HttpAdapter.class.getName() + ".dumpThreshold\n").getBytes(StandardCharsets.UTF_8));
         }
-        pw.println("--------------------");
+        baos.write("--------------------\n".getBytes(StandardCharsets.UTF_8));
 
         String msg = baos.toString();
         if (dump) {
@@ -1022,7 +1019,7 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
         con.setStatus(WSHTTPConnection.OK);
         con.setContentTypeResponseHeader("text/html; charset=utf-8");
 
-        PrintWriter out = new PrintWriter(new OutputStreamWriter(con.getOutput(),"UTF-8"));
+        PrintWriter out = new PrintWriter(new OutputStreamWriter(con.getOutput(), StandardCharsets.UTF_8));
         out.println("<html>");
         out.println("<head><title>");
         // out.println("Web Services");
@@ -1106,11 +1103,19 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
             }
         }
         try {
-            dump_threshold = Integer.getInteger(HttpAdapter.class.getName() + ".dumpTreshold", 4096);
+            dump_threshold = Integer.getInteger(HttpAdapter.class.getName() + ".dumpThreshold", 4096);
+            if (System.getProperty(HttpAdapter.class.getName() + ".dumpTreshold") != null) {
+                if (LOGGER.isLoggable(Level.WARNING)) {
+                    LOGGER.log(Level.WARNING, "Using deprecated ''{0}'' property, use ''{1}'' instead.",
+                            new Object[] {HttpAdapter.class.getName() + ".dumpTreshold",
+                                    HttpAdapter.class.getName() + ".dumpThreshold"});
+                }
+                dump_threshold = Integer.getInteger(HttpAdapter.class.getName() + ".dumpTreshold", 4096);
+            }
         } catch (SecurityException se) {
             if (LOGGER.isLoggable(Level.CONFIG)) {
                 LOGGER.log(Level.CONFIG, "Cannot read ''{0}'' property, using defaults.",
-                        new Object[] {HttpAdapter.class.getName() + ".dumpTreshold"});
+                        new Object[] {HttpAdapter.class.getName() + ".dumpThreshold"});
             }
         }
         try {
@@ -1129,11 +1134,11 @@ public class HttpAdapter extends Adapter<HttpAdapter.HttpToolkit> {
         HttpAdapter.dump = dumpMessages;
     }
 
-    public static void setDumpTreshold(int treshold) {
-        if (treshold < 0) {
-            throw new IllegalArgumentException("Treshold must be positive number");
+    public static void setDumpThreshold(int threshold) {
+        if (threshold < 0) {
+            throw new IllegalArgumentException("Threshold must be positive number");
         }
-        HttpAdapter.dump_threshold = treshold;
+        HttpAdapter.dump_threshold = threshold;
     }
 }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,7 +29,7 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
 /**
- * {@link Header} that represents &lt;wsa:ProblemAction>
+ * {@link Header} that represents &lt;wsa:ProblemAction&gt;
  * @author Arun Gupta
  */
 public class ProblemActionHeader extends AbstractHeaderImpl {
@@ -52,23 +52,27 @@ public class ProblemActionHeader extends AbstractHeaderImpl {
         this.av = av;
     }
 
+    @Override
     public
     @NotNull
     String getNamespaceURI() {
         return av.nsUri;
     }
 
+    @Override
     public
     @NotNull
     String getLocalPart() {
         return "ProblemAction";
     }
 
+    @Override
     @Nullable
     public String getAttribute(@NotNull String nsUri, @NotNull String localName) {
         return null;
     }
 
+    @Override
     public XMLStreamReader readHeader() throws XMLStreamException {
         MutableXMLStreamBuffer buf = new MutableXMLStreamBuffer();
         XMLStreamWriter w = buf.createFromXMLStreamWriter();
@@ -76,6 +80,7 @@ public class ProblemActionHeader extends AbstractHeaderImpl {
         return buf.readAsXMLStreamReader();
     }
 
+    @Override
     public void writeTo(XMLStreamWriter w) throws XMLStreamException {
         w.writeStartElement("", getLocalPart(), getNamespaceURI());
         w.writeDefaultNamespace(getNamespaceURI());
@@ -90,6 +95,7 @@ public class ProblemActionHeader extends AbstractHeaderImpl {
         w.writeEndElement();
     }
 
+    @Override
     public void writeTo(SOAPMessage saaj) throws SOAPException {
         SOAPHeader header = saaj.getSOAPHeader();
         if(header == null)
@@ -103,6 +109,7 @@ public class ProblemActionHeader extends AbstractHeaderImpl {
         }
     }
 
+    @Override
     public void writeTo(ContentHandler h, ErrorHandler errorHandler) throws SAXException {
         String nsUri = getNamespaceURI();
         String ln = getLocalPart();

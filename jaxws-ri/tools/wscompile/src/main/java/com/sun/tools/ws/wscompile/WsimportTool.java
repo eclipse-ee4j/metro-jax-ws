@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -69,8 +69,13 @@ public class WsimportTool {
         this.container = container;
     }
 
-    protected class Listener extends WsimportListener {
+    public class Listener extends WsimportListener {
         ConsoleErrorReporter cer = new ConsoleErrorReporter(out == null ? new PrintStream(new NullStream()) : out);
+
+        /**
+         * Default constructor.
+         */
+        public Listener() {}
 
         @Override
         public void generatedFile(String fileName) {
@@ -184,10 +189,7 @@ public class WsimportTool {
                 //error might have been reported
                  *
                  */
-            }catch (IOException e) {
-                receiver.error(e);
-                return false;
-            }catch (XMLStreamException e) {
+            }catch (IOException | XMLStreamException e) {
                 receiver.error(e);
                 return false;
             }
@@ -224,14 +226,11 @@ public class WsimportTool {
                 DefaultAuthenticator.reset();
             }
         }
-        if(receiver.hadError()) {
-            return false;
-        }
-        return true;
+        return !receiver.hadError();
     }
 
     private void deleteGeneratedFiles() {
-        Set<File> trackedRootPackages = new HashSet<File>();
+        Set<File> trackedRootPackages = new HashSet<>();
 
         if (options.clientjar != null) {
             //remove all non-java artifacts as they will packaged in jar.
@@ -267,22 +266,19 @@ public class WsimportTool {
 
     private void addClassesToGeneratedFiles() throws IOException {
         Iterable<File> generatedFiles = options.getGeneratedFiles();
-        final List<File> trackedClassFiles = new ArrayList<File>();
+        final List<File> trackedClassFiles = new ArrayList<>();
         for(File f: generatedFiles) {
             if(f.getName().endsWith(".java")) {
                 String relativeDir = DirectoryUtil.getRelativePathfromCommonBase(f.getParentFile(),options.sourceDir);
                 final String className = f.getName().substring(0,f.getName().indexOf(".java"));
                 File classDir = new File(options.destDir,relativeDir);
                 if(classDir.exists()) {
-                    classDir.listFiles(new FilenameFilter() {
-                        @Override
-                        public boolean accept(File dir, String name) {
-                            if(name.equals(className+".class") || (name.startsWith(className+"$") && name.endsWith(".class"))) {
-                                trackedClassFiles.add(new File(dir,name));
-                                return true;
-                            }
-                            return false;
+                    classDir.listFiles((dir, name) -> {
+                        if(name.equals(className+".class") || (name.startsWith(className+"$") && name.endsWith(".class"))) {
+                            trackedClassFiles.add(new File(dir,name));
+                            return true;
                         }
+                        return false;
                     });
                 }
             }
@@ -432,9 +428,10 @@ public class WsimportTool {
         if( !options.quiet )
             listener.message(WscompileMessages.WSIMPORT_GENERATING_CODE());
 
+        @SuppressWarnings({"deprecation"})
         TJavaGeneratorExtension[] genExtn = ServiceFinder.find(TJavaGeneratorExtension.class, ServiceLoader.load(TJavaGeneratorExtension.class)).toArray();
         CustomExceptionGenerator.generate(wsdlModel,  options, receiver);
-            SeiGenerator.generate(wsdlModel, options, receiver, genExtn);
+        SeiGenerator.generate(wsdlModel, options, receiver, genExtn);
         if(receiver.hadError()){
             throw new AbortException();
         }
@@ -489,7 +486,7 @@ public class WsimportTool {
     }
 
     protected boolean compileGeneratedClasses(ErrorReceiver receiver, WsimportListener listener){
-        List<String> sourceFiles = new ArrayList<String>();
+        List<String> sourceFiles = new ArrayList<>();
 
         for (File f : options.getGeneratedFiles()) {
             if (f.exists() && f.getName().endsWith(".java")) {
@@ -497,10 +494,10 @@ public class WsimportTool {
             }
         }
 
-        if (sourceFiles.size() > 0) {
+        if (!sourceFiles.isEmpty()) {
             String classDir = options.destDir.getAbsolutePath();
             String classpathString = createClasspathString();
-            List<String> args = new ArrayList<String>();
+            List<String> args = new ArrayList<>();
 
             args.add("-d");
             args.add(classDir);
@@ -520,9 +517,7 @@ public class WsimportTool {
                 args.addAll(options.getJavacOptions(args, listener));
             }
 
-            for (int i = 0; i < sourceFiles.size(); ++i) {
-                args.add(sourceFiles.get(i));
-            }
+            args.addAll(sourceFiles);
 
             if (!options.quiet) listener.message(WscompileMessages.WSIMPORT_COMPILING_CODE());
 
@@ -531,10 +526,10 @@ public class WsimportTool {
                 for(String arg:args){
                     argstr.append(arg).append(" ");
                 }
-                listener.message("javac "+ argstr.toString());
+                listener.message("javac "+ argstr);
             }
 
-            return JavaCompilerHelper.compile(args.toArray(new String[args.size()]), out, receiver);
+            return JavaCompilerHelper.compile(args.toArray(new String[0]), out, receiver);
         }
         //there are no files to compile, so return true?
         return true;
@@ -544,7 +539,7 @@ public class WsimportTool {
         StringBuilder classpathStr = new StringBuilder(System.getProperty("java.class.path"));
         for(String s: options.cmdlineJars) {
             classpathStr.append(File.pathSeparator);
-            classpathStr.append(new File(s).toString());
+            classpathStr.append(new File(s));
         }
         return classpathStr.toString();
     }

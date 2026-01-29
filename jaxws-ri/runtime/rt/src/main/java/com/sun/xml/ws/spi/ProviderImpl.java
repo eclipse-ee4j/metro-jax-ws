@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -65,7 +65,7 @@ import java.util.Map;
  */
 public class ProviderImpl extends Provider {
 
-    private final static ContextClassloaderLocal<JAXBContext> eprjc = new ContextClassloaderLocal<JAXBContext>() {
+    private final static ContextClassloaderLocal<JAXBContext> eprjc = new ContextClassloaderLocal<>() {
         @Override
         protected JAXBContext initialValue() throws Exception {
             return getEPRJaxbContext();
@@ -85,12 +85,13 @@ public class ProviderImpl extends Provider {
     }
 
     @Override
-    public ServiceDelegate createServiceDelegate( URL wsdlDocumentLocation, QName serviceName, Class serviceClass) {
+    public ServiceDelegate createServiceDelegate( URL wsdlDocumentLocation, QName serviceName, Class<? extends Service> serviceClass) {
          return new WSServiceDelegate(wsdlDocumentLocation, serviceName, serviceClass);
     }
 
-    public ServiceDelegate createServiceDelegate( URL wsdlDocumentLocation, QName serviceName, Class serviceClass,
-                                                  WebServiceFeature ... features) {
+    @Override
+    public ServiceDelegate createServiceDelegate(URL wsdlDocumentLocation, QName serviceName, Class<? extends Service> serviceClass,
+                                                 WebServiceFeature ... features) {
         for (WebServiceFeature feature : features) {
             if (!(feature instanceof ServiceSharedFeatureMarker))
             throw new WebServiceException("Doesn't support any Service specific features");
@@ -98,7 +99,7 @@ public class ProviderImpl extends Provider {
         return new WSServiceDelegate(wsdlDocumentLocation, serviceName, serviceClass, features);
     }
 
-    public ServiceDelegate createServiceDelegate( Source wsdlSource, QName serviceName, Class serviceClass) {
+    public ServiceDelegate createServiceDelegate( Source wsdlSource, QName serviceName, Class<? extends Service> serviceClass) {
         return new WSServiceDelegate(wsdlSource, serviceName, serviceClass);
    }
 
@@ -112,12 +113,14 @@ public class ProviderImpl extends Provider {
         return endpoint;
     }
 
+    @Override
     public Endpoint createEndpoint(String bindingId, Object implementor, WebServiceFeature... features) {
         return new EndpointImpl(
             (bindingId != null) ? BindingID.parse(bindingId) : BindingID.parse(implementor.getClass()),
             implementor, features);
     }
 
+    @Override
     public Endpoint createAndPublishEndpoint(String address, Object implementor, WebServiceFeature... features) {
         Endpoint endpoint = new EndpointImpl(
             BindingID.parse(implementor.getClass()), implementor, features);
@@ -125,12 +128,14 @@ public class ProviderImpl extends Provider {
         return endpoint;
     }
 
+    @Override
     public Endpoint createEndpoint(String bindingId, Class implementorClass, Invoker invoker, WebServiceFeature... features) {
         return new EndpointImpl(
             (bindingId != null) ? BindingID.parse(bindingId) : BindingID.parse(implementorClass),
             implementorClass, invoker, features);
     }
     
+    @Override
     public EndpointReference readEndpointReference(final Source eprInfoset) {
 
         try {
@@ -142,6 +147,7 @@ public class ProviderImpl extends Provider {
 
     }
 
+    @Override
     public <T> T getPort(EndpointReference endpointReference, Class<T> clazz, WebServiceFeature... webServiceFeatures) {
         /*
         final @NotNull MemberSubmissionEndpointReference msepr =
@@ -160,13 +166,15 @@ public class ProviderImpl extends Provider {
         return service.getPort(wsepr, clazz, webServiceFeatures);
     }
 
+    @Override
     public W3CEndpointReference createW3CEndpointReference(String address, QName serviceName, QName portName, List<Element> metadata, String wsdlDocumentLocation, List<Element> referenceParameters) {
         return createW3CEndpointReference(address, null, serviceName, portName, metadata, wsdlDocumentLocation, referenceParameters, null, null);
     }
 
+    @Override
     public W3CEndpointReference createW3CEndpointReference(String address, QName interfaceName, QName serviceName, QName portName,
-            List<Element> metadata, String wsdlDocumentLocation, List<Element> referenceParameters,
-            List<Element> elements, Map<QName, String> attributes) {
+                                                           List<Element> metadata, String wsdlDocumentLocation, List<Element> referenceParameters,
+                                                           List<Element> elements, Map<QName, String> attributes) {
         Container container = ContainerResolver.getInstance().getContainer();
         if (address == null) {
             if (serviceName == null || portName == null) {
@@ -177,7 +185,7 @@ public class ProviderImpl extends Provider {
                 if (module != null) {
                     List<BoundEndpoint> beList = module.getBoundEndpoints();
                     for (BoundEndpoint be : beList) {
-                        WSEndpoint wse = be.getEndpoint();
+                        WSEndpoint<?> wse = be.getEndpoint();
                         if (wse.getServiceName().equals(serviceName) && wse.getPortName().equals(portName)) {
                             try {
                                 address = be.getAddress().toString();
@@ -240,7 +248,8 @@ public class ProviderImpl extends Provider {
         // EPRs have package and private fields, so we need privilege escalation.
         // this access only fixed, known set of classes, so doing that
         // shouldn't introduce security vulnerability.
-        return AccessController.doPrivileged(new PrivilegedAction<JAXBContext>() {
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
+            @Override
             public JAXBContext run() {
                 try {
                     return JAXBContext.newInstance(MemberSubmissionEndpointReference.class, W3CEndpointReference.class);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,27 +22,24 @@ import com.sun.xml.ws.api.WSBinding;
  * Interface representing all the headers of a {@link Message}
  */
 public interface MessageHeaders {
-    public void understood(Header header);
-    public void understood(QName name);
-    public void understood(String nsUri, String localName);
-    public Header get(String nsUri, String localName, boolean markAsUnderstood);
-    public Header get(QName name, boolean markAsUnderstood);
-    public Iterator<Header> getHeaders(String nsUri, String localName, final boolean markAsUnderstood);
+    void understood(Header header);
+    void understood(QName name);
+    void understood(String nsUri, String localName);
+    Header get(String nsUri, String localName, boolean markAsUnderstood);
+    Header get(QName name, boolean markAsUnderstood);
+    Iterator<Header> getHeaders(String nsUri, String localName, final boolean markAsUnderstood);
     /**
      * Get all headers in specified namespace
-     * @param nsUri
-     * @param markAsUnderstood
-     * @return
      */
-    public Iterator<Header> getHeaders(String nsUri, final boolean markAsUnderstood);
-    public Iterator<Header> getHeaders(QName headerName, final boolean markAsUnderstood);
-    public Iterator<Header> getHeaders();    
-    public boolean hasHeaders();    
-    public boolean add(Header header);
-    public Header remove(QName name);
-    public Header remove(String nsUri, String localName);
+    Iterator<Header> getHeaders(String nsUri, final boolean markAsUnderstood);
+    Iterator<Header> getHeaders(QName headerName, final boolean markAsUnderstood);
+    Iterator<Header> getHeaders();
+    boolean hasHeaders();
+    boolean add(Header header);
+    Header remove(QName name);
+    Header remove(String nsUri, String localName);
     //DONT public Header remove(Header header);
-    public void replace(Header old, Header header);
+    void replace(Header old, Header header);
     
     /**
      * Replaces an existing {@link Header} or adds a new {@link Header}.
@@ -55,13 +52,13 @@ public interface MessageHeaders {
      * @return
      *      always true. Don't use the return value.
      */
-    public boolean addOrReplace(Header header);
+    boolean addOrReplace(Header header);
     
     /**
      * Return a Set of QNames of headers that have been explicitly marked as understood.
      * If none have been marked, this method could return null
      */
-    public Set<QName> getUnderstoodHeaders();
+    Set<QName> getUnderstoodHeaders();
     
     /**
      * Returns a Set of QNames of headers that satisfy ALL the following conditions:
@@ -71,38 +68,28 @@ public interface MessageHeaders {
      * for the roles argument and SOAP version  
      * (d) If non-null binding is passed in, are NOT understood by the binding
      * (e) If (d) is met, the header is NOT in the knownHeaders list passed in
-     * 
-     * @param roles
-     * @param knownHeaders
-     * @param binding
-     * @return
+     *
      */
-    public Set<QName> getNotUnderstoodHeaders(Set<String> roles, Set<QName> knownHeaders, WSBinding binding);
+    Set<QName> getNotUnderstoodHeaders(Set<String> roles, Set<QName> knownHeaders, WSBinding binding);
     
     /**
      * True if the header has been explicitly marked understood, false otherwise
-     * @param header
-     * @return
      */
-    public boolean isUnderstood(Header header);
+    boolean isUnderstood(Header header);
     
     /**
      * True if the header has been explicitly marked understood, false otherwise
-     * @param header
-     * @return
      */
-    public boolean isUnderstood(QName header);
+    boolean isUnderstood(QName header);
     
     /**
      * True if the header has been explicitly marked understood, false otherwise
-     * @param header
-     * @return
      */
-    public boolean isUnderstood(String nsUri, String header);
+    boolean isUnderstood(String nsUri, String header);
     
     /**
      * Returns <code>Header</code> instances in a <code>List</code>.
      * @return <code>List</code> containing <code>Header</code> instances
      */
-    public List<Header> asList();
+    List<Header> asList();
 }

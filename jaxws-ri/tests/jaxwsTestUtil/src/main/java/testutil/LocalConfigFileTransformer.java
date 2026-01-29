@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -52,7 +52,7 @@ public class LocalConfigFileTransformer {
 
             // get wsdl file names from sun-jaxws.xml
             Document doc = builder.parse(tempdir + "WEB-INF/sun-jaxws.xml");
-            Map endpointMap = buildMap(doc.getElementsByTagName("endpoint"));
+            Map<String, String> endpointMap = buildMap(doc.getElementsByTagName("endpoint"));
 
             // make change in config file
             doc = builder.parse(oldConfig);
@@ -91,8 +91,8 @@ public class LocalConfigFileTransformer {
         }
     }
 
-    private static Map buildMap(NodeList nodeList) throws Exception {
-        Map map = new HashMap(nodeList.getLength());
+    private static Map<String, String> buildMap(NodeList nodeList) throws Exception {
+        Map<String, String> map = new HashMap<>(nodeList.getLength());
         Element endpoint = null;
         for (int i=0; i<nodeList.getLength(); i++) {
             endpoint = (Element) nodeList.item(i);
@@ -101,7 +101,7 @@ public class LocalConfigFileTransformer {
             String wsdl = endpoint.getAttributeNode("wsdl").getValue();
             
             // remove the leading "/" from "/WEB-INF/filename.wsdl
-            map.put(urlpattern, wsdl.substring(1, wsdl.length()));
+            map.put(urlpattern, wsdl.substring(1));
         }
         return map;
     }

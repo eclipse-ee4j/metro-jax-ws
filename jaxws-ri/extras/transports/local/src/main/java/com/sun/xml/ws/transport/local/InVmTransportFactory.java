@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,6 +24,13 @@ import java.net.URI;
  * "in-vm://<i>inVmServerId</i>[?<i>portLocalName</i>]".
  */
 public final class InVmTransportFactory extends TransportTubeFactory {
+
+    /**
+     * Default constructor.
+     */
+    public InVmTransportFactory() {}
+
+    @Override
     public Tube doCreate(@NotNull ClientTubeAssemblerContext context) {
         URI adrs = context.getAddress().getURI();
         if(!adrs.getScheme().equals("in-vm") && !adrs.getScheme().equals("in-vm-async"))
@@ -33,7 +40,7 @@ public final class InVmTransportFactory extends TransportTubeFactory {
         InVmServer server = InVmServer.get(serverId);
         if(server==null)
             throw new WebServiceException("No such server is running: "+adrs);
-        WSEndpoint endpoint;
+        WSEndpoint<?> endpoint;
         if(server.getEndpoints().size()==1)
             endpoint = server.getEndpoints().get(0);
         else

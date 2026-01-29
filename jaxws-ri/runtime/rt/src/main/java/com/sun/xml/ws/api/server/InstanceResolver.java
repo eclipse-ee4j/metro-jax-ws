@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,6 +54,12 @@ import java.util.logging.Logger;
  * @author Kohsuke Kawaguchi
  */
 public abstract class InstanceResolver<T> {
+
+    /**
+     * Default constructor.
+     */
+    protected InstanceResolver() {}
+
     /**
      * Decides which instance of 'T' serves the given request message.
      *
@@ -109,6 +115,7 @@ public abstract class InstanceResolver<T> {
      * @deprecated
      *      Use {@link #start(WSWebServiceContext,WSEndpoint)}.
      */
+    @Deprecated
     public void start(@NotNull WebServiceContext wsc) {}
 
     /**
@@ -131,7 +138,7 @@ public abstract class InstanceResolver<T> {
         assert singleton!=null;
         InstanceResolver ir = createFromInstanceResolverAnnotation(singleton.getClass());
         if(ir==null)
-            ir = new SingletonResolver<T>(singleton);
+            ir = new SingletonResolver<>(singleton);
         return ir;
     }
 
@@ -141,6 +148,7 @@ public abstract class InstanceResolver<T> {
      *      with this signature. Please do not use this. Will be removed
      *      after the next GF integration.
      */
+    @Deprecated
     public static <T> InstanceResolver<T> createDefault(@NotNull Class<T> clazz, boolean bool) {
         return createDefault(clazz);
     }
@@ -151,7 +159,7 @@ public abstract class InstanceResolver<T> {
     public static <T> InstanceResolver<T> createDefault(@NotNull Class<T> clazz) {
         InstanceResolver<T> ir = createFromInstanceResolverAnnotation(clazz);
         if(ir==null)
-            ir = new SingletonResolver<T>(createNewInstance(clazz));
+            ir = new SingletonResolver<>(createNewInstance(clazz));
         return ir;
     }
 
@@ -166,16 +174,7 @@ public abstract class InstanceResolver<T> {
             Class<? extends InstanceResolver> ir = ira.value();
             try {
                 return ir.getConstructor(Class.class).newInstance(clazz);
-            } catch (InstantiationException e) {
-                throw new WebServiceException(ServerMessages.FAILED_TO_INSTANTIATE_INSTANCE_RESOLVER(
-                    ir.getName(),a.annotationType(),clazz.getName()));
-            } catch (IllegalAccessException e) {
-                throw new WebServiceException(ServerMessages.FAILED_TO_INSTANTIATE_INSTANCE_RESOLVER(
-                    ir.getName(),a.annotationType(),clazz.getName()));
-            } catch (InvocationTargetException e) {
-                throw new WebServiceException(ServerMessages.FAILED_TO_INSTANTIATE_INSTANCE_RESOLVER(
-                    ir.getName(),a.annotationType(),clazz.getName()));
-            } catch (NoSuchMethodException e) {
+            } catch (ReflectiveOperationException e) {
                 throw new WebServiceException(ServerMessages.FAILED_TO_INSTANTIATE_INSTANCE_RESOLVER(
                     ir.getName(),a.annotationType(),clazz.getName()));
             }
@@ -186,12 +185,8 @@ public abstract class InstanceResolver<T> {
 
     protected static <T> T createNewInstance(Class<T> cl) {
         try {
-            return cl.newInstance();
-        } catch (InstantiationException e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
-            throw new ServerRtException(
-                WsservletMessages.ERROR_IMPLEMENTOR_FACTORY_NEW_INSTANCE_FAILED(cl));
-        } catch (IllegalAccessException e) {
+            return cl.getConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
             throw new ServerRtException(
                 WsservletMessages.ERROR_IMPLEMENTOR_FACTORY_NEW_INSTANCE_FAILED(cl));
@@ -234,7 +229,7 @@ public abstract class InstanceResolver<T> {
             }
 
             public String toString() {
-                return "Default Invoker over "+InstanceResolver.this.toString();
+                return "Default Invoker over "+ InstanceResolver.this;
             }
         };
     }

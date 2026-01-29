@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,6 +23,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public abstract class ObjectPool<T> {
 
 	private volatile SoftReference<ConcurrentLinkedQueue<T>> queueRef;
+
+	/**
+	 * Default constructor.
+	 */
+	protected ObjectPool() {}
 
 	/**
 	 * Allocate an object from the pool or create a new one if we cannot get one
@@ -60,8 +65,8 @@ public abstract class ObjectPool<T> {
 		if (queueRef == null || (q = queueRef.get()) == null) {
 			synchronized (this) {
 				if (queueRef == null || (q = queueRef.get()) == null) {
-					q = new ConcurrentLinkedQueue<T>();
-					queueRef = new SoftReference<ConcurrentLinkedQueue<T>>(q);
+					q = new ConcurrentLinkedQueue<>();
+					queueRef = new SoftReference<>(q);
 				}
 			}
 		}

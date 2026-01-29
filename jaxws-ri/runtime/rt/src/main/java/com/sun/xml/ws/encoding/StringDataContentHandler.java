@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,6 +27,11 @@ public class StringDataContentHandler implements DataContentHandler {
     private static final ActivationDataFlavor myDF = new ActivationDataFlavor(
             java.lang.String.class, "text/plain", "Text String");
 
+    /**
+     * Default constructor.
+     */
+    public StringDataContentHandler() {}
+
     protected ActivationDataFlavor getDF() {
         return myDF;
     }
@@ -36,6 +41,7 @@ public class StringDataContentHandler implements DataContentHandler {
      *
      * @return The DataFlavors
      */
+    @Override
     public ActivationDataFlavor[] getTransferDataFlavors() {
         return new ActivationDataFlavor[]{getDF()};
     }
@@ -47,6 +53,7 @@ public class StringDataContentHandler implements DataContentHandler {
      * @param ds The DataSource corresponding to the data
      * @return String object
      */
+    @Override
     public Object getTransferData(ActivationDataFlavor df, DataSource ds)
             throws IOException {
         // use myDF.equals to be sure to get ActivationDataFlavor.equals,
@@ -57,6 +64,7 @@ public class StringDataContentHandler implements DataContentHandler {
             return null;
     }
 
+    @Override
     public Object getContent(DataSource ds) throws IOException {
         String enc = null;
         InputStreamReader is;
@@ -79,17 +87,14 @@ public class StringDataContentHandler implements DataContentHandler {
         try {
             int pos = 0;
             int count;
-            char buf[] = new char[1024];
+            char[] buf = new char[1024];
 
             while ((count = is.read(buf, pos, buf.length - pos)) != -1) {
                 pos += count;
                 if (pos >= buf.length) {
                     int size = buf.length;
-                    if (size < 256 * 1024)
-                        size += size;
-                    else
-                        size += 256 * 1024;
-                    char tbuf[] = new char[size];
+                    size += Math.min(size, 256 * 1024);
+                    char[] tbuf = new char[size];
                     System.arraycopy(buf, 0, tbuf, 0, pos);
                     buf = tbuf;
                 }
@@ -107,6 +112,7 @@ public class StringDataContentHandler implements DataContentHandler {
     /**
      * Write the object to the output stream, using the specified MIME type.
      */
+    @Override
     public void writeTo(Object obj, String type, OutputStream os)
             throws IOException {
         if (!(obj instanceof String))

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,46 +24,64 @@ import com.sun.xml.ws.api.databinding.MetadataReader;
  * @author shih-chang.chen@oracle.com
  */
 public class ReflectAnnotationReader implements MetadataReader {
-//getAnnotationOnImpl SEIorIMpl
-	public Annotation[] getAnnotations(Method m) {
+
+    /**
+     * Default constructor.
+     */
+    public ReflectAnnotationReader() {}
+
+    //getAnnotationOnImpl SEIorIMpl
+	@Override
+    public Annotation[] getAnnotations(Method m) {
 		return m.getAnnotations();
 	}
 
-	public Annotation[][] getParameterAnnotations(final Method method) {
-        return AccessController.doPrivileged(new PrivilegedAction<Annotation[][]>() {
-           public Annotation[][] run() {
-               return method.getParameterAnnotations();
-           }
+	@Override
+    public Annotation[][] getParameterAnnotations(final Method method) {
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
+            @Override
+            public Annotation[][] run() {
+                return method.getParameterAnnotations();
+            }
         });
     }
 	
-	public <A extends Annotation> A getAnnotation(final Class<A> annType, final Method m) {
-        return AccessController.doPrivileged(new PrivilegedAction<A>() {
+	@Override
+    public <A extends Annotation> A getAnnotation(final Class<A> annType, final Method m) {
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
+            @Override
             public A run() {
                 return m.getAnnotation(annType);
             }
-         });
+        });
 	}
 	
-	public <A extends Annotation> A getAnnotation(final Class<A> annType, final Class<?> cls) {
-        return AccessController.doPrivileged(new PrivilegedAction<A>() {
+	@Override
+    public <A extends Annotation> A getAnnotation(final Class<A> annType, final Class<?> cls) {
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
+            @Override
             public A run() {
                 return cls.getAnnotation(annType);
             }
         });
 	}
 
+    @Override
     public Annotation[] getAnnotations(final Class<?> cls) {
-        return AccessController.doPrivileged(new PrivilegedAction<Annotation[]>() {
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
+            @Override
             public Annotation[] run() {
                 return cls.getAnnotations();
             }
         });
     }
 
+    @Override
     public void getProperties(final Map<String, Object> prop, final Class<?> cls){}
     
-    public void getProperties(final Map<String, Object> prop, final Method method){}  
+    @Override
+    public void getProperties(final Map<String, Object> prop, final Method method){}
     
+    @Override
     public void getProperties(final Map<String, Object> prop, final Method method, int pos){}
 }

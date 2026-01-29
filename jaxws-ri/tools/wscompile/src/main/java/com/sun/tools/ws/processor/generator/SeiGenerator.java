@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,7 +19,6 @@ import com.sun.tools.ws.processor.model.java.JavaParameter;
 import com.sun.tools.ws.processor.model.jaxb.JAXBType;
 import com.sun.tools.ws.processor.model.jaxb.JAXBTypeAndAnnotation;
 import com.sun.tools.ws.wscompile.ErrorReceiver;
-import com.sun.tools.ws.wscompile.Options;
 import com.sun.tools.ws.wscompile.WsimportOptions;
 import com.sun.tools.ws.wsdl.document.soap.SOAPStyle;
 import com.sun.tools.ws.wsdl.document.PortType;
@@ -38,31 +37,38 @@ import java.util.List;
 import org.xml.sax.Locator;
 
 public class SeiGenerator extends GeneratorBase {
+    @SuppressWarnings({"deprecation"})
     private TJavaGeneratorExtension extension;
+    @SuppressWarnings({"deprecation"})
     private List<TJavaGeneratorExtension> extensionHandlers;
 
+    /**
+     * Default constructor.
+     */
+    public SeiGenerator() {}
+
+    @SuppressWarnings({"deprecation"})
     public static void generate(Model model, WsimportOptions options, ErrorReceiver receiver, TJavaGeneratorExtension... extensions){
         SeiGenerator seiGenerator = new SeiGenerator();
         seiGenerator.init(model, options, receiver, extensions);
         seiGenerator.doGeneration();
     }
 
+    @SuppressWarnings({"deprecation"})
     public void init(Model model, WsimportOptions options, ErrorReceiver receiver, TJavaGeneratorExtension... extensions) {
         init(model, options, receiver);
-        extensionHandlers = new ArrayList<TJavaGeneratorExtension>();
+        extensionHandlers = new ArrayList<>();
 
         // register handlers for default extensions
 
         // 2.2 Spec requires generation of @Action when wsam:Action is explicitly stated in wsdl
-        if (options.target.isLaterThan(Options.Target.V2_2)) {
-           register(new W3CAddressingJavaGeneratorExtension());
-        }
-        
+        register(new W3CAddressingJavaGeneratorExtension());
+
         for (TJavaGeneratorExtension j : extensions) {
             register(j);
         }
 
-        this.extension = new JavaGeneratorExtensionFacade(extensionHandlers.toArray(new TJavaGeneratorExtension[extensionHandlers.size()]));
+        this.extension = new JavaGeneratorExtensionFacade(extensionHandlers.toArray(new TJavaGeneratorExtension[0]));
     }
 
     private void write(Port port) {
@@ -107,9 +113,7 @@ public class SeiGenerator extends GeneratorBase {
             comment.add("\n\n");
         }
 
-        for(String doc:getJAXWSClassComment()){
-                comment.add(doc);
-        }
+        comment.addAll(getJAXWSClassComment());
 
 
         //@WebService
@@ -123,9 +127,7 @@ public class SeiGenerator extends GeneratorBase {
         writeSOAPBinding(port, cls);
 
         //@XmlSeeAlso
-        if (options.target.isLaterThan(Options.Target.V2_1)) {
-            writeXmlSeeAlso(cls);
-        }
+        writeXmlSeeAlso(cls);
 
         for (Operation operation: port.getOperations()) {
             JavaMethod method = operation.getJavaMethod();
@@ -207,14 +209,14 @@ public class SeiGenerator extends GeneratorBase {
             webMethodAnn.param("operationName", operationName);
         }
 
-        if (operation.getSOAPAction() != null && operation.getSOAPAction().length() > 0){
+        if (operation.getSOAPAction() != null && !operation.getSOAPAction().isEmpty()){
             webMethodAnn.param("action", operation.getSOAPAction());
         }
 
         if (operation.getResponse() == null){
             m.annotate(jakarta.jws.Oneway.class);
         }else if (!operation.getJavaMethod().getReturnType().getName().equals("void") &&
-                 operation.getResponse().getParametersList().size() > 0){
+                !operation.getResponse().getParametersList().isEmpty()){
             Block block;
             String resultName = null;
             String nsURI = null;
@@ -470,6 +472,7 @@ public class SeiGenerator extends GeneratorBase {
         write(port);
     }
 
+    @SuppressWarnings({"deprecation"})
     private void register(TJavaGeneratorExtension h) {
         extensionHandlers.add(h);
     }

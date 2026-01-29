@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,6 +54,7 @@ final class WSHttpHandler implements HttpHandler {
     /**
      * Called by HttpServer when there is a matching request for the context
      */
+    @Override
     public void handle(HttpExchange msg) {
         try {
             if (fineTraceEnabled) {
@@ -102,6 +103,7 @@ final class WSHttpHandler implements HttpHandler {
             this.msg = msg;
         }
 
+        @Override
         public void run() {
             try {
                 handleExchange(msg);

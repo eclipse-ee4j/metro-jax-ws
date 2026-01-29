@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,20 +27,20 @@ public interface EditableWSDLOutput extends WSDLOutput {
      *
      * @param action Action
      */
-    public void setAction(String action);
+    void setAction(String action);
 
     /**
      * Set to true if this is the default action
      *
      * @param defaultAction True, if default action
      */
-    public void setDefaultAction(boolean defaultAction);
+    void setDefaultAction(boolean defaultAction);
 
     /**
      * Freezes WSDL model to prevent further modification
      *
      * @param root WSDL Model
      */
-    public void freeze(EditableWSDLModel root);
+    void freeze(EditableWSDLModel root);
 
 }

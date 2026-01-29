@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2004, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -60,7 +60,7 @@ public class MappingJaxrpcRiRuntime {
             DocumentBuilder builder = dbf.newDocumentBuilder();
 
             Document newdoc = builder.newDocument();
-            Element root = (Element) newdoc.createElement("endpoints");
+            Element root = newdoc.createElement("endpoints");
             newdoc.appendChild(root);
             root.setAttribute(
                 "xmlns",

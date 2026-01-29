@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,7 +53,7 @@
             </listitem>
 
             <listitem>
-                <para><link xlink:href="../javadocs/rt">API Documentation</link></para>
+                <para><link xlink:href="https://javadoc.io/doc/com.sun.xml.ws/jaxws-rt/&version;/">API Documentation</link></para>
             </listitem>
         </itemizedlist>
 
@@ -63,15 +63,14 @@
         discussed in this document and available as part of &ws.impl.name;
         distribution are tested to work on GlassFish and on Apache Tomcat. The
         deployment is demonstrated using &ws.impl.name; specific proprietary
-        deployment descriptor sun-jaxws.xml. </para>
+        deployment descriptor sun-jaxws.xml.</para>
 
         <para>If you wish to use &ws.impl.name; in a Jakarta EE container in a portable
         manner (using Jakarta Enterprise Web Services deployment descriptors), please refer to the
-        <link xlink:href="https://jakarta.ee/specifications/platform/8/">Jakarta EE
-        8</link> or <link
+        <link xlink:href="https://jakarta.ee/specifications/platform/">Jakarta EE Platform</link> or <link
         xlink:href="https://eclipse-ee4j.github.io/glassfish/">GlassFish</link>
         documentation/samples. The majority of the documentation included with
-        &ws.impl.name; is valid with Jakarta EE 8 as well.</para>
+        &ws.impl.name; is valid with Jakarta EE as well.</para>
     </section>
 
     <section xml:id="section-0073999762824">
@@ -79,12 +78,11 @@
 
         <itemizedlist>
             <listitem>
-                <para><link xlink:href="Copyright.txt">2012 Oracle Corporation
-                and/or its affiliates. All rights reserved.</link></para>
+                <para>2013, 2022 Oracle Corporation and/or its affiliates. All rights reserved.</para>
             </listitem>
 
             <listitem>
-                <para>&ws.impl.name.full; is covered by <link
+                <para>&ws.impl.name.full; is covered by <link
                 xlink:href="https://www.eclipse.org/org/documents/edl-v10.php">EDL - version 1.0</link></para>
             </listitem>
 
@@ -100,12 +98,6 @@
 
         <itemizedlist>
             <listitem>
-                <para>Please use the <link
-                xlink:href="https://projects.eclipse.org/projects/ee4j.metro">Metro
-                and &binding.spec.name;</link> forum for feedback.</para>
-            </listitem>
-
-            <listitem>
                 <para>&ws.impl.name; has a project page on GitHub: 
                     <link xlink:href="https://github.com/eclipse-ee4j/metro-jax-ws">https://github.com/eclipse-ee4j/metro-jax-ws</link>.
                 </para>
@@ -113,6 +105,18 @@
 
             <listitem>
                 <para><link xlink:href="https://projects.eclipse.org/projects/ee4j.metro">&ws.spec.name; Group on Eclipse projects</link></para>
+            </listitem>
+
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/eclipse-ee4j/metro-jax-ws/discussions">Discussions</link>
+                </para>
+            </listitem>
+
+            <listitem>
+                <para>
+                    <link xlink:href="https://accounts.eclipse.org/mailing-list/metro-dev">Mailing list</link>
+                </para>
             </listitem>
 
             <listitem>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,11 +10,9 @@
 
 package com.sun.xml.ws.eclipselink;
 
-import static jakarta.jws.soap.SOAPBinding.Style.RPC;
-import static jakarta.jws.soap.SOAPBinding.Use.LITERAL;
-
 import java.lang.reflect.Method;
 
+import com.sun.xml.ws.db.toplink.JAXBContextFactory;
 import jakarta.jws.WebService;
 import jakarta.jws.soap.SOAPBinding;
 import javax.xml.namespace.QName;
@@ -31,6 +29,7 @@ import com.oracle.webservices.api.databinding.DatabindingMode;
 import com.oracle.webservices.api.databinding.DatabindingModeFeature;
 import com.oracle.webservices.api.databinding.JavaCallInfo;
 
+import org.junit.Assert;
 import org.w3c.dom.Node;
 
 import com.oracle.webservices.api.message.MessageContext;
@@ -41,13 +40,13 @@ import com.sun.xml.ws.model.RuntimeModeler;
 public class WrapperNSTest extends TestCase {
 
     @WebService(targetNamespace = "http://echo.org/")
-    @SOAPBinding(style = RPC, use = LITERAL)
+    @SOAPBinding(style = SOAPBinding.Style.RPC, use = SOAPBinding.Use.LITERAL)
     static public interface MyHelloRPC {
         public String echoString(String str);
     }
 
     @WebService(targetNamespace = "http://echo.org/")
-    @DatabindingMode(value = "eclipselink.jaxb")
+    @DatabindingMode(value = JAXBContextFactory.ECLIPSELINK_JAXB)
     static public class MyHelloClass {
         @ResponseWrapper(className = "response1", localName="gigi")
         @RequestWrapper(className = "request1")
@@ -59,7 +58,7 @@ public class WrapperNSTest extends TestCase {
         DatabindingFactory fac = DatabindingFactory.newInstance();
         Databinding.Builder b = fac.createBuilder(sei, null);
         DatabindingModeFeature dbf = new DatabindingModeFeature(
-                "eclipselink.jaxb");
+                JAXBContextFactory.ECLIPSELINK_JAXB);
         WebServiceFeature[] f = { dbf };
         b.feature(f);
         b.serviceName(new QName("http://echo.org/", "helloService"));
@@ -71,7 +70,7 @@ public class WrapperNSTest extends TestCase {
             Object[] args = { "test" };
             JavaCallInfo call = db.createJavaCallInfo(method, args);
             MessageContext mc = db.serializeRequest(call);
-            SOAPMessage msg = mc.getSOAPMessage();
+            SOAPMessage msg = mc.getAsSOAPMessage();
             // System.out.println("------------------ eclipselink");
             // msg.writeTo(System.out);
             // System.out.println();
@@ -79,7 +78,7 @@ public class WrapperNSTest extends TestCase {
             Node n = msg.getSOAPBody().getChildNodes().item(0);
             // System.out.println("num of attributes is: "+
             // n.getAttributes().getLength());
-            assertTrue(n.getAttributes().getLength() == 1);
+            Assert.assertEquals(1, n.getAttributes().getLength());
         }
 
     }
@@ -89,7 +88,7 @@ public class WrapperNSTest extends TestCase {
         DatabindingFactory fac = DatabindingFactory.newInstance();
         Databinding.Builder b = fac.createBuilder(sei, null);
         DatabindingModeFeature dbf = new DatabindingModeFeature(
-                "eclipselink.jaxb");
+                JAXBContextFactory.ECLIPSELINK_JAXB);
         WebServiceFeature[] f = { dbf };
 		DatabindingConfig config = new DatabindingConfig();
 		config.setFeatures(f);
@@ -109,8 +108,7 @@ public class WrapperNSTest extends TestCase {
         Class<?> sei = MyHelloRPC.class;
         DatabindingFactory fac = DatabindingFactory.newInstance();
         Databinding.Builder b = fac.createBuilder(sei, null);
-        DatabindingModeFeature dbf = new DatabindingModeFeature(
-                "glassfish.jaxb");
+        DatabindingModeFeature dbf = new DatabindingModeFeature(DatabindingModeFeature.GLASSFISH_JAXB);
         WebServiceFeature[] f = { dbf };
         b.feature(f);
         b.serviceName(new QName("http://echo.org/", "helloService"));
@@ -123,14 +121,14 @@ public class WrapperNSTest extends TestCase {
             Object[] args = { "test" };
             JavaCallInfo call = db.createJavaCallInfo(method, args);
             MessageContext mc = db.serializeRequest(call);
-            SOAPMessage msg = mc.getSOAPMessage();
+            SOAPMessage msg = mc.getAsSOAPMessage();
             // System.out.println("------------------ glassfish");
             // msg.writeTo(System.out);
             // System.out.println();
             Node n = msg.getSOAPBody().getChildNodes().item(0);
             // System.out.println("num of attributes is: "+
             // n.getAttributes().getLength());
-            assertTrue(n.getAttributes().getLength() == 1);
+            Assert.assertEquals(1, n.getAttributes().getLength());
         }
 
     }

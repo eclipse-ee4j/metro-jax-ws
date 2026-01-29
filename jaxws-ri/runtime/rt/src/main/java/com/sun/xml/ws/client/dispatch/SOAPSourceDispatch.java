@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,6 @@ import com.sun.xml.ws.api.pipe.Tube;
 import com.sun.xml.ws.api.client.WSPortInfo;
 import com.sun.xml.ws.binding.BindingImpl;
 import com.sun.xml.ws.client.WSServiceDelegate;
-import com.sun.xml.ws.client.PortInfo;
 import com.sun.xml.ws.message.source.PayloadSourceMessage;
 
 import javax.xml.namespace.QName;
@@ -51,6 +50,7 @@ final class SOAPSourceDispatch extends DispatchImpl<Source> {
     }
 
 
+    @Override
     Source toReturnValue(Packet response) {
         Message msg = response.getMessage();
 

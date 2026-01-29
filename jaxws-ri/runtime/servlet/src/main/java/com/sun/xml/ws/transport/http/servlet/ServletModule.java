@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,6 +26,11 @@ import jakarta.servlet.http.HttpServletRequest;
 public abstract class ServletModule extends WebModule {
 
     /**
+     * Default constructor.
+     */
+    protected ServletModule() {}
+
+    /**
      * Gets the host, port, and context path portion of this module using
      * {@link HttpServletRequest}
      *
@@ -37,6 +42,8 @@ public abstract class ServletModule extends WebModule {
      *
      * TODO should we generify WebModule so that we could use
      * TODO WebModule&lt;HttpServletRequest&gt; ??
+     * @param req the HTTP request object
+     * @return the host, port, and context path
      */
     public @NotNull String getContextPath(HttpServletRequest req) {
         return ServletConnectionImpl.getBaseAddress(req);

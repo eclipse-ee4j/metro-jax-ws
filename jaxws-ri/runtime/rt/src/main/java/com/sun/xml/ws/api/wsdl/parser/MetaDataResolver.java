@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,6 +22,12 @@ import java.net.URI;
  * @author Vivek Pandey
  */
 public abstract class MetaDataResolver {
+
+    /**
+     * Default constructor.
+     */
+    protected MetaDataResolver() {}
+
     /**
      * Gives {@link com.sun.xml.ws.api.wsdl.parser.ServiceDescriptor} resolved from the given location.
      *

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,8 +29,16 @@ import java.util.Map;
  *
  * @author Arun Gupta
  */
+@SuppressWarnings({"deprecation"})
 public class W3CAddressingJavaGeneratorExtension extends TJavaGeneratorExtension {
+
+    /**
+     * Default constructor.
+     */
+    public W3CAddressingJavaGeneratorExtension() {}
+
     @Override
+    @SuppressWarnings({"deprecation"})
     public void writeMethodAnnotations(TWSDLOperation two, JMethod jMethod) {
         JAnnotationUse actionAnn = null;
 
@@ -40,14 +48,14 @@ public class W3CAddressingJavaGeneratorExtension extends TJavaGeneratorExtension
         Operation o = ((Operation)two);
 
         // explicit input action
-        if (o.getInput().getAction() != null && !o.getInput().getAction().equals("")) {
+        if (o.getInput().getAction() != null && !o.getInput().getAction().isEmpty()) {
             // explicitly specified
             actionAnn = jMethod.annotate(Action.class);
             actionAnn.param("input", o.getInput().getAction());
         }
 
         // explicit output action
-        if (o.getOutput() != null && o.getOutput().getAction() != null && !o.getOutput().getAction().equals("")) {
+        if (o.getOutput() != null && o.getOutput().getAction() != null && !o.getOutput().getAction().isEmpty()) {
             // explicitly specified
             if (actionAnn == null)
                 actionAnn = jMethod.annotate(Action.class);
@@ -56,7 +64,7 @@ public class W3CAddressingJavaGeneratorExtension extends TJavaGeneratorExtension
         }
 
         // explicit fault action
-        if (o.getFaults() != null && o.getFaults().size() > 0) {
+        if (o.getFaults() != null && !o.getFaults().isEmpty()) {
             Map<String, JClass> map = o.getFaults();
             JAnnotationArrayMember jam = null;
 
@@ -64,7 +72,7 @@ public class W3CAddressingJavaGeneratorExtension extends TJavaGeneratorExtension
                 if (f.getAction() == null)
                     continue;
 
-                if (f.getAction().equals(""))
+                if (f.getAction().isEmpty())
                     continue;
 
                 if (actionAnn == null) {

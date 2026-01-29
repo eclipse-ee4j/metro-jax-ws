@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -55,14 +55,17 @@ abstract class XMLProviderArgumentBuilder<T> extends ProviderArgumentsBuilder<T>
     }
 
     private static final class PayloadSource extends XMLProviderArgumentBuilder<Source> {
+        @Override
         public Source getParameter(Packet packet) {
             return packet.getMessage().readPayloadAsSource();
         }
 
+        @Override
         public Message getResponseMessage(Source source) {
             return Messages.createUsingPayload(source, SOAPVersion.SOAP_11);
         }
 
+        @Override
         protected Message getResponseMessage(Exception e) {
             return XMLMessage.create(e);
         }
@@ -74,6 +77,7 @@ abstract class XMLProviderArgumentBuilder<T> extends ProviderArgumentsBuilder<T>
         DataSourceParameter(WSBinding binding) {
             this.binding = binding;
         }
+        @Override
         public DataSource getParameter(Packet packet) {
             Message msg = packet.getInternalMessage();
             return (msg instanceof XMLMessage.MessageDataSource)
@@ -81,10 +85,12 @@ abstract class XMLProviderArgumentBuilder<T> extends ProviderArgumentsBuilder<T>
                     : XMLMessage.getDataSource(msg, binding.getFeatures());
         }
 
+        @Override
         public Message getResponseMessage(DataSource ds) {
             return XMLMessage.create(ds, binding.getFeatures());
         }
 
+        @Override
         protected Message getResponseMessage(Exception e) {
             return XMLMessage.create(e);
         }

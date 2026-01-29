@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,20 +39,20 @@ public class Policy implements Iterable<AssertionSet> {
      * Constant represents empty list of assertion sets. This represents the content of a 'NULL' policy - a policy with
      * no alternatives. The constant supports memory effective creation of 'NULL' policy objects.
      */
-    private static final List<AssertionSet> NULL_POLICY_ASSERTION_SETS = Collections.unmodifiableList(new LinkedList<AssertionSet>());
+    private static final List<AssertionSet> NULL_POLICY_ASSERTION_SETS = Collections.unmodifiableList(new LinkedList<>());
     
     /**
      * Constant represents list of assertion sets with single empty assertion set. This represents the content of
      * an 'EMPTY' policy - a policy with a single empty alternative. The constant supports memory effective creation
      * of 'EMPTY' policy objects.
      */
-    private static final List<AssertionSet> EMPTY_POLICY_ASSERTION_SETS = Collections.unmodifiableList(new LinkedList<AssertionSet>(Arrays.asList(new AssertionSet[] {AssertionSet.emptyAssertionSet()})));
+    private static final List<AssertionSet> EMPTY_POLICY_ASSERTION_SETS = Collections.unmodifiableList(new LinkedList<>(Arrays.asList(AssertionSet.emptyAssertionSet())));
     
     /**
      * Constant represents empty vocabulary of a 'NULL' or 'EMPTY' policies. The constant supports memory effective
      * creation of 'NULL' and 'EMPTY' policy objects.
      */
-    private static final Set<QName> EMPTY_VOCABULARY = Collections.unmodifiableSet(new TreeSet<QName>(PolicyUtils.Comparison.QNAME_COMPARATOR));
+    private static final Set<QName> EMPTY_VOCABULARY = Collections.unmodifiableSet(new TreeSet<>(PolicyUtils.Comparison.QNAME_COMPARATOR));
     
     /**
      * Constant representation of all 'NULL' policies returned by createNullPolicy() factory method. This is to optimize
@@ -300,8 +300,8 @@ public class Policy implements Iterable<AssertionSet> {
             this.vocabulary = EMPTY_VOCABULARY;
             this.immutableVocabulary = EMPTY_VOCABULARY;
         } else {
-            this.assertionSets = new LinkedList<AssertionSet>();
-            this.vocabulary = new TreeSet<QName>(PolicyUtils.Comparison.QNAME_COMPARATOR);
+            this.assertionSets = new LinkedList<>();
+            this.vocabulary = new TreeSet<>(PolicyUtils.Comparison.QNAME_COMPARATOR);
             this.immutableVocabulary = Collections.unmodifiableCollection(this.vocabulary);
             
             addAll(sets);
@@ -371,8 +371,8 @@ public class Policy implements Iterable<AssertionSet> {
             this.vocabulary = EMPTY_VOCABULARY;
             this.immutableVocabulary = EMPTY_VOCABULARY;
         } else {
-            this.assertionSets = new LinkedList<AssertionSet>();
-            this.vocabulary = new TreeSet<QName>(PolicyUtils.Comparison.QNAME_COMPARATOR);
+            this.assertionSets = new LinkedList<>();
+            this.vocabulary = new TreeSet<>(PolicyUtils.Comparison.QNAME_COMPARATOR);
             this.immutableVocabulary = Collections.unmodifiableCollection(this.vocabulary);
             
             addAll(sets);
@@ -499,6 +499,7 @@ public class Policy implements Iterable<AssertionSet> {
      *
      * @return An iterator to iterate through all contained assertion sets
      */
+    @Override
     public Iterator<AssertionSet> iterator() {
         return assertionSets.iterator();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -56,7 +56,7 @@ public class Port extends ModelObject {
     }
 
     private void initializeOperationsByName() {
-        operationsByName = new HashMap<String, Operation>();
+        operationsByName = new HashMap<>();
         if (_operations != null) {
             for (Operation operation : _operations) {
                 if (operation.getUniqueName() != null &&
@@ -103,6 +103,7 @@ public class Port extends ModelObject {
         _serviceImplName = name;
     }
 
+    @Override
     public void accept(ModelVisitor visitor) throws Exception {
         visitor.visit(this);
     }
@@ -111,9 +112,7 @@ public class Port extends ModelObject {
         JavaInterface intf = getJavaInterface();
         if (intf != null) {
             String sei = intf.getName();
-            if (sei.equals(jakarta.xml.ws.Provider.class.getName())) {
-                return true;
-            }
+            return sei.equals(jakarta.xml.ws.Provider.class.getName());
         }
         return false;
     }
@@ -155,10 +154,10 @@ public class Port extends ModelObject {
 
     private String portGetter;
     private QName _name;
-    private List<Operation> _operations = new ArrayList<Operation>();
+    private List<Operation> _operations = new ArrayList<>();
     private JavaInterface _javaInterface;
     private String _address;
     private String _serviceImplName;
-    private Map<String, Operation> operationsByName = new HashMap<String, Operation>();
-    public Map<QName, PortType> portTypes = new HashMap<QName, PortType>();
+    private Map<String, Operation> operationsByName = new HashMap<>();
+    public Map<QName, PortType> portTypes = new HashMap<>();
 }

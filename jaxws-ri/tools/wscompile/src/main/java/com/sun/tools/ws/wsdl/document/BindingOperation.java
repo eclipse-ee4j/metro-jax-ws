@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,11 +26,12 @@ import java.util.List;
  *
  * @author WS Development Team
  */
+@SuppressWarnings({"deprecation"})
 public class BindingOperation extends Entity implements TWSDLExtensible {
 
     public BindingOperation(Locator locator) {
         super(locator);
-        _faults = new ArrayList<BindingFault>();
+        _faults = new ArrayList<>();
         _helper = new ExtensibilityHelper();
     }
 

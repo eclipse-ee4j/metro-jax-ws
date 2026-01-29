@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,15 +38,19 @@ public final class WSSPIContextListener
 
     private WSServletDelegate delegate;
 
+    @Override
     public void attributeAdded(ServletContextAttributeEvent event) {
     }
 
+    @Override
     public void attributeRemoved(ServletContextAttributeEvent event) {
     }
 
+    @Override
     public void attributeReplaced(ServletContextAttributeEvent event) {
     }
 
+    @Override
     public void contextDestroyed(ServletContextEvent event) {
         if (delegate != null) { // the deployment might have failed.
             delegate.destroy();
@@ -57,6 +61,7 @@ public final class WSSPIContextListener
         }
     }
 
+    @Override
     public void contextInitialized(ServletContextEvent event) {
         if (logger.isLoggable(Level.INFO)) {
             logger.info("JAX-WS context listener initializing");
@@ -68,8 +73,8 @@ public final class WSSPIContextListener
         }
         try {
             // Parse the descriptor file and build endpoint infos
-            DeploymentDescriptorParser<EndpointAdapter> parser = new DeploymentDescriptorParser<EndpointAdapter>(
-                classLoader, (ResourceLoader) new ServletResourceLoader(context), new EndpointAdapterFactory() );
+            DeploymentDescriptorParser<EndpointAdapter> parser = new DeploymentDescriptorParser<>(
+                    classLoader, new ServletResourceLoader(context), new EndpointAdapterFactory());
             URL sunJaxWsXml = context.getResource(JAXWS_RI_RUNTIME);
             if(sunJaxWsXml==null)
                 throw new WebServiceException("Runtime descriptor "+JAXWS_RI_RUNTIME+" is mising");

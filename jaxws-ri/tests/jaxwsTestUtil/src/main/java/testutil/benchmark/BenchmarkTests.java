@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -45,7 +45,7 @@ import java.util.Properties;
 public class BenchmarkTests {
 
     @Argument
-    private List<String> tests = new ArrayList<String>();
+    private List<String> tests = new ArrayList<>();
 
     @Option(name="-l",usage="test the local transport")
     private boolean uselocal;
@@ -142,9 +142,10 @@ public class BenchmarkTests {
 		classType = "";
 	}
         String className = "benchmark." + testPackage + ".client." + classPrefix + classType + classSuffix;
-        Class classObject = Class.forName(className);
-        Constructor ctor = classObject.getConstructor(String.class);
-        Benchmark benchmark = (Benchmark)ctor.newInstance(className);
+        @SuppressWarnings({"unchecked"})
+        Class<? extends Benchmark> classObject = (Class<? extends Benchmark>) Class.forName(className);
+        Constructor<? extends Benchmark> ctor = classObject.getConstructor(String.class);
+        Benchmark benchmark = ctor.newInstance(className);
 
         double returnValue = run(benchmark,out);
 
@@ -234,7 +235,7 @@ public class BenchmarkTests {
         if (System.getProperty(key) == null) {
             return defaultValue;
         } else
-            return new Integer(System.getProperty(key));
+            return Integer.valueOf(System.getProperty(key));
     }
 
 }
