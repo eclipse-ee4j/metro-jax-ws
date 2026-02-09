@@ -69,7 +69,6 @@
       <!-- configure compiler plugin to pickup only server side java files -->
       <!--   note that at compile phase, wsdl's classes are already generated -->
       <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <source>1.5</source>
