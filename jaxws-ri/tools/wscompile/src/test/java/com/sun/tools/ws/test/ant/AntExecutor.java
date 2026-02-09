@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation.
  * Copyright (c) 2011, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -31,7 +32,8 @@ public class AntExecutor {
     public static int exec(File script, String... targets) throws IOException {
         File heapDump = null;
         List<String> cmd = new ArrayList<String>();
-        cmd.add("java");
+        String javaExecutable = System.getProperty("java.home") + "/bin/java";
+        cmd.add(javaExecutable);
         if (DEBUG) {
             cmd.add("-Xdebug");
             cmd.add("-Xnoagent");
@@ -63,7 +65,7 @@ public class AntExecutor {
         try {
             p.waitFor();
         } catch (InterruptedException ex) {
-            // ignore
+            Thread.currentThread().interrupt();
         }
         if (PROFILE) {
             System.out.println("Heap dump (in binary format): " + heapDump.getAbsolutePath());

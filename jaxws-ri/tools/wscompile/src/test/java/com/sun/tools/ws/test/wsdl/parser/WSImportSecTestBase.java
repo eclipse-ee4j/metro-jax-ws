@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation.
  * Copyright (c) 2011, 2018 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -28,40 +28,44 @@ import junit.framework.TestCase;
 */
 public abstract class WSImportSecTestBase extends TestCase{
 
+    private static final String SYSPROP_EXPANSION_LIMIT = "jdk.xml.entityExpansionLimit";
     protected static final String DISABLE_XML_SEC_SYS_PARAM = "com.sun.xml.ws.disableXmlSecurity";
     // Error messages that can be observed during the testing
     protected static final String BASIC_WSIMPORT_TOOL_MSG = "parsing WSDL...";
     protected static final String SECURE_PROCESSING_ON_MSG = "[ERROR] DOCTYPE is disallowed when the feature";
     protected static final String FILE_NOT_FOUND_MSG = "java.io.FileNotFoundException:";
     protected static final String RECURSIVE_ENTITY_REFERENCE_MSG = "Recursive entity reference \"foo\". (Reference path: foo -> bar -> foo)";
-    protected static final String ENTITY_EXPANSION_LIMIT = "1024";
-    //SE 25 refers to '"jdk.xml.entityExpansionLimit"', older versions to 'the JDK'
-    protected static final String ENTITY_EXPANSION_LIMIT_MSG = "JAXP00010001: The parser has encountered more than \"" + ENTITY_EXPANSION_LIMIT + "\" entity expansions in this document; this is the limit imposed by";
-    
+    protected static final String ENTITY_EXPANSION_LIMIT = "100";
+    protected static final String ENTITY_EXPANSION_LIMIT_MSG = "JAXP00010001: The parser has encountered more than \""
+        + ENTITY_EXPANSION_LIMIT + "\" entity expansions in this document; this is the limit imposed by "
+            + (Runtime.version().feature() > 23 ? "\"" + SYSPROP_EXPANSION_LIMIT + "\"" : "the JDK.");
+
     protected final static int PARAM_CHECK = 0;
     protected final static int TIMEOUT = 1;
-	
-	
-	 public void runTests(TestParameters parameters) throws Exception {
-	        try {
-	            if (parameters.scenarioName.startsWith("XEE Scenario 5")) {
-	                //Set limit for entity expansion to avoid unnecessary cpu heat and 120sec test timeout
-	                System.setProperty("entityExpansionLimit", ENTITY_EXPANSION_LIMIT);
-	            }
 
-	            System.out.println("RUNNING " + parameters.scenarioName);
-	            parameters.createTestInstance().test();
-	            System.out.println(parameters.scenarioName + " PASSED");
-	        } finally {
-	            System.clearProperty("entityExpansionLimit");
-	        }
 
-	    }
+    public void runTests(TestParameters parameters) throws Exception {
+        // Clear deprecated property supported in older Java versions.
+        System.clearProperty("entityExpansionLimit");
+        // Clear whatever could be set before. JDK defaults apply then.
+        System.clearProperty(SYSPROP_EXPANSION_LIMIT);
+        try {
+            if (parameters.scenarioName.startsWith("XEE Scenario 5")) {
+                // Set limit for entity expansion to avoid unnecessary cpu heat and 120sec test timeout
+                System.setProperty(SYSPROP_EXPANSION_LIMIT, ENTITY_EXPANSION_LIMIT);
+            }
+
+            System.out.println("RUNNING " + parameters.scenarioName);
+            parameters.createTestInstance().test();
+            System.out.println(parameters.scenarioName + " PASSED");
+        } finally {
+            System.clearProperty(SYSPROP_EXPANSION_LIMIT);
+        }
+    }
 
     /**
      * Basic test for WSImport, runs tool and search for expected / unexpected messages.
      */
-	 
      class WSImportTest {
 
         protected final String[] toolArgs;
@@ -136,7 +140,6 @@ public abstract class WSImportSecTestBase extends TestCase{
      * Tests there is no timeout when security is ENABLED.
      * Kills tool after small timeout when security is DISABLED.
      */
-    
      class WSImportTimeoutTest extends WSImportTest {
 
         private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);
