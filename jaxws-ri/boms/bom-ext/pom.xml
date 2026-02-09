@@ -31,10 +31,10 @@
     <description>JAX-WS Reference Implementation Bill-of-Materials (BOM) Extensions</description>
 
     <properties>
-        <ant.version>1.10.14</ant.version>
+        <ant.version>1.10.15</ant.version>
         <!-- CQ 21208 -->
-        <asm.version>9.7</asm.version>
-        <eclipselink.version>4.0.3</eclipselink.version>
+        <asm.version>9.9.1</asm.version>
+        <eclipselink.version>4.0.9</eclipselink.version>
         <junit.version>4.13.2</junit.version>
         <mail-api.version>2.1.5</mail-api.version>
         <angus-mail.version>2.0.5</angus-mail.version>

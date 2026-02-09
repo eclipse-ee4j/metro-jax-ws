@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>1.0.7</version>
+        <version>1.0.9</version>
         <relativePath/>
     </parent>
 
@@ -66,7 +66,7 @@
     </scm>
 
     <properties>
-        <helidon.version>2.3.2</helidon.version>
+        <helidon.version>4.3.4</helidon.version>
 
         <!-- javax gId versions -->
         <javax.activation>1.2.0</javax.activation>
@@ -78,15 +78,15 @@
         <version.lib.activation-api>2.0.1</version.lib.activation-api>
         <version.lib.jaxb-api>3.0.1</version.lib.jaxb-api>
         <lib.jws-api>3.0.0</lib.jws-api>
-        <lib.xml.soap-api>2.0.1</lib.xml.soap-api>
-        <lib.xml.ws-api>3.0.1</lib.xml.ws-api>
+        <lib.xml.soap-api>3.0.2</lib.xml.soap-api>
+        <lib.xml.ws-api>4.0.2</lib.xml.ws-api>
 
         <!-- force helidon to use following latest com.sun.xml.bind/javax versions -->
         <version.lib.jaxb-core>2.3.5</version.lib.jaxb-core>
         <version.lib.jaxb-impl>2.3.5</version.lib.jaxb-impl>
 
-        <ri.version>3.0.2</ri.version>
-        <metro.version>3.0.2</metro.version>
+        <ri.version>4.0.3</ri.version>
+        <metro.version>4.0.5</metro.version>
         <metro.plugin.version>4.0.3</metro.plugin.version>
     </properties>
 
