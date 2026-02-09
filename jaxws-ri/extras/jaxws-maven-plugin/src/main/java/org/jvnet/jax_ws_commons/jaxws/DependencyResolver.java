@@ -1,6 +1,7 @@
 /*
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation.
  * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * Oracle licenses this file to You under the Apache License, Version 2.0
