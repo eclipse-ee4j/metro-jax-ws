@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2011, 2018 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -34,7 +35,8 @@ public abstract class WSImportSecTestBase extends TestCase{
     protected static final String FILE_NOT_FOUND_MSG = "java.io.FileNotFoundException:";
     protected static final String RECURSIVE_ENTITY_REFERENCE_MSG = "Recursive entity reference \"foo\". (Reference path: foo -> bar -> foo)";
     protected static final String ENTITY_EXPANSION_LIMIT = "1024";
-    protected static final String ENTITY_EXPANSION_LIMIT_MSG = "JAXP00010001: The parser has encountered more than \"" + ENTITY_EXPANSION_LIMIT + "\" entity expansions in this document; this is the limit imposed by the JDK";
+    //SE 25 refers to '"jdk.xml.entityExpansionLimit"', older versions to 'the JDK'
+    protected static final String ENTITY_EXPANSION_LIMIT_MSG = "JAXP00010001: The parser has encountered more than \"" + ENTITY_EXPANSION_LIMIT + "\" entity expansions in this document; this is the limit imposed by";
     
     protected final static int PARAM_CHECK = 0;
     protected final static int TIMEOUT = 1;
