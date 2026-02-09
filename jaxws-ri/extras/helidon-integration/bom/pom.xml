@@ -87,7 +87,7 @@
 
         <ri.version>3.0.2</ri.version>
         <metro.version>3.0.2</metro.version>
-        <metro.plugin.version>3.0.2</metro.plugin.version>
+        <metro.plugin.version>4.0.3</metro.plugin.version>
     </properties>
 
     <dependencyManagement>
