@@ -608,6 +608,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-invoker-plugin</artifactId>
+                        <version>3.9.1</version>
                         <configuration>
                             <mavenOpts>${ittest-proxy} -Djavax.xml.accessExternalSchema=all ${agent.jacoco}</mavenOpts>
                         </configuration>
