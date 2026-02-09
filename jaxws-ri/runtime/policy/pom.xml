@@ -99,7 +99,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <legal.doc.source>${project.basedir}/../../..</legal.doc.source>
 
-        <jaxb.version>4.0.5</jaxb.version>
+        <jaxb.version>4.0.6</jaxb.version>
         <junit.version>4.13.2</junit.version>
         <istack.plugin.version>4.1.2</istack.plugin.version>
     </properties>
@@ -410,7 +410,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>12.1.8</version>
+                <version>12.2.0</version>
                 <configuration>
                     <failBuildOnCVSS>7</failBuildOnCVSS>
                     <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
@@ -484,7 +484,7 @@
                         <plugin>
                             <groupId>org.jacoco</groupId>
                             <artifactId>jacoco-maven-plugin</artifactId>
-                            <version>0.8.10</version>
+                            <version>0.8.14</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
