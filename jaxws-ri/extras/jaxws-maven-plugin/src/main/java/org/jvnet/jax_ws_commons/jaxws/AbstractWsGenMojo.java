@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
  * Copyright 2006 Guillaume Nodet
  *
  * Licensed under the Apache License, Version 2.0 (the "License");

@@ -78,7 +78,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>
 ' > 'ri-download/pom.xml'
 
 mvn -f ri-download/pom.xml \
-    -Pstaging -Psnapshots \
+    -Psnapshots \
     -DoutputDirectory="${WORKSPACE}/jaxws" \
     -Dmdep.stripVersion=true \
     org.apache.maven.plugins:maven-dependency-plugin:3.1.2:copy-dependencies
