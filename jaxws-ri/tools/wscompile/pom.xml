@@ -128,7 +128,6 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib/api</outputDirectory>
-                            <excludeTransitive>true</excludeTransitive>
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>jakarta.xml.bind</groupId>
@@ -162,7 +161,6 @@
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
                             <excludeArtifactIds>ant,ant-launcher</excludeArtifactIds>
-                            <excludeScope>system</excludeScope>
                         </configuration>
                     </execution>
                     <execution>
