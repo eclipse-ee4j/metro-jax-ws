@@ -44,8 +44,9 @@ module com.sun.xml.ws {
     requires transitive com.sun.xml.bind;
     requires transitive com.sun.xml.fastinfoset;
     requires transitive com.sun.xml.streambuffer;
-    requires transitive gmbal;
     requires transitive org.glassfish.ha.api;
+    requires org.glassfish.external.management.api;
+    requires transitive org.glassfish.gmbal.impl;
 
     exports com.sun.xml.ws.policy;
     exports com.sun.xml.ws.policy.sourcemodel;

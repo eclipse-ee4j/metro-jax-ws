@@ -69,12 +69,6 @@
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>rt</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.glassfish.gmbal</groupId>
-                    <artifactId>gmbal-api-only</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
