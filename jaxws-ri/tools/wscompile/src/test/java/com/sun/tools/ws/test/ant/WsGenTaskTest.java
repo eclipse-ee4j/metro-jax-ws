@@ -46,12 +46,12 @@ public class WsGenTaskTest extends WsAntTaskTestBase {
         copy(pkg, "TestWs.java", WsGenTaskTest.class.getResourceAsStream("resources/TestWs.java_"), enc);
         assertEquals(0, AntExecutor.exec(script, "wsgen-server-utf16be"));
         File f = new File(srcDir, "test/jaxws/Hello.java");
-        FileInputStream fis = new FileInputStream(f);
-        byte[] in = new byte[22];
-        fis.read(in);
-        fis.close();
-        String inStr = new String(in, enc);
-        assertTrue("Got: '" + inStr + "'", inStr.contains("package t"));
+        try (FileInputStream fis = new FileInputStream(f)) {
+            byte[] in = new byte[22];
+            fis.read(in);
+            String inStr = new String(in, enc);
+            assertTrue("Got: '" + inStr + "'", inStr.contains("package t"));
+        }
     }
 
     public void testInvalidEncoding() throws IOException, URISyntaxException {
@@ -86,16 +86,18 @@ public class WsGenTaskTest extends WsAntTaskTestBase {
         assertEquals(0, AntExecutor.exec(script, "wsgen-javac"));
         //wsgen compiled classes should be valid for java 5
         File f = new File(buildDir, "test/jaxws/Hello.class");
-        DataInputStream in = new DataInputStream(new FileInputStream(f));
-        assertEquals(0xcafebabe, in.readInt());
-        assertEquals(0, in.readUnsignedShort());
-        assertEquals(55, in.readUnsignedShort());
+        try (DataInputStream in = new DataInputStream(new FileInputStream(f))) {
+            assertEquals(0xcafebabe, in.readInt());
+            assertEquals(0, in.readUnsignedShort());
+            assertEquals(55, in.readUnsignedShort());
+        }
 
         //ws class is compiled by default javac (6+)
         f = new File(srcDir, "test/TestWs.class");
-        in = new DataInputStream(new FileInputStream(f));
-        assertEquals(0xcafebabe, in.readInt());
-        in.readUnsignedShort();
-        assertTrue(55 != in.readUnsignedShort());
+        try (DataInputStream in = new DataInputStream(new FileInputStream(f))) {
+            assertEquals(0xcafebabe, in.readInt());
+            in.readUnsignedShort();
+            assertTrue(55 != in.readUnsignedShort());
+        }
     }
 }
