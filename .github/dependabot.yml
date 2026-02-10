@@ -33,9 +33,6 @@ updates:
       # istack >= 4.2.0 has no SecurityManager
       - dependency-name: "com.sun.istack:*"
         versions: [ ">=4.2.0" ]
-      # gmbal >= 4.1.0 changed the module name
-      - dependency-name: "org.glassfish.gmbal:*"
-        versions: [ ">=4.1.0" ]
     groups:
       maven-plugins:
         patterns:

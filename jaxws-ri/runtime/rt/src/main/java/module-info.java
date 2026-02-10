@@ -21,7 +21,6 @@
  *
  * @since 2.4.0
  */
-@SuppressWarnings({"deprecation"})
 module com.sun.xml.ws.rt {
 
     requires java.desktop;
@@ -41,13 +40,16 @@ module com.sun.xml.ws.rt {
     requires static jakarta.servlet;
     requires static com.sun.xml.fastinfoset;
 
-    requires transitive org.jvnet.mimepull;
-    requires transitive org.jvnet.staxex;
-    requires transitive org.glassfish.jaxb.runtime;
     requires transitive com.sun.xml.streambuffer;
     requires transitive com.sun.xml.ws.policy;
-    requires transitive gmbal;
+    requires transitive org.glassfish.gmbal.api;
     requires transitive org.glassfish.ha.api;
+    requires transitive org.glassfish.jaxb.runtime;
+    requires transitive org.jvnet.mimepull;
+    requires transitive org.jvnet.staxex;
+
+    requires org.glassfish.external.management.api;
+    requires org.glassfish.pfl.tf;
 
     exports com.oracle.webservices.api;
     exports com.oracle.webservices.api.databinding;
@@ -145,7 +147,7 @@ module com.sun.xml.ws.rt {
     opens com.oracle.xmlns.webservices.jaxws_databinding to jakarta.xml.bind;
 
     opens com.sun.xml.ws.api.message;
-    
+
     uses jakarta.xml.ws.spi.Provider;
     uses jakarta.xml.soap.MessageFactory;
     uses jakarta.xml.soap.SAAJMetaFactory;

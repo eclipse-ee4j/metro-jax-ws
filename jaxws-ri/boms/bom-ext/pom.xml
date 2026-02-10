@@ -30,7 +30,6 @@
 
     <properties>
         <ant.version>1.10.15</ant.version>
-        <!-- CQ 21208 -->
         <asm.version>9.9.1</asm.version>
         <eclipselink.version>4.0.9</eclipselink.version>
         <junit.version>4.13.2</junit.version>

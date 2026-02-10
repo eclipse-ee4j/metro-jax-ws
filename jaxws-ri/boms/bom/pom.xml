@@ -31,23 +31,24 @@
     <description>JAX-WS Reference Implementation Bill-of-Materials (BOM)</description>
 
     <properties>
-        <!--************************************************************-->
-
-        <istack.plugin.version>4.1.2</istack.plugin.version>
-        <gmbal-api.version>4.0.3</gmbal-api.version>
+        <activation-api.version>2.1.4</activation-api.version>
+        <angus-activation.version>2.0.3</angus-activation.version>
+        <jakarta.annotation-api.version>3.0.0</jakarta.annotation-api.version>
+        <fastinfoset.version>2.1.1</fastinfoset.version>
+        <gmbal.version>4.1.0</gmbal.version>
         <ha-api.version>3.1.13</ha-api.version>
+        <istack.plugin.version>4.1.2</istack.plugin.version>
+        <jaxb-api.version>4.0.4</jaxb-api.version>
         <jaxb.version>4.0.6</jaxb.version>
-        <xml.ws-api.version>4.0.2</xml.ws-api.version>
         <management-api.version>3.3.0</management-api.version>
         <mimepull.version>1.10.0</mimepull.version>
         <saaj-api.version>3.0.2</saaj-api.version>
         <saaj-impl.version>3.0.4</saaj-impl.version>
         <streambuffer.version>2.1.0</streambuffer.version>
-        <woodstox-core.version>7.1.1</woodstox-core.version>
+        <stax-api.version>2.1.0</stax-api.version>
         <stax2-api.version>4.2.2</stax2-api.version>
-        <activation-api.version>2.1.4</activation-api.version>
-        <angus-activation.version>2.0.3</angus-activation.version>
-        <jakarta.annotation-api.version>3.0.0</jakarta.annotation-api.version>
+        <woodstox-core.version>7.1.1</woodstox-core.version>
+        <xml.ws-api.version>4.0.2</xml.ws-api.version>
     </properties>
 
     <dependencyManagement>
@@ -99,13 +100,13 @@
             <dependency>
                 <groupId>org.glassfish.gmbal</groupId>
                 <artifactId>gmbal-api-only</artifactId>
-                <version>${gmbal-api.version}</version>
+                <version>${gmbal.version}</version>
                 <classifier>sources</classifier>
             </dependency>
             <dependency>
                 <groupId>org.glassfish.gmbal</groupId>
                 <artifactId>gmbal</artifactId>
-                <version>${gmbal-api.version}</version>
+                <version>${gmbal.version}</version>
                 <classifier>sources</classifier>
             </dependency>
             <dependency>
@@ -178,12 +179,12 @@
             <dependency>
                 <groupId>org.glassfish.gmbal</groupId>
                 <artifactId>gmbal-api-only</artifactId>
-                <version>${gmbal-api.version}</version>
+                <version>${gmbal.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.glassfish.gmbal</groupId>
                 <artifactId>gmbal</artifactId>
-                <version>${gmbal-api.version}</version>
+                <version>${gmbal.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.glassfish.external</groupId>

@@ -17,6 +17,7 @@ module com.sun.xml.ws.servlet {
     requires transitive com.sun.xml.ws.rt;
     requires java.logging;
     requires transitive jakarta.servlet;
+    requires org.glassfish.external.management.api;
 
     exports com.sun.xml.ws.developer.servlet;
     exports com.sun.xml.ws.server.servlet;
