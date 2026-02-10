@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation.
  * Copyright (c) 2011, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,10 +11,13 @@
 
 package com.sun.tools.ws.test.ant;
 
-import java.io.*;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.logging.Logger;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  *
@@ -24,7 +28,7 @@ public class WsImportTaskTest extends WsAntTaskTestBase {
     private File wsdl;
     private File pkg;
     private File metainf;
-   
+
     @Override
     public String getBuildScript() {
         return "wsimport.xml";
@@ -104,13 +108,13 @@ public class WsImportTaskTest extends WsAntTaskTestBase {
         DataInputStream in = new DataInputStream(new FileInputStream(f));
         assertEquals(0xcafebabe, in.readInt());
         assertEquals(0, in.readUnsignedShort());
-        assertEquals(52, in.readUnsignedShort());
+        assertEquals(55, in.readUnsignedShort());
 
         f = new File(buildDir, "test/Hello.class");
         in = new DataInputStream(new FileInputStream(f));
         assertEquals(0xcafebabe, in.readInt());
         assertEquals(0, in.readUnsignedShort());
-        assertEquals(52, in.readUnsignedShort());
+        assertEquals(55, in.readUnsignedShort());
     }
 
 }
