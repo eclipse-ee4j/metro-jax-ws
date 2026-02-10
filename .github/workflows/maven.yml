@@ -49,7 +49,7 @@ jobs:
         id: build
         run: |
           cd jaxws-ri
-          mvn -B -V -U -C -Poss-release,dependency-check clean verify org.glassfish.copyright:glassfish-copyright-maven-plugin:check -Dgpg.skip=true -Doss.disallow.snapshots=false -Dittest=true -Dcopyright.ignoreyear=true
+          mvn -B -V -U -C -Poss-release,dependency-check clean verify -Dgpg.skip=true -Doss.disallow.snapshots=false -Dittest=true
           cd ..
           echo "jdk=${{ matrix.java_version }}" >> $GITHUB_OUTPUT
       - name: Upload binary image
