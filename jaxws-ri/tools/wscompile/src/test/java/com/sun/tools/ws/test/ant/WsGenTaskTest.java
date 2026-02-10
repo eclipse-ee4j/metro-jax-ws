@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation.
  * Copyright (c) 2011, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -15,8 +16,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.logging.Logger;
 
 /**
  *
@@ -90,13 +89,13 @@ public class WsGenTaskTest extends WsAntTaskTestBase {
         DataInputStream in = new DataInputStream(new FileInputStream(f));
         assertEquals(0xcafebabe, in.readInt());
         assertEquals(0, in.readUnsignedShort());
-        assertEquals(52, in.readUnsignedShort());
+        assertEquals(55, in.readUnsignedShort());
 
         //ws class is compiled by default javac (6+)
         f = new File(srcDir, "test/TestWs.class");
         in = new DataInputStream(new FileInputStream(f));
         assertEquals(0xcafebabe, in.readInt());
         in.readUnsignedShort();
-        assertTrue(52 != in.readUnsignedShort());
+        assertTrue(55 != in.readUnsignedShort());
     }
 }
