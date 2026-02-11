@@ -35,7 +35,7 @@
         <angus-activation.version>2.0.3</angus-activation.version>
         <jakarta.annotation-api.version>3.0.0</jakarta.annotation-api.version>
         <fastinfoset.version>2.1.1</fastinfoset.version>
-        <gmbal.version>4.1.0</gmbal.version>
+        <gmbal.version>4.1.1</gmbal.version>
         <ha-api.version>3.1.13</ha-api.version>
         <istack.plugin.version>4.1.2</istack.plugin.version>
         <jaxb-api.version>4.0.4</jaxb-api.version>
@@ -100,12 +100,6 @@
             <dependency>
                 <groupId>org.glassfish.gmbal</groupId>
                 <artifactId>gmbal-api-only</artifactId>
-                <version>${gmbal.version}</version>
-                <classifier>sources</classifier>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.gmbal</groupId>
-                <artifactId>gmbal</artifactId>
                 <version>${gmbal.version}</version>
                 <classifier>sources</classifier>
             </dependency>
@@ -179,11 +173,6 @@
             <dependency>
                 <groupId>org.glassfish.gmbal</groupId>
                 <artifactId>gmbal-api-only</artifactId>
-                <version>${gmbal.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.gmbal</groupId>
-                <artifactId>gmbal</artifactId>
                 <version>${gmbal.version}</version>
             </dependency>
             <dependency>
