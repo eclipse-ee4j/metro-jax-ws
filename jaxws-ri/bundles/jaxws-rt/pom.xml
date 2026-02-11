@@ -45,7 +45,7 @@
 
         <dependency>
             <groupId>org.glassfish.gmbal</groupId>
-            <artifactId>gmbal</artifactId>
+            <artifactId>gmbal-api-only</artifactId>
         </dependency>
 
         <dependency>
