@@ -17,7 +17,7 @@
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>1.0.9</version>
+        <version>2.0.0</version>
         <relativePath/>
     </parent>
 
@@ -49,6 +49,11 @@
         <stax2-api.version>4.2.2</stax2-api.version>
         <woodstox-core.version>7.1.1</woodstox-core.version>
         <xml.ws-api.version>4.0.2</xml.ws-api.version>
+
+        <!-- Do not autopublish by default -->
+        <release.autopublish>false</release.autopublish>
+        <!-- By default block until everything is really published -->
+        <release.waitUntil>published</release.waitUntil>
     </properties>
 
     <dependencyManagement>
@@ -243,6 +248,15 @@
                     <version>3.1.4</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>0.10.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>3.3.1</version>
+                </plugin>
+                <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>2.21.0</version>
@@ -266,4 +280,34 @@
             </plugins>
         </pluginManagement>
     </build>
+    <profiles>
+        <profile>
+            <id>oss-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.cyclonedx</groupId>
+                        <artifactId>cyclonedx-maven-plugin</artifactId>
+                        <configuration>
+                            <!-- Without this it doesn't generate cyclonedx files at all. -->
+                            <skipNotDeployed>false</skipNotDeployed>
+                        </configuration>
+                    </plugin>
+                    <!-- We have to override settings from parent -->
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <autoPublish>${release.autopublish}</autoPublish>
+                            <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots</centralSnapshotsUrl>
+                            <deploymentName>Eclipse JAX-WS RI ${project.version}</deploymentName>
+                            <publishingServerId>central</publishingServerId>
+                            <waitUntil>${release.waitUntil}</waitUntil>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -17,7 +17,7 @@
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>1.0.9</version>
+        <version>2.0.0</version>
         <relativePath/>
     </parent>
 
@@ -102,6 +102,13 @@
         <jaxb.version>4.0.6</jaxb.version>
         <junit.version>4.13.2</junit.version>
         <istack.plugin.version>4.1.2</istack.plugin.version>
+
+        <!-- TODO: Release properties and oss-release profile can be removed after this module
+                   changes parent to com.sun.xml.ws:project -->
+        <!-- Do not autopublish by default -->
+        <release.autopublish>false</release.autopublish>
+        <!-- By default block until everything is really published -->
+        <release.waitUntil>published</release.waitUntil>
     </properties>
 
     <dependencyManagement>
@@ -531,6 +538,34 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>oss-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.cyclonedx</groupId>
+                        <artifactId>cyclonedx-maven-plugin</artifactId>
+                        <configuration>
+                            <!-- Without this it doesn't generate cyclonedx files at all. -->
+                            <skipNotDeployed>false</skipNotDeployed>
+                        </configuration>
+                    </plugin>
+                    <!-- We have to override settings from parent -->
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <autoPublish>${release.autopublish}</autoPublish>
+                            <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots</centralSnapshotsUrl>
+                            <deploymentName>Eclipse JAX-WS RI ${project.version}</deploymentName>
+                            <publishingServerId>central</publishingServerId>
+                            <waitUntil>${release.waitUntil}</waitUntil>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
