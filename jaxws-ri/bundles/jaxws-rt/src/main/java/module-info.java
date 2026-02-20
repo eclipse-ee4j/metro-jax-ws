@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation
  * Copyright (c) 2018, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -21,7 +22,6 @@
  *
  * @since 2.4.0
  */
-@SuppressWarnings({"deprecation"})
 module com.sun.xml.ws {
 
     requires java.desktop;
@@ -44,9 +44,10 @@ module com.sun.xml.ws {
     requires transitive com.sun.xml.bind;
     requires transitive com.sun.xml.fastinfoset;
     requires transitive com.sun.xml.streambuffer;
-    requires transitive org.glassfish.ha.api;
     requires org.glassfish.external.management.api;
-    requires transitive org.glassfish.gmbal.impl;
+    requires transitive org.glassfish.ha.api;
+    requires transitive org.glassfish.gmbal.api;
+    requires org.glassfish.pfl.tf;
 
     exports com.sun.xml.ws.policy;
     exports com.sun.xml.ws.policy.sourcemodel;
