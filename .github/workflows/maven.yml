@@ -49,7 +49,7 @@ jobs:
         id: build
         run: |
           cd jaxws-ri
-          mvn -B -V -U -C -Poss-release,dependency-check clean verify -Dgpg.skip=true -Doss.disallow.snapshots=false -Dittest=true
+          mvn -B -V -Poss-release,dependency-check,snapshots clean verify -Dgpg.skip=true -DskipSBOM -Doss.disallow.snapshots=false -Dittest=true
           cd ..
           echo "jdk=${{ matrix.java_version }}" >> $GITHUB_OUTPUT
       - name: Upload binary image
@@ -90,4 +90,4 @@ jobs:
           wget -q -O tomcat.zip https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.14/bin/apache-tomcat-10.1.14.zip
           unzip -q tomcat.zip
           cd jaxws-ri
-          mvn -B -V -U -C -am clean verify -Poss-release -Dgpg.skip=true -Doss.disallow.snapshots=false -pl :jaxws-unit -Dtomcat.home=$ROOT/apache-tomcat-10.1.14 -Dws.transport=${{ matrix.test_suite }} -Dws.localImage=$ROOT/image
+          mvn -B -V -am clean verify -Poss-release,snapshots -Dgpg.skip=true -DskipSBOM -Doss.disallow.snapshots=false -pl :jaxws-unit -Dtomcat.home=$ROOT/apache-tomcat-10.1.14 -Dws.transport=${{ matrix.test_suite }} -Dws.localImage=$ROOT/image
