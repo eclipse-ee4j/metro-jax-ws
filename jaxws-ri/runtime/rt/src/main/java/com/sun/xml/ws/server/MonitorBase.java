@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -18,27 +19,28 @@ import com.sun.xml.ws.api.config.management.policy.ManagementAssertion.Setting;
 import com.sun.xml.ws.api.server.Container;
 import com.sun.xml.ws.api.server.WSEndpoint;
 import com.sun.xml.ws.client.Stub;
+
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Method;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+
 import org.glassfish.external.amx.AMXGlassfish;
+import org.glassfish.gmbal.AMXClient;
 import org.glassfish.gmbal.Description;
+import org.glassfish.gmbal.GmbalMBean;
 import org.glassfish.gmbal.InheritedAttribute;
 import org.glassfish.gmbal.InheritedAttributes;
 import org.glassfish.gmbal.ManagedData;
 import org.glassfish.gmbal.ManagedObjectManager;
 import org.glassfish.gmbal.ManagedObjectManagerFactory;
-import org.glassfish.pfl.tf.timer.spi.ObjectRegistrationManager ;
-import java.io.IOException;
-import java.lang.reflect.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-// BEGIN IMPORTS FOR RewritingMOM
-import java.util.ResourceBundle ;
-import java.lang.annotation.Annotation ;
-import javax.management.ObjectName ;
-import javax.management.MBeanServer ;
-import org.glassfish.gmbal.AMXClient;
-import org.glassfish.gmbal.GmbalMBean;
-// END IMPORTS FOR RewritingMOM
+import org.glassfish.pfl.tf.timer.spi.ObjectRegistrationManager;
 
 /**
  * @author Harold Carr
@@ -189,20 +191,21 @@ public abstract class MonitorBase {
     }
 
     private @NotNull ManagedObjectManager createMOM(final boolean isFederated) {
+        if (!ManagedObjectManagerFactory.isAvailable()) {
+            logger.log(Level.INFO, "Monitoring is not available, starting up without monitoring.");
+            return ManagedObjectManagerFactory.createNOOP();
+        }
         try {
-            return new RewritingMOM(isFederated ?
-                ManagedObjectManagerFactory.createFederated(
-                    AMXGlassfish.DEFAULT.serverMon(AMXGlassfish.DEFAULT.dasName()))
-                :
-                ManagedObjectManagerFactory.createStandalone("com.sun.metro"));
-        } catch (Throwable t) {
+            return new RewritingMOM(isFederated
+                ? ManagedObjectManagerFactory.createFederated(AMXGlassfish.DEFAULT.serverMon(AMXGlassfish.DEFAULT.dasName()))
+                : ManagedObjectManagerFactory.createStandalone("com.sun.metro"));
+        } catch (Exception e) {
             if (isFederated) {
-                logger.log(Level.CONFIG, "Problem while attempting to federate with GlassFish AMX monitoring.  Trying standalone.", t);
+                logger.log(Level.CONFIG, "Problem while attempting to federate with GlassFish AMX monitoring. Trying standalone.", e);
                 return createMOM(false);
-            } else {
-                logger.log(Level.WARNING, "Ignoring exception - starting up without monitoring", t);
-                return ManagedObjectManagerFactory.createNOOP();
             }
+            logger.log(Level.WARNING, "Ignoring exception - starting up without monitoring", e);
+            return ManagedObjectManagerFactory.createNOOP();
         }
     }
 
