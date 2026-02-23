@@ -79,7 +79,7 @@
         <version.lib.jaxb-api>3.0.1</version.lib.jaxb-api>
         <lib.jws-api>3.0.0</lib.jws-api>
         <lib.xml.soap-api>3.0.2</lib.xml.soap-api>
-        <lib.xml.ws-api>4.0.2</lib.xml.ws-api>
+        <lib.xml.ws-api>4.0.3</lib.xml.ws-api>
 
         <!-- force helidon to use following latest com.sun.xml.bind/javax versions -->
         <version.lib.jaxb-core>2.3.5</version.lib.jaxb-core>

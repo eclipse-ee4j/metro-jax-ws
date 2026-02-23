@@ -48,7 +48,7 @@
         <stax-api.version>2.1.0</stax-api.version>
         <stax2-api.version>4.2.2</stax2-api.version>
         <woodstox-core.version>7.1.1</woodstox-core.version>
-        <xml.ws-api.version>4.0.2</xml.ws-api.version>
+        <xml.ws-api.version>4.0.3</xml.ws-api.version>
 
         <!-- Do not autopublish by default -->
         <release.autopublish>false</release.autopublish>
