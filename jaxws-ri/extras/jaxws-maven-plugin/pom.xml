@@ -475,11 +475,12 @@
                             <addTestClassPath>true</addTestClassPath>
                             <settingsFile>${project.build.directory}/it-settings.xml</settingsFile>
                             <mavenOpts>${ittest-proxy} -Djavax.xml.accessExternalSchema=all</mavenOpts>
+                            <writeJunitReport>true</writeJunitReport>
                             <filterProperties>
                                 <jaxws.plugin.version>${project.version}</jaxws.plugin.version>
                                 <jaxws-ri.version>${jaxws-tools.version}</jaxws-ri.version>
                                 <xml.ws.api.version>4.0.0</xml.ws.api.version>
-                                <metro.version>4.0.1</metro.version>
+                                <metro.version>4.0.5</metro.version>
                             </filterProperties>
                             <properties>
                                 <javax.xml.accessExternalSchema>all</javax.xml.accessExternalSchema>
@@ -489,7 +490,7 @@
                                 <setupInclude>wsdl-lib/pom.xml</setupInclude>
                             </setupIncludes>
                             <pomExcludes>
-                                <!-- TODO: Needs metro 3.0.0-M2 or newer -->
+                                <!-- TODO: Needs to fix -->
                                 <pomExclude>metro/pom.xml</pomExclude>
                             </pomExcludes>
                         </configuration>
@@ -505,6 +506,7 @@
                                 <id>integration-test</id>
                                 <goals>
                                     <goal>run</goal>
+                                    <goal>verify</goal>
                                 </goals>
                                 <configuration>
                                     <projectsDirectory>src/test/it</projectsDirectory>
@@ -515,6 +517,7 @@
                                 <id>integration-test-samples</id>
                                 <goals>
                                     <goal>run</goal>
+                                    <goal>verify</goal>
                                 </goals>
                                 <configuration>
                                     <cloneProjectsTo>${project.build.directory}/it-samples</cloneProjectsTo>
