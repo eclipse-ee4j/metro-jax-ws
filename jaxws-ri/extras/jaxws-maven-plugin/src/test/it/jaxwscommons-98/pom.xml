@@ -49,7 +49,7 @@
                         <configuration>
                             <wsdlDirectory>${basedir}/src/main/wsdls</wsdlDirectory>
                             <wsdlFiles>
-                                <wsdlFile>wstx-wscoor-1.1-wsdl-200702.wsdl</wsdlFile>
+                                <wsdlFile>nonexistingfile.wsdl</wsdlFile>
                             </wsdlFiles>
                             <packageName>weblogic.wsee.wstx.wsc.v11.types</packageName>
                         </configuration>

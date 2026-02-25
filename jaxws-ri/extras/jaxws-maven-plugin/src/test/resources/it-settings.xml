@@ -37,28 +37,6 @@
                         <enabled>true</enabled>
                     </snapshots>
                 </repository>
-                <repository>
-                    <id>jakarta-sonatype-nexus-staging</id>
-                    <name>Sonatype Nexus Staging</name>
-                    <url>https://jakarta.oss.sonatype.org/content/repositories/staging/</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-                <repository>
-                    <id>jakarta-sonatype-nexus-snapshots</id>
-                    <name>Sonatype Nexus Snapshots</name>
-                    <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
             </repositories>
             <pluginRepositories>
                 <pluginRepository>
@@ -66,28 +44,6 @@
                     <url>@localRepositoryUrl@</url>
                     <releases>
                         <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </pluginRepository>
-                <pluginRepository>
-                    <id>jakarta-sonatype-nexus-staging-plugins</id>
-                    <name>Sonatype Nexus Staging Plugins</name>
-                    <url>https://jakarta.oss.sonatype.org/content/repositories/staging/</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </pluginRepository>
-                <pluginRepository>
-                    <id>jakarta-sonatype-nexus-snapshots</id>
-                    <name>Sonatype Nexus Snapshots Plugins</name>
-                    <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots</url>
-                    <releases>
-                        <enabled>false</enabled>
                     </releases>
                     <snapshots>
                         <enabled>true</enabled>

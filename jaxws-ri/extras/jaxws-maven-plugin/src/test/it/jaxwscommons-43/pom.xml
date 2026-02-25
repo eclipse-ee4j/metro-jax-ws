@@ -33,7 +33,7 @@
     <artifactId>mojo.it.jaxwscommons-43</artifactId>
 
     <name>JAX_WS_COMMONS-43</name>
-    <description>wsgen - autodiscovery of SEI classes</description>
+    <description>wsgen - autodiscovery of SEI classes - No @jakarta.jws.WebService found in tests</description>
 
     <dependencies>
         <dependency>
