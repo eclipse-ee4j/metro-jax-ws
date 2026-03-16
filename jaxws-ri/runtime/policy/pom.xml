@@ -17,7 +17,7 @@
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>2.0.1</version>
+        <version>2.0.2</version>
         <relativePath/>
     </parent>
 
@@ -99,7 +99,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <legal.doc.source>${project.basedir}/../../..</legal.doc.source>
 
-        <jaxb.version>4.0.6</jaxb.version>
+        <jaxb.version>4.0.7</jaxb.version>
         <junit.version>4.13.2</junit.version>
         <istack.plugin.version>4.1.2</istack.plugin.version>
 

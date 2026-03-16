@@ -17,7 +17,7 @@
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>2.0.1</version>
+        <version>2.0.2</version>
         <relativePath/>
     </parent>
 
@@ -39,7 +39,7 @@
         <ha-api.version>3.1.13</ha-api.version>
         <istack.plugin.version>4.1.2</istack.plugin.version>
         <jaxb-api.version>4.0.4</jaxb-api.version>
-        <jaxb.version>4.0.6</jaxb.version>
+        <jaxb.version>4.0.7</jaxb.version>
         <management-api.version>3.3.0</management-api.version>
         <mimepull.version>1.10.0</mimepull.version>
         <saaj-api.version>3.0.2</saaj-api.version>
