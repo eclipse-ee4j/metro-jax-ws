@@ -43,6 +43,7 @@
         <jaxws-ri.version>@jaxws-ri.version@</jaxws-ri.version>
         <metro.version>@metro.version@</metro.version>
         <jaxws.plugin.version>@project.version@</jaxws.plugin.version>
+        <agent.jacoco>@agent.jacoco@</agent.jacoco>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
