@@ -27,7 +27,9 @@
     <name>Jakarta XML Web Services Implementation</name>
     <description>Open source Implementation of Jakarta XML Web Services (formerly JSR-224: Java API for XML Web Services)</description>
 
-    <scm>
+    <scm child.scm.connection.inherit.append.path="false"
+     child.scm.developerConnection.inherit.append.path="false"
+     child.scm.url.inherit.append.path="false">
         <connection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</connection>
         <developerConnection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</developerConnection>
         <url>https://github.com/eclipse-ee4j/metro-jax-ws</url>
