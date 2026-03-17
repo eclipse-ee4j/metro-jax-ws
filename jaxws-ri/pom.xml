@@ -91,6 +91,7 @@
         <spotbugs.threshold>Normal</spotbugs.threshold>
         <spotbugs.version>4.9.8.2</spotbugs.version>
         <findsecbugs.version>1.14.0</findsecbugs.version>
+        <junit.version>4.13.2</junit.version>
 
         <maven.compiler.release>11</maven.compiler.release>
         <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
@@ -849,15 +850,12 @@
 
     <dependencyManagement>
         <dependencies>
-
-            <!-- Test Dependencies -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
