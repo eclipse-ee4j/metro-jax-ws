@@ -35,6 +35,7 @@
     <packaging>maven-plugin</packaging>
     <name>JAX-WS RI Maven Plugin</name>
     <description>Maven plugin for JAX-WS RI</description>
+    <url>https://eclipse-ee4j.github.io/metro-jax-ws/jaxws-maven-plugin</url>
 
     <licenses>
         <license>
