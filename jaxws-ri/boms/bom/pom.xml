@@ -103,11 +103,6 @@
         <stax2-api.version>4.2.2</stax2-api.version>
         <woodstox-core.version>7.1.1</woodstox-core.version>
         <xml.ws-api.version>4.0.3</xml.ws-api.version>
-
-        <!-- Do not autopublish by default -->
-        <release.autopublish>false</release.autopublish>
-        <!-- By default block until everything is really published -->
-        <release.waitUntil>published</release.waitUntil>
     </properties>
 
     <dependencyManagement>
@@ -363,31 +358,13 @@
     <profiles>
         <profile>
             <id>oss-release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.cyclonedx</groupId>
-                        <artifactId>cyclonedx-maven-plugin</artifactId>
-                        <configuration>
-                            <!-- Without this it doesn't generate cyclonedx files at all. -->
-                            <skipNotDeployed>false</skipNotDeployed>
-                        </configuration>
-                    </plugin>
-                    <!-- We have to override settings from parent -->
-                    <plugin>
-                        <groupId>org.sonatype.central</groupId>
-                        <artifactId>central-publishing-maven-plugin</artifactId>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <autoPublish>${release.autopublish}</autoPublish>
-                            <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots</centralSnapshotsUrl>
-                            <deploymentName>Eclipse JAX-WS RI ${project.version}</deploymentName>
-                            <publishingServerId>central</publishingServerId>
-                            <waitUntil>${release.waitUntil}</waitUntil>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+            <properties>
+                <release.projectName>Eclipse JAX-WS RI ${project.version}</release.projectName>
+                <!-- Do not autopublish by default -->
+                <release.autoPublish>false</release.autoPublish>
+                <!-- By default block until everything is really published -->
+                <release.waitUntil>published</release.waitUntil>
+            </properties>
         </profile>
     </profiles>
 </project>
