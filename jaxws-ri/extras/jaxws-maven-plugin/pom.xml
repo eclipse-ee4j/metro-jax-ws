@@ -176,6 +176,12 @@
             <artifactId>testng</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-ri</artifactId>
+            <type>zip</type>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -355,6 +361,9 @@
                                 <goals>
                                     <goal>install</goal>
                                 </goals>
+                                <configuration>
+                                    <scope>test</scope>
+                                </configuration>
                             </execution>
                             <execution>
                                 <id>integration-test</id>
