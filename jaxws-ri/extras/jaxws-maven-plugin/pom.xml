@@ -52,8 +52,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
-        <jaxws-tools.version>${project.version}</jaxws-tools.version>
         <agent.jacoco></agent.jacoco>
+        <metro.version>4.0.5</metro.version>
     </properties>
 
     <dependencyManagement>
@@ -121,7 +121,6 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jaxws-tools</artifactId>
-            <version>${jaxws-tools.version}</version>
         </dependency>
 
         <dependency>
@@ -181,6 +180,18 @@
             <artifactId>jaxws-ri</artifactId>
             <type>zip</type>
             <scope>test</scope>
+        </dependency>
+        <!--
+            This is used by tests managed by the invoker plugin.
+            It is here to connect the metro.version property with the dependency, so tools like dependabot will
+            automatically detect new releases and recommend update.
+        -->
+        <dependency>
+            <groupId>org.glassfish.metro</groupId>
+            <artifactId>webservices-tools</artifactId>
+            <version>${metro.version}</version>
+            <scope>test</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
@@ -338,9 +349,9 @@
                             <writeJunitReport>true</writeJunitReport>
                             <filterProperties>
                                 <jaxws.plugin.version>${project.version}</jaxws.plugin.version>
-                                <jaxws-ri.version>${jaxws-tools.version}</jaxws-ri.version>
-                                <xml.ws.api.version>4.0.0</xml.ws.api.version>
-                                <metro.version>4.0.5</metro.version>
+                                <jaxws-ri.version>${project.version}</jaxws-ri.version>
+                                <xml.ws.api.version>${xml.ws-api.version}</xml.ws.api.version>
+                                <metro.version>${metro.version}</metro.version>
                             </filterProperties>
                             <properties>
                                 <javax.xml.accessExternalSchema>all</javax.xml.accessExternalSchema>
@@ -393,7 +404,7 @@
                                     </pomExcludes>
                                     <properties>
                                         <jaxws.plugin.version>${project.version}</jaxws.plugin.version>
-                                        <jaxws-ri.version>${jaxws-tools.version}</jaxws-ri.version>
+                                        <jaxws-ri.version>${project.version}</jaxws-ri.version>
                                     </properties>
                                 </configuration>
                             </execution>
@@ -412,7 +423,7 @@
                                 <configuration>
                                     <systemPropertyVariables>
                                         <it.projects.dir>${project.build.directory}/it tests</it.projects.dir>
-                                        <jaxws-ri.version>${jaxws-tools.version}</jaxws-ri.version>
+                                        <jaxws-ri.version>${project.version}</jaxws-ri.version>
                                     </systemPropertyVariables>
                                 </configuration>
                             </execution>
