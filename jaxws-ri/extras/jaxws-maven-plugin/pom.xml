@@ -25,18 +25,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.eclipse.ee4j</groupId>
+        <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>2.0.2</version>
-        <relativePath/>
+        <version>4.0.4-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>JAX-WS RI Maven Plugin</name>
     <description>Maven plugin for JAX-WS RI</description>
-    <version>4.0.4-SNAPSHOT</version>
+    <url>https://eclipse-ee4j.github.io/metro-jax-ws/jaxws-maven-plugin</url>
 
     <licenses>
         <license>
@@ -46,28 +45,16 @@
         </license>
     </licenses>
 
-    <developers>
-        <developer>
-            <id>lukasj</id>
-            <name>Lukas Jungmann</name>
-            <email>lukas.jungmann@oracle.com</email>
-            <organization>Oracle Corporation</organization>
-        </developer>
-        <developer>
-            <id>bravehorsie</id>
-            <name>Roman Grigoriadi</name>
-            <email>Roman.Grigoriadi@oracle.com</email>
-        </developer>
-        <developer>
-            <id>zhengjl</id>
-            <name>Zheng Jun Li</name>
-            <email>zheng.jun.li@oracle.com</email>
-        </developer>
-    </developers>
-
     <prerequisites>
         <maven>3.0</maven>
     </prerequisites>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
+        <jaxws-tools.version>${project.version}</jaxws-tools.version>
+        <agent.jacoco></agent.jacoco>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -189,57 +176,17 @@
             <artifactId>testng</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-ri</artifactId>
+            <type>zip</type>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-
-    <properties>
-        <copyright.exclude>${project.basedir}/copyright-exclude</copyright.exclude>
-        <copyright.ignoreyear>false</copyright.ignoreyear>
-        <copyright.scmonly>true</copyright.scmonly>
-        <copyright.template>${project.basedir}/copyright.txt</copyright.template>
-        <copyright.update>false</copyright.update>
-        <spotbugs.common>src/main/resources/exclude-common.xml</spotbugs.common>
-        <spotbugs.exclude/>
-        <spotbugs.skip>false</spotbugs.skip>
-        <spotbugs.threshold>Normal</spotbugs.threshold>
-        <spotbugs.version>4.9.8.2</spotbugs.version>
-        <findsecbugs.version>1.14.0</findsecbugs.version>
-        <maven.compiler.release>11</maven.compiler.release>
-        <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
-        <!-- exclude big groups from the Xlint -->
-        <comp.xlint>-Xlint:all</comp.xlint>
-        <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
-        <comp.xdoclint>-Xdoclint:all,-missing</comp.xdoclint>
-        <warn.limit>150</warn.limit>
-        <jdoc.doclint>-missing</jdoc.doclint>
-
-<!--        <jaxws-tools.version>${project.version}</jaxws-tools.version>-->
-        <jaxws-tools.version>4.0.3</jaxws-tools.version>
-
-        <!-- TODO: Release properties and oss-release profile can be removed after this module
-                   changes parent to com.sun.xml.ws:project -->
-        <!-- Do not autopublish by default -->
-        <release.autopublish>false</release.autopublish>
-        <!-- By default block until everything is really published -->
-        <release.waitUntil>published</release.waitUntil>
-    </properties>
 
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.6.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.5.0</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.15.0</version>
-                </plugin>
                 <plugin>
                     <artifactId>maven-plugin-plugin</artifactId>
                     <version>3.15.2</version>
@@ -251,104 +198,13 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.5.5</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.5.0</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>3.4.0</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.12.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>com.github.spotbugs</groupId>
-                    <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>${spotbugs.version}</version>
-                    <configuration>
-                        <skip>${spotbugs.skip}</skip>
-                        <threshold>${spotbugs.threshold}</threshold>
-                        <excludeFilterFile>
-                            ${spotbugs.common},${spotbugs.exclude}
-                        </excludeFilterFile>
-                        <plugins>
-                            <plugin>
-                                <groupId>com.h3xstream.findsecbugs</groupId>
-                                <artifactId>findsecbugs-plugin</artifactId>
-                                <version>${findsecbugs.version}</version>
-                            </plugin>
-                        </plugins>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.owasp</groupId>
-                    <artifactId>dependency-check-maven</artifactId>
-                    <version>12.2.0</version>
-                    <configuration>
-                        <failBuildOnCVSS>8</failBuildOnCVSS>
-                        <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
-                        <formats>
-                            <format>HTML</format>
-                            <format>CSV</format>
-                        </formats>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.glassfish.copyright</groupId>
-                    <artifactId>glassfish-copyright-maven-plugin</artifactId>
-                    <version>2.4</version>
-                    <configuration>
-                        <templateFile>${copyright.template}</templateFile>
-                        <excludeFile>${copyright.exclude}</excludeFile>
-                        <!-- skip files not under SCM-->
-                        <scmOnly>${copyright.scmonly}</scmOnly>
-                        <!-- for use with repair -->
-                        <update>${copyright.update}</update>
-                        <!-- check that year is correct -->
-                        <ignoreYear>${copyright.ignoreyear}</ignoreYear>
-                        <quiet>false</quiet>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>4.0.0-M16</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>3.2.8</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.sonatype.central</groupId>
-                    <artifactId>central-publishing-maven-plugin</artifactId>
-                    <version>0.10.0</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>3.3.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
 
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <compilerArgs>
-                        <arg>${comp.xlint}</arg>
-                        <arg>${comp.xdoclint}</arg>
-                        <arg>-Xmaxwarns</arg>
-                        <arg>${warn.limit}</arg>
-                        <arg>-Xmaxerrs</arg>
-                        <arg>${warn.limit}</arg>
-                    </compilerArgs>
-                    <showDeprecation>true</showDeprecation>
-                </configuration>
-            </plugin>
             <plugin>
                 <artifactId>maven-plugin-plugin</artifactId>
                 <executions>
@@ -362,11 +218,14 @@
                 </executions>
             </plugin>
             <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <notimestamp>true</notimestamp>
-                    <doclint>${jdoc.doclint}</doclint>
-                </configuration>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>flat-jar</id>
+                        <phase>process-resources</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -502,6 +361,9 @@
                                 <goals>
                                     <goal>install</goal>
                                 </goals>
+                                <configuration>
+                                    <scope>test</scope>
+                                </configuration>
                             </execution>
                             <execution>
                                 <id>integration-test</id>
@@ -579,37 +441,13 @@
             </build>
         </profile>
         <profile>
-            <id>dependency-check</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.owasp</groupId>
-                        <artifactId>dependency-check-maven</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
             <id>coverage</id>
             <activation>
                 <property>
                     <name>jacoco-build</name>
                 </property>
             </activation>
-            <properties>
-                <jacoco.version>0.8.14</jacoco.version>
-                <jacoco.skip>false</jacoco.skip>
-                <jacoco.includes>org.jvnet.jax_ws_commons.jaxws.*,com.sun.xml.*</jacoco.includes>
-            </properties>
             <dependencies>
-                <!-- jacoco library -->
                 <dependency>
                     <groupId>org.jacoco</groupId>
                     <artifactId>org.jacoco.agent</artifactId>
@@ -627,6 +465,44 @@
                     </plugins>
                 </pluginManagement>
                 <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <configuration>
+                            <includes>
+                                <include>org/jvnet/jax_ws_commons/jaxws/**</include>
+                                <include>com/sun/xml/ws/**</include>
+                            </includes>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                                <configuration>
+                                    <append>true</append>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>prepare-agent-args-for-it</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                                <configuration>
+                                    <propertyName>agent.jacoco</propertyName>
+                                    <append>true</append>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>default-report</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <artifactId>maven-invoker-plugin</artifactId>
                         <version>3.9.1</version>
@@ -647,66 +523,6 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>default-prepare-agent</id>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                                <configuration>
-                                    <append>true</append>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>default-prepare-agent-for-it</id>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                                <configuration>
-                                    <propertyName>agent.jacoco</propertyName>
-                                    <append>true</append>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>default-report</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>oss-release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.cyclonedx</groupId>
-                        <artifactId>cyclonedx-maven-plugin</artifactId>
-                        <configuration>
-                            <!-- Without this it doesn't generate cyclonedx files at all. -->
-                            <skipNotDeployed>false</skipNotDeployed>
-                        </configuration>
-                    </plugin>
-                    <!-- We have to override settings from parent -->
-                    <plugin>
-                        <groupId>org.sonatype.central</groupId>
-                        <artifactId>central-publishing-maven-plugin</artifactId>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <autoPublish>${release.autopublish}</autoPublish>
-                            <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots</centralSnapshotsUrl>
-                            <deploymentName>Eclipse JAX-WS RI ${project.version}</deploymentName>
-                            <publishingServerId>central</publishingServerId>
-                            <waitUntil>${release.waitUntil}</waitUntil>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>

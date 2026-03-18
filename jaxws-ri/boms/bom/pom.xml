@@ -11,7 +11,11 @@
 
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+    child.project.url.inherit.append.path="false"
+>
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -29,6 +33,56 @@
 
     <name>JAX-WS RI Bill-of-Materials (BOM)</name>
     <description>JAX-WS Reference Implementation Bill-of-Materials (BOM)</description>
+    <url>https://eclipse-ee4j.github.io/metro-jax-ws</url>
+
+    <scm child.scm.connection.inherit.append.path="false"
+     child.scm.developerConnection.inherit.append.path="false"
+     child.scm.url.inherit.append.path="false">
+        <connection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</connection>
+        <developerConnection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</developerConnection>
+        <url>https://github.com/eclipse-ee4j/metro-jax-ws</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/eclipse-ee4j/metro-jax-ws/issues</url>
+    </issueManagement>
+
+    <mailingLists>
+        <mailingList>
+            <name>Eclipse Metro mailing list</name>
+            <post>metro-dev@eclipse.org</post>
+            <subscribe>https://accounts.eclipse.org/mailing-list/metro-dev</subscribe>
+            <unsubscribe>https://accounts.eclipse.org/mailing-list/metro-dev</unsubscribe>
+            <archive>https://dev.eclipse.org/mhonarc/lists/metro-dev</archive>
+        </mailingList>
+    </mailingLists>
+
+    <developers>
+        <developer>
+            <id>lukasj</id>
+            <name>Lukas Jungmann</name>
+            <email>lukas.jungmann@oracle.com</email>
+            <organization>Oracle Corporation</organization>
+        </developer>
+        <developer>
+            <id>dmatej</id>
+            <name>David Matejcek</name>
+            <email>david.matejcek@omnifish.ee</email>
+            <organization>OmniFish</organization>
+        </developer>
+        <developer>
+            <id>bravehorsie</id>
+            <name>Roman Grigoriadi</name>
+            <email>Roman.Grigoriadi@oracle.com</email>
+        </developer>
+        <developer>
+            <id>zhengjl</id>
+            <name>Zheng Jun Li</name>
+            <email>zheng.jun.li@oracle.com</email>
+        </developer>
+    </developers>
 
     <properties>
         <activation-api.version>2.1.4</activation-api.version>
@@ -49,11 +103,6 @@
         <stax2-api.version>4.2.2</stax2-api.version>
         <woodstox-core.version>7.1.1</woodstox-core.version>
         <xml.ws-api.version>4.0.3</xml.ws-api.version>
-
-        <!-- Do not autopublish by default -->
-        <release.autopublish>false</release.autopublish>
-        <!-- By default block until everything is really published -->
-        <release.waitUntil>published</release.waitUntil>
     </properties>
 
     <dependencyManagement>
@@ -258,6 +307,32 @@
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>1.7.3</version>
+                    <configuration>
+                        <updatePomFile>true</updatePomFile>
+                        <flattenedPomFilename>${project.build.directory}/flattened-pom.xml</flattenedPomFilename>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>flat-jar</id>
+                            <goals>
+                                <goal>flatten</goal>
+                            </goals>
+                            <configuration>
+                                <flattenMode>oss</flattenMode>
+                                <pomElements>
+                                    <url />
+                                    <scm />
+                                    <repositories>flatten</repositories>
+                                    <distributionManagement>flatten</distributionManagement>
+                                </pomElements>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>2.21.0</version>
                     <configuration>
@@ -283,31 +358,13 @@
     <profiles>
         <profile>
             <id>oss-release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.cyclonedx</groupId>
-                        <artifactId>cyclonedx-maven-plugin</artifactId>
-                        <configuration>
-                            <!-- Without this it doesn't generate cyclonedx files at all. -->
-                            <skipNotDeployed>false</skipNotDeployed>
-                        </configuration>
-                    </plugin>
-                    <!-- We have to override settings from parent -->
-                    <plugin>
-                        <groupId>org.sonatype.central</groupId>
-                        <artifactId>central-publishing-maven-plugin</artifactId>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <autoPublish>${release.autopublish}</autoPublish>
-                            <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots</centralSnapshotsUrl>
-                            <deploymentName>Eclipse JAX-WS RI ${project.version}</deploymentName>
-                            <publishingServerId>central</publishingServerId>
-                            <waitUntil>${release.waitUntil}</waitUntil>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+            <properties>
+                <release.projectName>Eclipse JAX-WS RI ${project.version}</release.projectName>
+                <!-- Do not autopublish by default -->
+                <release.autoPublish>false</release.autoPublish>
+                <!-- By default block until everything is really published -->
+                <release.waitUntil>published</release.waitUntil>
+            </properties>
         </profile>
     </profiles>
 </project>
