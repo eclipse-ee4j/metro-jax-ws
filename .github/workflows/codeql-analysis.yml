@@ -74,7 +74,7 @@ jobs:
     - run: |
         echo "Run, Build Application using script"
         cd jaxws-ri
-        mvn -B -V clean verify -Psnapshots -Dgpg.skip=true -Doss.disallow.snapshots=false -DskipSBOM -Dmaven.test.skip=true -Dws.failonerror=false
+        mvn -B -V clean verify -Psnapshots -Dgpg.skip=true -DskipSBOM -Dmaven.test.skip=true -Dws.failonerror=false
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v4

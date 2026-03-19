@@ -66,7 +66,6 @@
 
         <ignore.failing.tests>false</ignore.failing.tests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <oss.disallow.snapshots>true</oss.disallow.snapshots>
         <vendor.name>Eclipse Foundation</vendor.name>
         <vendor.id>org.eclipse</vendor.id>
         <jdoc.doclint>-missing</jdoc.doclint>
@@ -628,35 +627,6 @@
                     <name>dev</name>
                 </property>
             </activation>
-        </profile>
-        <profile>
-            <id>oss-release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>enforce-no-snapshots</id>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <requireReleaseDeps>
-                                            <message>No SNAPSHOT dependency allowed!</message>
-                                        </requireReleaseDeps>
-                                        <requireReleaseVersion>
-                                            <message>release version no SNAPSHOT Allowed!</message>
-                                        </requireReleaseVersion>
-                                    </rules>
-                                    <fail>${oss.disallow.snapshots}</fail>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
             <id>spotbugs</id>
