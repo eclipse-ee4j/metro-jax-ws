@@ -30,8 +30,6 @@ jobs:
     steps:
       - name: Checkout for build
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
       - name: Set up JDK
         uses: actions/setup-java@v5
         with:
@@ -77,8 +75,6 @@ jobs:
           java-version: ${{ needs.build.outputs.jdk }}
       - name: Checkout tests
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
       - name: Download binaries
         uses: actions/download-artifact@v8
         with:
