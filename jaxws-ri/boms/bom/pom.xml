@@ -11,37 +11,31 @@
 
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
-    child.project.url.inherit.append.path="false"
->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" child.project.url.inherit.append.path="false">
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
         <version>2.0.2</version>
-        <relativePath/>
+        <relativePath />
     </parent>
 
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-ri-bom</artifactId>
 
-    <version>4.0.4-SNAPSHOT</version>
+    <version>4.0.4</version>
     <packaging>pom</packaging>
 
     <name>JAX-WS RI Bill-of-Materials (BOM)</name>
     <description>JAX-WS Reference Implementation Bill-of-Materials (BOM)</description>
     <url>https://eclipse-ee4j.github.io/metro-jax-ws</url>
 
-    <scm child.scm.connection.inherit.append.path="false"
-     child.scm.developerConnection.inherit.append.path="false"
-     child.scm.url.inherit.append.path="false">
+    <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
         <connection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</connection>
         <developerConnection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</developerConnection>
         <url>https://github.com/eclipse-ee4j/metro-jax-ws</url>
-        <tag>HEAD</tag>
+        <tag>4.0.4</tag>
     </scm>
 
     <issueManagement>

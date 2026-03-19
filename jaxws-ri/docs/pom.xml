@@ -16,7 +16,7 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>4.0.4-SNAPSHOT</version>
+        <version>4.0.4</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -43,8 +43,8 @@
             <id>release-docs</id>
             <properties>
                 <www.repository.url>https://svn.java.net/svn/jax-ws~wcr/trunk/www/${project.version}</www.repository.url>
-                <userguide.scm.username></userguide.scm.username>
-                <userguide.scm.password></userguide.scm.password>
+                <userguide.scm.username />
+                <userguide.scm.password />
             </properties>
             <build>
                 <pluginManagement>

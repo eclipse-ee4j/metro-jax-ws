@@ -16,7 +16,7 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>project</artifactId>
-        <version>4.0.4-SNAPSHOT</version>
+        <version>4.0.4</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -64,7 +64,7 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <forkNode implementation="org.apache.maven.plugin.surefire.extensions.SurefireForkNodeFactory"/>
+                    <forkNode implementation="org.apache.maven.plugin.surefire.extensions.SurefireForkNodeFactory" />
                     <argLine>
                         --add-reads org.eclipse.persistence.moxy=com.sun.tools.xjc
                         --add-exports com.sun.xml.ws.sdo/com.sun.xml.ws.sdo.test.add=org.eclipse.persistence.sdo

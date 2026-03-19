@@ -16,7 +16,7 @@
     <parent>
         <artifactId>docs</artifactId>
         <groupId>com.sun.xml.ws</groupId>
-        <version>4.0.4-SNAPSHOT</version>
+        <version>4.0.4</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -140,13 +140,7 @@
                                         <taskdef name="soimp" classname="com.sun.istack.soimp.Soimp" classpathref="maven.plugin.classpath" />
 
                                         <!-- update the www -->
-                                        <soimp dir="${www.upload.dir}"
-                                                repository="${www.repository.url}"
-                                                username="${userguide.scm.username}"
-                                                password="${userguide.scm.password}"
-                                                create="true"
-                                                additionalOptions="--no-auth-cache"
-                                                commitMessage="${project.artifactId}-${project.version}" />
+                                        <soimp dir="${www.upload.dir}" repository="${www.repository.url}" username="${userguide.scm.username}" password="${userguide.scm.password}" create="true" additionalOptions="--no-auth-cache" commitMessage="${project.artifactId}-${project.version}" />
                                     </target>
                                 </configuration>
                             </execution>
