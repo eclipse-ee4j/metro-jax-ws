@@ -17,7 +17,7 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>docs</artifactId>
-        <version>4.0.4-SNAPSHOT</version>
+        <version>4.0.5-SNAPSHOT</version>
     </parent>
 
     <artifactId>release-documentation</artifactId>
@@ -85,7 +85,7 @@
                                 <echo message="Preparing char entities" />
                                 <mkdir dir="${src.dir}" />
                                 <copy todir="${src.dir}">
-                                    <fileset dir="src/main/docbook"/>
+                                    <fileset dir="src/main/docbook" />
                                 </copy>
 
                                 <replace file="${src.dir}/docbook.ent" token="$version" value="${project.version}" />
@@ -221,8 +221,8 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <property name="www.upload.dir" location="${project.build.directory}/www-stage"/>
-                                        <mkdir dir="${www.upload.dir}"/>
+                                        <property name="www.upload.dir" location="${project.build.directory}/www-stage" />
+                                        <mkdir dir="${www.upload.dir}" />
 
                                         <copy todir="${www.upload.dir}">
                                             <fileset dir="${project.build.directory}/docbook">
@@ -233,13 +233,7 @@
                                         <taskdef name="soimp" classname="com.sun.istack.soimp.Soimp" classpathref="maven.plugin.classpath" />
 
                                         <!-- update the latest docbook-version -->
-                                        <soimp dir="${www.upload.dir}"
-                                                repository="${remote.directory}"
-                                                username="${userguide.scm.username}"
-                                                password="${userguide.scm.password}"
-                                                create="true"
-                                                additionalOptions="--no-auth-cache"
-                                                commitMessage="${project.artifactId}-${project.version}" />
+                                        <soimp dir="${www.upload.dir}" repository="${remote.directory}" username="${userguide.scm.username}" password="${userguide.scm.password}" create="true" additionalOptions="--no-auth-cache" commitMessage="${project.artifactId}-${project.version}" />
                                     </target>
                                 </configuration>
                             </execution>

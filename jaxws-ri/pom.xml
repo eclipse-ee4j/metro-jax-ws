@@ -18,7 +18,7 @@
     <parent>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-ri-bom-ext</artifactId>
-        <version>4.0.4-SNAPSHOT</version>
+        <version>4.0.5-SNAPSHOT</version>
         <relativePath>boms/bom-ext/pom.xml</relativePath>
     </parent>
 
@@ -45,7 +45,7 @@
         <copyright.template>${project.build.commonResourcesDirectory}/config/copyright.txt</copyright.template>
         <copyright.update>false</copyright.update>
         <spotbugs.common>${project.build.commonResourcesDirectory}/config/exclude-common.xml</spotbugs.common>
-        <spotbugs.exclude/>
+        <spotbugs.exclude />
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
         <spotbugs.version>4.9.8.2</spotbugs.version>
