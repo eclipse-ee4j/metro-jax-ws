@@ -24,7 +24,7 @@
     <groupId>com.sun.xml.ws</groupId>
     <artifactId>jaxws-ri-bom</artifactId>
 
-    <version>4.0.4</version>
+    <version>4.0.5-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>JAX-WS RI Bill-of-Materials (BOM)</name>
@@ -35,7 +35,7 @@
         <connection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</connection>
         <developerConnection>scm:git:git@github.com:eclipse-ee4j/metro-jax-ws.git</developerConnection>
         <url>https://github.com/eclipse-ee4j/metro-jax-ws</url>
-        <tag>4.0.4</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <issueManagement>

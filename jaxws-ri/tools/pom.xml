@@ -17,7 +17,7 @@
     <parent>
         <artifactId>project</artifactId>
         <groupId>com.sun.xml.ws</groupId>
-        <version>4.0.4</version>
+        <version>4.0.5-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
