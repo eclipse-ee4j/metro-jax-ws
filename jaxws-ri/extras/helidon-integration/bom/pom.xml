@@ -85,8 +85,8 @@
         <version.lib.jaxb-core>2.3.5</version.lib.jaxb-core>
         <version.lib.jaxb-impl>2.3.5</version.lib.jaxb-impl>
 
-        <ri.version>4.0.3</ri.version>
-        <metro.version>4.0.5</metro.version>
+        <ri.version>4.0.4</ri.version>
+        <metro.version>4.0.6</metro.version>
         <metro.plugin.version>4.0.4</metro.plugin.version>
     </properties>
 
