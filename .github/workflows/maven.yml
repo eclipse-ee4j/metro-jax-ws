@@ -83,7 +83,7 @@ jobs:
         run: |
           export ROOT=`pwd`
           unzip -q -d image jaxws-ri.zip
-          wget -q -O tomcat.zip https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.14/bin/apache-tomcat-10.1.14.zip
+          wget -q -O tomcat.zip https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.53/bin/apache-tomcat-10.1.53.zip
           unzip -q tomcat.zip
           cd jaxws-ri
-          mvn -B -V -am clean verify -Poss-release,snapshots -Dgpg.skip=true -DskipSBOM -pl :jaxws-unit -Dtomcat.home=$ROOT/apache-tomcat-10.1.14 -Dws.transport=${{ matrix.test_suite }} -Dws.localImage=$ROOT/image
+          mvn -B -V -am clean verify -Poss-release,snapshots -Dgpg.skip=true -DskipSBOM -pl :jaxws-unit -Dtomcat.home=$ROOT/apache-tomcat-10.1.53 -Dws.transport=${{ matrix.test_suite }} -Dws.localImage=$ROOT/image
