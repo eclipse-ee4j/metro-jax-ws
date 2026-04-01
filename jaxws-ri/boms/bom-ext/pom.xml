@@ -29,7 +29,7 @@
     <description>JAX-WS Reference Implementation Bill-of-Materials (BOM) Extensions</description>
 
     <properties>
-        <ant.version>1.10.15</ant.version>
+        <ant.version>1.10.16</ant.version>
         <asm.version>9.9.1</asm.version>
         <eclipselink.version>5.0.0</eclipselink.version>
         <mail-api.version>2.1.5</mail-api.version>
