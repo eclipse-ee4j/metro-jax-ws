@@ -66,7 +66,7 @@
     </scm>
 
     <properties>
-        <helidon.version>4.4.0</helidon.version>
+        <helidon.version>4.4.1</helidon.version>
 
         <!-- javax gId versions -->
         <javax.activation>1.2.0</javax.activation>
