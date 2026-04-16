@@ -353,7 +353,7 @@
         <profile>
             <id>oss-release</id>
             <properties>
-                <release.projectName>Eclipse JAX-WS RI ${project.version}</release.projectName>
+                <release.projectName>Eclipse JAX-WS RI</release.projectName>
                 <!-- Do not autopublish by default -->
                 <release.autoPublish>false</release.autoPublish>
                 <!-- By default block until everything is really published -->
