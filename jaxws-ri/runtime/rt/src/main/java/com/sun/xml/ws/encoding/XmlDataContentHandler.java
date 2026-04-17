@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -15,16 +16,18 @@ import com.sun.xml.ws.util.xml.XmlUtil;
 import jakarta.activation.ActivationDataFlavor;
 import jakarta.activation.DataContentHandler;
 import jakarta.activation.DataSource;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
+
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 /**
  * JAF data handler for XML content
@@ -60,24 +63,25 @@ public class XmlDataContentHandler implements DataContentHandler {
     }
 
     /**
-     * Create an object from the input stream
+     * Wraps the provided {@link DataSource} to a {@link StreamSource}
      */
     @Override
     public Object getContent(DataSource ds) throws IOException {
-        String ctStr = ds.getContentType();
-        String charset = null;
-        if (ctStr != null) {
-            ContentType ct = new ContentType(ctStr);
-            if (!isXml(ct)) {
+        final String ctStr = ds.getContentType();
+        final String charset;
+        if (ctStr == null) {
+            charset = null;
+        } else {
+            ContentType contentType = new ContentType(ctStr);
+            if (!isXml(contentType)) {
                 throw new IOException(
-                    "Cannot convert DataSource with content type \""
-                            + ctStr + "\" to object in XmlDataContentHandler");
+                    "Cannot convert DataSource with content type \"" + ctStr + "\" to object in XmlDataContentHandler");
             }
-            charset = ct.getParameter("charset");
+            charset = contentType.getParameter("charset");
         }
-        return (charset != null)
-                ? new StreamSource(new InputStreamReader(ds.getInputStream()), charset)
-                : new StreamSource(ds.getInputStream());
+        return charset == null
+            ? new StreamSource(ds.getInputStream())
+            : new StreamSource(new InputStreamReader(ds.getInputStream(), charset));
     }
 
     /**
