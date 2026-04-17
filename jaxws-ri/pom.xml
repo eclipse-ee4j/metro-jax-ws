@@ -51,6 +51,7 @@
         <spotbugs.version>4.9.8.3</spotbugs.version>
         <findsecbugs.version>1.14.0</findsecbugs.version>
         <junit.version>4.13.2</junit.version>
+        <hamcrest.version>3.0</hamcrest.version>
 
         <maven.compiler.release>11</maven.compiler.release>
         <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
@@ -783,6 +784,12 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest</artifactId>
+                <version>${hamcrest.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
