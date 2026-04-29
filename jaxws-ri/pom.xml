@@ -184,7 +184,7 @@
                 <plugin>
                     <groupId>org.glassfish.hk2</groupId>
                     <artifactId>osgiversion-maven-plugin</artifactId>
-                    <version>4.0.0</version>
+                    <version>4.0.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-dependency-plugin</artifactId>
