@@ -83,15 +83,15 @@
         <angus-activation.version>2.0.3</angus-activation.version>
         <jakarta.annotation-api.version>3.0.0</jakarta.annotation-api.version>
         <fastinfoset.version>2.1.1</fastinfoset.version>
-        <gmbal.version>4.1.1</gmbal.version>
+        <gmbal.version>4.1.2</gmbal.version>
         <ha-api.version>3.1.13</ha-api.version>
         <istack.plugin.version>4.1.2</istack.plugin.version>
         <jaxb-api.version>4.0.4</jaxb-api.version>
         <jaxb.version>4.0.6</jaxb.version>
         <management-api.version>3.3.0</management-api.version>
-        <mimepull.version>1.10.0</mimepull.version>
+        <mimepull.version>1.11.0</mimepull.version>
         <saaj-api.version>3.0.2</saaj-api.version>
-        <saaj-impl.version>3.0.4</saaj-impl.version>
+        <saaj-impl.version>3.0.5</saaj-impl.version>
         <streambuffer.version>2.1.0</streambuffer.version>
         <stax-api.version>2.1.0</stax-api.version>
         <stax2-api.version>4.3.0</stax2-api.version>
