@@ -9,40 +9,55 @@
 # SPDX-License-Identifier: BSD-3-Clause
 #
 
+# See https://dependency-check.github.io/DependencyCheck/data/cache-action.html
 name: JAXWS RI Dependency Check
 
 on:
   schedule:
     - cron: '35 20 * * 2'
-
+  workflow_dispatch:
+      inputs:
+        drop-owasp-cache:
+          description: 'Drop the downloaded cache the CVE database'
+          required: true
+          default: false
+          type: boolean
 jobs:
-  build:
-    name: Test on JDK ${{ matrix.java_version }}
+  owasp-scan:
+    if: github.actor != 'dependabot[bot]'
+    name: OWASP Scan
     runs-on: ubuntu-latest
-    outputs:
-      jdk: ${{ steps.build.outputs.jdk }}
-    strategy:
-      matrix:
-        java_version: [ 21 ]
-
     steps:
-      - name: Checkout for build
-        uses: actions/checkout@v6
-      - name: Set up JDK
+      - uses: actions/checkout@v6
+      - name: Setup JDK
         uses: actions/setup-java@v5
         with:
+          java-version: '21'
           distribution: 'temurin'
-          java-version: ${{ matrix.java_version }}
-          cache: maven
-      - name: Cache OWASP Dependency-Check Data
-        uses: actions/cache@v5
+          cache: 'maven'
+      - name: Get Date
+        id: get-date
+        run: |
+          echo "datetime=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
+        shell: bash
+      - name: Restore Cached Maven Dependencies
+        if: ${{ inputs.drop-owasp-cache == false }}
+        uses: actions/cache/restore@v3
         with:
-          path: ~/.m2/repository/org/owasp/dependency-check-data/
-          key: ${{ runner.os }}-dc-nvd-${{ hashFiles('**/pom.xml') }}
+          path: ~/.m2/repository
+          # Using datetime in cache key as OWASP database may change, without the pom changing
+          key: ${{ runner.os }}-maven-${{ steps.get-date.outputs.datetime }}-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-dc-nvd-
-      - name: Verify
+            ${{ runner.os }}-maven-${{ steps.get-date.outputs.datetime }}
+            ${{ runner.os }}-maven-
+      - name: Build and Scan
         id: build
         run: |
           cd jaxws-ri
-          mvn -B -V -Poss-release,dependency-check,snapshots clean verify -Dgpg.skip=true -DskipSBOM -Dittest=true
+          mvn -B -V -fae -Poss-release,dependency-check,snapshots clean verify -Dgpg.skip=true -DskipSBOM -Dittest=true -DskipTests -DskipITs -DnvdApiKey=${{secrets.NVD_API_KEY}}
+      - name: Cache Maven Dependencies
+        uses: actions/cache/save@v3
+        if: always()
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ steps.get-date.outputs.datetime }}-${{ hashFiles('**/pom.xml') }}
