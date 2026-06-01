@@ -87,7 +87,7 @@
         <ha-api.version>3.1.13</ha-api.version>
         <istack.plugin.version>4.1.2</istack.plugin.version>
         <jaxb-api.version>4.0.5</jaxb-api.version>
-        <jaxb.version>4.0.8</jaxb.version>
+        <jaxb.version>4.0.9</jaxb.version>
         <management-api.version>3.3.0</management-api.version>
         <mimepull.version>1.11.0</mimepull.version>
         <saaj-api.version>3.0.2</saaj-api.version>
