@@ -42,7 +42,7 @@ jobs:
         shell: bash
       - name: Restore Cached Maven Dependencies
         if: ${{ inputs.drop-owasp-cache == false }}
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v5
         with:
           path: ~/.m2/repository
           # Using datetime in cache key as OWASP database may change, without the pom changing
@@ -58,7 +58,7 @@ jobs:
           cd jaxws-ri
           mvn -B -V -fae -Poss-release,dependency-check,snapshots clean verify -Dgpg.skip=true -DskipSBOM -Dittest=true -DskipTests -DskipITs -DnvdApiKeyEnvironmentVariable=NVD_API_KEY -DnvdApiDelay=600
       - name: Cache Maven Dependencies
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v5
         if: always()
         with:
           path: ~/.m2/repository
