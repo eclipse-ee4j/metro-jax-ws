@@ -95,7 +95,7 @@
         <streambuffer.version>2.1.0</streambuffer.version>
         <stax-api.version>2.1.0</stax-api.version>
         <stax2-api.version>4.3.0</stax2-api.version>
-        <woodstox-core.version>7.2.0</woodstox-core.version>
+        <woodstox-core.version>7.2.1</woodstox-core.version>
         <xml.ws-api.version>4.0.3</xml.ws-api.version>
     </properties>
 
