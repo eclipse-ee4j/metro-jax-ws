@@ -674,7 +674,7 @@
                 </property>
             </activation>
             <properties>
-                <jacoco.version>0.8.14</jacoco.version>
+                <jacoco.version>0.8.15</jacoco.version>
                 <jacoco.skip>false</jacoco.skip>
             </properties>
             <build>
