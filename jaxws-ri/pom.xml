@@ -48,7 +48,7 @@
         <spotbugs.exclude />
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Normal</spotbugs.threshold>
-        <spotbugs.version>4.9.8.3</spotbugs.version>
+        <spotbugs.version>4.10.2.0</spotbugs.version>
         <findsecbugs.version>1.14.0</findsecbugs.version>
         <junit.version>4.13.2</junit.version>
         <hamcrest.version>3.0</hamcrest.version>
@@ -674,7 +674,7 @@
                 </property>
             </activation>
             <properties>
-                <jacoco.version>0.8.14</jacoco.version>
+                <jacoco.version>0.8.15</jacoco.version>
                 <jacoco.skip>false</jacoco.skip>
             </properties>
             <build>
