@@ -361,7 +361,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>12.2.2</version>
+                    <version>13.0.0</version>
                     <configuration>
                         <failBuildOnCVSS>7</failBuildOnCVSS>
                         <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
@@ -674,7 +674,7 @@
                 </property>
             </activation>
             <properties>
-                <jacoco.version>0.8.14</jacoco.version>
+                <jacoco.version>0.8.15</jacoco.version>
                 <jacoco.skip>false</jacoco.skip>
             </properties>
             <build>
