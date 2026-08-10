@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation.
  * Copyright (c) 2018, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -60,6 +61,7 @@ module com.sun.tools.ws.wscompile {
     uses com.sun.tools.ws.api.TJavaGeneratorExtension;
     uses com.sun.tools.ws.api.WsgenExtension;
     uses com.sun.tools.ws.api.wsdl.TWSDLExtensionHandler;
+    uses com.sun.tools.ws.processor.generator.GeneratorBase;
     uses com.sun.tools.ws.processor.generator.GeneratorExtension;
     uses com.sun.tools.ws.wscompile.Plugin;
 
