@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -47,6 +48,8 @@ import org.xml.sax.Locator;
 
 import javax.xml.namespace.QName;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ServiceLoader;
@@ -242,7 +245,9 @@ public class ServiceGenerator extends GeneratorBase {
            URL url = null;
            WebServiceException e = null;
            try {
-                url = new URL("http://ExampleService.wsdl");
+                url = new URI("http://ExampleService.wsdl").toURL();
+           } catch (URISyntaxException ex) {
+                e = new WebServiceException(ex);
            } catch (MalformedURLException ex) {
                 e = new WebServiceException(ex);
            }
@@ -254,15 +259,24 @@ public class ServiceGenerator extends GeneratorBase {
         JBlock staticBlock = cls.init();
         JVar urlVar = staticBlock.decl(cm.ref(URL.class), "url", JExpr._null());
         JVar exVar = staticBlock.decl(cm.ref(WebServiceException.class), "e", JExpr._null());
-        
+
         JTryBlock tryBlock = staticBlock._try();
-        tryBlock.body().assign(urlVar, JExpr._new(cm.ref(URL.class)).arg(wsdlLocation));
-        JCatchBlock catchBlock = tryBlock._catch(cm.ref(MalformedURLException.class));
-        catchBlock.param("ex");
-        catchBlock.body().assign(exVar, JExpr._new(cm.ref(WebServiceException.class)).arg(JExpr.ref("ex")));
+        tryBlock.body().assign(urlVar, JExpr._new(cm.ref(URI.class)).arg(wsdlLocation).invoke("toURL"));
+        // codemodel cannot generate a multi-catch, so both failures get their own block
+        writeWSDLLocationCatch(tryBlock, URISyntaxException.class, exVar);
+        writeWSDLLocationCatch(tryBlock, MalformedURLException.class, exVar);
 
         staticBlock.assign(urlField, urlVar);
         staticBlock.assign(exField, exVar);
+    }
+
+    /*
+       Appends "catch (<exception> ex) { e = new WebServiceException(ex); }" to the given try block.
+    */
+    private void writeWSDLLocationCatch(JTryBlock tryBlock, Class<? extends Exception> exception, JVar exVar) {
+        JCatchBlock catchBlock = tryBlock._catch(cm.ref(exception));
+        JVar param = catchBlock.param("ex");
+        catchBlock.body().assign(exVar, JExpr._new(cm.ref(WebServiceException.class)).arg(param));
     }
 
     /*
