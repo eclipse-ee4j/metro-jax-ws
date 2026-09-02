@@ -290,8 +290,12 @@ public class EndpointFactory {
             terminal = createSEIInvokerTube(seiModel,invoker,binding);
         }
 
-        // Process @HandlerChain, if handler-chain is not set via Deployment Descriptor
-        if (processHandlerAnnotation) {
+        // Process @HandlerChain, if a handler chain is not already configured -- either
+        // through a Deployment Descriptor, or programmatically via
+        // Binding.setHandlerChain(..) before the endpoint is published. A chain the
+        // application configured explicitly must not be silently replaced by the
+        // annotation-declared one.
+        if (processHandlerAnnotation && binding.getHandlerChain().isEmpty()) {
             processHandlerAnnotation(binding, implType, serviceName, portName);
         }
         // Selects only required metadata for this endpoint from the passed-in metadata
