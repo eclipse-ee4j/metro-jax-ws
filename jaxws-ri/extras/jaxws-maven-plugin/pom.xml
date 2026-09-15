@@ -200,7 +200,7 @@
             <plugins>
                 <plugin>
                     <artifactId>maven-plugin-plugin</artifactId>
-                    <version>3.15.2</version>
+                    <version>3.16.0</version>
                     <configuration>
                         <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
                         <extractors>
@@ -245,7 +245,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>3.15.2</version>
+                <version>3.16.0</version>
             </plugin>
             <plugin>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -316,7 +316,7 @@
                         </plugin>
                         <plugin>
                             <artifactId>maven-failsafe-plugin</artifactId>
-                            <version>3.5.6</version>
+                            <version>3.6.0</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
