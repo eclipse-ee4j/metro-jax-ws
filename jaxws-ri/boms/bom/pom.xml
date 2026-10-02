@@ -84,7 +84,7 @@
         <jakarta.annotation-api.version>3.0.0</jakarta.annotation-api.version>
         <fastinfoset.version>2.1.1</fastinfoset.version>
         <gmbal.version>4.1.2</gmbal.version>
-        <ha-api.version>3.1.13</ha-api.version>
+        <ha-api.version>3.2.0</ha-api.version>
         <istack.plugin.version>4.1.2</istack.plugin.version>
         <jaxb-api.version>4.0.5</jaxb-api.version>
         <jaxb.version>4.0.9</jaxb.version>
@@ -94,8 +94,8 @@
         <saaj-impl.version>3.0.6</saaj-impl.version>
         <streambuffer.version>2.1.0</streambuffer.version>
         <stax-api.version>2.1.0</stax-api.version>
-        <stax2-api.version>4.3.0</stax2-api.version>
-        <woodstox-core.version>7.2.2</woodstox-core.version>
+        <stax2-api.version>4.3.1</stax2-api.version>
+        <woodstox-core.version>7.3.0</woodstox-core.version>
         <xml.ws-api.version>4.0.3</xml.ws-api.version>
     </properties>
 
