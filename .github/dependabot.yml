@@ -21,11 +21,46 @@ updates:
         patterns:
           - "*"
 
+  # The Helidon integration is pinned to the dependency set it was written
+  # for and last released with (Helidon 2.3.2 / Metro 3.0.2). Automatically
+  # bumping Helidon to 3.x/4.x or Metro to 4.x breaks the build: Helidon 4+
+  # replaced the reactive webserver with Nima and requires a code migration,
+  # and Metro 4 / Jakarta XML Web Services 4 merge the JWS API which clashes
+  # with the standalone jakarta.jws-api. Re-enable updates for this directory
+  # once the integration is migrated.
+  - package-ecosystem: "maven"
+    directory: "/jaxws-ri/extras/helidon-integration"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "io.helidon*"
+        versions: [ ">=3.0.0" ]
+      - dependency-name: "org.glassfish.metro:*"
+        versions: [ ">=4.0.0" ]
+      - dependency-name: "com.sun.xml.ws:*"
+        versions: [ ">=4.0.0" ]
+      - dependency-name: "jakarta.xml.ws:*"
+        versions: [ ">=4.0.0" ]
+      - dependency-name: "jakarta.xml.soap:*"
+        versions: [ ">=3.0.0" ]
+      # jandex index format written by >= 1.1.0 is not understood by the
+      # Jandex bundled in Helidon 2.x.
+      - dependency-name: "org.jboss.jandex:jandex-maven-plugin"
+        versions: [ ">=1.1.0" ]
+    groups:
+      maven-plugins:
+        patterns:
+          - "*:*-plugin"
+      dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "*:*-plugin"
+
   - package-ecosystem: "maven"
     directories:
       - "jaxws-ri"
       - "jaxws-ri/extras/jaxws-maven-plugin"
-      - "jaxws-ri/extras/helidon-integration"
       - "jaxws-ri/runtime/policy"
     schedule:
       interval: "daily"
