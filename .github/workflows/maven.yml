@@ -50,6 +50,25 @@ jobs:
           name: binary
           path: jaxws-ri/bundles/jaxws-ri/target/jaxws-ri.zip
 
+  helidon:
+    name: Helidon integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout for build
+        uses: actions/checkout@v7
+      - name: Set up JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'temurin'
+          java-version: 17
+          cache: maven
+      # Tests of the demos call an external SOAP service, so only compile,
+      # index and package here to keep the build reproducible.
+      - name: Verify
+        run: |
+          cd jaxws-ri/extras/helidon-integration
+          mvn -B -V clean package -DskipTests
+
   test:
     needs: build
     strategy:
