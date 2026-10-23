@@ -32,6 +32,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 
 /**
@@ -52,6 +54,9 @@ class MetroConfigLoader {
     private static final Logger LOGGER = Logger.getLogger(MetroConfigLoader.class);
 
     private MetroConfigName defaultTubesConfigNames;
+
+    private final static Lock jaxbContextLock = new ReentrantLock();
+    private static volatile JAXBContext jaxbContext;
 
     private interface TubeFactoryListResolver {
 
@@ -259,8 +264,20 @@ class MetroConfigLoader {
     }
 
     private static JAXBContext createJAXBContext() throws Exception {
-        // usage from JAX-WS/Metro/Glassfish
-        return JAXBContext.newInstance(MetroConfig.class.getPackage().getName());
+        // JAXBContext is thread-safe and expensive to create, so caching it for re-use
+        if (jaxbContext != null) {
+            return jaxbContext;
+        }
+        jaxbContextLock.lock();
+        try {
+            if (jaxbContext == null) {
+                // usage from JAX-WS/Metro/Glassfish
+                jaxbContext = JAXBContext.newInstance(MetroConfig.class.getPackage().getName());
+            }
+            return jaxbContext;
+        } finally {
+            jaxbContextLock.unlock();
+        }
     }
 
 

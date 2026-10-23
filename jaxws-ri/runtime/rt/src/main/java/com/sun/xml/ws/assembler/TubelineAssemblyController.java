@@ -12,6 +12,7 @@ package com.sun.xml.ws.assembler;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.logging.Logger;
+import com.sun.xml.ws.api.server.Container;
 import com.sun.xml.ws.assembler.dev.ClientTubelineAssemblyContext;
 import com.sun.xml.ws.assembler.dev.ServerTubelineAssemblyContext;
 import com.sun.xml.ws.resources.TubelineassemblyMessages;
@@ -23,6 +24,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *
@@ -31,6 +35,11 @@ import java.util.LinkedList;
 final class TubelineAssemblyController {
 
     private final MetroConfigName metroConfigName;
+
+    private static final Map<Container, TubeFactoryList> tubeFactoryListCache = new ConcurrentHashMap<>();
+    private static final ReentrantLock cacheLock = new ReentrantLock();
+    private static final int MAX_CACHE_SIZE = 100;
+
 
     TubelineAssemblyController(MetroConfigName metroConfigName) {
         this.metroConfigName = metroConfigName;
@@ -59,8 +68,21 @@ final class TubelineAssemblyController {
             endpointUri = null;
         }
 
-        MetroConfigLoader configLoader = new MetroConfigLoader(context.getContainer(), metroConfigName);
-        return initializeTubeCreators(configLoader.getClientSideTubeFactories(endpointUri));
+        TubeFactoryList tubeFactoryList = tubeFactoryListCache.get(context.getContainer());
+        if (tubeFactoryList == null) {
+            MetroConfigLoader configLoader = new MetroConfigLoader(context.getContainer(), metroConfigName);
+            tubeFactoryList = configLoader.getClientSideTubeFactories(endpointUri);
+            cacheLock.lock();
+            try {
+                if (tubeFactoryListCache.size() >= MAX_CACHE_SIZE) {
+                    tubeFactoryListCache.remove(tubeFactoryListCache.keySet().iterator().next());
+                }
+                tubeFactoryListCache.put(context.getContainer(), tubeFactoryList);
+            } finally {
+                cacheLock.unlock();
+            }
+        }
+        return initializeTubeCreators(tubeFactoryList);
     }
 
     /**

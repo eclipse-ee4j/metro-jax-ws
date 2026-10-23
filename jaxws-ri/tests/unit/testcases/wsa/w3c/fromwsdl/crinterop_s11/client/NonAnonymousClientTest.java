@@ -13,6 +13,7 @@ package wsa.w3c.fromwsdl.crinterop_s11.client;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.Exchanger;
 import java.util.Iterator;
+import java.util.Locale;
 import jakarta.xml.soap.SOAPMessage;
 import jakarta.xml.soap.SOAPFault;
 import jakarta.xml.soap.SOAPBody;
@@ -85,6 +86,7 @@ public class NonAnonymousClientTest extends XMLTestCase {
      * SOAP 1.1 two-way message with a non-anonymous ReplyTo address and a none FaultTo.
      */
     public void test1152() throws Exception {
+        Locale.setDefault(Locale.ENGLISH);
         try {
             invoke(createDispatchForNonAnonymousWithWSDLWithoutAddressing(),
                     MESSAGES.getNonAnonymousReplyToNoneFaultToMessage(),

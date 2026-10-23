@@ -23,9 +23,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.ServiceLoader;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantLock;
 
 
 /**
@@ -116,22 +119,26 @@ import java.util.ServiceLoader;
 public final class ServiceFinder<T> implements Iterable<T> {
 
     private final @NotNull Class<T> serviceClass;
-    private final @NotNull ServiceLoader<T> serviceLoader;
+    private final @NotNull Iterable<T> serviceLoaderIterable;
     private final @Nullable ComponentEx component;
+
+    private static final Map<ServiceClassLoaderCacheKey, Iterable> noResultServiceLoaderCache = new ConcurrentHashMap<>();
+    private static final ReentrantLock cacheLock = new ReentrantLock();
+    private static final int MAX_CACHE_SIZE = 100;
 
     public static <T> ServiceFinder<T> find(@NotNull Class<T> service, @Nullable ClassLoader loader, Component component) {
         ClassLoader cl = loader == null ? Thread.currentThread().getContextClassLoader() : loader;
-        return find(service, component, ServiceLoader.load(service, cl));
+        return find(service, component, retrieveServiceLoaderFromCacheOrCreateNew(service, cl));
     }
 
-    public static <T> ServiceFinder<T> find(@NotNull Class<T> service, Component component, @NotNull ServiceLoader<T> serviceLoader) {
+    public static <T> ServiceFinder<T> find(@NotNull Class<T> service, Component component, @NotNull Iterable<T> serviceLoaderIterable) {
         Class<T> svc = Objects.requireNonNull(service);
-        ServiceLoader<T> sl = Objects.requireNonNull(serviceLoader);
+        Iterable<T> sl = Objects.requireNonNull(serviceLoaderIterable);
         return new ServiceFinder<>(svc, component, sl);
     }
 
     public static <T> ServiceFinder<T> find(@NotNull Class<T> service, Component component) {
-        return find(service, component, ServiceLoader.load(service, Thread.currentThread().getContextClassLoader()));
+        return find(service, component, retrieveServiceLoaderFromCacheOrCreateNew(service, Thread.currentThread().getContextClassLoader()));
     }
 
     /**
@@ -184,17 +191,17 @@ public final class ServiceFinder<T> implements Iterable<T> {
      * @see #find(Class, ClassLoader)
      */
     public static <T> ServiceFinder<T> find(@NotNull Class<T> service) {
-        return find(service, ServiceLoader.load(service, Thread.currentThread().getContextClassLoader()));
+        return find(service, retrieveServiceLoaderFromCacheOrCreateNew(service, Thread.currentThread().getContextClassLoader()));
     }
 
-    public static <T> ServiceFinder<T> find(@NotNull Class<T> service, @NotNull ServiceLoader<T> serviceLoader) {
-        return find(service, ContainerResolver.getInstance().getContainer(), serviceLoader);
+    public static <T> ServiceFinder<T> find(@NotNull Class<T> service, @NotNull Iterable<T> serviceLoaderIterable) {
+        return find(service, ContainerResolver.getInstance().getContainer(), serviceLoaderIterable);
     }
 
-    private ServiceFinder(Class<T> service, Component component, ServiceLoader<T> serviceLoader) {
+    private ServiceFinder(Class<T> service, Component component, Iterable<T> serviceLoaderIterable) {
         this.serviceClass = service;
         this.component = getComponentEx(component);
-        this.serviceLoader = serviceLoader;
+        this.serviceLoaderIterable = serviceLoaderIterable;
     }
 
     /**
@@ -209,7 +216,7 @@ public final class ServiceFinder<T> implements Iterable<T> {
     @Override
     @SuppressWarnings("unchecked")
     public Iterator<T> iterator() {
-        Iterator<T> it = serviceLoader.iterator();
+        Iterator<T> it = serviceLoaderIterable.iterator();
         return component != null
                 ? new CompositeIterator<>(component.getIterableSPI(serviceClass).iterator(), it)
                 : it;
@@ -236,6 +243,28 @@ public final class ServiceFinder<T> implements Iterable<T> {
         }
 
         return component != null ? new ComponentExWrapper(component) : null;
+    }
+
+    private static <T> Iterable<T> retrieveServiceLoaderFromCacheOrCreateNew(Class<T> service, ClassLoader cl) {
+        ServiceClassLoaderCacheKey<T> cacheKey = new ServiceClassLoaderCacheKey<>(service, cl);
+        Iterable<T> cachedServiceLoaderIterable = noResultServiceLoaderCache.get(cacheKey);
+        if (cachedServiceLoaderIterable != null) {
+            return cachedServiceLoaderIterable;
+        }
+        ServiceLoader<T> serviceLoader = ServiceLoader.load(service, cl);
+        if (!serviceLoader.iterator().hasNext()) {
+            cacheLock.lock();
+            try {
+                if (noResultServiceLoaderCache.size() >= MAX_CACHE_SIZE) {
+                    noResultServiceLoaderCache.remove(noResultServiceLoaderCache.keySet().iterator().next());
+                }
+                noResultServiceLoaderCache.put(cacheKey, Collections.emptyList());
+            } finally {
+                cacheLock.unlock();
+            }
+            return Collections.emptyList();
+        }
+        return serviceLoader;
     }
 
     private static class ComponentExWrapper implements ComponentEx {
